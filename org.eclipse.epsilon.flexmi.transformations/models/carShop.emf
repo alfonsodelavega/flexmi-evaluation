@@ -1,0 +1,34 @@
+@namespace(uri="carShop", prefix="carShop")
+package carShop;
+
+class CarShop {
+	val Brand[*] brands;
+	val Light[*] lights;
+	val Wheel[*] wheels;
+	val Radio[*] radios;
+	val Car[*] vehicles;
+}
+
+class Brand {
+	attr String name;
+}
+
+class Car {
+	ref Brand brand;
+	ref Light[*] lights;
+	ref Wheel wheelType;
+	ref Radio radio;
+}
+
+class Light {
+	id attr String barCode;
+}
+
+class Wheel {
+	attr int diameter;
+	attr int width;
+}
+
+class Radio {
+	attr String ID;
+}

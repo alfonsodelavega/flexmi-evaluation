@@ -1,0 +1,32 @@
+<?nsuri carShop?>
+<!-- just playing with flexmi references a bit -->
+<carShop>
+	<b name="Suzuki"/>
+	<b name="Toyota"/>
+	<lights>
+		<l barcode="b1"/>
+		<l barcode="b2"/>
+	</lights>
+	<wheels>
+		<!--
+		no way to reference this wheel. Thinking if flexmi could acknowledge an
+		"xmi:id" attribtute
+		-->
+		<w xmi:id="_QhVjIM_wEeq4oMSNPREzcw" diam="16" width="10"/>
+	</wheels>
+	<radios>
+		<r ID="Pioneer"/>
+	</radios>
+	
+	<!--
+		"ID" does not work as identifier (as the paper suggests. Maybe it was
+		removed in later implementations). only "name" or an iD-marked EAttribute
+		work as I understand from the FlexmiResource implementation
+	-->
+	<c
+		brand="Suzuki"
+		lights="b1,b2"
+		wheelType="_QhVjIM_wEeq4oMSNPREzcw"
+		radio="Pioneer"> 
+	</c>
+</carShop>

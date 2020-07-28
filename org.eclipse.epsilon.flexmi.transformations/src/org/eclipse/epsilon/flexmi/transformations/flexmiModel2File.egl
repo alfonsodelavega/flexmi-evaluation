@@ -1,0 +1,25 @@
+<?nsuri [%=fmodel.nsuri%]?>
+[% for (tag in fmodel.tags) {%]
+	[%=tag.getTagText()%][%
+}
+
+@template
+operation Any getTagText() { %]
+	<[%=self.name%] [%=self.getAttributesText()%][%
+	if (self.tags.isEmpty()) {
+		out.print("/>");
+	} else {
+		out.println(">");
+		for (tag in self.tags) {
+			out.println(tag.getTagText());
+		} %]
+		</[%=self.name%]>[%
+	}
+}
+
+operation Any getAttributesText() {
+	return self.getAttributes
+		.collect(a | a.name + "=\"" + a.value + "\"")
+		.concat(" ");
+}
+%]

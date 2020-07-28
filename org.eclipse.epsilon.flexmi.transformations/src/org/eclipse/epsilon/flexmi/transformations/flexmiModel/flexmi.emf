@@ -1,0 +1,18 @@
+@namespace(uri="flexmi", prefix="")
+package flexmiModel;
+
+class FlexmiModel {
+	attr String nsuri;
+	val Tag[*] tags;
+}
+
+class Tag {
+	attr String name;
+	val Attribute[*] attributes;
+	val Tag[*] tags;
+}
+
+class Attribute {
+	attr String name;
+	attr String value;
+}

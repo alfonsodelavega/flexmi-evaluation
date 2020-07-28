@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="carShop" nsURI="carShop" nsPrefix="carShop">
+  <eClassifiers xsi:type="ecore:EClass" name="CarShop">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="brands" upperBound="-1"
+        eType="#//Brand" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lights" upperBound="-1"
+        eType="#//Light" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="wheels" upperBound="-1"
+        eType="#//Wheel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="radios" upperBound="-1"
+        eType="#//Radio" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="vehicles" upperBound="-1"
+        eType="#//Car" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Brand">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Car">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="brand" eType="#//Brand"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lights" upperBound="-1"
+        eType="#//Light"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="wheelType" eType="#//Wheel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="radio" eType="#//Radio"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Light">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="barCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Wheel">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="diameter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Radio">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>
