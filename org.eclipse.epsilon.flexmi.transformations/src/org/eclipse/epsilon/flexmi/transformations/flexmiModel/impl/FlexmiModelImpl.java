@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -31,6 +32,7 @@ import org.eclipse.epsilon.flexmi.transformations.flexmiModel.Tag;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.flexmi.transformations.flexmiModel.impl.FlexmiModelImpl#getNsuri <em>Nsuri</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.flexmi.transformations.flexmiModel.impl.FlexmiModelImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link org.eclipse.epsilon.flexmi.transformations.flexmiModel.impl.FlexmiModelImpl#getTags <em>Tags</em>}</li>
  * </ul>
  *
@@ -56,6 +58,16 @@ public class FlexmiModelImpl extends MinimalEObjectImpl.Container implements Fle
 	 * @ordered
 	 */
 	protected String nsuri = NSURI_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getImports() <em>Imports</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImports()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> imports;
 
 	/**
 	 * The cached value of the '{@link #getTags() <em>Tags</em>}' containment reference list.
@@ -115,6 +127,19 @@ public class FlexmiModelImpl extends MinimalEObjectImpl.Container implements Fle
 	 * @generated
 	 */
 	@Override
+	public EList<String> getImports() {
+		if (imports == null) {
+			imports = new EDataTypeUniqueEList<String>(String.class, this, FlexmiModelPackage.FLEXMI_MODEL__IMPORTS);
+		}
+		return imports;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EList<Tag> getTags() {
 		if (tags == null) {
 			tags = new EObjectContainmentEList<Tag>(Tag.class, this, FlexmiModelPackage.FLEXMI_MODEL__TAGS);
@@ -146,6 +171,8 @@ public class FlexmiModelImpl extends MinimalEObjectImpl.Container implements Fle
 		switch (featureID) {
 			case FlexmiModelPackage.FLEXMI_MODEL__NSURI:
 				return getNsuri();
+			case FlexmiModelPackage.FLEXMI_MODEL__IMPORTS:
+				return getImports();
 			case FlexmiModelPackage.FLEXMI_MODEL__TAGS:
 				return getTags();
 		}
@@ -163,6 +190,10 @@ public class FlexmiModelImpl extends MinimalEObjectImpl.Container implements Fle
 		switch (featureID) {
 			case FlexmiModelPackage.FLEXMI_MODEL__NSURI:
 				setNsuri((String)newValue);
+				return;
+			case FlexmiModelPackage.FLEXMI_MODEL__IMPORTS:
+				getImports().clear();
+				getImports().addAll((Collection<? extends String>)newValue);
 				return;
 			case FlexmiModelPackage.FLEXMI_MODEL__TAGS:
 				getTags().clear();
@@ -183,6 +214,9 @@ public class FlexmiModelImpl extends MinimalEObjectImpl.Container implements Fle
 			case FlexmiModelPackage.FLEXMI_MODEL__NSURI:
 				setNsuri(NSURI_EDEFAULT);
 				return;
+			case FlexmiModelPackage.FLEXMI_MODEL__IMPORTS:
+				getImports().clear();
+				return;
 			case FlexmiModelPackage.FLEXMI_MODEL__TAGS:
 				getTags().clear();
 				return;
@@ -200,6 +234,8 @@ public class FlexmiModelImpl extends MinimalEObjectImpl.Container implements Fle
 		switch (featureID) {
 			case FlexmiModelPackage.FLEXMI_MODEL__NSURI:
 				return NSURI_EDEFAULT == null ? nsuri != null : !NSURI_EDEFAULT.equals(nsuri);
+			case FlexmiModelPackage.FLEXMI_MODEL__IMPORTS:
+				return imports != null && !imports.isEmpty();
 			case FlexmiModelPackage.FLEXMI_MODEL__TAGS:
 				return tags != null && !tags.isEmpty();
 		}
@@ -218,6 +254,8 @@ public class FlexmiModelImpl extends MinimalEObjectImpl.Container implements Fle
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (nsuri: ");
 		result.append(nsuri);
+		result.append(", imports: ");
+		result.append(imports);
 		result.append(')');
 		return result.toString();
 	}

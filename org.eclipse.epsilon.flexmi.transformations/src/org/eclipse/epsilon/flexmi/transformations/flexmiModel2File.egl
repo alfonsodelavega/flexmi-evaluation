@@ -1,5 +1,8 @@
 <?nsuri [%=fmodel.nsuri%]?>
-[% for (tag in fmodel.tags) {%]
+[% for (importedUri in fmodel.imports) {%]
+	<?import [%=importedUri%]?>
+[% }
+for (tag in fmodel.tags) {%]
 	[%=tag.getTagText()%][%
 }
 

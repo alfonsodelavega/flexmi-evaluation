@@ -29,20 +29,11 @@ import org.eclipse.epsilon.flexmi.transformations.flexmiModel.Tag;
 
 public class Ecore2FlexmiTransformer {
 
-	static final String FLEXMI_MODEL_TEMPLATE =
+	private static final String FLEXMI_MODEL_TEMPLATE =
 			"src/org/eclipse/epsilon/flexmi/transformations/flexmiModel2File.egl";
-	static final String FLEXMI_MODEL_VARIABLE = "fmodel";
+	private static final String FLEXMI_MODEL_VARIABLE = "fmodel";
 
-	protected String ecoreModel;
-	protected Resource ecoreModelResource;
-
-	public Ecore2FlexmiTransformer(String ecoreModel) {
-		this.ecoreModel = ecoreModel;
-
-		ResourceSet resSet = new ResourceSetImpl();
-		ecoreModelResource = resSet.getResource(URI.createURI(ecoreModel), true);
-
-	}
+	private static final String ECORE_NSURI = "http://www.eclipse.org/emf/2002/Ecore";
 
 	public static void main(String[] args) throws Exception {
 		String ecoreModel = "models/carShop.ecore";
@@ -56,9 +47,8 @@ public class Ecore2FlexmiTransformer {
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("*", new XMIResourceFactoryImpl());
 		
-		Ecore2FlexmiTransformer transformer = new Ecore2FlexmiTransformer(ecoreModel);
-		FlexmiModel model = transformer.getPlainFlexmiModel();
-		String plainFlexmi = transformer.getFlexmiFile(model);
+		FlexmiModel model = getPlainFlexmiModel(ecoreModel);
+		String plainFlexmi = getFlexmiFile(model);
 		System.out.println(plainFlexmi);
 
 		// save flexmi model
@@ -78,12 +68,16 @@ public class Ecore2FlexmiTransformer {
 		out.close();
 	}
 
-	public FlexmiModel getPlainFlexmiModel() {
+	public static FlexmiModel getPlainFlexmiModel(String ecoreModel) {
+
+		ResourceSet resSet = new ResourceSetImpl();
+		Resource ecoreModelResource = resSet.getResource(URI.createURI(ecoreModel), true);
+
 		FlexmiModelFactory flexmiFactory = FlexmiModelFactory.eINSTANCE;
 		FlexmiModel model = flexmiFactory.createFlexmiModel();
 
-		EObject firstRoot = ecoreModelResource.getContents().get(0);
-		model.setNsuri(firstRoot.eClass().getEPackage().getNsURI());
+		model.setNsuri(ECORE_NSURI);
+		model.getImports().add(ECORE_NSURI);
 
 		for (EObject root : ecoreModelResource.getContents()) {
 			Tag rootTag = flexmiFactory.createTag();
@@ -95,7 +89,7 @@ public class Ecore2FlexmiTransformer {
 	}
 
 	// TODO
-	public FlexmiModel getTemplateBasedFlexmiModel() {
+	public static FlexmiModel getTemplateBasedFlexmiModel(String ecoreModel) {
 		return null;
 	}
 
@@ -117,7 +111,12 @@ public class Ecore2FlexmiTransformer {
 			EClassifier type = ((ETypedElement) element).getEType();
 			// void EOperations have null type
 			if (type != null) {
-				typeAttr.setValue(type.getName());
+				String typeName = type.getName();
+				if (element instanceof EAttribute) {
+					// needed to find metamodel data types (e.g. EString, EInt)
+					typeName = "//" + typeName;
+				}
+				typeAttr.setValue(typeName);
 			}
 			tag.getAttributes().add(typeAttr);
 		}
@@ -150,7 +149,7 @@ public class Ecore2FlexmiTransformer {
 		}
 	}
 
-	public String getFlexmiFile(FlexmiModel model) throws EglRuntimeException {
+	public static String getFlexmiFile(FlexmiModel model) throws EglRuntimeException {
 		EglTemplateFactory templateFactory = new EglTemplateFactory();
 		EglTemplate template = templateFactory.load(new File(FLEXMI_MODEL_TEMPLATE));
 		template.populate(FLEXMI_MODEL_VARIABLE, model);
