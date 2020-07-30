@@ -1,0 +1,3031 @@
+@namespace(uri="http:///pgr.ecore", prefix="pgr")
+package pgr;
+
+class ModelFactory {
+
+	@GenModel(body="		ModelFactory modelFactory = null;
+		
+		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(\"platform:/resource/PGR/models/production.pgr\");
+		org.eclipse.emf.ecore.resource.ResourceSet resourceSet= new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.createResource(uri);
+		try {
+			resource.load(java.util.Collections.EMPTY_MAP);
+			modelFactory = (ModelFactory) resource.getContents().get(0);
+		} catch (java.io.IOException e) {
+			// TO-DO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return modelFactory;")
+	op ModelFactory load();
+
+	@GenModel(body="		ModelFactory modelFactory = this;
+		
+		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(\"platform:/resource/PGR/models/production.pgr\");
+		org.eclipse.emf.ecore.resource.ResourceSet resourceSet= new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.createResource(uri);
+		resource.getContents().add(modelFactory);
+		try {
+			resource.save(java.util.Collections.EMPTY_MAP);
+		} catch (java.io.IOException e) {
+			// TO-DO Auto-generated catch block
+			e.printStackTrace();
+		}")
+	op void save();
+	val domain.Domain[1]#theModelFactory theDomain;
+	val ui.UI[1]#theModelFactory theUI;
+}
+
+@namespace(uri="http:///pgr/domain.ecore", prefix="pgr.domain")
+package domain {
+	class Domain {
+		ref ui.UI[*]#theDomain theUI;
+		transient ref ModelFactory#theDomain theModelFactory;
+		val Report[*]#ownedByDomain listReport;
+		val generators.ViewModelGenerator[1]#theDomain theViewModelGenerator;
+		val generators.DataformDiagramGenerator[1]#theDomain theDataformDiagramGenerator;
+		val generators.DataformGenerator[1]#theDomain theDataformGenerator;
+		val generators.ExcelGenerator[1]#theDomain theExcelGenerator;
+		val generators.ExcelUpdater[1]#Domain theExcelUpdater;
+		val util.Coordinate[1]#theDomain theCoordinate;
+		val util.MergedRegion[1]#theDomain theMergedRegion;
+		val util.ComparatorRange[1]#theDomain theComparatorRange;
+		val util.Unzip[1]#theDomain theUnzip;
+	}
+
+	class Report {
+		attr String filePath;
+		attr String fileName;
+		transient ref Domain#listReport ownedByDomain;
+	}
+
+	@namespace(uri="http:///pgr/domain/generators.ecore", prefix="pgr.domain.generators")
+	package generators {
+		class ViewModelGenerator {
+
+			@GenModel(body="this.modelFactoryQM = modelFactoryQM;
+		
+		getProjectionQM();
+		viewModel = gestionmodelosconsultas.modeloconsultas.model.ModelFactory.eINSTANCE.createViewModel();")
+			op void ViewModelGenerator(datatypes.datatypesqm.ModelFactory modelFactoryQM);
+
+			@GenModel(body="createViewModel();")
+			op void generateViewModel();
+
+			@GenModel(body="for(int i=0;i<projection.getListRelacion().size();i++){
+			gestionmodelosconsultas.modeloconsultas.model.Relacion relacion = projection.getListRelacion().get(i);
+			if(relacion.getSource().equals(parent)){
+				
+				ElementoConsulta queryElement = createElement((ElementoConsulta) relacion.getTarget());
+				queryElement.setOrder(order);
+				viewModel.getListElementoConsulta().add(queryElement);	
+				
+				
+				gestionmodelosconsultas.modeloconsultas.model.Relacion relation = 
+						gestionmodelosconsultas.modeloconsultas.model.ModelFactory.eINSTANCE.createRelacion();
+				relation.setSource(parent);
+				relation.setTarget(queryElement);
+				viewModel.getListRelacion().add(relation);
+				
+				
+				exploreRelations(relacion.getTarget(), queryElement, order+1);
+			}
+		}")
+			op void exploreRelations(datatypes.datatypesqm.ElementoConsulta parent, datatypes.datatypesqm.ElementoConsulta parentViewModel, Integer order);
+
+			@GenModel(body="EList<gestionmodelosconsultas.modeloconsultas.ModeloConsulta> listQueryModel = 
+						modelFactoryQM.getFactoryModeloConsultas().getListModeloConsulta();
+				
+				gestionmodelosconsultas.modeloconsultas.ModeloConsulta queryModel = listQueryModel.get(0);
+				EList<gestionmodelosconsultas.modeloconsultas.model.EADiagram> listViewModel = queryModel.getListEADiagram();
+				
+				EList<gestionmodelosconsultas.modeloconsultas.model.EADiagram> newList = queryModel.createtListEADiagram();
+				
+				for(int i=0;i<listViewModel.size();i++){
+					if(!(listViewModel.get(i) instanceof gestionmodelosconsultas.modeloconsultas.model.ViewModel))
+						newList.add(listViewModel.get(i));
+				}
+				
+				queryModel.setEADiagram(newList);
+				listViewModel = newList;
+				
+				ElementoConsulta root = getParent();
+				ElementoConsulta queryElement = createElement((ElementoConsulta) root);
+				queryElement.setOrder(1);
+				viewModel.getListElementoConsulta().add(queryElement);	
+				
+				exploreRelations(root, queryElement, 2);
+				
+				listViewModel.add(viewModel);
+				modelFactoryQM.salvar();")
+			op void createViewModel();
+
+			@GenModel(body="		if(e instanceof gestionmodelosconsultas.modeloconsultas.quien.impl.UnidadOrganizacionalImpl)
+			return  gestionmodelosconsultas.modeloconsultas.quien.QuienFactory.eINSTANCE.createUnidadOrganizacional();
+	
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.quien.impl.ActorImpl)
+			return gestionmodelosconsultas.modeloconsultas.quien.QuienFactory.eINSTANCE.createActor();
+	
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.quien.impl.RolImpl)
+			return gestionmodelosconsultas.modeloconsultas.quien.QuienFactory.eINSTANCE.createRol();
+	
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.quien.impl.ContactoImpl)
+			return gestionmodelosconsultas.modeloconsultas.quien.QuienFactory.eINSTANCE.createContacto();
+		
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.quien.impl.QuienImpl)
+			return gestionmodelosconsultas.modeloconsultas.quien.QuienFactory.eINSTANCE.createQuien();
+		
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.que.impl.DocumentoImpl)
+			return gestionmodelosconsultas.modeloconsultas.que.QueFactory.eINSTANCE.createDocumento();
+		
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.que.impl.ComunicacionImpl)
+			return gestionmodelosconsultas.modeloconsultas.que.QueFactory.eINSTANCE.createComunicacion();
+	
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.como.impl.ActividadProcesoImpl)
+			return gestionmodelosconsultas.modeloconsultas.como.ComoFactory.eINSTANCE.createActividadProceso();
+
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.como.impl.InstanciaProcesoImpl)
+			return gestionmodelosconsultas.modeloconsultas.como.ComoFactory.eINSTANCE.createInstanciaProceso();
+		
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.donde.impl.DepositoImpl)
+		return  gestionmodelosconsultas.modeloconsultas.donde.DondeFactory.eINSTANCE.createDeposito();
+		
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.donde.impl.DiscoImpl)
+			return  gestionmodelosconsultas.modeloconsultas.donde.DondeFactory.eINSTANCE.createDisco();
+
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.donde.impl.ArmarioImpl)
+			return gestionmodelosconsultas.modeloconsultas.donde.DondeFactory.eINSTANCE.createArmario();
+		
+		if(e instanceof gestionmodelosconsultas.modeloconsultas.cuando.impl.FechaImpl)
+			return gestionmodelosconsultas.modeloconsultas.cuando.CuandoFactory.eINSTANCE.createFecha();
+		return null;")
+			op datatypes.datatypesqm.ElementoConsulta createElement(datatypes.datatypesqm.ElementoConsulta e);
+
+			@GenModel(body="for(int i=0; i<modelFactoryQM.getFactoryModeloConsultas().getListModeloConsulta().get(0).getListEADiagram().size();i++){
+			
+			if(modelFactoryQM.getFactoryModeloConsultas().getListModeloConsulta().get(0).getListEADiagram().get(i) 
+					instanceof gestionmodelosconsultas.modeloconsultas.model.Proyeccion){
+				
+				projection = (gestionmodelosconsultas.modeloconsultas.model.Proyeccion)
+						modelFactoryQM.getFactoryModeloConsultas().getListModeloConsulta().get(0).getListEADiagram().get(i);
+				break;
+			}
+		}")
+			op void getProjectionQM();
+
+			@GenModel(body="if(projection.getListRelacion().size() == 0 &&
+				projection.getListElementoConsulta().size() == 1) {
+			return projection.getListElementoConsulta().get(0);
+		}
+		
+		ElementoConsulta firstElement=null;
+		for (int i = 0; i < projection.getListElementoConsulta().size(); i++) {
+			
+			boolean source=false, target=false;
+			
+			for(int j=0;j<projection.getListRelacion().size();j++){
+				gestionmodelosconsultas.modeloconsultas.model.Relacion relacion = projection.getListRelacion().get(j); 
+				if(relacion.getSource().equals(projection.getListElementoConsulta().get(i)))
+					source=true;
+				if(relacion.getTarget().equals( projection.getListElementoConsulta().get(i)    ))
+					target=true;
+			}
+			
+			if(source && !target){
+				firstElement = projection.getListElementoConsulta().get(i);
+			}
+		}
+		
+		return firstElement;")
+			op datatypes.datatypesqm.ElementoConsulta getParent();
+			attr datatypes.datatypesqm.ModelFactory modelFactoryQM;
+			attr datatypes.datatypesqm.Proyeccion projection;
+			attr datatypes.datatypesqm.EADiagram viewModel;
+			transient ref Domain#theViewModelGenerator theDomain;
+		}
+
+		class DataformDiagramGenerator {
+
+			@GenModel(body="
+
+        this.modelFactory = modelFactory;
+        this.dataformDiagram = this.modelFactory.getListProyecto().get(0).getListDataFormDiagram().get(0);
+        this.interface1 = dataformDiagram.getTheInterface();
+    ")
+			op void DataformDiagramGenerator(datatypes.datatypesdataform.ModelFactory modelFactory);
+
+			@GenModel(body="
+
+        org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(\"platform:/resource/PGR/domain/model.tooldataform_diagram\");
+        org.eclipse.emf.ecore.resource.ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+        org.eclipse.emf.ecore.resource.Resource resource = resourceSet.createResource(uri);
+        resource.getContents().add(diagram);
+        try {
+            resource.save(java.util.Collections.EMPTY_MAP);
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    ")
+			op void salvarDiagram(datatypes.datatypesgmf.Diagram diagram);
+
+			@GenModel(body="
+
+        
+        org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(\"platform:/resource/PGR/domain/model.tooldataform\");
+        org.eclipse.emf.ecore.resource.ResourceSet resourceSet= new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+        org.eclipse.emf.ecore.resource.Resource resource = resourceSet.createResource(uri);
+        try {
+            resource.load(java.util.Collections.EMPTY_MAP);
+            modelFactory =  (ModelFactory) resource.getContents().get(0);
+        } catch (java.io.IOException e) {
+            // TO-DO Auto-generated catch block
+            e.printStackTrace();
+        }
+    ")
+			op void cargarDiagram();
+
+			@GenModel(body="
+
+    	
+    	try{
+	    	org.eclipse.ui.IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
+	    	org.eclipse.ui.IWorkbenchPage activePage = workbench.getActiveWorkbenchWindow().getActivePage();
+	        activePage.closeEditors(activePage.getEditorReferences(), true);
+	        org.apache.commons.io.FileUtils.touch(new java.io.File(path));
+	        java.io.File fileToDelete = org.apache.commons.io.FileUtils.getFile(path);
+	        org.apache.commons.io.FileUtils.deleteQuietly(fileToDelete);
+    	} 
+    	catch(java.io.IOException e){
+    		 e.printStackTrace();
+    	}
+    ")
+			op void resetDiagram(String path);
+
+			@GenModel(body="
+
+        
+        Diagram diag = createDiagram();
+        salvarDiagram(diag);
+        openDiagram(diag);
+    ")
+			op void generateDiagram();
+
+			@GenModel(body="
+
+        
+        //create the diagram
+        int diagramVID = tooldataform.diagram.part.MetamodelodataformVisualIDRegistry.getDiagramVisualID(dataformDiagram);
+        if (diagramVID != tooldataform.diagram.edit.parts.DataForm_DiagramEditPart.VISUAL_ID) {
+            // error
+        }
+        Diagram diagram = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(dataformDiagram,tooldataform.diagram.edit.parts.DataForm_DiagramEditPart.MODEL_ID,tooldataform.diagram.part.MetamodelodataformDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+
+        // save the ressource
+        try {
+            dataformDiagram.eResource().save(tooldataform.diagram.part.MetamodelodataformDiagramEditorUtil.getSaveOptions());
+        } catch (java.io.IOException e) {
+        	tooldataform.diagram.part.MetamodelodataformDiagramEditorPlugin.getInstance().logError(
+                    \"Save operation failed for: \" + dataformDiagram.eResource(), e); //$NON-NLS-1$
+        }
+        
+        		
+        Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().createNode(new  org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(interface1), diagram, null, 0, true,tooldataform.diagram.part.MetamodelodataformDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+        
+        Bounds bounds = createBounds(interface1.getPositionX(),interface1.getPositionY(),
+                interface1.getWidth(),interface1.getHeight());
+        node.setLayoutConstraint(bounds);
+        
+        initComponents(interface1, node);
+        diagram.setName(\"model.tooldataform_diagram\");
+        
+        return diagram;
+    ")
+			op datatypes.datatypesgmf.Diagram createDiagram();
+
+			@GenModel(body="
+
+        
+        for (int i=0; i < graphicalContainer.getListGraphicalContainer().size(); i++) {
+        	
+        	GraphicalContainer gc = graphicalContainer.getListGraphicalContainer().get(i);
+        	        
+            Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().createNode(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(gc), (Node) parent.getPersistedChildren().get(1), null, i,true ,tooldataform.diagram.part.MetamodelodataformDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+            Bounds bounds = createBounds(gc.getPositionX(),gc.getPositionY(), gc.getWidth(),gc.getHeight());
+            node.setLayoutConstraint(bounds);
+        	
+        	initComponents(graphicalContainer.getListGraphicalContainer().get(i), node);
+        }
+        
+        int size = graphicalContainer.getListGraphicalContainer().size();
+       
+        for (int j = 0; j < graphicalContainer.getListIndividualElementDataForm().size(); j++) {
+        	tooldataform.formmodel.concreta.GraphicalIndividualEement ie = graphicalContainer.getListIndividualElementDataForm().get(j);          
+            Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().createNode(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(ie), (Node)parent.getPersistedChildren().get(1), null, size+j,true ,tooldataform.diagram.part.MetamodelodataformDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+            Bounds bounds = createBounds(ie.getPositionX(),ie.getPositionY(), ie.getWidth(),ie.getHeight());
+            node.setLayoutConstraint(bounds);
+        }
+    ")
+			op void initComponents(datatypes.datatypesdataform.GraphicalContainer graphicalContainer, datatypes.datatypesgmf.Node parent);
+
+			@GenModel(body="
+
+        
+        Bounds bounds =  org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createBounds();
+        bounds.setX(x);
+        bounds.setY(y);
+        bounds.setWidth(width);
+        bounds.setHeight(height);
+        return bounds;
+    ")
+			op datatypes.datatypesgmf.Bounds createBounds(int x, int y, int width, int height);
+
+			@GenModel(body="
+
+        
+        //open the diagram
+        try {    
+            //open it
+            org.eclipse.emf.common.util.URI uri = org.eclipse.emf.ecore.util.EcoreUtil.getURI(diag);
+            org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench()    .getActiveWorkbenchWindow().getActivePage();
+            page.openEditor(new org.eclipse.emf.common.ui.URIEditorInput(uri,dataformDiagram.getName()),  tooldataform.diagram.part.MetamodelodataformDiagramEditor.ID);
+            
+        } catch (org.eclipse.ui.PartInitException e) {
+        	tooldataform.diagram.part.MetamodelodataformDiagramEditorPlugin.getInstance().logError(
+                    \"Unable to open editor\", e); //$NON-NLS-1$
+        }
+    ")
+			op void openDiagram(datatypes.datatypesgmf.Diagram diag);
+			attr datatypes.datatypesdataform.ModelFactory modelFactory;
+			attr datatypes.datatypesdataform.DataForm_Diagram dataformDiagram;
+			attr datatypes.datatypesdataform.Interface interface1;
+			transient ref Domain#theDataformDiagramGenerator theDomain;
+		}
+
+		class DataformGenerator {
+
+			@GenModel(body="	 this.path = \"OpenXML/\"+ruta+\"/xl/\";
+	 this.absolutePath = as;
+	 
+	 reportName  = ruta;
+	 
+	 /*Inicializacion de las listas para evitar 
+	  *NullPointer Exception
+	  */
+	 listTables = new ArrayList<String>();
+	 listComboBox = new ArrayList<String>();
+	 listComboCordinate = new ArrayList<pgr.domain.util.impl.CoordinateImpl>();
+	 containers = new ArrayList<GraphicalContainer>();
+	 coordenadasInicioContenedores = new ArrayList<pgr.domain.util.impl.CoordinateImpl>();
+	 coordenadasFinContenedores  = new ArrayList<pgr.domain.util.impl.CoordinateImpl>();
+	 
+	 comboNamesSorted = new ArrayList<String>();
+	 for (int i = 0; i < 100; i++) {
+		 comboNamesSorted.add(\"\");
+	 }
+	 coordenadasComboBox = new ArrayList<pgr.domain.util.impl.CoordinateImpl>();
+	 for (int i = 0; i < 100; i++) {
+		 pgr.domain.util.impl.CoordinateImpl c = (pgr.domain.util.impl.CoordinateImpl)
+				 pgr.domain.util.UtilFactory.eINSTANCE.createCoordinate();
+		 c.setX(0); c.setY(0);
+		 coordenadasComboBox.add(c);
+	 }")
+			op void DataformGenerator(String ruta, String as);
+
+			@GenModel(body="			//Incializa la model factory y el diagrama para agregar elementos en el
+			init();
+			
+			//Se carga el excel a analizar
+			java.io.InputStream is;
+			try {
+				is = new java.io.FileInputStream(absolutePath);
+				workbook = new XSSFWorkbook(is);
+				sheet = workbook.getSheetAt(0);
+			    
+			    getOrderViewModel();
+			    
+			    amountContainers++;
+			    
+			    //Se realiza identifican y se agregan las mergedRegions
+			    identifyMergedRegions();
+			      
+				//Identifica las tablas en el XML y obtiene sus dimenciones
+				getTables();
+				
+				//En el libro de visitados, marca dichas tablas para que no sean analizadas 
+				//en el metodo de getExtraInformation
+				marcarTablas(listTables);
+				
+				//Se encarga de indetificar los componentes restantes que estan en el excel
+				//Ya sea contenedores, labels, combobox etc
+				getExtraInformation();
+				
+				searchBegin();
+				
+				//Se salva la produccion  del dataform
+				salvarDF();
+				
+			} catch (java.io.FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (java.lang.IndexOutOfBoundsException e) {
+				// TODO Auto-generated catch block
+				javax.swing.JOptionPane.showMessageDialog(null, \"El excel debe estar etiquetado para poder capturar el modelo mental.\"
+						  , null, javax.swing.JOptionPane.ERROR_MESSAGE);
+			} catch (java.io.IOException e) {
+				// TODO Auto-generated catch block
+				javax.swing.JOptionPane.showMessageDialog(null, \"Debe seleccionar primero el archivo al \"
+												  + \"cual se le capturara el modelo mental.\"
+						, null, javax.swing.JOptionPane.ERROR_MESSAGE);
+			}")
+			op void generate();
+
+			@GenModel(body="
+
+		org.apache.poi.xssf.usermodel.XSSFRow r;
+		XSSFCell c;
+		for(int i = 0; i < visitedCells.size(); i++) {
+			r = sheet.getRow(i);
+			if (r != null) {
+				ArrayList<Integer> aux = (ArrayList<Integer>)visitedCells.get(0);
+				for(int j = 0; j < aux.size(); j++) {
+					c = r.getCell(j);
+					if(c != null) {
+						c.setCellType(XSSFCell.CELL_TYPE_STRING);
+						if(c.getStringCellValue().equals(\"<start>\")) {
+							dataStartRow = i;
+							dataStartCell = j;
+						}
+					}
+				}
+			}
+			
+		}
+	")
+			op void searchBegin();
+
+			@GenModel(body="
+
+		graphicalContainer.setWidth(new Integer(width));
+		graphicalContainer.setHeight(new Integer(height));
+		graphicalContainer.setPositionX(x);
+		graphicalContainer.setPositionY(y);
+	")
+			op void setBoundsGraphicalContainer(datatypes.datatypesdataform.GraphicalContainer graphicalContainer, int x, int y, int width, int height);
+
+			@GenModel(body="
+
+		c.setAMultiplicidad(tooldataform.pmoo.Cardinalidad.N);
+		c.setBMultiplicidad(tooldataform.pmoo.Cardinalidad.N);
+		c.setANavegable(tooldataform.pmoo.Valores.SI);
+		c.setBNavegable(tooldataform.pmoo.Valores.SI);
+		c.setBinding(tooldataform.pmoo.Valores.SI);
+		c.setARol(\"ownedByTable\"+name);
+		c.setBRol(\"listTable\"+name);
+		c.setName(\"name\"+name);
+	")
+			op void setAtributesContaimentRelation(datatypes.datatypesdataform.Containment c, String name);
+
+			@GenModel(body="	adjacenciesX = new ArrayList<Integer>();
+	adjacenciesX.add(new Integer(1));
+	adjacenciesX.add(new Integer(-1));
+	adjacenciesX.add(new Integer(0));
+	adjacenciesX.add(new Integer(0));
+	
+	adjacenciesY = new ArrayList<Integer>();
+	adjacenciesY.add(new Integer(0));
+	adjacenciesY.add(new Integer(0));
+	adjacenciesY.add(new Integer(1));
+	adjacenciesY.add(new Integer(-1));
+	
+	/*Obtiene la dimenscion del excel
+	 *formato de la dimension
+	 *ejemplo: A3:D7
+	 */
+	dimens = getDimention();
+	
+	String inicio = dimens.split(\":\")[0];
+	String fin = 	dimens.split(\":\")[1];
+	
+	//Se obtienen las dimensiones de la matriz de visitados
+	int w = toInt(stractColumn(fin)); 
+	int h = ( Integer.parseInt(capturarNumeros(fin)));
+	
+	visitedCells = new ArrayList<ArrayList<Integer>>();
+	for (int i = 0; i < h + 1; i++) {
+		ArrayList<Integer> aux = new ArrayList<Integer>();
+		for (int j = 0; j < w + 1; j++) {
+			aux.add(new Integer(0));
+		}
+		visitedCells.add(aux);
+	}
+
+	
+	
+	amountContainers = 0;
+	
+	//Se obtienen las coordenandas relativas
+	pgr.domain.util.impl.CoordinateImpl coordinate = (pgr.domain.util.impl.CoordinateImpl) getCoordinates(inicio);
+	relativeX = coordinate.getX();   relativeY = coordinate.getY();
+
+	//Se instancian los objetos necesarios para crear la produccion
+	modelFactory    = tooldataform.TooldataformFactory.eINSTANCE.createModelFactory();
+	project         = tooldataform.core.CoreFactory.eINSTANCE.createProject();
+	dataformDiagram = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createDataForm_Diagram();
+	domainDiagram   = tooldataform.core.CoreFactory.eINSTANCE.createDomain_Diagram();
+	interface1      = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createInterface();
+	container       = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createContainer();
+	container.setName(reportName);
+	
+	//Se dan las dimensiones y ubicacion de la interfaz
+	setBoundsGraphicalContainer(interface1, 10, 10 , 850, 850);	
+	setBoundsGraphicalContainer(container, 15, 15, 800, 700);
+	
+	/*Se relacionan adecuadamente los objetos incializados anteriormente
+	 *Para generar un dataform sin errores
+	 */
+	dataformDiagram.setTheInterface(interface1);
+	dataformDiagram.setOwnedByProject(project);
+	dataformDiagram.setItsDiagram(domainDiagram);
+	dataformDiagram.setName(\"model.tooldataform_diagram\");
+	
+	domainClass = tooldataform.pmoo.PmooFactory.eINSTANCE.createClase();
+	domainClass.setName(\"Domain\");
+	domainDiagram.getListClase().add(domainClass);
+	
+	project.getListDiagram().add(domainDiagram);
+	project.getListDataFormDiagram().add(dataformDiagram);
+	project.setTheModelFactory(modelFactory);
+	
+	interface1.getListGraphicalContainer().add(container);
+	interface1.setName(reportName);
+	modelFactory.getListProyecto().add(project);")
+			op void init();
+
+			@GenModel(body="
+
+		dataformDiagram.setTheInterface(null);
+		salvarDF();
+	")
+			op void resetDataform();
+
+			@GenModel(body="               /*Se obtiene la ultima fila a analizar
+	 *de la hoja
+	 */
+	int nmax = sheet.getLastRowNum()+1;
+	
+	//Objeto necesario para obtener una celda en el excel
+	XSSFCell c;
+	//Obejto necesario para obtener una fila en el excel
+	org.apache.poi.xssf.usermodel.XSSFRow r = null;
+	
+	amountCombos = 0;
+	//Recorre la hoja hasta encontrar el primer Combo
+	for (int i = 0; i <nmax; i++) {
+		r =  sheet.getRow(i);
+    	if(r == null) continue;
+    	for (int j = 0; j <r.getLastCellNum(); j++) {
+    		c = r.getCell(j);
+            
+    		if(c != null && getCellValue(c).contains(\"*\") ) { 
+            	//Es combo          		    			
+    			int id = Integer.parseInt( getCellValue(c).substring(2,getCellValue(c).length() -1 ) );
+    			
+    			//listComboCordinate.add(new Coordinate(i, j-1));
+    			amountContainers++;
+    			ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(i);
+    			aux.set(j, amountContainers);
+    			aux.set(j-1, amountContainers);
+    			
+    			c = r.getCell(j-1);
+    			
+    			comboNamesSorted.set(id-1, getCellValue(c));
+    			coordenadasComboBox.set(id-1, createCoordinate(i, j));
+    			
+    			coordenadasInicioContenedores.add(createCoordinate(i, j-1));
+    	    	coordenadasFinContenedores.add(createCoordinate(i, j));
+    			
+    	    	tooldataform.formmodel.concreta.ComboView combo =  tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createComboView();
+    			combo.setName(getCellValue(c));
+    			setBoundsGraphicalContainer(combo, 0 , 0, 240, 20);
+    			tooldataform.formmodel.concreta.ItemCombo item = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createItemCombo();
+    			item.setName(\"nombre\");
+    			combo.setTheItem(item);
+    			container .getListGraphicalContainer().add(combo);
+    			amountCombos++;
+            }
+        }
+    }
+	
+	for(int i=0;i < amountCombos ;i++ ){
+    	listComboBox.add((String) comboNamesSorted.get(i));
+	   	listComboCordinate.add((pgr.domain.util.impl.CoordinateImpl) coordenadasComboBox.get(i));
+	}
+				
+			
+	")
+			op void getOrderViewModel();
+
+			@GenModel(body="        //Se recorre la hoja para extraer la futura 
+        recorrerHoja();
+	")
+			op void getExtraInformation();
+
+			@GenModel(body="
+
+									
+		//Obtiene la lista de merged regions de la hoja
+		List sortedRegions = sheet.getMergedRegions();
+	
+		//Ordenamos de mayor a menor las regiones con respecto a las filas
+		pgr.domain.util.impl.ComparatorRangeImpl c = (pgr.domain.util.impl.ComparatorRangeImpl) pgr.domain.util.UtilFactory.eINSTANCE.createComparatorRange();
+		java.util.Collections.sort(sortedRegions, c );
+		
+		//Inicializamos la estructura de datos que se tiene por conveniencia
+		//y facilidad para manejar las regiones combinadas
+		InitMergedRegions(sortedRegions);
+		
+		//Se expoloran todas las regiones de la hoja
+		for(int i=0;i<sortedRegions.size();i++){
+			org.apache.poi.ss.util.CellRangeAddress range = (org.apache.poi.ss.util.CellRangeAddress) sortedRegions.get(i);  
+			ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(range.getFirstRow());
+			if(aux.get(range.getFirstColumn()) == 0){
+			
+				String textRange = sheet.getRow(range.getFirstRow()).getCell(range.getFirstColumn()).getStringCellValue();
+				MergedRegion mergeRegion = pgr.domain.util.UtilFactory.eINSTANCE.createMergedRegion();
+				mergeRegion.MergedRegion(textRange, range.getFirstColumn(), range.getLastColumn(), 
+						range.getFirstRow(), range.getLastRow());
+				
+				containerEndRow= range.getFirstRow();
+				containerEndCell= range.getFirstColumn();
+				
+				GraphicalContainer container = exploreMergedRegions(mergeRegion);
+				
+				this.container.getListGraphicalContainer().add(container);
+				coordenadasInicioContenedores.add(createCoordinate(range.getFirstRow(), range.getFirstColumn()));
+				coordenadasFinContenedores.add(createCoordinate(containerEndRow, containerEndCell));
+				visitRegion(mergeRegion);
+				amountContainers++;
+			}	
+		}
+	
+	")
+			op void identifyMergedRegions();
+
+			@GenModel(body="
+
+		ArrayList<MergedRegion> aux = (ArrayList<MergedRegion>) mergedRegions.get(nextRow);
+		for(int j=0; j < aux.size(); j++){
+			
+			MergedRegion nextMergeRegion = aux.get(j);
+			
+			if(nextMergeRegion.getFirstColumn() >= range.getFirstColumn() 
+					&& nextMergeRegion.getFirstColumn() <= range.getLastColumn()) {
+				
+				return true;
+			}
+		}
+		return false;
+	")
+			op boolean searchMergeRegion(util.MergedRegion range, int nextRow);
+
+			@GenModel(body="
+
+				
+		GraphicalContainer container =  tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createContainer();
+		container.setName(range.getText());
+		int firstRow = range.getFirstRow(), lastRow = range.getLastRow();
+		int firstColumn = range.getFirstColumn(), lastColumn = range.getLastColumn();
+		int nextRow = firstRow + (lastRow - firstRow+ 1);
+		
+		ArrayList<MergedRegion> aux = (ArrayList<MergedRegion>) mergedRegions.get(nextRow);
+		if(aux.size() == 0 || !searchMergeRegion(range, nextRow)) {
+			
+			ArrayList<String> columns = getTableColumns(range, nextRow);
+			TableView table = createTable(range, columns);
+			container.getListGraphicalContainer().add(table);
+			int deep = visitTable(range);
+			setBoundsGraphicalContainer(table, 15, 15, columns.size()*100 , (deep-range.getFirstRow())*20);
+			
+			tooldataform.formmodel.concreta.Containment c = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createContainment();
+			setAtributesContaimentRelation(c,\"\");
+			
+			//Se agrega el source y target de la relacion
+			c.getSource().add(container);
+			c.getTarget().add(table);
+			
+			setBoundsGraphicalContainer(container, 15, 15 ,  table.getWidth() + 40 , table.getHeight() + 40);
+			return container;
+		}
+		
+		aux = (ArrayList<MergedRegion>) mergedRegions.get(nextRow);
+		for(int i=0; i < aux.size();i++) {
+			
+			MergedRegion nextMergeRegin = aux.get(i);
+			
+			if(nextMergeRegin.getFirstColumn()>=firstColumn && nextMergeRegin.getLastColumn()<=lastColumn){
+				
+				if(!isTableColumn(nextMergeRegin)){ 
+					//sevisita
+					visitRegion(nextMergeRegin);
+					GraphicalContainer subContainer = exploreMergedRegions(nextMergeRegin);
+					container.getListGraphicalContainer().add(subContainer);
+					
+				} else {
+					
+					//Se construye la tabla
+					//Se visita las tuplas de la tabla y los encabezaos
+					//Se agrega al contenedor y se retorna
+					
+					ArrayList<String> columns = getTableColumns(range, nextRow);
+					TableView table = createTable(range, columns);
+					
+					container.getListGraphicalContainer().add(table);
+					int deep = visitTable(range);
+					setBoundsGraphicalContainer(table, 15, 15, columns.size()*100 , (deep-range.getFirstRow())*20);
+					
+					tooldataform.formmodel.concreta.Containment c = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createContainment();
+					setAtributesContaimentRelation(c,\"\");
+					
+					//Se agrega el source y target de la relacion
+					c.getSource().add(container);
+					c.getTarget().add(table);
+					
+					setBoundsGraphicalContainer(container, 15, 15 ,  table.getWidth() + 40 , table.getHeight() + 40);
+					break;
+				}
+			}
+		}
+		
+		int x  = container.getListGraphicalContainer().get(0).getWidth();
+		int y  = container.getListGraphicalContainer().get(0).getPositionY();
+		
+		x+= 15; y+= 15;
+		
+	
+		for(int i = 1  ;i < container.getListGraphicalContainer().size();i++){
+			x+=40;
+			container.getListGraphicalContainer().get(i).setPositionX(x);
+			x+= container.getListGraphicalContainer().get(i).getWidth();
+			y = Math.max(y,  container.getListGraphicalContainer().get(i).getHeight());
+		}
+		
+		x+=15;
+		
+		if(container.getListGraphicalContainer().size()>1)
+			setBoundsGraphicalContainer(container, 15, 15, x, y);
+		
+		return container;
+	")
+			op datatypes.datatypesdataform.GraphicalContainer exploreMergedRegions(util.MergedRegion range);
+
+			@GenModel(body="
+
+		
+		int fila=  region.getFirstRow();
+		org.apache.poi.xssf.usermodel.XSSFRow r = sheet.getRow(fila);
+		
+		int columa = region.getFirstColumn();
+		XSSFCell c;
+		while(r!=null){
+			c = r.getCell(columa);
+			if(c==null)
+				break;
+			
+			ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(fila);
+			for(int i=columa; i <= region.getLastColumn();i++){
+				aux.set(i, amountContainers);
+				containerEndRow = fila;
+				containerEndCell = i;
+			}
+			r = sheet.getRow(++fila);
+		}
+		return fila;
+	")
+			op int visitTable(util.MergedRegion region);
+
+			@GenModel(body="
+
+		
+		ArrayList<String> columns = new ArrayList<String>();
+		String column;
+		
+		int i = region.getFirstColumn();
+		while (i <= region.getLastColumn()) {
+			
+			column = sheet.getRow(nextRow).getCell(i).getStringCellValue();
+			columns.add(column);
+			
+			if(isCellRange(nextRow, i)) {
+				ArrayList<MergedRegion> aux = (ArrayList<MergedRegion>) mergedRegions.get(nextRow);
+				for(int j=0; j < aux.size(); j++){
+					
+					MergedRegion nextMergeRegion = aux.get(j);
+					
+					if(nextMergeRegion.getFirstColumn()==i){
+						
+						if(nextMergeRegion.getFirstColumn() == nextMergeRegion.getLastColumn()) {
+							
+							i++;
+							break;
+						}	
+						
+						i += nextMergeRegion.getLastColumn() - i + 1;
+						break;
+					}
+				}
+				
+			} else {
+				
+				i++;
+			}
+		}
+		
+		return columns;
+	")
+			op datatypes.datatypesjavautil.ArrayList getTableColumns(util.MergedRegion region, int nextRow);
+
+			@GenModel(body="//Se crea  la instancia de la tabla
+				TableView table = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createTableView();
+				table.setName(region.getText());
+				
+				//Se agregan las colummnas a la tabla
+				for(int j=0;j<columns.size();j++){
+					tooldataform.formmodel.concreta.ColumView c= tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createColumView();
+					c.setName((String)columns.get(j));
+					table.getListColumView().add(c);
+				}
+				
+				return table;")
+			op datatypes.datatypesqm.TableView createTable(util.MergedRegion region, datatypes.datatypesjavautil.ArrayList columns);
+
+			@GenModel(body="
+
+		
+		int firstRow = mergeRegion.getFirstRow(), lastRow = mergeRegion.getLastRow();
+		int firstColumn = mergeRegion.getFirstColumn(), lastColumn = mergeRegion.getLastColumn();
+		int nextRow = firstRow + (lastRow - firstRow + 1);
+		
+		ArrayList<MergedRegion> aux = (ArrayList<MergedRegion>) mergedRegions.get(nextRow);
+		for(int i=0; i< aux.size();i++){
+			
+			MergedRegion nextMergeRegin = aux.get(i);
+			if(nextMergeRegin.getFirstColumn()==firstColumn &&  nextMergeRegin.getLastColumn()==lastColumn){
+				
+				return true;
+			}
+		}
+		
+		if(firstColumn == lastColumn) return true;
+		
+		return false;")
+			op boolean isTableColumn(util.MergedRegion mergeRegion);
+
+			@GenModel(body="
+
+		ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(i);
+		if(aux.get(j) >= 1 && aux.get(j) <= amountTables)
+			return true;
+		return false;")
+			op boolean isTable(int i, int j);
+
+			@GenModel(body="
+
+		for(int i = mergeRegion.getFirstRow(); i <= mergeRegion.getLastRow(); i++) {
+			ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(i);
+			for(int j = mergeRegion.getFirstColumn(); j <= mergeRegion.getLastColumn(); j++)
+				aux.set(j, amountContainers);
+		}")
+			op void visitRegion(util.MergedRegion mergeRegion);
+
+			@GenModel(body="if(sortedRegions.size()==0)
+			return;
+		mergedRegions = new ArrayList<ArrayList<MergedRegion>>();
+		for (int i = 0; i < ((org.apache.poi.ss.util.CellRangeAddressBase) sortedRegions.get(sortedRegions.size()-1)).getLastRow()+10; i++) {
+			mergedRegions.add(new ArrayList<MergedRegion>());
+		}
+		
+		for(int i=0;i< sortedRegions.size();i++){
+			org.apache.poi.ss.util.CellRangeAddress range = (org.apache.poi.ss.util.CellRangeAddress) sortedRegions.get(i);
+			
+			String text = sheet.getRow(range.getFirstRow()).getCell(range.getFirstColumn()).getStringCellValue();
+			ArrayList<MergedRegion> aux = (ArrayList<MergedRegion>) mergedRegions.get(range.getFirstRow());
+			MergedRegion mergeRegion = pgr.domain.util.UtilFactory.eINSTANCE.createMergedRegion();
+			mergeRegion.MergedRegion(text, range.getFirstColumn(), range.getLastColumn(), 
+					range.getFirstRow(), range.getLastRow());
+			aux.add(mergeRegion);
+		}	
+	")
+			op void InitMergedRegions(datatypes.datatypesjavautil.List sortedRegions);
+
+			@GenModel(body="
+
+		
+		ArrayList<MergedRegion> aux = (ArrayList<MergedRegion>) mergedRegions.get(i);
+		if(aux.size()!=0){
+			for(int j=0;j<aux.size();j++){
+				if(aux.get(j).getFirstColumn()<= l && aux.get(j).getLastColumn() >= l )
+					return true;
+			}
+		}
+		return false;
+	")
+			op boolean isCellRange(int i, int l);
+
+			@GenModel(body="
+
+		
+		//Carga el xml del excel
+		org.w3c.dom.Document doc = getXML(path+\"worksheets/sheet1.xml\");
+		doc.getDocumentElement().normalize();
+		
+		//Obtiene el tag Dimension
+		org.w3c.dom.NodeList nList = doc.getElementsByTagName(\"dimension\");
+		org.w3c.dom.Node node = nList.item(0);
+		String s=\"\";
+		if(node.getNodeType()==org.w3c.dom.Node.ELEMENT_NODE){
+			org.w3c.dom.Element e = (org.w3c.dom.Element)node;
+			s = e.getAttribute(\"ref\");
+		}
+		return s;
+	")
+			op String getDimention();
+
+			@GenModel(body="		
+		
+		//Carga el xml del excel
+		org.w3c.dom.Document doc = getXML(path+\"worksheets/sheet1.xml\");
+		doc.getDocumentElement().normalize();	
+		
+		//Obtiene el tag que contiene la lista de tablas
+		org.w3c.dom.NodeList nList = doc.getElementsByTagName(\"tablePart\");
+		
+		return nList.getLength();
+	")
+			op int getNumberTables();
+
+			@GenModel(body="
+
+		
+		//Obtiene el numero de tablas a agregar al dataform
+		int n = getNumberTables();
+		amountTables =n;
+		//Documento xml del excel
+		org.w3c.dom.Document doc;
+		for(int i=1;i<=n;i++){
+			
+			//Se crea el container que contendr? la tabla
+			tooldataform.formmodel.concreta.Container containerTablas = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createContainer();
+			containerTablas.setName(\"Table\"+i);
+			
+			//Se lee el archivo xml relacionado con la tabla a analizar
+			doc = getXML(path +\"tables/table\"+i+\".xml\");
+			
+			//Se obtiene la dimension de la tabla
+			String s=\"\";
+			org.w3c.dom.NodeList es = doc.getElementsByTagName(\"autoFilter\");
+			org.w3c.dom.Node node = es.item(0);
+			if(node.getNodeType()==org.w3c.dom.Node.ELEMENT_NODE){
+				org.w3c.dom.Element e = (org.w3c.dom.Element)node;
+				s = e.getAttribute(\"ref\");
+				listTables.add(s);
+			}
+			
+			//Se extrae la dimencion de la tabla
+			String inicio = s.split(\":\")[0];
+			String fin = 	s.split(\":\")[1];
+			
+		
+			//Se obtienen las coordenandas y el size de la tabla
+			pgr.domain.util.impl.CoordinateImpl coordinates=  (pgr.domain.util.impl.CoordinateImpl) getCoordinates(inicio);
+			pgr.domain.util.impl.CoordinateImpl size = (pgr.domain.util.impl.CoordinateImpl) getSizes(inicio, fin);
+			coordenadasInicioContenedores.add(coordinates);
+			coordenadasFinContenedores.add( getCoordinates(fin));
+			
+			//Se obtienen las columnas
+			org.w3c.dom.NodeList nList = doc.getElementsByTagName(\"tableColumn\");
+			ArrayList<String> columnas = new ArrayList<String>();			
+			for (int j = 0; j < nList.getLength(); j++) {
+				org.w3c.dom.Node nNode = nList.item(j);
+				if(nNode.getNodeType()==org.w3c.dom.Node.ELEMENT_NODE){
+					org.w3c.dom.Element e = (org.w3c.dom.Element)nNode;
+					columnas.add(e.getAttribute(\"name\"));
+				}
+			}
+			
+			//Se crea  la instancia de la tabla
+			TableView tb = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createTableView();
+			tb.setName(\"Table\"+i);
+			
+			//Se agregan las colummnas a la tabla
+			for(int j=0;j<columnas.size();j++){
+				tooldataform.formmodel.concreta.ColumView c = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createColumView();
+				c.setName(columnas.get(j));
+				tb.getListColumView().add(c);
+			}
+			
+			//Se setean las dimensiones y posicion de la tabla
+			setBoundsGraphicalContainer(tb, 15, 15, size.getX()+10, size.getY());
+			
+			//Se setean las dimensiones y posicion del contenedor
+			setBoundsGraphicalContainer(containerTablas,coordinates.getX() - relativeX , coordinates.getY() - relativeY ,size.getX() + 40, size.getY() + 40);
+			
+			//Se agrega la tabla al contenedor
+			containerTablas.getListGraphicalContainer().add(tb);
+			
+			//Se crea la relacion de contaiment para que la tabla se pueda visualizar
+			tooldataform.formmodel.concreta.Containment c = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createContainment();
+			setAtributesContaimentRelation(c,\"\" + i);
+			
+			//Se agrega el source y target de la relacion
+			c.getSource().add(containerTablas);
+			c.getTarget().add(tb);
+			
+			//Se agrega la relacion  al diagrama
+			dataformDiagram.getListarelacion().add(c);
+			
+			containers.add(containerTablas);
+			//Se agrega el contendor a la interfaz 
+			container.getListGraphicalContainer().add(containerTablas);
+		}		
+
+	")
+			op void getTables();
+
+			@GenModel(body="
+
+		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(\"platform:/resource/PGR/domain/model.tooldataform\");
+		org.eclipse.emf.ecore.resource.ResourceSet resourceSet= new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.createResource(uri);
+		resource.getContents().add(modelFactory);
+		try {
+			resource.save(java.util.Collections.EMPTY_MAP);
+		} catch (java.io.IOException e) {
+			e.printStackTrace();
+		}
+
+	")
+			op void salvarDF();
+
+			@GenModel(body="				try {
+					java.io.File fXmlFile = new java.io.File(url);
+					javax.xml.parsers.DocumentBuilderFactory dbFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+					javax.xml.parsers.DocumentBuilder dBuilder;
+					
+					dBuilder = dbFactory.newDocumentBuilder();
+					org.w3c.dom.Document doc;
+					doc = dBuilder.parse(fXmlFile);
+					
+					return doc;
+				} catch (javax.xml.parsers.ParserConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}catch (org.xml.sax.SAXException | java.io.IOException e) {
+					// TODO Auto-generated catch block
+					javax.swing.JOptionPane.showMessageDialog(null, \"Debe seleccionar primero el archivo al \"
+							  + \"cual se le capturara el modelo mental.\"
+							  , null, javax.swing.JOptionPane.ERROR_MESSAGE);
+				}
+				
+				return null;")
+			op datatypes.Document getXML(String url);
+
+			@GenModel(body="
+
+       
+        for(int i=0;i<sizes.size();i++){
+        	//Se obtiene la dimension de la tabla que viene en formato \"CeldaInicio:CeldaFinal\" ejemplo: C1:P44
+        	String inicio = ( (String) sizes.get(i) ).split(\":\")[0], fin = ( (String) sizes.get(i) ).split(\":\")[1];
+        	
+        	
+        	//Se recorre las filas de la dimension
+        	for(int  j = Integer.parseInt(capturarNumeros(inicio))-1 ; j <Integer.parseInt(capturarNumeros(fin)) ;j++){
+        		
+        		//Se obtiene la columna inicial y final
+        		int wf= toInt(stractColumn(fin))-1;
+        		int wi = toInt(stractColumn(inicio))-1;
+        		
+        		//Se recorre las columnas de la dimension
+        		ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(j);
+        		for(int k = wi; k <= wf;k++ ){
+        			aux.set(k, amountContainers);
+        		}
+        	}
+        	amountContainers++;
+        }
+	")
+			op void marcarTablas(datatypes.datatypesjavautil.ArrayList sizes);
+
+			@GenModel(body="
+
+		
+		for(int i=0;i<coordenadasInicioContenedores.size();i++){
+			
+			int x = ((pgr.domain.util.impl.CoordinateImpl) coordenadasInicioContenedores.get(i) ).getX();
+			int y = ((pgr.domain.util.impl.CoordinateImpl) coordenadasInicioContenedores.get(i)).getY();
+			
+			int h = getAmountContainersH(y);
+			int v = getAmountContainersV(x);
+			
+			int c = calculateV(x);
+			int b = calculateH(y);
+			
+			ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(x);
+			int contenedor = aux.get(y)-1;
+			
+			int xs= h*100 + 40;
+			
+			if(h>0)
+			 xs+=(b) +  ( (y-h-relativeY)*40);
+			
+			int ys = (v*20)+ 25;
+			
+			int s  = (x-v-relativeX);
+			
+			if(v>0)
+			 ys+= c + (s* 15);
+			
+			container.getListGraphicalContainer().get(contenedor).setPositionX(xs);
+			container.getListGraphicalContainer().get(contenedor).setPositionY(ys);
+		}
+	")
+			op void reOrganizarTablas();
+
+			@GenModel(body="int max = -1;
+				for(int i=0;i<a.size();i++){
+					if( ((pgr.domain.util.impl.CoordinateImpl)a.get(i) ).getX() > max){
+						max = ((pgr.domain.util.impl.CoordinateImpl) a.get(i) ).getY();
+					}
+				}
+				return max;")
+			op int getMaxX(datatypes.datatypesjavautil.ArrayList a);
+
+			@GenModel(body="
+
+		ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(0);
+		if(i >= 0 && i < visitedCells.size()  && j >= 0 && j < aux.size())
+			return true;
+		return false;")
+			op boolean isValid(int i, int j);
+
+			@GenModel(body="
+
+			
+				
+				//Se extrae la fila y columna inicial
+				org.apache.poi.xssf.usermodel.XSSFRow r = sheet.getRow(i);
+				XSSFCell c = r.getCell(j);
+				
+				//Arreglo que contiene las celdas visitadas en la exploracion
+				ArrayList<pgr.domain.util.impl.CoordinateImpl> res = new ArrayList<pgr.domain.util.impl.CoordinateImpl>();
+		 		
+				//Se prepara la fila y columna en el excel de visitados
+				ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(i);
+				aux.set(j, amountContainers);
+			
+				
+				//Agregamos la posicion inicial al arreglo de celdas a retornar
+				res.add((pgr.domain.util.impl.CoordinateImpl)createCoordinate(i, j));
+				
+				//Cola que contendran las celdas a analizar
+				java.util.Queue<XSSFCell> q =   new java.util.LinkedList<XSSFCell>();
+				q.add(c);
+				
+				/*
+				 *Mientras que haya celdas a analizar
+				 *Se analizaran sus adyacencias para 
+				 *encontrar mas celdas No nulas
+				 */
+				while (!q.isEmpty()) {	
+					XSSFCell u = q.peek();
+					q.poll();
+					
+					//Se observan las adyacencias de esta celda
+					//Las adyancencias de una celda son
+					//Arriba, Abajo, Izquierda y Derecha
+					
+					for(int k = 0; k < 4; k++) {
+						
+						//Se obtiene la posible adyacencia en x y en y
+						int vx = u.getRowIndex()    + (int) adjacenciesX.get(k);
+						int vy = u.getColumnIndex() + (int) adjacenciesY.get(k);
+						
+						//Se verifica si es  una adyacencia valida
+						if(isValid(vx, vy)){
+							
+							//Si la fila no esta creada en el original
+							//No se analiza
+							r = sheet.getRow(vx);
+							if(r==null) continue;
+							c = r.getCell(vy);
+							
+							//Si la celda no esta creada o esta vacia NO se analiza
+							if (c !=null && c.getCellType()!=XSSFCell.CELL_TYPE_BLANK ) {
+								
+								//Se marca en el excel de visitados esta celda 
+								//Como analizada para no analizarla mas
+								aux = (ArrayList<Integer>) visitedCells.get(vx);
+								if(aux.get(vy) == 0){
+									aux.set(vy, amountContainers);
+									//Se agrega a lista la celda (vx,vy) como celda
+									//No NULA y NO VACIA
+									res.add((pgr.domain.util.impl.CoordinateImpl)createCoordinate(vx, vy));
+									q.add(c);
+								}
+							}						
+						}
+					}
+				}
+				amountContainers++;
+				return res;
+			
+	")
+			op datatypes.datatypesjavautil.ArrayList bfs(int i, int j);
+
+			@GenModel(body="
+
+		
+		//Se obtiene la ultima fila a anlizar
+		int nmax = sheet.getLastRowNum()+1;
+		
+		for (int i = 0; i <nmax; i++) {
+	    	
+			//Si la fila no esta creada en el libro orignial, no se analiza y se continua
+			org.apache.poi.xssf.usermodel.XSSFRow r =  sheet.getRow(i);
+	    	if(r==null) continue;
+	    	
+	    	//Se recorre la fila hasta la ultima columna NO NULA
+	    	for (int j = 0; j <r.getLastCellNum(); j++) {
+	    		
+	    		//Se obtienen las celdas del original y el visitado en la posicion J
+	    		XSSFCell c = r.getCell(j);
+	    		
+	    		//Si la celda es nula en el original no se analiza y se continua
+	    		ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(i);
+	            if(c != null && aux.get(j) == 0) { 
+	            	
+	            	//Si la celda esta vacia no se analiza y se continua 
+	            	if(c.getCellType()==XSSFCell.CELL_TYPE_BLANK)
+	            		continue;
+	            	
+	            	tooldataform.formmodel.concreta.Container containerTablas = createContainer(i, j);
+	            	
+	         		container.getListGraphicalContainer().add(containerTablas);
+	            }
+	        }
+	    }
+		
+		//Se reorganizan las tablas
+		reOrganizarTablas();
+
+	")
+			op void recorrerHoja();
+
+			@GenModel(body="
+
+		
+		
+				//Se crea la instancia del contendor a agregar
+				tooldataform.formmodel.concreta.Container containerTablas = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createContainer();
+			    containerTablas.setName(\"Container\"+ (amountContainers));
+			    
+				//Se ejecuta el BFS con el fin de buscar 
+		    	//Mas celdas no nulas 
+		    	//Para almacenarlas en un mismo contendor
+		    	ArrayList<pgr.domain.util.impl.CoordinateImpl> res = bfs( i, j);
+		    	
+		    	//Se ordenan las celdas encontradas
+		    	java.util.Collections.sort(res);
+		    		
+		    	int m = res.size(); 	
+		    	coordenadasInicioContenedores.add(createCoordinate(i, j));
+		    	coordenadasFinContenedores.add(res.get(m-1));
+		    	
+		    	//Se extraen las dimenciones del contenedor que contendra a las celdas encontradas
+		    	String key =res.get(0).getX() +\"-\"+ res.get(0).getY() +\":\" + res.get(m-1).getX() +\"-\" + res.get(m-1).getY();
+		    	    
+		    	//Se delimita el inicio y el final del conentendor
+		    	String inicio = key.split(\":\")[0]; String fin  = key.split(\":\")[1];
+		    		
+		    	pgr.domain.util.impl.CoordinateImpl size = (pgr.domain.util.impl.CoordinateImpl) getSizes2(inicio, fin);
+		 			
+				//Se setean los bounds al contenedor se deja en la posicion 0 0
+				setBoundsGraphicalContainer(containerTablas,0 , 0,  size.getX() + 20, size.getY() + 40);
+					
+				//Posiciones relativas para el contenido del contenedor
+				pgr.domain.util.impl.CoordinateImpl relativo =(pgr.domain.util.impl.CoordinateImpl) getCoordinates2( ((pgr.domain.util.impl.CoordinateImpl)res.get(0)).getX() +\"-\" +  ( (pgr.domain.util.impl.CoordinateImpl) res.get(0) ).getY()   );
+		 		int relativex = relativo.getX();
+		 		int relativey = relativo.getY();
+		 			
+		 		for(int k=0;k<m;k++){
+		 			
+		 			//Se obtiene el X y el Y del componente 
+		 			int x = res.get(k).getX();    int y = res.get(k).getY();
+		 				
+		 			//Se obtiene su valor
+		 			org.apache.poi.xssf.usermodel.XSSFRow rr = sheet.getRow(x);
+		 			XSSFCell  cc = rr.getCell(y);
+		 			String e = getCellValue(cc);
+		 				
+		 			//Se Obtienen las coordenadas NO Relativas al contenedor
+		 			pgr.domain.util.impl.CoordinateImpl cor =(pgr.domain.util.impl.CoordinateImpl) getCoordinates2(x+\"-\"+y);
+		 				
+		 			//Se crea la instancia del label
+		 			tooldataform.formmodel.concreta.LabelView label = tooldataform.formmodel.concreta.ConcretaFactory.eINSTANCE.createLabelView();
+		 			label.setName(e);
+		 				
+		 			//Se setean los bounds
+		 			label.setId(\"label\"+ (char)(k+64));
+		 			label.setWidth(new Integer(-1));
+		    		label.setHeight(new Integer(-1));
+		    		label.setPositionX(new Integer(cor.getX() - relativex + 20 ));
+		    		label.setPositionY(new Integer(cor.getY() - relativey + 10));
+		 				
+		    		//Se agrega al contenedor
+		    		containerTablas.getListIndividualElementDataForm().add(label);
+		 		}
+		 		return containerTablas;
+			
+	")
+			op datatypes.datatypesdataform.Container createContainer(int i, int j);
+
+			@GenModel(body="
+
+		int res=0;
+		for(int i = y-1; i >= 0; i--) {
+			ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(i);
+			for(int j = 0; j < aux.size(); j++)
+				if(aux.get(j) != 0){
+					res++;
+					break;
+				}
+		}
+			
+		return res;
+	")
+			op int getAmountContainersV(int y);
+
+			@GenModel(body="int res=0;
+		for(int i = y-1; i >= 0; i--) {
+			ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(i);
+			for(int j = 0; j < aux.size(); j++)
+				if(aux.get(j) != 0){
+					if(((pgr.domain.util.impl.CoordinateImpl) coordenadasFinContenedores.get(aux.get(j)-1)).getX()== i){
+						 i = ((pgr.domain.util.impl.CoordinateImpl) coordenadasInicioContenedores.get(aux.get(j)-1)).getX();
+						 res+=40;
+						 break;
+					 }
+				}
+		}
+		return res;")
+			op int calculateV(int y);
+
+			@GenModel(body="
+
+		
+		ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(0);
+		int [][] matriz = new int[visitedCells.size()][aux.size()];  
+		
+		for (int i = 0; i < matriz.length; i++) {
+			aux = (ArrayList<Integer>) visitedCells.get(i);
+			for (int j = 0; j < matriz[0].length; j++) {
+				matriz[i][j] = aux.get(j);
+			}
+		}
+		int res = 0;	
+		for(int i = x-1; i >= 0; i--)
+			for(int j = 0; j < matriz.length; j++)
+				if(matriz[j][i]!=0){
+					if(((pgr.domain.util.impl.CoordinateImpl) coordenadasFinContenedores.get(matriz[j][i]-1)).getY()== i){
+						 i = ((pgr.domain.util.impl.CoordinateImpl) coordenadasInicioContenedores.get(matriz[j][i]-1)).getY();
+						 res+=40;
+						 break;
+					 }
+				}
+		return res;
+	")
+			op int calculateH(int x);
+
+			@GenModel(body="
+
+		ArrayList<Integer> aux = (ArrayList<Integer>) visitedCells.get(0);
+		int [][] matriz = new int[visitedCells.size()][aux.size()];  
+		
+		for (int i = 0; i < matriz.length; i++) {
+			aux = (ArrayList<Integer>) visitedCells.get(i);
+			for (int j = 0; j < matriz[0].length; j++) {
+				matriz[i][j] = aux.get(j);
+			}
+		}
+		int res=0;	
+		for(int i = x-1; i >= 0; i--)
+			for(int j = 0; j < matriz.length; j++)
+				if(matriz[j][i]!=0){
+					res++;
+					break;
+			    }
+		return res;
+	")
+			op int getAmountContainersH(int x);
+
+			@GenModel(body="
+
+		int i=0;
+		for(;i<s.length();i++){
+			if( s.charAt(i) >= 65 && s.charAt(i)<=90){
+				continue;
+			}else{
+				break;
+			}
+		}
+		return s.substring(i);
+	")
+			op String capturarNumeros(String s);
+
+			@GenModel(body="int w = toInt(stractColumn(inicio))-1;
+			int h = ( Integer.parseInt(capturarNumeros(inicio))-1);
+			pgr.domain.util.impl.CoordinateImpl c = (pgr.domain.util.impl.CoordinateImpl)createCoordinate(h, w);
+			return c;")
+			op util.Coordinate getCoordinates(String inicio);
+
+			@GenModel(body="		int wf= toInt(stractColumn(fin))-1;
+		int wi = toInt(stractColumn(inicio))-1;
+		int w = ( wf - wi + 1)*100;
+		int h = ( Integer.parseInt(capturarNumeros(fin)) - Integer.parseInt(capturarNumeros(inicio)) + 1)*20;  
+		return createCoordinate(w,h);		
+	
+	")
+			op util.Coordinate getSizes(String inicio, String fin);
+
+			@GenModel(body="
+
+		String res=\"\";
+		for(int i=0;i<s.length();i++){
+			if( s.charAt(i) >= 65 && s.charAt(i)<=90){
+				res+= s.charAt(i);
+			}else{
+				break;
+			}
+		}
+		return res;
+	")
+			op String stractColumn(String s);
+
+			@GenModel(body="String ws1 = inicio.split(\"-\")[1];  String hs1 = inicio.split(\"-\")[0];
+				String ws2 = fin.split(\"-\")[1];     String hs2 = fin.split(\"-\")[0];
+				int w = ( (Integer.parseInt(ws2))  -  (Integer.parseInt(ws1)) + 1 )*100;
+				int h = ( Integer.parseInt(hs2) - Integer.parseInt((hs1)) + 1)*20 ;  
+				return createCoordinate(w, h);")
+			op util.Coordinate getSizes2(String inicio, String fin);
+
+			@GenModel(body="String ws = inicio.split(\"-\")[1];
+				String hs = inicio.split(\"-\")[0];
+				int w = Integer.parseInt(ws)*80;
+				int h = Integer.parseInt(hs)*20;
+				return createCoordinate(w, h);")
+			op util.Coordinate getCoordinates2(String inicio);
+
+			@GenModel(body="
+
+		int res =0;
+		int m = s.length()-1;
+		int e=0;
+		for(int i=m;i>=0;i--){
+			res += ( (s.charAt(i) - 64))*pow(26,e);
+			e++;
+		}
+		return res;")
+			op int toInt(String s);
+
+			@GenModel(body="
+
+		int res =1;	
+		for(int i=0;i<e;i++){
+			res*=b;
+		}
+		return res;
+	")
+			op int pow(int b, int e);
+
+			@GenModel(body="
+
+		int cel_Type = cell.getCellType();                           
+	     String res=\"\";
+		 switch(cel_Type){
+	     	case 0: res+=cell.getNumericCellValue();
+	             	break;
+	     	case 1: res+=cell.getStringCellValue();
+	     			break;
+	     	case 4:res+=cell.getBooleanCellValue();
+	             	break;
+	     	case 3:res+=\"\";
+	     			break; 
+	     }
+		 return res;
+	")
+			op String getCellValue(datatypes.datatypeapachepoi.XSSFCell cell);
+
+			@GenModel(body="pgr.domain.util.impl.CoordinateImpl c = (pgr.domain.util.impl.CoordinateImpl)
+				 pgr.domain.util.UtilFactory.eINSTANCE.createCoordinate();
+		 c.setX(x); c.setY(y);
+		return c;")
+			op util.Coordinate createCoordinate(int x, int y);
+			attr datatypes.datatypesdataform.ModelFactory modelFactory;
+			attr datatypes.datatypesdataform.Project project;
+			attr datatypes.datatypesdataform.DataForm_Diagram dataformDiagram;
+			attr datatypes.datatypesdataform.Domain_Diagram domainDiagram;
+			attr datatypes.datatypesdataform.Clase domainClass;
+			attr datatypes.datatypesdataform.Interface interface1;
+			attr datatypes.datatypesdataform.Container container;
+			attr String path;
+			attr String absolutePath;
+			attr String dimens;
+			attr int amountContainers;
+			attr int amountTables;
+			attr int relativeX;
+			attr int relativeY;
+			attr int dataStartRow;
+			attr int dataStartCell;
+			attr int amountCombos;
+			attr String reportName;
+			attr int containerEndRow;
+			attr int containerEndCell;
+			attr datatypes.datatypeapachepoi.XSSFWorkbook workbook;
+			attr datatypes.datatypeapachepoi.XSSFSheet sheet;
+			attr datatypes.datatypesjavautil.ArrayList adjacenciesX;
+			attr datatypes.datatypesjavautil.ArrayList adjacenciesY;
+			attr datatypes.datatypesjavautil.ArrayList visitedCells;
+			attr datatypes.datatypesjavautil.ArrayList comboNamesSorted;
+			attr datatypes.datatypesjavautil.ArrayList coordenadasComboBox;
+			attr datatypes.datatypesjavautil.ArrayList listTables;
+			attr datatypes.datatypesjavautil.ArrayList listComboBox;
+			attr datatypes.datatypesjavautil.ArrayList listComboCordinate;
+			attr datatypes.datatypesjavautil.ArrayList mergedRegions;
+			attr datatypes.datatypesjavautil.ArrayList coordenadasInicioContenedores;
+			attr datatypes.datatypesjavautil.ArrayList coordenadasFinContenedores;
+			attr datatypes.datatypesjavautil.ArrayList containers;
+			transient ref Domain#theDataformGenerator theDomain;
+		}
+
+		class ExcelGenerator {
+
+			@GenModel(body="
+
+		
+
+			this.absolutePath = absolutePath;
+			this.namesFilters = listFilter;
+			this.posFilters = posFilters;
+			this.posRowIniData = posRowIniData;
+			this.posCellIniData = posCellIniData;
+			this.queryString = queryString;
+			firstRowFilter = 2;
+			
+			titlesMap = new HashMap<String, Integer>();
+			
+			tuplesList = new ArrayList<String>();
+			columns  =    new ArrayList<String>();
+			columnsNames = new ArrayList<String>();
+			columnsIndex = new ArrayList<Integer>();
+			
+			this.modelFactoryQM = modelFactoryQM;
+			
+			result = modelFactoryQM.getFactoryModeloConsultas().getListModeloConsulta().get(0).getListResultado().get(0);
+			
+			workbook = readFile();
+			
+			createSheetQuery();
+		
+	")
+			op void ExcelGenerator(String absolutePath, datatypes.datatypesjavautil.ArrayList listFilter, datatypes.datatypesjavautil.ArrayList posFilters, datatypes.datatypesqm.ModelFactory modelFactoryQM, int posRowIniData, int posCellIniData, String queryString);
+
+			@GenModel(body="
+
+		
+		
+				this.absolutePath = absolutePath;
+				this.namesFilters=listFilter;
+				this.posFilters = posFilters;
+				posCellIniData = ( (pgr.domain.util.impl.CoordinateImpl)posFilters.get( posFilters.size()-1)).getY();
+				posRowIniData  = ( (pgr.domain.util.impl.CoordinateImpl)posFilters.get( posFilters.size()-1)).getX();
+				this.posFilters.remove(posFilters.size()-1);
+				
+				columnsNames = new ArrayList<String>();
+				columnsIndex = new ArrayList<Integer>();
+				tuplesList = new ArrayList<String>();
+				titlesMap = new HashMap<String, Integer>();
+				firstRowFilter = 2;
+			
+	")
+			op void ExcelGenerator(String absolutePath, datatypes.datatypesjavautil.ArrayList listFilter, datatypes.datatypesjavautil.ArrayList posFilters);
+
+			@GenModel(body="
+
+		
+			sheet = workbook.getSheetAt(0);
+			
+			if(workbook.getSheet(\"Datos\")==null){
+				newDataSheet = workbook.createSheet(\"Datos\");
+			}else{
+				workbook.removeSheetAt(workbook.getSheetIndex(\"Datos\"));
+				newDataSheet = workbook.createSheet(\"Datos\");
+			}
+			
+			resultSet = getResulSet(dataSheet);
+			createNames();
+			init();
+			workbook.setActiveSheet(0);
+			sheet.showInPane(0, 0);
+			saveExcel();
+			execute(namesFilters, titlesMap, acc, posRowIniData, posCellIniData);
+			workbook.setSheetHidden(workbook.getSheetIndex(\"Query\"), true);
+			workbook.setSheetHidden(workbook.getSheetIndex(\"ResultSet\"), true);
+			workbook.setSheetHidden(workbook.getSheetIndex(\"Datos\"), true);
+			workbook.setSheetHidden(workbook.getSheetIndex(\"Columns\"), true);
+			saveExcel();
+		
+	")
+			op void createRelations();
+
+			@GenModel(body="		titlesMap = getTitles(resultSet);
+		setResult = removeDuplicateValues(resultSet);
+
+		String cadena = (String) namesFilters.get(0);
+		Integer n = (Integer) titlesMap.get(cadena);
+		listFixed = getArrayListFromSet((Set) setResult.get(n));
+		
+		createListBox(listFixed, sheet, ((pgr.domain.util.impl.CoordinateImpl) posFilters.get(0)).getX(),
+				((pgr.domain.util.impl.CoordinateImpl) posFilters.get(0)).getY());
+
+		// Se crean las dependencias de los filtros
+		ArrayList<HashMap<String, Set<String>>> listDependenceMap = createDependence(resultSet, titlesMap,
+				namesFilters);
+
+		acc = 1;
+
+		// Se escribe en la sheet para utilizar los datos dentro del workbook
+		for (int i = 0; i < listDependenceMap.size(); i++) {
+			buildDataSheet(newDataSheet, listDependenceMap.get(i), acc);
+			acc += listDependenceMap.get(i).size();
+		}")
+			op void init();
+
+			@GenModel(body="
+
+		
+		
+				
+				//dataSheet = workbook.createSheet();
+					
+		gestionmodelosconsultas.modeloconsultas.resultset.ElementoModeloResultado element;
+				
+				for(int i=0;i<result.getListResultElement().size();i++){
+					element = (gestionmodelosconsultas.modeloconsultas.resultset.ElementoModeloResultado) result.getListResultElement().get(i);
+					String s = getAtributtes(element);
+					exploreResult(element.getListElementoModeloResultado(),s);	
+				}
+				
+				dataSheet = workbook.createSheet();
+				
+				
+				for(int i=0;i<tuplesList.size();i++){
+					String s= (String) tuplesList.get(i);
+					org.apache.poi.ss.usermodel.Row row = dataSheet.createRow(i);
+					
+					String tuplas[] = s.split(\",\");
+					
+					for(int j=0;j<indexColum.size();j++){
+						org.apache.poi.ss.usermodel.Cell c = row.createCell(j);
+						c.setCellValue(  tuplas[ (int) indexColum.get(i) ] );
+					}
+				}
+				
+				saveExcel();
+			
+	")
+			op void initDataSheet(datatypes.datatypesjavautil.ArrayList indexColum);
+
+			@GenModel(body="
+
+		
+		try {
+			
+			java.sql.ResultSetMetaData data = rs.getMetaData();
+			
+			int column = data.getColumnCount();	
+			
+			for(int i=1;i<=column ;i++){
+				String columnName = data.getTableName(i)+\".\"+data.getColumnName(i);
+				columns.add(columnName);
+			}
+			
+			columnSheet = workbook.getSheet(\"Columns\");
+			if(columnSheet == null)
+				columnSheet = workbook.createSheet(\"Columns\");
+			
+			createTable(columns, 1, columnSheet);
+			saveExcel();
+			
+		} catch (java.sql.SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	")
+			op void writeFileColumns(datatypes.ResultSet rs);
+
+			@GenModel(body="
+
+		
+		org.apache.poi.xssf.usermodel.XSSFTable table =  sheet.createTable();
+		
+		org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTable cttable = table.getCTTable();
+		
+		org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTableStyleInfo table_style = cttable.addNewTableStyleInfo();
+	    table_style.setName(\"TableStyleMedium9\"); 
+	    table_style.setShowColumnStripes(false); //showColumnStripes=0
+	    table_style.setShowRowStripes(true); //showRowStripes=1
+		
+	    /* Define the data range including headers */
+	    org.apache.poi.hssf.util.AreaReference my_data_range = 
+	    		new org.apache.poi.hssf.util.AreaReference(new org.apache.poi.hssf.util.CellReference(0, 0), 
+	    								new org.apache.poi.hssf.util.CellReference(size, columns.size()-1));
+	    
+	    /* Set Range to the Table */ 
+	    cttable.setRef(my_data_range.formatAsString());
+	    cttable.setDisplayName(sheet.getSheetName());      /* this is the display name of the table */
+	    cttable.setName(sheet.getSheetName());    /* This maps to \"displayName\" attribute in <table>, OOXML */            
+	    cttable.setId( (long) (workbook.getSheetIndex(sheet)+1) ); //id attribute against table as long value
+	    
+	    org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTableColumns columnsTable = cttable.addNewTableColumns();
+	    columnsTable.setCount(columns.size()); //define number of columns
+	    
+	    /* Define Header Information for the Table */
+	    org.apache.poi.xssf.usermodel.XSSFRow row = sheet.createRow(0);
+	    XSSFCell cell;
+	    	    
+	    for (int i = 0; i < columns.size(); i++) {
+	    	org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTableColumn column = columnsTable.addNewTableColumn();   
+	    	column.setName(\"Column\");      
+	        column.setId(i+1);
+	        cell = row.createCell(i);
+            cell.setCellValue((String)columns.get(i));
+	    }
+	")
+			op void createTable(datatypes.datatypesjavautil.ArrayList columns, int size, datatypes.datatypeapachepoi.XSSFSheet sheet);
+
+			@GenModel(body="                                                                     try {
+					workbook = readFile();
+					columnSheet = workbook.getSheet(\"Columns\");
+					org.apache.poi.xssf.usermodel.XSSFRow row = columnSheet.getRow(1);
+					XSSFCell cell;
+					HashMap<String, int[]> map = new HashMap<String, int[]>();
+		
+					for (int i = 0; i <= row.getLastCellNum(); i++) {
+						cell = row.getCell(i);
+		
+						if (cell != null) {
+							String value = getCellValue(cell);
+							if (value != \"\") {
+								int a[] = new int[100];
+		
+								for (int j = 0; j < 100; j++)
+									a[j] = -1;
+		
+								if (value.contains(\".\")) {
+									String ss[] = value.split(\"\\.\");
+									String name = ss[0];
+									int order = Integer.parseInt(ss[1]);
+		
+									if (map.containsKey(name)) {
+										a = map.get(name);
+										a[order - 1] = i;
+										map.put(name, a);
+									} else {
+										a[order - 1] = i;
+										map.put(name, a);
+		
+									}
+		
+								} else {
+									a[0] = i;
+									map.put(value, a);
+								}
+							}
+						}
+					}
+		
+					int size = 0;
+					for (java.util.Map.Entry<String, int[]> entry : map.entrySet()) {
+						String name = entry.getKey();
+						columnsNames.add(name);
+						size++;
+					}
+		
+					java.sql.ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+					int column = resultSetMetaData.getColumnCount();
+		
+					while (resultSet.next()) {
+						String string = \"\";
+		
+						for (int i = 1; i <= column; i++) {
+							if (i == column)
+								string += resultSet.getString(i);
+							else
+								string += resultSet.getString(i) + \",\";
+						}
+						tuplesList.add(string);
+					}
+		
+					if (namesFilters.size() == 0) {
+						dataSheet = workbook.getSheetAt(0);
+		
+						for (int i = 0, rowIndex = posRowIniData; i < tuplesList.size(); i++, rowIndex++) {
+		
+							String s = (String) tuplesList.get(i);
+							org.apache.poi.xssf.usermodel.XSSFRow r = dataSheet.getRow(rowIndex);
+		
+							if (r == null)
+								r = dataSheet.createRow(rowIndex);
+							String tuplas[] = s.split(\",\");
+							int cellIndex = posCellIniData;
+		
+							for (java.util.Map.Entry<String, int[]> entry : map.entrySet()) {
+								int orders[] = entry.getValue();
+								String concat = \"\";
+		
+								for (int k = 0; k < orders.length && orders[k] != -1; k++) {
+									concat += tuplas[orders[k]] + \" \";
+								}
+								org.apache.poi.xssf.usermodel.XSSFCell c = r.createCell(cellIndex);
+								c.setCellValue(concat.substring(0, concat.length() - 1));
+								cellIndex++;
+							}
+						}
+		
+					} else {
+		
+						workbook.setSheetHidden(workbook.getSheetIndex(\"Columns\"), true);
+						if (workbook.getSheet(\"ResultSet\") == null)
+							dataSheet = workbook.createSheet(\"ResultSet\");
+						else {
+							workbook.removeSheetAt(workbook.getSheetIndex(\"ResultSet\"));
+							dataSheet = workbook.createSheet(\"ResultSet\");
+						}
+		
+						createTable(columnsNames, tuplesList.size(), dataSheet);
+		
+						for (int i = 0; i < tuplesList.size(); i++) {
+		
+							String s = (String) tuplesList.get(i);
+							org.apache.poi.xssf.usermodel.XSSFRow r = dataSheet.createRow(i + 1);
+		
+							String tuplas[] = s.split(\",\");
+		
+							int j = 0;
+							for (java.util.Map.Entry<String, int[]> entry : map.entrySet()) {
+		
+								int orders[] = entry.getValue();
+		
+								String concat = \"\";
+								for (int k = 0; k < orders.length && orders[k] != -1; k++) {
+									concat += tuplas[orders[k]] + \" \";
+								}
+								org.apache.poi.xssf.usermodel.XSSFCell c = r.createCell(j);
+								c.setCellValue(concat.substring(0, concat.length() - 1));
+								j++;
+							}
+						}
+					}
+		
+					workbook.setSheetHidden(workbook.getSheetIndex(\"Columns\"), true);
+					workbook.setSheetHidden(workbook.getSheetIndex(\"Query\"), true);
+					saveExcel();
+				} catch (java.sql.SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			
+	")
+			op void createDataSheet(datatypes.ResultSet resultSet);
+
+			@GenModel(body="
+
+		
+		
+				
+				if(elementResultList.size() == 0){
+					tuplesList.add(tuple);
+					return;
+				}
+				
+				gestionmodelosconsultas.modeloconsultas.resultset.ElementoModeloResultado element;
+				for(int i=0;i < elementResultList.size();i++){
+					element = (gestionmodelosconsultas.modeloconsultas.resultset.ElementoModeloResultado) elementResultList.get(i);
+					String s = getAtributtes(element);
+					exploreResult(element.getListElementoModeloResultado() ,tuple+ \",\" +s);
+				}
+			
+	")
+			op void exploreResult(datatypes.EList elementResultList, String tuple);
+
+			@GenModel(body="
+
+		
+		// Se escriben las formulas de indirecto en el Excel
+		setIndirect();
+
+		// Se escribe la formula de contar valores del resultset en el Excel
+		countFormula(acc + 1, 0);
+
+		// Se escribe la formula que actualiza los datos en la tabla
+		theFormula(posRowIniData+1, posCellIniData, acc + 1, 0, (int) titlesMap.get(listFilter.get(listFilter.size() - 1)), ((ArrayList<String> )resultSet.get(0) ).size(), resultSet.size());
+	")
+			op void execute(datatypes.datatypesjavautil.ArrayList listFilter, datatypes.datatypesjavautil.HashMapStringElementoConsulta titlesMap, int acc, int posRowIniData, int posCellIniData);
+
+			@GenModel(body="
+
+		// Se lee el archivo
+		try{
+			java.io.FileInputStream file = new java.io.FileInputStream(new java.io.File(absolutePath));
+			XSSFWorkbook workbook = new XSSFWorkbook(file);
+			return workbook;
+		}catch (java.io.FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (java.io.IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	")
+			op datatypes.datatypeapachepoi.XSSFWorkbook readFile();
+
+			@GenModel(body="
+
+		// Se escribe el archivo con las modificaciones
+		try{
+			java.io.FileOutputStream fileOutputStream;
+			fileOutputStream = new java.io.FileOutputStream(absolutePath);
+			workbook.write(fileOutputStream);
+			fileOutputStream.close();
+		}catch (java.io.FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (java.io.IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	")
+			op void saveExcel();
+
+			@GenModel(body="
+
+		// Se borran los nombres del workbook para actualizarlos
+		deleteNames(workbook);
+
+		// Se crean los nombres en el workbook de las columnas del result set
+		nameTableToNameRange(dataSheet, (ArrayList<String>)resultSet.get(0));
+	")
+			op void createNames();
+
+			@GenModel(body="
+
+		
+		// Se obtienen las sheet necesarias para el proceso
+		if (workbook.getSheet(\"Datos\") == null) {
+			newDataSheet = workbook.createSheet(\"Datos\");
+		} else {
+			workbook.removeSheetAt(workbook.getSheetIndex(\"Datos\"));
+			newDataSheet = workbook.createSheet(\"Datos\");
+		}
+		
+		int numSheet = workbook.getNumberOfSheets();
+		dataSheet = workbook.getSheetAt(numSheet - 2);
+		sheet = workbook.getSheetAt(0);
+	")
+			op void readSheet();
+
+			@GenModel(body="
+
+		return org.apache.poi.hssf.util.CellReference.convertNumToColString(col);
+	")
+			op String getNumToCol(int col);
+
+			@GenModel(body="
+
+
+		ArrayList<ArrayList<String>> resultSet = new ArrayList<>();
+
+		java.util.Iterator<org.apache.poi.ss.usermodel.Row> rowIterator = sheet.iterator();
+		org.apache.poi.ss.usermodel.Row row;
+		
+		while (rowIterator.hasNext()) {
+			row = rowIterator.next();
+
+			java.util.Iterator<org.apache.poi.ss.usermodel.Cell> cellIterator = row.cellIterator();
+			org.apache.poi.ss.usermodel.Cell celda;
+			ArrayList<String> tupla = new ArrayList<>();
+			while (cellIterator.hasNext()) {
+				celda = cellIterator.next();
+				celda.setCellType(org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING);
+				tupla.add(celda.getStringCellValue());
+			}
+			resultSet.add(tupla);
+		}
+
+		return resultSet;
+	")
+			op datatypes.datatypesjavautil.ArrayList getResulSet(datatypes.datatypeapachepoi.XSSFSheet sheet);
+
+			@GenModel(body="
+
+		Set<String> setColumn = new java.util.HashSet<>();
+		for (int i = 1; i < resultSet.size(); i++) {
+			setColumn.add( ( (ArrayList<String> )resultSet.get(i) ).get(column));
+		}
+		return setColumn;
+	")
+			op datatypes.datatypesjavautil.Set getSetColum(datatypes.datatypesjavautil.ArrayList resultSet, int column);
+
+			@GenModel(body="
+
+		
+		
+				HashMap<String, Set<String>> mapColumn = new HashMap<>();
+				for (int i = 1; i < resultSet.size(); i++) {
+					String key = ((ArrayList<String>) resultSet.get(i)).get(columnSource);
+					String value = ((ArrayList<String>) resultSet.get(i)).get(columnTarget);
+					if (mapColumn.get(key) == null) {
+						Set<String> name = new java.util.HashSet<>();
+						name.add(value);
+						mapColumn.put(key, name);
+					} else {
+						mapColumn.get(key).add(value);
+					}
+				}
+				return mapColumn;
+			
+	")
+			op datatypes.datatypesjavautil.HashMapStringElementoConsulta getMapOfColumnByColumn(datatypes.datatypesjavautil.ArrayList resultSet, int columnSource, int columnTarget);
+
+			@GenModel(body="org.apache.poi.xssf.usermodel.XSSFWorkbook workbook = (XSSFWorkbook) sheet.getWorkbook();
+		org.apache.poi.ss.usermodel.Name name = null;
+
+		name = workbook.createName();
+		String replaceAll = ((String) namesFilters.get(0) + \"s\").replaceAll(\" \", \"_\");
+		name.setNameName(replaceAll);
+		String colIni = getNumToCol(0);
+		XSSFSheet sheet2 = workbook.getSheet(\"Datos\");
+		org.apache.poi.ss.usermodel.Row rowS = sheet2.createRow(0);
+		int k = 0;
+		for (; k < comboNames.size(); k++) {
+			org.apache.poi.ss.usermodel.Cell cellS = rowS.createCell(k);
+			cellS.setCellValue((String)comboNames.get(k));
+		}
+		String colFin = getNumToCol(k - 1);
+
+		name.setRefersToFormula(
+				sheet2.getSheetName() + \"!$\" + colIni + \"$\" + 1 + \":$\" + colFin + \"$\" + 1);
+		System.out.println(	sheet2.getSheetName() + \"!$\" + colIni + \"$\" + 1 + \":$\" + colFin + \"$\" + 1);
+		org.apache.poi.ss.usermodel.DataValidationHelper helper = sheet.getDataValidationHelper();
+		org.apache.poi.ss.usermodel.DataValidationConstraint constraint = null;
+		org.apache.poi.ss.usermodel.DataValidation validation = null;
+		
+		constraint = helper.createFormulaListConstraint(replaceAll);
+		System.out.println(\"\"+(String) namesFilters.get(0)+\"s\");
+		validation = helper.createValidation(constraint,
+				new org.apache.poi.ss.util.CellRangeAddressList(
+						((pgr.domain.util.impl.CoordinateImpl) posFilters.get(0)).getX(),
+						((pgr.domain.util.impl.CoordinateImpl) posFilters.get(0)).getX(),
+						((pgr.domain.util.impl.CoordinateImpl) posFilters.get(0)).getY(),
+						((pgr.domain.util.impl.CoordinateImpl) posFilters.get(0)).getY()));
+		sheet.addValidationData(validation);
+	")
+			op void createListBox(datatypes.datatypesjavautil.ArrayList comboNames, datatypes.datatypeapachepoi.XSSFSheet sheet, int row, int col);
+
+			@GenModel(body="
+
+		org.apache.poi.xssf.usermodel.XSSFRow row = null;
+		XSSFCell cell = null;
+		org.apache.poi.ss.usermodel.Name name = null;
+		int i = rowN;
+		
+		HashMap<String, Set<String>> map = mp;
+		java.util.Iterator<String> it = map.keySet().iterator();
+		
+		while (it.hasNext()) {
+			int j = 0; 
+			String key = (String) it.next();
+			row = sheet.createRow(i);
+			for (String value : map.get(key)) {
+				cell = row.createCell(j);
+				cell.setCellValue(value);
+				j++;
+			}
+			name = sheet.getWorkbook().createName();
+			name.setNameName(key.replaceAll(\" \", \"_\"));
+			String colIni = getNumToCol(0);
+			String colFin = getNumToCol(j - 1);
+			name.setRefersToFormula(
+					sheet.getSheetName() + \"!$\" + colIni + \"$\" + (i + 1) + \":$\" + colFin + \"$\" + (i + 1));
+			i++;
+		}
+	")
+			op void buildDataSheet(datatypes.datatypeapachepoi.XSSFSheet sheet, datatypes.datatypesjavautil.HashMapStringElementoConsulta mp, int rowN);
+
+			@GenModel(body="
+
+		
+		
+				org.apache.poi.ss.usermodel.DataValidationHelper helper = sheet.getDataValidationHelper();
+				org.apache.poi.ss.usermodel.DataValidationConstraint constraint = null;
+				org.apache.poi.ss.usermodel.DataValidation validation = null;
+				for (int i = 1; i < posFilters.size(); i++) {
+					String cell = getNumToCol(  ((pgr.domain.util.impl.CoordinateImpl)posFilters.get(i-1)).getY());
+					constraint = helper.createFormulaListConstraint(
+							\"INDIRECT(SUBSTITUTE(\" + sheet.getSheetName() + \"!$\" + cell + \"$\" +   ( ((pgr.domain.util.impl.CoordinateImpl)posFilters.get(i-1)).getX() + 1) + \",\\" \\", \\"_\\"))\");			
+					validation = helper.createValidation(constraint, new org.apache.poi.ss.util.CellRangeAddressList(  ((pgr.domain.util.impl.CoordinateImpl) posFilters.get(i)).getX(),
+							((pgr.domain.util.impl.CoordinateImpl)posFilters.get(i)).getX(),((pgr.domain.util.impl.CoordinateImpl) posFilters.get(i)).getY(), ((pgr.domain.util.impl.CoordinateImpl) posFilters.get(i)).getY()));
+					sheet.addValidationData(validation);
+				}
+			
+	")
+			op void setIndirect();
+
+			@GenModel(body="
+
+		int n = workbook.getNumberOfNames();
+		while (n != 0) {
+			String del = workbook.getNameAt(0).getNameName();
+			workbook.removeName(del);
+			n--;
+		}
+	")
+			op void deleteNames(datatypes.datatypeapachepoi.XSSFWorkbook workbook);
+
+			@GenModel(body="
+
+		XSSFWorkbook workbook = (XSSFWorkbook) sheet.getWorkbook();
+		org.apache.poi.ss.usermodel.Name name = null;
+		for (int i = 0; i < names.size(); i++) {
+			name = workbook.createName();
+			name.setNameName( ( (String) names.get(i)).replaceAll(\" \", \"_\"));
+			name.setRefersToFormula(\"ResultSet[\" + names.get(i) + \"]\");
+		}
+	")
+			op void nameTableToNameRange(datatypes.datatypeapachepoi.XSSFSheet sheet, datatypes.datatypesjavautil.ArrayList names);
+
+			@GenModel(body="
+
+		
+		
+				org.apache.poi.xssf.usermodel.XSSFRow row = newDataSheet.createRow(targetRow);
+				XSSFCell cell = row.createCell(targetCell);
+				String formula = \"COUNTIFS(ResultSet[\"+namesFilters.get(0)+\"],\"+sheet.getSheetName()+\"!\"+getNumToCol(  ((pgr.domain.util.impl.CoordinateImpl)posFilters.get(0)).getY())+(  ((pgr.domain.util.impl.CoordinateImpl)posFilters.get(0)).getX()+1);
+				for(int i = 1; i < namesFilters.size();i++){
+					formula+=\",ResultSet[\"+namesFilters.get(i)+\"],\"+sheet.getSheetName()+\"!\"+getNumToCol( ((pgr.domain.util.impl.CoordinateImpl)posFilters.get(i)).getY())+(((pgr.domain.util.impl.CoordinateImpl)posFilters.get(i)).getX()+1);
+				}
+				formula+=\")\";
+				cell.setCellFormula(formula);
+			
+	")
+			op void countFormula(int targetRow, int targetCell);
+
+			@GenModel(body="
+
+	
+	
+			
+			String sheet1 = sheet.getSheetName();
+			String sheet2 = dataSheet.getSheetName();
+			
+			for (int i = 0; i < sizeY; i++) {
+				for (int j = 0; j < sizeX; j++) {
+					String filas = \"ROWS(\" + sheet1 + \"!\" + getNumToCol(targetCell + j) + \"$\" + targetRow + \":\" + sheet1 + \"!\"
+						+ getNumToCol(targetCell + j) + (targetRow + i) + \")\";
+				int n = namesFilters.size();
+				String constraint =\"((\"+ ((String)namesFilters.get(n-1)).replaceAll(\" \", \"_\")+\"=$\"+getNumToCol( ((pgr.domain.util.impl.CoordinateImpl)posFilters.get(n-1)).getY())+\"$\"+(((pgr.domain.util.impl.CoordinateImpl)posFilters.get(n-1)).getX()+1)+\")\";
+				for (int k = n-2; k >= 0; k--) {
+					constraint += \"*(\"+ ((String)namesFilters.get(k)).replaceAll(\" \", \"_\") + \"=$\" + getNumToCol( ((pgr.domain.util.impl.CoordinateImpl)posFilters.get(k)).getY()) + \"$\" + ( ((pgr.domain.util.impl.CoordinateImpl)posFilters.get(k)).getX()+1)+\")\";
+				}
+				constraint+=\")\";
+				String si = \"IF(\" + constraint + \",ROW(\" + ( (String)namesFilters.get(namesFilters.size()-1) ) .replaceAll(\" \", \"_\")
+						+ \")-ROW(\" + sheet2 + \"!$\" + getNumToCol(firstCellFilter) + \"$\" + firstRowFilter + \")+1)\";
+				String formula = \"IF(\" + filas + \"<=\" + newDataSheet.getSheetName() + \"!$\" + getNumToCol(countCell) + \"$\"
+						+ (countRow + 1) + \",INDEX(INDIRECT(SUBSTITUTE(\" + getNumToCol(targetCell + j) + \"$\" + (targetRow - 1)
+						+ \",\\" \\",\\"_\\")),SMALL(\" + si + \",\" + filas + \")),\\"\\")\";
+				sheet.setArrayFormula(formula,
+						new org.apache.poi.ss.util.CellRangeAddress((targetRow + i) - 1, (targetRow + i) - 1, targetCell + j, targetCell + j));
+			}
+		}
+
+	
+")
+			op void theFormula(int targetRow, int targetCell, int countRow, int countCell, Integer firstCellFilter, int sizeX, int sizeY);
+
+			@GenModel(body="
+
+		
+		ArrayList< HashMap<String, Set<String>>> listDependenceMap = new ArrayList<>();
+		
+		for (int i = 1; i < listFilter.size(); i++)
+			listDependenceMap.add(getMapOfColumnByColumn(resultSet,(int) titlesMap.get(listFilter.get((i - 1))),
+					(int)titlesMap.get(listFilter.get(i))));
+		
+		return listDependenceMap;
+	")
+			op datatypes.datatypesjavautil.ArrayList createDependence(datatypes.datatypesjavautil.ArrayList resultSet, datatypes.datatypesjavautil.HashMapStringElementoConsulta titlesMap, datatypes.datatypesjavautil.ArrayList listFilter);
+
+			@GenModel(body="
+
+		HashMap<String, Integer> titlesMap = new HashMap<>();
+		ArrayList<ArrayList<String>> result = resultSet;
+		for (int i = 0; i < result.get(0).size(); i++) {
+			String key = result.get(0).get(i);
+			titlesMap.put(key, new Integer(i));
+		}
+		return titlesMap;
+	")
+			op datatypes.datatypesjavautil.HashMapStringElementoConsulta getTitles(datatypes.datatypesjavautil.ArrayList resultSet);
+
+			@GenModel(body="
+
+		ArrayList<Set<String>> setResult = new ArrayList<>();
+		for (int i = 0; i <((ArrayList<String>) resultSet.get(0)).size(); i++)
+			setResult.add(getSetColum(resultSet, i));
+		return setResult;
+	")
+			op datatypes.datatypesjavautil.ArrayList removeDuplicateValues(datatypes.datatypesjavautil.ArrayList resultSet);
+
+			@GenModel(body="String answer = \"\";
+
+		if (element instanceof gestionmodelosconsultas.modeloconsultas.resultset.resultquien.UnidadOrganizacional) {
+
+			gestionmodelosconsultas.modeloconsultas.resultset.resultquien.UnidadOrganizacional unidadOrganizacional = (gestionmodelosconsultas.modeloconsultas.resultset.resultquien.UnidadOrganizacional) element;
+
+			if (unidadOrganizacional.getIdUnidadOrganizacional() != null)
+				answer += unidadOrganizacional.getIdUnidadOrganizacional();
+			if (unidadOrganizacional.getNombre() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += unidadOrganizacional.getNombre();
+			}
+			if (unidadOrganizacional.getDescripcion() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += unidadOrganizacional.getDescripcion();
+			}
+				
+		} else if (element instanceof gestionmodelosconsultas.modeloconsultas.resultset.resultquien.Actor) {
+
+			gestionmodelosconsultas.modeloconsultas.resultset.resultquien.Actor actor = (gestionmodelosconsultas.modeloconsultas.resultset.resultquien.Actor) element;
+			
+			if (actor.getIdActor() != null)
+				answer += actor.getIdActor();
+			if (actor.getNombre() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += actor.getNombre();
+			}
+			if (actor.getApellido() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += actor.getApellido();
+			}
+			if (actor.getEmail() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += actor.getEmail();
+			}
+			if (actor.getDescripcion() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += actor.getDescripcion();
+			}
+			
+			
+		} else if (element instanceof gestionmodelosconsultas.modeloconsultas.resultset.resultquien.Rol) {
+
+			gestionmodelosconsultas.modeloconsultas.resultset.resultquien.Rol rol = (gestionmodelosconsultas.modeloconsultas.resultset.resultquien.Rol) element;
+			
+			if (rol.getIdRol() != null)
+				answer += rol.getIdRol();
+			if (rol.getNombre() != null)
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += rol.getNombre();
+			if (rol.getDescripcion() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += rol.getDescripcion();
+			}
+
+		} else if (element instanceof gestionmodelosconsultas.modeloconsultas.resultset.resultquien.Contacto) {
+
+			gestionmodelosconsultas.modeloconsultas.resultset.resultquien.Contacto contacto = (gestionmodelosconsultas.modeloconsultas.resultset.resultquien.Contacto) element;
+			
+			if (contacto.getIdContacto() != null)
+				answer += contacto.getIdContacto();
+			if (contacto.getNombre() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += contacto.getNombre();
+			}
+			if (contacto.getUsername() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += contacto.getUsername();
+			}
+			if (contacto.getTelefono() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += contacto.getTelefono();
+			}
+			if (contacto.getPassword() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += contacto.getPassword();
+			}
+			if (contacto.getDescripcion() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += contacto.getDescripcion();
+			}
+		} else if (element instanceof gestionmodelosconsultas.modeloconsultas.resultset.resultque.Documento) {
+
+			gestionmodelosconsultas.modeloconsultas.resultset.resultque.Documento documento = (gestionmodelosconsultas.modeloconsultas.resultset.resultque.Documento) element;
+
+			if (documento.getIdDocumento() != null)
+				answer += documento.getIdDocumento();
+			if (documento.getTitulo() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += documento.getTitulo();
+			}
+			if (documento.getTipo() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += documento.getTipo();
+			}
+			if (documento.getFechaCreacion() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += documento.getFechaCreacion();
+			}
+			if (documento.getEstado() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += documento.getEstado();
+			}
+			if (documento.getComentarios() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += documento.getComentarios();
+			}
+			if (documento.getEdicion() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += documento.getEdicion();
+			}
+			if (documento.getAnexo() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += documento.getAnexo();
+			}
+			if (documento.getVigencia() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += documento.getVigencia();
+			}
+		} else if (element instanceof gestionmodelosconsultas.modeloconsultas.resultset.resultque.Comunicacion) {
+
+			gestionmodelosconsultas.modeloconsultas.resultset.resultque.Comunicacion comunicacion = (gestionmodelosconsultas.modeloconsultas.resultset.resultque.Comunicacion) element;
+
+			if (comunicacion.getIdComunicacion() != null)
+				answer += comunicacion.getIdComunicacion();
+			if (comunicacion.getAsunto() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += comunicacion.getAsunto();
+			}
+		} else if (element instanceof gestionmodelosconsultas.modeloconsultas.resultset.resultcomo.ActividadProceso) {
+
+			gestionmodelosconsultas.modeloconsultas.resultset.resultcomo.ActividadProceso actividadProceso = (gestionmodelosconsultas.modeloconsultas.resultset.resultcomo.ActividadProceso) element;
+
+			if (actividadProceso.getIdActividadProceso() != null)
+				answer += actividadProceso.getIdActividadProceso();
+			if (actividadProceso.getNombre() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += actividadProceso.getNombre();
+			}
+			if (actividadProceso.getDescripcion() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += actividadProceso.getDescripcion();
+			}
+			if (actividadProceso.getFechaInicio() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += actividadProceso.getFechaInicio();
+			}
+			if (actividadProceso.getFechaFin() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += actividadProceso.getFechaFin();
+			}
+		} else if (element instanceof gestionmodelosconsultas.modeloconsultas.resultset.resultcomo.InstanciaProceso) {
+
+			gestionmodelosconsultas.modeloconsultas.resultset.resultcomo.InstanciaProceso instanciaProceso = (gestionmodelosconsultas.modeloconsultas.resultset.resultcomo.InstanciaProceso) element;
+
+			if (instanciaProceso.getIdInstanciaProceso() != null)
+				answer += instanciaProceso.getIdInstanciaProceso();
+			if (instanciaProceso.getNombre() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += instanciaProceso.getNombre();
+			}
+			if (instanciaProceso.getDescripcion() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += instanciaProceso.getDescripcion();
+			}
+		} else if (element instanceof gestionmodelosconsultas.modeloconsultas.resultset.resultdonde.Deposito) {
+
+			gestionmodelosconsultas.modeloconsultas.resultset.resultdonde.Deposito deposito = (gestionmodelosconsultas.modeloconsultas.resultset.resultdonde.Deposito) element;
+			
+			if (deposito.getIdDeposito() != null)
+				answer += deposito.getIdDeposito();
+			if (deposito.getDescripcion() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += deposito.getDescripcion();
+			}
+		} else if (element instanceof gestionmodelosconsultas.modeloconsultas.resultset.resultdonde.Disco) {
+
+			gestionmodelosconsultas.modeloconsultas.resultset.resultdonde.Disco disco = (gestionmodelosconsultas.modeloconsultas.resultset.resultdonde.Disco) element;
+			
+			if (disco.getIdDisco() != null)
+				answer += disco.getIdDisco();
+			if (disco.getReferencia() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += disco.getReferencia();
+			}
+			if (disco.getDescripcion() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += disco.getDescripcion();
+			}
+		} else if (element instanceof gestionmodelosconsultas.modeloconsultas.resultset.resultdonde.Armario) {
+
+			gestionmodelosconsultas.modeloconsultas.resultset.resultdonde.Armario armario = (gestionmodelosconsultas.modeloconsultas.resultset.resultdonde.Armario) element;
+			
+			if (armario.getIdArmario() != null)
+				answer += armario.getIdArmario();
+			if (armario.getDescripcion() != null) {
+				if (answer.length() > 0)
+					answer += \",\";
+				answer += armario.getDescripcion();
+			}
+		}
+
+		return answer;")
+			op String getAtributtes(datatypes.datatypesqm.ResultElement element);
+
+			@GenModel(body="
+
+		
+		
+				
+				XSSFSheet query = workbook.createSheet(\"Query\");
+				org.apache.poi.xssf.usermodel.XSSFRow row = query.createRow(0);
+				XSSFCell cell = row.createCell(0);
+				cell.setCellValue(queryString);
+				
+				int i =1;
+				for(;i<= namesFilters.size();i++){
+					row = query.createRow(i);
+					
+					cell = row.createCell(0);
+					cell.setCellValue(\"\"+  ((pgr.domain.util.impl.CoordinateImpl)posFilters.get(i-1)).getX());
+					
+					cell = row.createCell(1);
+					cell.setCellValue(\"\"+ ((pgr.domain.util.impl.CoordinateImpl)posFilters.get(i-1)).getY());
+					
+					cell = row.createCell(2);
+					cell.setCellValue(\"\"+ namesFilters.get(i-1));
+				}
+				
+				row = query.createRow(i);
+				
+				cell = row.createCell(0);
+				cell.setCellValue(\"\"+ posRowIniData);
+				
+				cell = row.createCell(1);
+				cell.setCellValue(\"\"+ posCellIniData);
+				
+				workbook.setSheetHidden(workbook.getSheetIndex(\"Query\"), XSSFWorkbook.SHEET_STATE_HIDDEN);
+			
+	")
+			op void createSheetQuery();
+
+			@GenModel(body="
+
+		workbook.removeSheetAt(workbook.getSheetIndex(\"Query\"));
+		workbook.removeSheetAt(workbook.getSheetIndex(\"Columns\"));
+		saveExcel();
+	")
+			op void removeSheets();
+
+			@GenModel(body="
+
+		try {
+			java.io.File sourceFile = new java.io.File(sourcePath);
+			java.io.File targetDir  = new java.io.File(targetPath);
+			org.apache.commons.io.FileUtils.copyFileToDirectory(sourceFile, targetDir);
+		} catch (java.io.IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	")
+			op void copyExcel(String sourcePath, String targetPath);
+
+			@GenModel(body="
+
+		java.io.File fileToOpen = new java.io.File(path);
+		 
+		if (fileToOpen.exists() && fileToOpen.isFile()) {
+			org.eclipse.core.filesystem.IFileStore fileStore = org.eclipse.core.filesystem.EFS.getLocalFileSystem().getStore(fileToOpen.toURI());
+			org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		 
+		    try {
+		    	org.eclipse.ui.ide.IDE.openEditorOnFileStore( page, fileStore);
+		    } catch ( org.eclipse.ui.PartInitException e ) {
+		        //Put your exception handler here if you wish to
+		    }
+		} else {
+		    //Do something if the file does not exist
+		}
+	")
+			op void openFileIntoEditor(String path);
+
+			@GenModel(body="
+
+		
+		int index = absolutePath.length()-1;
+		
+		char c = absolutePath.charAt(index);
+		while(c!='/'){
+			index--;
+			c = absolutePath.charAt(index);
+		}
+		return absolutePath.substring(0, index);
+	")
+			op String getDir(String absolutePath);
+
+			@GenModel(body="
+
+		 int cel_Type = cell.getCellType();                           
+	     String res=\"\";
+		 switch(cel_Type){
+	     	case 0: res+=cell.getNumericCellValue();
+	             	break;
+	     	case 1: res+=cell.getStringCellValue();
+	     			break;
+	     	case 4:res+=cell.getBooleanCellValue();
+	             	break;
+	     	case 3:res+=\"\";
+	     			break; 
+	     }
+		 return res;
+	")
+			op String getCellValue(datatypes.datatypeapachepoi.XSSFCell cell);
+
+			@GenModel(body="
+
+		ArrayList<String> names=new ArrayList<String>();
+		names.addAll(s);
+		return names;
+	")
+			op datatypes.datatypesjavautil.ArrayList getArrayListFromSet(datatypes.datatypesjavautil.Set s);
+			attr String absolutePath;
+			attr datatypes.datatypeapachepoi.XSSFWorkbook workbook;
+			attr datatypes.datatypeapachepoi.XSSFSheet newDataSheet;
+			attr datatypes.datatypeapachepoi.XSSFSheet dataSheet;
+			attr datatypes.datatypeapachepoi.XSSFSheet columnSheet;
+			attr datatypes.datatypeapachepoi.XSSFSheet sheet;
+			attr String queryString;
+			attr datatypes.datatypesqm.ModelFactory modelFactoryQM;
+			attr datatypes.datatypesjavautil.ArrayList resultSet;
+			attr datatypes.datatypesjavautil.ArrayList namesFilters;
+			attr datatypes.datatypesjavautil.ArrayList posFilters;
+			attr datatypes.datatypesjavautil.HashMapStringElementoConsulta titlesMap;
+			attr datatypes.datatypesjavautil.ArrayList setResult;
+			attr datatypes.datatypesjavautil.ArrayList listFixed;
+			attr datatypes.datatypesqm.Resultado result;
+			attr datatypes.datatypesjavautil.ArrayList tuplesList;
+			attr datatypes.datatypesjavautil.ArrayList columns;
+			attr datatypes.datatypesjavautil.ArrayList columnsNames;
+			attr datatypes.datatypesjavautil.ArrayList columnsIndex;
+			attr int acc;
+			attr int firstRowFilter;
+			attr int posRowIniData;
+			attr int posCellIniData;
+			transient ref Domain#theExcelGenerator theDomain;
+		}
+
+		class ExcelUpdater {
+
+			@GenModel(body="
+
+		
+		this.filePath = filePath;
+		try {
+			dc = DataConnection.getInstance();
+			workbook = readFile();
+		} catch (java.lang.ClassNotFoundException | java.sql.SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	")
+			op void ExcelUpdater(String filePath);
+
+			@GenModel(body="
+
+		// Se lee el archivo
+		try{
+			java.io.FileInputStream file = new java.io.FileInputStream(new java.io.File(filePath));
+			XSSFWorkbook workbook = new XSSFWorkbook(file);
+			return workbook;
+		}catch (java.io.FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (java.io.IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	")
+			op datatypes.datatypeapachepoi.XSSFWorkbook readFile();
+
+			@GenModel(body="
+
+		
+		// Se escribe el archivo con las modificaciones
+		try{
+			java.io.FileOutputStream fileOutputStream;
+			fileOutputStream = new java.io.FileOutputStream(filePath);
+			workbook.write(fileOutputStream);
+			fileOutputStream.close();
+		}catch (java.io.FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (java.io.IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	")
+			op void saveExcel();
+
+			@GenModel(body="
+
+			
+				try{
+					com.mysql.jdbc.Connection connection = dc.getConnection();
+					com.mysql.jdbc.PreparedStatement ps = (com.mysql.jdbc.PreparedStatement)connection.prepareStatement(stringQuery);
+					java.sql.ResultSet rs = ps.executeQuery();
+					
+					pgr.domain.generators.ExcelGenerator excelGenerator = pgr.domain.generators.GeneratorsFactory.eINSTANCE.createExcelGenerator();
+					excelGenerator.ExcelGenerator(filePath,listFilter,posFilter);
+					excelGenerator.createDataSheet(rs);
+					if(excelGenerator.getNamesFilters().size() != 0)
+						excelGenerator.createRelations();
+				}catch (java.sql.SQLException e){
+					e.printStackTrace();
+				}
+			
+	")
+			op void executeQuery();
+
+			@GenModel(body="
+
+		
+		// Se obtienen las sheet necesarias para el proceso
+		org.apache.poi.xssf.usermodel.XSSFSheet sheet = workbook.getSheet(\"Query\");
+		if (sheet != null) {
+			org.apache.poi.xssf.usermodel.XSSFRow row = sheet.getRow(0);
+			org.apache.poi.xssf.usermodel.XSSFCell cell = row.getCell(0);
+			stringQuery = cell.getStringCellValue();
+		}
+		
+		posFilter = new ArrayList< pgr.domain.util.impl.CoordinateImpl>();
+		listFilter = new ArrayList<String>();
+		
+		org.apache.poi.xssf.usermodel.XSSFCell c;
+		org.apache.poi.xssf.usermodel.XSSFRow r;
+		String x,y,name;
+		for(int i=1;i<sheet.getLastRowNum();i++){
+			r  = sheet.getRow(i);
+			
+			c = r.getCell(0);
+			x = c.getStringCellValue();
+			
+			c = r.getCell(1);
+			y = c.getStringCellValue();
+			
+			c = r.getCell(2);
+			name = c.getStringCellValue();
+			
+			posFilter.add( createCoordinate(Integer.parseInt(x), Integer.parseInt(y)));
+			listFilter.add(name);
+		}
+		r = sheet.getRow(sheet.getLastRowNum());
+		
+		c = r.getCell(0);
+		x = c.getStringCellValue();
+		
+		c = r.getCell(1);
+		y = c.getStringCellValue();
+		posFilter.add( createCoordinate(Integer.parseInt(x), Integer.parseInt(y)));
+	")
+			op void readSheetQuery();
+
+			@GenModel(body="
+
+		pgr.domain.util.impl.CoordinateImpl c = (pgr.domain.util.impl.CoordinateImpl)
+						 pgr.domain.util.UtilFactory.eINSTANCE.createCoordinate();
+				 c.setX(x); c.setY(y);
+				return c;
+	")
+			op util.Coordinate createCoordinate(int x, int y);
+
+			@GenModel(body="
+
+		readSheetQuery();
+		executeQuery();
+	")
+			op void refresh();
+			attr String filePath;
+			attr String stringQuery;
+			attr datatypes.datatypeapachepoi.XSSFWorkbook workbook;
+			attr datatypes.datatypesqm.DataConnection dc;
+			attr datatypes.datatypesjavautil.ArrayList posFilter;
+			attr datatypes.datatypesjavautil.ArrayList listFilter;
+			transient ref Domain#theExcelUpdater Domain;
+		}
+
+	}
+
+	@namespace(uri="http:///pgr/domain/util.ecore", prefix="pgr.domain.util")
+	package util {
+		class Coordinate : java.lang.Object {
+
+			@GenModel(body="	CoordinateImpl c = (CoordinateImpl) c1;
+	if(x > c.x){
+		return 1;
+	}
+	else if (x == c.x){
+		if(y > c.y)
+			return 1;
+		else if(y == c.y)
+			return 0;
+	}
+	return -1;")
+			op int compareTo(datatypes.datatypesjava.Object c1);
+			attr Integer x;
+			attr Integer y;
+			transient ref Domain#theCoordinate theDomain;
+		}
+
+		class MergedRegion {
+
+			@GenModel(body="		this.text = text;
+		this.firstColumn = firstColumn;
+		this.lastColumn = lastColumn;
+		this.firstRow = firstRow;
+		this.lastRow = lastRow;")
+			op void MergedRegion(String text, Integer firstColumn, Integer lastColumn, Integer firstRow, Integer lastRow);
+			attr String text;
+			attr Integer firstColumn;
+			attr Integer lastColumn;
+			attr Integer firstRow;
+			attr Integer lastRow;
+			transient ref Domain#theMergedRegion theDomain;
+		}
+
+		class ComparatorRange : java.util.Comparator {
+
+			@GenModel(body="
+
+		
+		org.apache.poi.ss.util.CellRangeAddress o1 = (org.apache.poi.ss.util.CellRangeAddress) arg0;
+		org.apache.poi.ss.util.CellRangeAddress o2 = (org.apache.poi.ss.util.CellRangeAddress) arg1;
+				
+				if(o1.getFirstRow() > o2.getFirstRow()){
+					return 1;
+				}
+				else if ( o1.getFirstRow() == o2.getFirstRow()){
+					if( o1.getFirstColumn() > o2.getFirstColumn())
+						return 1;
+					else if(o1.getFirstColumn() == o2.getFirstColumn())
+						return 0;
+				}
+				return -1;
+	")
+			op int compare(datatypes.datatypesjava.Object arg0, datatypes.datatypesjava.Object arg1);
+			transient ref Domain#theComparatorRange theDomain;
+		}
+
+		class Unzip {
+
+			@GenModel(body="		byte[] buffer = new byte[1024];
+		int len;
+		try {
+			while ((len = in.read(buffer)) >= 0)
+				out.write(buffer, 0, len);
+				in.close();
+				out.close();
+		} catch (java.io.IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}")
+			op void copyInputStream(datatypes.datatypesjava.InputStream in, datatypes.datatypesjava.OutputStream out);
+
+			@GenModel(body="		int index = fileName.length()-1;
+		char c = fileName.charAt(index);
+		while(c!='.'){
+			index--;
+			c = fileName.charAt(index);
+		}
+		return fileName.substring(0, index);")
+			op String removeExtension(String fileName);
+
+			@GenModel(body="		java.util.Enumeration<?> entries;
+		java.util.zip.ZipFile zipFile;
+		
+		String dir = \"OpenXML/\" + removeExtension(fileName)+\"/\";
+	
+		try {
+			zipFile = new java.util.zip.ZipFile(url);
+			entries = zipFile.entries();
+		
+			while (entries.hasMoreElements()) {
+				java.util.zip.ZipEntry entry = (java.util.zip.ZipEntry) entries.nextElement();
+
+				if (entry.isDirectory()) {
+					// Assume directories are stored parents first then
+					// children.
+					java.io.File parent = new java.io.File(entry.getName()).getParentFile();
+					if (parent != null)
+					{
+					    parent.mkdirs();
+					}
+					//System.err.println(\"Extracting directory: \"+ entry.getName());
+					(new java.io.File(entry.getName())).mkdirs();
+					continue;
+				}
+				java.io.File parent = new java.io.File(dir+entry.getName()).getParentFile();
+				if (parent != null)
+				{
+				    parent.mkdirs();
+				}
+				//System.err.println(\"Extracting file: \" + entry.getName());
+				copyInputStream( zipFile.getInputStream(entry), 
+						new java.io.BufferedOutputStream(new java.io.FileOutputStream(dir+entry.getName())));
+			}
+			zipFile.close();
+		} catch (java.io.IOException ioe) {
+			System.err.println(\"Unhandled exception:\");
+			ioe.printStackTrace();
+			return;
+		}")
+			op void unzip(String url, String fileName);
+			transient ref Domain#theUnzip theDomain;
+		}
+
+	}
+
+}
+
+@namespace(uri="http:///pgr/ui.ecore", prefix="pgr.ui")
+package ui {
+	class UI {
+		ref domain.Domain[*]#theUI theDomain;
+		transient ref ModelFactory#theUI theModelFactory;
+		val ReportView[1]#ownedByUI theReportView;
+	}
+
+	class ReportView {
+		transient ref UI#theReportView ownedByUI;
+		val ReportViewModel[*]#ownedByReportView listReportViewModel;
+	}
+
+	class ReportViewModel {
+		attr String name;
+		transient ref ReportView#listReportViewModel ownedByReportView;
+	}
+
+}
+
+@namespace(uri="http:///pgr/datatypes.ecore", prefix="pgr.datatypes")
+package datatypes {
+	datatype Document : org.w3c.dom.Document;
+
+	datatype ResultSet : java.sql.ResultSet;
+
+	datatype EList : org.eclipse.emf.common.util.EList;
+
+	@namespace(uri="http:///pgr/datatypes/datatypesqm.ecore", prefix="pgr.datatypes.datatypesqm")
+	package datatypesqm {
+		datatype ModelFactory : gestionmodelosconsultas.ModelFactory;
+
+		datatype ElementoConsulta : gestionmodelosconsultas.modeloconsultas.model.ElementoConsulta;
+
+		datatype ResultElement : gestionmodelosconsultas.modeloconsultas.resultset.ResultElement;
+
+		datatype ElementoModeloResultado : gestionmodelosconsultas.modeloconsultas.resultset.ElementoModeloResultado;
+
+		datatype Resultado : gestionmodelosconsultas.modeloconsultas.resultset.Resultado;
+
+		datatype TableView : tooldataform.formmodel.concreta.TableView;
+
+		datatype DataConnection : gestionconsultassqlmodels.generate.conexionBD.DataConnection;
+
+		datatype WhoownmemodelModelFactoryModel : whoownme.model.ModelFactoryModel;
+
+		datatype Proyeccion : gestionmodelosconsultas.modeloconsultas.model.Proyeccion;
+
+		datatype EADiagram : gestionmodelosconsultas.modeloconsultas.model.EADiagram;
+
+	}
+
+	@namespace(uri="http:///pgr/datatypes/datatypesdataform.ecore", prefix="pgr.datatypes.datatypesdataform")
+	package datatypesdataform {
+		datatype ModelFactory : tooldataform.ModelFactory;
+
+		datatype DataForm_Diagram : tooldataform.formmodel.concreta.DataForm_Diagram;
+
+		datatype Domain_Diagram : tooldataform.core.Domain_Diagram;
+
+		datatype Containment : tooldataform.formmodel.concreta.Containment;
+
+		datatype Container : tooldataform.formmodel.concreta.Container;
+
+		datatype Interface : tooldataform.formmodel.concreta.Interface;
+
+		datatype GraphicalContainer : tooldataform.formmodel.containers.GraphicalContainer;
+
+		datatype Clase : tooldataform.pmoo.Clase;
+
+		datatype Project : tooldataform.core.Project;
+
+	}
+
+	@namespace(uri="http:///pgr/datatypes/datatypesgmf.ecore", prefix="pgr.datatypes.datatypesgmf")
+	package datatypesgmf {
+		datatype Bounds : org.eclipse.gmf.runtime.notation.Bounds;
+
+		datatype Diagram : org.eclipse.gmf.runtime.notation.Diagram;
+
+		datatype Node : org.eclipse.gmf.runtime.notation.Node;
+
+	}
+
+	@namespace(uri="http:///pgr/datatypes/datatypesjavautil.ecore", prefix="pgr.datatypes.datatypesjavautil")
+	package datatypesjavautil {
+		datatype ArrayList : java.util.ArrayList;
+
+		datatype List : java.util.List;
+
+		datatype HashMapStringElementoConsulta : java.util.HashMap;
+
+		datatype MapStringInteger : java.util.Map;
+
+		datatype Set : java.util.Set;
+
+	}
+
+	@namespace(uri="http:///pgr/datatypes/datatypeapachepoi.ecore", prefix="pgr.datatypes.datatypeapachepoi")
+	package datatypeapachepoi {
+		datatype XSSFWorkbook : org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+		datatype XSSFSheet : org.apache.poi.xssf.usermodel.XSSFSheet;
+
+		datatype XSSFCell : org.apache.poi.xssf.usermodel.XSSFCell;
+
+	}
+
+	@namespace(uri="http:///pgr/datatypes/datatypesjava.ecore", prefix="pgr.datatypes.datatypesjava")
+	package datatypesjava {
+		datatype Object : java.lang.Object;
+
+		datatype InputStream : java.io.InputStream;
+
+		datatype OutputStream : java.io.OutputStream;
+
+	}
+
+}
+

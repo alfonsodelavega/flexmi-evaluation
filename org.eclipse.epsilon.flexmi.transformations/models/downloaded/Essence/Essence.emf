@@ -1,0 +1,2172 @@
+@ExtendedMetaData(qualified="false")
+@namespace(uri="platform:/resource/masterthesis_java_test1004.project2/src/Essence.xsd", prefix="Essence")
+package Essence;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@ExtendedMetaData(name="Access", kind="elementOnly")
+class Access extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="AccessType", namespace="##targetNamespace")
+	unsettable attr AccessType[1] accessType;
+
+	@ExtendedMetaData(kind="element", name="StrobeType", namespace="##targetNamespace")
+	unsettable attr StrobeType[1] strobeType;
+
+	@ExtendedMetaData(kind="element", name="ActionType", namespace="##targetNamespace")
+	!unique attr ActionType[*] actionType;
+}
+
+@ExtendedMetaData(name="AccessByIndex", kind="elementOnly")
+class AccessByIndex extends SimpleSubElementAccess {
+
+	@ExtendedMetaData(kind="element", name="Ascending", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] ascending;
+
+	@ExtendedMetaData(kind="element", name="Left", namespace="##targetNamespace")
+	attr IntegerExpr[1] left;
+
+	@ExtendedMetaData(kind="element", name="Right", namespace="##targetNamespace")
+	attr IntegerExpr[1] right;
+
+	@ExtendedMetaData(kind="element", name="SimpleSubElementAccess", namespace="##targetNamespace")
+	!resolve val SimpleSubElementAccess simpleSubElementAccess;
+}
+
+@ExtendedMetaData(name="AccessByName", kind="elementOnly")
+class AccessByName extends SimpleSubElementAccess {
+
+	@ExtendedMetaData(kind="element", name="Name", namespace="##targetNamespace")
+	attr StringExpr[1] name;
+
+	@ExtendedMetaData(kind="element", name="SimpleSubElementAccess", namespace="##targetNamespace")
+	!resolve val SimpleSubElementAccess simpleSubElementAccess;
+}
+
+@ExtendedMetaData(name="AccessCondition", kind="elementOnly")
+class AccessCondition extends IndexVarUser {
+
+	@ExtendedMetaData(kind="element", name="AccessLevel", namespace="##targetNamespace")
+	attr IntegerLiteral[1] accessLevel;
+
+	@ExtendedMetaData(kind="element", name="BusErrorType", namespace="##targetNamespace")
+	unsettable attr BusErrorType[1] busErrorType;
+}
+
+@ExtendedMetaData(name="AccessLevel", kind="elementOnly")
+class AccessLevel extends IndexVarUser {
+
+	@ExtendedMetaData(kind="element", name="AccessLevel", namespace="##targetNamespace")
+	attr IntegerLiteral[1] accessLevel;
+
+	@ExtendedMetaData(kind="element", name="AccessType", namespace="##targetNamespace")
+	unsettable attr AccessType[1] accessType;
+}
+
+@ExtendedMetaData(name="AccessType")
+enum AccessType {
+	none = 0;
+	read = 1;
+	write = 2;
+	readwrite = 3;
+}
+
+@ExtendedMetaData(name="AccessType:Object", baseType="AccessType")
+datatype AccessTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="ActionType")
+enum ActionType {
+	clear = 0;
+	enable = 1;
+	interrupt = 2;
+	pulse = 3;
+	reset = 4;
+	set = 5;
+	status = 6;
+	toggle = 7;
+	register = 8;
+	trigger = 9;
+}
+
+@ExtendedMetaData(name="ActionType:Object", baseType="ActionType")
+datatype ActionTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="AddressBlock", kind="elementOnly")
+class AddressBlock extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="XRefRegMemSet", namespace="##targetNamespace")
+	!resolve val XRefRegMemSet[*] xRefRegMemSet;
+
+	@ExtendedMetaData(kind="element", name="XRefMasterInterface", namespace="##targetNamespace")
+	!resolve val XRefMasterInterface[*] xRefMasterInterface;
+
+	@ExtendedMetaData(kind="element", name="XRefSlaveInterface", namespace="##targetNamespace")
+	!resolve val XRefSlaveInterface[*] xRefSlaveInterface;
+}
+
+@ExtendedMetaData(name="Array", kind="elementOnly")
+class Array extends ComplexDataType {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val ValueDataType[1] dataType;
+
+	@ExtendedMetaData(kind="element", name="ArrayDimension", namespace="##targetNamespace")
+	!resolve val ArrayDimension[+] arrayDimension;
+}
+
+@ExtendedMetaData(name="ArrayDimension", kind="elementOnly")
+class ArrayDimension extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="Ascending", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] ascending;
+
+	@ExtendedMetaData(kind="element", name="Left", namespace="##targetNamespace")
+	attr IntegerExpr[1] left;
+
+	@ExtendedMetaData(kind="element", name="Right", namespace="##targetNamespace")
+	attr IntegerExpr[1] right;
+}
+
+@ExtendedMetaData(name="BehaviorType")
+enum BehaviorType {
+	ReadWrite = 0;
+	Read = 1;
+	ReadOnly = 2;
+	WriteRead0 = 3;
+	WriteRead1 = 4;
+	WriteReadX = 5;
+	WriteOnly = 6;
+	NoneRead0 = 7;
+	NoneRead1 = 8;
+	NoneReadX = 9;
+	None = 10;
+	Read0Only = 11;
+	Read1Only = 12;
+	ReadXOnly = 13;
+	NoneOnly = 14;
+}
+
+@ExtendedMetaData(name="BehaviorType:Object", baseType="BehaviorType")
+datatype BehaviorTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="BitField", kind="elementOnly")
+class BitField extends BitFieldSequenceElement {
+
+	@ExtendedMetaData(kind="element", name="AccessExternal", namespace="##targetNamespace")
+	!resolve val Access[1] accessExternal;
+
+	@ExtendedMetaData(kind="element", name="AccessInternal", namespace="##targetNamespace")
+	!resolve val Access[1] accessInternal;
+
+	@ExtendedMetaData(kind="element", name="MaxVal", namespace="##targetNamespace")
+	attr IntegerExpr[1] maxVal;
+
+	@ExtendedMetaData(kind="element", name="MinVal", namespace="##targetNamespace")
+	attr IntegerExpr[1] minVal;
+
+	@ExtendedMetaData(kind="element", name="Reserved", namespace="##targetNamespace")
+	unsettable attr ReservedType[1] reserved;
+
+	@ExtendedMetaData(kind="element", name="SignInterpretation", namespace="##targetNamespace")
+	unsettable attr SignType[1] signInterpretation;
+
+	@ExtendedMetaData(kind="element", name="Virtual", namespace="##targetNamespace")
+	unsettable attr VirtualType[1] virtual;
+
+	@ExtendedMetaData(kind="element", name="DefaultValue", namespace="##targetNamespace")
+	attr IntegerExpr[1] defaultValue;
+
+	@ExtendedMetaData(kind="element", name="DefaultMask", namespace="##targetNamespace")
+	attr IntegerExpr[1] defaultMask;
+
+	@ExtendedMetaData(kind="element", name="AccessLevel", namespace="##targetNamespace")
+	!resolve val AccessLevel[*] accessLevel;
+
+	@ExtendedMetaData(kind="element", name="EnumerationElement", namespace="##targetNamespace")
+	!resolve val EnumerationElement[*] enumerationElement;
+}
+
+@ExtendedMetaData(name="BitFieldElement", kind="elementOnly")
+abstract class BitFieldElement extends IndexVarUser {
+
+	@ExtendedMetaData(kind="element", name="Offset", namespace="##targetNamespace")
+	attr IntegerExpr[1] offset;
+}
+
+@ExtendedMetaData(name="BitFieldGapElement", kind="elementOnly")
+class BitFieldGapElement extends BitFieldSequenceElement {
+}
+
+@ExtendedMetaData(name="BitFieldSequence", kind="elementOnly")
+class BitFieldSequence extends BitFieldElement {
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="Count", namespace="##targetNamespace")
+	attr IntegerExpr[1] count;
+
+	@ExtendedMetaData(kind="element", name="MinIndex", namespace="##targetNamespace")
+	attr IntegerExpr[1] minIndex;
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="IndexStep", namespace="##targetNamespace")
+	attr IntegerExpr[1] indexStep;
+
+	@ExtendedMetaData(kind="element", name="IndexVar", namespace="##targetNamespace")
+	attr type.String indexVar;
+
+	@ExtendedMetaData(kind="element", name="AltFormat", namespace="##targetNamespace")
+	attr type.String altFormat;
+
+	@ExtendedMetaData(kind="element", name="BitFieldSequenceElement", namespace="##targetNamespace")
+	!resolve val BitFieldSequenceElement[+] bitFieldSequenceElement;
+}
+
+@ExtendedMetaData(name="BitFieldSequenceElement", kind="elementOnly")
+abstract class BitFieldSequenceElement extends BitFieldElement {
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="Width", namespace="##targetNamespace")
+	attr IntegerExpr[1] width;
+}
+
+@ExtendedMetaData(name="BooleanDecl", kind="elementOnly")
+class BooleanDecl extends ParamDecl {
+
+	@ExtendedMetaData(kind="element", name="DefaultValue", namespace="##targetNamespace")
+	attr BooleanLiteral[1] defaultValue;
+}
+
+@ExtendedMetaData(name="BooleanDef", kind="elementOnly")
+class BooleanDef extends ConstDef {
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	attr BooleanLiteral[1] value;
+}
+
+@ExtendedMetaData(name="BooleanExpr", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype BooleanExpr : java.lang.String;
+
+@ExtendedMetaData(name="BooleanGenDecl", kind="elementOnly")
+class BooleanGenDecl extends GenericDecl {
+
+	@ExtendedMetaData(kind="element", name="DefaultValue", namespace="##targetNamespace")
+	attr BooleanLiteral[1] defaultValue;
+}
+
+@ExtendedMetaData(name="BooleanLiteral", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype BooleanLiteral : java.lang.String;
+
+@ExtendedMetaData(name="Bus", kind="elementOnly")
+class Bus extends ModelRoot {
+
+	@ExtendedMetaData(kind="element", name="ExtVLNV", namespace="##targetNamespace")
+	!resolve val VLNV[1] extVLNV;
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="MaxMasters", namespace="##targetNamespace")
+	attr IntegerExpr[1] maxMasters;
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="MaxSlaves", namespace="##targetNamespace")
+	attr IntegerExpr[1] maxSlaves;
+
+	@ExtendedMetaData(kind="element", name="NoneInterface", namespace="##targetNamespace")
+	!resolve val NoneInterface[*] noneInterface;
+}
+
+@ExtendedMetaData(name="BusErrorType")
+enum BusErrorType {
+	ReadError = 0;
+	WriteError = 1;
+	ReadWriteError = 2;
+}
+
+@ExtendedMetaData(name="BusErrorType:Object", baseType="BusErrorType")
+datatype BusErrorTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="BusInstance", kind="elementOnly")
+class BusInstance extends Instance {
+
+	@ExtendedMetaData(kind="element", name="BusInterfaceMap", namespace="##targetNamespace")
+	!resolve val BusInterfaceMap[*] busInterfaceMap;
+
+	@ExtendedMetaData(kind="element", name="BusNoneInterfaceMap", namespace="##targetNamespace")
+	!resolve val BusNoneInterfaceMap[*] busNoneInterfaceMap;
+}
+
+@ExtendedMetaData(name="BusInterfaceMap", kind="elementOnly")
+class BusInterfaceMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefConnection", namespace="##targetNamespace")
+	!resolve val XRefConnection[1] xRefConnection;
+}
+
+@ExtendedMetaData(name="BusNoneInterfaceMap", kind="elementOnly")
+class BusNoneInterfaceMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefBusNoneInterface", namespace="##targetNamespace")
+	!resolve val XRefNoneInterface[1] xRefBusNoneInterface;
+
+	@ExtendedMetaData(kind="element", name="XRefConnection", namespace="##targetNamespace")
+	!resolve val XRefConnection[1] xRefConnection;
+
+	@ExtendedMetaData(kind="element", name="InstancePortMap", namespace="##targetNamespace")
+	!resolve val InstancePortMap[*] instancePortMap;
+}
+
+@ExtendedMetaData(name="CablePort", kind="elementOnly")
+class CablePort extends RealPort {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val ComplexDataType[1] dataType;
+}
+
+@ExtendedMetaData(name="CableSignal", kind="elementOnly")
+class CableSignal extends Signal {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val ComplexDataType[1] dataType;
+}
+
+@ExtendedMetaData(name="CommonExpr", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype CommonExpr : java.lang.String;
+
+@ExtendedMetaData(name="ComplexDataType", kind="elementOnly")
+abstract class ComplexDataType extends ValueDataType {
+
+	@ExtendedMetaData(kind="element", name="Name", namespace="##targetNamespace")
+	attr StringExpr[1] name;
+}
+
+@ExtendedMetaData(name="Component", kind="elementOnly")
+class Component extends ModelRoot {
+
+	@ExtendedMetaData(kind="element", name="Interface", namespace="##targetNamespace")
+	!resolve val Interface[*] ~interface;
+
+	@ExtendedMetaData(kind="element", name="RegViewBlock", namespace="##targetNamespace")
+	!resolve val RegViewBlock regViewBlock;
+
+	@ExtendedMetaData(kind="element", name="TopSpinClkStyle", namespace="##targetNamespace")
+	unsettable attr SyncMode[1] topSpinClkStyle;
+
+	@ExtendedMetaData(kind="element", name="RegMemSet", namespace="##targetNamespace")
+	!resolve val RegMemSet[*] regMemSet;
+}
+
+@ExtendedMetaData(name="ComponentInstance", kind="elementOnly")
+class ComponentInstance extends InterfaceInstance {
+}
+
+@ExtendedMetaData(name="Connection", kind="elementOnly")
+class Connection extends SignalOwner {
+
+	@ExtendedMetaData(kind="element", name="ExtVLNV", namespace="##targetNamespace")
+	!resolve val VLNV extVLNV;
+}
+
+@ExtendedMetaData(name="ConstDef", kind="elementOnly")
+abstract class ConstDef extends VarDef {
+}
+
+@ExtendedMetaData(name="ConstDefBlock", kind="elementOnly")
+class ConstDefBlock extends VarDefBlock {
+
+	@ExtendedMetaData(kind="element", name="ConstDef", namespace="##targetNamespace")
+	!resolve val ConstDef[*] constDef;
+}
+
+@ExtendedMetaData(name="DataDecl", kind="elementOnly")
+class DataDecl extends ParamDecl {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val ValueDataType[1] dataType;
+
+	@ExtendedMetaData(kind="element", name="DefaultValue", namespace="##targetNamespace")
+	attr StringLiteral[1] defaultValue;
+}
+
+@ExtendedMetaData(name="DataDef", kind="elementOnly")
+class DataDef extends ConstDef {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val ValueDataType[1] dataType;
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	attr StringLiteral[1] value;
+}
+
+@ExtendedMetaData(name="DataGenDecl", kind="elementOnly")
+class DataGenDecl extends GenericDecl {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val ValueDataType[1] dataType;
+
+	@ExtendedMetaData(kind="element", name="DefaultValue", namespace="##targetNamespace")
+	attr StringLiteral[1] defaultValue;
+}
+
+@ExtendedMetaData(name="DataType", kind="empty")
+abstract class DataType extends EssenceBase {
+}
+
+@ExtendedMetaData(name="DataTypeElement", kind="elementOnly")
+class DataTypeElement extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val ValueDataType[1] dataType;
+
+	@ExtendedMetaData(kind="element", name="Name", namespace="##targetNamespace")
+	attr StringExpr[1] name;
+}
+
+@ExtendedMetaData(name="DescriptionItem", kind="elementOnly")
+class DescriptionItem extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="html", namespace="##targetNamespace")
+	attr type.String[1] html;
+
+	@ExtendedMetaData(kind="element", name="dita", namespace="##targetNamespace")
+	attr type.String dita;
+}
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@ExtendedMetaData(kind="element", name="Bus", namespace="##targetNamespace")
+	volatile transient derived !resolve val Bus[0..?] bus;
+
+	@ExtendedMetaData(kind="element", name="Component", namespace="##targetNamespace")
+	volatile transient derived !resolve val Component[0..?] component;
+
+	@ExtendedMetaData(kind="element", name="InterfaceDefinition", namespace="##targetNamespace")
+	volatile transient derived !resolve val InterfaceDefinition[0..?] interfaceDefinition;
+
+	@ExtendedMetaData(kind="element", name="Package", namespace="##targetNamespace")
+	volatile transient derived !resolve val Package[0..?] ~package;
+
+	@ExtendedMetaData(kind="element", name="PadTypeDB", namespace="##targetNamespace")
+	volatile transient derived !resolve val PadTypeDB[0..?] padTypeDB;
+
+	@ExtendedMetaData(kind="element", name="Product", namespace="##targetNamespace")
+	volatile transient derived !resolve val Product[0..?] product;
+
+	@ExtendedMetaData(kind="element", name="Silicon", namespace="##targetNamespace")
+	volatile transient derived !resolve val Silicon[0..?] silicon;
+
+	@ExtendedMetaData(kind="element", name="SiPortDB", namespace="##targetNamespace")
+	volatile transient derived !resolve val SiPortDB[0..?] siPortDB;
+
+	@ExtendedMetaData(kind="element", name="SiSignalDB", namespace="##targetNamespace")
+	volatile transient derived !resolve val SiSignalDB[0..?] siSignalDB;
+
+	@ExtendedMetaData(kind="element", name="System", namespace="##targetNamespace")
+	volatile transient derived !resolve val System[0..?] system;
+
+	@ExtendedMetaData(kind="element", name="TestDB", namespace="##targetNamespace")
+	volatile transient derived !resolve val TestDB[0..?] testDB;
+}
+
+@ExtendedMetaData(name="EndianType")
+enum EndianType {
+	LittleEndian = 0;
+	BigEndian = 1;
+}
+
+@ExtendedMetaData(name="EndianType:Object", baseType="EndianType")
+datatype EndianTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="Enum", kind="elementOnly")
+class Enum extends ComplexDataType {
+
+	@ExtendedMetaData(kind="element", name="EnumElement", namespace="##targetNamespace")
+	!resolve val EnumElement[+] enumElement;
+}
+
+@ExtendedMetaData(name="EnumElement", kind="elementOnly")
+class EnumElement extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="Name", namespace="##targetNamespace")
+	attr StringExpr[1] name;
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	attr IntegerExpr value;
+}
+
+@ExtendedMetaData(name="Enumeration", kind="elementOnly")
+class Enumeration extends EnumerationElement {
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	attr IntegerExpr[1] value;
+}
+
+@ExtendedMetaData(name="EnumerationElement", kind="elementOnly")
+abstract class EnumerationElement extends IndexVarUser {
+}
+
+@ExtendedMetaData(name="EnumerationInteger", kind="elementOnly")
+class EnumerationInteger extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	attr IntegerLiteral[1] value;
+}
+
+@ExtendedMetaData(name="EnumerationSequence", kind="elementOnly")
+class EnumerationSequence extends EnumerationElement {
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="Count", namespace="##targetNamespace")
+	attr IntegerExpr[1] count;
+
+	@ExtendedMetaData(kind="element", name="MinIndex", namespace="##targetNamespace")
+	attr IntegerExpr[1] minIndex;
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="IndexStep", namespace="##targetNamespace")
+	attr IntegerExpr[1] indexStep;
+
+	@ExtendedMetaData(kind="element", name="IndexVar", namespace="##targetNamespace")
+	attr type.String indexVar;
+
+	@ExtendedMetaData(kind="element", name="AltFormat", namespace="##targetNamespace")
+	attr type.String altFormat;
+
+	@ExtendedMetaData(kind="element", name="Enumeration", namespace="##targetNamespace")
+	!resolve val Enumeration[+] enumeration;
+}
+
+@ExtendedMetaData(name="EnumerationString", kind="elementOnly")
+class EnumerationString extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	attr StringLiteral[1] value;
+}
+
+@ExtendedMetaData(name="EssenceBase", kind="empty")
+abstract class EssenceBase {
+}
+
+@ExtendedMetaData(name="Function", kind="elementOnly")
+class Function extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="Type", namespace="##targetNamespace")
+	unsettable attr FunctionType[1] type;
+
+	@ExtendedMetaData(kind="element", name="Module", namespace="##targetNamespace")
+	attr StringExpr[1] module;
+
+	@ExtendedMetaData(kind="element", name="XRefSignal", namespace="##targetNamespace")
+	!resolve val XRefSiSignal[1] xRefSignal;
+}
+
+@ExtendedMetaData(name="FunctionType")
+enum FunctionType {
+	Input = 0;
+	Output = 1;
+	HWOutput = 2;
+	InputTest = 3;
+	OutputTest = 4;
+	AnalogTest = 5;
+}
+
+@ExtendedMetaData(name="FunctionType:Object", baseType="FunctionType")
+datatype FunctionTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="GapElement", kind="elementOnly")
+class GapElement extends SequenceElement {
+}
+
+@ExtendedMetaData(name="GeneralInstance", kind="elementOnly")
+abstract class GeneralInstance extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="ExtVLNV", namespace="##targetNamespace")
+	!resolve val VLNV[1] extVLNV;
+
+	@ExtendedMetaData(kind="element", name="ParamMap", namespace="##targetNamespace")
+	!resolve val ParamMap[*] paramMap;
+
+	@ExtendedMetaData(kind="element", name="GenericMap", namespace="##targetNamespace")
+	!resolve val GenericMap[*] genericMap;
+}
+
+@ExtendedMetaData(name="GeneralInterface", kind="elementOnly")
+abstract class GeneralInterface extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="InterfaceView", namespace="##targetNamespace")
+	!resolve val InterfaceView[*] interfaceView;
+}
+
+@ExtendedMetaData(name="GeneralPad", kind="elementOnly")
+abstract class GeneralPad extends SinglePad {
+
+	@ExtendedMetaData(kind="element", name="XRefPadType", namespace="##targetNamespace")
+	!resolve val XRefPadType[1] xRefPadType;
+
+	@ExtendedMetaData(kind="element", name="Lib", namespace="##targetNamespace")
+	attr StringExpr[1] lib;
+
+	@ExtendedMetaData(kind="element", name="Width", namespace="##targetNamespace")
+	attr IntegerExpr[1] width;
+}
+
+@ExtendedMetaData(name="GeneralPort", kind="elementOnly")
+abstract class GeneralPort extends SingleSourceNode {
+}
+
+@ExtendedMetaData(name="GeneralRegister", kind="elementOnly")
+abstract class GeneralRegister extends SequenceElement {
+
+	@GenModel(documentation="true")
+	@ExtendedMetaData(kind="element", name="NoShadow", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] noShadow;
+
+	@ExtendedMetaData(kind="element", name="ResetType", namespace="##targetNamespace")
+	!resolve val ResetType[+] resetType;
+}
+
+@ExtendedMetaData(name="GenericDecl", kind="elementOnly")
+abstract class GenericDecl extends VarDef {
+}
+
+@ExtendedMetaData(name="GenericDeclBlock", kind="elementOnly")
+class GenericDeclBlock extends VarDefBlock {
+
+	@ExtendedMetaData(kind="element", name="GenericDecl", namespace="##targetNamespace")
+	!resolve val GenericDecl[*] genericDecl;
+}
+
+@ExtendedMetaData(name="GenericMap", kind="elementOnly")
+class GenericMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefGenericDecl", namespace="##targetNamespace")
+	!resolve val XRefGenericDecl[1] xRefGenericDecl;
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	attr CommonExpr[1] value;
+}
+
+@ExtendedMetaData(name="IndexVarUser", kind="elementOnly")
+abstract class IndexVarUser extends SingleSourceNode {
+}
+
+@ExtendedMetaData(name="Instance", kind="elementOnly")
+abstract class Instance extends GeneralInstance {
+}
+
+@ExtendedMetaData(name="InstanceInterfaceMap", kind="elementOnly")
+class InstanceInterfaceMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefInstanceInterface", namespace="##targetNamespace")
+	!resolve val XRefExternalInterface[1] xRefInstanceInterface;
+
+	@ExtendedMetaData(kind="element", name="XRefConnection", namespace="##targetNamespace")
+	!resolve val XRefConnection[1] xRefConnection;
+
+	@ExtendedMetaData(kind="element", name="InstancePortMap", namespace="##targetNamespace")
+	!resolve val InstancePortMap[*] instancePortMap;
+}
+
+@ExtendedMetaData(name="InstancePortMap", kind="elementOnly")
+class InstancePortMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefInstancePort", namespace="##targetNamespace")
+	!resolve val XRefExternalPort[1] xRefInstancePort;
+
+	@ExtendedMetaData(kind="element", name="XRefSignal", namespace="##targetNamespace")
+	!resolve val XRefInternalSignal[1] xRefSignal;
+}
+
+@ExtendedMetaData(name="InstanceShellInterfaceMap", kind="elementOnly")
+class InstanceShellInterfaceMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefInstanceShellInterface", namespace="##targetNamespace")
+	!resolve val XRefIndInterface[1] xRefInstanceShellInterface;
+
+	@ExtendedMetaData(kind="element", name="XRefConnection", namespace="##targetNamespace")
+	!resolve val XRefConnection[1] xRefConnection;
+
+	@ExtendedMetaData(kind="element", name="InstanceShellPortMap", namespace="##targetNamespace")
+	!resolve val InstanceShellPortMap[*] instanceShellPortMap;
+}
+
+@ExtendedMetaData(name="InstanceShellPortMap", kind="elementOnly")
+class InstanceShellPortMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefInstanceShellPort", namespace="##targetNamespace")
+	!resolve val XRefIndPort[1] xRefInstanceShellPort;
+
+	@ExtendedMetaData(kind="element", name="XRefSignal", namespace="##targetNamespace")
+	!resolve val XRefInternalSignal[1] xRefSignal;
+}
+
+@ExtendedMetaData(name="IntegerDecl", kind="elementOnly")
+class IntegerDecl extends ParamDecl {
+
+	@ExtendedMetaData(kind="element", name="DefaultValue", namespace="##targetNamespace")
+	attr IntegerLiteral[1] defaultValue;
+
+	@ExtendedMetaData(kind="element", name="Enumeration", namespace="##targetNamespace")
+	!resolve val EnumerationInteger[*] enumeration;
+}
+
+@ExtendedMetaData(name="IntegerDef", kind="elementOnly")
+class IntegerDef extends ConstDef {
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	attr IntegerLiteral[1] value;
+}
+
+@ExtendedMetaData(name="IntegerExpr", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype IntegerExpr : java.lang.String;
+
+@ExtendedMetaData(name="IntegerGenDecl", kind="elementOnly")
+class IntegerGenDecl extends GenericDecl {
+
+	@ExtendedMetaData(kind="element", name="DefaultValue", namespace="##targetNamespace")
+	attr IntegerLiteral[1] defaultValue;
+
+	@ExtendedMetaData(kind="element", name="Enumeration", namespace="##targetNamespace")
+	!resolve val EnumerationInteger[*] enumeration;
+}
+
+@ExtendedMetaData(name="IntegerLiteral", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype IntegerLiteral : java.lang.String;
+
+@ExtendedMetaData(name="Interface", kind="elementOnly")
+class Interface extends GeneralInterface {
+
+	@GenModel(documentation="8")
+	@ExtendedMetaData(kind="element", name="AddressUnit", namespace="##targetNamespace")
+	attr IntegerExpr addressUnit;
+
+	@GenModel(documentation="8")
+	@ExtendedMetaData(kind="element", name="DataUnit", namespace="##targetNamespace")
+	attr IntegerExpr dataUnit;
+
+	@ExtendedMetaData(kind="element", name="BaseAddress", namespace="##targetNamespace")
+	attr IntegerExpr baseAddress;
+
+	@ExtendedMetaData(kind="element", name="ExtVLNV", namespace="##targetNamespace")
+	!resolve val VLNV extVLNV;
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="Range", namespace="##targetNamespace")
+	attr IntegerExpr range;
+
+	@ExtendedMetaData(kind="element", name="Role", namespace="##targetNamespace")
+	unsettable attr InterfaceRoleType[1] role;
+
+	@ExtendedMetaData(kind="element", name="SystemGroup", namespace="##targetNamespace")
+	attr StringLiteral systemGroup;
+
+	@ExtendedMetaData(kind="element", name="AddressBlock", namespace="##targetNamespace")
+	!resolve val AddressBlock addressBlock;
+}
+
+@ExtendedMetaData(name="InterfaceDefCablePort", kind="elementOnly")
+class InterfaceDefCablePort extends InterfaceDefPort {
+}
+
+@ExtendedMetaData(name="InterfaceDefinition", kind="elementOnly")
+class InterfaceDefinition extends ModelRoot {
+
+	@GenModel(documentation="8")
+	@ExtendedMetaData(kind="element", name="AddressUnit", namespace="##targetNamespace")
+	attr IntegerExpr[1] addressUnit;
+
+	@GenModel(documentation="8")
+	@ExtendedMetaData(kind="element", name="DataUnit", namespace="##targetNamespace")
+	attr IntegerExpr[1] dataUnit;
+
+	@ExtendedMetaData(kind="element", name="ExtVLNV", namespace="##targetNamespace")
+	!resolve val VLNV extVLNV;
+
+	@ExtendedMetaData(kind="element", name="InterfaceDefView", namespace="##targetNamespace")
+	!resolve val InterfaceDefView[+] interfaceDefView;
+}
+
+@ExtendedMetaData(name="InterfaceDefPort", kind="elementOnly")
+abstract class InterfaceDefPort extends GeneralPort {
+
+	@ExtendedMetaData(kind="element", name="XRefSignal", namespace="##targetNamespace")
+	!resolve val XRefInternalSignal[1] xRefSignal;
+
+	@ExtendedMetaData(kind="element", name="Direction", namespace="##targetNamespace")
+	unsettable attr PortDirection[1] direction;
+}
+
+@ExtendedMetaData(name="InterfaceDefRole", kind="elementOnly")
+class InterfaceDefRole extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="Role", namespace="##targetNamespace")
+	unsettable attr InterfaceDefRoleType[1] role;
+
+	@ExtendedMetaData(kind="element", name="SystemGroup", namespace="##targetNamespace")
+	attr StringLiteral systemGroup;
+
+	@ExtendedMetaData(kind="element", name="InterfaceDefPort", namespace="##targetNamespace")
+	!resolve val InterfaceDefPort[*] interfaceDefPort;
+}
+
+@ExtendedMetaData(name="InterfaceDefRoleType")
+enum InterfaceDefRoleType {
+	Master = 0;
+	Slave = 1;
+	System = 2;
+	Monitor = 3;
+}
+
+@ExtendedMetaData(name="InterfaceDefRoleType:Object", baseType="InterfaceDefRoleType")
+datatype InterfaceDefRoleTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="InterfaceDefTransactionalPort", kind="elementOnly")
+class InterfaceDefTransactionalPort extends InterfaceDefPort {
+
+	@ExtendedMetaData(kind="element", name="Initiative", namespace="##targetNamespace")
+	unsettable attr PortInitiative[1] initiative;
+}
+
+@ExtendedMetaData(name="InterfaceDefView", kind="elementOnly")
+class InterfaceDefView extends SignalOwner {
+
+	@ExtendedMetaData(kind="element", name="InterfaceDefRole", namespace="##targetNamespace")
+	!resolve val InterfaceDefRole[+] interfaceDefRole;
+}
+
+@ExtendedMetaData(name="InterfaceDefWirePort", kind="elementOnly")
+class InterfaceDefWirePort extends InterfaceDefPort {
+}
+
+@ExtendedMetaData(name="InterfaceInstance", kind="elementOnly")
+abstract class InterfaceInstance extends Instance {
+
+	@ExtendedMetaData(kind="element", name="InstanceInterfaceMap", namespace="##targetNamespace")
+	!resolve val InstanceInterfaceMap[*] instanceInterfaceMap;
+}
+
+@ExtendedMetaData(name="InterfacePortMap", kind="elementOnly")
+class InterfacePortMap extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="XRefLocalPort", namespace="##targetNamespace")
+	!resolve val XRefInternalPort[1] xRefLocalPort;
+
+	@ExtendedMetaData(kind="element", name="XRefInterfacePort", namespace="##targetNamespace")
+	!resolve val XRefIFDPort[1] xRefInterfacePort;
+}
+
+@ExtendedMetaData(name="InterfaceRoleType")
+enum InterfaceRoleType {
+	Master = 0;
+	Slave = 1;
+	System = 2;
+	Monitor = 3;
+	MirroredMaster = 4;
+	MirroredSlave = 5;
+	MirroredSystem = 6;
+	MirroredMonitor = 7;
+	MonitoredMaster = 8;
+	MonitoredSlave = 9;
+	MonitoredSystem = 10;
+	MirroredMonitoredMaster = 11;
+	MirroredMonitoredSlave = 12;
+	MirroredMonitoredSystem = 13;
+	None = 14;
+	Internal = 15;
+	Extension = 16;
+}
+
+@ExtendedMetaData(name="InterfaceRoleType:Object", baseType="InterfaceRoleType")
+datatype InterfaceRoleTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="InterfaceView", kind="elementOnly")
+class InterfaceView extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="InterfacePortMap", namespace="##targetNamespace")
+	!resolve val InterfacePortMap[*] interfacePortMap;
+
+	@ExtendedMetaData(kind="element", name="Port", namespace="##targetNamespace")
+	!resolve val Port[*] port;
+}
+
+@ExtendedMetaData(name="LocalInterfaceMap", kind="elementOnly")
+class LocalInterfaceMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefLocalInterface", namespace="##targetNamespace")
+	!resolve val XRefInternalInterface[1] xRefLocalInterface;
+
+	@ExtendedMetaData(kind="element", name="XRefConnection", namespace="##targetNamespace")
+	!resolve val XRefConnection[1] xRefConnection;
+
+	@ExtendedMetaData(kind="element", name="LocalPortMap", namespace="##targetNamespace")
+	!resolve val LocalPortMap[*] localPortMap;
+}
+
+@ExtendedMetaData(name="LocalPortMap", kind="elementOnly")
+class LocalPortMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefLocalPort", namespace="##targetNamespace")
+	!resolve val XRefInternalPort[1] xRefLocalPort;
+
+	@ExtendedMetaData(kind="element", name="XRefSignal", namespace="##targetNamespace")
+	!resolve val XRefInternalSignal[1] xRefSignal;
+}
+
+@ExtendedMetaData(name="Memory", kind="elementOnly")
+class Memory extends SequenceElement {
+
+	@ExtendedMetaData(kind="element", name="AccessType", namespace="##targetNamespace")
+	unsettable attr AccessType[1] accessType;
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="Size", namespace="##targetNamespace")
+	attr IntegerExpr[1] size;
+
+	@ExtendedMetaData(kind="element", name="Endianness", namespace="##targetNamespace")
+	unsettable attr EndianType endianness;
+}
+
+@ExtendedMetaData(name="MessageType")
+enum MessageType {
+	CONFIG = 0;
+	RBS = 1;
+	RBSU = 2;
+	RBU = 3;
+	TAS = 4;
+}
+
+@ExtendedMetaData(name="MessageType:Object", baseType="MessageType")
+datatype MessageTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="MethodDataType", kind="elementOnly")
+class MethodDataType extends DataType {
+
+	@ExtendedMetaData(kind="element", name="ReturnDataType", namespace="##targetNamespace")
+	!resolve val ReturnDataType[1] returnDataType;
+
+	@ExtendedMetaData(kind="element", name="Reference", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] reference;
+
+	@ExtendedMetaData(kind="element", name="MethodDataTypeElement", namespace="##targetNamespace")
+	!resolve val MethodDataTypeElement[*] methodDataTypeElement;
+}
+
+@ExtendedMetaData(name="MethodDataTypeElement", kind="elementOnly")
+class MethodDataTypeElement extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val ValueDataType[1] dataType;
+
+	@ExtendedMetaData(kind="element", name="Name", namespace="##targetNamespace")
+	attr StringExpr[1] name;
+
+	@ExtendedMetaData(kind="element", name="Reference", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] reference;
+}
+
+@ExtendedMetaData(name="ModelRoot", kind="elementOnly")
+abstract class ModelRoot extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="ConstDefBlock", namespace="##targetNamespace")
+	!resolve val ConstDefBlock[1] constDefBlock;
+
+	@GenModel(documentation="20300")
+	@ExtendedMetaData(kind="element", name="EssenceVersion", namespace="##targetNamespace")
+	unsettable attr type.Int[1] essenceVersion;
+
+	@ExtendedMetaData(kind="element", name="GenericDeclBlock", namespace="##targetNamespace")
+	!resolve val GenericDeclBlock[1] genericDeclBlock;
+
+	@ExtendedMetaData(kind="element", name="Module", namespace="##targetNamespace")
+	!resolve val Module[*] module;
+
+	@ExtendedMetaData(kind="element", name="ParamDeclBlock", namespace="##targetNamespace")
+	!resolve val ParamDeclBlock[1] paramDeclBlock;
+
+	@ExtendedMetaData(kind="element", name="VLNV", namespace="##targetNamespace")
+	!resolve val VLNV[1] vLNV;
+}
+
+@ExtendedMetaData(name="Module", kind="elementOnly")
+class Module extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="Module", namespace="##targetNamespace")
+	!resolve val Module[*] module;
+}
+
+@ExtendedMetaData(name="MultiPad", kind="elementOnly")
+class MultiPad extends Pad {
+
+	@ExtendedMetaData(kind="element", name="SinglePad", namespace="##targetNamespace")
+	!resolve val SinglePad[+] singlePad;
+}
+
+@ExtendedMetaData(name="MultiViewRegister", kind="elementOnly")
+class MultiViewRegister extends GeneralRegister {
+
+	@ExtendedMetaData(kind="element", name="XRefRegisterView", namespace="##targetNamespace")
+	!resolve val XRefRegisterView[*] xRefRegisterView;
+
+	@ExtendedMetaData(kind="element", name="RegisterView", namespace="##targetNamespace")
+	!resolve val RegisterView[*] registerView;
+}
+
+@ExtendedMetaData(name="Net", kind="elementOnly")
+class Net extends SingleSourceNode {
+}
+
+@ExtendedMetaData(name="NoneInterface", kind="elementOnly")
+class NoneInterface extends GeneralInterface {
+}
+
+@ExtendedMetaData(name="Package", kind="elementOnly")
+class Package extends ModelRoot {
+
+	@ExtendedMetaData(kind="element", name="Type", namespace="##targetNamespace")
+	attr StringExpr[1] type;
+
+	@ExtendedMetaData(kind="element", name="Pin", namespace="##targetNamespace")
+	!resolve val Pin[*] pin;
+}
+
+@ExtendedMetaData(name="PackageInstance", kind="elementOnly")
+class PackageInstance extends GeneralInstance {
+
+	@ExtendedMetaData(kind="element", name="PinNetMap", namespace="##targetNamespace")
+	!resolve val PinNetMap[*] pinNetMap;
+}
+
+@ExtendedMetaData(name="Pad", kind="elementOnly")
+abstract class Pad extends SingleSourceNode {
+}
+
+@ExtendedMetaData(name="PadMultiplexed", kind="elementOnly")
+class PadMultiplexed extends SinglePad {
+
+	@ExtendedMetaData(kind="element", name="ExtVLNV", namespace="##targetNamespace")
+	!resolve val VLNV[+] extVLNV;
+
+	@ExtendedMetaData(kind="element", name="XRefPort", namespace="##targetNamespace")
+	!resolve val XRefSiPort[1] xRefPort;
+
+	@ExtendedMetaData(kind="element", name="PortGroup", namespace="##targetNamespace")
+	attr IntegerExpr[1] portGroup;
+}
+
+@ExtendedMetaData(name="PadNetMap", kind="elementOnly")
+class PadNetMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefPad", namespace="##targetNamespace")
+	!resolve val XRefSinglePad[1] xRefPad;
+
+	@ExtendedMetaData(kind="element", name="XRefNet", namespace="##targetNamespace")
+	!resolve val XRefNet[1] xRefNet;
+}
+
+@ExtendedMetaData(name="PadNonMultiplexed", kind="elementOnly")
+class PadNonMultiplexed extends SinglePad {
+
+	@ExtendedMetaData(kind="element", name="ExtVLNV", namespace="##targetNamespace")
+	!resolve val VLNV[*] extVLNV;
+
+	@ExtendedMetaData(kind="element", name="SiPortReq", namespace="##targetNamespace")
+	!resolve val SiPortReq siPortReq;
+
+	@ExtendedMetaData(kind="element", name="XRefPadType", namespace="##targetNamespace")
+	!resolve val XRefPadType xRefPadType;
+
+	@ExtendedMetaData(kind="element", name="Function", namespace="##targetNamespace")
+	!resolve val Function[*] function;
+}
+
+@ExtendedMetaData(name="PadSpecial", kind="elementOnly")
+class PadSpecial extends GeneralPad {
+}
+
+@ExtendedMetaData(name="PadSupply", kind="elementOnly")
+class PadSupply extends GeneralPad {
+
+	@ExtendedMetaData(kind="element", name="Spec", namespace="##targetNamespace")
+	attr StringExpr[1] spec;
+
+	@ExtendedMetaData(kind="element", name="XRefPowerDomain", namespace="##targetNamespace")
+	!resolve val XRefPowerDomain[1] xRefPowerDomain;
+}
+
+@ExtendedMetaData(name="PadType", kind="elementOnly")
+class PadType extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="Lib", namespace="##targetNamespace")
+	attr StringExpr[1] lib;
+
+	@ExtendedMetaData(kind="element", name="Type", namespace="##targetNamespace")
+	attr StringExpr[1] type;
+
+	@ExtendedMetaData(kind="element", name="DriverStrength", namespace="##targetNamespace")
+	attr StringExpr[1] driverStrength;
+
+	@ExtendedMetaData(kind="element", name="Set", namespace="##targetNamespace")
+	attr StringExpr[1] set;
+
+	@ExtendedMetaData(kind="element", name="Width", namespace="##targetNamespace")
+	attr IntegerExpr[1] width;
+
+	@ExtendedMetaData(kind="element", name="Spec", namespace="##targetNamespace")
+	attr StringExpr[1] spec;
+}
+
+@ExtendedMetaData(name="PadTypeDB", kind="elementOnly")
+class PadTypeDB extends ModelRoot {
+
+	@ExtendedMetaData(kind="element", name="PadType", namespace="##targetNamespace")
+	!resolve val PadType[*] padType;
+}
+
+@ExtendedMetaData(name="ParamDecl", kind="elementOnly")
+abstract class ParamDecl extends VarDef {
+}
+
+@ExtendedMetaData(name="ParamDeclBlock", kind="elementOnly")
+class ParamDeclBlock extends VarDefBlock {
+
+	@ExtendedMetaData(kind="element", name="ParamDecl", namespace="##targetNamespace")
+	!resolve val ParamDecl[*] paramDecl;
+}
+
+@ExtendedMetaData(name="ParamMap", kind="elementOnly")
+class ParamMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefParamDecl", namespace="##targetNamespace")
+	!resolve val XRefParamDecl[1] xRefParamDecl;
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	attr CommonExpr[1] value;
+}
+
+@ExtendedMetaData(name="PathExpr", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype PathExpr : java.lang.String;
+
+@ExtendedMetaData(name="PathRef", kind="elementOnly")
+class PathRef extends Reference {
+
+	@ExtendedMetaData(kind="element", name="Location", namespace="##targetNamespace")
+	attr PathExpr[1] location;
+
+	@ExtendedMetaData(kind="element", name="Name", namespace="##targetNamespace")
+	attr StringExpr[1] name;
+}
+
+@ExtendedMetaData(name="Pin", kind="elementOnly")
+class Pin extends SingleSourceNode {
+}
+
+@ExtendedMetaData(name="PinNetMap", kind="elementOnly")
+class PinNetMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefPin", namespace="##targetNamespace")
+	!resolve val XRefPin[1] xRefPin;
+
+	@ExtendedMetaData(kind="element", name="XRefNet", namespace="##targetNamespace")
+	!resolve val XRefNet[1] xRefNet;
+}
+
+@ExtendedMetaData(name="Port", kind="elementOnly")
+abstract class Port extends GeneralPort {
+}
+
+@ExtendedMetaData(name="PortDirection")
+enum PortDirection {
+	in = 0;
+	out = 1;
+	inout = 2;
+}
+
+@ExtendedMetaData(name="PortDirection:Object", baseType="PortDirection")
+datatype PortDirectionObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="PortInitiative")
+enum PortInitiative {
+	provides = 0;
+	requires = 1;
+	both = 2;
+}
+
+@ExtendedMetaData(name="PortInitiative:Object", baseType="PortInitiative")
+datatype PortInitiativeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="PortRef", kind="elementOnly")
+class PortRef extends Port {
+
+	@ExtendedMetaData(kind="element", name="XRefLocalPort", namespace="##targetNamespace")
+	!resolve val XRefRealPort[1] xRefLocalPort;
+}
+
+@ExtendedMetaData(name="PowerDomain", kind="elementOnly")
+class PowerDomain extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="PowerConsumption", namespace="##targetNamespace")
+	attr IntegerExpr[1] powerConsumption;
+
+	@ExtendedMetaData(kind="element", name="MaxCurrent", namespace="##targetNamespace")
+	attr IntegerExpr[1] maxCurrent;
+
+	@ExtendedMetaData(kind="element", name="AverageCurrent", namespace="##targetNamespace")
+	attr IntegerExpr[1] averageCurrent;
+}
+
+@ExtendedMetaData(name="Product", kind="elementOnly")
+class Product extends ModelRoot {
+
+	@ExtendedMetaData(kind="element", name="Step", namespace="##targetNamespace")
+	attr StringExpr[1] step;
+
+	@ExtendedMetaData(kind="element", name="PackageInstance", namespace="##targetNamespace")
+	!resolve val PackageInstance packageInstance;
+
+	@ExtendedMetaData(kind="element", name="SiliconInstance", namespace="##targetNamespace")
+	!resolve val SiliconInstance[1] siliconInstance;
+
+	@ExtendedMetaData(kind="element", name="Net", namespace="##targetNamespace")
+	!resolve val Net[*] net;
+}
+
+@ExtendedMetaData(name="ProductInstance", kind="elementOnly")
+class ProductInstance extends Instance {
+
+	@ExtendedMetaData(kind="element", name="ProductInterfaceMap", namespace="##targetNamespace")
+	!resolve val ProductInterfaceMap[*] productInterfaceMap;
+}
+
+@ExtendedMetaData(name="ProductInterfaceMap", kind="elementOnly")
+class ProductInterfaceMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefConnection", namespace="##targetNamespace")
+	!resolve val XRefConnection[1] xRefConnection;
+
+	@ExtendedMetaData(kind="element", name="ProductPinMap", namespace="##targetNamespace")
+	!resolve val ProductPinMap[*] productPinMap;
+
+	@ExtendedMetaData(kind="element", name="ProductPadMap", namespace="##targetNamespace")
+	!resolve val ProductPadMap[*] productPadMap;
+}
+
+@ExtendedMetaData(name="ProductPadMap", kind="elementOnly")
+class ProductPadMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefPad", namespace="##targetNamespace")
+	!resolve val XRefIndSinglePad[1] xRefPad;
+
+	@ExtendedMetaData(kind="element", name="XRefSignal", namespace="##targetNamespace")
+	!resolve val XRefInternalSignal[1] xRefSignal;
+}
+
+@ExtendedMetaData(name="ProductPinMap", kind="elementOnly")
+class ProductPinMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefPin", namespace="##targetNamespace")
+	!resolve val XRefIndPin[1] xRefPin;
+
+	@ExtendedMetaData(kind="element", name="XRefSignal", namespace="##targetNamespace")
+	!resolve val XRefInternalSignal[1] xRefSignal;
+}
+
+@ExtendedMetaData(name="Property", kind="elementOnly")
+class Property extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="Key", namespace="##targetNamespace")
+	attr type.String[1] key;
+
+	@ExtendedMetaData(kind="element", name="Property", namespace="##targetNamespace")
+	!resolve val Property[*] property;
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	!unique attr type.String[*] value;
+}
+
+@ExtendedMetaData(name="RealPort", kind="elementOnly")
+abstract class RealPort extends Port {
+
+	@ExtendedMetaData(kind="element", name="Direction", namespace="##targetNamespace")
+	unsettable attr PortDirection[1] direction;
+
+	@ExtendedMetaData(kind="element", name="XRefDefaultValue", namespace="##targetNamespace")
+	!resolve val XRefDataVar xRefDefaultValue;
+}
+
+@ExtendedMetaData(name="Record", kind="elementOnly")
+class Record extends ComplexDataType {
+
+	@ExtendedMetaData(kind="element", name="DataTypeElement", namespace="##targetNamespace")
+	!resolve val DataTypeElement[+] dataTypeElement;
+}
+
+@ExtendedMetaData(name="Reference", kind="empty")
+abstract class Reference extends EssenceBase {
+}
+
+@ExtendedMetaData(name="Register", kind="elementOnly")
+class Register extends GeneralRegister {
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="MirrorSize", namespace="##targetNamespace")
+	attr IntegerExpr[1] mirrorSize;
+
+	@ExtendedMetaData(kind="element", name="TopSpinType", namespace="##targetNamespace")
+	unsettable attr TopSpinType[1] topSpinType;
+
+	@ExtendedMetaData(kind="element", name="XRefRegisterView", namespace="##targetNamespace")
+	!resolve val XRefRegisterView xRefRegisterView;
+
+	@ExtendedMetaData(kind="element", name="BitFieldElement", namespace="##targetNamespace")
+	!resolve val BitFieldElement[*] bitFieldElement;
+}
+
+@ExtendedMetaData(name="RegisterView", kind="elementOnly")
+class RegisterView extends IndexVarUser {
+
+	@ExtendedMetaData(kind="element", name="Depth", namespace="##targetNamespace")
+	attr IntegerExpr depth;
+
+	@ExtendedMetaData(kind="element", name="DepthVar", namespace="##targetNamespace")
+	attr StringLiteral depthVar;
+
+	@ExtendedMetaData(kind="element", name="BitFieldElement", namespace="##targetNamespace")
+	!resolve val BitFieldElement[*] bitFieldElement;
+}
+
+@ExtendedMetaData(name="RegMemElement", kind="elementOnly")
+abstract class RegMemElement extends IndexVarUser {
+
+	@ExtendedMetaData(kind="element", name="Offset", namespace="##targetNamespace")
+	attr IntegerExpr[1] offset;
+}
+
+@ExtendedMetaData(name="RegMemSequence", kind="elementOnly")
+class RegMemSequence extends RegMemElement {
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="Count", namespace="##targetNamespace")
+	attr IntegerExpr[1] count;
+
+	@ExtendedMetaData(kind="element", name="MinIndex", namespace="##targetNamespace")
+	attr IntegerExpr[1] minIndex;
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="IndexStep", namespace="##targetNamespace")
+	attr IntegerExpr[1] indexStep;
+
+	@ExtendedMetaData(kind="element", name="IndexVar", namespace="##targetNamespace")
+	attr type.String indexVar;
+
+	@ExtendedMetaData(kind="element", name="AltFormat", namespace="##targetNamespace")
+	attr type.String altFormat;
+
+	@ExtendedMetaData(kind="element", name="Pilot", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] pilot;
+
+	@ExtendedMetaData(kind="element", name="SequenceElement", namespace="##targetNamespace")
+	!resolve val RegMemElement[+] sequenceElement;
+}
+
+@ExtendedMetaData(name="RegMemSet", kind="elementOnly")
+class RegMemSet extends SingleSourceNode {
+
+	@GenModel(documentation="8")
+	@ExtendedMetaData(kind="element", name="AddressUnit", namespace="##targetNamespace")
+	attr IntegerExpr[1] addressUnit;
+
+	@GenModel(documentation="8")
+	@ExtendedMetaData(kind="element", name="DataUnit", namespace="##targetNamespace")
+	attr IntegerExpr[1] dataUnit;
+
+	@ExtendedMetaData(kind="element", name="Special", namespace="##targetNamespace")
+	unsettable attr SpecialType special;
+
+	@ExtendedMetaData(kind="element", name="MessageType", namespace="##targetNamespace")
+	unsettable attr MessageType messageType;
+
+	@ExtendedMetaData(kind="element", name="OpCode", namespace="##targetNamespace")
+	attr IntegerExpr opCode;
+
+	@ExtendedMetaData(kind="element", name="RegMemElement", namespace="##targetNamespace")
+	!resolve val RegMemElement[*] regMemElement;
+}
+
+@ExtendedMetaData(name="RegViewBlock", kind="elementOnly")
+class RegViewBlock extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="RegisterView", namespace="##targetNamespace")
+	!resolve val RegisterView[*] registerView;
+}
+
+@ExtendedMetaData(name="ReservedType")
+enum ReservedType {
+	unreserved = 0;
+	reserved = 1;
+}
+
+@ExtendedMetaData(name="ReservedType:Object", baseType="ReservedType")
+datatype ReservedTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="ResetType", kind="elementOnly")
+class ResetType extends IndexVarUser {
+
+	@ExtendedMetaData(kind="element", name="ResetLevel", namespace="##targetNamespace")
+	attr IntegerLiteral[1] resetLevel;
+
+	@ExtendedMetaData(kind="element", name="ResetMask", namespace="##targetNamespace")
+	attr IntegerExpr[1] resetMask;
+
+	@ExtendedMetaData(kind="element", name="ResetMode", namespace="##targetNamespace")
+	unsettable attr SyncMode[1] resetMode;
+
+	@ExtendedMetaData(kind="element", name="ResetType", namespace="##targetNamespace")
+	attr IntegerExpr[1] resetType;
+
+	@ExtendedMetaData(kind="element", name="ResetValue", namespace="##targetNamespace")
+	attr IntegerExpr[1] resetValue;
+}
+
+@ExtendedMetaData(name="ReturnDataType", kind="empty")
+abstract class ReturnDataType extends DataType {
+}
+
+@ExtendedMetaData(name="ReturnElementAccess", kind="elementOnly")
+class ReturnElementAccess extends SubElementAccess {
+
+	@ExtendedMetaData(kind="element", name="SimpleSubElementAccess", namespace="##targetNamespace")
+	!resolve val SimpleSubElementAccess simpleSubElementAccess;
+}
+
+@ExtendedMetaData(name="SequenceElement", kind="elementOnly")
+abstract class SequenceElement extends RegMemElement {
+
+	@GenModel(documentation="32")
+	@ExtendedMetaData(kind="element", name="DataWidth", namespace="##targetNamespace")
+	attr IntegerExpr[1] dataWidth;
+
+	@ExtendedMetaData(kind="element", name="AccessCondition", namespace="##targetNamespace")
+	!resolve val AccessCondition[*] accessCondition;
+}
+
+@ExtendedMetaData(name="ShellInterfaceMap", kind="elementOnly")
+class ShellInterfaceMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefShellInterface", namespace="##targetNamespace")
+	!resolve val XRefExternalInterface[1] xRefShellInterface;
+
+	@ExtendedMetaData(kind="element", name="XRefConnection", namespace="##targetNamespace")
+	!resolve val XRefConnection[1] xRefConnection;
+
+	@ExtendedMetaData(kind="element", name="ShellPortMap", namespace="##targetNamespace")
+	!resolve val ShellPortMap[*] shellPortMap;
+}
+
+@ExtendedMetaData(name="ShellPortMap", kind="elementOnly")
+class ShellPortMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefShellPort", namespace="##targetNamespace")
+	!resolve val XRefExternalPort[1] xRefShellPort;
+
+	@ExtendedMetaData(kind="element", name="XRefSignal", namespace="##targetNamespace")
+	!resolve val XRefInternalSignal[1] xRefSignal;
+}
+
+@ExtendedMetaData(name="SiComponentInstance", kind="elementOnly")
+class SiComponentInstance extends SiInstance {
+}
+
+@ExtendedMetaData(name="Signal", kind="elementOnly")
+abstract class Signal extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefDefaultValue", namespace="##targetNamespace")
+	!resolve val XRefDataVar xRefDefaultValue;
+}
+
+@ExtendedMetaData(name="SignalMap", kind="elementOnly")
+class SignalMap extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="XRefLocalSignal", namespace="##targetNamespace")
+	!resolve val XRefInternalSignal[1] xRefLocalSignal;
+
+	@ExtendedMetaData(kind="element", name="XRefInterfaceDefSignal", namespace="##targetNamespace")
+	!resolve val XRefExternalSignal[1] xRefInterfaceDefSignal;
+}
+
+@ExtendedMetaData(name="SignalOwner", kind="elementOnly")
+abstract class SignalOwner extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="Signal", namespace="##targetNamespace")
+	!resolve val Signal[*] signal;
+
+	@ExtendedMetaData(kind="element", name="SignalMap", namespace="##targetNamespace")
+	!resolve val SignalMap[*] signalMap;
+}
+
+@ExtendedMetaData(name="SignType")
+enum SignType {
+	unsigned = 0;
+	signed = 1;
+}
+
+@ExtendedMetaData(name="SignType:Object", baseType="SignType")
+datatype SignTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="SiInstance", kind="elementOnly")
+abstract class SiInstance extends GeneralInstance {
+
+	@ExtendedMetaData(kind="element", name="SiInstanceInterfaceMap", namespace="##targetNamespace")
+	!resolve val SiInstanceInterfaceMap[*] siInstanceInterfaceMap;
+}
+
+@ExtendedMetaData(name="SiInstanceInterfaceMap", kind="elementOnly")
+class SiInstanceInterfaceMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefInstanceInterface", namespace="##targetNamespace")
+	!resolve val XRefExternalInterface[1] xRefInstanceInterface;
+
+	@ExtendedMetaData(kind="element", name="SiInstancePortMap", namespace="##targetNamespace")
+	!resolve val SiInstancePortMap[*] siInstancePortMap;
+}
+
+@ExtendedMetaData(name="SiInstancePortMap", kind="elementOnly")
+class SiInstancePortMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefInstancePort", namespace="##targetNamespace")
+	!resolve val XRefExternalPort[1] xRefInstancePort;
+
+	@ExtendedMetaData(kind="element", name="XRefSignal", namespace="##targetNamespace")
+	!resolve val XRefSiSignal[1] xRefSignal;
+}
+
+@ExtendedMetaData(name="SiInstanceShellInterfaceMap", kind="elementOnly")
+class SiInstanceShellInterfaceMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefInstanceShellInterface", namespace="##targetNamespace")
+	!resolve val XRefIndInterface[1] xRefInstanceShellInterface;
+
+	@ExtendedMetaData(kind="element", name="SiInstanceShellPortMap", namespace="##targetNamespace")
+	!resolve val SiInstanceShellPortMap[*] siInstanceShellPortMap;
+}
+
+@ExtendedMetaData(name="SiInstanceShellPortMap", kind="elementOnly")
+class SiInstanceShellPortMap extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="XRefInstanceShellPort", namespace="##targetNamespace")
+	!resolve val XRefIndPort[1] xRefInstanceShellPort;
+
+	@ExtendedMetaData(kind="element", name="XRefSignal", namespace="##targetNamespace")
+	!resolve val XRefSiSignal[1] xRefSignal;
+}
+
+@ExtendedMetaData(name="Silicon", kind="elementOnly")
+class Silicon extends ModelRoot {
+
+	@ExtendedMetaData(kind="element", name="Step", namespace="##targetNamespace")
+	attr StringExpr[1] step;
+
+	@ExtendedMetaData(kind="element", name="PadHeight", namespace="##targetNamespace")
+	attr IntegerExpr[1] padHeight;
+
+	@ExtendedMetaData(kind="element", name="KerfWidth", namespace="##targetNamespace")
+	attr IntegerExpr[1] kerfWidth;
+
+	@ExtendedMetaData(kind="element", name="KerfHeight", namespace="##targetNamespace")
+	attr IntegerExpr[1] kerfHeight;
+
+	@ExtendedMetaData(kind="element", name="Instance", namespace="##targetNamespace")
+	!resolve val SiInstance[*] instance;
+
+	@ExtendedMetaData(kind="element", name="Pad", namespace="##targetNamespace")
+	!resolve val Pad[*] pad;
+
+	@ExtendedMetaData(kind="element", name="PowerDomain", namespace="##targetNamespace")
+	!resolve val PowerDomain[*] powerDomain;
+}
+
+@ExtendedMetaData(name="SiliconInstance", kind="elementOnly")
+class SiliconInstance extends GeneralInstance {
+
+	@ExtendedMetaData(kind="element", name="PadNetMap", namespace="##targetNamespace")
+	!resolve val PadNetMap[*] padNetMap;
+}
+
+@ExtendedMetaData(name="SimpleDataType", kind="elementOnly")
+class SimpleDataType extends ValueDataType {
+}
+
+@ExtendedMetaData(name="SimpleSubElementAccess", kind="empty")
+abstract class SimpleSubElementAccess extends SubElementAccess {
+}
+
+@ExtendedMetaData(name="SinglePad", kind="elementOnly")
+abstract class SinglePad extends Pad {
+
+	@ExtendedMetaData(kind="element", name="XCoordinate", namespace="##targetNamespace")
+	attr IntegerExpr[1] xCoordinate;
+
+	@ExtendedMetaData(kind="element", name="YCoordinate", namespace="##targetNamespace")
+	attr IntegerExpr[1] yCoordinate;
+
+	@ExtendedMetaData(kind="element", name="Spacer", namespace="##targetNamespace")
+	attr IntegerExpr[1] spacer;
+
+	@ExtendedMetaData(kind="element", name="Opening", namespace="##targetNamespace")
+	attr IntegerExpr[1] opening;
+
+	@ExtendedMetaData(kind="element", name="Location", namespace="##targetNamespace")
+	attr StringExpr[1] location;
+
+	@ExtendedMetaData(kind="element", name="PadCount", namespace="##targetNamespace")
+	attr IntegerExpr[1] padCount;
+
+	@ExtendedMetaData(kind="element", name="Place", namespace="##targetNamespace")
+	attr StringExpr[1] place;
+
+	@ExtendedMetaData(kind="element", name="Orientation", namespace="##targetNamespace")
+	attr StringExpr[1] orientation;
+
+	@ExtendedMetaData(kind="element", name="Power", namespace="##targetNamespace")
+	attr StringExpr[1] power;
+
+	@ExtendedMetaData(kind="element", name="Ground", namespace="##targetNamespace")
+	attr StringExpr[1] ground;
+}
+
+@ExtendedMetaData(name="SingleSourceNode", kind="elementOnly")
+abstract class SingleSourceNode extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="Custom", namespace="##targetNamespace")
+	attr type.String[1] custom;
+
+	@ExtendedMetaData(kind="element", name="Hidden", namespace="##targetNamespace")
+	attr BooleanExpr[1] hidden;
+
+	@ExtendedMetaData(kind="element", name="ID", namespace="##targetNamespace")
+	unsettable attr type.Int[1] iD;
+
+	@ExtendedMetaData(kind="element", name="LongDescription", namespace="##targetNamespace")
+	!resolve val DescriptionItem[1] longDescription;
+
+	@ExtendedMetaData(kind="element", name="Name", namespace="##targetNamespace")
+	attr StringExpr[1] name;
+
+	@ExtendedMetaData(kind="element", name="ShortDescription", namespace="##targetNamespace")
+	attr type.String[1] shortDescription;
+
+	@ExtendedMetaData(kind="element", name="ShortName", namespace="##targetNamespace")
+	attr StringExpr shortName;
+
+	@ExtendedMetaData(kind="element", name="Property", namespace="##targetNamespace")
+	!resolve val Property[*] property;
+
+	@ExtendedMetaData(kind="element", name="XRefExtension", namespace="##targetNamespace")
+	!resolve val PathRef[*] xRefExtension;
+}
+
+@ExtendedMetaData(name="SiPort", kind="elementOnly")
+class SiPort extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="Pdr", namespace="##targetNamespace")
+	attr StringExpr[1] pdr;
+
+	@ExtendedMetaData(kind="element", name="XRefTest", namespace="##targetNamespace")
+	!resolve val XRefTest xRefTest;
+
+	@ExtendedMetaData(kind="element", name="SiPortReq", namespace="##targetNamespace")
+	!resolve val SiPortReq[1] siPortReq;
+
+	@ExtendedMetaData(kind="element", name="Function", namespace="##targetNamespace")
+	!resolve val Function[*] function;
+}
+
+@ExtendedMetaData(name="SiPortDB", kind="elementOnly")
+class SiPortDB extends ModelRoot {
+
+	@ExtendedMetaData(kind="element", name="SiPort", namespace="##targetNamespace")
+	!resolve val SiPort[*] siPort;
+}
+
+@ExtendedMetaData(name="SiPortReq", kind="elementOnly")
+class SiPortReq extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="DriverStrength", namespace="##targetNamespace")
+	attr StringExpr[1] driverStrength;
+
+	@ExtendedMetaData(kind="element", name="Set", namespace="##targetNamespace")
+	attr StringExpr[1] set;
+
+	@ExtendedMetaData(kind="element", name="Type", namespace="##targetNamespace")
+	attr StringExpr[1] type;
+}
+
+@ExtendedMetaData(name="SiSignal", kind="elementOnly")
+class SiSignal extends SingleSourceNode {
+}
+
+@ExtendedMetaData(name="SiSignalDB", kind="elementOnly")
+class SiSignalDB extends ModelRoot {
+
+	@ExtendedMetaData(kind="element", name="SiSignal", namespace="##targetNamespace")
+	!resolve val SiSignal[*] siSignal;
+}
+
+@ExtendedMetaData(name="SiSystemInstance", kind="elementOnly")
+class SiSystemInstance extends SiInstance {
+
+	@ExtendedMetaData(kind="element", name="SiInstanceShellInterfaceMap", namespace="##targetNamespace")
+	!resolve val SiInstanceShellInterfaceMap[*] siInstanceShellInterfaceMap;
+}
+
+@ExtendedMetaData(name="SpecialType")
+enum SpecialType {
+	Table = 0;
+	Message = 1;
+	RegisterGroup = 2;
+	BurstGroup = 3;
+}
+
+@ExtendedMetaData(name="SpecialType:Object", baseType="SpecialType")
+datatype SpecialTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="StringDecl", kind="elementOnly")
+class StringDecl extends ParamDecl {
+
+	@ExtendedMetaData(kind="element", name="DefaultValue", namespace="##targetNamespace")
+	attr StringLiteral[1] defaultValue;
+
+	@ExtendedMetaData(kind="element", name="Enumeration", namespace="##targetNamespace")
+	!resolve val EnumerationString[*] enumeration;
+}
+
+@ExtendedMetaData(name="StringDef", kind="elementOnly")
+class StringDef extends ConstDef {
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	attr StringLiteral[1] value;
+}
+
+@ExtendedMetaData(name="StringExpr", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype StringExpr : java.lang.String;
+
+@ExtendedMetaData(name="StringGenDecl", kind="elementOnly")
+class StringGenDecl extends GenericDecl {
+
+	@ExtendedMetaData(kind="element", name="DefaultValue", namespace="##targetNamespace")
+	attr StringLiteral[1] defaultValue;
+
+	@ExtendedMetaData(kind="element", name="Enumeration", namespace="##targetNamespace")
+	!resolve val EnumerationString[*] enumeration;
+}
+
+@ExtendedMetaData(name="StringLiteral", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype StringLiteral : java.lang.String;
+
+@ExtendedMetaData(name="StrobeType")
+enum StrobeType {
+	NoStrobe = 0;
+	ReadStrobe = 1;
+	WriteStrobe = 2;
+	ReadWriteStrobe = 3;
+}
+
+@ExtendedMetaData(name="StrobeType:Object", baseType="StrobeType")
+datatype StrobeTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="SubElementAccess", kind="empty")
+abstract class SubElementAccess extends EssenceBase {
+}
+
+@ExtendedMetaData(name="SyncMode")
+enum SyncMode {
+	asynchronous = 0;
+	synchronous = 1;
+}
+
+@ExtendedMetaData(name="SyncMode:Object", baseType="SyncMode")
+datatype SyncModeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="System", kind="elementOnly")
+class System extends ModelRoot {
+
+	@ExtendedMetaData(kind="element", name="ExtVLNV", namespace="##targetNamespace")
+	!resolve val VLNV extVLNV;
+
+	@ExtendedMetaData(kind="element", name="Interface", namespace="##targetNamespace")
+	!resolve val Interface[*] ~interface;
+
+	@ExtendedMetaData(kind="element", name="Connection", namespace="##targetNamespace")
+	!resolve val Connection[*] connection;
+
+	@ExtendedMetaData(kind="element", name="LocalInterfaceMap", namespace="##targetNamespace")
+	!resolve val LocalInterfaceMap[*] localInterfaceMap;
+
+	@ExtendedMetaData(kind="element", name="Instance", namespace="##targetNamespace")
+	!resolve val Instance[*] instance;
+
+	@ExtendedMetaData(kind="element", name="ShellInterfaceMap", namespace="##targetNamespace")
+	!resolve val ShellInterfaceMap[*] shellInterfaceMap;
+}
+
+@ExtendedMetaData(name="SystemInstance", kind="elementOnly")
+class SystemInstance extends InterfaceInstance {
+
+	@ExtendedMetaData(kind="element", name="InstanceShellInterfaceMap", namespace="##targetNamespace")
+	!resolve val InstanceShellInterfaceMap[*] instanceShellInterfaceMap;
+}
+
+@ExtendedMetaData(name="Test", kind="elementOnly")
+class Test extends SingleSourceNode {
+
+	@ExtendedMetaData(kind="element", name="ParallelFactor", namespace="##targetNamespace")
+	attr StringExpr[1] parallelFactor;
+
+	@ExtendedMetaData(kind="element", name="TestReq", namespace="##targetNamespace")
+	!resolve val TestReq[1] testReq;
+
+	@ExtendedMetaData(kind="element", name="Function", namespace="##targetNamespace")
+	!resolve val Function[*] function;
+}
+
+@ExtendedMetaData(name="TestDB", kind="elementOnly")
+class TestDB extends ModelRoot {
+
+	@ExtendedMetaData(kind="element", name="Test", namespace="##targetNamespace")
+	!resolve val Test[*] test;
+}
+
+@ExtendedMetaData(name="TestReq", kind="elementOnly")
+class TestReq extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="DriverStrength", namespace="##targetNamespace")
+	attr StringExpr[1] driverStrength;
+}
+
+@ExtendedMetaData(name="TopSpinType")
+enum TopSpinType {
+	noTopSpin = 0;
+	clc = 1;
+	clccnt = 2;
+	clcstat = 3;
+	config = 4;
+	control = 5;
+	dmae = 6;
+	errconf = 7;
+	hwapivers = 8;
+	icr = 9;
+	~id = 10;
+	imsc = 11;
+	irqsc = 12;
+	irqsm = 13;
+	irqss = 14;
+	isr = 15;
+	mis = 16;
+	msconf = 17;
+	readonlysync = 18;
+	ris = 19;
+}
+
+@ExtendedMetaData(name="TopSpinType:Object", baseType="TopSpinType")
+datatype TopSpinTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="TransactionalPort", kind="elementOnly")
+class TransactionalPort extends RealPort {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val MethodDataType[1] dataType;
+
+	@ExtendedMetaData(kind="element", name="Initiative", namespace="##targetNamespace")
+	unsettable attr PortInitiative[1] initiative;
+}
+
+@ExtendedMetaData(name="TransactionalSignal", kind="elementOnly")
+class TransactionalSignal extends Signal {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val MethodDataType[1] dataType;
+}
+
+@ExtendedMetaData(name="Union", kind="elementOnly")
+class Union extends ComplexDataType {
+
+	@ExtendedMetaData(kind="element", name="DataTypeElement", namespace="##targetNamespace")
+	!resolve val DataTypeElement[+] dataTypeElement;
+}
+
+@ExtendedMetaData(name="ValueDataType", kind="elementOnly")
+abstract class ValueDataType extends ReturnDataType {
+
+	@ExtendedMetaData(kind="element", name="SignInterpretation", namespace="##targetNamespace")
+	unsettable attr SignType[1] signInterpretation;
+
+	@GenModel(documentation="dig")
+	@ExtendedMetaData(kind="element", name="ObjectType", namespace="##targetNamespace")
+	attr type.String[1] objectType;
+
+	@ExtendedMetaData(kind="element", name="Vector", namespace="##targetNamespace")
+	!resolve val ArrayDimension vector;
+}
+
+@ExtendedMetaData(name="VarDef", kind="elementOnly")
+abstract class VarDef extends SingleSourceNode {
+}
+
+@ExtendedMetaData(name="VarDefBlock", kind="elementOnly")
+abstract class VarDefBlock extends SingleSourceNode {
+}
+
+@ExtendedMetaData(name="VirtualType")
+enum VirtualType {
+	~false = 0;
+	~true = 1;
+	none = 2;
+	toInternal = 3;
+	toExternal = 4;
+	both = 5;
+}
+
+@ExtendedMetaData(name="VirtualType:Object", baseType="VirtualType")
+datatype VirtualTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="VLNV", kind="elementOnly")
+class VLNV extends EssenceBase {
+
+	@ExtendedMetaData(kind="element", name="Vendor", namespace="##targetNamespace")
+	attr StringLiteral[1] vendor;
+
+	@ExtendedMetaData(kind="element", name="Library", namespace="##targetNamespace")
+	attr StringLiteral[1] library;
+
+	@ExtendedMetaData(kind="element", name="Name", namespace="##targetNamespace")
+	attr StringLiteral[1] name;
+
+	@ExtendedMetaData(kind="element", name="Version", namespace="##targetNamespace")
+	attr StringLiteral[1] version;
+}
+
+@ExtendedMetaData(name="void", kind="empty")
+class Void extends ReturnDataType {
+}
+
+@ExtendedMetaData(name="WirePort", kind="elementOnly")
+class WirePort extends RealPort {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val SimpleDataType[1] dataType;
+}
+
+@ExtendedMetaData(name="WireSignal", kind="elementOnly")
+class WireSignal extends Signal {
+
+	@ExtendedMetaData(kind="element", name="DataType", namespace="##targetNamespace")
+	!resolve val SimpleDataType[1] dataType;
+}
+
+@ExtendedMetaData(name="XRef", kind="elementOnly")
+abstract class XRef extends Reference {
+
+	@ExtendedMetaData(kind="element", name="XRefTargetID", namespace="##targetNamespace")
+	unsettable attr type.Int[1] xRefTargetID;
+}
+
+@ExtendedMetaData(name="XRefConnection", kind="elementOnly")
+class XRefConnection extends XRefInternal {
+}
+
+@ExtendedMetaData(name="XRefDataVar", kind="elementOnly")
+class XRefDataVar extends XRefInternal {
+}
+
+@ExtendedMetaData(name="XRefDirect", kind="elementOnly")
+abstract class XRefDirect extends XRefExternal {
+}
+
+@ExtendedMetaData(name="XRefExternal", kind="elementOnly")
+abstract class XRefExternal extends XRef {
+}
+
+@ExtendedMetaData(name="XRefExternalInterface", kind="elementOnly")
+class XRefExternalInterface extends XRefDirect {
+}
+
+@ExtendedMetaData(name="XRefExternalPort", kind="elementOnly")
+class XRefExternalPort extends XRefDirect {
+
+	@ExtendedMetaData(kind="element", name="SubElementAccess", namespace="##targetNamespace")
+	!resolve val SubElementAccess subElementAccess;
+}
+
+@ExtendedMetaData(name="XRefExternalSignal", kind="elementOnly")
+class XRefExternalSignal extends XRefDirect {
+
+	@ExtendedMetaData(kind="element", name="SubElementAccess", namespace="##targetNamespace")
+	!resolve val SubElementAccess subElementAccess;
+}
+
+@ExtendedMetaData(name="XRefGenericDecl", kind="elementOnly")
+class XRefGenericDecl extends XRefDirect {
+}
+
+@ExtendedMetaData(name="XRefIFDPort", kind="elementOnly")
+class XRefIFDPort extends XRefDirect {
+
+	@ExtendedMetaData(kind="element", name="SubElementAccess", namespace="##targetNamespace")
+	!resolve val SubElementAccess subElementAccess;
+}
+
+@ExtendedMetaData(name="XRefIndInterface", kind="elementOnly")
+class XRefIndInterface extends XRefIndirect {
+}
+
+@ExtendedMetaData(name="XRefIndirect", kind="elementOnly")
+abstract class XRefIndirect extends XRefExternal {
+}
+
+@ExtendedMetaData(name="XRefIndPin", kind="elementOnly")
+class XRefIndPin extends XRefIndirect {
+}
+
+@ExtendedMetaData(name="XRefIndPort", kind="elementOnly")
+class XRefIndPort extends XRefIndirect {
+
+	@ExtendedMetaData(kind="element", name="SubElementAccess", namespace="##targetNamespace")
+	!resolve val SubElementAccess subElementAccess;
+}
+
+@ExtendedMetaData(name="XRefIndSinglePad", kind="elementOnly")
+class XRefIndSinglePad extends XRefIndirect {
+}
+
+@ExtendedMetaData(name="XRefInstance", kind="elementOnly")
+class XRefInstance extends XRefInternal {
+}
+
+@ExtendedMetaData(name="XRefInternal", kind="elementOnly")
+abstract class XRefInternal extends XRef {
+}
+
+@ExtendedMetaData(name="XRefInternalInterface", kind="elementOnly")
+class XRefInternalInterface extends XRefInternal {
+}
+
+@ExtendedMetaData(name="XRefInternalPort", kind="elementOnly")
+class XRefInternalPort extends XRefInternal {
+
+	@ExtendedMetaData(kind="element", name="SubElementAccess", namespace="##targetNamespace")
+	!resolve val SubElementAccess subElementAccess;
+}
+
+@ExtendedMetaData(name="XRefInternalSignal", kind="elementOnly")
+class XRefInternalSignal extends XRefInternal {
+
+	@ExtendedMetaData(kind="element", name="SubElementAccess", namespace="##targetNamespace")
+	!resolve val SubElementAccess subElementAccess;
+}
+
+@ExtendedMetaData(name="XRefMasterInterface", kind="elementOnly")
+class XRefMasterInterface extends XRefInternal {
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="Range", namespace="##targetNamespace")
+	attr IntegerExpr[1] range;
+
+	@ExtendedMetaData(kind="element", name="SrcOffset", namespace="##targetNamespace")
+	attr IntegerExpr[1] srcOffset;
+
+	@ExtendedMetaData(kind="element", name="TgtOffset", namespace="##targetNamespace")
+	attr IntegerExpr[1] tgtOffset;
+}
+
+@ExtendedMetaData(name="XRefNet", kind="elementOnly")
+class XRefNet extends XRefInternal {
+}
+
+@ExtendedMetaData(name="XRefNoneInterface", kind="elementOnly")
+class XRefNoneInterface extends XRefDirect {
+}
+
+@ExtendedMetaData(name="XRefPadType", kind="elementOnly")
+class XRefPadType extends XRefVLNV {
+}
+
+@ExtendedMetaData(name="XRefParamDecl", kind="elementOnly")
+class XRefParamDecl extends XRefDirect {
+}
+
+@ExtendedMetaData(name="XRefPin", kind="elementOnly")
+class XRefPin extends XRefDirect {
+}
+
+@ExtendedMetaData(name="XRefPowerDomain", kind="elementOnly")
+class XRefPowerDomain extends XRefInternal {
+}
+
+@ExtendedMetaData(name="XRefRealPort", kind="elementOnly")
+class XRefRealPort extends XRefInternal {
+
+	@ExtendedMetaData(kind="element", name="SubElementAccess", namespace="##targetNamespace")
+	!resolve val SubElementAccess subElementAccess;
+}
+
+@ExtendedMetaData(name="XRefRegisterView", kind="elementOnly")
+class XRefRegisterView extends XRefInternal {
+}
+
+@ExtendedMetaData(name="XRefRegMemSet", kind="elementOnly")
+class XRefRegMemSet extends XRefInternal {
+
+	@ExtendedMetaData(kind="element", name="Offset", namespace="##targetNamespace")
+	attr IntegerExpr[1] offset;
+
+	@ExtendedMetaData(kind="element", name="AccessCondition", namespace="##targetNamespace")
+	!resolve val AccessCondition[*] accessCondition;
+}
+
+@ExtendedMetaData(name="XRefSinglePad", kind="elementOnly")
+class XRefSinglePad extends XRefDirect {
+}
+
+@ExtendedMetaData(name="XRefSiPort", kind="elementOnly")
+class XRefSiPort extends XRefVLNV {
+}
+
+@ExtendedMetaData(name="XRefSiSignal", kind="elementOnly")
+class XRefSiSignal extends XRefVLNV {
+}
+
+@ExtendedMetaData(name="XRefSlaveInterface", kind="elementOnly")
+class XRefSlaveInterface extends XRefExternal {
+
+	@GenModel(documentation="1")
+	@ExtendedMetaData(kind="element", name="Range", namespace="##targetNamespace")
+	attr IntegerExpr[1] range;
+
+	@ExtendedMetaData(kind="element", name="SrcOffset", namespace="##targetNamespace")
+	attr IntegerExpr[1] srcOffset;
+
+	@ExtendedMetaData(kind="element", name="TgtOffset", namespace="##targetNamespace")
+	attr IntegerExpr[1] tgtOffset;
+
+	@ExtendedMetaData(kind="element", name="XRefInstance", namespace="##targetNamespace")
+	!resolve val XRefInstance[1] xRefInstance;
+}
+
+@ExtendedMetaData(name="XRefTest", kind="elementOnly")
+class XRefTest extends XRefVLNV {
+}
+
+@ExtendedMetaData(name="XRefVLNV", kind="elementOnly")
+abstract class XRefVLNV extends XRefDirect {
+
+	@ExtendedMetaData(kind="element", name="ExtVLNV", namespace="##targetNamespace")
+	!resolve val VLNV[1] extVLNV;
+}
+

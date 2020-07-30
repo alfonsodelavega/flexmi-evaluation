@@ -1,0 +1,2701 @@
+@namespace(uri="http://jchein.name/stt", prefix="stt")
+package StarTrekTimelines;
+
+@coverage(totalFound="14")
+class DisputeHistory {
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr int[1] episode;
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr int[+] marker;
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr boolean[1] completed;
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr int[+] missionIds;
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr int[1] starsEarned;
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr int[1] totalStars;
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr boolean[1] excludeFromTimeline;
+
+	@coverage(totalFound="12", ratioTotalFound="0.8571428571428571")
+	attr int[1] factionId;
+}
+
+@coverage(totalFound="64")
+class RewardDay {
+
+	@coverage(totalFound="64", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="64", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="64", ratioTotalFound="1.0")
+	val Reward[+] rewards;
+
+	@coverage(totalFound="38", ratioTotalFound="0.59375")
+	attr int[1] doubleAtVip;
+}
+
+@coverage(totalFound="4")
+class Store {
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int[1] socialFriend;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int[1] gameReward;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int[1] socialGift;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int[1] system;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int[1] socialGuildInfo;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int[1] pvpReward;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int socialGuildInvite;
+}
+
+@coverage(totalFound="2")
+class Commerce {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[+] layaways;
+}
+
+@coverage(totalFound="2")
+class CrewAvatar {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] shortName;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] maxRarity;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Icon[1] portrait;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val FullBody[1] fullBody;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] defaultAvatar;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] hideFromCryo;
+}
+
+@coverage(totalFound="6")
+class Image {
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] file;
+
+	@coverage(totalFound="2", ratioTotalFound="0.3333333333333333")
+	attr String url;
+
+	@coverage(totalFound="2", ratioTotalFound="0.3333333333333333")
+	attr String version;
+}
+
+@coverage(totalFound="42")
+class DailyActivity {
+
+	@coverage(totalFound="42", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="42", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="42", ratioTotalFound="1.0")
+	attr String[1] description;
+
+	@coverage(totalFound="42", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="42", ratioTotalFound="1.0")
+	attr String[1] area;
+
+	@coverage(totalFound="42", ratioTotalFound="1.0")
+	attr int[1] weight;
+
+	@coverage(totalFound="42", ratioTotalFound="1.0")
+	attr int[1] category;
+
+	@coverage(totalFound="38", ratioTotalFound="0.9047619047619048")
+	attr int lifetime;
+
+	@coverage(totalFound="38", ratioTotalFound="0.9047619047619048")
+	attr String[*] rewards;
+
+	@coverage(totalFound="38", ratioTotalFound="0.9047619047619048")
+	attr int goal;
+
+	@coverage(totalFound="38", ratioTotalFound="0.9047619047619048")
+	attr int minLevel;
+
+	@coverage(totalFound="38", ratioTotalFound="0.9047619047619048")
+	attr int rarity;
+
+	@coverage(totalFound="38", ratioTotalFound="0.9047619047619048")
+	attr int progress;
+
+	@coverage(totalFound="38", ratioTotalFound="0.9047619047619048")
+	attr String status;
+}
+
+@coverage(totalFound="6")
+class History {
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] what;
+
+	@coverage(totalFound="2", ratioTotalFound="0.3333333333333333")
+	attr String[1] reason;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] when;
+}
+
+@coverage(totalFound="2")
+class MasterLimit {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] chance;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] periodMinutes;
+}
+
+@coverage(totalFound="1270")
+class Item {
+
+	@coverage(totalFound="1270", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="1270", ratioTotalFound="1.0")
+	attr int[1] type;
+
+	@coverage(totalFound="1270", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="1270", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="1270", ratioTotalFound="1.0")
+	attr String[1] flavor;
+
+	@coverage(totalFound="1270", ratioTotalFound="1.0")
+	attr int[1] archetypeId;
+
+	@coverage(totalFound="1270", ratioTotalFound="1.0")
+	attr int[1] quantity;
+
+	@coverage(totalFound="1270", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="1270", ratioTotalFound="1.0")
+	attr int[1] rarity;
+
+	@coverage(totalFound="1270", ratioTotalFound="1.0")
+	attr String[1] expiresIn;
+
+	@coverage(totalFound="864", ratioTotalFound="0.6803149606299213")
+	attr String shortName;
+
+	@coverage(totalFound="954", ratioTotalFound="0.7511811023622047")
+	val Bonus bonuses;
+
+	@coverage(totalFound="90", ratioTotalFound="0.07086614173228346")
+	attr int timeModifier;
+
+	@coverage(totalFound="90", ratioTotalFound="0.07086614173228346")
+	attr int crModifier;
+
+	@coverage(totalFound="90", ratioTotalFound="0.07086614173228346")
+	attr int rewardModifier;
+
+	@coverage(totalFound="90", ratioTotalFound="0.07086614173228346")
+	val Bonus[*] craftingBonuses;
+}
+
+@coverage(totalFound="6")
+class Goal {
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] factionId;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] flavor;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[+] rewards;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	val WinnerReward[1] winnerRewards;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] victoryPoints;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] claimedRewardPoints;
+}
+
+@coverage(totalFound="2")
+class EventWinnerReward extends WinnerReward {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] expiresIn;
+}
+
+@coverage(totalFound="8")
+class FleetActivities {
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr String[1] description;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr String[1] area;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr String[1] category;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] totalPoints;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] currentPoints;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	val Milestone[+] milestones;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] claimsAvailableCount;
+}
+
+@coverage(totalFound="2")
+class ValueRange {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] core;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] rangeMin;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] rangeMax;
+}
+
+@coverage(totalFound="2")
+class Tutorial {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] state;
+}
+
+@coverage(totalFound="2")
+class Fleet {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] niconIndex;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] nleaderPlayerDbid;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] nminLevel;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] nstarbaseLevel;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] slabel;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] rank;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] epochTime;
+}
+
+@coverage(totalFound="2")
+class SttRewardedDabo {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] chance;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] periodMinutes;
+}
+
+@coverage(totalFound="2")
+class DailyRewardsState {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] secondsUntilNextReward;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] todayRewardDayIndex;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val RewardDay[+] rewardDays;
+}
+
+@coverage(totalFound="2")
+class RepresentativeFullBody {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] file;
+}
+
+@coverage(totalFound="8")
+class EquipmentSlot {
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] level;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] archetype;
+}
+
+@coverage(totalFound="2")
+class SttRewardedCredit {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] chance;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] periodMinutes;
+}
+
+@coverage(totalFound="2")
+class VideoAdCampaignLimit {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val MasterLimit[1] masterLimit;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val SttRewardedScan[1] sttRewardedScan;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val SttRewardedWarp[1] sttRewardedWarp;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val SttRewardedShuttle[1] sttRewardedShuttle;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val SttRewardedCredit[1] sttRewardedCredits;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val SttRewardedDabo[1] sttRewardedDabo;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val SttRewardedChronitonBoost[1] sttRewardedChronitonBoost;
+}
+
+@coverage(totalFound="2")
+class VoyageDescription {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] description;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] icon;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Skills[1] skills;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] shipTrait;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val CrewSlot[+] crewSlots;
+}
+
+@coverage(totalFound="2")
+class ShipBattle {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] accuracy;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] evasion;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] critChance;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] critBonus;
+}
+
+@coverage(totalFound="2")
+class WinnerReward {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Bonus[1] bonuses;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] timeModifier;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] crModifier;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] rewardModifier;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Reward[+] rewards;
+}
+
+@coverage(totalFound="2")
+class SttRewardedScan {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] chance;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] periodMinutes;
+}
+
+@coverage(totalFound="90")
+class ThresholdReward {
+
+	@coverage(totalFound="90", ratioTotalFound="1.0")
+	attr int[1] points;
+
+	@coverage(totalFound="90", ratioTotalFound="1.0")
+	val Reward[+] rewards;
+}
+
+@coverage(totalFound="2")
+class Slot {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] level;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] requiredTrait;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[+] skills;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val TraitBonus[1] traitBonuses;
+}
+
+@coverage(totalFound="24")
+class PotentialReward {
+
+	@coverage(totalFound="24", ratioTotalFound="1.0")
+	attr int[1] type;
+
+	@coverage(totalFound="24", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="20", ratioTotalFound="0.8333333333333334")
+	attr int[1] rarity;
+
+	@coverage(totalFound="16", ratioTotalFound="0.6666666666666666")
+	attr int ~id;
+
+	@coverage(totalFound="16", ratioTotalFound="0.6666666666666666")
+	attr String symbol;
+
+	@coverage(totalFound="12", ratioTotalFound="0.5")
+	attr int itemType;
+
+	@coverage(totalFound="16", ratioTotalFound="0.6666666666666666")
+	attr String name;
+
+	@coverage(totalFound="16", ratioTotalFound="0.6666666666666666")
+	attr String fullName;
+
+	@coverage(totalFound="16", ratioTotalFound="0.6666666666666666")
+	attr String flavor;
+
+	@coverage(totalFound="8", ratioTotalFound="0.3333333333333333")
+	val Bonus bonuses;
+
+	@coverage(totalFound="8", ratioTotalFound="0.3333333333333333")
+	val PotentialReward[+] potentialRewards;
+
+	@coverage(totalFound="1", ratioTotalFound="0.041666666666666664")
+	attr int[1] quantity;
+}
+
+@coverage(totalFound="8")
+class BoostWindow {
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[+] window;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	val Reward[1] reward;
+}
+
+@coverage(totalFound="10")
+class StoredImmortal {
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr int[1] quantity;
+}
+
+@coverage(totalFound="2")
+class SttRewardedWarp {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] chance;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] periodMinutes;
+}
+
+@coverage(totalFound="44")
+class RankedBracket {
+
+	@coverage(totalFound="44", ratioTotalFound="1.0")
+	attr int[1] first;
+
+	@coverage(totalFound="44", ratioTotalFound="1.0")
+	attr int[1] last;
+
+	@coverage(totalFound="44", ratioTotalFound="1.0")
+	val Reward[+] rewards;
+
+	@coverage(totalFound="44", ratioTotalFound="1.0")
+	attr int[1] quantity;
+}
+
+@coverage(totalFound="2")
+class Status {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] purchaseAvail;
+}
+
+@coverage(totalFound="8")
+class FullBody {
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr String[1] file;
+}
+
+@coverage(totalFound="2")
+class PvpTimer {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] supportsRewarding;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] pvpAllowed;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] changesIn;
+}
+
+@coverage(totalFound="2")
+class ClientAsset {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] system;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] place;
+}
+
+@coverage(totalFound="2")
+class Mailbox {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] status;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] sendable;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] sent;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] received;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] accepted;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Store[1] stores;
+}
+
+@coverage(totalFound="2")
+class FeaturedOffer {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Offer[1] offer;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Status[1] status;
+}
+
+@coverage(totalFound="2")
+class CapAchiever {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] date;
+}
+
+@coverage(totalFound="2")
+class Chat {
+}
+
+@coverage(totalFound="8")
+class Shuttle {
+
+	@coverage(totalFound="2", ratioTotalFound="0.25")
+	attr int[1] ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="0.25")
+	attr String[1] name;
+
+	@coverage(totalFound="2", ratioTotalFound="0.25")
+	attr String[1] description;
+
+	@coverage(totalFound="2", ratioTotalFound="0.25")
+	attr int[1] state;
+
+	@coverage(totalFound="2", ratioTotalFound="0.25")
+	attr String[1] expiresIn;
+
+	@coverage(totalFound="2", ratioTotalFound="0.25")
+	attr int[1] factionId;
+
+	@coverage(totalFound="2", ratioTotalFound="0.25")
+	val Slot[+] slots;
+
+	@coverage(totalFound="2", ratioTotalFound="0.25")
+	val Reward[+] rewards;
+
+	@coverage(totalFound="6", ratioTotalFound="0.75")
+	attr int token;
+
+	@coverage(totalFound="6", ratioTotalFound="0.75")
+	attr boolean allowBorrow;
+
+	@coverage(totalFound="6", ratioTotalFound="0.75")
+	val CrewBonus crewBonuses;
+
+	@coverage(totalFound="6", ratioTotalFound="0.75")
+	val ShuttleMissionReward[*] shuttleMissionRewards;
+}
+
+@coverage(totalFound="6")
+class RerollDescription {
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] jackpot;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] crewRequired;
+}
+
+@coverage(totalFound="2")
+class SttRewardedShuttle {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] chance;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] periodMinutes;
+}
+
+@coverage(totalFound="8")
+class ShuttleAdventure {
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] factionId;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr String[1] tokenArchetypeId;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] challengeRating;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	val Shuttle[+] shuttles;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] completesInSeconds;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] x;
+
+	@coverage(totalFound="8", ratioTotalFound="1.0")
+	attr int[1] y;
+}
+
+@coverage(totalFound="2")
+class ShuttleTokenPreviewItem {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] type;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] itemType;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] fullName;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] flavor;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] quantity;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] rarity;
+}
+
+@coverage(totalFound="6")
+class NextThresholdReward {
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] type;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] itemType;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] fullName;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] flavor;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] quantity;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] rarity;
+}
+
+@coverage(totalFound="6")
+class PvpDivision {
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] tier;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] description;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] minShipRarity;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] maxShipRarity;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] maxCrewRarity;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	val Setup[1] setup;
+}
+
+@coverage(totalFound="2")
+class Intro {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] text;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Icon[1] portrait;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] speakerName;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] response;
+}
+
+@coverage(totalFound="38")
+class Granted {
+
+	@coverage(totalFound="38", ratioTotalFound="1.0")
+	attr String[1] uuid;
+
+	@coverage(totalFound="38", ratioTotalFound="1.0")
+	attr int[1] gamerTag;
+
+	@coverage(totalFound="38", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="34", ratioTotalFound="0.8947368421052632")
+	attr String[1] specialized;
+
+	@coverage(totalFound="38", ratioTotalFound="1.0")
+	attr String[1] state;
+
+	@coverage(totalFound="38", ratioTotalFound="1.0")
+	attr int[1] updated;
+
+	@coverage(totalFound="38", ratioTotalFound="1.0")
+	val History[+] history;
+}
+
+@coverage(totalFound="2")
+class Dispute {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] descId;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] description;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] episode;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[+] systems;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[+] marker;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Icon[1] markerIcon;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Icon[1] pointsIcon;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Icon[1] brandIcon;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] minPoints;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] expiresIn;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] firstMission;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Intro[1] intro;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Faction[+] factions;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Milestone[+] milestones;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Reward[+] rewards;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] started;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] milestoneText;
+}
+
+@coverage(totalFound="4")
+class Event {
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr String[1] type;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int[1] questId;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr String name;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr String description;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr String rules;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr String bonusText;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr String rewardsTeaser;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr String shopLayout;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	val FeaturedCrew[*] featuredCrew;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	val ThresholdReward[*] thresholdRewards;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	val RankedBracket[*] rankedBrackets;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	val SquadronRankedBracket[*] squadronRankedBrackets;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	val Content content;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int instanceId;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int status;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int secondsToStart;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int secondsToEnd;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	val Phase[*] phases;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr boolean opened;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int openedPhase;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int victoryPoints;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int bonusVictoryPoints;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int claimedThresholdRewardPoints;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	val UnclaimedThresholdReward[*] unclaimedThresholdRewards;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int lastThresholdPoints;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	attr int nextThresholdPoints;
+
+	@coverage(totalFound="2", ratioTotalFound="0.5")
+	val NextThresholdReward[*] nextThresholdRewards;
+}
+
+@coverage(totalFound="24")
+class CrewSlot {
+
+	@coverage(totalFound="24", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="24", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="24", ratioTotalFound="1.0")
+	attr String[1] skill;
+
+	@coverage(totalFound="24", ratioTotalFound="1.0")
+	attr String[1] trait;
+}
+
+@coverage(totalFound="46")
+class Ship {
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] archetypeId;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] rarity;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr String[1] flavor;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] maxLevel;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	val Action[+] actions;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] shields;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] hull;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] attack;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] evasion;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] accuracy;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] critChance;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] critBonus;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] attacksPerSecond;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] shieldRegen;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr String[+] traits;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr String[+] traitsHidden;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] antimatter;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] level;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr String[1] model;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] schematicGainCostNextLevel;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	attr int[1] schematicId;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	val Icon[1] schematicIcon;
+
+	@coverage(totalFound="46", ratioTotalFound="1.0")
+	val BattleStation[+] battleStations;
+}
+
+@coverage(totalFound="344")
+class Place {
+
+	@coverage(totalFound="344", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="344", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="344", ratioTotalFound="1.0")
+	attr String[1] system;
+
+	@coverage(totalFound="344", ratioTotalFound="1.0")
+	val ClientAsset[1] clientAsset;
+
+	@coverage(totalFound="254", ratioTotalFound="0.7383720930232558")
+	attr String[1] displayName;
+
+	@coverage(totalFound="254", ratioTotalFound="0.7383720930232558")
+	attr boolean[1] visited;
+}
+
+@coverage(totalFound="2")
+class TicketCounter {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] current;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] max;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] spendIn;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] resetIn;
+}
+
+@coverage(totalFound="2")
+class VoyageSummary {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Summary[+] summaries;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] flavorAmount;
+}
+
+@coverage(totalFound="2")
+class CrewBonus {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] crewTag;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] value;
+}
+
+@coverage(totalFound="2")
+class Cwin {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] open;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] close;
+}
+
+@coverage(totalFound="36")
+class SquadronRankedBracket {
+
+	@coverage(totalFound="36", ratioTotalFound="1.0")
+	attr int[1] first;
+
+	@coverage(totalFound="36", ratioTotalFound="1.0")
+	attr int[1] last;
+
+	@coverage(totalFound="36", ratioTotalFound="1.0")
+	val Reward[+] rewards;
+
+	@coverage(totalFound="36", ratioTotalFound="1.0")
+	attr int[1] quantity;
+}
+
+@coverage(totalFound="10")
+class Mission {
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr String[1] title;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr String[1] speaker;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr String[1] description;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	val Icon[1] portrait;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	val Image[1] image;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	val Icon[1] imageSmall;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr String[1] requirement;
+}
+
+@coverage(totalFound="2")
+class Setup {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] shipId;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[+] slots;
+}
+
+@coverage(totalFound="2")
+class TraitBonus {
+}
+
+@coverage(totalFound="2")
+class Ability {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] condition;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] type;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] amount;
+}
+
+@coverage(totalFound="332")
+class Crew {
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[1] shortName;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[1] flavor;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] archetypeId;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] xp;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] xpForCurrentLevel;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] xpForNextLevel;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] maxXp;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr boolean[1] favorite;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] level;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr boolean[1] inBuyBackState;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] maxLevel;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] rarity;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] maxRarity;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] equipmentRank;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] maxEquipmentRank;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	val EquipmentSlot[+] equipmentSlots;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[+] equipment;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	val Icon[1] portrait;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	val FullBody[1] fullBody;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[1] voiceOver;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[1] expiresIn;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] activeStatus;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[1] activeId;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] activeIndex;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] passiveStatus;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[1] passiveId;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr int[1] passiveIndex;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[+] traits;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[+] traitsHidden;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	val Skills[1] skills;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	val ShipBattle[1] shipBattle;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	val Action[1] action;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr boolean[1] defaultAvatar;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	attr String[+] crossFuseTargets;
+
+	@coverage(totalFound="332", ratioTotalFound="1.0")
+	val CapAchiever[1] capAchiever;
+}
+
+@coverage(totalFound="12")
+class AcceptedMission {
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr String[1] description;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] episode;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr String[1] episodeTitle;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	val Icon[1] episodePortrait;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[+] marker;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	val Icon[1] markerIcon;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr String[1] excludeFromTimeline;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] starsEarned;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] totalStars;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr boolean[1] accepted;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] state;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr boolean[1] mainStory;
+}
+
+@coverage(totalFound="2")
+class CadetSchedule {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] day;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Schedule[+] schedule;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Mission[+] missions;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] current;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] endsIn;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] next;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] nextStartsIn;
+}
+
+@coverage(totalFound="2")
+class Character {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] displayName;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] usingDefaultName;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] level;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] maxLevel;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] xp;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] xpForCurrentLevel;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] xpForNextLevel;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Location[1] location;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Destination[1] destination;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Navmap[1] navmap;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val AcceptedMission[+] acceptedMissions;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] activeConflict;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] shuttleBays;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] nextShuttleBayCost;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] canPurchaseShuttleBay;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val CrewAvatar[1] crewAvatar;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val StoredImmortal[+] storedImmortals;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] secondsToScanCooldown;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] scanSpeedupsToday;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] replayEnergyMax;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] replayEnergyRate;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] secondsFromReplayEnergyBasis;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] replayEnergyOverflow;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val BoostWindow[+] boostWindows;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] secondsFromLastBoostClaim;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val VideoAdChronitonBoostReward[1] videoAdChronitonBoostReward;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val TicketCounter[1] cadetTickets;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val PvpTicket[1] pvpTickets;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val TicketCounter[1] eventTickets;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val CadetSchedule[1] cadetSchedule;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val PvpDivision[+] pvpDivisions;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val PvpTimer[1] pvpTimer;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Crew[+] crew;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Item[+] items;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[+] crewBorrows;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[+] crewShares;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] crewLimit;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] crewLimitIncreasePerPurchase;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Cost[1] nextCrewLimitIncreaseCost;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] canPurchaseCrewLimitIncrease;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] itemLimit;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Ship[+] ships;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] currentShipId;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val ShuttleAdventure[+] shuttleAdventures;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Faction[+] factions;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Dispute[+] disputes;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] tngTheGameLevel;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[+] openPacks;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val DailyActivity[+] dailyActivities;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] nextDailyActivityReset;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] nextStarbaseDonationReset;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val FleetActivities[+] fleetActivities;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] nextFleetActivityReset;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[+] freestandingQuests;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val DailyRewardsState[1] dailyRewardsState;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Event[+] events;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val DisputeHistory[+] disputeHistories;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] stimpack;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Tutorial[+] tutorials;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] locationChannelPrefix;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[+] honorRewardByRarity;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val VoyageDescription[+] voyageDescriptions;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[+] voyage;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val VoyageSummary[1] voyageSummaries;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val RerollDescription[+] rerollDescriptions;
+}
+
+@coverage(totalFound="34")
+class Milestone {
+
+	@coverage(totalFound="28", ratioTotalFound="0.8235294117647058")
+	attr String[1] text;
+
+	@coverage(totalFound="28", ratioTotalFound="0.8235294117647058")
+	attr String[1] speakerName;
+
+	@coverage(totalFound="28", ratioTotalFound="0.8235294117647058")
+	val Icon[1] portrait;
+
+	@coverage(totalFound="28", ratioTotalFound="0.8235294117647058")
+	val Event[1] event;
+
+	@coverage(totalFound="6", ratioTotalFound="0.17647058823529413")
+	attr int goal;
+
+	@coverage(totalFound="6", ratioTotalFound="0.17647058823529413")
+	val Reward[*] rewards;
+
+	@coverage(totalFound="6", ratioTotalFound="0.17647058823529413")
+	attr boolean claimed;
+
+	@coverage(totalFound="6", ratioTotalFound="0.17647058823529413")
+	attr boolean claimable;
+}
+
+@coverage(totalFound="6")
+class BattleStation {
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] skill;
+}
+
+@coverage(totalFound="10")
+class Bonus {
+
+	@coverage(totalFound="2", ratioTotalFound="0.2")
+	attr int[1] value;
+
+	@coverage(totalFound="2", ratioTotalFound="0.2")
+	attr int[1] probability;
+}
+
+@coverage(totalFound="2")
+class VideoAdChronitonBoostReward {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] type;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] fullName;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] flavor;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] quantity;
+}
+
+@coverage(totalFound="12")
+class Claimed {
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr String[1] uuid;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] gamerTag;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr String[1] state;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] updated;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	val History[+] history;
+
+	@coverage(totalFound="6", ratioTotalFound="0.5")
+	attr String specialized;
+
+	@coverage(totalFound="2", ratioTotalFound="0.16666666666666666")
+	val Cwin cwin;
+
+	@coverage(totalFound="2", ratioTotalFound="0.16666666666666666")
+	attr int cwinSecsTillOpen;
+
+	@coverage(totalFound="2", ratioTotalFound="0.16666666666666666")
+	attr int cwinSecsTillClose;
+}
+
+@coverage(totalFound="2")
+class Obtain {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] ent;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] spec;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] count;
+}
+
+@coverage(totalFound="1")
+class Discovered {
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr int[1] dbid;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr String[1] lang;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr String[1] timezone;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr String[1] locale;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr String[1] displayName;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr int[1] money;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr int[1] premiumPurchasable;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr int[1] premiumEarnable;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr int[1] honor;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr int[1] vipPoints;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr int[1] vipLevel;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val CurrencyExchange[+] currencyExchanges;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr int[1] replicatorUsesToday;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr int[1] replicatorLimit;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val Character[1] character;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val Fleet[1] fleet;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val Squad[1] squad;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val Mailbox[1] mailbox;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val FleetInvite[1] fleetInvite;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val Entitlements[1] entitlements;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val Chat[1] chats;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val Commerce[1] commerce;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val Environment[1] environment;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val FeaturedOffer[+] featuredOffers;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	attr boolean[1] npeComplete;
+
+	@coverage(totalFound="1", ratioTotalFound="1.0")
+	val CommunityLink[+] communityLinks;
+}
+
+@coverage(totalFound="10")
+class CurrencyExchange {
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr int[1] amount;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr int[1] output;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr int[1] input;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr int[+] schedule;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr int[1] exchangesToday;
+
+	@coverage(totalFound="2", ratioTotalFound="0.2")
+	attr int[1] bonus;
+
+	@coverage(totalFound="6", ratioTotalFound="0.6")
+	attr int limit;
+}
+
+@coverage(totalFound="2")
+class Offer {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Image[1] image;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Image[1] imageTwo;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] title;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] info;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] bundle;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] featured;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Obtain[+] obtain;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] resettable;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] dailyActivityApplicable;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] bonusText;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] bonusTextTwo;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] bonusTextThree;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] purchaseLimit;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[+] activeStatReqs;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String subtitle;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String subtitleTwo;
+}
+
+@coverage(totalFound="2")
+class Content {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] contentType;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Shuttle[+] shuttles;
+}
+
+@coverage(totalFound="2")
+class Environment {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[+] tutorials;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] restrictions;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[+] flags;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] backgroundIdlePeriod;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] hudSpecialOfferPollFrequency;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] pvpEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] stasisVaultEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] fleetRequestPurgeThreshold;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] fleetRequestPurgeExpirationDays;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] eventRefreshMinSeconds;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] eventRefreshMaxSeconds;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] squadronsEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] honorEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] forceOfferPopupAtLogin;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] adaptiveOffersEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] buyBackEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] displayServerEnvironment;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val VideoAdCampaignLimit[1] videoAdCampaignLimit;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] gauntletEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] locationUpdatesEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] locationChatEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] factionEventOrderRandomized;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] fleetActivitiesEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] fleetActivitiesRestrictionEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] enableServerToasts;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] minimumToastDelayInSeconds;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] starbaseEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] voyagesEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] starbaseRefresh;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] detectConflictMasteryErrors;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] rerollEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] rerollRarityLimit;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] dilithiumPurchasePopupEnabled;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] dilithiumPurchasePopupThreshold;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] lazyLoadUi;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr boolean[1] oneTapCraftEnabled;
+}
+
+@coverage(totalFound="32")
+class Icon {
+
+	@coverage(totalFound="32", ratioTotalFound="1.0")
+	attr String[1] file;
+
+	@coverage(totalFound="8", ratioTotalFound="0.25")
+	attr String atlasInfo;
+}
+
+@coverage(totalFound="2")
+class PvpTicket {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] current;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] max;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] spendIn;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] resetIn;
+}
+
+@coverage(totalFound="2")
+class Destination {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] system;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] place;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] setup;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] x;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] y;
+}
+
+@coverage(totalFound="18")
+class ShuttleMissionReward {
+
+	@coverage(totalFound="18", ratioTotalFound="1.0")
+	attr int[1] type;
+
+	@coverage(totalFound="18", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="14", ratioTotalFound="0.7777777777777778")
+	attr int[1] rarity;
+
+	@coverage(totalFound="14", ratioTotalFound="0.7777777777777778")
+	val PotentialReward[+] potentialRewards;
+
+	@coverage(totalFound="18", ratioTotalFound="1.0")
+	attr int[1] quantity;
+
+	@coverage(totalFound="2", ratioTotalFound="0.1111111111111111")
+	attr String symbol;
+
+	@coverage(totalFound="4", ratioTotalFound="0.2222222222222222")
+	attr String name;
+
+	@coverage(totalFound="2", ratioTotalFound="0.1111111111111111")
+	attr String flavor;
+
+	@coverage(totalFound="2", ratioTotalFound="0.1111111111111111")
+	attr int factionId;
+
+	@coverage(totalFound="2", ratioTotalFound="0.1111111111111111")
+	attr int ~id;
+}
+
+@coverage(totalFound="12")
+class Action {
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] bonusAmount;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] cooldown;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] initialCooldown;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] duration;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr int[1] bonusType;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	attr String[1] crew;
+
+	@coverage(totalFound="12", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="6", ratioTotalFound="0.5")
+	val Ability[1] ability;
+
+	@coverage(totalFound="6", ratioTotalFound="0.5")
+	val Penalty penalty;
+}
+
+@coverage(totalFound="2")
+class Phase {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val SplashImage[1] splashImage;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Goal[+] goals;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] secondsToEnd;
+}
+
+@coverage(totalFound="10")
+class Summary {
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr int[1] min;
+
+	@coverage(totalFound="10", ratioTotalFound="1.0")
+	attr int[1] max;
+}
+
+@coverage(totalFound="2")
+class SttRewardedChronitonBoost {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] chance;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] periodMinutes;
+}
+
+@coverage(totalFound="2")
+class FleetInvite {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] status;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] sendable;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] sent;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] received;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] accepted;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Store[1] stores;
+}
+
+@coverage(totalFound="178")
+class System {
+
+	@coverage(totalFound="178", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="178", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="178", ratioTotalFound="1.0")
+	attr int[1] x;
+
+	@coverage(totalFound="178", ratioTotalFound="1.0")
+	attr int[1] y;
+
+	@coverage(totalFound="178", ratioTotalFound="1.0")
+	attr String[1] defaultPlace;
+
+	@coverage(totalFound="154", ratioTotalFound="0.8651685393258427")
+	attr String[1] displayName;
+
+	@coverage(totalFound="154", ratioTotalFound="0.8651685393258427")
+	attr int[1] star;
+
+	@coverage(totalFound="154", ratioTotalFound="0.8651685393258427")
+	attr int[1] decorator;
+
+	@coverage(totalFound="154", ratioTotalFound="0.8651685393258427")
+	attr String[1] faction;
+
+	@coverage(totalFound="154", ratioTotalFound="0.8651685393258427")
+	attr int[1] scale;
+
+	@coverage(totalFound="154", ratioTotalFound="0.8651685393258427")
+	attr boolean[1] active;
+}
+
+@coverage(totalFound="2")
+class Navmap {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Place[+] places;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val System[+] systems;
+}
+
+@coverage(totalFound="2")
+class Cost {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] currency;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] amount;
+}
+
+@coverage(totalFound="2")
+class Squad {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] slabel;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] rank;
+}
+
+@coverage(totalFound="6")
+class CommunityLink {
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	val Image[1] image;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] title;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] date;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] url;
+}
+
+@coverage(totalFound="32")
+class Faction {
+
+	@coverage(totalFound="32", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="32", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	attr int[1] reputation;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	attr int[1] discovered;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	attr int[1] completedShuttleAdventures;
+
+	@coverage(totalFound="32", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	val Icon[1] representativeIcon;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	val Icon[1] representativeFullBody;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	val Icon[1] reputationIcon;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	val Icon[1] reputationItemIcon;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	attr String[1] homeSystem;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	attr String[1] shopLayout;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	attr int[1] shuttleTokenId;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	val ShuttleTokenPreviewItem[1] shuttleTokenPreviewItem;
+
+	@coverage(totalFound="28", ratioTotalFound="0.875")
+	attr String[+] eventWinnerRewards;
+
+	@coverage(totalFound="4", ratioTotalFound="0.125")
+	attr String symbol;
+
+	@coverage(totalFound="4", ratioTotalFound="0.125")
+	attr int points;
+
+	@coverage(totalFound="4", ratioTotalFound="0.125")
+	val Icon portrait;
+
+	@coverage(totalFound="4", ratioTotalFound="0.125")
+	attr int shuttleToken;
+
+	@coverage(totalFound="4", ratioTotalFound="0.125")
+	attr int resolutionMissionId;
+
+	@coverage(totalFound="4", ratioTotalFound="0.125")
+	val Reward reward;
+}
+
+@coverage(totalFound="2")
+class Penalty {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] type;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] amount;
+}
+
+@coverage(totalFound="8")
+class Skills {
+
+	@coverage(totalFound="4", ratioTotalFound="0.5")
+	val ValueRange[1] scienceSkill;
+
+	@coverage(totalFound="6", ratioTotalFound="0.75")
+	val ValueRange[1] engineeringSkill;
+
+	@coverage(totalFound="2", ratioTotalFound="0.25")
+	val ValueRange commandSkill;
+
+	@coverage(totalFound="4", ratioTotalFound="0.5")
+	val ValueRange securitySkill;
+
+	@coverage(totalFound="4", ratioTotalFound="0.5")
+	val ValueRange diplomacySkill;
+
+	@coverage(totalFound="4", ratioTotalFound="0.5")
+	val ValueRange medicalSkill;
+
+	@coverage(totalFound="2", ratioTotalFound="0.25")
+	attr String primarySkill;
+
+	@coverage(totalFound="2", ratioTotalFound="0.25")
+	attr String secondarySkill;
+}
+
+@coverage(totalFound="4")
+class UnclaimedThresholdReward {
+
+	@coverage(totalFound="4", ratioTotalFound="1.0")
+	attr int[1] type;
+
+	@coverage(totalFound="4", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="4", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="4", ratioTotalFound="1.0")
+	attr int[1] itemType;
+
+	@coverage(totalFound="4", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="4", ratioTotalFound="1.0")
+	attr String[1] fullName;
+
+	@coverage(totalFound="4", ratioTotalFound="1.0")
+	attr String[1] flavor;
+
+	@coverage(totalFound="4", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="4", ratioTotalFound="1.0")
+	attr int[1] quantity;
+
+	@coverage(totalFound="4", ratioTotalFound="1.0")
+	attr int[1] rarity;
+
+	@coverage(totalFound="4", ratioTotalFound="1.0")
+	val Bonus[+] bonuses;
+}
+
+@coverage(totalFound="2")
+class SplashImage {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] file;
+}
+
+@coverage(totalFound="14")
+class Schedule {
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr int[1] day;
+
+	@coverage(totalFound="14", ratioTotalFound="1.0")
+	attr int[1] mission;
+}
+
+@coverage(totalFound="92")
+class Reward {
+
+	@coverage(totalFound="92", ratioTotalFound="1.0")
+	attr int[1] type;
+
+	@coverage(totalFound="70", ratioTotalFound="0.7608695652173914")
+	attr int[1] ~id;
+
+	@coverage(totalFound="64", ratioTotalFound="0.6956521739130435")
+	attr String[1] symbol;
+
+	@coverage(totalFound="70", ratioTotalFound="0.7608695652173914")
+	attr String[1] name;
+
+	@coverage(totalFound="64", ratioTotalFound="0.6956521739130435")
+	attr String[1] fullName;
+
+	@coverage(totalFound="64", ratioTotalFound="0.6956521739130435")
+	attr String[1] flavor;
+
+	@coverage(totalFound="92", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="92", ratioTotalFound="1.0")
+	attr int[1] quantity;
+
+	@coverage(totalFound="46", ratioTotalFound="0.5")
+	attr int rarity;
+
+	@coverage(totalFound="22", ratioTotalFound="0.2391304347826087")
+	val PotentialReward[*] potentialRewards;
+
+	@coverage(totalFound="8", ratioTotalFound="0.08695652173913043")
+	val Icon portrait;
+
+	@coverage(totalFound="8", ratioTotalFound="0.08695652173913043")
+	val FullBody fullBody;
+
+	@coverage(totalFound="8", ratioTotalFound="0.08695652173913043")
+	val Skills skills;
+
+	@coverage(totalFound="8", ratioTotalFound="0.08695652173913043")
+	attr String[*] traits;
+
+	@coverage(totalFound="8", ratioTotalFound="0.08695652173913043")
+	val Action action;
+
+	@coverage(totalFound="10", ratioTotalFound="0.10869565217391304")
+	attr int itemType;
+}
+
+@coverage(totalFound="6")
+class FeaturedCrew {
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] type;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] ~id;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] symbol;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] name;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] fullName;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[1] flavor;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	val Icon[1] icon;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	val Icon[1] portrait;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] rarity;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	val FullBody[1] fullBody;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	val Skills[1] skills;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr String[+] traits;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	val Action[1] action;
+
+	@coverage(totalFound="6", ratioTotalFound="1.0")
+	attr int[1] quantity;
+}
+
+@coverage(totalFound="2")
+class Entitlements {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Granted[+] granted;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	val Claimed[+] claimed;
+}
+
+@coverage(totalFound="2")
+class Location {
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] system;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] place;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr String[1] setup;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] x;
+
+	@coverage(totalFound="2", ratioTotalFound="1.0")
+	attr int[1] y;
+}
+

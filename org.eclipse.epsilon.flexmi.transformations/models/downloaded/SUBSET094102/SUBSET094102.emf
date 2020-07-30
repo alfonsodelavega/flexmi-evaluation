@@ -1,0 +1,2114 @@
+@ExtendedMetaData(qualified="false")
+@namespace(uri="file:/Users/nhnghia/SudParis/openETCS/github/validation/VnVUserStories/VnVUserStoryDLR/05-Work/InterfaceSchema/SUBSET-094/SUBSET-094_10_2.xsd", prefix="SUBSET094102")
+package SUBSET094102;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@ExtendedMetaData(name="A_LAB_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#unsignedShort", minInclusive="0", maxInclusive="4095")
+datatype ALABType : int;
+
+@ExtendedMetaData(name="A_LAB_._type:Object", baseType="A_LAB_._type")
+datatype ALABTypeObject : java.lang.Integer;
+
+@ExtendedMetaData(name="BitLength_._type", baseType="T_BitLength")
+datatype BitLengthType : int;
+
+@ExtendedMetaData(name="BitLength_._type:Object", baseType="BitLength_._type")
+datatype BitLengthTypeObject : java.lang.Integer;
+
+@ExtendedMetaData(name="D_LAB_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#unsignedInt", minInclusive="0", maxInclusive="4294967295")
+datatype DLABType : long;
+
+@ExtendedMetaData(name="D_LAB_._type:Object", baseType="D_LAB_._type")
+datatype DLABTypeObject : java.lang.Long;
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@GenModel(documentation="Indicates whether the train is braking or accelerating")
+	@ExtendedMetaData(kind="element", name="AccelerationSign", namespace="##targetNamespace")
+	volatile transient derived !resolve val TAccelerationSign[0..?] accelerationSign;
+
+	@GenModel(documentation="Indicates the action on the air tighness system")
+	@ExtendedMetaData(kind="element", name="AirTightness", namespace="##targetNamespace")
+	volatile transient derived !resolve val TAirTightness[0..?] airTightness;
+
+	@ExtendedMetaData(kind="element", name="BothWays", namespace="##targetNamespace")
+	volatile transient derived !resolve val TBothWays[0..?] bothWays;
+
+	@GenModel(documentation="Status CAB A and CAB B")
+	@ExtendedMetaData(kind="element", name="CABStatus", namespace="##targetNamespace")
+	volatile transient derived !resolve val TCABStatus[0..?] cABStatus;
+
+	@ExtendedMetaData(kind="element", name="Comment", namespace="##targetNamespace")
+	!unique volatile transient derived attr type.String[0..?] comment;
+
+	@ExtendedMetaData(kind="element", name="Condition", namespace="##targetNamespace")
+	!unique volatile transient derived attr type.String[0..?] condition;
+
+	@ExtendedMetaData(kind="element", name="Conditional", namespace="##targetNamespace")
+	volatile transient derived !resolve val TConditional[0..?] conditional;
+
+	@ExtendedMetaData(kind="element", name="Content", namespace="##targetNamespace")
+	volatile transient derived !resolve val TContent[0..?] content;
+
+	@GenModel(documentation="System Under Test Control Command from Testenvironment to SUT")
+	@ExtendedMetaData(kind="element", name="ControlSUTComand", namespace="##targetNamespace")
+	volatile transient derived !resolve val TControlSUTCommand[0..?] controlSUTComand;
+
+	@GenModel(documentation="System Under Test Status")
+	@ExtendedMetaData(kind="element", name="ControlSUTStatus", namespace="##targetNamespace")
+	volatile transient derived !resolve val TControlSUTStatus[0..?] controlSUTStatus;
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.62.1, It defines the allowed current consumption to be used by the train")
+	@ExtendedMetaData(kind="element", name="Current", namespace="##targetNamespace")
+	volatile transient derived !resolve val TCurrent[0..?] current;
+
+	@GenModel(documentation="Root Element")
+	@ExtendedMetaData(kind="element", name="Definitions", namespace="##targetNamespace")
+	volatile transient derived !resolve val TDefinitions[0..?] definitions;
+
+	@ExtendedMetaData(kind="element", name="Description", namespace="##targetNamespace")
+	!unique volatile transient derived attr type.String[0..?] description;
+
+	@ExtendedMetaData(kind="element", name="DetailedName", namespace="##targetNamespace")
+	!unique volatile transient derived attr type.String[0..?] detailedName;
+
+	@GenModel(documentation="Status of Direction Controller")
+	@ExtendedMetaData(kind="element", name="DirectionController", namespace="##targetNamespace")
+	volatile transient derived !resolve val TDirectionController[0..?] directionController;
+
+	@GenModel(documentation="Status of Doors")
+	@ExtendedMetaData(kind="element", name="DoorControl", namespace="##targetNamespace")
+	volatile transient derived !resolve val TDoorControl[0..?] doorControl;
+
+	@GenModel(documentation="Indicates the action on the use of the eddy current brake")
+	@ExtendedMetaData(kind="element", name="EddyCurrentBrakeCommand", namespace="##targetNamespace")
+	volatile transient derived !resolve val TEddyCurrentBrakeCm[0..?] eddyCurrentBrakeCommand;
+
+	@GenModel(documentation="Indicates the action on the emergency brake")
+	@ExtendedMetaData(kind="element", name="EmergencyBrakeCommand", namespace="##targetNamespace")
+	volatile transient derived !resolve val TEmergencyBrakeCm[0..?] emergencyBrakeCommand;
+
+	@GenModel(documentation="Status of Emergency Brake")
+	@ExtendedMetaData(kind="element", name="EmergencyBrakeStatus", namespace="##targetNamespace")
+	volatile transient derived !resolve val TEmergencyBrakeSt[0..?] emergencyBrakeStatus;
+
+	@GenModel(documentation="SUT interface, Root Element")
+	@ExtendedMetaData(kind="element", name="ETCS_TEST", namespace="##targetNamespace")
+	volatile transient derived !resolve val ETCSTESTType[0..?] eTCSTEST;
+
+	@ExtendedMetaData(kind="element", name="IDNumber", namespace="##targetNamespace")
+	!unique volatile transient derived attr TIDNumber[0..?] iDNumber;
+
+	@GenModel(documentation="Command Isolation")
+	@ExtendedMetaData(kind="element", name="Isolation", namespace="##targetNamespace")
+	volatile transient derived !resolve val TIsolation[0..?] isolation;
+
+	@GenModel(documentation="Time of the laboratory clock (test environment)")
+	@ExtendedMetaData(kind="element", name="LaboratoryClock", namespace="##targetNamespace")
+	volatile transient derived !resolve val TLaboratoryClock[0..?] laboratoryClock;
+
+	@ExtendedMetaData(kind="element", name="Length", namespace="##targetNamespace")
+	!unique volatile transient derived attr TLength[0..?] length = "5";
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.65,Current Operating Level")
+	@ExtendedMetaData(kind="element", name="Level", namespace="##targetNamespace")
+	volatile transient derived !resolve val TLevel[0..?] level;
+
+	@ExtendedMetaData(kind="element", name="List", namespace="##targetNamespace")
+	volatile transient derived !resolve val ListType[0..?] list;
+
+	@ExtendedMetaData(kind="element", name="LoopDoWhile", namespace="##targetNamespace")
+	volatile transient derived !resolve val TLoopDoWhile[0..?] loopDoWhile;
+
+	@ExtendedMetaData(kind="element", name="LoopWhile", namespace="##targetNamespace")
+	volatile transient derived !resolve val TLoopWhile[0..?] loopWhile;
+
+	@GenModel(documentation="Indicates the action on the use of the magnetic shoe brake")
+	@ExtendedMetaData(kind="element", name="MagneticShoeBrakeCommand", namespace="##targetNamespace")
+	volatile transient derived !resolve val TMagneticShoeBrakeCm[0..?] magneticShoeBrakeCommand;
+
+	@GenModel(documentation="Indicates the actions on the main switch")
+	@ExtendedMetaData(kind="element", name="MainSwitchCommand", namespace="##targetNamespace")
+	volatile transient derived !resolve val TMainSwitchCm[0..?] mainSwitchCommand;
+
+	@GenModel(documentation="Message Definition - to be replaced by Subset026 Chapter 8 when formalized")
+	@ExtendedMetaData(kind="element", name="Message", namespace="##targetNamespace")
+	volatile transient derived !resolve val MessageType[0..?] message;
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.72; Onboard operating mode")
+	@ExtendedMetaData(kind="element", name="Mode", namespace="##targetNamespace")
+	volatile transient derived !resolve val TMode[0..?] mode;
+
+	@ExtendedMetaData(kind="element", name="Name", namespace="##targetNamespace")
+	!unique volatile transient derived attr type.String[0..?] name = "N_ITER";
+
+	@GenModel(documentation="Command NonLeading")
+	@ExtendedMetaData(kind="element", name="NonLeading", namespace="##targetNamespace")
+	volatile transient derived !resolve val TNonLeading[0..?] nonLeading;
+
+	@GenModel(documentation="OSI message element")
+	@ExtendedMetaData(kind="element", name="OdometrySerialInterface", namespace="##targetNamespace")
+	volatile transient derived !resolve val TOdometrySerialInterface[0..?] odometrySerialInterface;
+
+	@ExtendedMetaData(kind="element", name="Packet", namespace="##targetNamespace")
+	volatile transient derived !resolve val TPacket[0..?] packet;
+
+	@ExtendedMetaData(kind="element", name="Packets", namespace="##targetNamespace")
+	volatile transient derived !resolve val TPackets[0..?] packets;
+
+	@GenModel(documentation="Indicates the action on the pantograph")
+	@ExtendedMetaData(kind="element", name="PantographCommand", namespace="##targetNamespace")
+	volatile transient derived !resolve val TPantographCm[0..?] pantographCommand;
+
+	@GenModel(documentation="Indicates the action on the use of the passenger emergency brake")
+	@ExtendedMetaData(kind="element", name="PassengerEBCommand", namespace="##targetNamespace")
+	volatile transient derived !resolve val TPassengerEBCm[0..?] passengerEBCommand;
+
+	@GenModel(documentation="Status of Passenger Emergency Brake")
+	@ExtendedMetaData(kind="element", name="PassengerEBStatus", namespace="##targetNamespace")
+	volatile transient derived !resolve val TPassengerEBSt[0..?] passengerEBStatus;
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.Nominal height of platform above rail level ")
+	@ExtendedMetaData(kind="element", name="PlatformHeight", namespace="##targetNamespace")
+	volatile transient derived !resolve val TPlatformHeigth[0..?] platformHeight;
+
+	@GenModel(documentation="See SUBSET-026-7.5.126.2; Platform position (relative to direction of authorised movement)")
+	@ExtendedMetaData(kind="element", name="PlatformPosition", namespace="##targetNamespace")
+	volatile transient derived !resolve val TPlatformPosition[0..?] platformPosition;
+
+	@GenModel(documentation="Indicates the action on the use of the regenerative brake")
+	@ExtendedMetaData(kind="element", name="RegenerativeBrakeCommand", namespace="##targetNamespace")
+	volatile transient derived !resolve val TRegenerativeBrakeCm[0..?] regenerativeBrakeCommand;
+
+	@GenModel(documentation="Indicates the action on the service brake")
+	@ExtendedMetaData(kind="element", name="ServiceBrakeCommand", namespace="##targetNamespace")
+	volatile transient derived !resolve val TServiceBrakeCm[0..?] serviceBrakeCommand;
+
+	@GenModel(documentation="Status of Service Brake")
+	@ExtendedMetaData(kind="element", name="ServiceBrakeStatus", namespace="##targetNamespace")
+	volatile transient derived !resolve val TServiceBrakeSt[0..?] serviceBrakeStatus;
+
+	@GenModel(documentation="Instantaneous value of the simulated train acceleration")
+	@ExtendedMetaData(kind="element", name="SimulatedTrainAcceleration", namespace="##targetNamespace")
+	volatile transient derived !resolve val TSimulatedTrainAcceleration[0..?] simulatedTrainAcceleration;
+
+	@GenModel(documentation="Instantaneous value of the train speed")
+	@ExtendedMetaData(kind="element", name="SimulatedTrainSpeed", namespace="##targetNamespace")
+	volatile transient derived !resolve val TSimulatedTrainSpeed[0..?] simulatedTrainSpeed;
+
+	@GenModel(documentation="Relative distance managed by the laboratory for every simulation")
+	@ExtendedMetaData(kind="element", name="SimulationDistance", namespace="##targetNamespace")
+	volatile transient derived !resolve val TSimulationDistance[0..?] simulationDistance;
+
+	@GenModel(documentation="Command Sleeping")
+	@ExtendedMetaData(kind="element", name="Sleeping", namespace="##targetNamespace")
+	volatile transient derived !resolve val TSleeping[0..?] sleeping;
+
+	@ExtendedMetaData(kind="element", name="Special", namespace="##targetNamespace")
+	volatile transient derived !resolve val SpecialType[0..?] special;
+
+	@ExtendedMetaData(kind="element", name="Specs", namespace="##targetNamespace")
+	volatile transient derived !resolve val SpecsType[0..?] specs;
+
+	@GenModel(documentation="Indicates the sense of movement, considering which cabine of the train is being tested")
+	@ExtendedMetaData(kind="element", name="SpeedSign", namespace="##targetNamespace")
+	volatile transient derived !resolve val TSpeedSign[0..?] speedSign;
+
+	@GenModel(documentation="Static Speed Profile")
+	@ExtendedMetaData(kind="element", name="StaticSpeedProfile", namespace="##targetNamespace")
+	volatile transient derived !resolve val TSSP[0..?] staticSpeedProfile;
+
+	@GenModel(documentation="Status of System Failure")
+	@ExtendedMetaData(kind="element", name="SystemFailure", namespace="##targetNamespace")
+	volatile transient derived !resolve val TSystemFailure[0..?] systemFailure;
+
+	@ExtendedMetaData(kind="element", name="TlgVar", namespace="##targetNamespace")
+	volatile transient derived !resolve val TTlgVar[0..?] tlgVar;
+
+	@ExtendedMetaData(kind="element", name="TrackToTrain", namespace="##targetNamespace")
+	volatile transient derived !resolve val TTrackToTrain[0..?] trackToTrain;
+
+	@GenModel(documentation="Indicates the action of the traction cut-off system")
+	@ExtendedMetaData(kind="element", name="TractionCutOff", namespace="##targetNamespace")
+	volatile transient derived !resolve val TTractionCutOff[0..?] tractionCutOff;
+
+	@GenModel(documentation="Status of Train Integrity")
+	@ExtendedMetaData(kind="element", name="TrainIntegrity", namespace="##targetNamespace")
+	volatile transient derived !resolve val TTrainIntegrity[0..?] trainIntegrity;
+
+	@GenModel(documentation="TII message element")
+	@ExtendedMetaData(kind="element", name="TrainInterfaceInput", namespace="##targetNamespace")
+	volatile transient derived !resolve val TTrainInterfaceInput[0..?] trainInterfaceInput;
+
+	@GenModel(documentation="TIO message element")
+	@ExtendedMetaData(kind="element", name="TrainInterfaceOutput", namespace="##targetNamespace")
+	volatile transient derived !resolve val TTrainInterfaceOutput[0..?] trainInterfaceOutput;
+
+	@ExtendedMetaData(kind="element", name="TrainToTrack", namespace="##targetNamespace")
+	volatile transient derived !resolve val TTrainToTrack[0..?] trainToTrack;
+
+	@ExtendedMetaData(kind="element", name="TransmissionMedia", namespace="##targetNamespace")
+	!unique volatile transient derived attr TTransmissionMedia[0..?] transmissionMedia;
+
+	@ExtendedMetaData(kind="element", name="Value", namespace="##targetNamespace")
+	!unique volatile transient derived attr type.String[0..?] value;
+
+	@ExtendedMetaData(kind="element", name="Variable", namespace="##targetNamespace")
+	volatile transient derived !resolve val TVariable[0..?] variable;
+
+	@ExtendedMetaData(kind="element", name="Variables", namespace="##targetNamespace")
+	volatile transient derived !resolve val TVariables[0..?] variables;
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.78, It indicates the voltage of the traction system installed on a specific line or respectively that can be used by an engine")
+	@ExtendedMetaData(kind="element", name="Voltage", namespace="##targetNamespace")
+	volatile transient derived !resolve val TVoltage[0..?] voltage;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding;
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength;
+
+	@GenModel(documentation="Fixed Protocol Version relating to this XSD Testinterface Definition")
+	@ExtendedMetaData(kind="attribute", name="ProcolVersion", namespace="##targetNamespace")
+	unsettable attr type.Int procolVersion;
+
+	@GenModel(documentation="Direction of sent message")
+	@ngffgd(appinfo="")
+	@ExtendedMetaData(kind="attribute", name="SendingDirection", namespace="##targetNamespace")
+	unsettable attr TSendingDirection sendingDirection;
+
+	@GenModel(documentation="Command for System Under Test")
+	@ExtendedMetaData(kind="attribute", name="SUTCommand", namespace="##targetNamespace")
+	unsettable attr TSutCommand sUTCommand;
+
+	@GenModel(documentation="Status of System Under Test")
+	@ExtendedMetaData(kind="attribute", name="SUTStatus", namespace="##targetNamespace")
+	unsettable attr TSutStatus sUTStatus;
+
+	@GenModel(documentation="XML Timestamp ")
+	@ExtendedMetaData(kind="attribute", name="Timestamp", namespace="##targetNamespace")
+	attr type.Time timestamp;
+
+	@GenModel(documentation="Previous Message ID to trigger to")
+	@ExtendedMetaData(kind="attribute", name="TriggerMessage", namespace="##targetNamespace")
+	unsettable attr TTriggerMessage triggerMessage;
+
+	@GenModel(documentation="Cylce time in millisecond, message sent once each cycle")
+	@ExtendedMetaData(kind="attribute", name="TriggerTime", namespace="##targetNamespace")
+	unsettable attr TTriggerTime triggerTime;
+
+	@GenModel(documentation="Type of trigger: triggerByFixedTime = fixed time cycle - message is expected at each end of cycle defined by trigger time; triggeredByMaxTime = message is expected to arrive before a trimeout defined by trigger time; triggerByMinTime = message is not expected before the end of trigger time; triggeredByEvent = message is not expected to arrive before event and after trigger time after event; messageByPreviousMessage =  message is not expected to arrive before previous message and after trigger time after event")
+	@ExtendedMetaData(kind="attribute", name="TriggerType", namespace="##targetNamespace")
+	unsettable attr TTriggerType triggerType;
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.79 
+Main System Version describing Incompatible/ Compatible  Baselines - used as protocol attribute")
+	@ExtendedMetaData(kind="attribute", name="Version", namespace="##targetNamespace")
+	unsettable attr TVersion version;
+}
+
+@ExtendedMetaData(name="ETCS_TEST_._type", kind="elementOnly")
+class ETCSTESTType {
+
+	@GenModel(documentation="TIO message element")
+	@ExtendedMetaData(kind="element", name="TrainInterfaceOutput", namespace="##targetNamespace")
+	!resolve val TTrainInterfaceOutput trainInterfaceOutput;
+
+	@GenModel(documentation="TII message element")
+	@ExtendedMetaData(kind="element", name="TrainInterfaceInput", namespace="##targetNamespace")
+	!resolve val TTrainInterfaceInput trainInterfaceInput;
+
+	@GenModel(documentation="OSI message element")
+	@ExtendedMetaData(kind="element", name="OdometrySerialInterface", namespace="##targetNamespace")
+	!resolve val TOdometrySerialInterface odometrySerialInterface;
+
+	@GenModel(documentation="Static Speed Profile")
+	@ExtendedMetaData(kind="element", name="StaticSpeedProfile", namespace="##targetNamespace")
+	!resolve val TSSP staticSpeedProfile;
+
+	@GenModel(documentation="System Under Test Control Command from Testenvironment to SUT")
+	@ExtendedMetaData(kind="element", name="ControlSUTComand", namespace="##targetNamespace")
+	!resolve val TControlSUTCommand controlSUTComand;
+
+	@GenModel(documentation="System Under Test Status")
+	@ExtendedMetaData(kind="element", name="ControlSUTStatus", namespace="##targetNamespace")
+	!resolve val TControlSUTStatus controlSUTStatus;
+
+	@GenModel(documentation="Message Definition - to be replaced by Subset026 Chapter 8 when formalized")
+	@ExtendedMetaData(kind="element", name="Message", namespace="##targetNamespace")
+	!resolve val MessageType message;
+
+	@GenModel(documentation="Fixed Protocol Version relating to this XSD Testinterface Definition")
+	@ExtendedMetaData(kind="attribute", name="ProcolVersion", namespace="##targetNamespace")
+	unsettable attr type.Int[1] procolVersion = "001";
+
+	@GenModel(documentation="XML Timestamp ")
+	@ExtendedMetaData(kind="attribute", name="Timestamp", namespace="##targetNamespace")
+	attr type.Time[1] timestamp;
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.79 
+Main System Version describing Incompatible/ Compatible  Baselines - used as protocol attribute")
+	@ExtendedMetaData(kind="attribute", name="Version", namespace="##targetNamespace")
+	unsettable attr TVersion version = "127";
+}
+
+@ExtendedMetaData(name="List_._type", kind="empty")
+class ListType {
+
+	@ExtendedMetaData(kind="attribute", name="Name", namespace="##targetNamespace")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="Number", namespace="##targetNamespace")
+	unsettable attr type.Int[1] number;
+}
+
+@ExtendedMetaData(name="M_AIRTIGHTNESS_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MAIRTIGHTNESSType : byte;
+
+@ExtendedMetaData(name="M_AIRTIGHTNESS_._type:Object", baseType="M_AIRTIGHTNESS_._type")
+datatype MAIRTIGHTNESSTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_CABSTATUS_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="5")
+datatype MCABSTATUSType : byte;
+
+@ExtendedMetaData(name="M_CABSTATUS_._type:Object", baseType="M_CABSTATUS_._type")
+datatype MCABSTATUSTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_CURRENT_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#unsignedShort", minInclusive="0", maxInclusive="1000")
+datatype MCURRENTType : int;
+
+@ExtendedMetaData(name="M_CURRENT_._type:Object", baseType="M_CURRENT_._type")
+datatype MCURRENTTypeObject : java.lang.Integer;
+
+@ExtendedMetaData(name="M_DIRECTIONCONTROLLER_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="4")
+datatype MDIRECTIONCONTROLLERType : byte;
+
+@ExtendedMetaData(name="M_DIRECTIONCONTROLLER_._type:Object", baseType="M_DIRECTIONCONTROLLER_._type")
+datatype MDIRECTIONCONTROLLERTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_DOORCONTROL_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="5")
+datatype MDOORCONTROLType : byte;
+
+@ExtendedMetaData(name="M_DOORCONTROL_._type:Object", baseType="M_DOORCONTROL_._type")
+datatype MDOORCONTROLTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_EDDYCURRENTBRAKECM_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="6")
+datatype MEDDYCURRENTBRAKECMType : byte;
+
+@ExtendedMetaData(name="M_EDDYCURRENTBRAKECM_._type:Object", baseType="M_EDDYCURRENTBRAKECM_._type")
+datatype MEDDYCURRENTBRAKECMTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_EMERGENCYBRAKECM_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MEMERGENCYBRAKECMType : byte;
+
+@ExtendedMetaData(name="M_EMERGENCYBRAKECM_._type:Object", baseType="M_EMERGENCYBRAKECM_._type")
+datatype MEMERGENCYBRAKECMTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_EMERGENCYBRAKEST_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MEMERGENCYBRAKESTType : byte;
+
+@ExtendedMetaData(name="M_EMERGENCYBRAKEST_._type:Object", baseType="M_EMERGENCYBRAKEST_._type")
+datatype MEMERGENCYBRAKESTTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="Message_._type", kind="elementOnly")
+class MessageType {
+
+	@ExtendedMetaData(kind="element", name="Packets", namespace="##targetNamespace")
+	!resolve val TPackets[1] packets;
+
+	@ExtendedMetaData(kind="attribute", name="Name", namespace="##targetNamespace")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="Number", namespace="##targetNamespace")
+	unsettable attr type.Int[1] number;
+
+	@ExtendedMetaData(kind="attribute", name="TransmissionMedia", namespace="##targetNamespace")
+	unsettable attr TTransmissionMedia[1] transmissionMedia;
+}
+
+@ExtendedMetaData(name="M_ISOLATION_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MISOLATIONType : byte;
+
+@ExtendedMetaData(name="M_ISOLATION_._type:Object", baseType="M_ISOLATION_._type")
+datatype MISOLATIONTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_LEVEL_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="4")
+datatype MLEVELType : byte;
+
+@ExtendedMetaData(name="M_LEVEL_._type:Object", baseType="M_LEVEL_._type")
+datatype MLEVELTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_MAGNETICSHOEBRAKECM_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MMAGNETICSHOEBRAKECMType : byte;
+
+@ExtendedMetaData(name="M_MAGNETICSHOEBRAKECM_._type:Object", baseType="M_MAGNETICSHOEBRAKECM_._type")
+datatype MMAGNETICSHOEBRAKECMTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_MAINSWITCHCM_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MMAINSWITCHCMType : byte;
+
+@ExtendedMetaData(name="M_MAINSWITCHCM_._type:Object", baseType="M_MAINSWITCHCM_._type")
+datatype MMAINSWITCHCMTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_MODE_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="15")
+datatype MMODEType : byte;
+
+@ExtendedMetaData(name="M_MODE_._type:Object", baseType="M_MODE_._type")
+datatype MMODETypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_NONLEADING_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MNONLEADINGType : byte;
+
+@ExtendedMetaData(name="M_NONLEADING_._type:Object", baseType="M_NONLEADING_._type")
+datatype MNONLEADINGTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_PANTOGRAPHCM_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MPANTOGRAPHCMType : byte;
+
+@ExtendedMetaData(name="M_PANTOGRAPHCM_._type:Object", baseType="M_PANTOGRAPHCM_._type")
+datatype MPANTOGRAPHCMTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_PASSENGEREBCM_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MPASSENGEREBCMType : byte;
+
+@ExtendedMetaData(name="M_PASSENGEREBCM_._type:Object", baseType="M_PASSENGEREBCM_._type")
+datatype MPASSENGEREBCMTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_PASSENGEREBST_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MPASSENGEREBSTType : byte;
+
+@ExtendedMetaData(name="M_PASSENGEREBST_._type:Object", baseType="M_PASSENGEREBST_._type")
+datatype MPASSENGEREBSTTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_PLATFORM_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="13")
+datatype MPLATFORMType : byte;
+
+@ExtendedMetaData(name="M_PLATFORM_._type:Object", baseType="M_PLATFORM_._type")
+datatype MPLATFORMTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_REGENERATIVEBRAKECM_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MREGENERATIVEBRAKECMType : byte;
+
+@ExtendedMetaData(name="M_REGENERATIVEBRAKECM_._type:Object", baseType="M_REGENERATIVEBRAKECM_._type")
+datatype MREGENERATIVEBRAKECMTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_SERVICEBRAKECM_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MSERVICEBRAKECMType : byte;
+
+@ExtendedMetaData(name="M_SERVICEBRAKECM_._type:Object", baseType="M_SERVICEBRAKECM_._type")
+datatype MSERVICEBRAKECMTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_SERVICEBRAKEST_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MSERVICEBRAKESTType : byte;
+
+@ExtendedMetaData(name="M_SERVICEBRAKEST_._type:Object", baseType="M_SERVICEBRAKEST_._type")
+datatype MSERVICEBRAKESTTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_SLEEPING_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MSLEEPINGType : byte;
+
+@ExtendedMetaData(name="M_SLEEPING_._type:Object", baseType="M_SLEEPING_._type")
+datatype MSLEEPINGTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_SYSTEMFAILURE_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MSYSTEMFAILUREType : byte;
+
+@ExtendedMetaData(name="M_SYSTEMFAILURE_._type:Object", baseType="M_SYSTEMFAILURE_._type")
+datatype MSYSTEMFAILURETypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_TRACTIONCUTOFF_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MTRACTIONCUTOFFType : byte;
+
+@ExtendedMetaData(name="M_TRACTIONCUTOFF_._type:Object", baseType="M_TRACTIONCUTOFF_._type")
+datatype MTRACTIONCUTOFFTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_TRAININTEGRITY_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="3")
+datatype MTRAININTEGRITYType : byte;
+
+@ExtendedMetaData(name="M_TRAININTEGRITY_._type:Object", baseType="M_TRAININTEGRITY_._type")
+datatype MTRAININTEGRITYTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="M_VOLTAGE_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="5")
+datatype MVOLTAGEType : byte;
+
+@ExtendedMetaData(name="M_VOLTAGE_._type:Object", baseType="M_VOLTAGE_._type")
+datatype MVOLTAGETypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="Q_PLATFORM_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="2")
+datatype QPLATFORMType : byte;
+
+@ExtendedMetaData(name="Q_PLATFORM_._type:Object", baseType="Q_PLATFORM_._type")
+datatype QPLATFORMTypeObject : java.lang.Byte;
+
+@ExtendedMetaData(name="Special_._type", kind="empty")
+class SpecialType {
+
+	@ExtendedMetaData(kind="attribute", name="Description", namespace="##targetNamespace")
+	attr type.String description;
+
+	@ExtendedMetaData(kind="attribute", name="Value", namespace="##targetNamespace")
+	unsettable attr TValue[1] value;
+}
+
+@ExtendedMetaData(name="Specs_._type", kind="elementOnly")
+class SpecsType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="Special", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val SpecialType[*] special;
+
+	@ExtendedMetaData(kind="attribute", name="Formula", namespace="##targetNamespace")
+	unsettable attr TFormula formula;
+
+	@ExtendedMetaData(kind="attribute", name="Length", namespace="##targetNamespace")
+	unsettable attr TVarLen[1] length;
+
+	@ExtendedMetaData(kind="attribute", name="MaxVal", namespace="##targetNamespace")
+	unsettable attr TMaxVal maxVal;
+
+	@ExtendedMetaData(kind="attribute", name="MinVal", namespace="##targetNamespace")
+	unsettable attr TMinVal minVal;
+}
+
+@GenModel(documentation="Indicates whether the train is braking or accelerating")
+@ExtendedMetaData(name="T_AccelerationSign", kind="elementOnly")
+class TAccelerationSign {
+
+	@GenModel(documentation="0 - train is braking; 1 - train is accelerating")
+	@ExtendedMetaData(kind="element", name="Q_ACC", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] qACC;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "1";
+}
+
+@GenModel(documentation="Air Tightness command (Closing of Flaps)")
+@ExtendedMetaData(name="T_AirTightness", kind="elementOnly")
+class TAirTightness {
+
+	@GenModel(documentation="0 - Information not available; 1 - Tunnel condition active; 2 - Tunnel condition not active; 3 - Fail state")
+	@ExtendedMetaData(kind="element", name="M_AIRTIGHTNESS", namespace="##targetNamespace")
+	unsettable attr MAIRTIGHTNESSType[1] mAIRTIGHTNESS = "0";
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Additional information for coding of the variables (binary, decimal, hexa decimal, binary coded decimal)")
+@ExtendedMetaData(name="T_BitCoding")
+enum TBitCoding {
+	b = 0;
+	d = 1;
+	hex = 2;
+	bcd = 3;
+}
+
+@ExtendedMetaData(name="T_BitCoding:Object", baseType="T_BitCoding")
+datatype TBitCodingObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="Length in bits of each variable")
+@ExtendedMetaData(name="T_BitLength", baseType="http://www.eclipse.org/emf/2003/XMLType#unsignedShort")
+datatype TBitLength : int;
+
+@ExtendedMetaData(name="T_BitLength:Object", baseType="T_BitLength")
+datatype TBitLengthObject : java.lang.Integer;
+
+@ExtendedMetaData(name="T_BothWays", kind="elementOnly")
+class TBothWays {
+
+	@ExtendedMetaData(kind="element", name="List", namespace="##targetNamespace")
+	!resolve val ListType[+] list;
+
+	@ExtendedMetaData(kind="element", name="Packet", namespace="##targetNamespace")
+	!resolve val TPacket[1] packet;
+}
+
+@GenModel(documentation="Cabine (Desk) status")
+@ExtendedMetaData(name="T_CABStatus", kind="elementOnly")
+class TCABStatus {
+
+	@GenModel(documentation="0 - Information not available; 1 - Both desks are closed; 2 - Desk A is open; 3 - Desk B is open; 4 - Both desks are open; 5 - Fail state")
+	@ExtendedMetaData(kind="element", name="M_CABSTATUS", namespace="##targetNamespace")
+	unsettable attr MCABSTATUSType[1] mCABSTATUS;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "3";
+}
+
+@ExtendedMetaData(name="T_Conditional", kind="elementOnly")
+class TConditional {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="Condition", namespace="##targetNamespace", group="group:0")
+	!unique volatile transient derived attr type.String[+] condition;
+
+	@ExtendedMetaData(kind="element", name="Variables", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TVariables[+] variables;
+}
+
+@ExtendedMetaData(name="T_Content", kind="elementOnly")
+class TContent {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="TlgVar", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TTlgVar[*] tlgVar;
+
+	@ExtendedMetaData(kind="element", name="LoopDoWhile", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TLoopDoWhile[*] loopDoWhile;
+
+	@ExtendedMetaData(kind="element", name="LoopWhile", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TLoopWhile[*] loopWhile;
+
+	@ExtendedMetaData(kind="element", name="Conditional", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TConditional[*] conditional;
+}
+
+@GenModel(documentation="Command to SUT")
+@ExtendedMetaData(name="T_ControlSUTCommand", kind="elementOnly")
+class TControlSUTCommand {
+
+	@GenModel(documentation="System Under Test Control Command from Testenvironment to SUT")
+	@ExtendedMetaData(kind="element", name="SUT_StartingConditions", namespace="##targetNamespace")
+	!resolve val TStartingConditions[1] sUTStartingConditions;
+
+	@GenModel(documentation="Direction of sent message")
+	@ngffgd(appinfo="")
+	@ExtendedMetaData(kind="attribute", name="SendingDirection", namespace="##targetNamespace")
+	unsettable attr TSendingDirection sendingDirection = "trackToTrain";
+
+	@GenModel(documentation="Command for System Under Test")
+	@ExtendedMetaData(kind="attribute", name="SUTCommand", namespace="##targetNamespace")
+	unsettable attr TSutCommand sUTCommand;
+}
+
+@GenModel(documentation="System Under Test Status")
+@ExtendedMetaData(name="T_ControlSUTStatus", kind="empty")
+class TControlSUTStatus {
+
+	@GenModel(documentation="Direction of sent message")
+	@ngffgd(appinfo="")
+	@ExtendedMetaData(kind="attribute", name="SendingDirection", namespace="##targetNamespace")
+	unsettable attr TSendingDirection sendingDirection = "trainToTrack";
+
+	@GenModel(documentation="Status of System Under Test")
+	@ExtendedMetaData(kind="attribute", name="SUTStatus", namespace="##targetNamespace")
+	unsettable attr TSutStatus[1] sUTStatus;
+}
+
+@GenModel(documentation="See SUBSET-026-7.5.1.62.1, Allowed current consumption")
+@ExtendedMetaData(name="T_Current", kind="elementOnly")
+class TCurrent {
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.62.1 Allowed current consumption Resolution: 10A")
+	@ExtendedMetaData(kind="element", name="M_CURRENT", namespace="##targetNamespace")
+	unsettable attr MCURRENTType[1] mCURRENT;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "10";
+}
+
+@ExtendedMetaData(name="T_Definitions", kind="elementOnly")
+class TDefinitions {
+
+	@ExtendedMetaData(kind="element", name="Packets", namespace="##targetNamespace")
+	!resolve val TPackets[1] packets;
+
+	@ExtendedMetaData(kind="element", name="VarDef", namespace="##targetNamespace")
+	!resolve val TVardefVar[1] varDef;
+}
+
+@GenModel(documentation="Direction Controller status")
+@ExtendedMetaData(name="T_DirectionController", kind="elementOnly")
+class TDirectionController {
+
+	@GenModel(documentation="0 - Information not availabel; 1- Direction controller neutral; 2 - direction controller forward; 3- direction controller backward; 4 - Fail state ")
+	@ExtendedMetaData(kind="element", name="M_DIRECTIONCONTROLLER", namespace="##targetNamespace")
+	unsettable attr MDIRECTIONCONTROLLERType[1] mDIRECTIONCONTROLLER;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "3";
+}
+
+@GenModel(documentation="Door Control status")
+@ExtendedMetaData(name="T_DoorControl", kind="elementOnly")
+class TDoorControl {
+
+	@GenModel(documentation="0 - Information not available; 1 - Both sides doors closed; 2 - Left side doors open; 3- Ride side doors open; 4 - Both side doors open; 5- Fail state")
+	@ExtendedMetaData(kind="element", name="M_DOORCONTROL", namespace="##targetNamespace")
+	unsettable attr MDOORCONTROLType[1] mDOORCONTROL;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "3";
+}
+
+@GenModel(documentation="Eddy Current Brake inhibition command")
+@ExtendedMetaData(name="T_EddyCurrentBrakeCm", kind="elementOnly")
+class TEddyCurrentBrakeCm {
+
+	@GenModel(documentation="0 - Information not available; 1 - Inhibit eddy current brake for service brake; 2 - Use eddy current brake for service brake; 3 - Inhibit eddy current brake for emergency brake; 4 - Use eddy current brake for emergency brake; 5 -Use eddy current brake for both brakes; 6 -Fail state")
+	@ExtendedMetaData(kind="element", name="M_EDDYCURRENTBRAKECM", namespace="##targetNamespace")
+	unsettable attr MEDDYCURRENTBRAKECMType[1] mEDDYCURRENTBRAKECM;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "3";
+}
+
+@GenModel(documentation="Emergency Brake command")
+@ExtendedMetaData(name="T_EmergencyBrakeCm", kind="elementOnly")
+class TEmergencyBrakeCm {
+
+	@GenModel(documentation="0 -Information not available; 1- Apply emergency brake; 2 - Release emergency brake; 3 - fail state")
+	@ExtendedMetaData(kind="element", name="M_EMERGENCYBRAKECM", namespace="##targetNamespace")
+	unsettable attr MEMERGENCYBRAKECMType[1] mEMERGENCYBRAKECM;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Emergency Brake signal status")
+@ExtendedMetaData(name="T_EmergencyBrakeSt", kind="elementOnly")
+class TEmergencyBrakeSt {
+
+	@GenModel(documentation="0 - Information not available; 1 - Emergency Brake applied; 2 - Emergency Brake not applied; 3 - fail state")
+	@ExtendedMetaData(kind="element", name="M_EMERGENCYBRAKEST", namespace="##targetNamespace")
+	unsettable attr MEMERGENCYBRAKESTType[1] mEMERGENCYBRAKEST;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@ExtendedMetaData(name="T_Formula")
+enum TFormula {
+	_002 = 0;
+	_005 = 1;
+	_05T = 2;
+	_005MS2 = 3;
+	_1 = 4;
+	_1Byte = 5;
+	_1TextStringElement = 6;
+	_1Bit = 7;
+	_1M = 8;
+	_1Day = 9;
+	_1PerMil = 10;
+	_1PerCent = 11;
+	_10A = 12;
+	_10Cm1MOr10MDependingOnQSCALE = 13;
+	_10Ms = 14;
+	_1S = 15;
+	_5KmH = 16;
+	BinaryCodedDecimal = 17;
+	Bitset = 18;
+	Number = 19;
+	Numbers = 20;
+	integers = 21;
+}
+
+@ExtendedMetaData(name="T_Formula:Object", baseType="T_Formula")
+datatype TFormulaObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="T_IDNumber")
+enum TIDNumber {
+	_0 = 0;
+	_1 = 1;
+	_2 = 2;
+	_3 = 3;
+	_4 = 4;
+	_5 = 5;
+	_6 = 6;
+	_9 = 7;
+	_11 = 8;
+	_12 = 9;
+	_13 = 10;
+	_15 = 11;
+	_16 = 12;
+	_21 = 13;
+	_27 = 14;
+	_39 = 15;
+	_40 = 16;
+	_41 = 17;
+	_42 = 18;
+	_44 = 19;
+	_45 = 20;
+	_46 = 21;
+	_49 = 22;
+	_51 = 23;
+	_52 = 24;
+	_57 = 25;
+	_58 = 26;
+	_63 = 27;
+	_64 = 28;
+	_65 = 29;
+	_66 = 30;
+	_67 = 31;
+	_68 = 32;
+	_69 = 33;
+	_70 = 34;
+	_71 = 35;
+	_72 = 36;
+	_76 = 37;
+	_79 = 38;
+	_80 = 39;
+	_88 = 40;
+	_90 = 41;
+	_131 = 42;
+	_132 = 43;
+	_133 = 44;
+	_134 = 45;
+	_135 = 46;
+	_136 = 47;
+	_137 = 48;
+	_138 = 49;
+	_139 = 50;
+	_140 = 51;
+	_141 = 52;
+	_143 = 53;
+	_145 = 54;
+	_254 = 55;
+	_255 = 56;
+}
+
+@ExtendedMetaData(name="T_IDNumber:Object", baseType="T_IDNumber")
+datatype TIDNumberObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="Interface the message refers to also representing the message identifier (direction is set by T_SendingDirection)")
+@ExtendedMetaData(name="T_Interface")
+enum TInterface {
+	TII = 0;
+	TIO = 1;
+	OSI = 2;
+}
+
+@ExtendedMetaData(name="T_Interface:Object", baseType="T_Interface")
+datatype TInterfaceObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="Isolation signal status")
+@ExtendedMetaData(name="T_Isolation", kind="elementOnly")
+class TIsolation {
+
+	@GenModel(documentation="0 - Information not available; 1- Signal active; 2 - Signal not active; 3 - Fail state")
+	@ExtendedMetaData(kind="element", name="M_ISOLATION", namespace="##targetNamespace")
+	unsettable attr MISOLATIONType[1] mISOLATION = "2";
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Time of the laboratory clock (test environment)")
+@ExtendedMetaData(name="T_LaboratoryClock", kind="elementOnly")
+class TLaboratoryClock {
+
+	@GenModel(documentation="Resolution: 10 ms; 4294967295 - unknown")
+	@ExtendedMetaData(kind="element", name="T_LAB", namespace="##targetNamespace")
+	unsettable attr TLABType[1] tLAB;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "32";
+}
+
+@ExtendedMetaData(name="T_LAB_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#unsignedInt", minInclusive="0", maxInclusive="4294967295")
+datatype TLABType : long;
+
+@ExtendedMetaData(name="T_LAB_._type:Object", baseType="T_LAB_._type")
+datatype TLABTypeObject : java.lang.Long;
+
+@ExtendedMetaData(name="T_Length")
+enum TLength {
+	_ = 0;
+	_1 = 1;
+	_2 = 2;
+	_3 = 3;
+	_4 = 4;
+	_5 = 5;
+	_6 = 6;
+	_7 = 7;
+	_8 = 8;
+	_9 = 9;
+	_10 = 10;
+	_1014 = 11;
+	_12 = 12;
+	_13 = 13;
+	_14 = 14;
+	_15 = 15;
+	_20 = 16;
+	_24 = 17;
+	_32 = 18;
+	_64 = 19;
+}
+
+@ExtendedMetaData(name="T_Length:Object", baseType="T_Length")
+datatype TLengthObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="See SUBSET-026-7.5.1.65, Current Operating Level")
+@ExtendedMetaData(name="T_Level", kind="elementOnly")
+class TLevel {
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.65, Current Operating Level")
+	@ExtendedMetaData(kind="element", name="M_LEVEL", namespace="##targetNamespace")
+	unsettable attr MLEVELType[1] mLEVEL;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "3";
+}
+
+@ExtendedMetaData(name="T_LoopDoWhile", kind="elementOnly")
+class TLoopDoWhile {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="TlgVar", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TTlgVar[*] tlgVar;
+
+	@ExtendedMetaData(kind="element", name="Conditional", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TConditional[*] conditional;
+
+	@ExtendedMetaData(kind="element", name="LoopWhile", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TLoopWhile[*] loopWhile;
+}
+
+@ExtendedMetaData(name="T_LoopWhile", kind="elementOnly")
+class TLoopWhile {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="TlgVar", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TTlgVar[*] tlgVar;
+
+	@ExtendedMetaData(kind="element", name="Conditional", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TConditional[*] conditional;
+}
+
+@GenModel(documentation="Magnetic Shoe Brake inhibition command")
+@ExtendedMetaData(name="T_MagneticShoeBrakeCm", kind="elementOnly")
+class TMagneticShoeBrakeCm {
+
+	@GenModel(documentation="0 - Information not available; 1 - Inhibit magnetic shoe brake; 2 - Use magnetic shoe brake; 3 - fail state")
+	@ExtendedMetaData(kind="element", name="M_MAGNETICSHOEBRAKECM", namespace="##targetNamespace")
+	unsettable attr MMAGNETICSHOEBRAKECMType[1] mMAGNETICSHOEBRAKECM;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Main Switch command")
+@ExtendedMetaData(name="T_MainSwitchCm", kind="elementOnly")
+class TMainSwitchCm {
+
+	@GenModel(documentation="0 - Information not available; 1 - Open main switch; 2 - Close main switch; 3 -Fail state")
+	@ExtendedMetaData(kind="element", name="M_MAINSWITCHCM", namespace="##targetNamespace")
+	unsettable attr MMAINSWITCHCMType[1] mMAINSWITCHCM;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@ExtendedMetaData(name="T_MaxVal")
+enum TMaxVal {
+	_ = 0;
+	_1 = 1;
+	_100 = 2;
+	_155 = 3;
+	_254 = 4;
+	_315MS2 = 5;
+	_14 = 6;
+	_15 = 7;
+	_31 = 8;
+	_63 = 9;
+	_63M = 10;
+	_1022 = 11;
+	_1022S = 12;
+	_1023 = 13;
+	_16382 = 14;
+	_16383 = 15;
+	_1048574M = 16;
+	_253 = 17;
+	_2541 = 18;
+	_254S = 19;
+	_254PerMil = 20;
+	_254PerCent = 21;
+	_255 = 22;
+	_255S = 23;
+	_255PerMil = 24;
+	_255PerCent = 25;
+	_255Days = 26;
+	_327660Km = 27;
+	_327670Km = 28;
+	_32767M = 29;
+	_40T = 30;
+	_4095M = 31;
+	_4294967294S = 32;
+	_511 = 33;
+	_600KmH = 34;
+	_8191 = 35;
+	_10000A = 36;
+	_999999 = 37;
+	_9999999M = 38;
+	_99999999 = 39;
+	_9999999999999999 = 40;
+}
+
+@ExtendedMetaData(name="T_MaxVal:Object", baseType="T_MaxVal")
+datatype TMaxValObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="T_MinVal")
+enum TMinVal {
+	_327680Km = 0;
+	_0 = 1;
+	_00 = 2;
+	_0Cm = 3;
+	_0KmH = 4;
+	_0M = 5;
+	_0S = 6;
+	_0MS2 = 7;
+	_0Seconds = 8;
+	_0A = 9;
+	_0T = 10;
+	_0327680Km = 11;
+}
+
+@ExtendedMetaData(name="T_MinVal:Object", baseType="T_MinVal")
+datatype TMinValObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="See SUBSET-026-7.5.1.72, mode of SUT")
+@ExtendedMetaData(name="T_Mode", kind="elementOnly")
+class TMode {
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.72, Onboard operating mode")
+	@ExtendedMetaData(kind="element", name="M_MODE", namespace="##targetNamespace")
+	unsettable attr MMODEType[1] mMODE;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "4";
+}
+
+@GenModel(documentation="Non Leading signal")
+@ExtendedMetaData(name="T_NonLeading", kind="elementOnly")
+class TNonLeading {
+
+	@GenModel(documentation="0 - Information not available; 1- Signal active; 2 - Signal not active; 3 - Fail state")
+	@ExtendedMetaData(kind="element", name="M_NONLEADING", namespace="##targetNamespace")
+	unsettable attr MNONLEADINGType[1] mNONLEADING;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="ODS: Odometry Serial Message transmitted from Test Environment to Train Interface")
+@ExtendedMetaData(name="T_OdometrySerialInterface", kind="elementOnly")
+class TOdometrySerialInterface {
+
+	@ExtendedMetaData(kind="element", name="NID_INTERFACE", namespace="##targetNamespace")
+	unsettable attr TInterface[1] nIDINTERFACE = "OSI";
+
+	@GenModel(documentation="Time of the laboratory clock (test environment)")
+	@ExtendedMetaData(kind="element", name="LaboratoryClock", namespace="##targetNamespace")
+	!resolve val TLaboratoryClock[1] laboratoryClock;
+
+	@GenModel(documentation="Relative distance managed by the laboratory for every simulation")
+	@ExtendedMetaData(kind="element", name="SimulationDistance", namespace="##targetNamespace")
+	!resolve val TSimulationDistance[1] simulationDistance;
+
+	@GenModel(documentation="Indicates the sense of movement, considering which cabine of the train is being tested")
+	@ExtendedMetaData(kind="element", name="SpeedSign", namespace="##targetNamespace")
+	!resolve val TSpeedSign[1] speedSign;
+
+	@GenModel(documentation="Instantaneous value of the train speed")
+	@ExtendedMetaData(kind="element", name="SimulatedTrainSpeed", namespace="##targetNamespace")
+	!resolve val TSimulatedTrainSpeed[1] simulatedTrainSpeed;
+
+	@GenModel(documentation="Indicates whether the train is braking or accelerating")
+	@ExtendedMetaData(kind="element", name="AccelerationSign", namespace="##targetNamespace")
+	!resolve val TAccelerationSign[1] accelerationSign;
+
+	@GenModel(documentation="Instantaneous value of the simulated train acceleration")
+	@ExtendedMetaData(kind="element", name="SimulatedTrainAcceleration", namespace="##targetNamespace")
+	!resolve val TSimulatedTrainAcceleration[1] simulatedTrainAcceleration;
+
+	@GenModel(documentation="Direction of sent message")
+	@ngffgd(appinfo="")
+	@ExtendedMetaData(kind="attribute", name="SendingDirection", namespace="##targetNamespace")
+	unsettable attr TSendingDirection sendingDirection = "interfaceToEvc";
+
+	@GenModel(documentation="Previous Message ID to trigger to")
+	@ExtendedMetaData(kind="attribute", name="TriggerMessage", namespace="##targetNamespace")
+	unsettable attr TTriggerMessage triggerMessage = "0";
+
+	@GenModel(documentation="Cylce time in millisecond, message sent once each cycle")
+	@ExtendedMetaData(kind="attribute", name="TriggerTime", namespace="##targetNamespace")
+	unsettable attr TTriggerTime triggerTime = "100000";
+
+	@GenModel(documentation="Type of trigger: triggerByFixedTime = fixed time cycle - message is expected at each end of cycle defined by trigger time;
+triggeredByMaxTime = message is expected to arrive before a trimeout defined by trigger time; triggerByMinTime = message is not expected before the end of trigger time; triggeredByEvent = message is not expected to arrive before event and after trigger time after event; messageByPreviousMessage =  message is not expected to arrive before previous message and after trigger time after event")
+	@ExtendedMetaData(kind="attribute", name="TriggerType", namespace="##targetNamespace")
+	unsettable attr TTriggerType triggerType = "triggeredByFixedTime";
+}
+
+@ExtendedMetaData(name="T_Packet", kind="elementOnly")
+class TPacket {
+
+	@ExtendedMetaData(kind="element", name="Description", namespace="##targetNamespace")
+	attr type.String description;
+
+	@ExtendedMetaData(kind="element", name="Content", namespace="##targetNamespace")
+	!resolve val TContent[1] content;
+
+	@ExtendedMetaData(kind="attribute", name="Name", namespace="##targetNamespace")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="Number", namespace="##targetNamespace")
+	unsettable attr TIDNumber[1] number;
+
+	@ExtendedMetaData(kind="attribute", name="TransmissionMedia", namespace="##targetNamespace")
+	unsettable attr TTransmissionMedia[1] transmissionMedia;
+}
+
+@ExtendedMetaData(name="T_Packets", kind="elementOnly")
+class TPackets {
+
+	@ExtendedMetaData(kind="element", name="TrackToTrain", namespace="##targetNamespace")
+	!resolve val TTrackToTrain[1] trackToTrain;
+
+	@ExtendedMetaData(kind="element", name="TrainToTrack", namespace="##targetNamespace")
+	!resolve val TTrainToTrack[1] trainToTrack;
+
+	@ExtendedMetaData(kind="element", name="BothWays", namespace="##targetNamespace")
+	!resolve val TBothWays[1] bothWays;
+}
+
+@GenModel(documentation="Pantograph command")
+@ExtendedMetaData(name="T_PantographCm", kind="elementOnly")
+class TPantographCm {
+
+	@GenModel(documentation="0 - Information not available; 1 - Lower pantograph; 2 - Raise pantograph; 3 - Fail state")
+	@ExtendedMetaData(kind="element", name="M_PANTOGRAPHCM", namespace="##targetNamespace")
+	unsettable attr MPANTOGRAPHCMType[1] mPANTOGRAPHCM;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Passenger Emergency Brake command")
+@ExtendedMetaData(name="T_PassengerEBCm", kind="elementOnly")
+class TPassengerEBCm {
+
+	@GenModel(documentation="0 - Information not available; 1 - Inhibit passenger emergency brake; 2 - Use passenger emergency brake; 3 - fail state")
+	@ExtendedMetaData(kind="element", name="M_PASSENGEREBCM", namespace="##targetNamespace")
+	unsettable attr MPASSENGEREBCMType[1] mPASSENGEREBCM;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Passenger Emergency Brake status")
+@ExtendedMetaData(name="T_PassengerEBSt", kind="elementOnly")
+class TPassengerEBSt {
+
+	@GenModel(documentation="0 - Information not available; 1 - Passenger Emergency Brake applied; 2 - Passenger Emergency Brake not applied; 3 - fail state")
+	@ExtendedMetaData(kind="element", name="M_PASSENGEREBST", namespace="##targetNamespace")
+	unsettable attr MPASSENGEREBSTType[1] mPASSENGEREBST;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="See SUBSET-026-7.5.1.75, Type of platform")
+@ExtendedMetaData(name="T_PlatformHeigth", kind="elementOnly")
+class TPlatformHeigth {
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.75, Nominal height of platform above rail level ")
+	@ExtendedMetaData(kind="element", name="M_PLATFORM", namespace="##targetNamespace")
+	unsettable attr MPLATFORMType[1] mPLATFORM;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "4";
+}
+
+@GenModel(documentation="See SUBSET-026-7.5.1.126.2, Platform position (relative to direction of authorised movement)")
+@ExtendedMetaData(name="T_PlatformPosition", kind="elementOnly")
+class TPlatformPosition {
+
+	@GenModel(documentation="See SUBSET-026-7.5.126.2 Platform position (relative to direction of authorised movement)")
+	@ExtendedMetaData(kind="element", name="Q_PLATFORM", namespace="##targetNamespace")
+	unsettable attr QPLATFORMType[1] qPLATFORM;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Regerneative Brake command")
+@ExtendedMetaData(name="T_RegenerativeBrakeCm", kind="elementOnly")
+class TRegenerativeBrakeCm {
+
+	@GenModel(documentation="0 -Information not available; 1- Inhibit regenerative brake; 2 - Use regenerative brake; 3 - fail state")
+	@ExtendedMetaData(kind="element", name="M_REGENERATIVEBRAKECM", namespace="##targetNamespace")
+	unsettable attr MREGENERATIVEBRAKECMType[1] mREGENERATIVEBRAKECM;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Type of Direction the Information is allowed to be sent (informative)")
+@ExtendedMetaData(name="T_SendingDirection")
+enum TSendingDirection {
+	trackToTrain = 0;
+	trainToTrack = 1;
+	evcToInterface = 2;
+	interfaceToEvc = 3;
+	parameterToTe = 4;
+	_ = 5;
+}
+
+@ExtendedMetaData(name="T_SendingDirection:Object", baseType="T_SendingDirection")
+datatype TSendingDirectionObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="Service Brake command")
+@ExtendedMetaData(name="T_ServiceBrakeCm", kind="elementOnly")
+class TServiceBrakeCm {
+
+	@GenModel(documentation="0 - Indormation not available; 1- Apply service brake; 2 - Release service brake; 3 - Fail state")
+	@ExtendedMetaData(kind="element", name="M_SERVICEBRAKECM", namespace="##targetNamespace")
+	unsettable attr MSERVICEBRAKECMType[1] mSERVICEBRAKECM;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Service Brake signal status")
+@ExtendedMetaData(name="T_ServiceBrakeSt", kind="elementOnly")
+class TServiceBrakeSt {
+
+	@GenModel(documentation="0 - Information not available; 1 - Service Brake applied; 2 - Service Brake not applied; 3 - fail state")
+	@ExtendedMetaData(kind="element", name="M_SERVICEBRAKEST", namespace="##targetNamespace")
+	unsettable attr MSERVICEBRAKESTType[1] mSERVICEBRAKEST;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Instantaneous value of the simulated train acceleration")
+@ExtendedMetaData(name="T_SimulatedTrainAcceleration", kind="elementOnly")
+class TSimulatedTrainAcceleration {
+
+	@GenModel(documentation="Resolution: 1mm/s^2; 4095 - unknown")
+	@ExtendedMetaData(kind="element", name="A_LAB", namespace="##targetNamespace")
+	unsettable attr ALABType[1] aLAB;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "12";
+}
+
+@GenModel(documentation="Instantaneous value of the train speed")
+@ExtendedMetaData(name="T_SimulatedTrainSpeed", kind="elementOnly")
+class TSimulatedTrainSpeed {
+
+	@GenModel(documentation="Resolution: 1mm/s; 262143 - unknown")
+	@ExtendedMetaData(kind="element", name="V_LAB", namespace="##targetNamespace")
+	unsettable attr VLABType[1] vLAB;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "18";
+}
+
+@GenModel(documentation="Relative distance managed by the laboratory for every simulation")
+@ExtendedMetaData(name="T_SimulationDistance", kind="elementOnly")
+class TSimulationDistance {
+
+	@GenModel(documentation="Resolution: 10ms; 4294967295 - unknown")
+	@ExtendedMetaData(kind="element", name="D_LAB", namespace="##targetNamespace")
+	unsettable attr DLABType[1] dLAB;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "32";
+}
+
+@GenModel(documentation="Sleeping signal status")
+@ExtendedMetaData(name="T_Sleeping", kind="elementOnly")
+class TSleeping {
+
+	@GenModel(documentation="0 - Information not available; 1- Signal active; 2 - Signal not active; 3 - Fail state")
+	@ExtendedMetaData(kind="element", name="M_SLEEPING", namespace="##targetNamespace")
+	unsettable attr MSLEEPINGType[1] mSLEEPING = "2";
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Indicates the sense of movement, considering which cabine of the train is being tested")
+@ExtendedMetaData(name="T_SpeedSign", kind="elementOnly")
+class TSpeedSign {
+
+	@GenModel(documentation="0 - forward movement (considering which cabine of the train is being tested); 1 - backwards movement")
+	@ExtendedMetaData(kind="element", name="Q_VEL", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] qVEL;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "1";
+}
+
+@GenModel(documentation="Set of Static Speed Profile Parameters")
+@ExtendedMetaData(name="T_SSP", kind="elementOnly")
+class TSSP {
+
+	@ExtendedMetaData(kind="element", name="Position", namespace="##targetNamespace")
+	unsettable attr type.Int[1] position;
+
+	@ExtendedMetaData(kind="element", name="Speed", namespace="##targetNamespace")
+	unsettable attr type.Int[1] speed;
+
+	@GenModel(documentation="Direction of sent message")
+	@ngffgd(appinfo="")
+	@ExtendedMetaData(kind="attribute", name="SendingDirection", namespace="##targetNamespace")
+	unsettable attr TSendingDirection sendingDirection = "parameterToTe";
+}
+
+@GenModel(documentation="StartingConditions of SUT")
+@ExtendedMetaData(name="T_StartingConditions", kind="elementOnly")
+class TStartingConditions {
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.65,Current Operating Level")
+	@ExtendedMetaData(kind="element", name="Level", namespace="##targetNamespace")
+	!resolve val TLevel[1] level;
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.72; Onboard operating mode")
+	@ExtendedMetaData(kind="element", name="Mode", namespace="##targetNamespace")
+	!resolve val TMode[1] mode;
+}
+
+@GenModel(documentation="Type of Commant for System Under Test")
+@ExtendedMetaData(name="T_SutCommand")
+enum TSutCommand {
+	startSUT = 0;
+	askForStatus = 1;
+	stopSUT = 2;
+}
+
+@ExtendedMetaData(name="T_SutCommand:Object", baseType="T_SutCommand")
+datatype TSutCommandObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="Type of Status of System Under Test")
+@ExtendedMetaData(name="T_SutStatus")
+enum TSutStatus {
+	SUTSwitchedOff = 0;
+	SUTStarting = 1;
+	SUTSwitchedOn = 2;
+	SUTInitialising = 3;
+	SUTReady = 4;
+	SUTStopped = 5;
+}
+
+@ExtendedMetaData(name="T_SutStatus:Object", baseType="T_SutStatus")
+datatype TSutStatusObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="System Failure signal")
+@ExtendedMetaData(name="T_SystemFailure", kind="elementOnly")
+class TSystemFailure {
+
+	@GenModel(documentation="0 - Information not available; 1- Signal active; 2 - Signal not active; 3 - Fail state")
+	@ExtendedMetaData(kind="element", name="M_SYSTEMFAILURE", namespace="##targetNamespace")
+	unsettable attr MSYSTEMFAILUREType[1] mSYSTEMFAILURE;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@ExtendedMetaData(name="T_TlgVar", kind="empty")
+class TTlgVar {
+
+	@ExtendedMetaData(kind="attribute", name="Comment", namespace="##targetNamespace")
+	attr type.String comment;
+
+	@ExtendedMetaData(kind="attribute", name="Length", namespace="##targetNamespace")
+	unsettable attr TLength[1] length;
+
+	@ExtendedMetaData(kind="attribute", name="Name", namespace="##targetNamespace")
+	attr type.String[1] name;
+}
+
+@ExtendedMetaData(name="T_TrackToTrain", kind="elementOnly")
+class TTrackToTrain {
+
+	@ExtendedMetaData(kind="element", name="List", namespace="##targetNamespace")
+	!resolve val ListType[+] list;
+
+	@ExtendedMetaData(kind="element", name="Packet", namespace="##targetNamespace")
+	!resolve val TPacket[+] packet;
+}
+
+@GenModel(documentation="Traction cut-off command")
+@ExtendedMetaData(name="T_TractionCutOff", kind="elementOnly")
+class TTractionCutOff {
+
+	@GenModel(documentation="0 - Informatino not available; 1 - Aply traction cut-off; 2 - Release traction cut-off; 3 Fail state")
+	@ExtendedMetaData(kind="element", name="M_TRACTIONCUTOFF", namespace="##targetNamespace")
+	unsettable attr MTRACTIONCUTOFFType[1] mTRACTIONCUTOFF;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="Train Integrity information")
+@ExtendedMetaData(name="T_TrainIntegrity", kind="elementOnly")
+class TTrainIntegrity {
+
+	@GenModel(documentation="0 - Information not available; 1- Train is not integer; 2 - Train is integer; 3- Fail state")
+	@ExtendedMetaData(kind="element", name="M_TRAININTEGRITY", namespace="##targetNamespace")
+	unsettable attr MTRAININTEGRITYType[1] mTRAININTEGRITY;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "2";
+}
+
+@GenModel(documentation="TII: Message transmitted from Test Environment to Train Interface ")
+@ExtendedMetaData(name="T_TrainInterfaceInput", kind="elementOnly")
+class TTrainInterfaceInput {
+
+	@ExtendedMetaData(kind="element", name="NID_INTERFACE", namespace="##targetNamespace")
+	unsettable attr TInterface[1] nIDINTERFACE = "TII";
+
+	@GenModel(documentation="Command Sleeping")
+	@ExtendedMetaData(kind="element", name="Sleeping", namespace="##targetNamespace")
+	!resolve val TSleeping[1] sleeping;
+
+	@GenModel(documentation="Command Isolation")
+	@ExtendedMetaData(kind="element", name="Isolation", namespace="##targetNamespace")
+	!resolve val TIsolation[1] isolation;
+
+	@GenModel(documentation="Status of Service Brake")
+	@ExtendedMetaData(kind="element", name="ServiceBrakeStatus", namespace="##targetNamespace")
+	!resolve val TServiceBrakeSt[1] serviceBrakeStatus;
+
+	@GenModel(documentation="Status of Emergency Brake")
+	@ExtendedMetaData(kind="element", name="EmergencyBrakeStatus", namespace="##targetNamespace")
+	!resolve val TEmergencyBrakeSt[1] emergencyBrakeStatus;
+
+	@GenModel(documentation="Status of Passenger Emergency Brake")
+	@ExtendedMetaData(kind="element", name="PassengerEBStatus", namespace="##targetNamespace")
+	!resolve val TPassengerEBSt[1] passengerEBStatus;
+
+	@GenModel(documentation="Status of Doors")
+	@ExtendedMetaData(kind="element", name="DoorControl", namespace="##targetNamespace")
+	!resolve val TDoorControl[1] doorControl;
+
+	@GenModel(documentation="Status of Direction Controller")
+	@ExtendedMetaData(kind="element", name="DirectionController", namespace="##targetNamespace")
+	!resolve val TDirectionController[1] directionController;
+
+	@GenModel(documentation="Status CAB A and CAB B")
+	@ExtendedMetaData(kind="element", name="CABStatus", namespace="##targetNamespace")
+	!resolve val TCABStatus[1] cABStatus;
+
+	@GenModel(documentation="Status of Train Integrity")
+	@ExtendedMetaData(kind="element", name="TrainIntegrity", namespace="##targetNamespace")
+	!resolve val TTrainIntegrity[1] trainIntegrity;
+
+	@GenModel(documentation="Command NonLeading")
+	@ExtendedMetaData(kind="element", name="NonLeading", namespace="##targetNamespace")
+	!resolve val TNonLeading[1] nonLeading;
+
+	@GenModel(documentation="Status of System Failure")
+	@ExtendedMetaData(kind="element", name="SystemFailure", namespace="##targetNamespace")
+	!resolve val TSystemFailure[1] systemFailure;
+
+	@GenModel(documentation="Direction of sent message")
+	@ngffgd(appinfo="")
+	@ExtendedMetaData(kind="attribute", name="SendingDirection", namespace="##targetNamespace")
+	unsettable attr TSendingDirection sendingDirection = "interfaceToEvc";
+
+	@GenModel(documentation="Previous Message ID to trigger to")
+	@ExtendedMetaData(kind="attribute", name="TriggerMessage", namespace="##targetNamespace")
+	unsettable attr TTriggerMessage triggerMessage = "0";
+
+	@GenModel(documentation="Cylce time in millisecond, message sent once each cycle")
+	@ExtendedMetaData(kind="attribute", name="TriggerTime", namespace="##targetNamespace")
+	unsettable attr TTriggerTime triggerTime = "100000";
+
+	@GenModel(documentation="Type of trigger: triggerByFixedTime = fixed time cycle - message is expected at each end of cycle defined by trigger time;
+triggeredByMaxTime = message is expected to arrive before a trimeout defined by trigger time; triggerByMinTime = message is not expected before the end of trigger time; triggeredByEvent = message is not expected to arrive before event and after trigger time after event; messageByPreviousMessage =  message is not expected to arrive before previous message and after trigger time after event")
+	@ExtendedMetaData(kind="attribute", name="TriggerType", namespace="##targetNamespace")
+	unsettable attr TTriggerType triggerType = "triggeredByFixedTime";
+}
+
+@GenModel(documentation="TIO: Message transmitted from Test Environment to Train Interface")
+@ExtendedMetaData(name="T_TrainInterfaceOutput", kind="elementOnly")
+class TTrainInterfaceOutput {
+
+	@ExtendedMetaData(kind="element", name="NID_INTERFACE", namespace="##targetNamespace")
+	unsettable attr TInterface[1] nIDINTERFACE = "TIO";
+
+	@GenModel(documentation="Indicates the action on the service brake")
+	@ExtendedMetaData(kind="element", name="ServiceBrakeCommand", namespace="##targetNamespace")
+	!resolve val TServiceBrakeCm[1] serviceBrakeCommand;
+
+	@GenModel(documentation="Indicates the action on the emergency brake")
+	@ExtendedMetaData(kind="element", name="EmergencyBrakeCommand", namespace="##targetNamespace")
+	!resolve val TEmergencyBrakeCm[1] emergencyBrakeCommand;
+
+	@GenModel(documentation="Indicates the action on the use of the regenerative brake")
+	@ExtendedMetaData(kind="element", name="RegenerativeBrakeCommand", namespace="##targetNamespace")
+	!resolve val TRegenerativeBrakeCm[1] regenerativeBrakeCommand;
+
+	@GenModel(documentation="Indicates the action on the use of the eddy current brake")
+	@ExtendedMetaData(kind="element", name="EddyCurrentBrakeCommand", namespace="##targetNamespace")
+	!resolve val TEddyCurrentBrakeCm[1] eddyCurrentBrakeCommand;
+
+	@GenModel(documentation="Indicates the action on the use of the magnetic shoe brake")
+	@ExtendedMetaData(kind="element", name="MagneticShoeBrakeCommand", namespace="##targetNamespace")
+	!resolve val TMagneticShoeBrakeCm[1] magneticShoeBrakeCommand;
+
+	@GenModel(documentation="Indicates the action on the use of the passenger emergency brake")
+	@ExtendedMetaData(kind="element", name="PassengerEBCommand", namespace="##targetNamespace")
+	!resolve val TPassengerEBCm[1] passengerEBCommand;
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.78, It indicates the voltage of the traction system installed on a specific line or respectively that can be used by an engine")
+	@ExtendedMetaData(kind="element", name="Voltage", namespace="##targetNamespace")
+	!resolve val TVoltage[1] voltage;
+
+	@GenModel(documentation="Indicates the action on the pantograph")
+	@ExtendedMetaData(kind="element", name="PantographCommand", namespace="##targetNamespace")
+	!resolve val TPantographCm[1] pantographCommand;
+
+	@GenModel(documentation="Indicates the action on the air tighness system")
+	@ExtendedMetaData(kind="element", name="AirTightness", namespace="##targetNamespace")
+	!resolve val TAirTightness[1] airTightness;
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.Nominal height of platform above rail level ")
+	@ExtendedMetaData(kind="element", name="PlatformHeight", namespace="##targetNamespace")
+	!resolve val TPlatformHeigth[1] platformHeight;
+
+	@GenModel(documentation="See SUBSET-026-7.5.126.2; Platform position (relative to direction of authorised movement)")
+	@ExtendedMetaData(kind="element", name="PlatformPosition", namespace="##targetNamespace")
+	!resolve val TPlatformPosition[1] platformPosition;
+
+	@GenModel(documentation="Indicates the actions on the main switch")
+	@ExtendedMetaData(kind="element", name="MainSwitchCommand", namespace="##targetNamespace")
+	!resolve val TMainSwitchCm[1] mainSwitchCommand;
+
+	@GenModel(documentation="Indicates the action of the traction cut-off system")
+	@ExtendedMetaData(kind="element", name="TractionCutOff", namespace="##targetNamespace")
+	!resolve val TTractionCutOff[1] tractionCutOff;
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.62.1, It defines the allowed current consumption to be used by the train")
+	@ExtendedMetaData(kind="element", name="Current", namespace="##targetNamespace")
+	!resolve val TCurrent[1] current;
+
+	@GenModel(documentation="Direction of sent message")
+	@ngffgd(appinfo="")
+	@ExtendedMetaData(kind="attribute", name="SendingDirection", namespace="##targetNamespace")
+	unsettable attr TSendingDirection sendingDirection = "evcToInterface";
+
+	@GenModel(documentation="Previous Message ID to trigger to")
+	@ExtendedMetaData(kind="attribute", name="TriggerMessage", namespace="##targetNamespace")
+	unsettable attr TTriggerMessage triggerMessage = "0";
+
+	@GenModel(documentation="Cylce time in millisecond, message sent once each cycle")
+	@ExtendedMetaData(kind="attribute", name="TriggerTime", namespace="##targetNamespace")
+	unsettable attr TTriggerTime triggerTime = "100000";
+
+	@GenModel(documentation="Type of trigger: triggerByFixedTime = fixed time cycle - message is expected at each end of cycle defined by trigger time;
+triggeredByMaxTime = message is expected to arrive before a trimeout defined by trigger time; triggerByMinTime = message is not expected before the end of trigger time; triggeredByEvent = message is not expected to arrive before event and after trigger time after event; messageByPreviousMessage =  message is not expected to arrive before previous message and after trigger time after event")
+	@ExtendedMetaData(kind="attribute", name="TriggerType", namespace="##targetNamespace")
+	unsettable attr TTriggerType triggerType = "triggeredByFixedTime";
+}
+
+@ExtendedMetaData(name="T_TrainToTrack", kind="elementOnly")
+class TTrainToTrack {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="List", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val ListType[+] list;
+
+	@ExtendedMetaData(kind="element", name="Packet", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TPacket[+] packet;
+}
+
+@ExtendedMetaData(name="T_TransmissionMedia")
+enum TTransmissionMedia {
+	Any = 0;
+	Balise = 1;
+	Loop = 2;
+	RBC = 3;
+	RIU = 4;
+	RBCRIU = 5;
+	BaliseLoop = 6;
+	BaliseRBC = 7;
+	BaliseRBCRIU = 8;
+	BaliseLoopRIU = 9;
+}
+
+@ExtendedMetaData(name="T_TransmissionMedia:Object", baseType="T_TransmissionMedia")
+datatype TTransmissionMediaObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="Type of Message ID to Trigger")
+@ExtendedMetaData(name="T_TriggerMessage", baseType="http://www.eclipse.org/emf/2003/XMLType#byte")
+datatype TTriggerMessage : byte;
+
+@ExtendedMetaData(name="T_TriggerMessage:Object", baseType="T_TriggerMessage")
+datatype TTriggerMessageObject : java.lang.Byte;
+
+@GenModel(documentation="Trigger Time in nanoseconds")
+@ExtendedMetaData(name="T_TriggerTime", baseType="http://www.eclipse.org/emf/2003/XMLType#long")
+datatype TTriggerTime : long;
+
+@ExtendedMetaData(name="T_TriggerTime:Object", baseType="T_TriggerTime")
+datatype TTriggerTimeObject : java.lang.Long;
+
+@GenModel(documentation="Type of Trigger")
+@ExtendedMetaData(name="T_TriggerType")
+enum TTriggerType {
+	triggeredByFixedTime = 0;
+	triggeredByMaxTime = 1;
+	triggeredByMinTime = 2;
+	triggeredByEvent = 3;
+	triggeredByPreviousMessage = 4;
+}
+
+@ExtendedMetaData(name="T_TriggerType:Object", baseType="T_TriggerType")
+datatype TTriggerTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="T_Value")
+enum TValue {
+	_ = 0;
+	_1 = 1;
+	_0 = 2;
+	_11 = 3;
+	_2 = 4;
+	_3 = 5;
+	_4 = 6;
+	_5 = 7;
+	_5255 = 8;
+	_6 = 9;
+	_7 = 10;
+	_8 = 11;
+	_9 = 12;
+	_10 = 13;
+	_111 = 14;
+	_12 = 15;
+	_13 = 16;
+	_13127 = 17;
+	_14 = 18;
+	_15 = 19;
+	_16 = 20;
+	_17 = 21;
+	_18 = 22;
+	_19 = 23;
+	_20 = 24;
+	_21 = 25;
+	_22 = 26;
+	_23 = 27;
+	_24 = 28;
+	_25 = 29;
+	_26 = 30;
+	_27 = 31;
+	_28 = 32;
+	_29 = 33;
+	_30 = 34;
+	_31 = 35;
+	AE = 36;
+	F = 37;
+	_126 = 38;
+	_127 = 39;
+	_254 = 40;
+	_255 = 41;
+	_1023 = 42;
+	_16383 = 43;
+	_32767 = 44;
+	_16777215 = 45;
+	_4294967295 = 46;
+	_0126 = 47;
+	_2255 = 48;
+	_315 = 49;
+	_57 = 50;
+	_67 = 51;
+	_615 = 52;
+	_9255 = 53;
+	_1011 = 54;
+	_1015 = 55;
+	_1115 = 56;
+	_121125 = 57;
+	_121126 = 58;
+	_121127 = 59;
+	_127254 = 60;
+	_127255 = 61;
+	_105155 = 62;
+	_00 = 63;
+	_01 = 64;
+	_000 = 67;
+	_001 = 68;
+	_010 = 69;
+	_011 = 70;
+	_100 = 71;
+	_101 = 72;
+	_110 = 73;
+	_1111 = 74;
+	_0000 = 75;
+	_0001 = 76;
+	_0010 = 77;
+	_0011 = 78;
+	_0100 = 79;
+	_0101 = 80;
+	_0110 = 81;
+	_0111 = 82;
+	_1000 = 83;
+	_1001 = 84;
+	_1010 = 85;
+	_10111 = 86;
+	_1100 = 87;
+	_1101 = 88;
+	_1110 = 89;
+	_11111 = 90;
+	_0010000 = 91;
+	_0010001 = 92;
+	_0010010 = 93;
+	_0010011 = 94;
+	_0010100 = 95;
+	_0010101 = 96;
+	_0010110 = 97;
+	_0010111 = 98;
+	_0011000 = 99;
+	_0011001 = 100;
+	_0011010 = 101;
+	_0011011 = 102;
+	_0011100 = 103;
+	_0011101 = 104;
+	_0011110 = 105;
+	_0011111 = 106;
+	_0100000 = 107;
+	_0100001 = 108;
+	_1010001 = 109;
+	_1111101 = 110;
+	_1111110 = 111;
+	_1111111 = 112;
+	_11111111 = 113;
+	_111111111 = 114;
+	_011111 = 115;
+	_10011022 = 116;
+	_10111111 = 117;
+	_00100100011111 = 118;
+	_01000011111111 = 119;
+	_1xxXxxxXxxxXxxx = 120;
+	_1xxxXxxx = 121;
+	_1000000016777214 = 122;
+	ExceptionFFFFFFFF = 123;
+	FFFFFFFF = 124;
+	FFFFFFFFFFFFFFFF = 125;
+	VMAIN0MeansTripOrder = 126;
+	_1xxxx = 127;
+	x1xxx = 128;
+	xx1xx = 129;
+	xxx1x = 130;
+	xxxx1 = 131;
+	_000XXXX = 132;
+	_00000000 = 133;
+	x1xxXxxx = 134;
+	xx1xXxxx = 135;
+	xxx1Xxxx = 136;
+	xxxx1xxx = 137;
+	xxxxX1xx = 138;
+	xxxxXx1x = 139;
+	xxxxXxx1 = 140;
+	_000000000000000 = 141;
+	X1xXxxxXxxxXxxx = 142;
+	Xx1XxxxXxxxXxxx = 143;
+	Xxx1xxxXxxxXxxx = 144;
+	XxxX1xxXxxxXxxx = 145;
+	XxxXx1xXxxxXxxx = 146;
+	XxxXxx1XxxxXxxx = 147;
+	XxxXxxx1xxxXxxx = 148;
+	XxxXxxxX1xxXxxx = 149;
+	XxxXxxxXx1xXxxx = 150;
+	XxxXxxxXxx1Xxxx = 151;
+	XxxXxxxXxxx1xxx = 152;
+	XxxXxxxXxxxX1xx = 153;
+	XxxXxxxXxxxXx1x = 154;
+	XxxXxxxXxxxXxx1 = 155;
+}
+
+@ExtendedMetaData(name="T_Value:Object", baseType="T_Value")
+datatype TValueObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="T_VardefVar", kind="elementOnly")
+class TVardefVar {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="Variable", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TVariable[+] variable;
+}
+
+@ExtendedMetaData(name="T_Variable", kind="elementOnly")
+class TVariable {
+
+	@ExtendedMetaData(kind="element", name="DetailedName", namespace="##targetNamespace")
+	attr type.String[1] detailedName;
+
+	@ExtendedMetaData(kind="element", name="Description", namespace="##targetNamespace")
+	attr type.String description;
+
+	@ExtendedMetaData(kind="element", name="Specs", namespace="##targetNamespace")
+	!resolve val SpecsType[1] specs;
+
+	@ExtendedMetaData(kind="attribute", name="Name", namespace="##targetNamespace")
+	attr type.String[1] name;
+}
+
+@ExtendedMetaData(name="T_Variables", kind="elementOnly")
+class TVariables {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="LoopDoWhile", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TLoopDoWhile[*] loopDoWhile;
+
+	@ExtendedMetaData(kind="element", name="LoopWhile", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TLoopWhile[*] loopWhile;
+
+	@ExtendedMetaData(kind="element", name="TlgVar", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TTlgVar[*] tlgVar;
+
+	@ExtendedMetaData(kind="element", name="Conditional", namespace="##targetNamespace", group="group:0")
+	volatile transient derived !resolve val TConditional[*] conditional;
+}
+
+@ExtendedMetaData(name="T_VarLen")
+enum TVarLen {
+	_ = 0;
+	_1Bit = 1;
+	_2Bits = 2;
+	_3Bits = 3;
+	_4Bits = 4;
+	_5Bits = 5;
+	_6Bits = 6;
+	_7Bits = 7;
+	_8Bits = 8;
+	_9Bits = 9;
+	_10Bits = 10;
+	_1014Bits = 11;
+	_12Bits = 12;
+	_13Bits = 13;
+	_14Bits = 14;
+	_15Bits = 15;
+	_16Bits = 16;
+	_20Bits = 17;
+	_24Bits = 18;
+	_32Bits = 19;
+	_64Bits = 20;
+}
+
+@ExtendedMetaData(name="T_VarLen:Object", baseType="T_VarLen")
+datatype TVarLenObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="See SUBSET-026-7.5.1.79, Version of ETCS system")
+@ExtendedMetaData(name="T_Version", baseType="http://www.eclipse.org/emf/2003/XMLType#byte", minInclusive="0", maxInclusive="127")
+datatype TVersion : byte;
+
+@ExtendedMetaData(name="T_Version:Object", baseType="T_Version")
+datatype TVersionObject : java.lang.Byte;
+
+@GenModel(documentation="See SUBSET-026-7.5.1.78, Traction System voltage")
+@ExtendedMetaData(name="T_Voltage", kind="elementOnly")
+class TVoltage {
+
+	@GenModel(documentation="See SUBSET-026-7.5.1.78")
+	@ExtendedMetaData(kind="element", name="M_VOLTAGE", namespace="##targetNamespace")
+	unsettable attr MVOLTAGEType[1] mVOLTAGE;
+
+	@GenModel(documentation="Bitstream Coding additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitCoding", namespace="##targetNamespace")
+	unsettable attr TBitCoding bitCoding = "b";
+
+	@GenModel(documentation="Bitstream Length additional information for en-coding to a non XML bit stream")
+	@ExtendedMetaData(kind="attribute", name="BitLength", namespace="##targetNamespace")
+	unsettable attr BitLengthType bitLength = "4";
+}
+
+@ExtendedMetaData(name="V_LAB_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#unsignedInt", minInclusive="0", maxInclusive="262143")
+datatype VLABType : long;
+
+@ExtendedMetaData(name="V_LAB_._type:Object", baseType="V_LAB_._type")
+datatype VLABTypeObject : java.lang.Long;
+

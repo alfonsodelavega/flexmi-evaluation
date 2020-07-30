@@ -1,0 +1,2411 @@
+@namespace(uri="http://www.eclipse.org/xwt/presentation", prefix="presentation")
+package presentation;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@ExtendedMetaData(name="AbstractComboBoxCellEditor", kind="mixed")
+abstract class AbstractComboBoxCellEditor extends CellEditor {
+
+	@ExtendedMetaData(kind="attribute", name="activationStyle")
+	unsettable attr type.Int activationStyle;
+}
+
+@ExtendedMetaData(name="AbstractDataProvider", kind="mixed")
+abstract class AbstractDataProvider {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="bindingContext", group="#group:1")
+	volatile transient derived !resolve val IBindingContext[*] bindingContext;
+
+	@ExtendedMetaData(kind="attribute", name="key")
+	attr type.String key;
+}
+
+@ExtendedMetaData(name="AbstractListViewer", kind="mixed")
+abstract class AbstractListViewer extends StructuredViewer {
+}
+
+@ExtendedMetaData(name="AbstractTableViewer", kind="mixed")
+abstract class AbstractTableViewer extends ColumnViewer {
+
+	@ExtendedMetaData(kind="attribute", name="itemCount")
+	unsettable attr type.Int itemCount;
+}
+
+@ExtendedMetaData(name="AbstractTreeViewer", kind="mixed")
+abstract class AbstractTreeViewer extends ColumnViewer {
+
+	@ExtendedMetaData(kind="group", name="group:19")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group4;
+
+	@ExtendedMetaData(kind="element", name="expandedTreePaths", group="#group:19")
+	volatile transient derived !resolve val TreePath[*] expandedTreePaths;
+
+	@ExtendedMetaData(kind="element", name="expandedElements", group="#group:19")
+	volatile transient derived !resolve val EObject[*] expandedElements;
+
+	@ExtendedMetaData(kind="element", name="visibleExpandedElements", group="#group:19")
+	volatile transient derived !resolve val EObject[*] visibleExpandedElements;
+
+	@ExtendedMetaData(kind="attribute", name="autoExpandLevel")
+	unsettable attr type.Int autoExpandLevel;
+}
+
+@ExtendedMetaData(name="Accessible", kind="mixed")
+class Accessible {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="Binding", kind="mixed")
+class Binding {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="source", group="#group:1")
+	volatile transient derived !resolve val EObject[*] source;
+
+	@ExtendedMetaData(kind="element", name="value", group="#group:1")
+	volatile transient derived !resolve val EObject[*] value;
+
+	@ExtendedMetaData(kind="element", name="control", group="#group:1")
+	volatile transient derived !resolve val Widget[*] control;
+
+	@ExtendedMetaData(kind="attribute", name="elementName")
+	attr type.String elementName;
+
+	@ExtendedMetaData(kind="attribute", name="path")
+	attr type.String path;
+
+	@ExtendedMetaData(kind="attribute", name="XPath")
+	attr type.String xPath;
+}
+
+@ExtendedMetaData(name="Browser", kind="mixed")
+class Browser extends Composite {
+
+	@ExtendedMetaData(kind="group", name="group:73")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="webBrowser", group="#group:73")
+	volatile transient derived !resolve val EObject[*] webBrowser;
+
+	@ExtendedMetaData(kind="attribute", name="browserType")
+	attr type.String browserType;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+
+	@ExtendedMetaData(kind="attribute", name="url")
+	attr type.String url;
+}
+
+@ExtendedMetaData(name="Button", kind="mixed")
+class Button extends Control {
+
+	@ExtendedMetaData(kind="group", name="group:45")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group1;
+
+	@ExtendedMetaData(kind="element", name="Command", group="#group:45")
+	volatile transient derived !resolve val ICommand[*] command;
+
+	@ExtendedMetaData(kind="attribute", name="alignment")
+	unsettable attr type.Int alignment;
+
+	@ExtendedMetaData(kind="attribute", name="grayed")
+	unsettable attr type.Boolean grayed;
+
+	@ExtendedMetaData(kind="attribute", name="image")
+	attr type.String image;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	unsettable attr type.Boolean selection;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+}
+
+@ExtendedMetaData(name="Canvas", kind="mixed")
+class Canvas extends Composite {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed1;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="IME", group="#group:1")
+	volatile transient derived !resolve val IME[*] iME;
+
+	@ExtendedMetaData(kind="element", name="caret", group="#group:1")
+	volatile transient derived !resolve val Caret[*] caret;
+}
+
+@ExtendedMetaData(name="Caret", kind="mixed")
+class Caret extends Widget {
+
+	@ExtendedMetaData(kind="group", name="group:44")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:44")
+	volatile transient derived !resolve val Canvas[*] parent;
+
+	@ExtendedMetaData(kind="attribute", name="bounds")
+	attr type.String bounds;
+
+	@ExtendedMetaData(kind="attribute", name="font")
+	attr type.String font;
+
+	@ExtendedMetaData(kind="attribute", name="image")
+	attr type.String image;
+
+	@ExtendedMetaData(kind="attribute", name="location")
+	attr type.String location;
+
+	@ExtendedMetaData(kind="attribute", name="size")
+	attr type.String size;
+
+	@ExtendedMetaData(kind="attribute", name="visible")
+	unsettable attr type.Boolean visible;
+}
+
+@ExtendedMetaData(name="CCombo", kind="mixed")
+class CCombo extends Composite {
+
+	@ExtendedMetaData(kind="group", name="group:73")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:73")
+	!unique volatile transient derived attr type.String[*] items;
+
+	@ExtendedMetaData(kind="attribute", name="editable")
+	unsettable attr type.Boolean editable;
+
+	@ExtendedMetaData(kind="attribute", name="listVisible")
+	unsettable attr type.Boolean listVisible;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	attr type.String selection;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+
+	@ExtendedMetaData(kind="attribute", name="textLimit")
+	unsettable attr type.Int textLimit;
+
+	@ExtendedMetaData(kind="attribute", name="visibleItemCount")
+	unsettable attr type.Int visibleItemCount;
+}
+
+@ExtendedMetaData(name="Cell", kind="mixed")
+class Cell {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:1")
+	volatile transient derived !resolve val TableItem[*] parent;
+
+	@ExtendedMetaData(kind="attribute", name="image")
+	attr type.String image;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+}
+
+@ExtendedMetaData(name="CellEditor", kind="mixed")
+abstract class CellEditor {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="validator", group="#group:1")
+	volatile transient derived !resolve val ICellEditorValidator[*] validator;
+
+	@ExtendedMetaData(kind="element", name="layoutData", group="#group:1")
+	volatile transient derived !resolve val LayoutData[*] layoutData;
+
+	@ExtendedMetaData(kind="element", name="value", group="#group:1")
+	volatile transient derived !resolve val EObject[*] value;
+
+	@ExtendedMetaData(kind="element", name="control", group="#group:1")
+	volatile transient derived !resolve val Control[*] control;
+
+	@ExtendedMetaData(kind="attribute", name="errorMessage")
+	attr type.String errorMessage;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	unsettable attr type.Int style;
+}
+
+@ExtendedMetaData(name="CheckboxCellEditor", kind="mixed")
+class CheckboxCellEditor extends CellEditor {
+}
+
+@ExtendedMetaData(name="CheckboxTableViewer", kind="mixed")
+class CheckboxTableViewer extends TableViewer {
+
+	@ExtendedMetaData(kind="group", name="group:22")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group5;
+
+	@ExtendedMetaData(kind="element", name="grayedElements", group="#group:22")
+	volatile transient derived !resolve val EObject[*] grayedElements;
+
+	@ExtendedMetaData(kind="element", name="checkStateProvider", group="#group:22")
+	volatile transient derived !resolve val ICheckStateProvider[*] checkStateProvider;
+
+	@ExtendedMetaData(kind="element", name="checkedElements", group="#group:22")
+	volatile transient derived !resolve val EObject[*] checkedElements;
+
+	@ExtendedMetaData(kind="attribute", name="allChecked")
+	unsettable attr type.Boolean allChecked;
+
+	@ExtendedMetaData(kind="attribute", name="allGrayed")
+	unsettable attr type.Boolean allGrayed;
+}
+
+@ExtendedMetaData(name="CheckboxTreeViewer", kind="mixed")
+class CheckboxTreeViewer extends TreeViewer {
+
+	@ExtendedMetaData(kind="group", name="group:26")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group6;
+
+	@ExtendedMetaData(kind="element", name="grayedElements", group="#group:26")
+	volatile transient derived !resolve val EObject[*] grayedElements;
+
+	@ExtendedMetaData(kind="element", name="checkStateProvider", group="#group:26")
+	volatile transient derived !resolve val ICheckStateProvider[*] checkStateProvider;
+
+	@ExtendedMetaData(kind="element", name="checkedElements", group="#group:26")
+	volatile transient derived !resolve val EObject[*] checkedElements;
+
+	@ExtendedMetaData(kind="attribute", name="allChecked")
+	unsettable attr type.Boolean allChecked;
+}
+
+@ExtendedMetaData(name="CLabel", kind="mixed")
+class CLabel extends Canvas {
+
+	@ExtendedMetaData(kind="attribute", name="alignment")
+	unsettable attr type.Int alignment;
+
+	@ExtendedMetaData(kind="attribute", name="image")
+	attr type.String image;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+}
+
+@ExtendedMetaData(name="Class", kind="mixed")
+class Class {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="Collection", kind="mixed")
+abstract class Collection {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="ColorCellEditor", kind="mixed")
+class ColorCellEditor extends DialogCellEditor {
+}
+
+@ExtendedMetaData(name="ColumnViewer", kind="mixed")
+abstract class ColumnViewer extends StructuredViewer {
+
+	@ExtendedMetaData(kind="group", name="group:14")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="columnViewerEditor", group="#group:14")
+	volatile transient derived !resolve val ColumnViewerEditor[*] columnViewerEditor;
+
+	@ExtendedMetaData(kind="element", name="cellModifier", group="#group:14")
+	volatile transient derived !resolve val ICellModifier[*] cellModifier;
+
+	@ExtendedMetaData(kind="element", name="cellEditors", group="#group:14")
+	volatile transient derived !resolve val CellEditor[*] cellEditors;
+
+	@ExtendedMetaData(kind="element", name="columnProperties", group="#group:14")
+	volatile transient derived !resolve val EObject[*] columnProperties;
+}
+
+@ExtendedMetaData(name="ColumnViewerEditor", kind="mixed")
+abstract class ColumnViewerEditor {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="Combo", kind="mixed")
+class Combo extends Composite {
+
+	@ExtendedMetaData(kind="group", name="group:73")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:73")
+	!unique volatile transient derived attr type.String[*] items;
+
+	@ExtendedMetaData(kind="attribute", name="listVisible")
+	unsettable attr type.Boolean listVisible;
+
+	@ExtendedMetaData(kind="attribute", name="orientation")
+	unsettable attr type.Int orientation;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	attr type.String selection;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+
+	@ExtendedMetaData(kind="attribute", name="textLimit")
+	unsettable attr type.Int textLimit;
+
+	@ExtendedMetaData(kind="attribute", name="visibleItemCount")
+	unsettable attr type.Int visibleItemCount;
+}
+
+@ExtendedMetaData(name="ComboBoxCellEditor", kind="mixed")
+class ComboBoxCellEditor extends AbstractComboBoxCellEditor {
+}
+
+@ExtendedMetaData(name="ComboBoxViewerCellEditor", kind="mixed")
+class ComboBoxViewerCellEditor extends AbstractComboBoxCellEditor {
+
+	@ExtendedMetaData(kind="group", name="group:9")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group1;
+
+	@ExtendedMetaData(kind="element", name="input", group="#group:9")
+	volatile transient derived !resolve val EObject[*] input;
+
+	@ExtendedMetaData(kind="element", name="contenProvider", group="#group:9")
+	volatile transient derived !resolve val IStructuredContentProvider[*] contenProvider;
+
+	@ExtendedMetaData(kind="element", name="labelProvider", group="#group:9")
+	volatile transient derived !resolve val IBaseLabelProvider[*] labelProvider;
+
+	@ExtendedMetaData(kind="element", name="viewer", group="#group:9")
+	volatile transient derived !resolve val ComboViewer[*] viewer;
+}
+
+@ExtendedMetaData(name="ComboViewer", kind="mixed")
+class ComboViewer extends AbstractListViewer {
+}
+
+@ExtendedMetaData(name="Composite", kind="mixed")
+class Composite extends Scrollable {
+
+	@ExtendedMetaData(kind="group", name="group:67")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="tabList", group="#group:67")
+	volatile transient derived !resolve val Control[*] tabList;
+
+	@ExtendedMetaData(kind="element", name="children", group="#group:67")
+	volatile transient derived !resolve val Control[*] children;
+
+	@ExtendedMetaData(kind="element", name="layout", group="#group:67")
+	volatile transient derived !resolve val Layout[*] layout;
+
+	@ExtendedMetaData(kind="attribute", name="backgroundMode")
+	unsettable attr type.Int backgroundMode;
+
+	@ExtendedMetaData(kind="attribute", name="layoutDeferred")
+	unsettable attr type.Boolean layoutDeferred;
+}
+
+@ExtendedMetaData(name="ContentViewer", kind="mixed")
+abstract class ContentViewer extends Viewer {
+
+	@ExtendedMetaData(kind="group", name="group:5")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group1;
+
+	@ExtendedMetaData(kind="element", name="contentProvider", group="#group:5")
+	volatile transient derived !resolve val IContentProvider[*] contentProvider;
+
+	@ExtendedMetaData(kind="element", name="labelProvider", group="#group:5")
+	volatile transient derived !resolve val IBaseLabelProvider[*] labelProvider;
+}
+
+@ExtendedMetaData(name="Control", kind="mixed")
+abstract class Control extends Widget {
+
+	@ExtendedMetaData(kind="group", name="group:44")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="menu", group="#group:44")
+	volatile transient derived !resolve val Menu[*] menu;
+
+	@ExtendedMetaData(kind="element", name="cursor", group="#group:44")
+	volatile transient derived !resolve val Cursor[*] cursor;
+
+	@ExtendedMetaData(kind="element", name="layoutData", group="#group:44")
+	volatile transient derived !resolve val EObject[*] layoutData;
+
+	@ExtendedMetaData(kind="element", name="accessible", group="#group:44")
+	volatile transient derived !resolve val Accessible[*] accessible;
+
+	@ExtendedMetaData(kind="attribute", name="background")
+	attr type.String background;
+
+	@ExtendedMetaData(kind="attribute", name="backgroundImage")
+	attr type.String backgroundImage;
+
+	@ExtendedMetaData(kind="attribute", name="bounds")
+	attr type.String bounds;
+
+	@ExtendedMetaData(kind="attribute", name="capture")
+	unsettable attr type.Boolean capture;
+
+	@ExtendedMetaData(kind="attribute", name="dragDetect")
+	unsettable attr type.Boolean dragDetect;
+
+	@ExtendedMetaData(kind="attribute", name="enabled")
+	unsettable attr type.Boolean enabled;
+
+	@ExtendedMetaData(kind="attribute", name="font")
+	attr type.String font;
+
+	@ExtendedMetaData(kind="attribute", name="foreground")
+	attr type.String foreground;
+
+	@ExtendedMetaData(kind="attribute", name="handle")
+	unsettable attr type.Int handle;
+
+	@ExtendedMetaData(kind="attribute", name="location")
+	attr type.String location;
+
+	@ExtendedMetaData(kind="attribute", name="redraw")
+	unsettable attr type.Boolean redraw;
+
+	@ExtendedMetaData(kind="attribute", name="size")
+	attr type.String size;
+
+	@ExtendedMetaData(kind="attribute", name="toolTipText")
+	attr type.String toolTipText;
+
+	@ExtendedMetaData(kind="attribute", name="visible")
+	unsettable attr type.Boolean visible;
+}
+
+@ExtendedMetaData(name="ControlEditor", kind="mixed")
+class ControlEditor {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="editor", group="#group:1")
+	volatile transient derived !resolve val Control[*] editor;
+
+	@ExtendedMetaData(kind="attribute", name="grabHorizontal")
+	unsettable attr type.Boolean grabHorizontal;
+
+	@ExtendedMetaData(kind="attribute", name="grabVertical")
+	unsettable attr type.Boolean grabVertical;
+
+	@ExtendedMetaData(kind="attribute", name="horizontalAlignment")
+	unsettable attr type.Int horizontalAlignment;
+
+	@ExtendedMetaData(kind="attribute", name="minimumHeight")
+	unsettable attr type.Int minimumHeight;
+
+	@ExtendedMetaData(kind="attribute", name="minimumWidth")
+	unsettable attr type.Int minimumWidth;
+
+	@ExtendedMetaData(kind="attribute", name="verticalAlignment")
+	unsettable attr type.Int verticalAlignment;
+}
+
+@ExtendedMetaData(name="CoolBar", kind="mixed")
+class CoolBar extends Composite {
+
+	@ExtendedMetaData(kind="group", name="group:73")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="itemOrder", group="#group:73")
+	!unique volatile transient derived attr type.Int[*] itemOrder;
+
+	@ExtendedMetaData(kind="element", name="wrapIndices", group="#group:73")
+	!unique volatile transient derived attr type.Int[*] wrapIndices;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:73")
+	volatile transient derived !resolve val CoolItem[*] items;
+
+	@ExtendedMetaData(kind="element", name="itemSizes", group="#group:73")
+	!unique volatile transient derived attr type.String[*] itemSizes;
+
+	@ExtendedMetaData(kind="attribute", name="locked")
+	unsettable attr type.Boolean locked;
+}
+
+@ExtendedMetaData(name="CoolItem", kind="mixed")
+class CoolItem extends Item {
+
+	@ExtendedMetaData(kind="group", name="group:46")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:46")
+	volatile transient derived !resolve val CoolBar[*] parent;
+
+	@ExtendedMetaData(kind="element", name="control", group="#group:46")
+	volatile transient derived !resolve val Control[*] control;
+
+	@ExtendedMetaData(kind="attribute", name="bounds")
+	attr type.String bounds;
+
+	@ExtendedMetaData(kind="attribute", name="minimumSize")
+	attr type.String minimumSize;
+
+	@ExtendedMetaData(kind="attribute", name="preferredSize")
+	attr type.String preferredSize;
+
+	@ExtendedMetaData(kind="attribute", name="size")
+	attr type.String size;
+}
+
+@ExtendedMetaData(name="CTabFolder", kind="mixed")
+class CTabFolder extends Composite {
+
+	@ExtendedMetaData(kind="group", name="group:73")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="borderInsideRGB", group="#group:73")
+	volatile transient derived !resolve val RGB[*] borderInsideRGB;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:73")
+	volatile transient derived !resolve val CTabItem[*] items;
+
+	@ExtendedMetaData(kind="element", name="topRight", group="#group:73")
+	volatile transient derived !resolve val Control[*] topRight;
+
+	@ExtendedMetaData(kind="element", name="borderOutsideRGB", group="#group:73")
+	volatile transient derived !resolve val RGB[*] borderOutsideRGB;
+
+	@ExtendedMetaData(kind="element", name="selection", group="#group:73")
+	volatile transient derived !resolve val CTabItem[*] selection;
+
+	@ExtendedMetaData(kind="element", name="borderMiddleRGB", group="#group:73")
+	volatile transient derived !resolve val RGB[*] borderMiddleRGB;
+
+	@ExtendedMetaData(kind="attribute", name="borderVisible")
+	unsettable attr type.Boolean borderVisible;
+
+	@ExtendedMetaData(kind="attribute", name="marginHeight")
+	unsettable attr type.Int marginHeight;
+
+	@ExtendedMetaData(kind="attribute", name="marginWidth")
+	unsettable attr type.Int marginWidth;
+
+	@ExtendedMetaData(kind="attribute", name="maximized")
+	unsettable attr type.Boolean maximized;
+
+	@ExtendedMetaData(kind="attribute", name="maximizeVisible")
+	unsettable attr type.Boolean maximizeVisible;
+
+	@ExtendedMetaData(kind="attribute", name="MIN_TAB_WIDTH")
+	unsettable attr type.Int mINTABWIDTH;
+
+	@ExtendedMetaData(kind="attribute", name="minimized")
+	unsettable attr type.Boolean minimized;
+
+	@ExtendedMetaData(kind="attribute", name="minimizeVisible")
+	unsettable attr type.Boolean minimizeVisible;
+
+	@ExtendedMetaData(kind="attribute", name="minimumCharacters")
+	unsettable attr type.Int minimumCharacters;
+
+	@ExtendedMetaData(kind="attribute", name="MRUVisible")
+	unsettable attr type.Boolean mRUVisible;
+
+	@ExtendedMetaData(kind="attribute", name="selectionBackground")
+	attr type.String selectionBackground;
+
+	@ExtendedMetaData(kind="attribute", name="selectionForeground")
+	attr type.String selectionForeground;
+
+	@ExtendedMetaData(kind="attribute", name="simple")
+	unsettable attr type.Boolean simple;
+
+	@ExtendedMetaData(kind="attribute", name="single")
+	unsettable attr type.Boolean single;
+
+	@ExtendedMetaData(kind="attribute", name="tabHeight")
+	unsettable attr type.Int tabHeight;
+
+	@ExtendedMetaData(kind="attribute", name="tabPosition")
+	unsettable attr type.Int tabPosition;
+
+	@ExtendedMetaData(kind="attribute", name="unselectedCloseVisible")
+	unsettable attr type.Boolean unselectedCloseVisible;
+
+	@ExtendedMetaData(kind="attribute", name="unselectedImageVisible")
+	unsettable attr type.Boolean unselectedImageVisible;
+}
+
+@ExtendedMetaData(name="CTabItem", kind="mixed")
+class CTabItem extends Item {
+
+	@ExtendedMetaData(kind="group", name="group:46")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:46")
+	volatile transient derived !resolve val CTabFolder[*] parent;
+
+	@ExtendedMetaData(kind="element", name="control", group="#group:46")
+	volatile transient derived !resolve val Control[*] control;
+
+	@ExtendedMetaData(kind="attribute", name="bounds")
+	attr type.String bounds;
+
+	@ExtendedMetaData(kind="attribute", name="disabledImage")
+	attr type.String disabledImage;
+
+	@ExtendedMetaData(kind="attribute", name="font")
+	attr type.String font;
+
+	@ExtendedMetaData(kind="attribute", name="showClose")
+	unsettable attr type.Boolean showClose;
+
+	@ExtendedMetaData(kind="attribute", name="toolTipText")
+	attr type.String toolTipText;
+}
+
+@ExtendedMetaData(name="Cursor", kind="mixed")
+class Cursor extends Resource {
+}
+
+@ExtendedMetaData(name="DateTime", kind="mixed")
+class DateTime extends Composite {
+
+	@ExtendedMetaData(kind="attribute", name="day")
+	unsettable attr type.Int day;
+
+	@ExtendedMetaData(kind="attribute", name="hours")
+	unsettable attr type.Int hours;
+
+	@ExtendedMetaData(kind="attribute", name="minutes")
+	unsettable attr type.Int minutes;
+
+	@ExtendedMetaData(kind="attribute", name="month")
+	unsettable attr type.Int month;
+
+	@ExtendedMetaData(kind="attribute", name="seconds")
+	unsettable attr type.Int seconds;
+
+	@ExtendedMetaData(kind="attribute", name="year")
+	unsettable attr type.Int year;
+}
+
+@ExtendedMetaData(name="Decorations", kind="mixed")
+class Decorations extends Canvas {
+
+	@ExtendedMetaData(kind="group", name="group:4")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group4;
+
+	@ExtendedMetaData(kind="element", name="images", group="#group:4")
+	!unique volatile transient derived attr type.String[*] images;
+
+	@ExtendedMetaData(kind="element", name="defaultButton", group="#group:4")
+	volatile transient derived !resolve val Button[*] defaultButton;
+
+	@ExtendedMetaData(kind="element", name="menuBar", group="#group:4")
+	volatile transient derived !resolve val Menu[*] menuBar;
+
+	@ExtendedMetaData(kind="attribute", name="image")
+	attr type.String image;
+
+	@ExtendedMetaData(kind="attribute", name="maximized")
+	unsettable attr type.Boolean maximized;
+
+	@ExtendedMetaData(kind="attribute", name="minimized")
+	unsettable attr type.Boolean minimized;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+}
+
+@ExtendedMetaData(name="DefaultCellModifier", kind="mixed")
+class DefaultCellModifier {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="DefaultLabelProvider", kind="mixed")
+class DefaultLabelProvider {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="Dialog", kind="mixed")
+abstract class Dialog extends Window {
+
+	@ExtendedMetaData(kind="group", name="group:4")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group1;
+
+	@ExtendedMetaData(kind="element", name="buttonBar", group="#group:4")
+	volatile transient derived !resolve val Control[*] buttonBar;
+
+	@ExtendedMetaData(kind="element", name="blockedHandler", group="#group:4")
+	volatile transient derived !resolve val IDialogBlockedHandler[*] blockedHandler;
+}
+
+@ExtendedMetaData(name="DialogCellEditor", kind="mixed")
+abstract class DialogCellEditor extends CellEditor {
+}
+
+@ExtendedMetaData(name="DialogTray", kind="mixed")
+abstract class DialogTray {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="Document", kind="mixed")
+abstract class Document {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="DocumentObject", kind="mixed")
+class DocumentObject extends Observable {
+}
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@ExtendedMetaData(kind="element", name="composite", namespace="##targetNamespace")
+	volatile transient derived !resolve val Composite[0..?] composite;
+
+	@ExtendedMetaData(kind="element", name="dialog", namespace="##targetNamespace")
+	volatile transient derived !resolve val Window[0..?] dialog;
+}
+
+@ExtendedMetaData(name="echoChar_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#string", length="1")
+datatype EchoCharType : java.lang.String;
+
+@ExtendedMetaData(name="Element", kind="mixed")
+class Element extends DocumentObject {
+}
+
+@ExtendedMetaData(name="ExpandBar", kind="mixed")
+class ExpandBar extends Composite {
+
+	@ExtendedMetaData(kind="group", name="group:73")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:73")
+	volatile transient derived !resolve val ExpandItem[*] items;
+
+	@ExtendedMetaData(kind="attribute", name="spacing")
+	unsettable attr type.Int spacing;
+}
+
+@ExtendedMetaData(name="ExpandItem", kind="mixed")
+class ExpandItem extends Item {
+
+	@ExtendedMetaData(kind="group", name="group:46")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:46")
+	volatile transient derived !resolve val ExpandBar[*] parent;
+
+	@ExtendedMetaData(kind="element", name="control", group="#group:46")
+	volatile transient derived !resolve val Control[*] control;
+
+	@ExtendedMetaData(kind="attribute", name="expanded")
+	unsettable attr type.Boolean expanded;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	unsettable attr type.Int height;
+}
+
+@ExtendedMetaData(name="FillLayout", kind="mixed")
+class FillLayout extends Layout {
+
+	@ExtendedMetaData(kind="attribute", name="marginHeight")
+	unsettable attr type.Int marginHeight;
+
+	@ExtendedMetaData(kind="attribute", name="marginWidth")
+	unsettable attr type.Int marginWidth;
+
+	@ExtendedMetaData(kind="attribute", name="spacing")
+	unsettable attr type.Int spacing;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	unsettable attr type.Int type;
+}
+
+@ExtendedMetaData(name="FormAttachment", kind="mixed")
+class FormAttachment {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="control", group="#group:1")
+	volatile transient derived !resolve val Control[*] control;
+
+	@ExtendedMetaData(kind="attribute", name="alignment")
+	unsettable attr type.Int alignment;
+
+	@ExtendedMetaData(kind="attribute", name="denominator")
+	unsettable attr type.Int denominator;
+
+	@ExtendedMetaData(kind="attribute", name="numerator")
+	unsettable attr type.Int numerator;
+
+	@ExtendedMetaData(kind="attribute", name="offset")
+	unsettable attr type.Int offset;
+}
+
+@ExtendedMetaData(name="FormData", kind="mixed")
+class FormData {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="bottom", group="#group:1")
+	volatile transient derived !resolve val FormAttachment[*] bottom;
+
+	@ExtendedMetaData(kind="element", name="right", group="#group:1")
+	volatile transient derived !resolve val FormAttachment[*] right;
+
+	@ExtendedMetaData(kind="element", name="left", group="#group:1")
+	volatile transient derived !resolve val FormAttachment[*] left;
+
+	@ExtendedMetaData(kind="element", name="top", group="#group:1")
+	volatile transient derived !resolve val FormAttachment[*] top;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	unsettable attr type.Int height;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	unsettable attr type.Int width;
+}
+
+@ExtendedMetaData(name="FormLayout", kind="mixed")
+class FormLayout extends Layout {
+
+	@ExtendedMetaData(kind="attribute", name="marginBottom")
+	unsettable attr type.Int marginBottom;
+
+	@ExtendedMetaData(kind="attribute", name="marginHeight")
+	unsettable attr type.Int marginHeight;
+
+	@ExtendedMetaData(kind="attribute", name="marginLeft")
+	unsettable attr type.Int marginLeft;
+
+	@ExtendedMetaData(kind="attribute", name="marginRight")
+	unsettable attr type.Int marginRight;
+
+	@ExtendedMetaData(kind="attribute", name="marginTop")
+	unsettable attr type.Int marginTop;
+
+	@ExtendedMetaData(kind="attribute", name="marginWidth")
+	unsettable attr type.Int marginWidth;
+
+	@ExtendedMetaData(kind="attribute", name="spacing")
+	unsettable attr type.Int spacing;
+}
+
+@ExtendedMetaData(name="GridData", kind="mixed")
+class GridData {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="exclude")
+	unsettable attr type.Boolean exclude;
+
+	@ExtendedMetaData(kind="attribute", name="grabExcessHorizontalSpace")
+	unsettable attr type.Boolean grabExcessHorizontalSpace;
+
+	@ExtendedMetaData(kind="attribute", name="grabExcessVerticalSpace")
+	unsettable attr type.Boolean grabExcessVerticalSpace;
+
+	@ExtendedMetaData(kind="attribute", name="heightHint")
+	unsettable attr type.Int heightHint;
+
+	@ExtendedMetaData(kind="attribute", name="horizontalAlignment")
+	unsettable attr type.Int horizontalAlignment;
+
+	@ExtendedMetaData(kind="attribute", name="horizontalIndent")
+	unsettable attr type.Int horizontalIndent;
+
+	@ExtendedMetaData(kind="attribute", name="horizontalSpan")
+	unsettable attr type.Int horizontalSpan;
+
+	@ExtendedMetaData(kind="attribute", name="minimumHeight")
+	unsettable attr type.Int minimumHeight;
+
+	@ExtendedMetaData(kind="attribute", name="minimumWidth")
+	unsettable attr type.Int minimumWidth;
+
+	@ExtendedMetaData(kind="attribute", name="verticalAlignment")
+	unsettable attr type.Int verticalAlignment;
+
+	@ExtendedMetaData(kind="attribute", name="verticalIndent")
+	unsettable attr type.Int verticalIndent;
+
+	@ExtendedMetaData(kind="attribute", name="verticalSpan")
+	unsettable attr type.Int verticalSpan;
+
+	@ExtendedMetaData(kind="attribute", name="widthHint")
+	unsettable attr type.Int widthHint;
+}
+
+@ExtendedMetaData(name="GridLayout", kind="mixed")
+class GridLayout extends Layout {
+
+	@ExtendedMetaData(kind="attribute", name="horizontalSpacing")
+	unsettable attr type.Int horizontalSpacing;
+
+	@ExtendedMetaData(kind="attribute", name="makeColumnsEqualWidth")
+	unsettable attr type.Boolean makeColumnsEqualWidth;
+
+	@ExtendedMetaData(kind="attribute", name="marginBottom")
+	unsettable attr type.Int marginBottom;
+
+	@ExtendedMetaData(kind="attribute", name="marginHeight")
+	unsettable attr type.Int marginHeight;
+
+	@ExtendedMetaData(kind="attribute", name="marginLeft")
+	unsettable attr type.Int marginLeft;
+
+	@ExtendedMetaData(kind="attribute", name="marginRight")
+	unsettable attr type.Int marginRight;
+
+	@ExtendedMetaData(kind="attribute", name="marginTop")
+	unsettable attr type.Int marginTop;
+
+	@ExtendedMetaData(kind="attribute", name="marginWidth")
+	unsettable attr type.Int marginWidth;
+
+	@ExtendedMetaData(kind="attribute", name="numColumns")
+	unsettable attr type.Int numColumns;
+
+	@ExtendedMetaData(kind="attribute", name="verticalSpacing")
+	unsettable attr type.Int verticalSpacing;
+}
+
+@ExtendedMetaData(name="Group", kind="mixed")
+class Group extends Composite {
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+}
+
+@ExtendedMetaData(name="IBaseLabelProvider", kind="mixed")
+abstract class IBaseLabelProvider {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="IBindingContext", kind="mixed")
+abstract class IBindingContext {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="ICellEditorValidator", kind="mixed")
+abstract class ICellEditorValidator {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="ICellModifier", kind="mixed")
+abstract class ICellModifier {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="ICheckStateProvider", kind="mixed")
+abstract class ICheckStateProvider {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="ICommand", kind="mixed")
+abstract class ICommand {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="IContentProvider", kind="mixed")
+abstract class IContentProvider {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="IDialogBlockedHandler", kind="mixed")
+abstract class IDialogBlockedHandler {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="IElementComparer", kind="mixed")
+abstract class IElementComparer {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="IME", kind="mixed")
+class IME extends Widget {
+
+	@ExtendedMetaData(kind="group", name="group:44")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="ranges", group="#group:44")
+	!unique volatile transient derived attr type.Int[*] ranges;
+
+	@ExtendedMetaData(kind="element", name="styles", group="#group:44")
+	volatile transient derived !resolve val TextStyle[*] styles;
+
+	@ExtendedMetaData(kind="attribute", name="compositionOffset")
+	unsettable attr type.Int compositionOffset;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+}
+
+@ExtendedMetaData(name="ISelection", kind="mixed")
+abstract class ISelection {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="IStructuredContentProvider", kind="mixed")
+abstract class IStructuredContentProvider {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="Item", kind="mixed")
+abstract class Item extends Widget {
+
+	@ExtendedMetaData(kind="attribute", name="image")
+	attr type.String image;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+}
+
+@ExtendedMetaData(name="Label", kind="mixed")
+class Label extends Control {
+
+	@ExtendedMetaData(kind="attribute", name="alignment")
+	unsettable attr type.Int alignment;
+
+	@ExtendedMetaData(kind="attribute", name="image")
+	attr type.String image;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+}
+
+@ExtendedMetaData(name="Layout", kind="mixed")
+abstract class Layout {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="LayoutData", kind="mixed")
+class LayoutData {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="Link", kind="mixed")
+class Link extends Control {
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+}
+
+@ExtendedMetaData(name="List", kind="mixed")
+class List extends Scrollable {
+
+	@ExtendedMetaData(kind="group", name="group:67")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:67")
+	!unique volatile transient derived attr type.String[*] items;
+
+	@ExtendedMetaData(kind="element", name="selection", group="#group:67")
+	!unique volatile transient derived attr type.String[*] selection;
+
+	@ExtendedMetaData(kind="element", name="selectionIndices", group="#group:67")
+	!unique volatile transient derived attr type.Int[*] selectionIndices;
+
+	@ExtendedMetaData(kind="attribute", name="topIndex")
+	unsettable attr type.Int topIndex;
+}
+
+@ExtendedMetaData(name="Listener", kind="mixed")
+abstract class Listener {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="ListViewer", kind="mixed")
+class ListViewer extends AbstractListViewer {
+
+	@ExtendedMetaData(kind="group", name="group:14")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="list", group="#group:14")
+	volatile transient derived !resolve val List[*] list;
+}
+
+@ExtendedMetaData(name="Menu", kind="mixed")
+class Menu extends Widget {
+
+	@ExtendedMetaData(kind="group", name="group:44")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="defaultItem", group="#group:44")
+	volatile transient derived !resolve val MenuItem[*] defaultItem;
+
+	@ExtendedMetaData(kind="element", name="parentItem", group="#group:44")
+	volatile transient derived !resolve val MenuItem[*] parentItem;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:44")
+	volatile transient derived !resolve val MenuItem[*] items;
+
+	@ExtendedMetaData(kind="element", name="parentMenu", group="#group:44")
+	volatile transient derived !resolve val Menu[*] parentMenu;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:44")
+	volatile transient derived !resolve val Decorations[*] parent;
+
+	@ExtendedMetaData(kind="attribute", name="enabled")
+	unsettable attr type.Boolean enabled;
+
+	@ExtendedMetaData(kind="attribute", name="handle")
+	unsettable attr type.Int handle;
+
+	@ExtendedMetaData(kind="attribute", name="visible")
+	unsettable attr type.Boolean visible;
+}
+
+@ExtendedMetaData(name="MenuItem", kind="mixed")
+class MenuItem extends Item {
+
+	@ExtendedMetaData(kind="group", name="group:46")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:46")
+	volatile transient derived !resolve val Menu[*] parent;
+
+	@ExtendedMetaData(kind="element", name="Command", group="#group:46")
+	volatile transient derived !resolve val ICommand[*] command;
+
+	@ExtendedMetaData(kind="element", name="menu", group="#group:46")
+	volatile transient derived !resolve val Menu[*] menu;
+
+	@ExtendedMetaData(kind="attribute", name="accelerator")
+	unsettable attr type.Int accelerator;
+
+	@ExtendedMetaData(kind="attribute", name="enabled")
+	unsettable attr type.Boolean enabled;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	unsettable attr type.Boolean selection;
+}
+
+@ExtendedMetaData(name="MessageBox", kind="mixed")
+class MessageBox extends Dialog {
+
+	@ExtendedMetaData(kind="attribute", name="message")
+	attr type.String message;
+}
+
+@ExtendedMetaData(name="ObjectDataProvider", kind="mixed")
+class ObjectDataProvider extends AbstractDataProvider {
+
+	@ExtendedMetaData(kind="group", name="group:4")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group1;
+
+	@ExtendedMetaData(kind="element", name="objectType", group="#group:4")
+	volatile transient derived !resolve val Class[*] objectType;
+
+	@ExtendedMetaData(kind="element", name="objectInstance", group="#group:4")
+	volatile transient derived !resolve val EObject[*] objectInstance;
+
+	@ExtendedMetaData(kind="element", name="methodParameters", group="#group:4")
+	volatile transient derived !resolve val List[*] methodParameters;
+
+	@ExtendedMetaData(kind="attribute", name="methodName")
+	attr type.String methodName;
+}
+
+@ExtendedMetaData(name="Observable", kind="mixed")
+class Observable {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="ProgressBar", kind="mixed")
+class ProgressBar extends Control {
+
+	@ExtendedMetaData(kind="attribute", name="maximum")
+	unsettable attr type.Int maximum;
+
+	@ExtendedMetaData(kind="attribute", name="minimum")
+	unsettable attr type.Int minimum;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	unsettable attr type.Int selection;
+
+	@ExtendedMetaData(kind="attribute", name="state")
+	unsettable attr type.Int state;
+}
+
+@ExtendedMetaData(name="Resource", kind="mixed")
+abstract class Resource {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="RGB", kind="mixed")
+class RGB {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="RowData", kind="mixed")
+class RowData {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="exclude")
+	unsettable attr type.Boolean exclude;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	unsettable attr type.Int height;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	unsettable attr type.Int width;
+}
+
+@ExtendedMetaData(name="RowLayout", kind="mixed")
+class RowLayout extends Layout {
+
+	@ExtendedMetaData(kind="attribute", name="center")
+	unsettable attr type.Boolean center;
+
+	@ExtendedMetaData(kind="attribute", name="fill")
+	unsettable attr type.Boolean fill;
+
+	@ExtendedMetaData(kind="attribute", name="justify")
+	unsettable attr type.Boolean justify;
+
+	@ExtendedMetaData(kind="attribute", name="marginBottom")
+	unsettable attr type.Int marginBottom;
+
+	@ExtendedMetaData(kind="attribute", name="marginHeight")
+	unsettable attr type.Int marginHeight;
+
+	@ExtendedMetaData(kind="attribute", name="marginLeft")
+	unsettable attr type.Int marginLeft;
+
+	@ExtendedMetaData(kind="attribute", name="marginRight")
+	unsettable attr type.Int marginRight;
+
+	@ExtendedMetaData(kind="attribute", name="marginTop")
+	unsettable attr type.Int marginTop;
+
+	@ExtendedMetaData(kind="attribute", name="marginWidth")
+	unsettable attr type.Int marginWidth;
+
+	@ExtendedMetaData(kind="attribute", name="pack")
+	unsettable attr type.Boolean pack;
+
+	@ExtendedMetaData(kind="attribute", name="spacing")
+	unsettable attr type.Int spacing;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	unsettable attr type.Int type;
+
+	@ExtendedMetaData(kind="attribute", name="wrap")
+	unsettable attr type.Boolean wrap;
+}
+
+@ExtendedMetaData(name="Sash", kind="mixed")
+class Sash extends Control {
+}
+
+@ExtendedMetaData(name="SashForm", kind="mixed")
+class SashForm extends Composite {
+
+	@ExtendedMetaData(kind="group", name="group:73")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="maximizedControl", group="#group:73")
+	volatile transient derived !resolve val Control[*] maximizedControl;
+
+	@ExtendedMetaData(kind="element", name="weights", group="#group:73")
+	!unique volatile transient derived attr type.Int[*] weights;
+
+	@ExtendedMetaData(kind="attribute", name="orientation")
+	unsettable attr type.Int orientation;
+
+	@ExtendedMetaData(kind="attribute", name="SASH_WIDTH")
+	unsettable attr type.Int sASHWIDTH;
+
+	@ExtendedMetaData(kind="attribute", name="sashWidth")
+	unsettable attr type.Int sashWidth1;
+}
+
+@ExtendedMetaData(name="Scale", kind="mixed")
+class Scale extends Control {
+
+	@ExtendedMetaData(kind="attribute", name="increment")
+	unsettable attr type.Int increment;
+
+	@ExtendedMetaData(kind="attribute", name="maximum")
+	unsettable attr type.Int maximum;
+
+	@ExtendedMetaData(kind="attribute", name="minimum")
+	unsettable attr type.Int minimum;
+
+	@ExtendedMetaData(kind="attribute", name="pageIncrement")
+	unsettable attr type.Int pageIncrement;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	unsettable attr type.Int selection;
+}
+
+@ExtendedMetaData(name="Scrollable", kind="mixed")
+abstract class Scrollable extends Control {
+
+	@ExtendedMetaData(kind="group", name="group:63")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group1;
+
+	@ExtendedMetaData(kind="element", name="horizontalBar", group="#group:63")
+	volatile transient derived !resolve val ScrollBar[*] horizontalBar;
+
+	@ExtendedMetaData(kind="element", name="verticalBar", group="#group:63")
+	volatile transient derived !resolve val ScrollBar[*] verticalBar;
+
+	@ExtendedMetaData(kind="attribute", name="clientArea")
+	attr type.String clientArea;
+}
+
+@ExtendedMetaData(name="ScrollBar", kind="mixed")
+class ScrollBar extends Widget {
+
+	@ExtendedMetaData(kind="group", name="group:44")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:44")
+	volatile transient derived !resolve val Scrollable[*] parent;
+
+	@ExtendedMetaData(kind="attribute", name="enabled")
+	unsettable attr type.Boolean enabled;
+
+	@ExtendedMetaData(kind="attribute", name="increment")
+	unsettable attr type.Int increment;
+
+	@ExtendedMetaData(kind="attribute", name="maximum")
+	unsettable attr type.Int maximum;
+
+	@ExtendedMetaData(kind="attribute", name="minimum")
+	unsettable attr type.Int minimum;
+
+	@ExtendedMetaData(kind="attribute", name="pageIncrement")
+	unsettable attr type.Int pageIncrement;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	unsettable attr type.Int selection;
+
+	@ExtendedMetaData(kind="attribute", name="size")
+	attr type.String size;
+
+	@ExtendedMetaData(kind="attribute", name="thumb")
+	unsettable attr type.Int thumb;
+
+	@ExtendedMetaData(kind="attribute", name="visible")
+	unsettable attr type.Boolean visible;
+}
+
+@ExtendedMetaData(name="Shell", kind="mixed")
+class Shell extends Decorations {
+
+	@ExtendedMetaData(kind="group", name="group:85")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group5;
+
+	@ExtendedMetaData(kind="element", name="shells", group="#group:85")
+	volatile transient derived !resolve val Shell[*] shells;
+
+	@ExtendedMetaData(kind="attribute", name="alpha")
+	unsettable attr type.Int alpha;
+
+	@ExtendedMetaData(kind="attribute", name="fullScreen")
+	unsettable attr type.Boolean fullScreen;
+
+	@ExtendedMetaData(kind="attribute", name="imeInputMode")
+	unsettable attr type.Int imeInputMode;
+
+	@ExtendedMetaData(kind="attribute", name="minimumSize")
+	attr type.String minimumSize;
+}
+
+@ExtendedMetaData(name="Slider", kind="mixed")
+class Slider extends Control {
+
+	@ExtendedMetaData(kind="attribute", name="increment")
+	unsettable attr type.Int increment;
+
+	@ExtendedMetaData(kind="attribute", name="maximum")
+	unsettable attr type.Int maximum;
+
+	@ExtendedMetaData(kind="attribute", name="minimum")
+	unsettable attr type.Int minimum;
+
+	@ExtendedMetaData(kind="attribute", name="pageIncrement")
+	unsettable attr type.Int pageIncrement;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	unsettable attr type.Int selection;
+
+	@ExtendedMetaData(kind="attribute", name="thumb")
+	unsettable attr type.Int thumb;
+}
+
+@ExtendedMetaData(name="Spinner", kind="mixed")
+class Spinner extends Composite {
+
+	@ExtendedMetaData(kind="attribute", name="digits")
+	unsettable attr type.Int digits;
+
+	@ExtendedMetaData(kind="attribute", name="increment")
+	unsettable attr type.Int increment;
+
+	@ExtendedMetaData(kind="attribute", name="maximum")
+	unsettable attr type.Int maximum;
+
+	@ExtendedMetaData(kind="attribute", name="minimum")
+	unsettable attr type.Int minimum;
+
+	@ExtendedMetaData(kind="attribute", name="pageIncrement")
+	unsettable attr type.Int pageIncrement;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	unsettable attr type.Int selection;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+
+	@ExtendedMetaData(kind="attribute", name="textLimit")
+	unsettable attr type.Int textLimit;
+}
+
+@ExtendedMetaData(name="StackLayout", kind="mixed")
+class StackLayout extends Layout {
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="topControl", group="#group:1")
+	volatile transient derived !resolve val Control[*] topControl;
+
+	@ExtendedMetaData(kind="attribute", name="marginHeight")
+	unsettable attr type.Int marginHeight;
+
+	@ExtendedMetaData(kind="attribute", name="marginWidth")
+	unsettable attr type.Int marginWidth;
+}
+
+@ExtendedMetaData(name="StructuredViewer", kind="mixed")
+abstract class StructuredViewer extends ContentViewer {
+
+	@ExtendedMetaData(kind="group", name="group:8")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="comparator", group="#group:8")
+	volatile transient derived !resolve val ViewerComparator[*] comparator;
+
+	@ExtendedMetaData(kind="element", name="comparer", group="#group:8")
+	volatile transient derived !resolve val IElementComparer[*] comparer;
+
+	@ExtendedMetaData(kind="element", name="filters", group="#group:8")
+	volatile transient derived !resolve val ViewerFilter[*] filters;
+
+	@ExtendedMetaData(kind="element", name="sorter", group="#group:8")
+	volatile transient derived !resolve val ViewerSorter[*] sorter;
+
+	@ExtendedMetaData(kind="attribute", name="useHashlookup")
+	unsettable attr type.Boolean useHashlookup;
+}
+
+@ExtendedMetaData(name="StyledText", kind="mixed")
+class StyledText extends Canvas {
+
+	@ExtendedMetaData(kind="group", name="group:77")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group4;
+
+	@ExtendedMetaData(kind="element", name="ranges", group="#group:77")
+	!unique volatile transient derived attr type.Int[*] ranges;
+
+	@ExtendedMetaData(kind="element", name="styleRanges", group="#group:77")
+	volatile transient derived !resolve val StyleRange[*] styleRanges;
+
+	@ExtendedMetaData(kind="element", name="styleRange", group="#group:77")
+	volatile transient derived !resolve val StyleRange[*] styleRange;
+
+	@ExtendedMetaData(kind="element", name="content", group="#group:77")
+	volatile transient derived !resolve val StyledTextContent[*] content;
+
+	@ExtendedMetaData(kind="element", name="selectionRanges", group="#group:77")
+	!unique volatile transient derived attr type.Int[*] selectionRanges;
+
+	@ExtendedMetaData(kind="attribute", name="alignment")
+	unsettable attr type.Int alignment;
+
+	@ExtendedMetaData(kind="attribute", name="bidiColoring")
+	unsettable attr type.Boolean bidiColoring;
+
+	@ExtendedMetaData(kind="attribute", name="blockSelection")
+	unsettable attr type.Boolean blockSelection;
+
+	@ExtendedMetaData(kind="attribute", name="caretOffset")
+	unsettable attr type.Int caretOffset;
+
+	@ExtendedMetaData(kind="attribute", name="doubleClickEnabled")
+	unsettable attr type.Boolean doubleClickEnabled;
+
+	@ExtendedMetaData(kind="attribute", name="editable")
+	unsettable attr type.Boolean editable;
+
+	@ExtendedMetaData(kind="attribute", name="horizontalIndex")
+	unsettable attr type.Int horizontalIndex;
+
+	@ExtendedMetaData(kind="attribute", name="horizontalPixel")
+	unsettable attr type.Int horizontalPixel;
+
+	@ExtendedMetaData(kind="attribute", name="indent")
+	unsettable attr type.Int indent;
+
+	@ExtendedMetaData(kind="attribute", name="justify")
+	unsettable attr type.Boolean justify;
+
+	@ExtendedMetaData(kind="attribute", name="lineDelimiter")
+	attr type.String lineDelimiter;
+
+	@ExtendedMetaData(kind="attribute", name="lineSpacing")
+	unsettable attr type.Int lineSpacing;
+
+	@ExtendedMetaData(kind="attribute", name="orientation")
+	unsettable attr type.Int orientation;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	attr type.String selection;
+
+	@ExtendedMetaData(kind="attribute", name="selectionBackground")
+	attr type.String selectionBackground;
+
+	@ExtendedMetaData(kind="attribute", name="selectionForeground")
+	attr type.String selectionForeground;
+
+	@ExtendedMetaData(kind="attribute", name="selectionText")
+	attr type.String selectionText;
+
+	@ExtendedMetaData(kind="attribute", name="tabs")
+	unsettable attr type.Int tabs;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+
+	@ExtendedMetaData(kind="attribute", name="textLimit")
+	unsettable attr type.Int textLimit;
+
+	@ExtendedMetaData(kind="attribute", name="topIndex")
+	unsettable attr type.Int topIndex;
+
+	@ExtendedMetaData(kind="attribute", name="topPixel")
+	unsettable attr type.Int topPixel;
+
+	@ExtendedMetaData(kind="attribute", name="wordWrap")
+	unsettable attr type.Boolean wordWrap;
+}
+
+@ExtendedMetaData(name="StyledTextContent", kind="mixed")
+abstract class StyledTextContent {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="StyleRange", kind="mixed")
+class StyleRange extends TextStyle {
+}
+
+@ExtendedMetaData(name="TabFolder", kind="mixed")
+class TabFolder extends Composite {
+
+	@ExtendedMetaData(kind="group", name="group:73")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:73")
+	volatile transient derived !resolve val TabItem[*] items;
+
+	@ExtendedMetaData(kind="element", name="selection", group="#group:73")
+	volatile transient derived !resolve val TabItem[*] selection;
+}
+
+@ExtendedMetaData(name="TabItem", kind="mixed")
+class TabItem extends Item {
+
+	@ExtendedMetaData(kind="group", name="group:46")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:46")
+	volatile transient derived !resolve val TabFolder[*] parent;
+
+	@ExtendedMetaData(kind="element", name="control", group="#group:46")
+	volatile transient derived !resolve val Control[*] control;
+
+	@ExtendedMetaData(kind="attribute", name="bounds")
+	attr type.String bounds;
+
+	@ExtendedMetaData(kind="attribute", name="toolTipText")
+	attr type.String toolTipText;
+}
+
+@ExtendedMetaData(name="Table", kind="mixed")
+class Table extends Composite {
+
+	@ExtendedMetaData(kind="group", name="group:73")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="sortColumn", group="#group:73")
+	volatile transient derived !resolve val TableColumn[*] sortColumn;
+
+	@ExtendedMetaData(kind="element", name="columns", group="#group:73")
+	volatile transient derived !resolve val TableColumn[*] columns;
+
+	@ExtendedMetaData(kind="element", name="columnOrder", group="#group:73")
+	!unique volatile transient derived attr type.Int[*] columnOrder;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:73")
+	volatile transient derived !resolve val TableItem[*] items;
+
+	@ExtendedMetaData(kind="element", name="selection", group="#group:73")
+	volatile transient derived !resolve val TableItem[*] selection;
+
+	@ExtendedMetaData(kind="element", name="selectionIndices", group="#group:73")
+	!unique volatile transient derived attr type.Int[*] selectionIndices;
+
+	@ExtendedMetaData(kind="attribute", name="headerVisible")
+	unsettable attr type.Boolean headerVisible;
+
+	@ExtendedMetaData(kind="attribute", name="itemCount")
+	unsettable attr type.Int itemCount;
+
+	@ExtendedMetaData(kind="attribute", name="linesVisible")
+	unsettable attr type.Boolean linesVisible;
+
+	@ExtendedMetaData(kind="attribute", name="sortDirection")
+	unsettable attr type.Int sortDirection;
+
+	@ExtendedMetaData(kind="attribute", name="topIndex")
+	unsettable attr type.Int topIndex;
+}
+
+@ExtendedMetaData(name="TableColumn", kind="mixed")
+class TableColumn extends Item {
+
+	@ExtendedMetaData(kind="group", name="group:46")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="editor", group="#group:46")
+	volatile transient derived !resolve val Element[*] editor;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:46")
+	volatile transient derived !resolve val Table[*] parent;
+
+	@ExtendedMetaData(kind="attribute", name="alignment")
+	unsettable attr type.Int alignment;
+
+	@ExtendedMetaData(kind="attribute", name="moveable")
+	unsettable attr type.Boolean moveable;
+
+	@ExtendedMetaData(kind="attribute", name="resizable")
+	unsettable attr type.Boolean resizable;
+
+	@ExtendedMetaData(kind="attribute", name="toolTipText")
+	attr type.String toolTipText;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	unsettable attr type.Int width;
+}
+
+@ExtendedMetaData(name="TableEditor", kind="mixed")
+class TableEditor extends ControlEditor {
+
+	@ExtendedMetaData(kind="group", name="group:9")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group1;
+
+	@ExtendedMetaData(kind="element", name="item", group="#group:9")
+	volatile transient derived !resolve val TableItem[*] item;
+
+	@ExtendedMetaData(kind="attribute", name="column")
+	unsettable attr type.Int column;
+
+	@ExtendedMetaData(kind="attribute", name="dynamic")
+	unsettable attr type.Boolean dynamic;
+}
+
+@ExtendedMetaData(name="TableItem", kind="mixed")
+class TableItem extends Item {
+
+	@ExtendedMetaData(kind="group", name="group:46")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="cells", group="#group:46")
+	volatile transient derived !resolve val Collection[*] cells;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:46")
+	volatile transient derived !resolve val Table[*] parent;
+
+	@ExtendedMetaData(kind="element", name="editors", group="#group:46")
+	volatile transient derived !resolve val Collection[*] editors;
+
+	@ExtendedMetaData(kind="element", name="texts", group="#group:46")
+	!unique volatile transient derived attr type.String[*] texts;
+
+	@ExtendedMetaData(kind="attribute", name="checked")
+	unsettable attr type.Boolean checked;
+
+	@ExtendedMetaData(kind="attribute", name="grayed")
+	unsettable attr type.Boolean grayed;
+
+	@ExtendedMetaData(kind="attribute", name="imageIndent")
+	unsettable attr type.Int imageIndent;
+}
+
+@ExtendedMetaData(name="TableTree", kind="mixed")
+class TableTree extends Composite {
+}
+
+@ExtendedMetaData(name="TableTreeViewer", kind="mixed")
+class TableTreeViewer extends AbstractTreeViewer {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group5;
+
+	@ExtendedMetaData(kind="element", name="tableTree", group="#group:24")
+	volatile transient derived !resolve val TableTree[*] tableTree;
+}
+
+@ExtendedMetaData(name="TableViewer", kind="mixed")
+class TableViewer extends AbstractTableViewer {
+
+	@ExtendedMetaData(kind="group", name="group:20")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group4;
+
+	@ExtendedMetaData(kind="element", name="table", group="#group:20")
+	volatile transient derived !resolve val Table[*] table;
+}
+
+@ExtendedMetaData(name="TableViewerColumn", kind="mixed")
+class TableViewerColumn extends ViewerColumn {
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="column", group="#group:1")
+	volatile transient derived !resolve val TableColumn[*] column;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	unsettable attr type.Int width;
+}
+
+@ExtendedMetaData(name="Text", kind="mixed")
+class Text extends Scrollable {
+
+	@ExtendedMetaData(kind="attribute", name="caretLocation")
+	attr type.String caretLocation;
+
+	@ExtendedMetaData(kind="attribute", name="doubleClickEnabled")
+	unsettable attr type.Boolean doubleClickEnabled;
+
+	@ExtendedMetaData(kind="attribute", name="echoChar")
+	attr EchoCharType echoChar;
+
+	@ExtendedMetaData(kind="attribute", name="editable")
+	unsettable attr type.Boolean editable;
+
+	@ExtendedMetaData(kind="attribute", name="lineDelimiter")
+	attr type.String lineDelimiter;
+
+	@ExtendedMetaData(kind="attribute", name="message")
+	attr type.String message;
+
+	@ExtendedMetaData(kind="attribute", name="orientation")
+	unsettable attr type.Int orientation;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	attr type.String selection;
+
+	@ExtendedMetaData(kind="attribute", name="selectionText")
+	attr type.String selectionText;
+
+	@ExtendedMetaData(kind="attribute", name="tabs")
+	unsettable attr type.Int tabs;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+
+	@ExtendedMetaData(kind="attribute", name="textLimit")
+	unsettable attr type.Int textLimit;
+
+	@ExtendedMetaData(kind="attribute", name="topIndex")
+	unsettable attr type.Int topIndex;
+}
+
+@ExtendedMetaData(name="TextCellEditor", kind="mixed")
+class TextCellEditor extends CellEditor {
+}
+
+@ExtendedMetaData(name="TextStyle", kind="mixed")
+class TextStyle {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="TitleAreaDialog", kind="mixed")
+class TitleAreaDialog extends TrayDialog {
+
+	@ExtendedMetaData(kind="group", name="group:10")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="titleAreaColor", group="#group:10")
+	volatile transient derived !resolve val RGB[*] titleAreaColor;
+
+	@ExtendedMetaData(kind="attribute", name="errorMessage")
+	attr type.String errorMessage;
+
+	@ExtendedMetaData(kind="attribute", name="message")
+	attr type.String message;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr type.String title;
+
+	@ExtendedMetaData(kind="attribute", name="titleImage")
+	attr type.String titleImage;
+}
+
+@ExtendedMetaData(name="ToolBar", kind="mixed")
+class ToolBar extends Composite {
+
+	@ExtendedMetaData(kind="group", name="group:73")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:73")
+	volatile transient derived !resolve val ToolItem[*] items;
+}
+
+@ExtendedMetaData(name="ToolItem", kind="mixed")
+class ToolItem extends Item {
+
+	@ExtendedMetaData(kind="group", name="group:46")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="control", group="#group:46")
+	volatile transient derived !resolve val Control[*] control;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:46")
+	volatile transient derived !resolve val ToolBar[*] parent;
+
+	@ExtendedMetaData(kind="attribute", name="bounds")
+	attr type.String bounds;
+
+	@ExtendedMetaData(kind="attribute", name="disabledImage")
+	attr type.String disabledImage;
+
+	@ExtendedMetaData(kind="attribute", name="enabled")
+	unsettable attr type.Boolean enabled;
+
+	@ExtendedMetaData(kind="attribute", name="hotImage")
+	attr type.String hotImage;
+
+	@ExtendedMetaData(kind="attribute", name="selection")
+	unsettable attr type.Boolean selection;
+
+	@ExtendedMetaData(kind="attribute", name="toolTipText")
+	attr type.String toolTipText;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	unsettable attr type.Int width;
+}
+
+@ExtendedMetaData(name="ToolTip", kind="mixed")
+class ToolTip extends Widget {
+
+	@ExtendedMetaData(kind="group", name="group:44")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:44")
+	volatile transient derived !resolve val Shell[*] parent;
+
+	@ExtendedMetaData(kind="attribute", name="autoHide")
+	unsettable attr type.Boolean autoHide;
+
+	@ExtendedMetaData(kind="attribute", name="message")
+	attr type.String message;
+
+	@ExtendedMetaData(kind="attribute", name="text")
+	attr type.String text;
+
+	@ExtendedMetaData(kind="attribute", name="visible")
+	unsettable attr type.Boolean visible;
+}
+
+@ExtendedMetaData(name="Tracker", kind="mixed")
+class Tracker extends Widget {
+
+	@ExtendedMetaData(kind="group", name="group:44")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="rectangles", group="#group:44")
+	!unique volatile transient derived attr type.String[*] rectangles;
+
+	@ExtendedMetaData(kind="element", name="cursor", group="#group:44")
+	volatile transient derived !resolve val Cursor[*] cursor;
+
+	@ExtendedMetaData(kind="attribute", name="stippled")
+	unsettable attr type.Boolean stippled;
+}
+
+@ExtendedMetaData(name="Tray", kind="mixed")
+class Tray extends Widget {
+
+	@ExtendedMetaData(kind="group", name="group:44")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:44")
+	volatile transient derived !resolve val TrayItem[*] items;
+}
+
+@ExtendedMetaData(name="TrayDialog", kind="mixed")
+abstract class TrayDialog extends Dialog {
+
+	@ExtendedMetaData(kind="group", name="group:7")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="tray", group="#group:7")
+	volatile transient derived !resolve val DialogTray[*] tray;
+
+	@ExtendedMetaData(kind="attribute", name="helpAvailable")
+	unsettable attr type.Boolean helpAvailable;
+}
+
+@ExtendedMetaData(name="TrayItem", kind="mixed")
+class TrayItem extends Item {
+}
+
+@ExtendedMetaData(name="Tree", kind="mixed")
+class Tree extends Composite {
+
+	@ExtendedMetaData(kind="group", name="group:73")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="sortColumn", group="#group:73")
+	volatile transient derived !resolve val TreeColumn[*] sortColumn;
+
+	@ExtendedMetaData(kind="element", name="parentItem", group="#group:73")
+	volatile transient derived !resolve val TreeItem[*] parentItem;
+
+	@ExtendedMetaData(kind="element", name="columns", group="#group:73")
+	volatile transient derived !resolve val TreeColumn[*] columns;
+
+	@ExtendedMetaData(kind="element", name="columnOrder", group="#group:73")
+	!unique volatile transient derived attr type.Int[*] columnOrder;
+
+	@ExtendedMetaData(kind="element", name="topItem", group="#group:73")
+	volatile transient derived !resolve val TreeItem[*] topItem;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:73")
+	volatile transient derived !resolve val TreeItem[*] items;
+
+	@ExtendedMetaData(kind="element", name="selection", group="#group:73")
+	volatile transient derived !resolve val TreeItem[*] selection;
+
+	@ExtendedMetaData(kind="attribute", name="headerVisible")
+	unsettable attr type.Boolean headerVisible;
+
+	@ExtendedMetaData(kind="attribute", name="itemCount")
+	unsettable attr type.Int itemCount;
+
+	@ExtendedMetaData(kind="attribute", name="linesVisible")
+	unsettable attr type.Boolean linesVisible;
+
+	@ExtendedMetaData(kind="attribute", name="sortDirection")
+	unsettable attr type.Int sortDirection;
+}
+
+@ExtendedMetaData(name="TreeColumn", kind="mixed")
+class TreeColumn extends Item {
+
+	@ExtendedMetaData(kind="group", name="group:46")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:46")
+	volatile transient derived !resolve val Tree[*] parent;
+
+	@ExtendedMetaData(kind="attribute", name="alignment")
+	unsettable attr type.Int alignment;
+
+	@ExtendedMetaData(kind="attribute", name="moveable")
+	unsettable attr type.Boolean moveable;
+
+	@ExtendedMetaData(kind="attribute", name="resizable")
+	unsettable attr type.Boolean resizable;
+
+	@ExtendedMetaData(kind="attribute", name="toolTipText")
+	attr type.String toolTipText;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	unsettable attr type.Int width;
+}
+
+@ExtendedMetaData(name="TreeItem", kind="mixed")
+class TreeItem extends Item {
+
+	@ExtendedMetaData(kind="group", name="group:46")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="parentItem", group="#group:46")
+	volatile transient derived !resolve val TreeItem[*] parentItem;
+
+	@ExtendedMetaData(kind="element", name="texts", group="#group:46")
+	!unique volatile transient derived attr type.String[*] texts;
+
+	@ExtendedMetaData(kind="element", name="items", group="#group:46")
+	volatile transient derived !resolve val TreeItem[*] items;
+
+	@ExtendedMetaData(kind="element", name="parent", group="#group:46")
+	volatile transient derived !resolve val Tree[*] parent;
+
+	@ExtendedMetaData(kind="attribute", name="checked")
+	unsettable attr type.Boolean checked;
+
+	@ExtendedMetaData(kind="attribute", name="expanded")
+	unsettable attr type.Boolean expanded;
+
+	@ExtendedMetaData(kind="attribute", name="grayed")
+	unsettable attr type.Boolean grayed;
+
+	@ExtendedMetaData(kind="attribute", name="handle")
+	unsettable attr type.Int handle;
+
+	@ExtendedMetaData(kind="attribute", name="itemCount")
+	unsettable attr type.Int itemCount;
+}
+
+@ExtendedMetaData(name="TreePath", kind="mixed")
+class TreePath {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="TreeViewer", kind="mixed")
+class TreeViewer extends AbstractTreeViewer {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group5;
+
+	@ExtendedMetaData(kind="element", name="tree", group="#group:24")
+	volatile transient derived !resolve val Tree[*] tree;
+}
+
+@ExtendedMetaData(name="URL", kind="mixed")
+class URL {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="Viewer", kind="mixed")
+abstract class Viewer {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="input", group="#group:1")
+	volatile transient derived !resolve val EObject[*] input;
+
+	@ExtendedMetaData(kind="element", name="selection", group="#group:1")
+	volatile transient derived !resolve val ISelection[*] selection;
+
+	@ExtendedMetaData(kind="element", name="control", group="#group:1")
+	volatile transient derived !resolve val Control[*] control;
+}
+
+@ExtendedMetaData(name="ViewerColumn", kind="mixed")
+abstract class ViewerColumn {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="ViewerComparator", kind="mixed")
+class ViewerComparator {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="ViewerFilter", kind="mixed")
+abstract class ViewerFilter {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="ViewerSorter", kind="mixed")
+class ViewerSorter extends ViewerComparator {
+}
+
+@ExtendedMetaData(name="Widget", kind="mixed")
+abstract class Widget {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="ActivateEvent")
+	attr type.String activateEvent;
+
+	@ExtendedMetaData(kind="attribute", name="ArmEvent")
+	attr type.String armEvent;
+
+	@ExtendedMetaData(kind="attribute", name="CloseEvent")
+	attr type.String closeEvent;
+
+	@ExtendedMetaData(kind="attribute", name="CollapseEvent")
+	attr type.String collapseEvent;
+
+	@ExtendedMetaData(kind="attribute", name="DataContext")
+	attr type.String dataContext;
+
+	@ExtendedMetaData(kind="attribute", name="DeactivateEvent")
+	attr type.String deactivateEvent;
+
+	@ExtendedMetaData(kind="attribute", name="DefaultSelectionEvent")
+	attr type.String defaultSelectionEvent;
+
+	@ExtendedMetaData(kind="attribute", name="DeiconifyEvent")
+	attr type.String deiconifyEvent;
+
+	@ExtendedMetaData(kind="attribute", name="disposeEvent")
+	attr type.String disposeEvent;
+
+	@ExtendedMetaData(kind="attribute", name="DragDetectEvent")
+	attr type.String dragDetectEvent;
+
+	@ExtendedMetaData(kind="attribute", name="EraseItemEvent")
+	attr type.String eraseItemEvent;
+
+	@ExtendedMetaData(kind="attribute", name="ExpandEvent")
+	attr type.String expandEvent;
+
+	@ExtendedMetaData(kind="attribute", name="FocusInEvent")
+	attr type.String focusInEvent;
+
+	@ExtendedMetaData(kind="attribute", name="FocusOutEvent")
+	attr type.String focusOutEvent;
+
+	@ExtendedMetaData(kind="attribute", name="HardKeyDownEvent")
+	attr type.String hardKeyDownEvent;
+
+	@ExtendedMetaData(kind="attribute", name="HardKeyUpEvent")
+	attr type.String hardKeyUpEvent;
+
+	@ExtendedMetaData(kind="attribute", name="HelpEvent")
+	attr type.String helpEvent;
+
+	@ExtendedMetaData(kind="attribute", name="HideEvent")
+	attr type.String hideEvent;
+
+	@ExtendedMetaData(kind="attribute", name="IconifyEvent")
+	attr type.String iconifyEvent;
+
+	@ExtendedMetaData(kind="attribute", name="ImeCompositionEvent")
+	attr type.String imeCompositionEvent;
+
+	@ExtendedMetaData(kind="attribute", name="KeyDownEvent")
+	attr type.String keyDownEvent;
+
+	@ExtendedMetaData(kind="attribute", name="KeyUpEvent")
+	attr type.String keyUpEvent;
+
+	@ExtendedMetaData(kind="attribute", name="MeasureItemEvent")
+	attr type.String measureItemEvent;
+
+	@ExtendedMetaData(kind="attribute", name="MenuDetectEvent")
+	attr type.String menuDetectEvent;
+
+	@ExtendedMetaData(kind="attribute", name="ModifyEvent")
+	attr type.String modifyEvent;
+
+	@ExtendedMetaData(kind="attribute", name="MouseDoubleClickEvent")
+	attr type.String mouseDoubleClickEvent;
+
+	@ExtendedMetaData(kind="attribute", name="MouseDownEvent")
+	attr type.String mouseDownEvent;
+
+	@ExtendedMetaData(kind="attribute", name="MouseEnterEvent")
+	attr type.String mouseEnterEvent;
+
+	@ExtendedMetaData(kind="attribute", name="MouseExitEvent")
+	attr type.String mouseExitEvent;
+
+	@ExtendedMetaData(kind="attribute", name="MouseHoverEvent")
+	attr type.String mouseHoverEvent;
+
+	@ExtendedMetaData(kind="attribute", name="MouseMoveEvent")
+	attr type.String mouseMoveEvent;
+
+	@ExtendedMetaData(kind="attribute", name="MouseUpEvent")
+	attr type.String mouseUpEvent;
+
+	@ExtendedMetaData(kind="attribute", name="MouseWheelEvent")
+	attr type.String mouseWheelEvent;
+
+	@ExtendedMetaData(kind="attribute", name="MoveEvent")
+	attr type.String moveEvent;
+
+	@ExtendedMetaData(kind="attribute", name="PaintEvent")
+	attr type.String paintEvent;
+
+	@ExtendedMetaData(kind="attribute", name="PaintItemEvent")
+	attr type.String paintItemEvent;
+
+	@ExtendedMetaData(kind="attribute", name="ResizeEvent")
+	attr type.String resizeEvent;
+
+	@ExtendedMetaData(kind="attribute", name="SelectionEvent")
+	attr type.String selectionEvent;
+
+	@ExtendedMetaData(kind="attribute", name="SetDataEvent")
+	attr type.String setDataEvent;
+
+	@ExtendedMetaData(kind="attribute", name="ShowEvent")
+	attr type.String showEvent;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	unsettable attr type.AnySimpleType style = "NONE";
+
+	@ExtendedMetaData(kind="attribute", name="TraverseEvent")
+	attr type.String traverseEvent;
+
+	@ExtendedMetaData(kind="attribute", name="VerifyEvent")
+	attr type.String verifyEvent;
+}
+
+@ExtendedMetaData(name="Window", kind="mixed")
+abstract class Window {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="windowManager", group="#group:1")
+	volatile transient derived !resolve val WindowManager[*] windowManager;
+
+	@ExtendedMetaData(kind="attribute", name="blockOnOpen")
+	unsettable attr type.Boolean blockOnOpen;
+}
+
+@ExtendedMetaData(name="WindowManager", kind="mixed")
+class WindowManager {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+}
+
+@ExtendedMetaData(name="XMLDataProvider", kind="mixed")
+class XMLDataProvider extends AbstractDataProvider {
+
+	@ExtendedMetaData(kind="group", name="group:4")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group1;
+
+	@ExtendedMetaData(kind="element", name="document", group="#group:4")
+	volatile transient derived !resolve val Document[*] document;
+
+	@ExtendedMetaData(kind="element", name="source", group="#group:4")
+	volatile transient derived !resolve val URL[*] source;
+
+	@ExtendedMetaData(kind="attribute", name="XPath")
+	attr type.String xPath;
+}
+

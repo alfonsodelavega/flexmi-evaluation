@@ -1,0 +1,2191 @@
+@GenModel(documentation="The Open Avionics Architecture Model (OAAM) is inteded for describing an avionics architecture in software, hardware and spaces. It contains nine layers (library, scenarios, systems, functions, hardware, anatomy, capabilities, restrictions, allocationss), which add up to the final architecture. It is intended to be the information store and system function description language for a plug&fly avioncis system, but also for offline architecture analysis and optimization. It is allowed to distribute architecture information over multiple oaam files.")
+@namespace(uri="http://www.oaam.de/oaam/model/v140", prefix="de.oaam.model")
+package oaam;
+
+@GenModel(documentation="Model root element. Only a single instance is allowed. The model content is grouped in sequentially dependent layers for different subdomains. ")
+class Architecture extends common.OaamBaseElementA {
+
+	@GenModel(documentation="A reference to child architecture models. Elements of included models can be used in this model. Inclusion allows to build up architecuture models in multiple files. The idea is that this model completes the included model. The real model is this model plus all elements of the included models.")
+	ref Architecture[*] include;
+
+	@GenModel(documentation="A container for a library model (layer 1)")
+	val library.Library library;
+
+	@GenModel(documentation="A container for a scenario model (layer 2)")
+	val scenario.Scenario scenario;
+
+	@GenModel(documentation="A container for a systems model (layer 3)")
+	val systems.Systems systems;
+
+	@GenModel(documentation="A container for a function model (layer 4)")
+	val functions.Functions functions;
+
+	@GenModel(documentation="A container for a hardware model (layer 5)")
+	val hardware.Hardware hardware;
+
+	@GenModel(documentation="A container for an anatomy model (layer 6)")
+	val anatomy.Anatomy anatomy;
+
+	@GenModel(documentation="A container for a capabilities model (layer 7)")
+	val capabilities.Capabilities capabilities;
+
+	@GenModel(documentation="A container for a restriction model (layer 8)")
+	val restrictions.Restrictions restrictions;
+
+	@GenModel(documentation="A container for a allocations model (layer 9)")
+	val allocations.Allocations allocations;
+}
+
+@GenModel(documentation="The definition of common abstract classes and enumerations. This is not visible in the user model.")
+@namespace(uri="http://www.oaam.de/oaam/model/v140/common", prefix="de.oaam.model.common")
+package common {
+	@GenModel(documentation="Classification of multi-input boolean operations")
+	enum BoolOperationTypesE {
+
+		@GenModel(documentation="Set the Boolean operation to AND.")
+		AND = 0;
+
+		@GenModel(documentation="Sets the Boolean operation to OR.")
+		OR = 1;
+
+		@GenModel(documentation="Sets the Boolean opartion to XOR.")
+		XOR = 2;
+	}
+
+	@GenModel(documentation="Classification of the integrity of a signal or function output")
+	enum IntegretyStateE {
+
+		@GenModel(documentation="The state is OK, which means it works as it should do.")
+		OK = 0;
+
+		@GenModel(documentation="The state is failed, but it is known to be failed. ")
+		FAILED = 1;
+
+		@GenModel(documentation="The state can be ok or failed or out-of-control. Compared to to the other states it is not known. Therefore, no fault containment can take place.")
+		UNKNOWN = 3;
+	}
+
+	@GenModel(documentation="This is the base class for every instantiable element in the model. Most important it defines that every model element has a name and an id")
+	abstract class OaamBaseElementA {
+
+		@GenModel(documentation="A global unique identifier string for every model element. This id is used as a reference between model elements")
+		id attr String[1] ~id;
+
+		@GenModel(documentation="A string for the name of the element as shown in textual or graphical representations of the model")
+		attr String name;
+
+		@GenModel(documentation="Style string for appearance in editors. CSS syntax shall be used. Additional attributes are: shape=rect, circle, triangle;")
+		attr String style;
+
+		@GenModel(documentation="This can be used to append arbitrary additional attributes to every element. The form of additional attributes is always name and value whereas the value type is different for different attribute types.")
+		val AttributeA[*] attributes;
+
+		@GenModel(documentation="A textual documentation of this model element")
+		attr String documentation = "";
+
+		@GenModel(documentation="The date of the last modification. This should be set automatically.")
+		attr EDate modified;
+
+		@GenModel(documentation="The name of the user who last modified the element.")
+		attr String modifier;
+
+		@GenModel(documentation="A textual traceable link. For instance the requirement id.")
+		attr String traceLink = "";
+	}
+
+	@GenModel(documentation="An abstract base class of a Boolean value as used in logical expressions")
+	abstract class BoolA {
+	}
+
+	@GenModel(documentation="An abstract interface for additional attribute types")
+	abstract class AttributeA extends OaamBaseElementA {
+	}
+
+	@GenModel(documentation="An attribute with a string value")
+	class AttributeString extends AttributeA {
+
+		@GenModel(documentation="A string")
+		attr String[1] value;
+	}
+
+	@GenModel(documentation="An attribute with a numeric value")
+	class AttributeNumeric extends AttributeA {
+
+		@GenModel(documentation="A number")
+		attr double[1] value;
+	}
+
+	@GenModel(documentation="An attribute which can contain an arbitrary other model element")
+	class AttributeContainment extends AttributeA {
+
+		@GenModel(documentation="A containment of an architecture model element")
+		val OaamBaseElementA[*] value;
+	}
+
+	@GenModel(documentation="An attribute which can contain a references to arbitrary other model elements")
+	class AttributeReference extends AttributeA {
+
+		@GenModel(documentation="A reference to an architecture model element")
+		ref OaamBaseElementA[*] value;
+	}
+
+	@GenModel(documentation="A Boolean function with two to infinit inputs. ")
+	class BoolOperation extends BoolA, OaamBaseElementA {
+
+		@GenModel(documentation="Specifies the type of the Boolean operation, e.g. AND, OR, XOR, ...")
+		attr BoolOperationTypesE[1] type;
+
+		@GenModel(documentation="The left hand operand of the Boolean operation. This can also be a Boolean operation.")
+		ref BoolA[1] left;
+
+		@GenModel(documentation="The right hand operand of the Boolean operation. This can also be a Boolean operation.")
+		ref BoolA[1] right;
+	}
+
+	@GenModel(documentation="A Boolean not operation. The output is the negated input")
+	class BoolNot extends BoolA, OaamBaseElementA {
+
+		@GenModel(documentation="A reference to the variable to be negated")
+		ref BoolA[1] in;
+	}
+
+	@GenModel(documentation="An abstract base class for all data types")
+	abstract class DataTypeA extends OaamBaseElementA {
+	}
+
+	@GenModel(documentation="A signed or unsigned integer of variable resolution.")
+	class Integer extends DataTypeA {
+
+		@GenModel(documentation="If the integer is signed it can hold also negative values. The default is true.")
+		attr boolean[1] signed = true;
+
+		@GenModel(documentation="The number of bits representing the integer. Common values are 8, 16, 32 and 64.")
+		attr int[1] nBits = 16;
+
+		@GenModel(documentation="The endianess of the included data")
+		attr EndianessE[1] endianess = "BIG";
+	}
+
+	@GenModel(documentation="An array of other data types with a fixed length")
+	class Array extends DataTypeA {
+
+		@GenModel(documentation="The number of elements the array holds.")
+		attr int[1] nElements = 1;
+
+		@GenModel(documentation="The data type of the array")
+		ref DataTypeA[1] type;
+
+		@GenModel(documentation="The internal alignment (padding) of array fields in bits. 0 means all elements are directly after each other. Values above 0 mean that fields smaller than the value will be stuffed with padding bits until a multiple of the alignment value is reached. 8 equals a one Byte allignment.")
+		attr int[1] alignment = 8;
+	}
+
+	@GenModel(documentation="A structure composed of multiple variables or arrays")
+	class Struct extends DataTypeA {
+
+		@GenModel(documentation="The internal alignment (padding) of array fields in bits. 0 means all elements are directly after each other. Values above 0 mean that fields smaller than the value will be stuffed with padding bits until a multiple of the alignment value is reached. 8 equals a one Byte allignment.")
+		attr int[1] alignment = 8;
+
+		@GenModel(documentation="The data types of which the structure is composed of in sequential order.")
+		ref DataTypeA[+] fields;
+
+		@GenModel(documentation="A reference to a super type of the struct. The inhereting struc will contain all elements of the super type and his super types plus the elements that are defined here.")
+		ref Struct inheritsFrom;
+
+		@GenModel(documentation="If set to true there cannot be an instance of that struct. However, inhereting structs may be used in tasks or signals.")
+		attr boolean isAbstract;
+	}
+
+	@GenModel(documentation="A floating point number in IEEE format")
+	class FloatingPoint extends DataTypeA {
+
+		@GenModel(documentation="The number of bits. Float = 32, Double = 64")
+		attr int[1] nBits = 32;
+
+		@GenModel(documentation="The endianess of the included data")
+		attr EndianessE[1] endianess = "BIG";
+	}
+
+	@GenModel(documentation="8 Bits of unknown content")
+	class Byte extends DataTypeA {
+	}
+
+	@GenModel(documentation="A single character which can be of different encodings. The default size is 8 Bit. ")
+	class Character extends DataTypeA {
+
+		@GenModel(documentation="Character encoding table used for the content. E.g. ASCII or UNICODE. If the encoding has more than one byte per character. nBits must be set accordingly.")
+		attr String[1] encoding;
+
+		@GenModel(documentation="The number of character encoding bits. The default is 8.")
+		attr int[1] nBits = 8;
+	}
+
+	@GenModel(documentation="Possible options for the endianess of data types")
+	enum EndianessE {
+
+		@GenModel(documentation="Big endian: The most significant bit comes first")
+		BIG = 0;
+
+		@GenModel(documentation="Little endian: The least significant bit comes first.")
+		LITTLE = 1;
+	}
+
+	@GenModel(documentation="A Boolean value, i.e. true or false.")
+	class Boolean extends DataTypeA {
+	}
+
+}
+
+@GenModel(documentation="Common and reusable definitions as data, task, hardware, and signal types.")
+@namespace(uri="http://www.oaam.de/oaam/model/v140/library", prefix="de.oaam.model.library")
+package library {
+	@GenModel(documentation="Classification of the information or power flow direction of a I/O")
+	enum IoDirectionE {
+
+		@GenModel(documentation="No information flow in no direction.")
+		NONE = 0;
+
+		@GenModel(documentation="Information flow into the device.")
+		IN = 1;
+
+		@GenModel(documentation="Information flow out of the device.")
+		OUT = 2;
+
+		@GenModel(documentation="Information flow in and out of to the device.")
+		BOTH = 3;
+	}
+
+	@GenModel(documentation="Classification of object class bound mandatory additional attributes")
+	enum AttributeTypesE {
+
+		@GenModel(documentation="A string attribute")
+		STRING = 0;
+
+		@GenModel(documentation="A numerical value attribute")
+		NUMERIC = 1;
+
+		@GenModel(documentation="A Boolean attribute")
+		BOOL = 2;
+	}
+
+	@GenModel(documentation="Classification of the target class of a object class bound additional attribute")
+	enum AttributeTargetsE {
+
+		@GenModel(documentation="Addition attribute for DeviceType objects.")
+		DEVICE_TYPE = 0;
+
+		@GenModel(documentation="Addition attribute for Device objects.")
+		DEVICE = 1;
+
+		@GenModel(documentation="Addition attribute for TaskType objects.")
+		TASK_TYPE = 2;
+
+		@GenModel(documentation="Addition attribute for Task objects.")
+		TASK = 3;
+
+		@GenModel(documentation="Addition attribute for WireType objects.")
+		WIRE_TYPE = 4;
+
+		@GenModel(documentation="Addition attribute for ResourceType objects.")
+		RESOURCE_TYPE = 5;
+
+		@GenModel(documentation="Addition attribute for Resource objects.")
+		RESOURCE = 6;
+
+		@GenModel(documentation="Addition attribute for SignalType objects.")
+		SIGNAL_TYPE = 7;
+
+		@GenModel(documentation="Addition attribute for Signal objects.")
+		SIGNAL = 8;
+
+		@GenModel(documentation="Addition attribute for ConnectionType objects.")
+		CONNECTION_TYPE = 9;
+
+		@GenModel(documentation="Addition attribute for Connection objects.")
+		CONNECTION = 10;
+
+		@GenModel(documentation="Addition attribute for LocationType objects.")
+		LOCATION_TYPE = 11;
+
+		@GenModel(documentation="Addition attribute for Location objects.")
+		LOCATION = 12;
+
+		@GenModel(documentation="Addition attribute for DuctType objects.")
+		DUCT_TYPE = 13;
+
+		@GenModel(documentation="Addition attribute for Duct objects.")
+		DUCT = 14;
+
+		@GenModel(documentation="Addition attribute for ResourceBundle objects.")
+		RESOURCE_BUNDLE = 15;
+
+		@GenModel(documentation="ResourceAlternative")
+		RESOURCE_ALTERNATIVE = 17;
+
+		@GenModel(documentation="Addition attribute for ResourceGroup objects.")
+		RESOURCE_GROUP = 18;
+
+		@GenModel(documentation="Addition attribute for Area objects.")
+		AREA = 19;
+
+		@GenModel(documentation="Addition attribute for Variant objects.")
+		VARIANT = 20;
+	}
+
+	@GenModel(documentation="Abstract base class of a resource consuming element. Instances are functions, devices, subdevices or resources itself.")
+	abstract class ResourceConsumerA {
+
+		@GenModel(documentation="The required resource a resource consumer will consume when mapped to a resource provider. The required resources are, however, a wishlist. The precise resource consumption of a resource consumer is specified in the capabilities layer")
+		val Resource[*] requiredResources;
+
+		@GenModel(documentation="Resource groups organize the resources of the resource consumer in groups, e.g. galvanic groups of I/Os, etc.")
+		val ResourceGroup[*] consumedGroups;
+	}
+
+	@GenModel(documentation="An abstract base class for resource providing elements, e.g. devices, locations, ...")
+	abstract class ResourceProviderA {
+
+		@GenModel(documentation="Resources are provided in bundles. A bundle can contain one or more instance of a resource type")
+		val ResourceBundle[*] providedBundles;
+
+		@GenModel(documentation="A possibility to declare possible resource types for this resource provider before the actual resource instances are declared")
+		ref ResourceType[*] possibleResourceProvisions;
+
+		@GenModel(documentation="Resource groups can organize the resource of a provider, e.g. to represent connectors.")
+		val ResourceGroup[*] providedGroups;
+
+		@GenModel(documentation="Resource dependencies specify the interconnection of resources in the resource provider, e.g. to represent power distribution and galvanic isolation.")
+		val ResourceLink[*] resourceLinks;
+	}
+
+	@GenModel(documentation="A super class for all instance of resource providers, e.g. not only device types but also devices or locations")
+	abstract class ResourceProviderInstanceA {
+
+		@GenModel(documentation="This modifier is inherited from resource consumers mapped to this provider")
+		ref ResourceTypeModifierLevel[*] requiredModifiers;
+	}
+
+	@GenModel(documentation="A library holds the definitions of all important basic elements used in the architecture model as for instance function types, device types, or resource types.")
+	abstract class LibraryContainerA extends common.OaamBaseElementA {
+
+		@GenModel(documentation="All defined data types to be used within the model.")
+		val common.DataTypeA[*] dataTypes;
+
+		@GenModel(documentation="All resource types of this library")
+		val ResourceType[*] resourceTypes;
+
+		@GenModel(documentation="All resource bundles of this library")
+		val ResourceBundle[*] resourceBundles;
+
+		@GenModel(documentation="All resource modifiers of this library")
+		val ResourceTypeModifier[*] resourceModifiers;
+
+		@GenModel(documentation="All resource type dissimilarities of this library")
+		val ResourceTypeDissimilarity[*] resourceTypeDissimilarities;
+
+		@GenModel(documentation="All task types of this library")
+		val TaskType[*] taskTypes;
+
+		@GenModel(documentation="All function dissimilarity declarations of this library")
+		val TaskTypeDissimilarity[*] taskTypeDissimilarity;
+
+		@GenModel(documentation="All signal types of this library")
+		val SignalType[*] signalTypes;
+
+		@GenModel(documentation="All device types of this library")
+		val DeviceType[*] deviceTypes;
+
+		@GenModel(documentation="All device type symmetries of this library")
+		val DeviceTypeSymmetry[*] deviceTypeSymmetries;
+
+		@GenModel(documentation="All device type dissimilarity declarations of this library")
+		val DeviceTypeDissimilarity[*] deviceTypeDissimilarities;
+
+		@GenModel(documentation="All connection types of this library")
+		val ConnectionType[*] connectionTypes;
+
+		@GenModel(documentation="All wire types of this library")
+		val WireType[*] wireTypes;
+
+		@GenModel(documentation="All location types of this library")
+		val LocationType[*] locationTypes;
+
+		@GenModel(documentation="All duct types of this library")
+		val DuctType[*] ductTypes;
+
+		@GenModel(documentation="All generic attributes of this library")
+		val AttributeDefinition[*] genericAttributes;
+
+		@GenModel(documentation="All power sources")
+		val PowerSource[*] powerSources;
+
+		@GenModel(documentation="A library might contain sublibraries to structure its content. Sublibraries can contain further subliebraries. A sublibrary can contain the same elements that a library can contain.")
+		val Sublibrary[*] sublibraries;
+
+		@GenModel(documentation="All IO types of this library")
+		val IoType[*] ioTypes;
+	}
+
+	@GenModel(documentation="A resource is a shared and consumed entity. A resource type defines a category of resources, e.g. KBs of memory, MIPS of computational power, or the number of analog input interfaces.")
+	class ResourceType extends ResourceConsumerA, common.OaamBaseElementA {
+
+		@GenModel(documentation="The name of the quantity in which the resource type is usually provided, e.g. number of pins, mega byte, ...")
+		attr String unit;
+
+		@GenModel(documentation="Denotes if the resource is consumed by an allocation of consumers, or if the resource type is must only be available and can satisfy an unlimited number of consumers.")
+		attr boolean[1] isConsumed = true;
+
+		@GenModel(documentation="Denotes if this resource can be counted and if it matters to shich instance a consumer is allocated. For example I/O connectors can be counted. On the contrary CPU resource cannot be counted and it doesnt matter which resource instance is allocated.")
+		attr boolean[1] isDistinguishable;
+
+		@GenModel(documentation="Denotes if a resource is not only consumed, but is consumed from a depending resource. For example power, may be not a resource of the target hardware, but of the powersupply before.")
+		attr boolean[1] isPropagated;
+
+		@GenModel(documentation="The direction of information/power flow on this resource. This is only applicable if this is an I/O resource type")
+		attr IoDirectionE[1] direction;
+
+		@GenModel(documentation="If this is an resource type used as an I/O")
+		attr boolean[1] isIo;
+
+		@GenModel(documentation="If this resource is an configurable resource which might represent diffrent types")
+		attr boolean[1] isConfigurable;
+
+		@GenModel(documentation="Propageted resources specifie the type and the maximum number of resources that can be propagated to connected resource providers by this resource. The forwarded resource type must be of type propageted. For instance a discrete output can always forward a limited amount of power, so there would be a resource type DISCRETE with a maximum of 5W propagated resource of type POWER.")
+		val Resource[*] propagetedResources;
+
+		@GenModel(documentation="The list of allowed modifiers for this resource type.")
+		ref ResourceTypeModifierReference[*] allowedModifiers;
+
+		@GenModel(documentation="A list of possible alternatives. Alternative resources could be considered for allocationss if the original is not available or is unfavourable.")
+		val ResourceAlternatives[*] alternatives;
+	}
+
+	@GenModel(documentation="A resource is an instance of a resource type which is provided by resource providers and consumed by resource consumers. It is the mandatory precondition for any allocations.")
+	class Resource extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The resource type")
+		ref ResourceType[1] type;
+
+		@GenModel(documentation="The number of resources that are available")
+		attr double[1] count = "1.0";
+
+		@GenModel(documentation="The modifiers that are statically bound to this resource")
+		ref ResourceTypeModifierLevel[*] modifiers;
+	}
+
+	@GenModel(documentation="Alternative resources can be used to define resources types and amounts that can be used instead of the current resources.")
+	class ResourceAlternatives extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The definition of the type(s) and numbers of resources needed as alternatives ")
+		val Resource[+] resources;
+	}
+
+	@GenModel(documentation="This are installable portions of resources")
+	class ResourceBundle extends ResourceConsumerA, common.OaamBaseElementA {
+
+		@GenModel(documentation="The number and type(s) of resources in this bundle")
+		val Resource[*] resources;
+
+		@GenModel(documentation="The mean time between failure in [h]")
+		attr double[1] mtbf;
+
+		@GenModel(documentation="The costs of one instance of this bundle in [$]")
+		attr double[1] cost;
+
+		@GenModel(documentation="The mass of the resource bundle in [kg]")
+		attr double[1] mass;
+	}
+
+	@GenModel(documentation="A definition of function types which can be used in the functions model as instances. Most important a function type defines the required resources.")
+	class TaskType extends ResourceConsumerA, common.OaamBaseElementA {
+
+		@GenModel(documentation="All output declarations of this tasks type")
+		val OutputDeclaration[*] outputDeclarations;
+
+		@GenModel(documentation="All input declarations of this task type")
+		val InputDeclaration[*] inputDeclarations;
+
+		@GenModel(documentation="Whether this function has a deterministic limit for its execution time.")
+		attr boolean[1] isDeterministic;
+
+		@GenModel(documentation="The execution rate for which this task was designed in Hz. It might does not work well at other execution rates. 0.0 means no preferred rate.")
+		attr float[1] preferredExecutionRate = "0.0";
+
+		@GenModel(documentation="All internal state variables of a task type")
+		val TaskStateDeclaration[*] stateDeclarations;
+
+		@GenModel(documentation="All parameters of a tasks type")
+		val TaskParameterDeclaration[*] parameterDeclarations;
+	}
+
+	@GenModel(documentation="A definition of a signal type.")
+	class SignalType extends ResourceConsumerA, common.OaamBaseElementA {
+
+		@GenModel(documentation="The data type or structure of a signal")
+		ref common.DataTypeA[1] type;
+	}
+
+	@GenModel(documentation="A definition of a device type. This holds the properties and resources that are identical for each device of this type")
+	class DeviceType extends ResourceConsumerA, ResourceProviderA, common.OaamBaseElementA {
+
+		@GenModel(documentation="A device can declare certain resources to be I/Os. I/Os of a device can be used to connect physical connections")
+		val IoDeclaration[*] ioDeclarations;
+
+		@GenModel(documentation="Defines if this device type can be used as a subdevice in any other device. A subdevice is e.g. a blade in a cabinet.")
+		attr boolean[1] isSubdevice = false;
+
+		@GenModel(documentation="Specifies if this device type is allowed to have subdevices e. g. a cabinet.")
+		attr boolean[1] canHaveSubdevices = false;
+
+		@GenModel(documentation="The mean time between failure in [h]")
+		attr double[1] mtbf;
+
+		@GenModel(documentation="Device type weight in [kg]")
+		attr double[1] weight;
+
+		@GenModel(documentation="Device type cost in [$]")
+		attr double[1] cost;
+
+		@GenModel(documentation="I/O groups that exist on this device")
+		val IoGroup[*] ioGroups;
+
+		@GenModel(documentation="Defines for a self-managing avionics platform, if the device type is capable of managing itself, i.e. can assign itself tasks and a shedule")
+		attr boolean[1] isSelfManaging = false;
+	}
+
+	@GenModel(documentation="A connection is a physical link between two devices. With the connection type the unambiguous properties for a connection type can be set. A connection type can represent various topologies like lines, busses and stars, but also wireless. Moreover, passive and active connections like switched networks can be modeled")
+	class ConnectionType extends ResourceProviderA, ResourceConsumerA, common.OaamBaseElementA {
+
+		@GenModel(documentation="Can this connection type transmit information?")
+		attr boolean[1] isInformation = true;
+
+		@GenModel(documentation="Can this connection type provide or distribute power?")
+		attr boolean[1] isPower = false;
+
+		@GenModel(documentation="Which wire type is used by the connection type?")
+		ref WireType[*] wireTypes;
+
+		@GenModel(documentation="Is this a wireless connection?")
+		attr boolean[1] isWireless = false;
+
+		@GenModel(documentation="Does the wiring topology allow circles?")
+		attr boolean[1] allowsCircles = false;
+
+		@GenModel(documentation="Considering a single wire without switches, how many speakers are allowed?")
+		attr int[1] nStartingPoints = 1;
+
+		@GenModel(documentation="Which resource type (usualy an IO type) is required on the starting point side of the connection?")
+		ref ResourceType[*] startingPointResourceTypes;
+
+		@GenModel(documentation="Considering a single cable without switches, how many listeners are allowed?")
+		attr int[1] nEndPoints = 1;
+
+		@GenModel(documentation="Which resource type (usualy an IO type) is required on the end point side of the connection?")
+		ref ResourceType[*] endPointResourceTypes;
+
+		@GenModel(documentation="If this is an n-to-m connection, how many split or merging points can exist?")
+		attr int[1] nJoints = 0;
+
+		@GenModel(documentation="The maximum of cables that can form a joint")
+		attr int[1] maxJointBranches = 0;
+
+		@GenModel(documentation="The maximum physical distance between an interface on a device and a merging or splitting point. For instance for a CAN bus this are only a few centimeters.")
+		attr double[1] maxInterfaceToJointDistance = "0";
+
+		@GenModel(documentation="The device types which can be used as switches for this connection type. Switch types apply only to actively switched networks as Ethernet.")
+		ref DeviceType[*] switchTypes;
+
+		@GenModel(documentation="Is this a switched network, which needs active components to connect multiple participants?")
+		attr boolean[1] isSwitched = false;
+
+		@GenModel(documentation="For a switched connection type this specifies if als direct point-to-point connetions are allowed.")
+		attr boolean[1] directConnectionsAllowed;
+
+		@GenModel(documentation="The maximal physical distance which can be linked with this connection type.")
+		attr double[1] maxLength = "100";
+
+		@GenModel(documentation="Does power and information flow in both or only in one direction?")
+		attr boolean[1] isUnidirectional = false;
+
+		@GenModel(documentation="Is a special bus participant required to control the bus, e.g. SPI? Can also denote a multi-master bus.")
+		attr boolean[1] requiresMaster = false;
+	}
+
+	@GenModel(documentation="The definition of common location properties and resources")
+	class LocationType extends ResourceProviderA, common.OaamBaseElementA {
+
+		@GenModel(documentation="If true this stated that this is not a real location for devices, but a cable route joint point only")
+		attr boolean[1] isJoint;
+
+		@GenModel(documentation="A duct opening is the point where connection cables can enter or leave a location.")
+		val DuctOpeningDeclaration[*] ductOpeningDeclarations;
+	}
+
+	@GenModel(documentation="Definition of the common properties of a cable route or duct")
+	class DuctType extends ResourceProviderA, common.OaamBaseElementA {
+	}
+
+	@GenModel(documentation="The properties common to all instance of a wire type")
+	class WireType extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The Weight per meter in [kg]")
+		attr double[1] specificWeight;
+
+		@GenModel(documentation="The cost per meter in [$/m]")
+		attr double[1] specificPrice;
+
+		@GenModel(documentation="How many conductors are within the wire type?")
+		attr int[1] nConductors = 1;
+
+		@GenModel(documentation="The minimum bending radius the wire type can be used for in [m]")
+		attr double[1] minBendingRadius;
+
+		@GenModel(documentation="How many shielding conductors are used?")
+		attr int[1] nShields = 1;
+
+		@GenModel(documentation="The mean time between failure in [h]")
+		attr double[1] mtbf;
+	}
+
+	class IoType extends common.OaamBaseElementA {
+		attr IoDirectionE[1] direction = "OUT";
+	}
+
+	@GenModel(documentation="The declaration of an input for a function type.")
+	class InputDeclaration extends common.OaamBaseElementA {
+
+		@GenModel(documentation="the data type of the input")
+		ref common.DataTypeA[1] type;
+
+		@GenModel(documentation="The physical unit of the signal, e.g. s for seconds")
+		attr String unit;
+
+		@GenModel(documentation="A set of logical or arithmetical precondition, which the input signal must comply to in order to use the function and get an reasonable result, e.g. x != 0")
+		attr String precondition;
+
+		@GenModel(documentation="An valid interval which can be used to restrict numerical signals e.g. [1,100]")
+		attr String range;
+
+		@GenModel(documentation="The minimum multiplicity of a multiple input. Lowest allowed value is 1. If an input is defined to have a multiplicity greater than one. The task is informed on the number of connected senders and can work on each input individually.")
+		attr int[1] lowerBound = 1;
+
+		@GenModel(documentation="The maximum multiplicity of a multiple input. A valid value must be greater or equal to the lower bound. If an input is defined to have a multiplicity greater than one. The task is informed on the number of connected senders and can work on each input individually.")
+		attr int[1] upperBound = 1;
+	}
+
+	@GenModel(documentation="The declaration of an output for a function type.")
+	class OutputDeclaration extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The physical unit of the signal, e.g. s for seconds")
+		attr String unit;
+
+		@GenModel(documentation="A logical or arithmetical postcondition, which is true for the output, if the precondition of all inputs was fulfilled, e.g. 5 < x < 7")
+		attr String postcondition;
+
+		@GenModel(documentation="The trigger condition which causes the output to be calculated. This can be a Boolean logic of available inputs, or a fixed rate.")
+		val TaskOutputTrigger[1] trigger;
+
+		@GenModel(documentation="An valid interval which can be used to restrict numerical signals e.g. [1,100]")
+		attr String range;
+
+		@GenModel(documentation="The data type of the output")
+		ref common.DataTypeA[1] type;
+
+		@GenModel(documentation="The minimum multiplicity of a multiple output. Lowest allowed value is 1. If an output is defined to have a multiplicity greater than one. The task is informed on the number of connected receivers and can contact each receiver individually.")
+		attr int[1] lowerBound = 1;
+
+		@GenModel(documentation="The maximum multiplicity of a multiple output. A valid value must be greater or equal to the lower bound. If an output is defined to have a multiplicity greater than one. The task is informed on the number of connected receivers and can contact each receiver individually.")
+		attr int[1] upperBound = 1;
+
+		@GenModel(documentation="The fault propagation conditions for this output")
+		val FaultPropagation[*] faultPropagations;
+	}
+
+	@GenModel(documentation="The declaration of an I/O. An I/O is a physical communication device")
+	class IoDeclaration extends common.OaamBaseElementA {
+
+		@GenModel(documentation="References connecting resources of the device itself. More than one connecting resource can be referenced. Moreover, a connecting resource can be referenced by more than one connector. These are typically shared I/Os")
+		ref Resource[+] resources;
+		ref IoType[1] type;
+	}
+
+	@GenModel(documentation="The declaration of a duct opening for a location type. A duct opening is a point to enter or leave an installation location.")
+	class DuctOpeningDeclaration extends common.OaamBaseElementA {
+	}
+
+	@GenModel(documentation="Grouping of the resources on the providers. For example to assign them to grouped connectors.")
+	class ResourceGroup extends common.OaamBaseElementA {
+
+		@GenModel(documentation="All resources in the same resource group. All resources must be children of one resource provider.")
+		ref Resource[*] resources;
+	}
+
+	@GenModel(documentation="Defines two or more device types as symmetric. A symmetric device type is usfull to describe dual-lane devices, because it enables a symmetric allocations of functions to both lanes in the same location.")
+	class DeviceTypeSymmetry extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The device types that are symmetric")
+		ref DeviceType[2..*] deviceTypes;
+	}
+
+	@GenModel(documentation="An I/O group defines a set of I/Os that are in relation. For instance, all I/Os on the same physical connector.")
+	class IoGroup extends common.OaamBaseElementA {
+
+		@GenModel(documentation="A reference to all I/Os in this group. ")
+		ref IoDeclaration[*] ios;
+	}
+
+	@GenModel(documentation="Defining an additional attribute for a type of object that is mandatory for each instance of that object in the model. For instance define a serial number attribute for all device types as a string attribute")
+	class AttributeDefinition extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The type of the attribute.")
+		attr AttributeTypesE[1] dataType;
+
+		@GenModel(documentation="The type of elements this attribute is used for.")
+		attr AttributeTargetsE[1] target;
+	}
+
+	@GenModel(documentation="Specifies how the state of the inputs transfers to the outputs. An arbitrary Boolean logic can be created.")
+	class FaultPropagation extends common.OaamBaseElementA {
+
+		@GenModel(documentation="Defines the desired output state for that the logic is valid.")
+		attr common.IntegretyStateE[1] outputState;
+
+		@GenModel(documentation="The Boolean expression which define the relation to the input. This can be an TaskInputState or a Boolean operation, which relates same TaskInputStates")
+		ref common.BoolA[1] condition;
+
+		@GenModel(documentation="The Boolean operations, which define the relation to the input.")
+		val common.BoolOperation[*] booleanOperations;
+
+		@GenModel(documentation="The Boolean NOT operations which define the relation to the input.")
+		val common.BoolNot[*] booleanNots;
+
+		@GenModel(documentation="The list of all relevant input states for this fault propagation")
+		val TaskInputState[*] taskInputStates;
+	}
+
+	@GenModel(documentation="A link between a Boolean expression and the state of the input. This Boolean is considered to be true if the input has the state defined within.")
+	class TaskInputState extends common.BoolA, common.OaamBaseElementA {
+
+		@GenModel(documentation="The state of the input for which the expression is true")
+		attr common.IntegretyStateE[1] state;
+
+		@GenModel(documentation="A reference to the input of the task type")
+		ref InputDeclaration[1] input;
+	}
+
+	@GenModel(documentation="Definition of a power source, e.g. DC1, DC2, DC1_emergency or DC2_emergency.")
+	class PowerSource extends common.OaamBaseElementA {
+	}
+
+	@GenModel(documentation="Specify how resources of a resources provider are linked. Linking is necessary to forward shared resources. This makes especially sense to express how power is forwarded through the interfaces")
+	class ResourceLink extends common.OaamBaseElementA {
+
+		@GenModel(documentation="Source resource of the resource provider")
+		ref Resource[+] in;
+
+		@GenModel(documentation="Destination resource of the resource provider")
+		ref Resource[+] out;
+	}
+
+	@GenModel(documentation="A general definition of a resource modifier. For instance a discrete output resource could appear in 100 and 250 mA output current levels. In this case  the modifier is \"current level\" and the levels are 100 and 250.")
+	class ResourceTypeModifier extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The definition of levels allowed for this modifier type. This can be restricted for a certain resource type in the modifier definition. ")
+		val ResourceTypeModifierLevel[+] levels;
+	}
+
+	@GenModel(documentation="A possible instance of a modifier, e.g. 250mA for a current level modifier.")
+	class ResourceTypeModifierLevel extends common.OaamBaseElementA, ResourceConsumerA {
+
+		@GenModel(documentation="If this modifier is not available is there another modifiere that can be used?")
+		ref ResourceTypeModifierLevel[*] equalAlternatives;
+
+		@GenModel(documentation="Specifies the next higher modifier")
+		ref ResourceTypeModifierLevel betterAlternative;
+	}
+
+	@GenModel(documentation="The modifier definition relates modifier types and modifier levels to modifiers that can be assigned to resource types.")
+	class ResourceTypeModifierReference extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The modifier type. There can be more than one modifier definitions for one type, e.g. if different levels are allowed")
+		ref ResourceTypeModifier[1] type;
+
+		@GenModel(documentation="A list of modifier levels allowed for this modifier. For instance a lightning protection modifier could allow L1,L2,L4,L5,L6,L8.")
+		ref ResourceTypeModifierLevel[+] allowedLevels;
+	}
+
+	@GenModel(documentation="Declare a set of function types to be dissimilar up to a certain level. Dissimilar functions are those who are developed by an independent team using indipendent methods and tools.")
+	class TaskTypeDissimilarity extends common.OaamBaseElementA {
+
+		@GenModel(documentation="References the dissimilar functions")
+		ref TaskType[*] tasks;
+
+		@GenModel(documentation="Gives the percentage of common code of dissimilar functions. In general the percentage should be 0 for 100% dissimilar functions. A measure could for instance be the number of lines of dissimilar code.")
+		attr double[1] percentageOfCommonCode;
+	}
+
+	@GenModel(documentation="Device types are declared dissimilar to all other device types in the same dissimilarity group up to a certain factor. If more accurate dissimilarity modeling is required resource type dissimilarities can be used.")
+	class DeviceTypeDissimilarity extends common.OaamBaseElementA {
+
+		@GenModel(documentation="References the devices that are dissimilar")
+		ref DeviceType[*] devices;
+
+		@GenModel(documentation="Gives an approximation of the percentage of hardware that is identical to the other devices referenced as dissimilar. By default 100% dissimilarity is assumed. Additional checks for dissimilarity are carried out with the resource types, which must also be dissimilar.")
+		attr double[1] percentageOfCommonHardware;
+	}
+
+	@GenModel(documentation="A resource type is declared dissimilar to all other resource types in one dissimilarity group.")
+	class ResourceTypeDissimilarity extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The resource types that are dissimilar")
+		ref ResourceType[*] resourceTypes;
+	}
+
+	@GenModel(documentation="A sublibrary can contain the same elements that a library can contain, but it can exist within a library")
+	class Sublibrary extends LibraryContainerA {
+	}
+
+	@GenModel(documentation="The trigger condition for the output. If the trigger condition is true, the output is calculated. A trigger is either a Boolean combination of available inputs or a fixed rate.")
+	class TaskOutputTrigger extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The fixed rate, in which the output shall be calculated, given in Hz. This is only the default rate. The rate can be overwritten with the task instance")
+		attr float[1] fixedRate;
+
+		@GenModel(documentation="If true the output is calculated at a fixed rate and the fixedRate attribute must be set. If false, the output is calculated if a certain combinations of inputs is available. In the latter case logics must be set.")
+		attr boolean[1] isFixedRate = false;
+
+		@GenModel(documentation="The Boolean expression which defines the relation to the input. This can be an TaskInputTrigger or a Boolean operation, which relates same TaskInputTriggers. If the rate is set to fixed that this contition is ommitted and not necessary to be specified.")
+		ref common.BoolA condition;
+
+		@GenModel(documentation="The Boolean operations, which define the relation to the input.")
+		val common.BoolOperation[*] booleanOperations;
+
+		@GenModel(documentation="The Boolean NOT operations which define the relation to the input.")
+		val common.BoolNot[*] booleanNots;
+
+		@GenModel(documentation="The list of all relevant input triggers for this fault propagation")
+		val TaskInputTrigger[*] taskInputTriggers;
+	}
+
+	@GenModel(documentation="A linking class between inputs and output trigger Boolean expressions")
+	class TaskInputTrigger extends common.BoolA, common.OaamBaseElementA {
+
+		@GenModel(documentation="The input that must be available that this expression becomes true")
+		ref InputDeclaration[1] input;
+	}
+
+	@GenModel(documentation="The internal state of a task. An internal state is a memory in which results are saved that are persitent between two invocations, i.e. the I of a PID controller.")
+	class TaskStateDeclaration extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The data type of an internal state variable")
+		ref common.DataTypeA[1] type;
+	}
+
+	@GenModel(documentation="Static parameters that change the behavior of a function, e.g. the P, I, and D scalars of a PID controller ")
+	class TaskParameterDeclaration extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The data type of a parameter")
+		ref common.DataTypeA[1] type;
+	}
+
+	@GenModel(documentation="The root of the library model layer")
+	class Library extends LibraryContainerA {
+	}
+
+}
+
+@GenModel(documentation="Architecture wide properties, as well as variants and operation mode definitions.")
+@namespace(uri="http://www.oaam.de/oaam/model/v140/scenario", prefix="de.oaam.model.scenario")
+package scenario {
+	@GenModel(documentation="An abstract base class for a parameter varying over operation modes or variants.")
+	abstract class ScenarioParameterA extends ModeDependentElementA, VariantDependentElementA {
+	}
+
+	@GenModel(documentation="A super class for elements that exist only during certain phases")
+	abstract class ModeDependentElementA {
+
+		@GenModel(documentation="The operation modes in which the element is valid.")
+		val OperationModeReference[*] operationModes;
+	}
+
+	@GenModel(documentation="Supertype for elements that can occur in variants")
+	abstract class VariantDependentElementA {
+
+		@GenModel(documentation="The variants for which this element is valid.")
+		ref Variant[*] variants;
+	}
+
+	@GenModel(documentation="An abstract base class for scenarios and subscenarios. A scenario is a global, timely or variant dependent definition of parameters. For instance along a flight mission.")
+	abstract class ScenarioContainerA extends common.OaamBaseElementA {
+
+		@GenModel(documentation="All parameters.")
+		val ScenarioParameterA[*] parameters;
+
+		@GenModel(documentation="All variants.")
+		val Variant[*] variants;
+
+		@GenModel(documentation="All operation modes")
+		val OperationMode[+] operationModes;
+
+		@GenModel(documentation="All included subscenarios.")
+		val Subscenario[*] subscenarios;
+	}
+
+	@GenModel(documentation="An operation mode is a current state of the vehicle. Only one operation mode can be active at a time. Elements can, however belong to multiple operation modes. An operation mode can also represent temporary states.")
+	class OperationMode extends common.OaamBaseElementA, VariantDependentElementA {
+	}
+
+	@GenModel(documentation="A parameter with a numeric value.")
+	class ScenarioParameterNumeric extends ScenarioParameterA, common.OaamBaseElementA {
+
+		@GenModel(documentation="A number.")
+		attr double[1] value;
+	}
+
+	@GenModel(documentation="A parameter with a Boolean value.")
+	class ScenarioParameterBool extends ScenarioParameterA, common.OaamBaseElementA {
+
+		@GenModel(documentation="A Boolean.")
+		attr boolean[1] value;
+	}
+
+	@GenModel(documentation="A variant of the described vehicle or architecture, e.g optional equipment could be part of a variant. A vehicle can be composed of multiple variants, i.e. multiple variants might be active at the same time.")
+	class Variant extends common.OaamBaseElementA, ModeDependentElementA {
+	}
+
+	@GenModel(documentation="This is the link between temporary objects and time frames. This allows to define a probability of the element of being active during certain time frames.")
+	class OperationModeReference extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The referenced time frame.")
+		ref OperationMode[1] operationMode;
+
+		@GenModel(documentation="Ranges from 0 to 1. It is the probability that the element is active in the given operation mode. If it is active the full time frame 1 has to be specified, which is also the default value.")
+		attr double[1] activeProbability = "1.0";
+	}
+
+	@GenModel(documentation="The root element of the scenario layers.")
+	class Scenario extends ScenarioContainerA {
+	}
+
+	@GenModel(documentation="Subscenarios can be used like folders to organize scenarios")
+	class Subscenario extends ScenarioContainerA {
+	}
+
+}
+
+@GenModel(documentation="High-level and not executable description of systems including physical informations.")
+@namespace(uri="http://www.oaam.de/oaam/model/v140/systems", prefix="de.oaam.model.systems")
+package systems {
+	@GenModel(documentation=" The systems model contains a high level description of the system components as well as the data and power flow without specifying the implementation.")
+	abstract class SystemsContainerA extends common.OaamBaseElementA {
+
+		@GenModel(documentation="All included system ")
+		val System[*] systems;
+
+		@GenModel(documentation="All information flows")
+		val InformationFlow[*] informationFlows;
+
+		@GenModel(documentation="A list of input segregation constraints for the described systems")
+		val InputSegregation[*] inputSegregations;
+
+		@GenModel(documentation="All included subsystems")
+		val Subsystem[*] subsystems;
+	}
+
+	@GenModel(documentation="The root container for of the systems model.")
+	class Systems extends SystemsContainerA {
+	}
+
+	@GenModel(documentation="A subsystem can be used like folders to organize the system model")
+	class Subsystem extends SystemsContainerA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+	}
+
+	@GenModel(documentation="A system is an encapsuleted functionality that interacts with information and power")
+	class System extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="All outputs provided by the system")
+		val ProvidedInformationA[*] providedOutputs;
+
+		@GenModel(documentation="All inputs required by the system")
+		val RequiredInformationA[*] requiredInputs;
+	}
+
+	@GenModel(documentation="An input required by the system to be operational")
+	abstract class RequiredInformationA {
+	}
+
+	@GenModel(documentation="A power or information that is provided of a system")
+	abstract class ProvidedInformationA {
+	}
+
+	@GenModel(documentation="An information flow from a systems input to a systems output")
+	class InformationFlow extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="A single source of this input")
+		ref ProvidedInformationA[1] from;
+
+		@GenModel(documentation="References to the receipients of this output")
+		ref RequiredInformationA[1] to;
+	}
+
+	@GenModel(documentation="An information is an abstract definition of any kind of data flow between systems.")
+	class InformationSignal extends ProvidedInformationA, RequiredInformationA, common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="The minimum update rate of the information in [1/s].")
+		attr double[1] rate;
+
+		@GenModel(documentation="The maximal delay between measurement and reception of the information in [s].")
+		attr double[1] latency;
+
+		@GenModel(documentation="The accuracy of the measured information in %.")
+		attr double[1] accuracy;
+
+		@GenModel(documentation="The information resolution in the measured ")
+		attr double[1] resolution;
+
+		@GenModel(documentation="The unit of the expected information, e.g. A, m/s, deg, C or E for events")
+		attr String unit;
+	}
+
+	@GenModel(documentation="An information is an abstract definition of any kind of data flow between systems.")
+	class InformationMaterial extends ProvidedInformationA, RequiredInformationA, common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="The density of the material flow")
+		attr double[1] density;
+
+		@GenModel(documentation="The velocity of the material flow.")
+		attr double[1] velocity;
+	}
+
+	@GenModel(documentation="An abstract base class to represent the flow of power")
+	class InformationPower extends ProvidedInformationA, RequiredInformationA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The provided or required power in [W]")
+		attr double[1] power;
+	}
+
+	@GenModel(documentation="This output or input represents elctrical power")
+	class ElectricPower extends InformationPower {
+
+		@GenModel(documentation="The frequency for AC power in [1/s]. =0 -> DC power supply; >0 -> AC power; <0 -> UNKNOWN ")
+		attr double[1] frequency;
+
+		@GenModel(documentation="The number of phases in power supply. <0 -> Unknown, Unspecified")
+		attr int[1] nPhases = 1;
+
+		@GenModel(documentation="The required or provided voltage in [V] <0 -> Unknown, Unspecified")
+		attr double[1] voltage;
+
+		@GenModel(documentation="The required or provided current in [A]; <0 -> Unknown, Unspecified")
+		attr double[1] current;
+	}
+
+	@GenModel(documentation="This output or input represents hydraulic power")
+	class HydraulicPower extends InformationPower {
+
+		@GenModel(documentation="The required or provided pressure in [Pa = N/m^2]")
+		attr double[1] pressure = "0.0";
+
+		@GenModel(documentation="The required or provided mass flow rate in [kg/s]")
+		attr double[1] massFlowRate;
+	}
+
+	@GenModel(documentation="This output or input represents rotary mechanical power")
+	class RotaryPower extends InformationPower {
+
+		@GenModel(documentation="The required or provided momentum in [N*m]")
+		attr double[1] momentum = "0.0";
+
+		@GenModel(documentation="The required or provided angular velocity in [rad/s]")
+		attr double[1] angularVelocity;
+	}
+
+	@GenModel(documentation="This output or input represents linear mechanical power")
+	class LinearPower extends InformationPower {
+
+		@GenModel(documentation="The provided or required force in [N]")
+		attr double[1] force = "0.0";
+
+		@GenModel(documentation="The provided or required velocity in [m/s]")
+		attr double[1] velocity;
+	}
+
+	@GenModel(documentation="An input segregation defines that two inputs or a system or multiple systems must be from segregated sources. The meaning of segregation can be refined with the attributes. Setting two inputs as segregated is only the information that the inputs needs to be segregated. If segregation is ensured, cannot be verified in the systems model. This requires the real implementation.")
+	class InputSegregation extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The sources of information must be dissimilar, e.g. dissimilar hardware")
+		attr boolean[1] dissimilarSource;
+
+		@GenModel(documentation="The input flow to the system must take dissimilar routes, e.g. AFDX and CAN bus")
+		attr boolean[1] dissimilarRoute;
+
+		@GenModel(documentation="The information must be acquired by dissimilar technology. E.g. resistive and capacitive temperature sensors, or electric and mechanical power supply")
+		attr boolean[1] dissimilarTechnology;
+
+		@GenModel(documentation="Inputs in group A must be segregated to from inputs of class B")
+		ref RequiredInformationA[+] groupA;
+
+		@GenModel(documentation="Inputs in group A must be segregated to from inputs of class B")
+		ref RequiredInformationA[+] groupB;
+	}
+
+}
+
+@GenModel(documentation="Main part of the executable function description, including tasks and data flows.")
+@namespace(uri="http://www.oaam.de/oaam/model/v140/functions", prefix="de.oaam.model.functions")
+package functions {
+	@GenModel(documentation="The root element for the functions model")
+	class Functions extends FunctionsContainerA {
+	}
+
+	@GenModel(documentation="An abstract base class of an element that can hold functions and related elements.")
+	abstract class FunctionsContainerA extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="All functions in this container")
+		val Task[*] tasks;
+
+		@GenModel(documentation="All task links of the function model")
+		val ExternalTaskLink[*] taskLinks;
+
+		@GenModel(documentation="All functions groups in this container")
+		val TaskGroup[*] taskGroups;
+
+		@GenModel(documentation="All functions symmetries in this container")
+		val TaskSymmetry[*] taskSymmetries;
+
+		@GenModel(documentation="All functions redundancies in this container")
+		val TaskRedundancy[*] taskRedundancies;
+
+		@GenModel(documentation="All signals in this container")
+		val Signal[*] signals;
+
+		@GenModel(documentation="All functions groups in this container")
+		val SignalGroup[*] signalGroups;
+
+		@GenModel(documentation="All failure events of this system description.")
+		val FailureCondition[*] failureConditions;
+
+		@GenModel(documentation="All subfunctions included")
+		val Subfunctions[*] subfunctions;
+	}
+
+	@GenModel(documentation="An atomic undividable piece of software that implements some system functionality and must be mapped to hardware. ")
+	class Task extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to the type, which defines the required resources")
+		ref library.TaskType[1] type;
+
+		@GenModel(documentation="All inputs of this function")
+		val Input[*] inputs;
+
+		@GenModel(documentation="All outputs of this function")
+		val Output[*] outputs;
+
+		@GenModel(documentation="A reference to a system from a systems model, which is (partially) implemented by this function ")
+		ref systems.System implements;
+
+		@GenModel(documentation="This references a unique device if this task is strictly bound to one device, i.e. atomic block of hardware and funtion, e.g a sensor. This is a so called hardware task. If a device is specified. Also the function outputs should be bound to device connectors. Do not specify a device here if this is a freely assignable function.")
+		ref hardware.Device deviceBinding;
+
+		@GenModel(documentation="The number of parallel instances of that task that can be created if more inputs arrive while the task is still executed")
+		attr int[1] nParallels = 1;
+
+		@GenModel(documentation="The execution rate of a periodic task in Hz. Enter -1 for inheritance. Enter 0 for non-periodic or best effort.")
+		attr double[1] fixedRate = "-1.0";
+
+		@GenModel(documentation="All parameters of a task.")
+		val TaskParameter[*] parameters;
+	}
+
+	@GenModel(documentation="A link to an external task. This task is not part of the function model, but it is just a place holder. It must be linked from another function model.
+")
+	class ExternalTaskLink extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="A reference to the type, which defines the expected tasks type.")
+		ref library.TaskType[1] type;
+
+		@GenModel(documentation="A ghost representation of the inputs of the external task. This is linked to the input declarations from the task type.")
+		val Input[*] inputs;
+
+		@GenModel(documentation="A ghost representation of the outputs of the external task. This is linked to the output declarations from the task type.")
+		val Output[*] outputs;
+
+		@GenModel(documentation="The referenece to the external task if the relation is fixed at some time.")
+		ref Task task;
+
+		@GenModel(documentation="Restricts the number of possible target functions by filter expressions related to model properties.
+Supports Boolean expression as: &&, ||, !
+Strings can be regular expressions.
+For instance:
+id == \"valve_left33\"// this would be an absolute link
+name == \"valve_left\"
+area == \"cabin\"
+location != \"left_*\"
+name == \"outflow_valve_*\"
+
+")
+		attr String filter;
+	}
+
+	@GenModel(documentation="Grouping of functions for example to prevent their segregation or to assign this functions to certain routes.")
+	class TaskGroup extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="All functions in this group")
+		ref Task[+] tasks;
+	}
+
+	@GenModel(documentation="A function symmetry defines functions as symmetric. Symmetric functions might be mapped spatially symmetric in the vehicle")
+	class TaskSymmetry extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="The list of symmetric functions")
+		ref Task[2..*] tasks;
+	}
+
+	@GenModel(documentation="Declares two or more functions to be replace each other")
+	class TaskRedundancy extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="The list of functions being redundant counter parts")
+		ref Task[2..*] tasks;
+	}
+
+	@GenModel(documentation="A failure condition is a top event that can happen to the system and has effect on the vehicle. It relates the output states of tasks to the occurrence of this failure. The platform shall guarantee that the maximum occurrence rate is not exceeded.")
+	class FailureCondition extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="A Boolean expression that relates the inputs of the system. If the expression is true the failure condition is active.")
+		ref common.BoolA[1] condition;
+
+		@GenModel(documentation="The maximal occurrence probability that is allowed for the occurrence of this failure condition. Typically given for one operation hour.")
+		attr double[1] maxOccurrenceProbability = "0.0";
+
+		@GenModel(documentation="States if this failure condition is allowed to be caused by a single failure event or not.")
+		attr boolean[1] noSingleFailure = false;
+
+		@GenModel(documentation="The Boolean operations, which define the relation to the failure condition")
+		val common.BoolOperation[*] booleanOperations;
+
+		@GenModel(documentation="The Boolean NOT operations which define the relation to the failure condition")
+		val common.BoolNot[*] booleanNots;
+
+		@GenModel(documentation="The list of all relevant output states for this failure condition.")
+		val OutputIntegrityState[+] outputIntegrityStates;
+	}
+
+	@GenModel(documentation="Relates the Boolean expression of the failure event to the system's input states.")
+	class OutputIntegrityState extends common.BoolA, common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="The condition is fulfilled if the input is in this state.")
+		attr common.IntegretyStateE[1] state;
+
+		@GenModel(documentation="The task output related to this failure condition.")
+		ref Output[1] output;
+	}
+
+	@GenModel(documentation="A signal is information that is exchanged unidirectional from one function to another.")
+	class Signal extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The source output the signal comes from")
+		ref Output[1] source;
+
+		@GenModel(documentation="The target input the signal goes to")
+		ref Input[1] target;
+
+		@GenModel(documentation="A reference to the signal type, which defines the required resources")
+		ref library.SignalType[1] type;
+
+		@GenModel(documentation="If a multiple input is connected with the signal this index gives index of the multi-input.")
+		attr int[1] inIndex = 1;
+
+		@GenModel(documentation="If a multiple output is connected with the signal this index gives index of the multi-output.")
+		attr int[1] outIndex = 1;
+
+		@GenModel(documentation="This references a unique connection if this signal is strictly bound to one a wire i.e. an atomic block of hardware and funtion, e.g a sensor. This is a so called hardware task. If a device is specified. Also the function outputs should be bound to device connectors. Do not specify a device here if this is a freely assignable function.")
+		ref hardware.Connection connectionBinding;
+	}
+
+	@GenModel(documentation="A signal group can be used to organize signals in groups with some relationship, e.g. the same constraint")
+	class SignalGroup extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="The reference to all signals in this group")
+		ref Signal[+] signals;
+	}
+
+	@GenModel(documentation="An input of a function is the need for data to be operational")
+	class Input extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to the input declaration of the function type.")
+		ref library.InputDeclaration[1] declaration;
+
+		@GenModel(documentation="A reference to an input from a systems model which is implemented by this function")
+		ref systems.RequiredInformationA implements;
+
+		@GenModel(documentation="If a device is forced to be bound to a device. Also the inputs of the device should be bound to device IOs  ")
+		ref hardware.Io[*] ioBindings;
+
+		@GenModel(documentation="The number of inputs remembered while the task processes the first arriving input. 0 = drops all inputs till the task is ready. 1 = stores exactly one input. n > 1 = stores n inputs which are executed afterwards.")
+		attr int[1] queueLength = 0;
+
+		@GenModel(documentation="A link to an external (not in this model) output of another task")
+		val ExternalOutputLink outputLink;
+	}
+
+	@GenModel(documentation="An output is data produced by a function and available to other function for input")
+	class Output extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to an output from the signals model, which is implemented by this output")
+		ref systems.ProvidedInformationA implements;
+
+		@GenModel(documentation="A reference to the output declaration of the function type")
+		ref library.OutputDeclaration[1] declaration;
+
+		@GenModel(documentation="If a function is forced to be bound to a device. Also the Outputs of the device should be bound to device IOs  ")
+		ref hardware.Io[*] ioBindings;
+
+		@GenModel(documentation="The fixed rate, in which the output shall be calculated, given in Hz. If this is set to other that 0.0, it overrides the rate of the taskType declaration.")
+		attr double[1] fixedRate;
+	}
+
+	@GenModel(documentation="An output that comes from another system.")
+	class ExternalOutputLink extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="The external output if fixed.")
+		ref Output output;
+
+		@GenModel(documentation="Restricts the number of possible target outputs by filter expressions related to model properties.
+Supports Boolean expression as: &&, ||, !
+Strings can be regular expressions.
+For instance:
+name == \"pressure_abs\"
+id == \"pressure_abs124\"// this would be an absolute link
+area == \"cabin\"
+location != \"left_*\"
+name == \"outflow_valve_*\"
+
+")
+		attr String filter;
+	}
+
+	@GenModel(documentation="A subfunction can be used to logically group tasks and signals. If the multiplicity is used, the subfunction can be instantiated multiple times.")
+	class Subfunctions extends FunctionsContainerA {
+
+		@GenModel(documentation="The lower bound of the multiplicity of the subfunction. The content of the subfunction is instanced for every connected input signal. Every output signal holds the content of all instances.")
+		attr int[1] multiplicityMin = 1;
+
+		@GenModel(documentation="The upper bound of the multiplicity of the subfunction. The content of the subfunction is instanced for every connected input signal. Every output signal holds the content of all instaces.")
+		attr int[1] multiplicityMax = 1;
+	}
+
+	@GenModel(documentation="Instance of a task types parameter definition")
+	class TaskParameter extends common.OaamBaseElementA {
+
+		@GenModel(documentation="Reference to the parameter definition of the referenced tasks type.")
+		ref library.TaskParameterDeclaration[1] definition;
+
+		@GenModel(documentation="The value of the parameter as a string, e.g. 3.14 for a double parameter.")
+		attr String[1] value;
+	}
+
+}
+
+@GenModel(documentation="The hardware topology of devices and connections. ")
+@namespace(uri="http://www.oaam.de/oaam/model/v140/hardware", prefix="de.oaam.model.hardware")
+package hardware {
+	@GenModel(documentation="The root container of the hardware model")
+	abstract class HardwareContainerA extends common.OaamBaseElementA {
+
+		@GenModel(documentation="All devices in this hardware model")
+		val Device[*] devices;
+
+		@GenModel(documentation="All device symmetries in this hardware model")
+		val DeviceSymmetry[*] deviceSymmetries;
+
+		@GenModel(documentation="All connections in this hardware model")
+		val Connection[*] connections;
+
+		@GenModel(documentation="All hardware subgroups of this hardware")
+		val Subhardware[*] subhardware;
+	}
+
+	@GenModel(documentation="A device is a hardware unit which is a standalone box or a subdevice in another device.")
+	class Device extends library.ResourceProviderInstanceA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to the device type, which specifies the available resources and I/Os.")
+		ref library.DeviceType type;
+
+		@GenModel(documentation="All I/Os of this device.")
+		val Io[*] ios;
+
+		@GenModel(documentation="Subdevices of this device.")
+		val Device[*] subdevices;
+
+		@GenModel(documentation="If a device - like a sensor - is bound to a fixed location this can be done by this reference")
+		ref anatomy.Location locationBinding;
+
+		@GenModel(documentation="The power source(s) of this device.")
+		ref library.PowerSource[*] powerSources;
+
+		@GenModel(documentation="Connections only existing within this device. The go from one subdevice to another.")
+		val Connection[*] subconnections;
+	}
+
+	@GenModel(documentation="A connection is a communication line between two devices. It can be a single wire, a bus or even wireless depending on the connection type.")
+	class Connection extends library.ResourceProviderInstanceA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to the type of the connection. The type specifies the properties, like topology and provided resources.")
+		ref library.ConnectionType type;
+
+		@GenModel(documentation="All starting points of the connection. The differentiation between starting and endpoints is only relevant for unidirectional connections. In case of a bidirectional connection starts and ends are equal.")
+		ref Io[*] startingPoints;
+
+		@GenModel(documentation="All endpoints of the connection. The differentiation between starting and endpoints is only relevant for unidirectional connections. In case of a bidirectional connection starts and ends are equal.")
+		ref Io[*] endPoints;
+
+		@GenModel(documentation="All masters of the connection. The IO or IOs that controll the buss. This should only be set if this is a master controlled bus system. See the requiresMaster attribute in the connection type.")
+		ref Io[*] masters;
+	}
+
+	@GenModel(documentation="An I/O is a physical connection point for connections.")
+	class Io extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A link to the I/O declaration of the device type")
+		ref library.IoDeclaration[1] declaration;
+	}
+
+	@GenModel(documentation="Symmetric devices are devices that needs to be allocated symmetrically by symmetric tasks")
+	class DeviceSymmetry extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="Reference to the devices that are defined to be symmetric.")
+		ref Device[2..*] devices;
+	}
+
+	@GenModel(documentation="The root element of the hardware model layer.")
+	class Hardware extends HardwareContainerA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+	}
+
+	@GenModel(documentation="Subhardware can be used to organize the hardware model like folders")
+	class Subhardware extends HardwareContainerA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+	}
+
+}
+
+@GenModel(documentation="The spatial topology of installation locations and cable routes.")
+@namespace(uri="http://www.oaam.de/oaam/model/v140/anatomy", prefix="de.oaam.model.anatomy")
+package anatomy {
+	@GenModel(documentation="The root class of the anatomy model")
+	abstract class AnatomyContainerA extends common.OaamBaseElementA {
+
+		@GenModel(documentation="All locations in the anatomy model")
+		val Location[*] locations;
+
+		@GenModel(documentation="All location symmetries in the anatomy model")
+		val LocationSymmetry[*] locationSymmetries;
+
+		@GenModel(documentation="All ducts in the anatomy model")
+		val Duct[*] ducts;
+
+		@GenModel(documentation="All areas in the anatomy model")
+		val Area[*] areas;
+
+		@GenModel(documentation="All subanatomies of the anatomy")
+		val Subanatomy[*] subanatomies;
+
+		@GenModel(documentation="All area symmetries in the anatomy model")
+		val AreaSymmetry[*] areaSymmetries;
+	}
+
+	@GenModel(documentation="A location is a place to install devices or cables. ")
+	class Location extends library.ResourceProviderInstanceA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to the type of a location. This primarily defines the available resources and possible duct openings.")
+		ref library.LocationType[1] type;
+
+		@GenModel(documentation="The physical position of the location")
+		val Position3D position;
+
+		@GenModel(documentation="All duct openings of this location")
+		val DuctOpening[*] ductOpenings;
+
+		@GenModel(documentation="The default internal length of a installation location in [m] from one duct opening to another. This can be precised by specifying duct opening positions in 3d coordinates. ")
+		attr double[1] length;
+	}
+
+	@GenModel(documentation="An area is set of location and ducts that have something in common, e.g. they belong to the same structure. Areas are useful to express constraints.")
+	class Area extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="All locations belonging to this area")
+		ref Location[*] locations;
+
+		@GenModel(documentation="All ducts belonging to this area")
+		ref Duct[*] ducts;
+	}
+
+	@GenModel(documentation="A duct is a route between two installation locations in which cables are placed.")
+	class Duct extends library.ResourceProviderInstanceA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The physical length of the duct segment in [m]")
+		attr double[1] length;
+
+		@GenModel(documentation="A refernce to the duct type which defines provided resources")
+		ref library.DuctType[1] type;
+
+		@GenModel(documentation="The source duct opening of a location.")
+		ref DuctOpening[1] startingPoint;
+
+		@GenModel(documentation="The target duct opening of a location.")
+		ref DuctOpening[1] endPoint;
+	}
+
+	@GenModel(documentation="A duct opening is the point where cable can leave or enter a location.")
+	class DuctOpening extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The relative position of the duct opening in relation to the installation locations position.")
+		val Position3D relativPosition;
+
+		@GenModel(documentation="A reference to the duct opening declaration of the location type.")
+		ref library.DuctOpeningDeclaration[1] declaration;
+	}
+
+	@GenModel(documentation="A physical 3D coordinate")
+	class Position3D extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="x position in [m]")
+		attr double[1] x;
+
+		@GenModel(documentation="y position in [m]")
+		attr double[1] y;
+
+		@GenModel(documentation="z position in [m]")
+		attr double[1] z;
+	}
+
+	@GenModel(documentation="Symmetric location can be used to map symmetric functions symmetrically on devices in both locations. For instance, allocations two redundancies on the left and right hand side of the aircraft.")
+	class LocationSymmetry extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="All locations that are assumed to be symmetric.")
+		ref Location[*] locations;
+	}
+
+	@GenModel(documentation="Symmetric areas can be used to map symmetric functions symmetrically on devices in both locations. For instance, allocations two redundancies on the left and right hand side of the aircraft.")
+	class AreaSymmetry extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="All areas that are assumed to be symmetric.")
+		ref Area[*] areas;
+	}
+
+	@GenModel(documentation="With subanatomies the anatomy layer can be organized like folders.")
+	class Subanatomy extends AnatomyContainerA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+	}
+
+	@GenModel(documentation="The root of the anatomy model layer")
+	class Anatomy extends AnatomyContainerA {
+	}
+
+}
+
+@GenModel(documentation="Definition of software to hardware to anatomy assignment possibilities and resource consumptions.")
+@namespace(uri="http://www.oaam.de/oaam/model/v140/capabilities", prefix="de.oaam.model.capabilities")
+package capabilities {
+	@GenModel(documentation="An abstract base class of a capability. A capability defines how a resource consumer can be mapped to a resource provider.")
+	abstract class CapabilityA {
+
+		@GenModel(documentation="The resources consumed if the capability is used to map resource consumer element to a resource provider element, e.g. a function to a device.")
+		val ResourceConsumption[*] resourceConsumptions;
+	}
+
+	@GenModel(documentation="The root of the capabilities mode. ")
+	abstract class CapabilitiesContainerA extends common.OaamBaseElementA {
+
+		@GenModel(documentation="All function capabilities.")
+		val TaskOnDeviceCapability[*] taskOnDeviceCapabilities;
+
+		@GenModel(documentation="All signal capabilities.")
+		val SignalOnConnectionOrDeviceCapability[*] signalOnConnectionOrDeviceCapabilities;
+
+		@GenModel(documentation="All device capabilities.")
+		val DeviceInLocationCapability[*] deviceInLocationCapabilities;
+
+		@GenModel(documentation="All sub device capabilities.")
+		val SubdeviceInDeviceCapability[*] subdeviceInDeviceCapabilities;
+
+		@GenModel(documentation="All connection capabilities.")
+		val ConnectionInDuctOrLocationCapability[*] connectionInDuctOrLocationCapabilities;
+
+		@GenModel(documentation="All included subcapabilities")
+		val Subcapabilities[*] subcapabilities;
+
+		@GenModel(documentation="All subconnection capabilities")
+		val SubconnectionInDeviceCapability[*] subconnectionInDeviceCapabilities;
+	}
+
+	@GenModel(documentation="A possible allocations of a task to a device.")
+	class TaskOnDeviceCapability extends CapabilityA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The function type this capability is valid for.")
+		ref library.TaskType[1] taskType;
+
+		@GenModel(documentation="The target device type.")
+		ref library.DeviceType[1] deviceType;
+
+		@GenModel(documentation="The worst case execution time of the tasks in s. This time must be independent from the inputs and makes only sense, if the task behaves deterministic.")
+		attr float[1] worstCaseExecutionTime = "0.0";
+
+		@GenModel(documentation="The expected failure probability. Commonly this depends on the design assurance level (DAL) used to create this function. I.e. DAL a would be 10E-9")
+		attr double[1] failureProbability;
+	}
+
+	@GenModel(documentation="A possible allocations of a device to a location.")
+	class DeviceInLocationCapability extends CapabilityA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The device type for which this capability is valid for.")
+		ref library.DeviceType[1] deviceType;
+
+		@GenModel(documentation="The target location type.")
+		ref library.LocationType[1] locationType;
+	}
+
+	@GenModel(documentation="A possible allocations of a connection to a location or duct.")
+	class ConnectionInDuctOrLocationCapability extends CapabilityA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The connection type for which this capability is valid.")
+		ref library.ConnectionType[1] connectionType;
+
+		@GenModel(documentation="Either a location type or a duct type can be targets for a connection assignment. Never both.")
+		ref library.LocationType locationType;
+
+		@GenModel(documentation="Either a location type or a duct type can be targets for a connection assignment. Never both.")
+		ref library.DuctType ductType;
+	}
+
+	@GenModel(documentation="A possible allocations of a signal to a device or connection.")
+	class SignalOnConnectionOrDeviceCapability extends CapabilityA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The signal type for which this capability is valid.")
+		ref library.SignalType[1] signalType;
+
+		@GenModel(documentation="Only one either a device type or a connection type can be specified as a target for signals.")
+		ref library.DeviceType deviceType;
+
+		@GenModel(documentation="Only one either a device type or a connection type can be specified as a target for signals.")
+		ref library.ConnectionType connectionType;
+
+		@GenModel(documentation="The worst case transmission time of the signal in s. It makes only sense, if the transmission is deterministic.")
+		attr float[1] worstCaseTransmissionTime = "0.0";
+	}
+
+	@GenModel(documentation="A possible allocations of a sub device to a device.")
+	class SubdeviceInDeviceCapability extends CapabilityA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The device type that should be mapped to another device type")
+		ref library.DeviceType[1] subdeviceType;
+
+		@GenModel(documentation="The target device type for the subdevice capability.")
+		ref library.DeviceType[1] targetDeviceType;
+	}
+
+	@GenModel(documentation="A possible allocations of a sub device to a device.")
+	class SubconnectionInDeviceCapability extends CapabilityA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The device type that should be mapped to another device type")
+		ref library.ConnectionType[1] subconnectionType;
+
+		@GenModel(documentation="The target device type for the subdevice capability.")
+		ref library.DeviceType[1] targetDeviceType;
+	}
+
+	@GenModel(documentation="A resource consumption is the definition of how many resource of a single type are required for a capability. In addition, the original resource type can be referenced. ")
+	class ResourceConsumption extends common.OaamBaseElementA {
+
+		@GenModel(documentation="The number of resource to be consumed.")
+		attr double[1] count;
+
+		@GenModel(documentation="References the original resources of that were required by the type. These might differ from the capabilities resource due to resource alternatives. Capability resource are those realy consumed. Original resources are those originally demanded.")
+		ref library.Resource[*] originalResource;
+
+		@GenModel(documentation="The resource type to be consumed.")
+		ref library.ResourceType[1] type;
+	}
+
+	@GenModel(documentation="The root element of the capabilities model layer")
+	class Capabilities extends CapabilitiesContainerA {
+	}
+
+	@GenModel(documentation="Sub capabilities can be used to organize the capabilities model like file folders")
+	class Subcapabilities extends CapabilitiesContainerA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+	}
+
+}
+
+@GenModel(documentation="Constraints on system functions including the presented safety and timing restrictions.")
+@namespace(uri="http://www.oaam.de/oaam/model/v140/restrictions", prefix="de.oaam.model.restrictions")
+package restrictions {
+	@GenModel(documentation="The root element of the restrictions model.")
+	abstract class RestrictionsContainerA extends common.OaamBaseElementA {
+
+		@GenModel(documentation="All device type restrictions.")
+		val DeviceTypeRestriction[*] deviceTypeRestrictions;
+
+		@GenModel(documentation="All device restrictions.")
+		val DeviceRestriction[*] deviceRestrictions;
+
+		@GenModel(documentation="All location restrictions.")
+		val LocationRestriction[*] locationRestrictions;
+
+		@GenModel(documentation="All area restrictions.")
+		val AreaRestriction[*] areaRestrictions;
+
+		@GenModel(documentation="All power source restrictions.")
+		val PowerSourceRestriction[*] powerSourceRestrictions;
+
+		@GenModel(documentation="All atomic restrictions for tasks")
+		val TaskAtomicRestriction[*] taskAtomicRestrictions;
+
+		@GenModel(documentation="All task symmetry Restrictions")
+		val TaskSymmetryRestriction[*] taskSymmetryRestrictions;
+
+		@GenModel(documentation="All input synchronicity restrictions")
+		val SynchronicityRestriction[*] synchronicityRestriction;
+
+		@GenModel(documentation="All connection restrictions.")
+		val ConnectionRestriction[*] connectionRestrictions;
+
+		@GenModel(documentation="All connection type restrictions.")
+		val ConnectionTypeRestriction[*] connectionTypeRestrictions;
+
+		@GenModel(documentation="All segregation restrictions.")
+		val SegregationRestriction[*] segregationRestrictions;
+
+		@GenModel(documentation="Subrestrictions enable to organize restrictions like folders.")
+		val Subrestrictions[*] subrestrictions;
+
+		@GenModel(documentation="All time delay restrictions")
+		val TimeDelayRestriction[*] timeDelayRestrictions;
+	}
+
+	@GenModel(documentation="The root element of the restrictions layer")
+	class Restrictions extends RestrictionsContainerA {
+	}
+
+	@GenModel(documentation="An abstract base class for device restrictions.")
+	abstract class DeviceRestrictionA {
+
+		@GenModel(documentation="A reference to the allowed or not allowed devices.")
+		ref hardware.Device devices;
+	}
+
+	@GenModel(documentation="An abstract base class for connection restrictions.")
+	abstract class ConnectionRestrinctionA {
+
+		@GenModel(documentation="A reference to all allowed or connections.")
+		ref hardware.Connection[*] connections;
+	}
+
+	@GenModel(documentation="An abstract base class for task restrictions.")
+	abstract class TaskRestrictionA {
+
+		@GenModel(documentation="The task this constraint applies to.")
+		ref functions.Task[*] tasks;
+	}
+
+	@GenModel(documentation="An abstract base class for signal restrictions.")
+	abstract class SignalRestrictionA {
+
+		@GenModel(documentation="The signals this constraint applies to.")
+		ref functions.Signal[*] signals;
+	}
+
+	@GenModel(documentation="An abstract base class of sub-function restrictions.")
+	abstract class SubfunctionRestrictionA {
+
+		@GenModel(documentation="The sub functions this constraint applies to.")
+		ref functions.Subfunctions[*] subfunctions;
+	}
+
+	@GenModel(documentation="An abstract base class for task group restrictions.")
+	abstract class TaskGroupRestrictionA {
+
+		@GenModel(documentation="The task groups this constraint applies to.")
+		ref functions.TaskGroup[*] taskGroups;
+	}
+
+	@GenModel(documentation="An abstract base class for signal group restrictions.")
+	abstract class SignalGroupRestrictionA {
+
+		@GenModel(documentation="The signals this constraint applies to.")
+		ref functions.SignalGroup[*] signalGroups;
+	}
+
+	@GenModel(documentation="A location restriction forces devices, connections, tasks or signals to use or avoid certain locations.")
+	class LocationRestriction extends TaskRestrictionA, TaskGroupRestrictionA, SignalRestrictionA, SignalGroupRestrictionA, SubfunctionRestrictionA, DeviceRestrictionA, ConnectionRestrinctionA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="This is a textual reference to the location, which is not allowed in the case that no anatomy model is defined at the time of modeling the functions")
+		attr String locationName;
+
+		@GenModel(documentation="false = location must be used. true = location must not be used.")
+		attr boolean[1] isForbidden;
+
+		@GenModel(documentation="The location(s) to be used or avoided.")
+		ref anatomy.Location[*] locations;
+	}
+
+	@GenModel(documentation="An area restriction forces devices, connection, tasks or signals to use or aviod location and ducts of a certain area.")
+	class AreaRestriction extends TaskRestrictionA, TaskGroupRestrictionA, SignalRestrictionA, SignalGroupRestrictionA, SubfunctionRestrictionA, DeviceRestrictionA, ConnectionRestrinctionA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="If the area model is not available this can be used as a textual reference to the area to be avoided. This can be resolved later.")
+		attr String areaName;
+
+		@GenModel(documentation="false = use only this area. true = aviod this area.")
+		attr boolean[1] isForbidden;
+
+		@GenModel(documentation="The areas to be used or avoided. ")
+		ref anatomy.Area[*] areas;
+	}
+
+	@GenModel(documentation="A power restriction forces functions or signals to be mapped or not mapped to devices with a certain power supply.")
+	class PowerSourceRestriction extends TaskRestrictionA, TaskGroupRestrictionA, SignalRestrictionA, SignalGroupRestrictionA, SubfunctionRestrictionA, DeviceRestrictionA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A textual definition of the considered power source, of the power source model is not available by now. ")
+		attr String powerSourceName;
+
+		@GenModel(documentation="false = use the given power supply. true = not use the given power supply.")
+		attr boolean[1] isForbidden;
+
+		@GenModel(documentation="The power source(s) to be used or avoided.")
+		ref library.PowerSource[*] powerSources;
+	}
+
+	@GenModel(documentation="A device restriction forces functions and signals to use or not use a certain device.")
+	class DeviceRestriction extends TaskRestrictionA, TaskGroupRestrictionA, SignalRestrictionA, SignalGroupRestrictionA, SubfunctionRestrictionA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="If the device are not included in the model a textual notation of the device can be given which is later resolved.")
+		attr String deviceName;
+
+		@GenModel(documentation="false = use only the given device. true = do not use the given device. ")
+		attr boolean[1] isForbidden;
+
+		@GenModel(documentation="The device(s) to be used or avoided.")
+		ref hardware.Device[*] devices;
+	}
+
+	@GenModel(documentation="Device type restrictions force functions and device to use or not a certain device type.")
+	class DeviceTypeRestriction extends TaskRestrictionA, TaskGroupRestrictionA, SignalRestrictionA, SignalGroupRestrictionA, SubfunctionRestrictionA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A textual reference to the device type if the model of device types is not available. This can be resolved later.")
+		attr String deviceTypeName;
+
+		@GenModel(documentation="false = use only this device type. true = do not use the given device type.")
+		attr boolean[1] isForbidden;
+
+		@GenModel(documentation="The device type(s) to be used or avoided.")
+		ref library.DeviceType[*] deviceTypes;
+	}
+
+	@GenModel(documentation="A connetion restriction force signals to use or avoid a certain connction type. ")
+	class ConnectionTypeRestriction extends SignalRestrictionA, SignalGroupRestrictionA, SubfunctionRestrictionA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A textual reference to the connection type to be used or not used.")
+		attr String connectionTypeName;
+
+		@GenModel(documentation="false = use only this connection type. true = avoid this connection type.")
+		attr boolean[1] isForbidden;
+
+		@GenModel(documentation="The connection type(s) to be used or avoided.")
+		ref library.ConnectionType[*] connectionTypes;
+	}
+
+	@GenModel(documentation="A connection restriction forces signals to use or avaid a certain connection.")
+	class ConnectionRestriction extends SignalRestrictionA, SignalGroupRestrictionA, SubfunctionRestrictionA, common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A textual reference to the connection to be used or avoided. In case the connection model is not available. This can be resolved later.")
+		attr String connectionName;
+
+		@GenModel(documentation="false = use only this connection. false = this connection is forbidden.")
+		attr boolean[1] isForbidden;
+
+		@GenModel(documentation="The connection(s) to be used or avoided.")
+		ref hardware.Connection[*] connections;
+	}
+
+	@GenModel(documentation="Functions and signals can be defined to be segregated. This implies that they have to be mapped to different devices or connections. In the segregation two groups A and B are defined. Elements in group A must be segregated from elements in group B.")
+	class SegregationRestriction extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="All function of group A.")
+		ref functions.Task[+] tasksA;
+
+		@GenModel(documentation="All functions of group B")
+		ref functions.Task[+] tasksB;
+
+		@GenModel(documentation="Elements from group A and B must be mapped to host of dissimilar technology.")
+		attr boolean[1] dissimilarTechnology;
+
+		@GenModel(documentation="Elements from group A and B must be mapped to dissimilar locations.")
+		attr boolean[1] dissimilarLocation;
+
+		@GenModel(documentation="All sub functions of group A.")
+		ref functions.FunctionsContainerA[*] subfunctionsA;
+
+		@GenModel(documentation="All sub functions of group B.")
+		ref functions.FunctionsContainerA[*] subfunctionsB;
+
+		@GenModel(documentation="Elements from group A and B must be mapped to locations in dissimilar areas.")
+		attr boolean[1] dissimilarArea;
+
+		@GenModel(documentation="Elements from group A and B must be mapped on devices with dissimilar power supplies.")
+		attr boolean[1] dissimilarPowerSource;
+
+		@GenModel(documentation="All signals of group A.")
+		ref functions.Signal[*] signalsA;
+
+		@GenModel(documentation="All signals of group B.")
+		ref functions.Signal[*] signalsB;
+
+		@GenModel(documentation="All function groups of group A.")
+		ref functions.TaskGroup[*] taskGroupsA;
+
+		@GenModel(documentation="All function groups of group B.")
+		ref functions.TaskGroup[*] taskGroupsB;
+
+		@GenModel(documentation="All signal groups of group A.")
+		ref functions.SignalGroup[*] signalGroupsB;
+
+		@GenModel(documentation="All signal groups of group B.")
+		ref functions.SignalGroup[*] signalGroupsA;
+
+		@GenModel(documentation="All devices of group A.")
+		ref hardware.Device[*] devicesA;
+
+		@GenModel(documentation="All devices of group B.")
+		ref hardware.Device[*] devicesB;
+
+		@GenModel(documentation="All connections of group A.")
+		ref hardware.Connection[*] connectionsA;
+
+		@GenModel(documentation="All connections of group B.")
+		ref hardware.Connection[*] connectionsB;
+	}
+
+	@GenModel(documentation="Forces task to be executed in a given time interval. Can used to force synchrounous outputs or sensor reads")
+	class SynchronicityRestriction extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA, TaskRestrictionA {
+
+		@GenModel(documentation="The maximum allowed absolute time difference between all inputs under this constraint in seconds.")
+		attr float[1] maxJitter = "0.001";
+	}
+
+	@GenModel(documentation="Tasks referenced by this restriction must be hosted on the same hardware.")
+	class TaskAtomicRestriction extends TaskRestrictionA, TaskGroupRestrictionA, SubfunctionRestrictionA, common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+	}
+
+	@GenModel(documentation="Restricts two tasks to be mapped to symmetric targets. Targets can be locations, devices or areas")
+	class TaskSymmetryRestriction extends TaskRestrictionA, TaskGroupRestrictionA, SubfunctionRestrictionA, common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="The type of symmetry to enforce.")
+		attr SymmetryTypesE[1] type;
+	}
+
+	@GenModel(documentation="Enforces a maximum transprotation delay between the start task and the end task")
+	class TimeDelayRestriction extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="The maximum allowed delay for the path in seconds")
+		attr float[1] delay = "1";
+
+		@GenModel(documentation="Begin of the time delay: Start of this task")
+		ref functions.Task[1] startTask;
+
+		@GenModel(documentation="End of the time delay: Start of this task")
+		ref functions.Task[1] endTask;
+	}
+
+	@GenModel(documentation="With subrestrictions the restrictions layer can be organized like folders")
+	class Subrestrictions extends RestrictionsContainerA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+	}
+
+	@GenModel(documentation="Enum of all possible symmetry types")
+	enum SymmetryTypesE {
+
+		@GenModel(documentation="Symmetric locations, e.g. left cabin and right cabin")
+		LOCATION = 0;
+
+		@GenModel(documentation="Symmetric devices, e.g. lane A and lane B of a duplex device.")
+		DEVICE = 1;
+
+		@GenModel(documentation="Symmetric areas, e.g. left and right side of the aircraft.")
+		AREA = 2;
+
+		@GenModel(documentation="Symmetric device types, ")
+		DEVICE_TYPE = 3;
+	}
+
+}
+
+@GenModel(documentation="The assignment of tasks functions to hardware and hardware to anatomy.")
+@namespace(uri="http://www.oaam.de/oaam/model/v140/allocations", prefix="de.oaam.model.allocations")
+package allocations {
+	@GenModel(documentation="The root element of the allocations model.")
+	abstract class AllocationsContainerA extends common.OaamBaseElementA {
+
+		@GenModel(documentation="All device assignments.")
+		val DeviceAssignment[*] deviceAssignments;
+
+		@GenModel(documentation="All subdevice assignments.")
+		val SubdeviceAssignment[*] subdeviceAssignments;
+
+		@GenModel(documentation="All connection assignments.")
+		val ConnectionAssignment[*] connectionAssignments;
+
+		@GenModel(documentation="All task assignments.")
+		val TaskAssignment[*] taskAssignments;
+
+		@GenModel(documentation="All signal assignments.")
+		val SignalAssignment[*] signalAssignments;
+
+		@GenModel(documentation="All suballocations")
+		val Suballocations[*] suballocations;
+
+		@GenModel(documentation="All subconnection assignments of the allocations package.")
+		val SubconnectionAssignment[*] subconnectionAssignments;
+	}
+
+	@GenModel(documentation="A allocations of a function to a device.")
+	class TaskAssignment extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to the used capability, which specifies the resource consumption.")
+		ref capabilities.TaskOnDeviceCapability[1] capability;
+
+		@GenModel(documentation="A reference to the function.")
+		ref functions.Task[1] task;
+
+		@GenModel(documentation="A reference to the device.")
+		ref hardware.Device[1] device;
+
+		@GenModel(documentation="Schedules for the tasks on this device. Multiple schedules are valid.")
+		val Schedule[*] schedules;
+	}
+
+	@GenModel(documentation="A allocations of a signal to a chain of devices and connections.")
+	class SignalAssignment extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The segment of this allocations.")
+		val SignalAssignmentSegment[*] segments;
+
+		@GenModel(documentation="A reference to the signal.")
+		ref functions.Signal[1] signal;
+	}
+
+	@GenModel(documentation="A allocations of a connection to locations and ducts.")
+	class ConnectionAssignment extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="The segments of this connection allocations.")
+		val ConnectionAssignmentSegment[*] segments;
+
+		@GenModel(documentation="A reference to the connection.")
+		ref hardware.Connection[1] connection;
+	}
+
+	@GenModel(documentation="A signal segment is the allocations of a signal to either one device or one connection. Many consecutive segment define a full signal allocations path")
+	class SignalAssignmentSegment extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to the used capabilty, which specifies the resource consumtion.")
+		ref capabilities.SignalOnConnectionOrDeviceCapability[1] capability;
+
+		@GenModel(documentation="A reference to the device.")
+		ref hardware.Device device;
+
+		@GenModel(documentation="Either device or connection can be filled. Not both at the same time.")
+		ref hardware.Connection connection;
+
+		@GenModel(documentation="The schedules for this signal segment")
+		val Schedule[*] schedules;
+	}
+
+	@GenModel(documentation="A allocations of a device to a location.")
+	class DeviceAssignment extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to the device.")
+		ref hardware.Device[1] device;
+
+		@GenModel(documentation="A reference to the location.")
+		ref anatomy.Location[1] location;
+
+		@GenModel(documentation="A reference to the used capability, which specifies the resource consumtion.")
+		ref capabilities.DeviceInLocationCapability[1] capability;
+	}
+
+	@GenModel(documentation="A connection segment is the allocations of a connection to either one location or duct. Many consecutive segment define a full connection allocations path")
+	class ConnectionAssignmentSegment extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to the used capability, which specifies the resource consumtion.")
+		ref capabilities.ConnectionInDuctOrLocationCapability[1] capability;
+
+		@GenModel(documentation="Only either a location or a duct can be set as target for connection segments")
+		ref anatomy.Location location;
+
+		@GenModel(documentation="Only either a location or a duct can be set as target for connection segments")
+		ref anatomy.Duct duct;
+	}
+
+	@GenModel(documentation="A allocations of a sub device to a device or subdevice.")
+	class SubdeviceAssignment extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to the used capability, which specifies the resource consumtion.")
+		ref capabilities.SubdeviceInDeviceCapability[1] capability;
+
+		@GenModel(documentation="A reference to the subdevice.")
+		ref hardware.Device[1] subdevice;
+
+		@GenModel(documentation="A reference to the host device.")
+		ref hardware.Device[1] targetDevice;
+	}
+
+	@GenModel(documentation="A allocations of a subconnection to a device or subdevice.")
+	class SubconnectionAssignment extends common.OaamBaseElementA, scenario.VariantDependentElementA, scenario.ModeDependentElementA {
+
+		@GenModel(documentation="A reference to the used capability, which specifies the resource consumtion.")
+		ref capabilities.SubconnectionInDeviceCapability[1] capability;
+
+		@GenModel(documentation="A reference to the subconnection.")
+		ref hardware.Connection[1] subconnection;
+
+		@GenModel(documentation="A reference to the host device.")
+		ref hardware.Device[1] targetDevice;
+	}
+
+	@GenModel(documentation="The root element of the allocationss layer")
+	class Allocations extends AllocationsContainerA {
+	}
+
+	@GenModel(documentation="With suballocations the assignments can be organized like folders")
+	class Suballocations extends AllocationsContainerA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+	}
+
+	@GenModel(documentation="A schedule assigens periodic or non-periodic time slots to a task assignment.")
+	class Schedule extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="The execution rate of periodic tasks in [Hz]. Non-periodic tasks shall have a rate of 0.")
+		attr double rate = "0.0";
+
+		@GenModel(documentation="Define this task as periodic or not.")
+		attr boolean[1] isPeriodic = true;
+
+		@GenModel(documentation="Higher values mean higher priority. Higher priority tasks are calculated before others in the same time slot in case of preemptive sheduling.")
+		attr int[1] priority = 0;
+
+		@GenModel(documentation="All active times of this schedule.")
+		val ScheduledTime[+] scheduledTimes;
+	}
+
+	@"http://www.obeo.fr/dsl/dnc/archetype"(archetype="Role")
+	@GenModel(documentation="Single active times within a schedule. In case the schedule is periodic, the active time slots repeat after the end of the period. ")
+	class ScheduledTime extends common.OaamBaseElementA, scenario.ModeDependentElementA, scenario.VariantDependentElementA {
+
+		@GenModel(documentation="The cycle id of this scheduled time. If several sheduled times for the same schedule exits, they should have consecutive ids. This enables different active times in sequential cycles of periodic tasks. Usually if only one active time is defined, the cycle should be 1.")
+		attr int[1] cycle = 1;
+
+		@GenModel(documentation="The start time of the task relative to the period begin (periodic task) or absolute start point (non-periodic task) in [s].")
+		attr double[1] startTime = "0.0";
+
+		@GenModel(documentation="The duration of the task's active time. Enter 0 for if the task shall not be interrupted.")
+		attr double[1] duration = "0.0";
+
+		@GenModel(documentation="If the task is restarted at the begin of the active time or if a previously interrupted state is recovered.")
+		attr boolean[1] restart = true;
+	}
+
+}
+

@@ -1,0 +1,3461 @@
+<?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<?import http://www.eclipse.org/emf/2002/Ecore?>
+<package name="pom" nsURI="http://maven.apache.org/POM/4.0.0" nsPrefix="">
+	<class name="Activation">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			The conditions within the build runtime environment which will trigger
+			the automatic inclusion of the build profile.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Activation"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="activeByDefault" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Flag specifying whether this profile is active by default."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="activeByDefault"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="jdk" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Specifies that this profile will be activated when a matching JDK is detected. For example, &lt;code&gt;1.4&lt;/code&gt;
+				only activates on JDKs versioned 1.4, while &lt;code&gt;!1.4&lt;/code&gt; matches any JDK that is not version 1.4.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="jdk"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="os" containment="true" resolveProxies="false" type="ActivationOS">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Specifies that this profile will be activated when matching operating system attributes are detected.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="os"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="property" containment="true" resolveProxies="false" type="ActivationProperty">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Specifies that this profile will be activated when this system property is specified.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="property"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="file" containment="true" resolveProxies="false" type="ActivationFile">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Specifies that this profile will be activated based on existence of a file.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="file"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ActivationFile">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			This is the file specification used to activate the profile. The missing value will be the location
+			of a file that needs to exist, and if it doesn't the profile will be activated.  On the other hand exists will test
+			for the existence of the file and if it is there the profile will be activated.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="ActivationFile"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="missing" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The name of the file that must be missing to activate the profile."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="missing"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="exists" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The name of the file that must exist to activate the profile."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="exists"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ActivationOS">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			This is an activator which will detect an operating system's attributes in order to activate
+			its profile.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="ActivationOS"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="name" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The name of the operating system to be used to activate the profile. This must be an exact match
+				of the &lt;code&gt;${os.name}&lt;/code&gt; Java property, such as &lt;code&gt;Windows XP&lt;/code&gt;."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="family" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The general family of the OS to be used to activate the profile, such as &lt;code&gt;windows&lt;/code&gt; or &lt;code&gt;unix&lt;/code&gt;."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="family"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="arch" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The architecture of the operating system to be used to activate the profile."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="arch"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="version" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The version of the operating system to be used to activate the profile."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="version"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ActivationProperty">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			This is the property specification used to activate a profile. If the value field is empty,
+			then the existence of the named property will activate the profile, otherwise it does a case-sensitive
+			match against the property value as well.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="ActivationProperty"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="name" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The name of the property to be used to activate a profile."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="value" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The value of the property required to activate a profile."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="value"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Build">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="3.0.0+"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Build"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="sourceDirectory" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				This element specifies a directory containing the source
+				of the project. The generated build system will compile
+				the source in this directory when the project is built.
+				The path given is relative to the project descriptor.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="sourceDirectory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="scriptSourceDirectory" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				This element specifies a directory containing the script sources
+				of the project. This directory is meant to be different from the
+				sourceDirectory, in that its contents will be copied to the output
+				directory in most cases (since scripts are interpreted rather than
+				compiled).
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="scriptSourceDirectory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="testSourceDirectory" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				This element specifies a directory containing the unit test
+				source of the project. The generated build system will
+				compile these directories when the project is being tested.
+				The path given is relative to the project descriptor.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="testSourceDirectory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="outputDirectory" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The directory where compiled application classes are placed.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="outputDirectory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="testOutputDirectory" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The directory where compiled test classes are placed.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="testOutputDirectory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="extensions" containment="true" resolveProxies="false" type="ExtensionsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				A set of build extensions to use from this project."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="extensions"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="defaultGoal" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The default goal (or phase in Maven 2) to execute when none is specified for the project.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="defaultGoal"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="resources" containment="true" resolveProxies="false" type="ResourcesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				This element describes all of the classpath resources such as properties files associated with a
+				project. These resources are often included in the final package.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="resources"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="testResources" containment="true" resolveProxies="false" type="TestResourcesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				This element describes all of the classpath resources such as properties files associated with a
+				project's unit tests.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="testResources"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="directory" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The directory where all files generated by the build are placed.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="directory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="finalName" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The filename (excluding the extension, and with no path information) that the produced artifact
+				will be called. The default value is &lt;code&gt;${artifactId}-${version}&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="finalName"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="filters" containment="true" resolveProxies="false" type="FiltersType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The list of filter properties files that are used when filtering is enabled.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="filters"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="pluginManagement" containment="true" resolveProxies="false" type="PluginManagement">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Default plugin information to be made available for reference by 
+				projects derived from this one. This plugin configuration will not
+				be resolved or bound to the lifecycle unless referenced. Any local
+				configuration for a given plugin will override the plugin's entire
+				definition here.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="pluginManagement"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="plugins" containment="true" resolveProxies="false" type="PluginsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The list of plugins to use.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="plugins"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="BuildBase">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="3.0.0+"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="BuildBase"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="defaultGoal" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The default goal (or phase in Maven 2) to execute when none is specified for the project.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="defaultGoal"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="resources" containment="true" resolveProxies="false" type="ResourcesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				This element describes all of the classpath resources such as properties files associated with a
+				project. These resources are often included in the final package.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="resources"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="testResources" containment="true" resolveProxies="false" type="TestResourcesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				This element describes all of the classpath resources such as properties files associated with a
+				project's unit tests.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="testResources"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="directory" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The directory where all files generated by the build are placed.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="directory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="finalName" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The filename (excluding the extension, and with no path information) that the produced artifact
+				will be called. The default value is &lt;code&gt;${artifactId}-${version}&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="finalName"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="filters" containment="true" resolveProxies="false" type="FiltersType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The list of filter properties files that are used when filtering is enabled.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="filters"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="pluginManagement" containment="true" resolveProxies="false" type="PluginManagement">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Default plugin information to be made available for reference by 
+				projects derived from this one. This plugin configuration will not
+				be resolved or bound to the lifecycle unless referenced. Any local
+				configuration for a given plugin will override the plugin's entire
+				definition here.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="pluginManagement"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="plugins" containment="true" resolveProxies="false" type="PluginsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The list of plugins to use.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="plugins"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="CiManagement">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="CiManagement"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="system" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The name of the continuous integration system, e.g. &lt;code&gt;continuum&lt;/code&gt;."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="system"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="url" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				URL for the continuous integration system used by the project if it has a web interface."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="url"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="notifiers" containment="true" resolveProxies="false" type="NotifiersType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Configuration for notifying developers/users when a build is 
+				unsuccessful, including user information and notification mode.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="notifiers"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ConfigurationType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="configuration_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="any" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="elementWildcard"/>
+				<EStringToStringMapEntry key="wildcards" value="##any"/>
+				<EStringToStringMapEntry key="name" value=":0"/>
+				<EStringToStringMapEntry key="processing" value="skip"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Contributor">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="3.0.0+
+			
+			Description of a person who has contributed to the project, but who does
+			not have commit privileges. Usually, these contributions come in the
+			form of patches submitted.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Contributor"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="name" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The full name of the contributor."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="email" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The email address of the contributor."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="email"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="url" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The URL for the homepage of the contributor."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="url"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="organization" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The organization to which the contributor belongs."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="organization"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="organizationUrl" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The URL of the organization."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="organizationUrl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="roles" containment="true" resolveProxies="false" type="RolesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The roles the contributor plays in the project.  Each role is
+				described by a &lt;code&gt;role&lt;/code&gt; element, the body of which is a
+				role name. This can also be used to describe the contribution.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="roles"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="timezone" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The timezone the contributor is in. This is a number in the range -11 to 12.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="timezone"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="properties" containment="true" resolveProxies="false" type="PropertiesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				Properties about the contributor, such as an instant messenger handle.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="properties"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ContributorsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="contributors_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="contributor" upperBound="-1" containment="true" resolveProxies="false" type="Contributor">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="contributor"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="DependenciesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="dependencies_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="dependency" upperBound="-1" containment="true" resolveProxies="false" type="Dependency">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="dependency"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="Dependency">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="3.0.0+"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Dependency"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="groupId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The project group that produced the dependency, e.g.
+				&lt;code&gt;org.apache.maven&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="groupId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="artifactId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The unique id for an artifact produced by the project group, e.g.
+				&lt;code&gt;maven-artifact&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="artifactId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="version" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The version of the dependency, e.g. &lt;code&gt;3.2.1&lt;/code&gt;. In Maven 2, this can also be
+				specified as a range of versions.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="version"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="type" defaultValueLiteral="jar" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The type of dependency. This defaults to &lt;code&gt;jar&lt;/code&gt;. While it usually represents the extension on
+				the filename of the dependency, that is not always the case. A type can be mapped to a different
+				extension and a classifier.
+				The type often correspongs to the packaging used, though this is also not always the case.
+				Some examples are &lt;code&gt;jar&lt;/code&gt;, &lt;code&gt;war&lt;/code&gt;, &lt;code&gt;ejb-client&lt;/code&gt; and &lt;code&gt;test-jar&lt;/code&gt;.
+				New types can be defined by plugins that set
+				&lt;code&gt;extensions&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;, so this is not a complete list.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="classifier" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The classifier of the dependency. This allows distinguishing two artifacts that belong to the same POM but
+				were built differently, and is appended to the filename after the version. For example,
+				&lt;code&gt;jdk14&lt;/code&gt; and &lt;code&gt;jdk15&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="classifier"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="scope" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The scope of the dependency - &lt;code&gt;compile&lt;/code&gt;, &lt;code&gt;runtime&lt;/code&gt;, &lt;code&gt;test&lt;/code&gt;,
+				&lt;code&gt;system&lt;/code&gt;, and &lt;code&gt;provided&lt;/code&gt;. Used to
+				calculate the various classpaths used for compilation, testing, and so on. It also assists in determining
+				which artifacts to include in a distribution of this project. For more information, see
+				&lt;a href="http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html"&gt;the
+				dependency mechanism&lt;/a&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="scope"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="systemPath" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				FOR SYSTEM SCOPE ONLY. Note that use of this property is &lt;b&gt;discouraged&lt;/b&gt; and may be replaced in later
+				versions. This specifies the path on the filesystem for this dependency.
+				Requires an absolute path for the value, not relative.
+				Use a property that gives the machine specific absolute path,
+				e.g. &lt;code&gt;${java.home}&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="systemPath"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="exclusions" containment="true" resolveProxies="false" type="ExclusionsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Lists a set of artifacts that should be excluded from this dependency's artifact list when it comes to
+				calculating transitive dependencies.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="exclusions"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="optional" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Indicates the dependency is optional for use of this library. While the version of the dependency will be
+				taken into account for dependency calculation if the library is used elsewhere, it will not be passed on
+				transitively.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="optional"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="DependencyManagement">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			Section for management of default dependency information for use in a group of POMs.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="DependencyManagement"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="dependencies" containment="true" resolveProxies="false" type="DependenciesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The dependencies specified here are not used until they
+				are referenced in a POM within the group. This allows the
+				specification of a "standard" version for a particular
+				dependency.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="dependencies"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="DeploymentRepository">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			Repository contains the information needed for deploying to the remote repoistory.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="DeploymentRepository"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="uniqueVersion" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Whether to assign snapshots a unique version comprised of the timestamp and build number, or to
+				use the same version each time"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="uniqueVersion"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="id" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				A unique identifier for a repository. This is used to match the repository to configuration in
+				the &lt;code&gt;settings.xml&lt;/code&gt; file, for example.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="id"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Human readable name of the repository.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="url" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The url of the repository, in the form &lt;code&gt;protocol://hostname/path&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="url"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="layout" defaultValueLiteral="default" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The type of layout this repository uses for locating and storing artifacts - can be &lt;code&gt;legacy&lt;/code&gt; or
+				&lt;code&gt;default&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="layout"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Developer">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="3.0.0+
+			
+			Information about one of the committers on this project.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Developer"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="id" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The unique ID of the developer in the SCM."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="id"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The full name of the contributor."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="email" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The email address of the contributor."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="email"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="url" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The URL for the homepage of the contributor."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="url"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="organization" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The organization to which the contributor belongs."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="organization"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="organizationUrl" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The URL of the organization."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="organizationUrl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="roles" containment="true" resolveProxies="false" type="RolesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The roles the contributor plays in the project.  Each role is
+				described by a &lt;code&gt;role&lt;/code&gt; element, the body of which is a
+				role name. This can also be used to describe the contribution.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="roles"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="timezone" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The timezone the contributor is in. This is a number in the range -11 to 12.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="timezone"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="properties" containment="true" resolveProxies="false" type="PropertiesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				Properties about the contributor, such as an instant messenger handle.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="properties"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="DevelopersType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="developers_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="developer" upperBound="-1" containment="true" resolveProxies="false" type="Developer">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="developer"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="DistributionManagement">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			This elements describes all that pertains to distribution for a project.
+			It is primarily used for deployment of artifacts and the site
+			produced by the build.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="DistributionManagement"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="repository" containment="true" resolveProxies="false" type="DeploymentRepository">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Information needed to deploy the artifacts generated by the project to a remote repository.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="repository"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="snapshotRepository" containment="true" resolveProxies="false" type="DeploymentRepository">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Where to deploy snapshots of artifacts to. If not given, it defaults to the &lt;code&gt;repository&lt;/code&gt; element.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="snapshotRepository"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="site" containment="true" resolveProxies="false" type="Site">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Information needed for deploying the web site of the project.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="site"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="downloadUrl" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0+
+				
+				The URL of the project's download page. If not given users will be referred to the homepage given by
+				&lt;code&gt;url&lt;/code&gt;. This is given to assist in locating artifacts that are not in the repository due to
+				licensing restrictions.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="downloadUrl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="relocation" containment="true" resolveProxies="false" type="Relocation">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Relocation information of the artifact if it has been moved to a new group ID and/or artifact ID.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="relocation"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="status" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Gives the status of this artifact in the remote repository. This must not be set in your local
+				project, as it is updated by tools placing it in the reposiory. Valid values are: &lt;code&gt;none&lt;/code&gt; (default),
+				&lt;code&gt;converted&lt;/code&gt; (repository manager converted this from an Maven 1 POM), &lt;code&gt;partner&lt;/code&gt;
+				(directly synced from a partner Maven 2 repository), &lt;code&gt;deployed&lt;/code&gt; (was deployed from a Maven 2
+				instance), &lt;code&gt;verified&lt;/code&gt; (has been hand verified as correct and final).
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="status"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="DocumentRoot">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value=""/>
+			<EStringToStringMapEntry key="kind" value="mixed"/>
+		</EAnnotation>
+		<attr name="mixed" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="elementWildcard"/>
+				<EStringToStringMapEntry key="name" value=":mixed"/>
+			</EAnnotation>
+		</attr>
+		<ref name="xMLNSPrefixMap" upperBound="-1" transient="true" containment="true" resolveProxies="false" type="EStringToStringMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="xmlns:prefix"/>
+			</EAnnotation>
+		</ref>
+		<ref name="xSISchemaLocation" upperBound="-1" transient="true" containment="true" resolveProxies="false" type="EStringToStringMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="xsi:schemaLocation"/>
+			</EAnnotation>
+		</ref>
+		<ref name="project" upperBound="-2" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="Model">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The &lt;code&gt;&amp;lt;project&amp;gt;&lt;/code&gt; element is the root of the descriptor.
+				The following table lists all of the possible child elements.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="project"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ExcludesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="excludes_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="exclude" unique="false" upperBound="-1" type="//String">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="exclude"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Exclusion">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Exclusion"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="artifactId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The artifact ID of the project to exclude."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="artifactId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="groupId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The group ID of the project to exclude."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="groupId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ExclusionsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="exclusions_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="exclusion" upperBound="-1" containment="true" resolveProxies="false" type="Exclusion">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="exclusion"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ExecutionGoalsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="execution_._goals_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="goal" unique="false" upperBound="-1" type="//String">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="goal"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ExecutionsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="executions_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="execution" upperBound="-1" containment="true" resolveProxies="false" type="PluginExecution">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="execution"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="Extension">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			Describes a build extension to utilise."/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Extension"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="groupId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The group ID of the extension's artifact."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="groupId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="artifactId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The artifact ID of the extension."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="artifactId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="version" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The version of the extension."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="version"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ExtensionsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="extensions_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="extension" upperBound="-1" containment="true" resolveProxies="false" type="Extension">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="extension"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="FiltersType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="filters_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="filter" unique="false" upperBound="-1" type="//String">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="filter"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="GoalsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="goals_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="any" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="elementWildcard"/>
+				<EStringToStringMapEntry key="wildcards" value="##any"/>
+				<EStringToStringMapEntry key="name" value=":0"/>
+				<EStringToStringMapEntry key="processing" value="skip"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="IncludesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="includes_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="include" unique="false" upperBound="-1" type="//String">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="include"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="IssueManagement">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			Information about the issue tracking (or bug tracking) system used to manage this project.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="IssueManagement"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="system" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The name of the issue management system, e.g. Bugzilla"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="system"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="url" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				URL for the issue management system used by the project."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="url"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="License">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="3.0.0+
+			
+			Describes the licenses for this project.  This is used to generate
+			the license page of the project's web site, as well as being taken into consideration in other reporting and
+			validation. The licenses listed for the project are that of the project itself, and not of dependencies.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="License"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="name" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The full legal name of the license."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="url" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The official url for the license text."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="url"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="distribution" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The primary method by which this project may be distributed.
+				&lt;dl&gt;
+				&lt;dt&gt;repo&lt;/dt&gt;
+				&lt;dd&gt;may be downloaded from the Maven repository&lt;/dd&gt;
+				&lt;dt&gt;manual&lt;/dt&gt;
+				&lt;dd&gt;user must manually download and install the dependency.&lt;/dd&gt;
+				&lt;/dl&gt;
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="distribution"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="comments" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				Addendum information pertaining to this license.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="comments"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="LicensesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="licenses_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="license" upperBound="-1" containment="true" resolveProxies="false" type="License">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="license"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="MailingList">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="3.0.0+
+			
+			This element describes all of the mailing lists associated with
+			a project. The auto-generated site references this information.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="MailingList"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="name" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The name of the mailing list."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="subscribe" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The email address or link that can be used to subscribe to the mailing list.
+				If this is an email address, a
+				&lt;code&gt;mailto:&lt;/code&gt; link will automatically be created when
+				the documentation is created.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="subscribe"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="unsubscribe" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The email address or link that can be used to unsubscribe to
+				the mailing list.  If this is an email address, a
+				&lt;code&gt;mailto:&lt;/code&gt; link will automatically be created
+				when the documentation is created.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="unsubscribe"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="post" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The email address or link that can be used to post to
+				the mailing list.  If this is an email address, a
+				&lt;code&gt;mailto:&lt;/code&gt; link will automatically be created
+				when the documentation is created.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="post"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="archive" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The link to a URL where you can browse the mailing list archive.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="archive"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="otherArchives" containment="true" resolveProxies="false" type="OtherArchivesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The link to alternate URLs where you can browse the list archive.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="otherArchives"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="MailingListsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="mailingLists_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="mailingList" upperBound="-1" containment="true" resolveProxies="false" type="MailingList">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="mailingList"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="Model">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="3.0.0+
+			
+			The &lt;code&gt;&amp;lt;project&amp;gt;&lt;/code&gt; element is the root of the descriptor.
+			The following table lists all of the possible child elements.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Model"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="parent" containment="true" resolveProxies="false" type="Parent">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The location of the parent project, if one exists. Values from the
+				parent project will be the default for this project if they are
+				left unspecified. The location is given as a group ID, artifact ID and version.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="parent"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="modelVersion" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Declares to which version of project descriptor this POM conforms."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="modelVersion"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="groupId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				A universally unique identifier for a project. It is normal to
+				use a fully-qualified package name to distinguish it from other projects with a similar name
+				(eg. &lt;code&gt;org.apache.maven&lt;/code&gt;).
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="groupId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="artifactId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The identifier for this artifact that is unique within the group given by the group ID.
+				An artifact is something that is either produced or used by a project. Examples of artifacts produced by
+				Maven for a project include: JARs, source and binary distributions, and WARs.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="artifactId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="packaging" defaultValueLiteral="jar" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The type of artifact this project produces, for example &lt;code&gt;jar&lt;/code&gt;
+				&lt;code&gt;war&lt;/code&gt;
+				&lt;code&gt;ear&lt;/code&gt;
+				&lt;code&gt;pom&lt;/code&gt;.
+				Plugins can create their own packaging, and
+				therefore their own packaging types,
+				so this list does not contain all possible types.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="packaging"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The full name of the project.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="version" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The current version of the artifact produced by this project.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="version"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="description" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				A detailed description of the project, used by Maven whenever it needs to describe the project,
+				such as on the web site. While this element can be specified as CDATA to enable
+				the use of HTML tags within the description, it is discouraged to allow plain text representation.
+				If you need to modify the index page of the generated web site, you are able to specify your own instead
+				of adjusting this text.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="description"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="url" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The URL to the project's homepage.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="url"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="prerequisites" containment="true" resolveProxies="false" type="Prerequisites">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Describes the prerequisites in the build environment for this project.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="prerequisites"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="issueManagement" containment="true" resolveProxies="false" type="IssueManagement">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The project's issue management system information."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="issueManagement"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="ciManagement" containment="true" resolveProxies="false" type="CiManagement">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The project's continuous integration information."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ciManagement"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="inceptionYear" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				The year of the project's inception, specified with 4 digits.
+				This value is used when generating copyright notices as well as being informational.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="inceptionYear"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="mailingLists" containment="true" resolveProxies="false" type="MailingListsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				Contains information about a project's mailing lists.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="mailingLists"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="developers" containment="true" resolveProxies="false" type="DevelopersType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				Describes the committers of a project.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="developers"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="contributors" containment="true" resolveProxies="false" type="ContributorsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				Describes the contributors to a project that are not yet committers.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="contributors"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="licenses" containment="true" resolveProxies="false" type="LicensesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				This element describes all of the licenses for this project.  
+				Each license is described by a &lt;code&gt;license&lt;/code&gt; element, which 
+				is then described by additional elements.
+				Projects should only list the license(s) that applies to the project 
+				and not the licenses that apply to dependencies.
+				If multiple licenses are listed, it is assumed that the user can select any of them, not that they
+				must accept all.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="licenses"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="scm" containment="true" resolveProxies="false" type="Scm">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Specification for the SCM used by the project, such as CVS, Subversion, etc."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="scm"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="organization" containment="true" resolveProxies="false" type="Organization">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				This element describes various attributes of the organization to
+				which the project belongs.  These attributes are utilized when
+				documentation is created (for copyright notices and links).
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="organization"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="build" containment="true" resolveProxies="false" type="Build">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				Information required to build the project."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="build"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="profiles" containment="true" resolveProxies="false" type="ProfilesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				A listing of project-local build profiles which will modify the build process when activated.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="profiles"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="modules" containment="true" resolveProxies="false" type="ModulesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The modules (sometimes called subprojects) to build as a part of this project.
+				Each module listed is a relative path to the directory containing the module.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="modules"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="repositories" containment="true" resolveProxies="false" type="RepositoriesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The lists of the remote repositories for discovering dependencies and
+				extensions."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="repositories"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="pluginRepositories" containment="true" resolveProxies="false" type="PluginRepositoriesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The lists of the remote repositories for discovering plugins for builds and reports."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="pluginRepositories"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dependencies" containment="true" resolveProxies="false" type="DependenciesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				This element describes all of the dependencies associated with a
+				project.
+				These dependencies are used to construct a classpath for your 
+				project during the build process. They are automatically downloaded from the
+				repositories defined in this project.
+				See &lt;a href="http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html"&gt;the
+				dependency mechanism&lt;/a&gt; for more information.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="dependencies"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="reports" containment="true" resolveProxies="false" type="ReportsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				&lt;b&gt;Deprecated&lt;/b&gt;. Now ignored by Maven.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="reports"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="reporting" containment="true" resolveProxies="false" type="Reporting">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				This element includes the specification of report plugins to use to generate the reports on the
+				Maven-generated site.  These reports will be run when a user executes &lt;code&gt;mvn site&lt;/code&gt;.  All of the
+				reports will be included in the navigation bar for browsing.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="reporting"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dependencyManagement" containment="true" resolveProxies="false" type="DependencyManagement">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Default dependency information for projects that inherit from
+				this one. The dependencies in this section are not immediately resolved.
+				Instead, when a POM derived from this one declares a dependency 
+				described by a matching groupId and artifactId, the version and other values from this
+				section are used for that dependency if they were not already specified.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="dependencyManagement"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="distributionManagement" containment="true" resolveProxies="false" type="DistributionManagement">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Distribution information for a project that enables deployment of the site
+				and artifacts to remote web servers and repositories respectively."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="distributionManagement"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="properties" containment="true" resolveProxies="false" type="PropertiesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Properties that can be used throughout the POM as a substitution, and are used as filters in resources
+				if enabled. The format is &lt;code&gt;&amp;lt;name&amp;gt;value&amp;lt;/name&amp;gt;&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="properties"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ModulesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="modules_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="module" unique="false" upperBound="-1" type="//String">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="module"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Notifier">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			Configures one method for notifying users/developers when a build breaks.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Notifier"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="type" defaultValueLiteral="mail" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The mechanism used to deliver notifications."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sendOnError" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Whether to send notifications on error."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="sendOnError"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sendOnFailure" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Whether to send notifications on failure."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="sendOnFailure"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sendOnSuccess" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Whether to send notifications on success."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="sendOnSuccess"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sendOnWarning" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Whether to send notifications on warning."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="sendOnWarning"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="address" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				&lt;b&gt;Deprecated&lt;/b&gt;. Where to send the notification to - eg email address.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="address"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="configuration" containment="true" resolveProxies="false" type="ConfigurationType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="0.0.0+
+				Extended configuration specific to this notifier goes here."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="configuration"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="NotifiersType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="notifiers_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="notifier" upperBound="-1" containment="true" resolveProxies="false" type="Notifier">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="notifier"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="Organization">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="3.0.0+
+			Specifies the organization that produces this project."/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Organization"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="name" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The full name of the organization."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="url" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				The URL to the organization's home page."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="url"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OtherArchivesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="otherArchives_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="otherArchive" unique="false" upperBound="-1" type="//String">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="otherArchive"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Parent">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Parent"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="artifactId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The artifact id of the parent project to inherit from."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="artifactId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="groupId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The group id of the parent project to inherit from."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="groupId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="version" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The version of the parent project to inherit."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="version"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="relativePath" defaultValueLiteral="../pom.xml" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The relative path of the parent &lt;code&gt;pom.xml&lt;/code&gt; file within the check out.
+				The default value is &lt;code&gt;../pom.xml&lt;/code&gt;.
+				Maven looks for the parent pom first in the reactor of currently building projects, then in this location on
+				the filesystem, then the local repository, and lastly in the remote repo.
+				&lt;code&gt;relativePath&lt;/code&gt; allows you to select a different location,
+				for example when your structure is flat, or deeper without an intermediate parent pom.
+				However, the group ID, artifact ID and version are still required,
+				and must match the file in the location given or it will revert to the repository for the POM.
+				This feature is only for enhancing the development in a local checkout of that project.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="relativePath"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Plugin">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Plugin"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="groupId" defaultValueLiteral="org.apache.maven.plugins" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The group ID of the plugin in the repository."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="groupId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="artifactId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The artifact ID of the plugin in the repository."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="artifactId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="version" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The version (or valid range of verisons) of the plugin to be used."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="version"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="extensions" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Whether to load Maven extensions (such as packaging and type handlers) from this
+				plugin. For performance reasons, this should only be enabled when necessary."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="extensions"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="executions" containment="true" resolveProxies="false" type="ExecutionsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Multiple specifications of a set of goals to execute during the build lifecycle, each having
+				(possibly) different
+				configuration."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="executions"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dependencies" containment="true" resolveProxies="false" type="DependenciesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Additional dependencies that this project needs to introduce to the plugin's
+				classloader."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="dependencies"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="goals" containment="true" resolveProxies="false" type="GoalsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				&lt;b&gt;Deprecated&lt;/b&gt;. Unused by Maven.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="goals"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="inherited" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Whether any configuration should be propagated to child POMs."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="inherited"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="configuration" containment="true" resolveProxies="false" type="ConfigurationType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="0.0.0+"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="configuration"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="PluginExecution">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="PluginExecution"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="id" defaultValueLiteral="default" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The identifier of this execution for labelling the goals during the build, and for matching
+				exections to merge during inheritance."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="id"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="phase" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The build lifecycle phase to bind the goals in this execution to. If omitted, the goals will
+				be bound to the default specified in their metadata."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="phase"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="goals" containment="true" resolveProxies="false" type="ExecutionGoalsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The goals to execute with the given configuration."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="goals"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="inherited" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Whether any configuration should be propagated to child POMs."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="inherited"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="configuration" containment="true" resolveProxies="false" type="ConfigurationType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="0.0.0+"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="configuration"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="PluginManagement">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			Section for management of default plugin information for use in a group of POMs.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="PluginManagement"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="plugins" containment="true" resolveProxies="false" type="PluginsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The list of plugins to use.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="plugins"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="PluginRepositoriesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="pluginRepositories_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="pluginRepository" upperBound="-1" containment="true" resolveProxies="false" type="Repository">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="pluginRepository"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="PluginsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="plugins_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="plugin" upperBound="-1" containment="true" resolveProxies="false" type="Plugin">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="plugin"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="Prerequisites">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			Describes the prerequisites a project can have."/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Prerequisites"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="maven" defaultValueLiteral="2.0" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The minimum version of Maven required to build the project, or to use this plugin."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="maven"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Profile">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			Modifications to the build process which is activated based on environmental parameters or command line arguments.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Profile"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="id" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The identifier of this build profile. This used both for command line activation, and identifies
+				identical profiles to merge with during inheritance."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="id"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="activation" containment="true" resolveProxies="false" type="Activation">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The conditional logic which will automatically
+				trigger the inclusion of this profile."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="activation"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="build" containment="true" resolveProxies="false" type="BuildBase">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Information required to build the project."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="build"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="modules" containment="true" resolveProxies="false" type="ModulesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The modules (sometimes called subprojects) to build as a part of this project.
+				Each module listed is a relative path to the directory containing the module.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="modules"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="repositories" containment="true" resolveProxies="false" type="RepositoriesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The lists of the remote repositories for discovering dependencies and
+				extensions."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="repositories"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="pluginRepositories" containment="true" resolveProxies="false" type="PluginRepositoriesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The lists of the remote repositories for discovering plugins for builds and reports."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="pluginRepositories"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dependencies" containment="true" resolveProxies="false" type="DependenciesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				This element describes all of the dependencies associated with a
+				project.
+				These dependencies are used to construct a classpath for your 
+				project during the build process. They are automatically downloaded from the
+				repositories defined in this project.
+				See &lt;a href="http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html"&gt;the
+				dependency mechanism&lt;/a&gt; for more information.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="dependencies"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="reports" containment="true" resolveProxies="false" type="ReportsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				&lt;b&gt;Deprecated&lt;/b&gt;. Now ignored by Maven.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="reports"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="reporting" containment="true" resolveProxies="false" type="Reporting">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				This element includes the specification of report plugins to use to generate the reports on the
+				Maven-generated site.  These reports will be run when a user executes &lt;code&gt;mvn site&lt;/code&gt;.  All of the
+				reports will be included in the navigation bar for browsing.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="reporting"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dependencyManagement" containment="true" resolveProxies="false" type="DependencyManagement">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Default dependency information for projects that inherit from
+				this one. The dependencies in this section are not immediately resolved.
+				Instead, when a POM derived from this one declares a dependency 
+				described by a matching groupId and artifactId, the version and other values from this
+				section are used for that dependency if they were not already specified.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="dependencyManagement"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="distributionManagement" containment="true" resolveProxies="false" type="DistributionManagement">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Distribution information for a project that enables deployment of the site
+				and artifacts to remote web servers and repositories respectively."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="distributionManagement"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="properties" containment="true" resolveProxies="false" type="PropertiesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Properties that can be used throughout the POM as a substitution, and are used as filters in resources
+				if enabled. The format is &lt;code&gt;&amp;lt;name&amp;gt;value&amp;lt;/name&amp;gt;&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="properties"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ProfilesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="profiles_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="profile" upperBound="-1" containment="true" resolveProxies="false" type="Profile">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="profile"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="PropertiesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="properties_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="any" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="elementWildcard"/>
+				<EStringToStringMapEntry key="wildcards" value="##any"/>
+				<EStringToStringMapEntry key="name" value=":0"/>
+				<EStringToStringMapEntry key="processing" value="skip"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Relocation">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			Describes where an artifact has moved to. If any of the values are omitted, it is assumed to be the
+			same as it was before."/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Relocation"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="groupId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The group ID the artifact has moved to."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="groupId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="artifactId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The new artifact ID of the artifact."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="artifactId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="version" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The new version of the artifact."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="version"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="message" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				An additional message to show the user about the move, such as the reason."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="message"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Reporting">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			Section for management of reports and their configuration."/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Reporting"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="excludeDefaults" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				If true, then the default reports are not included in the site generation. This includes the
+				reports in the "Project Info" menu."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="excludeDefaults"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="outputDirectory" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Where to store all of the generated reports. The default is
+				&lt;code&gt;${project.build.directory}/site&lt;/code&gt;
+				.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="outputDirectory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="plugins" containment="true" resolveProxies="false" type="ReportingPluginsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The reporting plugins to use and their configuration."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="plugins"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ReportPlugin">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="ReportPlugin"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="groupId" defaultValueLiteral="org.apache.maven.plugins" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The group ID of the reporting plugin in the repository."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="groupId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="artifactId" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The artifact ID of the reporting plugin in the repository."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="artifactId"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="version" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The version of the reporting plugin to be used."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="version"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="inherited" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Whether the configuration in this plugin should be made available to projects that
+				inherit from this one."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="inherited"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="configuration" containment="true" resolveProxies="false" type="ConfigurationType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				The configuration of the reporting plugin."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="configuration"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="reportSets" containment="true" resolveProxies="false" type="ReportSetsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Multiple specifications of a set of reports, each having (possibly) different
+				configuration. This is the reporting parallel to an &lt;code&gt;execution&lt;/code&gt; in the build."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="reportSets"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ReportingPluginsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="reporting_._plugins_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="plugin" upperBound="-1" containment="true" resolveProxies="false" type="ReportPlugin">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="plugin"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ReportSet">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			Represents a set of reports and configuration to be used to generate them."/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="ReportSet"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="id" defaultValueLiteral="default" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="0.0.0+
+				The unique id for this report set, to be used during POM inheritance."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="id"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="configuration" containment="true" resolveProxies="false" type="ConfigurationType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Configuration of the report to be used when generating this set."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="configuration"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="inherited" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Whether any configuration should be propagated to child POMs."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="inherited"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="reports" containment="true" resolveProxies="false" type="ReportSetReportsType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The list of reports from this plugin which should be generated from this set.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="reports"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ReportSetReportsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="report_._set_._reports_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="report" unique="false" upperBound="-1" type="//String">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="report"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ReportSetsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="reportSets_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="reportSet" upperBound="-1" containment="true" resolveProxies="false" type="ReportSet">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="reportSet"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ReportsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="reports_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="any" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="elementWildcard"/>
+				<EStringToStringMapEntry key="wildcards" value="##any"/>
+				<EStringToStringMapEntry key="name" value=":0"/>
+				<EStringToStringMapEntry key="processing" value="skip"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="RepositoriesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="repositories_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="repository" upperBound="-1" containment="true" resolveProxies="false" type="Repository">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="repository"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="Repository">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			A repository contains the information needed for establishing connections with remote repoistory.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Repository"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="releases" containment="true" resolveProxies="false" type="RepositoryPolicy">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				How to handle downloading of releases from this repository."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="releases"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="snapshots" containment="true" resolveProxies="false" type="RepositoryPolicy">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				How to handle downloading of snapshots from this repository."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="snapshots"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="id" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				A unique identifier for a repository. This is used to match the repository to configuration in
+				the &lt;code&gt;settings.xml&lt;/code&gt; file, for example.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="id"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Human readable name of the repository.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="url" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The url of the repository, in the form &lt;code&gt;protocol://hostname/path&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="url"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="layout" defaultValueLiteral="default" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The type of layout this repository uses for locating and storing artifacts - can be &lt;code&gt;legacy&lt;/code&gt; or
+				&lt;code&gt;default&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="layout"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="RepositoryPolicy">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			Download policy"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="RepositoryPolicy"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="enabled" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				Whether to use this repository for downloading this type of artifact."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="enabled"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="updatePolicy" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The frequency for downloading updates - can be
+				&lt;code&gt;always,&lt;/code&gt;
+				&lt;code&gt;daily&lt;/code&gt;
+				(default),
+				&lt;code&gt;interval:XXX&lt;/code&gt;
+				(in minutes) or
+				&lt;code&gt;never&lt;/code&gt;
+				(only if it doesn't exist locally).
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="updatePolicy"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="checksumPolicy" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				What to do when verification of an artifact checksum fails. Valid values are
+				&lt;code&gt;ignore&lt;/code&gt;
+				,
+				&lt;code&gt;fail&lt;/code&gt;
+				or
+				&lt;code&gt;warn&lt;/code&gt;
+				(the default).
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="checksumPolicy"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Resource">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="3.0.0+
+			
+			This element describes all of the classpath resources associated with a project or
+			unit tests.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Resource"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="targetPath" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				Describe the resource target path. For example, if you want that 
+				resource to appear in a specific package
+				(&lt;code&gt;org.apache.maven.messages&lt;/code&gt;), you must specify this 
+				element with this value: &lt;code&gt;org/apache/maven/messages&lt;/code&gt;.
+				This is not required if you simply put the resources in that directory structure at the source, however.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="targetPath"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="filtering" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				Whether resources are filtered to replace tokens with parameterised values or not.
+				The values are taken from the &lt;code&gt;properties&lt;/code&gt; element and from the properties in the files listed
+				in the &lt;code&gt;filters&lt;/code&gt; element.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="filtering"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="directory" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				
+				Describe the directory where the resources are stored.
+				The path is relative to the POM.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="directory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<ref name="includes" containment="true" resolveProxies="false" type="IncludesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				A list of patterns to include, e.g. &lt;code&gt;**&amp;#47;*.xml&lt;/code&gt;."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="includes"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="excludes" containment="true" resolveProxies="false" type="ExcludesType">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="3.0.0+
+				A list of patterns to exclude, e.g. &lt;code&gt;**&amp;#47;*.xml&lt;/code&gt;"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="excludes"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ResourcesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="resources_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="resource" upperBound="-1" containment="true" resolveProxies="false" type="Resource">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="resource"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="RolesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="roles_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="role" unique="false" upperBound="-1" type="//String">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="role"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Scm">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Scm"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="connection" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The source control management system URL
+				that describes the repository and how to connect to the
+				repository. For more information, see the
+				&lt;a href="http://maven.apache.org/scm/scm-url-format.html"&gt;URL format&lt;/a&gt;
+				and &lt;a href="http://maven.apache.org/scm/scms-overview.html"&gt;list of supported SCMs&lt;/a&gt;.
+				This connection is read-only.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="connection"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="developerConnection" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Just like &lt;code&gt;connection&lt;/code&gt;, but for developers, i.e. this scm connection
+				will not be read only.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="developerConnection"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="tag" defaultValueLiteral="HEAD" unsettable="true" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The tag of current code. By default, it's set to HEAD during development.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="tag"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="url" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The URL to the project's browsable SCM repository, such as ViewVC or Fisheye."/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="url"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Site">
+		<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<EStringToStringMapEntry key="documentation" value="4.0.0
+			
+			Contains the information needed for deploying websites.
+			"/>
+		</EAnnotation>
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Site"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="id" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				A unique identifier for a deployment locataion. This is used to match the site to configuration in
+				the &lt;code&gt;settings.xml&lt;/code&gt; file, for example.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="id"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				Human readable name of the deployment location.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="url" type="//String">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="4.0.0
+				
+				The url of the location where website is deployed, in the form &lt;code&gt;protocol://hostname/path&lt;/code&gt;.
+				"/>
+			</EAnnotation>
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="url"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TestResourcesType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="testResources_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="testResource" upperBound="-1" containment="true" resolveProxies="false" type="Resource">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="testResource"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+</package>

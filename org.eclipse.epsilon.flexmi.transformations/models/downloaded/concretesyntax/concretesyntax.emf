@@ -1,0 +1,1980 @@
+@namespace(uri="http://www.emftext.org/sdk/concretesyntax", prefix="org.emftext.sdk.concretesyntax")
+package concretesyntax;
+
+import "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore";
+import "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore";
+
+abstract class GenPackageDependentElement {
+	ref genmodel.GenPackage[1] ~package;
+	attr ecore.EString packageLocationHint;
+}
+
+@GenModel(documentation="A specification of the concrete syntax for an Ecore metamodel.")
+class ConcreteSyntax extends GenPackageDependentElement, Annotable {
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> subset = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>();
+if (identifier == null) {
+	return subset;
+}
+for ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules()) {
+	org.emftext.sdk.concretesyntax.Annotation annotation = rule.getOperatorAnnotation();
+	java.lang.String value = annotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());
+	if (identifier.equals(value)) {
+		subset.add(rule);
+	}
+}
+return subset;", documentation="")
+	op Rule[*] getOperatorRuleSubset(String[1] identifier);
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> symbols = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();
+symbols.addAll(getStartSymbols());
+if (symbols.size() > 0) {
+	return symbols;
+}
+
+org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();
+for ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {
+	final org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+	if (importedSyntax != null) {
+		symbols.addAll(importedSyntax.getActiveStartSymbols());
+	}
+}
+return symbols;", documentation="")
+	op genmodel.GenClass[*] getActiveStartSymbols();
+
+	@GenModel(body="//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;
+org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> l = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>(getRules().size());
+for ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {
+	// don't add rules that are @override rules with remove=true
+	if (!rule.isOverrideRemoveRule()) {
+		l.add(rule);
+	}
+}
+for ( org.emftext.sdk.concretesyntax.Import aImport : getImports()) {
+	org.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport.getConcreteSyntax();
+	if (importedCS != null) {
+		outer: for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS.getAllRules()) {
+			for ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {
+				// don't add rules that have @override rules for same
+				// meta-class
+				if (rule.isOverrideRule(importedRule.getMetaclass())) {
+					continue outer;
+				}
+			}
+			l.add(importedRule);
+		}
+	}
+}
+return org.eclipse.emf.common.util.ECollections.unmodifiableEList(l);", documentation="")
+	op Rule[*] getAllRules();
+
+	@GenModel(body="initialiseAnnotatedOperatorRules();
+return get_operatorRules();", documentation="")
+	op Rule[*] getOperatorRules();
+
+	@GenModel(body="if (is_operatorRulesInitialized()) {
+	return;
+}
+set_operatorRulesInitialized(true);
+java.util.List< org.emftext.sdk.concretesyntax.Rule> operatorRules = getOperatorRules();
+java.util.List< java.lang.String> operatorRuleSubsets = getOperatorRuleSubsets();
+for ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules()) {
+	org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule.getOperatorAnnotation();
+	if (operatorAnnotation != null) {
+		boolean added = false;
+		for ( java.util.ListIterator< org.emftext.sdk.concretesyntax.Rule> it = operatorRules.listIterator(); it.hasNext();) {
+			org.emftext.sdk.concretesyntax.Rule expressionRule = it.next(); 
+			if (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {
+				operatorRules.add(it.previousIndex(), rule);
+				added = true;
+				break;
+			}			
+		}
+		if (!added) {
+			operatorRules.add(rule);
+		}
+		java.lang.String identifier = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());
+		if (identifier != null) {
+			operatorRuleSubsets.add(identifier);
+		}
+	}
+}", documentation="")
+	op void initialiseAnnotatedOperatorRules();
+
+	@GenModel(body="initialiseAnnotatedOperatorRules();
+return get_operatorRuleSubsets();", documentation="")
+	op ecore.EString[*] getOperatorRuleSubsets();
+
+	@GenModel(body="if (get_genClassCache() == null) {
+	set_genClassCache( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache());
+}
+return get_genClassCache();", documentation="")
+	op GenClassCache getGenClassCache();
+
+	@GenModel(body="return rule.getSyntax() != this;", documentation="
+ Returns true if the given rule was defined in the given syntax.
+ If the rule is defined in an imported syntax, this method returns
+ false.
+ 
+ @param syntax the syntax that refers to the rule
+ @param rule the rule to check
+ @return true if the rule is contained, false if it is imported
+")
+	op ecore.EBoolean isImportedRule(Rule rule);
+
+	@GenModel(body="if (get_eClassUtil() == null) {
+	set_eClassUtil( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil());
+}
+return get_eClassUtil();", documentation="")
+	op EClassUtil getEClassUtil();
+
+	@GenModel(body="java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();
+org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();
+
+for ( org.emftext.sdk.concretesyntax.Rule rule : rules) {
+	if (excludeOperatorRules && rule.getOperatorAnnotation() != null) {
+		continue;
+	}
+	org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();
+	foundGenClasses.add(subClassCand);
+}
+return foundGenClasses;", documentation="
+ Collects all the subclasses for which concrete syntax is defined.
+")
+	op genmodel.GenClass[*] getClassesWithSyntax(ecore.EBoolean excludeOperatorRules);
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();
+
+org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();
+org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();
+for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {
+	if (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {
+		subClasses.add(subClassCand);
+	}
+}
+return subClasses;", documentation="
+ Collects all the subclasses for which concrete syntax is defined.
+")
+	op genmodel.GenClass[*] getSubClassesWithSyntax(genmodel.GenClass superClass, ecore.EBoolean excludeOperatorRules);
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> allStyles = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.TokenStyle>();
+allStyles.addAll(getTokenStyles());
+addImportedTokenStyles(allStyles);
+org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder adder = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createDefaultTokenStyleAdder();
+adder.addDefaultTokenStyles(this, allStyles);
+return allStyles;", documentation="")
+	op TokenStyle[*] getAllTokenStyles();
+
+	@GenModel(body="for ( java.lang.String tokenName : newStyle.getTokenNames()) {
+	boolean exists = containsTokenStyle(existingStyles, tokenName);
+	if (!exists) {
+		org.emftext.sdk.concretesyntax.TokenStyle newTokenStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+		newTokenStyle.getTokenNames().add(tokenName);
+		newTokenStyle.setRgb(newStyle.getRgb());
+		newTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());
+		existingStyles.add(newTokenStyle);
+	}
+}", documentation="")
+	op void addTokenStyle(TokenStyle[*] existingStyles, TokenStyle newStyle);
+
+	@GenModel(body="for ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {
+	for ( java.lang.String existingName : existingStyle.getTokenNames()) {
+		if (existingName.equals(tokenName)) {
+			return true;
+		}
+	}
+}
+return false;", documentation="")
+	op ecore.EBoolean containsTokenStyle(TokenStyle[*] styles, ecore.EString tokenName);
+
+	@GenModel(body="// add the imported token styles
+org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();
+for ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {
+	org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+	if (importedSyntax != null) {
+		org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();
+		for ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {
+			addTokenStyle(allStyles, importedStyle);
+		}
+	}
+}", documentation="
+ Reads all token styles from imported syntaxes and
+ merges them with the styles defined in the current syntax. If a token
+ style exists both in an imported and in the current syntax the one from
+ the current syntax overrides the imported one.
+")
+	op void addImportedTokenStyles(TokenStyle[*] allStyles);
+	attr String[1] name;
+	ref genmodel.GenClass[*] startSymbols;
+	transient ref CompleteTokenDefinition[*] activeTokens;
+	val Import[*] imports;
+	val Option[*] options;
+	val TokenDirective[*] tokens;
+
+	@GenModel(documentation="Contains all synthesized tokens. This includes the quoted tokens and the predefined tokens.")
+	transient val CompleteTokenDefinition[*] syntheticTokens;
+	val TokenStyle[*] tokenStyles;
+	transient ref TokenDirective[*] allTokenDirectives;
+	val Rule[+]#syntax rules;
+	transient derived !resolve ref Rule[*] _operatorRules;
+	transient derived attr ecore.EString[*] _operatorRuleSubsets = "";
+	attr ecore.EBoolean _operatorRulesInitialized;
+	transient val GenClassCache[1] _genClassCache;
+	transient val EClassUtil _eClassUtil;
+
+	@GenModel(documentation="A flag that is used to tag syntax definitions as abstract.")
+	attr ecore.EBoolean ~abstract;
+}
+
+@GenModel(documentation="Import statements allow to reuse existing metamodels and syntax definitions.")
+class Import extends GenPackageDependentElement, Annotable {
+
+	@GenModel(documentation="A short prefix that is used to reference the imported elements.")
+	attr String[1] prefix;
+	ref ConcreteSyntax concreteSyntax;
+
+	@GenModel(documentation="A URI where the concrete syntax definition to import is located.")
+	attr ecore.EString csLocationHint;
+}
+
+abstract class SyntaxElement {
+
+	@GenModel(body="org.emftext.sdk.concretesyntax.Rule rule = null;
+org.eclipse.emf.ecore.EObject o = this;
+do {
+	if (o instanceof org.emftext.sdk.concretesyntax.Rule) {
+		rule = ( org.emftext.sdk.concretesyntax.Rule) o;
+	}
+	else {
+		o = o.eContainer();
+	}
+} while (rule == null && o != null);
+return rule;", documentation="")
+	op Rule getContainingRule();
+	val SyntaxElement[*] children;
+}
+
+@GenModel(documentation="Defines the concrete textual syntax for a metaclass.")
+class Rule extends Annotable, SyntaxElement {
+
+	@GenModel(body="for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {
+	if (annotation.getType() == org.emftext.sdk.concretesyntax.AnnotationType.OPERATOR) {
+		return annotation;
+	}
+}
+return null;", documentation="")
+	op Annotation getOperatorAnnotation();
+
+	@GenModel(body="org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this.getOperatorAnnotation();
+if (operatorAnnotation != null) {
+	java.lang.String ruleWeightString = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.WEIGHT.toString());
+	if (ruleWeightString != null) {
+		try {
+			return java.lang.Integer.parseInt(ruleWeightString);			
+		} catch ( java.lang.NumberFormatException e) {
+			// ignore exception. invalid numbers are signaled by
+			// returning MIN_VALUE
+		}
+	}
+}
+return java.lang.Integer.MIN_VALUE;", documentation="
+ Returns the weight of this rule if it is an operator rule.
+ If the rule is not an operator rule or the specified weight
+ in the operator annotation is not a number, Integer.MIN_VALUE 
+ is returned.
+")
+	op ecore.EInt[1] getOperatorWeight();
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();
+// there should be at most one child
+assert children == null || children.size() == 1;
+
+if (children.size() > 0) {
+	org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);
+	if (firstChild instanceof org.emftext.sdk.concretesyntax.Choice) {
+		return ( org.emftext.sdk.concretesyntax.Choice) firstChild;
+	} else {
+		// there should be no element other than Choice
+		assert false;
+		return null;
+	}
+}
+return null;", documentation="")
+	op Choice[1] getDefinition();
+
+	@GenModel(body="for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {
+	if (annotation.getType() == type) {
+		if (key != null) {
+			for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation.getParameters()) {
+				if (key.equals(parameter.getKey())
+						&& parameter.getValue().equals(value)) {
+					return true;
+				}
+			}
+		} else {
+			return true;
+		}
+	}
+}
+return false;", documentation="
+ Checks whether this rule is annotated with the given AnnotationType.
+ If a key and a value is given it is further checked whether the
+ annotation specifies this key and value. 
+")
+	op ecore.EBoolean hasAnnotation(AnnotationType type, ecore.EString key, ecore.EString value);
+
+	@GenModel(body="// TODO mseifert: use constant here
+return hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, \"remove\", \"true\");", documentation="
+ Checks whether this rule is annotated with @Override(remove=\"true\").
+")
+	op ecore.EBoolean isOverrideRemoveRule();
+
+	@GenModel(body="if (metaClass == null || getMetaclass() == metaClass) {
+	if (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {
+		return true;
+	}
+}
+return false;", documentation="
+ Checks whether this rule is annotated with @Override.
+")
+	op ecore.EBoolean isOverrideRule(genmodel.GenClass metaClass);
+	ref genmodel.GenClass[1] metaclass;
+	ref ConcreteSyntax[1]#rules syntax;
+}
+
+@GenModel(documentation="Defines alternative syntax for an element of parts of it.")
+class Choice extends SyntaxElement {
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Sequence> options = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Sequence>();
+for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {
+	if (child instanceof org.emftext.sdk.concretesyntax.Sequence) {
+		options.add(( org.emftext.sdk.concretesyntax.Sequence) child);
+	} else {
+		// there should be no elements other than Sequence elements in the
+		// list of children
+		assert false;
+	}
+}
+return options;", documentation="")
+	op Sequence[*] getOptions();
+}
+
+class Sequence extends SyntaxElement {
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Definition> parts = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Definition>();
+for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {
+	if (child instanceof org.emftext.sdk.concretesyntax.Definition) {
+		parts.add(( org.emftext.sdk.concretesyntax.Definition) child);
+	} else {
+		// there should be no elements other than Definition elements in the
+		// list of children
+		assert false;
+	}
+}
+return parts;", documentation="")
+	op Definition[*] getParts();
+}
+
+abstract class Definition extends SyntaxElement {
+
+	@GenModel(body="return true;", documentation="")
+	op ecore.EBoolean hasMinimalCardinalityOneOrHigher();
+
+	@GenModel(body="return false;", documentation="")
+	op ecore.EBoolean hasNoOptionalPart();
+
+	@GenModel(body="org.emftext.sdk.concretesyntax.Cardinality cardinality = org.emftext.sdk.concretesyntax.Cardinality.NONE;
+if (this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition) {
+	cardinality = (( org.emftext.sdk.concretesyntax.CardinalityDefinition) this).getCardinality();
+}
+if (cardinality == org.emftext.sdk.concretesyntax.Cardinality.NONE) {
+	return \"\";
+} else if (cardinality == org.emftext.sdk.concretesyntax.Cardinality.PLUS) {
+	return \"+\";
+} else if (cardinality == org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK) {
+	return \"?\";
+} else {
+	return \"*\";
+}", documentation="
+ Returns a string representation of the cardinality of the
+' or the
+ empty string.
+ 
+ @param definition
+ @return
+")
+	op ecore.EString computeCardinalityString();
+}
+
+abstract class CardinalityDefinition extends Definition {
+
+	@GenModel(body="return getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.NONE || getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.PLUS;", documentation="")
+	op ecore.EBoolean hasMinimalCardinalityOneOrHigher();
+
+	@GenModel(body="return !
+	(getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK ||
+	 getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.STAR);", documentation="")
+	op ecore.EBoolean hasNoOptionalPart();
+	attr Cardinality cardinality;
+}
+
+abstract class Terminal extends CardinalityDefinition {
+	ref genmodel.GenFeature[1] feature;
+}
+
+@GenModel(documentation="A keyword that is used to represent instances of a metaclass.")
+class CsString extends Definition {
+	attr String[1] value;
+}
+
+class WhiteSpaces extends Definition {
+	attr int[1] amount;
+}
+
+class LineBreak extends Definition {
+	attr int[1] tab;
+}
+
+enum Cardinality {
+	none = 0;
+
+	@GenModel(documentation="Allows to repeat the preceding syntax element multiple times.")
+	plus = 1;
+
+	@GenModel(documentation="Allows to repeat the preceding syntax element multiple times (including zero times).")
+	star = 2;
+
+	@GenModel(documentation="Tags the preceding syntax element as optional.")
+	questionmark = 3;
+}
+
+@GenModel(documentation="A group of syntax elements that must appear together.")
+class CompoundDefinition extends CardinalityDefinition {
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();
+// there should be at most one child
+assert children == null || children.size() == 1;
+
+if (children != null && children.size() > 0) {
+	org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);
+	if (firstChild instanceof org.emftext.sdk.concretesyntax.Choice) {
+		return ( org.emftext.sdk.concretesyntax.Choice) firstChild;
+	} else {
+		// there should be no element other than Choice
+		assert false;
+		return null;
+	}
+}
+return null;", documentation="")
+	op Choice getDefinition();
+}
+
+class RegexComposer {
+
+	@GenModel(body="visitedTokens.add(token);
+
+java.lang.StringBuilder result = new java.lang.StringBuilder();
+if (token instanceof org.emftext.sdk.concretesyntax.RegexComposite) {
+	org.emftext.sdk.concretesyntax.RegexComposite composite = ( org.emftext.sdk.concretesyntax.RegexComposite) token;
+	for ( org.emftext.sdk.concretesyntax.RegexPart part : composite.getRegexParts()) {
+		if (part instanceof org.emftext.sdk.concretesyntax.AtomicRegex) {
+			result.append(part.getRegex());
+		} else if (part instanceof org.emftext.sdk.concretesyntax.RegexReference) {
+			org.emftext.sdk.concretesyntax.RegexReference reference = ( org.emftext.sdk.concretesyntax.RegexReference) part;
+			org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = reference.getTarget();
+			if (target == null) {
+				continue;
+			}
+			if (target.eIsProxy()) {
+				continue;
+			}
+			if (visitedTokens.contains(target)) {
+				continue;
+			}
+			org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition> subVisitedTokens = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>();
+			subVisitedTokens.addAll(visitedTokens);
+			result.append(getComposedRegex(target, subVisitedTokens));
+		}
+	}
+} else if (token instanceof org.emftext.sdk.concretesyntax.RegexOwner) {
+	org.emftext.sdk.concretesyntax.RegexOwner owner = ( org.emftext.sdk.concretesyntax.RegexOwner) token;
+	result.append(owner.getRegex());
+}
+return result.toString();", documentation="")
+	op ecore.EString getComposedRegex(AbstractTokenDefinition token, AbstractTokenDefinition[*] visitedTokens);
+}
+
+abstract interface RegexOwner {
+	readonly volatile transient derived attr ecore.EString[1] regex;
+}
+
+abstract class RegexPart extends RegexOwner {
+}
+
+abstract class RegexComposite extends RegexOwner {
+
+	@GenModel(body="java.lang.StringBuilder result = new java.lang.StringBuilder();
+for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts()) {
+	result.append(part.getRegex());
+}
+return result.toString();", documentation="")
+	op ecore.EString getRegex();
+	val RegexPart[+] regexParts;
+}
+
+class AtomicRegex extends RegexPart {
+
+	@GenModel(body="return getAtomicExpression();", documentation="")
+	op ecore.EString getRegex();
+	attr ecore.EString[1] atomicExpression;
+}
+
+class RegexReference extends RegexPart {
+
+	@GenModel(body="org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget();
+if (target == null || target.eIsProxy()) {
+	return \"\";
+} else {
+	assert target instanceof org.emftext.sdk.concretesyntax.RegexOwner;
+	return (( org.emftext.sdk.concretesyntax.RegexOwner) target).getRegex();
+}", documentation="")
+	op ecore.EString getRegex();
+	ref NamedTokenDefinition[1] target;
+}
+
+abstract class TokenDirective {
+}
+
+abstract class AbstractTokenDefinition {
+}
+
+abstract class NamedTokenDefinition extends AbstractTokenDefinition {
+	attr ecore.EString[1] name;
+}
+
+abstract class ReferencableTokenDefinition extends NamedTokenDefinition, RegexOwner {
+	ref Placeholder[*]#token attributeReferences;
+}
+
+@GenModel(documentation="A fragment of a token definition. Can be used in other token definitions to avoid duplication.")
+class PartialTokenDefinition extends NamedTokenDefinition, TokenDirective, RegexComposite {
+
+	@GenModel(body="org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();
+return composer.getComposedRegex(this, new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());", documentation="")
+	op ecore.EString getRegex();
+}
+
+abstract class CompleteTokenDefinition extends TokenDirective, RegexOwner, ReferencableTokenDefinition {
+
+	@GenModel(body="boolean isReferenced = !getAttributeReferences().isEmpty();
+boolean isCollectInToken = getAttributeName() != null;
+return !isReferenced || isCollectInToken;", documentation="")
+	op ecore.EBoolean isHidden();
+
+	@GenModel(body="boolean isReferenced = !getAttributeReferences().isEmpty();
+boolean isCollectInToken = getAttributeName() != null;
+return isReferenced || isCollectInToken;", documentation="")
+	op ecore.EBoolean isUsed();
+
+	@GenModel(body="return !syntax.equals(getContainingSyntax(syntax));", documentation="")
+	op ecore.EBoolean isImported(ConcreteSyntax[1] syntax);
+
+	@GenModel(body="org.eclipse.emf.ecore.EObject container = this.eContainer();
+if (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax) {
+	return ( org.emftext.sdk.concretesyntax.ConcreteSyntax) container;
+}
+return syntax;", documentation="")
+	op ConcreteSyntax getContainingSyntax(ConcreteSyntax[1] syntax);
+	attr ecore.EString attributeName;
+}
+
+@GenModel(documentation="Defines a token with a name and a regular expression.")
+class NormalTokenDefinition extends CompleteTokenDefinition, Annotable, RegexComposite {
+
+	@GenModel(body="org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();
+return composer.getComposedRegex(this, new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());", documentation="")
+	op ecore.EString getRegex();
+}
+
+@GenModel(documentation="Redefines the regular expression of an imported token. Also, a new name is assigned to the token.")
+class TokenRedefinition extends Annotable, RegexComposite, CompleteTokenDefinition {
+
+	@GenModel(body="org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();
+return composer.getComposedRegex(this, new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());", documentation="")
+	op ecore.EString getRegex();
+	ref CompleteTokenDefinition[1] redefinedToken;
+}
+
+class QuotedTokenDefinition extends CompleteTokenDefinition {
+
+	@GenModel(body="return getSynthesizedRegex();", documentation="")
+	op ecore.EString getRegex();
+	attr ecore.EString prefix = "";
+	attr ecore.EString suffix = "";
+	attr ecore.EString escapeCharacter;
+	attr ecore.EString[1] synthesizedRegex;
+}
+
+@GenModel(documentation="Prioritizes a token over the subsequent tokens.")
+class TokenPriorityDirective extends TokenDirective {
+	ref CompleteTokenDefinition[1] token;
+}
+
+@GenModel(documentation="Calls the syntax rules of the type of the containment reference.")
+class Containment extends Terminal {
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> types;
+// is there an explicit type defined?
+if (!getTypes().isEmpty()) {
+	types = getTypes();
+} else {
+	types = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();
+	types.add(getFeature().getTypeGenClass());
+}
+return types;", documentation="
+ Returns all types that are allowed for the given containment.
+ If type restrictions are specified in the syntax rule, this
+ list contains the allowed types. If no restriction are present
+ the type of the feature references by the containment is 
+ returned.
+ 
+ @param containment
+ @return
+")
+	op genmodel.GenClass[*] getAllowedSubTypes();
+	ref genmodel.GenClass[*] types;
+}
+
+abstract class Placeholder extends Terminal {
+	ref ReferencableTokenDefinition[1]#attributeReferences token;
+}
+
+class PlaceholderUsingSpecifiedToken extends Placeholder {
+}
+
+class PlaceholderUsingDefaultToken extends Placeholder {
+}
+
+class PlaceholderInQuotes extends Placeholder {
+
+	@GenModel(body="java.lang.String prefix = getPrefix();
+if (prefix == null) return prefix;
+if (prefix.length() == 0) return null;
+return prefix;", documentation="")
+	op ecore.EString getNormalizedPrefix();
+
+	@GenModel(body="java.lang.String suffix = getSuffix();
+if (suffix == null) return suffix;
+if (suffix.length() == 0) return null;
+return suffix;", documentation="")
+	op ecore.EString getNormalizedSuffix();
+
+	@GenModel(body="java.lang.String escapeCharacter = getEscapeCharacter();
+if (escapeCharacter == null) return escapeCharacter;
+if (escapeCharacter.length() == 0) return null;
+return escapeCharacter;", documentation="")
+	op ecore.EString getNormalizedEscapeCharacter();
+
+	@GenModel(body="if (eIsProxy()) return super.toString();
+
+java.lang.StringBuffer result = new java.lang.StringBuffer();
+org.eclipse.emf.codegen.ecore.genmodel.GenFeature feature = getFeature();
+if (feature != null && feature.getEcoreFeature() != null) {
+	result.append(feature.getName());
+}
+result.append(\"['\");
+result.append(getPrefix());
+result.append(\"', '\");
+result.append(getSuffix());
+result.append(\"']\");
+return result.toString();", documentation="")
+	op ecore.EString toString();
+	attr ecore.EString[1] prefix = "";
+	attr ecore.EString[1] suffix = "";
+	attr ecore.EString escapeCharacter;
+}
+
+class BooleanTerminal extends Terminal {
+
+	@GenModel(body="return \"\".equals(getTrueLiteral()) || \"\".equals(getFalseLiteral());", documentation="")
+	op ecore.EBoolean containsEmptyLiteral();
+	attr ecore.EString[1] trueLiteral;
+	attr ecore.EString[1] falseLiteral;
+}
+
+class EnumTerminal extends Terminal {
+
+	@GenModel(body="return !getEmptyLiterals().isEmpty();", documentation="")
+	op ecore.EBoolean containsEmptyLiteral();
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> nonEmptyLiterals = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();
+for ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {
+	java.lang.String text = literal.getText();
+	if (text != null && !\"\".equals(text)) {
+		nonEmptyLiterals.add(literal);
+	}
+}
+return nonEmptyLiterals;", documentation="")
+	op EnumLiteralTerminal[*] getNonEmptyLiterals();
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> emptyLiterals = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();
+for ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {
+	java.lang.String text = literal.getText();
+	if (\"\".equals(text)) {
+		emptyLiterals.add(literal);
+	}
+}
+return emptyLiterals;", documentation="")
+	op EnumLiteralTerminal[*] getEmptyLiterals();
+	val EnumLiteralTerminal[+] literals;
+}
+
+class EnumLiteralTerminal extends SyntaxElement {
+	ref ecore.EEnumLiteral[1] literal;
+	attr ecore.EString[1] text;
+}
+
+@GenModel(documentation="A configuration option that parameterizes the code generation process.")
+class Option {
+	attr OptionTypes[1] type;
+	attr String[1] value;
+}
+
+enum OptionTypes {
+
+	@GenModel(documentation="If set to <code>true</code>, EMFText generates a UI action that can be used to test parsing and printing of files containing textual syntax. The default value for this option is <code>false</code>. This is a non-standard option, which might be removed in future releases of EMFText.")
+	GENERATE_TEST_ACTION = 0;
+
+	@GenModel(documentation="If set to <code>true</code>, EMFText automatically generates the model code using the generator model referenced in the CS specification. The default value for this option is <code>false</code>.")
+	GENERATE_CODE_FROM_GENERATOR_MODEL = 1;
+
+	@GenModel(documentation="If set to <code>true</code>, the plugin.xml file will be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PLUGIN_XML = 3;
+
+	@GenModel(documentation="If set to <code>false</code>, the manifest of the resource plug-in will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_MANIFEST = 4;
+
+	@GenModel(documentation="If set to <code>false</code>, the Parser class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PARSER = 5;
+
+	@GenModel(documentation="If set to <code>true</code>, the token resolver classes will be overridden. The default value for this option is <code>false</code>.")
+	OVERRIDE_TOKEN_RESOLVERS = 6;
+
+	@GenModel(documentation="If set to <code>true</code>, the reference resolver classes will be overridden. The default value for this option is <code>false</code>.")
+	OVERRIDE_REFERENCE_RESOLVERS = 7;
+
+	@GenModel(documentation="If set to <code>false</code>, the reference resolver switch will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_REFERENCE_RESOLVER_SWITCH = 8;
+
+	@GenModel(documentation="If set to <code>false</code>, the token resolver factory class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TOKEN_RESOLVER_FACTORY = 9;
+
+	@GenModel(documentation="If set to <code>false</code>, the printer will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PRINTER = 10;
+
+	@GenModel(documentation="If set to <code>false</code>, the ANTLR-backtracking is deactivated for parser generation. The default value for this option is <code>true</code>.")
+	ANTLR_BACKTRACKING = 12;
+
+	@GenModel(documentation="If set to <code>false</code>, the ANTLR-memoize is deactivated for parser generation. The default value for this option is <code>true</code>.")
+	ANTLR_MEMOIZE = 13;
+
+	@GenModel(documentation="If set to <code>true</code>, EMFText will try to fix rules that contain simple left recursion. The default value for this option is <code>false</code>. This is a non-standard option, which might be removed in future releases of EMFText.")
+	AUTOFIX_SIMPLE_LEFTRECURSION = 14;
+
+	@GenModel(documentation="If set to <code>false</code>, EMFText will generate a parser that does not expect an EOF signal at the end of the input stream. The default value for this option is <code>true</code>.")
+	FORCE_EOF = 15;
+
+	@GenModel(documentation="This option can be used to specify the name of the token that is used when no token is given for attributes or non-containment references in syntax rules. Declarations like <code>featureX[]</code> in CS rules will automatically be expanded to <code>featureX[TOKEN_Y]</code> if the value of this option is <code>TOKEN_Y</code>. The default value for this option is <code>TEXT</code>, which makes the predefined token <code>TEXT</code> the default token.")
+	DEFAULT_TOKEN_NAME = 16;
+
+	@GenModel(documentation="If set to <code>false</code>, EMFText does not automatically provide predefined tokens (TEXT, WHITESPACE, LINEBREAK). The default value for this option is <code>true</code>.")
+	USE_PREDEFINED_TOKENS = 17;
+
+	@GenModel(documentation="The (numerical) value of this option defines how many whitespace should be printed between tokens if no whitespace information is given in CS rules. This option should only be used with the classic printer. The default value of this option is <code>1</code> if the classic printer is used (see option <code>useClassicPrinter</code>) and <code>automatic</code> otherwise.")
+	TOKENSPACE = 18;
+
+	@GenModel(documentation="If set to <code>true</code>, EMFText reloads the generator model before loading it. This is particular useful, when the meta model (i.e., the Ecore file) is changing a lot during language development. The default value for this option is <code>false</code>.")
+	RELOAD_GENERATOR_MODEL = 19;
+
+	@GenModel(documentation="If set to <code>false</code>, the .classpath file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DOT_CLASSPATH = 20;
+
+	@GenModel(documentation="If set to <code>false</code>, the .project file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DOT_PROJECT = 21;
+
+	@GenModel(documentation="If set to <code>false</code>, the text resource class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TEXT_RESOURCE = 22;
+
+	@GenModel(documentation="If set to <code>false</code>, the resource factory class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_RESOURCE_FACTORY = 23;
+
+	@GenModel(documentation="If set to <code>false</code>, the new file wizard class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_NEW_FILE_WIZARD = 24;
+
+	@GenModel(documentation="The name of the parser generator to use. The default value for this option is <code>antlr</code>, which is also the only valid value. This is a non-standard option, which might be removed in future releases of EMFText.")
+	PARSER_GENERATOR = 25;
+
+	@GenModel(documentation="The name of the folder where EMFText shall store the customizable classes of the resource plug-in in. All classes for which the <code>override</code> option is set to <code>false</code> will be stored in this folder.")
+	SOURCE_FOLDER = 26;
+
+	@GenModel(documentation="The name of the base package EMFText shall store the generated classes or the resource plug-in in. If this option is not set, the default value is determined by adding the suffix <code>resource.FILE_EXTENSION</code> to the base package of the generator model.")
+	BASE_PACKAGE = 27;
+
+	@GenModel(documentation="The ID of the generated resource plug-in. The resource plug-in is stored in a folder that is equal to this ID.")
+	RESOURCE_PLUGIN_ID = 28;
+
+	@GenModel(documentation="If set to <code>false</code>, the build.properties file will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_BUILD_PROPERTIES = 29;
+
+	@GenModel(documentation="If set to <code>false</code>, the MetaInformation class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_META_INFORMATION = 30;
+
+	@GenModel(documentation="If set to <code>false</code>, the default resolver class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEFAULT_RESOLVER_DELEGATE = 31;
+
+	@GenModel(documentation="If set to <code>false</code>, the problem class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PROBLEM_CLASS = 32;
+
+	@GenModel(documentation="If set to <code>false</code>, the Scanner class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SCANNER = 33;
+
+	@GenModel(documentation="If set to <code>false</code>, the ContextDependentUriFragment class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT = 34;
+
+	@GenModel(documentation="If set to <code>false</code>, the ContextDependentUriFragmentFactory class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY = 35;
+
+	@GenModel(documentation="If set to <code>false</code>, the DelegatingResolveResult class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DELEGATING_RESOLVE_RESULT = 36;
+
+	@GenModel(documentation="If set to <code>false</code>, the DummyEObject class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DUMMY_E_OBJECT = 37;
+
+	@GenModel(documentation="If set to <code>false</code>, the ElementMapping class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ELEMENT_MAPPING = 38;
+
+	@GenModel(documentation="If set to <code>false</code>, the FuzzyResolveResult class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_FUZZY_RESOLVE_RESULT = 39;
+
+	@GenModel(documentation="If set to <code>false</code>, the DefaultTokenResolver class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEFAULT_TOKEN_RESOLVER = 40;
+
+	@GenModel(documentation="If set to <code>false</code>, the LocationMap class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LOCATION_MAP = 41;
+
+	@GenModel(documentation="If set to <code>false</code>, the ReferenceResolveResult class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_REFERENCE_RESOLVE_RESULT = 42;
+
+	@GenModel(documentation="If set to <code>false</code>, the TokenResolveResult class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TOKEN_RESOLVE_RESULT = 43;
+
+	@GenModel(documentation="If set to <code>false</code>, the UriMapping class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_URI_MAPPING = 45;
+
+	@GenModel(documentation="If set to <code>false</code>, the HoverTextProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_HOVER_TEXT_PROVIDER = 46;
+
+	@GenModel(documentation="If set to <code>false</code>, the ParseResult class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PARSE_RESULT = 47;
+
+	@GenModel(documentation="If set to <code>false</code>, the AntlrTokenHelper class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ANTLR_TOKEN_HELPER = 48;
+
+	@GenModel(documentation="If set to <code>false</code>, the BracketSet class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_BRACKET_SET = 49;
+
+	@GenModel(documentation="If set to <code>false</code>, the BrowserInformationControl class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_BROWSER_INFORMATION_CONTROL = 50;
+
+	@GenModel(documentation="If set to <code>false</code>, the CodeFoldingManager class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_CODE_FOLDING_MANAGER = 51;
+
+	@GenModel(documentation="If set to <code>false</code>, the ColorManager class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_COLOR_MANAGER = 52;
+
+	@GenModel(documentation="If set to <code>false</code>, the CompletionProcessor class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_COMPLETION_PROCESSOR = 53;
+
+	@GenModel(documentation="If set to <code>false</code>, the ParsingStrategy class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PARSING_STRATEGY = 54;
+
+	@GenModel(documentation="If set to <code>false</code>, the DocBrowserInformationControlInput class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT = 55;
+
+	@GenModel(documentation="If set to <code>false</code>, the EditorConfiguration class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_EDITOR_CONFIGURATION = 55;
+
+	@GenModel(documentation="If set to <code>false</code>, the Editor class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_EDITOR = 56;
+
+	@GenModel(documentation="If set to <code>false</code>, the EObjectSelection class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_E_OBJECT_SELECTION = 57;
+
+	@GenModel(documentation="If set to <code>false</code>, the Highlighting class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_HIGHLIGHTING = 58;
+
+	@GenModel(documentation="If set to <code>false</code>, the HtmlPrinter class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_HTML_PRINTER = 59;
+
+	@GenModel(documentation="If set to <code>false</code>, the Hyperlink class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_HYPERLINK = 60;
+
+	@GenModel(documentation="If set to <code>false</code>, the HyperlinkDetector class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_HYPERLINK_DETECTOR = 61;
+
+	@GenModel(documentation="If set to <code>false</code>, the MarkerHelper class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_MARKER_HELPER = 62;
+
+	@GenModel(documentation="If set to <code>false</code>, the Occurrence class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OCCURRENCE = 63;
+
+	@GenModel(documentation="If set to <code>false</code>, the OutlinePage class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OUTLINE_PAGE = 64;
+
+	@GenModel(documentation="If set to <code>false</code>, the OutlinePageTreeViewer class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OUTLINE_PAGE_TREE_VIEWER = 65;
+
+	@GenModel(documentation="If set to <code>false</code>, the PluginActivator class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PLUGIN_ACTIVATOR = 66;
+
+	@GenModel(documentation="If set to <code>false</code>, the PositionCategory class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_POSITION_CATEGORY = 67;
+
+	@GenModel(documentation="If set to <code>false</code>, the PositionHelper class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_POSITION_HELPER = 68;
+
+	@GenModel(documentation="If set to <code>false</code>, the PropertySheetPage class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PROPERTY_SHEET_PAGE = 69;
+
+	@GenModel(documentation="If set to <code>false</code>, the TextHover class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TEXT_HOVER = 70;
+
+	@GenModel(documentation="If set to <code>false</code>, the TokenScanner class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TOKEN_SCANNER = 71;
+
+	@GenModel(documentation="If set to <code>false</code>, the BracketPreferencePage class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_BRACKET_PREFERENCE_PAGE = 72;
+
+	@GenModel(documentation="If set to <code>false</code>, the PreferenceConstants class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PREFERENCE_CONSTANTS = 73;
+
+	@GenModel(documentation="If set to <code>false</code>, the OccurrencePreferencePage class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OCCURRENCE_PREFERENCE_PAGE = 74;
+
+	@GenModel(documentation="If set to <code>false</code>, the PixelConverter class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PIXEL_CONVERTER = 75;
+
+	@GenModel(documentation="If set to <code>false</code>, the PreferenceInitializer class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PREFERENCE_INITIALIZER = 76;
+
+	@GenModel(documentation="If set to <code>false</code>, the SyntaxColoringHelper class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SYNTAX_COLORING_HELPER = 77;
+
+	@GenModel(documentation="If set to <code>false</code>, the SyntaxColoringPreferencePage class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE = 78;
+
+	@GenModel(documentation="If set to <code>false</code>, the IInputStreamProcessorProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_INPUT_STREAM_PROCESSOR_PROVIDER = 79;
+
+	@GenModel(documentation="If set to <code>false</code>, the InputStreamProcessor class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_INPUT_STREAM_PROCESSOR = 80;
+
+	@GenModel(documentation="If set to <code>false</code>, the IOptionProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_OPTION_PROVIDER = 81;
+
+	@GenModel(documentation="If set to <code>false</code>, the IOptions class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_OPTIONS = 82;
+
+	@GenModel(documentation="If set to <code>false</code>, the IResourcePostProcessor class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_RESOURCE_POST_PROCESSOR = 83;
+
+	@GenModel(documentation="If set to <code>false</code>, the IResourcePostProcessorProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_RESOURCE_POST_PROCESSOR_PROVIDER = 84;
+
+	@GenModel(documentation="If set to <code>false</code>, the IBracketPair class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_BRACKET_PAIR = 85;
+
+	@GenModel(documentation="If set to <code>false</code>, the ICommand class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_COMMAND = 86;
+
+	@GenModel(documentation="If set to <code>false</code>, the IConfigurable class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_CONFIGURABLE = 87;
+
+	@GenModel(documentation="If set to <code>false</code>, the IContextDependentUriFragment class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT = 88;
+
+	@GenModel(documentation="If set to <code>false</code>, the IContextDependentUriFragmentFactory class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY = 89;
+
+	@GenModel(documentation="If set to <code>false</code>, the IElementMapping class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_ELEMENT_MAPPING = 90;
+
+	@GenModel(documentation="If set to <code>false</code>, the IExpectedElement class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_EXPECTED_ELEMENT = 91;
+
+	@GenModel(documentation="If set to <code>false</code>, the IHoverTextProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_HOVER_TEXT_PROVIDER = 92;
+
+	@GenModel(documentation="If set to <code>false</code>, the ILocationMap class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_LOCATION_MAP = 93;
+
+	@GenModel(documentation="If set to <code>false</code>, the IParseResult class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_PARSE_RESULT = 94;
+
+	@GenModel(documentation="If set to <code>false</code>, the IProblem class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_PROBLEM = 95;
+
+	@GenModel(documentation="If set to <code>false</code>, the IReferenceMapping class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_REFERENCE_MAPPING = 96;
+
+	@GenModel(documentation="If set to <code>false</code>, the IReferenceResolver class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_REFERENCE_RESOLVER = 97;
+
+	@GenModel(documentation="If set to <code>false</code>, the IReferenceResolveResult class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_REFERENCE_RESOLVE_RESULT = 98;
+
+	@GenModel(documentation="If set to <code>false</code>, the IReferenceResolverSwitch class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_REFERENCE_RESOLVER_SWITCH = 99;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITextDiagnostic class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TEXT_DIAGNOSTIC = 100;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITextParser class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TEXT_PARSER = 101;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITextPrinter class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TEXT_PRINTER = 102;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITextResource class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TEXT_RESOURCE = 103;
+
+	@GenModel(documentation="If set to <code>false</code>, the IMetaInformation class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_META_INFORMATION = 104;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITextResourcePluginPart class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TEXT_RESOURCE_PLUGIN_PART = 105;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITextScanner class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TEXT_SCANNER = 106;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITextToken class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TEXT_TOKEN = 107;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITokenResolver class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TOKEN_RESOLVER = 108;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITokenResolveResult class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TOKEN_RESOLVE_RESULT = 109;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITokenResolverFactory class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TOKEN_RESOLVER_FACTORY = 110;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITokenStyle class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TOKEN_STYLE = 111;
+
+	@GenModel(documentation="If set to <code>false</code>, the IUriMapping class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_URI_MAPPING = 112;
+
+	@GenModel(documentation="If set to <code>false</code>, the EProblemType class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_E_PROBLEM_TYPE = 113;
+
+	@GenModel(documentation="If set to <code>false</code>, the CodeCompletionHelper class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_CODE_COMPLETION_HELPER = 114;
+
+	@GenModel(documentation="If set to <code>false</code>, the ExpectedCsString class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_EXPECTED_CS_STRING = 115;
+
+	@GenModel(documentation="If set to <code>false</code>, the ExpectedStructuralFeature class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_EXPECTED_STRUCTURAL_FEATURE = 116;
+
+	@GenModel(documentation="If set to <code>false</code>, the CastUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_CAST_UTIL = 117;
+
+	@GenModel(documentation="If set to <code>false</code>, the CopiedEList class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_COPIED_E_LIST = 118;
+
+	@GenModel(documentation="If set to <code>false</code>, the CopiedEObjectInternalEList class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_COPIED_E_OBJECT_INTERNAL_E_LIST = 119;
+
+	@GenModel(documentation="If set to <code>false</code>, the EClassUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_E_CLASS_UTIL = 120;
+
+	@GenModel(documentation="If set to <code>false</code>, the EObjectUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_E_OBJECT_UTIL = 121;
+
+	@GenModel(documentation="If set to <code>false</code>, the ListUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LIST_UTIL = 122;
+
+	@GenModel(documentation="If set to <code>false</code>, the MapUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_MAP_UTIL = 123;
+
+	@GenModel(documentation="If set to <code>false</code>, the MinimalModelHelper class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_MINIMAL_MODEL_HELPER = 124;
+
+	@GenModel(documentation="If set to <code>false</code>, the ResourceUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_RESOURCE_UTIL = 125;
+
+	@GenModel(documentation="If set to <code>false</code>, the StreamUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_STREAM_UTIL = 126;
+
+	@GenModel(documentation="If set to <code>false</code>, the StringUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_STRING_UTIL = 127;
+
+	@GenModel(documentation="If set to <code>false</code>, the TextResourceUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TEXT_RESOURCE_UTIL = 128;
+
+	@GenModel(documentation="If set to <code>false</code>, the UnicodeConverter class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_UNICODE_CONVERTER = 129;
+
+	@GenModel(documentation="If set to <code>false</code>, the AbstractExpectedElement class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ABSTRACT_EXPECTED_ELEMENT = 130;
+
+	@GenModel(documentation="If set to <code>false</code>, the NewFileWizardPage class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_NEW_FILE_WIZARD_PAGE = 131;
+
+	@GenModel(documentation="If set to <code>false</code>, the IBackgroundParsingListener class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_BACKGROUND_PARSING_LISTENER = 132;
+
+	@GenModel(documentation="If set to <code>false</code>, the TerminateParsingException class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TERMINATE_PARSING_EXCEPTION = 133;
+
+	@GenModel(documentation="If set to <code>false</code>, the UnexpectedContentTypeException class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION = 134;
+
+	@GenModel(documentation="If set to <code>false</code>, the TextToken class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TEXT_TOKEN = 135;
+
+	@GenModel(documentation="The name of the folder where EMFText shall store the generated classes of the resource plug-in in. All classes for which the <code>override</code> option is set to <code>true</code> will be stored in this folder.")
+	SOURCE_GEN_FOLDER = 136;
+
+	@GenModel(documentation="If set to <code>false</code>, the extension point schema for default load options is not overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA = 137;
+
+	@GenModel(documentation="If set to <code>false</code>, the extension point schema for additional parsers is not overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA = 138;
+
+	@GenModel(documentation="If set to <code>false</code>, the ResourceFactoryDelegator class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_RESOURCE_FACTORY_DELEGATOR = 139;
+
+	@GenModel(documentation="The plug-in containing the resource implementation for the DSL (if different from the generated resource plug-in). By default this option is not set, which means that the generated resource plug-in provides the resource implementation.")
+	BASE_RESOURCE_PLUGIN = 140;
+
+	@GenModel(documentation="If set to <code>false</code>, the PreferencePage class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PREFERENCE_PAGE = 141;
+
+	@GenModel(documentation="Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is <code>org.emftext.commons.antlr3_4_0</code>.")
+	ANTLR_PLUGIN_ID = 142;
+
+	@GenModel(documentation="If set to <code>false</code>, no ANTLR common runtime plug-in is generated. The default value for this option is <code>true</code>.")
+	OVERRIDE_ANTLR_PLUGIN = 143;
+
+	@GenModel(documentation="If set to <code>false</code>, the TokenStyleInformationProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER = 144;
+
+	@GenModel(documentation="If set to <code>false</code>, the FoldingInformationProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_FOLDING_INFORMATION_PROVIDER = 145;
+
+	@GenModel(documentation="If set to <code>false</code>, the BracketInformationProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_BRACKET_INFORMATION_PROVIDER = 146;
+
+	@GenModel(documentation="If set to <code>false</code>, the SyntaxCoverageInformationProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER = 147;
+
+	@GenModel(documentation="If set to <code>true</code>, the generated EMF resource will save only resource when their content (text) has actually changed. The default value for this option is <code>false</code>.")
+	SAVE_CHANGED_RESOURCES_ONLY = 148;
+
+	@GenModel(documentation="If set to <code>false</code>, the NewFileContentProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_NEW_FILE_CONTENT_PROVIDER = 149;
+
+	@GenModel(documentation="A URI pointing to a text file that contains a header which shall be added to all generated Java files. This option is useful to include copyright statements in the generated classes. If this option is not set, a default (empty) header is added to all generated Java classes.")
+	LICENCE_HEADER = 150;
+
+	@GenModel(documentation="If set to <code>false</code>, the ExpectedTerminal class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_EXPECTED_TERMINAL = 151;
+
+	@GenModel(documentation="If set to <code>false</code>, the CompletionProposal class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_COMPLETION_PROPOSAL = 152;
+
+	@GenModel(documentation="If set to <code>false</code>, the Builder class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_BUILDER = 153;
+
+	@GenModel(documentation="If set to <code>false</code>, the BuilderAdapter class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_BUILDER_ADAPTER = 154;
+
+	@GenModel(documentation="If set to <code>false</code>, the IBuilder class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_BUILDER = 155;
+
+	@GenModel(documentation="If set to <code>false</code>, the Nature class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_NATURE = 156;
+
+	@GenModel(documentation="A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource plug-in. The default value for this option is an empty list.")
+	ADDITIONAL_DEPENDENCIES = 157;
+
+	@GenModel(documentation="If set to <code>true</code>, the builder that is generated and registered by default will not be registered anymore. The default value for this option is <code>false</code>.")
+	DISABLE_BUILDER = 158;
+
+	@GenModel(documentation="A list of comma separated packages, which will be added as exports to the manifest of the generated resource plug-in. The default value for this option is an empty list.")
+	ADDITIONAL_EXPORTS = 159;
+
+	@GenModel(documentation="If set to <code>false</code>, the Pair class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PAIR = 160;
+
+	@GenModel(documentation="If set to <code>false</code>, the AbstractInterpreter class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ABSTRACT_INTERPRETER = 161;
+
+	@GenModel(documentation="If set to <code>false</code>, the GrammarInformationProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_GRAMMAR_INFORMATION_PROVIDER = 162;
+
+	@GenModel(documentation="If set to <code>false</code>, the AttributeValueProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ATTRIBUTE_VALUE_PROVIDER = 163;
+
+	@GenModel(documentation="If set to <code>false</code>, the FollowSetProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_FOLLOW_SET_PROVIDER = 164;
+
+	@GenModel(documentation="If set to <code>false</code>, the SyntaxElement class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SYNTAX_ELEMENT = 165;
+
+	@GenModel(documentation="If set to <code>false</code>, the Keyword class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_KEYWORD = 166;
+
+	@GenModel(documentation="If set to <code>false</code>, the Placeholder class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PLACEHOLDER = 167;
+
+	@GenModel(documentation="If set to <code>false</code>, the Cardinality class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_CARDINALITY = 168;
+
+	@GenModel(documentation="If set to <code>false</code>, the Printer2 class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PRINTER2 = 169;
+
+	@GenModel(documentation="If set to <code>false</code>, the Choice class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_CHOICE = 170;
+
+	@GenModel(documentation="If set to <code>false</code>, the Compound class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_COMPOUND = 171;
+
+	@GenModel(documentation="If set to <code>false</code>, the Containment class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_CONTAINMENT = 172;
+
+	@GenModel(documentation="If set to <code>false</code>, the LineBreak class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LINE_BREAK = 173;
+
+	@GenModel(documentation="If set to <code>false</code>, the Sequence class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SEQUENCE = 174;
+
+	@GenModel(documentation="If set to <code>false</code>, the WhiteSpace class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_WHITE_SPACE = 175;
+
+	@GenModel(documentation="If set to <code>false</code>, the SyntaxElementDecorator class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SYNTAX_ELEMENT_DECORATOR = 176;
+
+	@GenModel(documentation="If set to <code>false</code>, the IReferenceCache class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_REFERENCE_CACHE = 177;
+
+	@GenModel(documentation="If set to <code>false</code>, the DefaultHoverTextProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER = 178;
+
+	@GenModel(documentation="If set to <code>false</code>, the FormattingElement class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_FORMATTING_ELEMENT = 179;
+
+	@GenModel(documentation="If set to <code>false</code>, the Terminal class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TERMINAL = 180;
+
+	@GenModel(documentation="If set to <code>false</code>, the LayoutInformationAdapter class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LAYOUT_INFORMATION_ADAPTER = 181;
+
+	@GenModel(documentation="If set to <code>false</code>, the LayoutInformation class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LAYOUT_INFORMATION = 182;
+
+	@GenModel(documentation="If set to <code>true</code>, the classic printer (i.e., the one used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. In any case both printers are generated, but only one is used. The default value for this option is <code>false</code>.")
+	USE_CLASSIC_PRINTER = 183;
+
+	@GenModel(documentation="If set to <code>false</code>, constraint validation using registered EValidators will be enabled. The default value for this option is <code>true</code>.")
+	DISABLE_E_VALIDATORS = 184;
+
+	@GenModel(documentation="If set to <code>true</code>, constraint validation using the EMF Validation Framework is disabled. The default value for this option is <code>false</code>.")
+	DISABLE_EMF_VALIDATION_CONSTRAINTS = 185;
+
+	@GenModel(documentation="If set to <code>false</code>, the MetaInformation class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_UI_META_INFORMATION = 186;
+
+	@GenModel(documentation="The ID of the generated resource UI plug-in. The resource UI plug-in is stored in a folder that is equal to this ID.")
+	RESOURCE_UI_PLUGIN_ID = 187;
+
+	@GenModel(documentation="If set to <code>false</code>, the plug-in activator class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_UI_PLUGIN_ACTIVATOR = 188;
+
+	@GenModel(documentation="The package where to store all classes of the resource UI plug-in in. If this option is not set, the default value is determined by adding the suffix <code>resource.FILE_EXTENSION.ui</code> to the base package of the generator model.")
+	UI_BASE_PACKAGE = 189;
+
+	@GenModel(documentation="A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource UI plug-in. The default value for this option is an empty list.")
+	ADDITIONAL_UI_DEPENDENCIES = 190;
+
+	@GenModel(documentation="A list of comma separated packages, which will be added as exports to the manifest of the generated resource UI plug-in. The default value for this option is an empty list.")
+	ADDITIONAL_UI_EXPORTS = 191;
+
+	@GenModel(documentation="If set to <code>false</code>, the manifest of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_UI_MANIFEST = 192;
+
+	@GenModel(documentation="If set to <code>false</code>, the build.properties file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_UI_BUILD_PROPERTIES = 193;
+
+	@GenModel(documentation="If set to <code>false</code>, the .classpath file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_UI_DOT_CLASSPATH = 194;
+
+	@GenModel(documentation="If set to <code>false</code>, the .project file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_UI_DOT_PROJECT = 195;
+
+	@GenModel(documentation="The name of the folder where EMFText shall store the customizable classes of the resource UI plug-in in. All classes for which the <code>override</code> option is set to <code>false</code> will be stored in this folder.")
+	UI_SOURCE_FOLDER = 196;
+
+	@GenModel(documentation="The name of the folder EMFText shall store the generated classes of the resource UI plug-in in. All classes for which the <code>override</code> option is set to <code>true</code> will be stored in this folder.")
+	UI_SOURCE_GEN_FOLDER = 197;
+
+	@GenModel(documentation="If set to <code>false</code>, EMFText will not generate the resource UI plug-in. The default value for this option is <code>true</code>.")
+	GENERATE_UI_PLUGIN = 198;
+
+	@GenModel(documentation="If set to <code>false</code>, the IBracketHandler class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_BRACKET_HANDLER = 199;
+
+	@GenModel(documentation="If set to <code>false</code>, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_UI_PLUGIN_XML = 200;
+
+	@GenModel(documentation="If set to <code>false</code>, the ProposalPostProcessor class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PROPOSAL_POST_PROCESSOR = 201;
+
+	@GenModel(documentation="Disables the automatic sorting of tokens. The default value for this option is <code>false</code>.")
+	DISABLE_TOKEN_SORTING = 202;
+
+	@GenModel(documentation="If set to <code>false</code>, the IQuickFix class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_QUICK_FIX = 203;
+
+	@GenModel(documentation="If set to <code>false</code>, the QuickFix class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_QUICK_FIX = 204;
+
+	@GenModel(documentation="If set to <code>false</code>, the AnnotationModel class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ANNOTATION_MODEL = 205;
+
+	@GenModel(documentation="If set to <code>false</code>, AnnotationModelFactory class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ANNOTATION_MODEL_FACTORY = 206;
+
+	@GenModel(documentation="If set to <code>false</code>, the MarkerAnnotation class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_MARKER_ANNOTATION = 208;
+
+	@GenModel(documentation="If set to <code>false</code>, the MarkerResolutionGenerator class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_MARKER_RESOLUTION_GENERATOR = 209;
+
+	@GenModel(documentation="If set to <code>false</code>, the QuickAssistAssistant class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_QUICK_ASSIST_ASSISTANT = 211;
+
+	@GenModel(documentation="If set to <code>false</code>, the QuickAssistProcessor class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_QUICK_ASSIST_PROCESSOR = 212;
+
+	@GenModel(documentation="If set to <code>false</code>, the ImageProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_IMAGE_PROVIDER = 213;
+
+	@GenModel(documentation="If set to <code>false</code>, the TokenStyle class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TOKEN_STYLE = 214;
+
+	@GenModel(documentation="If set to <code>false</code>, the DynamicTokenStyler class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DYNAMIC_TOKEN_STYLER = 215;
+
+	@GenModel(documentation="If set to <code>false</code>, the generated resource class will not resolve references after parsing. The default value for this option is <code>true</code>.")
+	RESOLVE_PROXY_ELEMENTS_AFTER_PARSING = 216;
+
+	@GenModel(documentation="If set to <code>false</code>, the ExpectedBooleanTerminal class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_EXPECTED_BOOLEAN_TERMINAL = 217;
+
+	@GenModel(documentation="If set to <code>false</code>, the BooleanTerminal class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_BOOLEAN_TERMINAL = 218;
+
+	@GenModel(documentation="If set to <code>false</code>, the EnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ENUMERATION_TERMINAL = 219;
+
+	@GenModel(documentation="If set to <code>false</code>, the ExpectedEnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_EXPECTED_ENUMERATION_TERMINAL = 220;
+
+	@GenModel(documentation="If set to <code>false</code>, the ChangeReferenceQuickFix class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_CHANGE_REFERENCE_QUICK_FIX = 221;
+
+	@GenModel(documentation="If set to <code>false</code>, the EProblemSeverity class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_EPROBLEM_SEVERITY = 222;
+
+	@GenModel(documentation="If set to <code>false</code>, the ResourcePostProcessor class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_RESOURCE_POST_PROCESSOR = 223;
+
+	@GenModel(documentation="If set to <code>false</code>, the IResourceProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_RESOURCE_PROVIDER = 224;
+
+	@GenModel(documentation="If set to <code>false</code>, the IBracketHandlerProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_BRACKET_HANDLER_PROVIDER = 225;
+
+	@GenModel(documentation="If set to <code>false</code>, the IAnnotationModelProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_ANNOTATION_MODEL_PROVIDER = 226;
+
+	@GenModel(documentation="If set to <code>false</code>, the LaunchConfigurationDelegate class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE = 227;
+
+	@GenModel(documentation="If set to <code>false</code>, the LaunchConfigurationTabGroup class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP = 228;
+
+	@GenModel(documentation="If set to <code>false</code>, the LaunchConfigurationMainTab class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB = 229;
+
+	@GenModel(documentation="If set to <code>false</code>, the LaunchShortcurt class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LAUNCH_SHORTCUT = 230;
+
+	@GenModel(documentation="If set to <code>false</code>, the PropertyTester class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_PROPERTY_TESTER = 231;
+
+	@GenModel(documentation="If set to <code>true</code>, code that is required to support launching of DSL models is not generated. The default value for this option is <code>false</code>.")
+	DISABLE_LAUNCH_SUPPORT = 232;
+
+	@GenModel(documentation="If set to <code>false</code>, the Rule class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_RULE = 233;
+
+	@GenModel(documentation="If set to <code>false</code>, the AbstractDebuggable class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ABSTRACT_DEBUGGABLE = 234;
+
+	@GenModel(documentation="If set to <code>false</code>, the EDebugMessage enumeration will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_E_DEBUG_MESSAGE_TYPES = 235;
+
+	@GenModel(documentation="If set to <code>false</code>, the IDebugEventListener interface will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_DEBUG_EVENT_LISTENER = 236;
+
+	@GenModel(documentation="If set to <code>false</code>, the IInterpreterListener interface will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_INTERPRETER_LISTENER = 237;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebugCommunicationHandler class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUG_COMMUNICATION_HELPER = 238;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebugElement class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUG_ELEMENT = 239;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebuggableInterpreter class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUGGABLE_INTERPRETER = 240;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebuggerListener class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUGGER_LISTENER = 241;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebugMessage class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUG_MESSAGE = 242;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebugProcess class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUG_PROCESS = 243;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebugProxy class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUG_PROXY = 244;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebugTarget class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUG_TARGET = 245;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebugThread class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUG_THREAD = 246;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebugValue class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUG_VALUE = 247;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebugVariable class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUG_VARIABLE = 248;
+
+	@GenModel(documentation="If set to <code>false</code>, the LinebreakPoint class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LINEBREAK_POINT = 249;
+
+	@GenModel(documentation="If set to <code>false</code>, the SourceLocator class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SOURCE_LOCATOR = 250;
+
+	@GenModel(documentation="If set to <code>false</code>, the SourceLookupParticipant class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SOURCE_LOOKUP_PARTICIPANT = 251;
+
+	@GenModel(documentation="If set to <code>false</code>, the SourcePathComputerDelegate class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE = 252;
+
+	@GenModel(documentation="If set to <code>false</code>, the StackFrame class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_STACK_FRAME = 253;
+
+	@GenModel(documentation="If set to <code>true</code>, code that is required to support debugging of DSL models is not generated. The default value for this option is <code>false</code>.")
+	DISABLE_DEBUG_SUPPORT = 254;
+
+	@GenModel(documentation="If set to <code>false</code>, the DebugModelPresentation class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEBUG_MODEL_PRESENTATION = 255;
+
+	@GenModel(documentation="If set to <code>false</code>, the LineBreakpointAdapter class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LINE_BREAKPOINT_ADAPTER = 256;
+
+	@GenModel(documentation="If set to <code>false</code>, the AdapterFactory class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ADAPTER_FACTORY = 257;
+
+	@GenModel(documentation="If set to <code>false</code>, the LaunchConfigurationHelper class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LAUNCH_CONFIGURATION_HELPER = 258;
+
+	@GenModel(documentation="If set to <code>false</code>, the NewProjectWizard class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_NEW_PROJECT_WIZARD = 259;
+
+	@GenModel(documentation="If set to <code>true</code>, the new NewProjectWizard is not registered. Use this option if there is already an existing wizard. The default value for this option is <code>false</code>.")
+	DISABLE_NEW_PROJECT_WIZARD = 260;
+
+	@GenModel(documentation="If set to <code>false</code>, the OptionProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OPTION_PROVIDER = 260;
+
+	@GenModel(documentation="If set to <code>true</code>, the modern printer will not consider type restrictions for containment references that are defined in CS specifications. The classic printer does ignore these restrictions in any case. The default value for this option is <code>false</code>.")
+	IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING = 261;
+
+	@GenModel(documentation="If set to <code>false</code>, the INameProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_NAME_PROVIDER = 262;
+
+	@GenModel(documentation="If set to <code>false</code>, the DefaultNameProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEFAULT_NAME_PROVIDER = 263;
+
+	@GenModel(documentation="If set to <code>false</code>, the ReferenceCache class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_REFERENCE_CACHE = 264;
+
+	@GenModel(documentation="If set to <code>false</code>, the OutlinePageLexicalSortingAction class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION = 265;
+
+	@GenModel(documentation="If set to <code>false</code>, the OutlinePageCollapseAllAction class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION = 266;
+
+	@GenModel(documentation="If set to <code>false</code>, the OutlinePageGroupTypesAction class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION = 267;
+
+	@GenModel(documentation="If set to <code>false</code>, the AbstractOutlinePageAction class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION = 268;
+
+	@GenModel(documentation="If set to <code>false</code>, the OutlinePageTreeViewerComparator class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR = 269;
+
+	@GenModel(documentation="If set to <code>false</code>, the OutlinePageExpandAllAction class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION = 270;
+
+	@GenModel(documentation="If set to <code>false</code>, the OutlinePageActionProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER = 271;
+
+	@GenModel(documentation="If set to <code>false</code>, the OutlinePageLinkWithEditorAction class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION = 272;
+
+	@GenModel(documentation="If set to <code>false</code>, the OutlinePageAutoExpandAction class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION = 273;
+
+	@GenModel(documentation="If set to <code>false</code>, the ContainedFeature class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_CONTAINED_FEATURE = 274;
+
+	@GenModel(documentation="If set to <code>false</code>, the ExpectationConstants class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_EXPECTATION_CONSTANTS = 275;
+
+	@GenModel(documentation="If set to <code>false</code>, the EclipseProxy class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ECLIPSE_PROXY = 276;
+
+	@GenModel(documentation="If set to <code>false</code>, the RuntimeUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_RUNTIME_UTIL = 277;
+
+	@GenModel(documentation="If set to <code>true</code>, the generated resource plug-in will not contain any dependencies to Eclipse. The default value for this option is <code>false</code>.")
+	REMOVE_ECLIPSE_DEPENDENT_CODE = 278;
+
+	@GenModel(documentation="If set to <code>false</code>, the IFunction1 interface will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_FUNCTION1 = 279;
+
+	@GenModel(documentation="If set to <code>false</code>, the DevNullLocationMap class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_DEV_NULL_LOCATION_MAP = 280;
+
+	@GenModel(documentation="If set to <code>false</code>, the IgnoredWordsFilter class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_IGNORED_WORDS_FILTER = 281;
+
+	@GenModel(documentation="If set to <code>false</code>, the TaskItemDetector class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TASK_ITEM_DETECTOR = 282;
+
+	@GenModel(documentation="If set to <code>false</code>, the TaskItemBuilder class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TASK_ITEM_BUILDER = 283;
+
+	@GenModel(documentation="If set to <code>false</code>, the SourceViewerConfiguration class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SOURCE_VIEWER_CONFIGURATION = 284;
+
+	@GenModel(documentation="If set to <code>false</code>, the TaskItem class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TASK_ITEM = 285;
+
+	@GenModel(documentation="If set to <code>false</code>, the URIUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_URI_UTIL = 286;
+
+	@GenModel(documentation="If set to <code>false</code>, the ANTLRTextToken class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ANTLR_TEXT_TOKEN = 287;
+
+	@GenModel(documentation="If set to <code>false</code>, the IDelegatingReferenceResolver interface will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_DELEGATING_REFERENCE_RESOLVER = 288;
+
+	@GenModel(documentation="A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource plug-in. The default value for this option is an empty list.")
+	ADDITIONAL_IMPORTED_PACKAGES = 289;
+
+	@GenModel(documentation="A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource UI plug-in. The default value for this option is an empty list.")
+	ADDITIONAL_UI_IMPORTED_PACKAGES = 290;
+
+	@GenModel(documentation="A list of comma separated libraries, which will be added to the manifest file, the .classpath file and the build.properties file of the generated resource plug-in. The default value for this option is an empty list.")
+	ADDITIONAL_LIBRARIES = 291;
+
+	@GenModel(documentation="If set to <code>false</code>, the ContainmentTrace class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_CONTAINMENT_TRACE = 292;
+
+	@GenModel(documentation="The default editor name can be changed with this option. Default name is 'EMFText <yourSyntaxExtension> Editor'")
+	EDITOR_NAME = 293;
+
+	@GenModel(documentation="If set to <code>false</code>, the LayoutUtil class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LAYOUT_UTIL = 294;
+
+	@GenModel(documentation="If set to <code>false</code>, the AntlrTokenHelper class in the UI plug-in will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_UI_ANTLR_TOKEN_HELPER = 295;
+
+	@GenModel(documentation="If set to <code>false</code>, the InterruptibleEcoreResolver class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER = 296;
+
+	@GenModel(documentation="If set to <code>false</code>, the ITokenScanner interface will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_I_TOKEN_SCANNER = 297;
+
+	@GenModel(documentation="If set to <code>false</code>, the AutoEditStrategy class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_AUTO_EDIT_STRATEGY = 298;
+
+	@GenModel(documentation="If set to <code>false</code>, the SyntaxErrorMessageConverter class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER = 299;
+
+	@GenModel(documentation="If set to <code>false</code>, the LocalizedMessage class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_LOCALIZED_MESSAGE = 300;
+
+	@GenModel(documentation="If set to <code>false</code>, the BracketPair class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_BRACKET_PAIR = 301;
+
+	@GenModel(documentation="Specify the category for the generated preference pages. Default ID is <code>org.eclipse.ui.preferencePages.GeneralTextEditor</code>.")
+	PREFERENCE_PAGES_CATEGORY = 302;
+
+	@GenModel(documentation="If set to <code>false</code>, the ToggleCommentHandler class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_TOGGLE_COMMENT_HANDLER = 303;
+
+	@GenModel(documentation="If set to <code>false</code>, the EditingDomainProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_EDITING_DOMAIN_PROVIDER = 304;
+
+	@GenModel(documentation="If set to <code>false</code>, the AdapterFactoryProvider class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_ADAPTER_FACTORY_PROVIDER = 305;
+
+	@GenModel(documentation="If set to <code>false</code>, the NewProjectWizardLogic class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_NEW_PROJECT_WIZARD_LOGIC = 306;
+
+	@GenModel(documentation="Specify the category for the generated new file wizard. Default category ID is <code>org.emftext.runtime.ui.EMFTextFileCategory</code>.")
+	NEW_FILE_WIZARD_CATEGORY = 307;
+
+	@GenModel(documentation="Specify the target version of EMF to generate code for (e.g., 2.7).")
+	EMF_TARGET_VERSION = 308;
+
+	@GenModel(documentation="If set to <code>false</code>, the UIResourceBundle class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_UI_RESOURCE_BUNDLE = 309;
+
+	@GenModel(documentation="If set to <code>false</code>, the ResourceBundle class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_RESOURCE_BUNDLE = 310;
+
+	@GenModel(documentation="Specify the name for the generated new file wizard.")
+	NEW_FILE_WIZARD_NAME = 311;
+
+	@GenModel(documentation="Comma separated list of file extensions that should be supported by the editor in addition to the primary file extension.")
+	ADDITIONAL_FILE_EXTENSIONS = 312;
+
+	@GenModel(documentation="If set to <code>true</code>, the parser will accept keywords in all possible combinations of upper and lower case letters. This may have severe impact on parsing performance! The default value for this option is <code>false</code>.")
+	CASE_INSENSITIVE_KEYWORDS = 313;
+
+	@GenModel(documentation="If set to <code>false</code>, the FollowSetGroupList class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_FOLLOW_SET_GROUP_LIST = 314;
+
+	@GenModel(documentation="If set to <code>false</code>, the FollowSetGroup class will not be overridden. The default value for this option is <code>true</code>.")
+	OVERRIDE_FOLLOW_SET_GROUP = 315;
+
+	@GenModel(documentation="If set to <code>false</code>, the DamagerRepairer class will not be overridden. It can be customized when syntax coloring is intended to be optimized. The default is <code>true</code>.")
+	OVERRIDE_DAMAGER_REPAIRER = 316;
+}
+
+@GenModel(documentation="Defines syntax highlighting for tokens or keywords.")
+class TokenStyle {
+
+	@GenModel(documentation="The names of the tokens or the keywords this style is applied to.")
+	attr ecore.EString[+] tokenNames;
+
+	@GenModel(documentation="The color to show the tokens and keywords in.")
+	attr ecore.EString[1] rgb;
+
+	@GenModel(documentation="The font styles to use for the tokens and keywords.")
+	attr FontStyle[*] fontStyles;
+}
+
+enum FontStyle {
+	BOLD = 0;
+	ITALIC = 1;
+	STRIKETHROUGH = 2;
+	UNDERLINE = 3;
+}
+
+class Annotation {
+
+	@GenModel(body="for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters()) {
+	if (key.equals(parameter.getKey())){
+		java.lang.String value = parameter.getValue();
+		return value;
+	}
+}
+return null;", documentation="
+ Returns the annotation value for the given key.
+")
+	op ecore.EString getValue(ecore.EString[1] key);
+	attr AnnotationType[1] type;
+	val KeyValuePair[*] parameters;
+}
+
+abstract class Annotable {
+	val Annotation[*] annotations;
+}
+
+enum AnnotationType {
+	OVERRIDE = 0;
+	SUPPRESS_WARNINGS = 1;
+	FOLDABLE = 2;
+	OPERATOR = 3;
+}
+
+enum OperatorAnnotationType {
+	binary_left_associative = 0;
+	binary_right_associative = 1;
+	unary_prefix = 2;
+	unary_postfix = 3;
+	primitive = 4;
+}
+
+enum OperatorAnnotationProperty {
+	type = 0;
+	superclass = 1;
+	weight = 2;
+}
+
+class KeyValuePair {
+	attr ecore.EString[1] key;
+	attr ecore.EString value;
+}
+
+class GenClassCache {
+
+	@GenModel(body="if (!get_qualifiedInterfaceNameCache().containsKey(genClass)) {
+	java.lang.String qualifiedInterfaceName = genClass.getQualifiedInterfaceName();
+	get_qualifiedInterfaceNameCache().put(genClass, qualifiedInterfaceName);
+}
+return get_qualifiedInterfaceNameCache().get(genClass);", documentation="Return the qualified name of the interface for the given GenClass.")
+	op ecore.EString getQualifiedInterfaceName(genmodel.GenClass genClass);
+
+	@GenModel(body="java.lang.String interfaceName = getQualifiedInterfaceName(genClass);
+java.lang.String escapedName = interfaceName.replace(\"_\", \"_005f\");
+escapedName = escapedName.replace(\".\", \"_\");
+return escapedName;", documentation="
+ Returns an escaped version of the qualified name of the interface for 
+ the given GenClass. Underscores and dots are replaced to be able to use 
+ the returned name, for example, as method name.
+")
+	op ecore.EString getEscapedTypeName(genmodel.GenClass genClass);
+
+	@GenModel(body="return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());", documentation="Checks whether the given GenClass has a map type.")
+	op ecore.EBoolean hasMapType(genmodel.GenClass genClass);
+
+	@GenModel(body="for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list) {
+	org.eclipse.emf.ecore.EClass entryClass = entry.getEcoreClass();
+	org.eclipse.emf.ecore.EClass oClass = genClass.getEcoreClass();
+	if (entryClass.getName().equals(oClass.getName())
+			&& entryClass.getEPackage().getNsURI().equals(
+					oClass.getEPackage().getNsURI())) {
+		return true;
+	}
+}
+return false;", documentation="Checks whether the given list of GenClasses contains a GenClass
+with the same name and namespace URI as the given GenClass.")
+	op ecore.EBoolean containsEqualByName(genmodel.GenClass[*] list, genmodel.GenClass genClass);
+	val GenClassCacheEntry[*] _qualifiedInterfaceNameCache;
+}
+
+class GenClassCacheEntry : java.util.Map$Entry {
+	ref genmodel.GenClass key;
+	attr ecore.EString value;
+}
+
+class EClassUtil {
+
+	@GenModel(body="if (subClassCandidate == null) {
+	return false;
+}
+if ( org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEObject().equals(superClass)) {
+	// EObject is super type of all EClasses
+	return true;
+}
+for ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {
+	// There seem to be multiple instances of meta classes when accessed
+	// through the generator model. Therefore, we compare by name.
+	if (namesAndPackageURIsAreEqual(superClassCandidate, superClass)) {
+		return true;
+	}
+}
+return false;", documentation="")
+	op ecore.EBoolean isSubClass(ecore.EClass subClassCandidate, ecore.EClass superClass);
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.eclipse.emf.ecore.EClass> result = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.ecore.EClass>();
+for ( org.eclipse.emf.ecore.EClass next : availableClasses) {
+	if (isSubClass(next, superClass) &&
+		isConcrete(next)) {
+		result.add(next);
+	}
+}
+return result;", documentation="
+ Returns all subclasses of 'superClass' that are contained
+ in 'availableClasses'.
+ 
+ @param superClass the superclass
+ @param availableClasses the set of classes to search in
+ @return a list of all subclasses of 'superClass'
+")
+	op ecore.EClass[*] getSubClasses(ecore.EClass superClass, ecore.EClass[*] availableClasses);
+
+	@GenModel(body="return namesAreEqual(classA, classB) && 
+	packageURIsAreEqual(classA, classB);", documentation="")
+	op ecore.EBoolean namesAndPackageURIsAreEqual(ecore.EClass classA, ecore.EClass classB);
+
+	@GenModel(body="java.lang.String nsURI_A = classA.getEPackage().getNsURI();
+java.lang.String nsURI_B = classB.getEPackage().getNsURI();
+if (nsURI_A == null && nsURI_B == null) {
+	return true;
+}
+if (nsURI_A != null) {
+	return nsURI_A.equals(nsURI_B);
+} else {
+	// nsURI_A is null, but nsURI_B is not
+	return false;
+}", documentation="")
+	op ecore.EBoolean packageURIsAreEqual(ecore.EClass classA, ecore.EClass classB);
+
+	@GenModel(body="if (classA == null || classB == null) {
+	return false;
+}
+java.lang.String nameA = classA.getName();
+java.lang.String nameB = classB.getName();
+if (nameA == null) {
+	return nameB == null;
+}
+return nameA.equals(nameB);", documentation="")
+	op ecore.EBoolean namesAreEqual(ecore.EClass classA, ecore.EClass classB);
+
+	@GenModel(body="return !eClass.isAbstract() && !eClass.isInterface();", documentation="")
+	op ecore.EBoolean isConcrete(ecore.EClass eClass);
+
+	@GenModel(body="return !isConcrete(eClass);", documentation="")
+	op ecore.EBoolean isNotConcrete(ecore.EClass eClass);
+
+	@GenModel(body="boolean isEqual = namesAndPackageURIsAreEqual(subclassCandidate, superType);
+boolean isSubclass = isSubClass(subclassCandidate, superType);
+return isEqual || isSubclass;", documentation="")
+	op ecore.EBoolean[1] isSubClassOrEqual(ecore.EClass[1] subclassCandidate, ecore.EClass[1] superType);
+}
+
+class DefaultTokenStyleAdder {
+
+	@GenModel(body="// add default styles
+addTokenStylesForKeywords(syntax, allStyles);
+addTokenStylesForQuotedTokens(syntax, allStyles);
+addTokenStylesForComments(syntax, allStyles);
+addTokenStyleForTaskItems(syntax, allStyles);", documentation="")
+	op void addDefaultTokenStyles(ConcreteSyntax syntax, TokenStyle[*] allStyles);
+
+	@GenModel(body="final java.util.regex.Pattern KEYWORD_PATTERN = java.util.regex.Pattern.compile(getKeywordRegex());
+final java.lang.String KEYWORD_COLOR = \"800055\";
+for ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {
+	org.eclipse.emf.common.util.EList< java.lang.String> keywords = getAllKeywords(rule);
+	for ( java.lang.String keyword : keywords) {
+		if (KEYWORD_PATTERN.matcher(keyword).matches()) {
+			org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+			newStyle.setRgb(KEYWORD_COLOR);
+			newStyle.getTokenNames().add(keyword);
+			newStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);
+			syntax.addTokenStyle(allStyles, newStyle);
+		}
+	}
+}", documentation="")
+	op void addTokenStylesForKeywords(ConcreteSyntax syntax, TokenStyle[*] allStyles);
+
+	@GenModel(body="java.lang.String QUOTED_TOKEN_COLOR = \"2A00FF\";
+for ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {
+	org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes> placeholders = getAllPlaceholdersInQuotes(rule);
+	for ( org.emftext.sdk.concretesyntax.PlaceholderInQuotes placeholder : placeholders) {
+		org.emftext.sdk.concretesyntax.ReferencableTokenDefinition token = placeholder.getToken();
+		if (token == null) {
+			continue;
+		}
+		java.lang.String tokenName = token.getName();
+
+		org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+		newStyle.setRgb(QUOTED_TOKEN_COLOR);
+		newStyle.getTokenNames().add(tokenName);
+		syntax.addTokenStyle(allStyles, newStyle);
+	}
+}", documentation="")
+	op void addTokenStylesForQuotedTokens(ConcreteSyntax syntax, TokenStyle[*] allStyles);
+
+	@GenModel(body="final java.lang.String SL_COMMENT = \"'//'(~('\n'|'\r'|'\" + ((char) 0xffff) + \"'))*\";
+final java.lang.String ML_COMMENT = \"'/*'.*'*/'\";
+return SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);", documentation="")
+	op ecore.EBoolean isCommentPattern(ecore.EString regex);
+
+	@GenModel(body="final java.lang.String COMMENT_COLOR = \"3F805D\";
+java.util.Collection< org.emftext.sdk.concretesyntax.CompleteTokenDefinition> tokens = syntax.getActiveTokens();
+for ( org.emftext.sdk.concretesyntax.CompleteTokenDefinition tokenDefinition : tokens) {
+	java.lang.String regex = tokenDefinition.getRegex();
+	if (isCommentPattern(regex)) {
+		org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+		newStyle.setRgb(COMMENT_COLOR);
+		newStyle.getTokenNames().add(tokenDefinition.getName());
+		syntax.addTokenStyle(allStyles, newStyle);
+	}
+}", documentation="")
+	op void addTokenStylesForComments(ConcreteSyntax syntax, TokenStyle[*] allStyles);
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< java.lang.String> allKeywords = new org.eclipse.emf.common.util.BasicEList< java.lang.String>();
+org.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();
+while (iterator.hasNext()) {
+	org.eclipse.emf.ecore.EObject next = iterator.next();
+	if (next instanceof org.emftext.sdk.concretesyntax.CsString) {
+		allKeywords.add((( org.emftext.sdk.concretesyntax.CsString) next).getValue());
+	} else if (next instanceof org.emftext.sdk.concretesyntax.BooleanTerminal) {
+		allKeywords.add((( org.emftext.sdk.concretesyntax.BooleanTerminal) next).getTrueLiteral());
+		allKeywords.add((( org.emftext.sdk.concretesyntax.BooleanTerminal) next).getFalseLiteral());
+	} else if (next instanceof org.emftext.sdk.concretesyntax.EnumTerminal) {
+		org.emftext.sdk.concretesyntax.EnumTerminal enumTerminal = ( org.emftext.sdk.concretesyntax.EnumTerminal) next;
+		for ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : enumTerminal.getLiterals()) {
+			allKeywords.add(literal.getText());
+		}
+	}
+}
+return allKeywords;", documentation="")
+	op ecore.EString[*] getAllKeywords(Rule rule);
+
+	@GenModel(body="org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes> allPlaceholders = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes>();
+org.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();
+while (iterator.hasNext()) {
+	org.eclipse.emf.ecore.EObject next = iterator.next();
+	if (next instanceof org.emftext.sdk.concretesyntax.PlaceholderInQuotes) {
+		allPlaceholders.add(( org.emftext.sdk.concretesyntax.PlaceholderInQuotes) next);
+	}
+}
+return allPlaceholders;", documentation="")
+	op PlaceholderInQuotes[*] getAllPlaceholdersInQuotes(Rule rule);
+
+	@GenModel(body="final java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[0-9]|[:]|[-]|[_]|\\s)+)\";
+return KEYWORD_REGEX;", documentation="
+ All CsStrings that match the regular expression returned by this method will 
+ be recognized as keywords and a default token style (purple and bold face font) 
+ will be assigned.
+")
+	op ecore.EString getKeywordRegex();
+
+	@GenModel(body="final java.lang.String TASK_ITEM_COLOR = \"7F9FBF\";
+
+org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+newStyle.setRgb(TASK_ITEM_COLOR);
+newStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);
+newStyle.getTokenNames().add(\"TASK_ITEM\");
+syntax.addTokenStyle(allStyles, newStyle);", documentation="")
+	op void addTokenStyleForTaskItems(ConcreteSyntax syntax, TokenStyle[*] allStyles);
+}
+

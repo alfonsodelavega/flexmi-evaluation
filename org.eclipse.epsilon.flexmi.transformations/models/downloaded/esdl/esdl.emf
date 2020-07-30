@@ -1,0 +1,2302 @@
+@GenModel(documentation="# Energy System Description Language
+
+The Energy System Description Language (ESDL) is a modelling language created for modelling the components in an energy system and their relations towards each other. Furthermore ESDL is capable of expressing the dynamic behaviour of components in the energy system. For instance the power consumption of an neighbourhood. ESDL describes components by their basic functionality (so called Energy Capabilities), these are modelled in 5 abstract categories: Production, Consumption, Storage, Transport and Conversion. ESDL enables energy modelers to model a complex energy system in a generic way. The language is machine readable so makers of energy transition calculation tools and GIS applications can support ESDL in order to enforce the interoperability of their products.
+
+ESDL is currently developed by [TNO](https://www.tno.nl), and is open source. 
+The Github repository is at [https://github.com/EnergyTransition/ESDL](https://github.com/EnergyTransition/ESDL)
+
+For more information about ESDL, see the [ESDL gitbook](https://energytransition.gitbook.io/esdl)
+A browseable version of this model is found at [https://energytransition.github.io/](https://energytransition.github.io/)
+
+ESDL version: v1910
+Git commit hash $Id$")
+@namespace(uri="http://www.tno.nl/esdl", prefix="esdl")
+package esdl;
+
+@GenModel(documentation="An abstract class that describes a connectable Asset using ports. EnergyAssets main subclasses contain the 5 capability type: Producer, Consumer, Storage, Conversion and Transport ")
+abstract class EnergyAsset extends Asset {
+	val Port[*]#energyasset port;
+	ref ControlStrategy#energyAsset controlStrategy;
+}
+
+@GenModel(documentation="An abstract class that describes EnergyAssets that can produce energy. It is one of the 5 capabilities in ESDL")
+abstract class Producer extends EnergyAsset {
+	attr RenewableTypeEnum prodType = "RENEWABLE";
+
+	@GenModel(documentation="Defines the amount of time it is operational in hours during the year (e.g. the producer is not in maintenance and not actively turned off)")
+	attr int operationalHours;
+
+	@GenModel(documentation="An annual number of full-load hours is the time it will take a given Producer to yield its annual production if it is able to produce with its installed capacity all of the time. The capacity is defined by the 'Power' attribute")
+	attr int fullLoadHours;
+
+	@GenModel(documentation="Maximum power / capacity in Watt")
+	attr double power;
+}
+
+@GenModel(documentation="An abstract class that describes EnergyAssets that can consume energy. It is one of the 5 capabilities in ESDL")
+abstract class Consumer extends EnergyAsset {
+	attr ConsTypeEnum consType = "PRIMARY";
+	attr double power;
+}
+
+@GenModel(documentation="An abstract class that describes EnergyAssets that can store energy. It is one of the 5 capabilities in ESDL")
+abstract class Storage extends EnergyAsset {
+	attr double capacity;
+	attr double chargeEfficiency = "0.0";
+	val GenericProfile profile;
+	attr double dischargeEfficiency = "0.0";
+	attr double selfDischargeRate = "0.0";
+	attr double fillLevel;
+	attr double maxChargeRate = "0.0";
+	attr double maxDischargeRate = "0.0";
+}
+
+@GenModel(documentation="An abstract class that describes EnergyAssets that can convert one energy carrier into another. It is one of the 5 capabilities in ESDL")
+abstract class Conversion extends EnergyAsset {
+	attr double efficiency;
+	attr int operationalHours;
+	attr int fullLoadHours;
+	attr double power;
+	ref ResidualHeatSourcePotential#associatedConversionAsset residualHeatSourcePotential;
+}
+
+@GenModel(documentation="An abstract class that describes EnergyAssets that can transport energy. It is one of the 5 capabilities in ESDL")
+abstract class Transport extends EnergyAsset {
+	attr double capacity;
+
+	@GenModel(documentation="Allows to specify transmission losses as a percentage")
+	attr double efficiency;
+}
+
+enum CommodityEnum {
+	UNDEFINED = 0;
+	ELECTRICITY = 1;
+	GAS = 2;
+	HEAT = 3;
+	H2 = 4;
+	BIOGAS = 5;
+	CO2 = 6;
+	ENERGY = 7;
+}
+
+@GenModel(documentation="This is the main class to describe an EnergySystem in ESDL. Each energy system description should start with this class. More information about ESDL and the Energy System can be found in the gitbook at https://energytransition.gitbook.io/esdl/")
+class EnergySystem {
+
+	@GenModel(documentation="Name of the energy system")
+	attr String name;
+
+	@GenModel(documentation="A description of the energy system")
+	attr String description;
+
+	@GenModel(documentation="Geographical scope of the energy system as a text. In the area itself you can define the scope in more detail")
+	attr String geographicalScope;
+
+	@GenModel(documentation="(experimental) A selection of sectors that is relevant for this energy system ")
+	attr SectorEnum[*] sector;
+
+	@GenModel(documentation="The collection of measures that can be applied in this energy system by models and tools")
+	val Measures measures;
+
+	@GenModel(documentation=" Instances are used to represent different representations of the same EnergySystem. Most of the times only one Instance will be used. The primary use case for having more than one Instance is when you have different aggregations of the same EnergySystem in the same model (e.g. the same region on house level and aggregated on neighbourhood level). Another option would be to create different instances for different years (to describe the progress of the energy transition).")
+	val Instance[*] instance;
+
+	@GenModel(documentation="The EnergySystemInformation class is a container for additional information about the EnergySystem in general, such as profiles, energy carriers, data sources, etc. You can refer to these in other parts of the energy system description.")
+	val EnergySystemInformation energySystemInformation;
+
+	@GenModel(documentation="Parties involved in the EnergySystem, e.g. to model ownership of assets or areas.")
+	val Parties parties;
+
+	@GenModel(documentation="(experimental) Abstract information like services (demand response, aggregator services), energy markets and control strategies.")
+	val Services services;
+
+	@GenModel(documentation="A unique identifier for this energy system")
+	id attr String ~id;
+	attr String version;
+}
+
+@GenModel(documentation="Describes an individual wind turbine. A wind turbine is a producer capability")
+class WindTurbine extends Producer {
+	attr double rotorDiameter;
+	attr double height;
+	attr WindTurbineTypeEnum type;
+}
+
+@GenModel(documentation="Describes an individual PV panel. See PVInstallation for multiple PV panels. This is a Producer capability")
+class PVPanel extends Producer {
+	attr double panelEfficiency;
+	attr double inverterEfficiency;
+	attr int angle;
+	attr int orientation;
+}
+
+@GenModel(documentation="A battery can store electrical energy. This is a Storage capability")
+class Battery extends Storage {
+	attr int maxChargeDischargeCycles;
+}
+
+@GenModel(documentation="Describes an complete Electricty network, without detailing the complete topology. It is a Transport capability")
+class ElectricityNetwork extends EnergyNetwork {
+	attr double voltage;
+}
+
+@GenModel(documentation="Describes a representation of an electricity cable. When defining the geometry of a cable by means of a line, the first point of the line refers to the first port and the last point of the line refers to the second port.")
+class ElectricityCable extends AbstractConductor {
+
+	@GenModel(documentation="Length of the cable in meters")
+	attr double length;
+}
+
+@GenModel(documentation="Represents an aggregation of multiple consumers as one aggregated consumer. It allows you to reference the consumers it is aggregated of by using the aggregationOf reference. Can be used to aggregate a heterogeneous collection of consumers (e.g. of different types)")
+class AggregatedConsumer extends Consumer {
+	ref Consumer[*] aggregationOf;
+}
+
+@GenModel(documentation="Describes a physical part of a building. In dutch 'verblijfsobject' in the BAG national building and address registry. This can be used e.g. to model appartments in appartment complexes")
+class BuildingUnit extends AbstractBuilding {
+	attr BuildingTypeEnum type;
+	attr HousingTypeEnum housingType;
+	attr int numberOfInhabitants;
+	attr InhabitantsTypeEnum inhabitantsType;
+
+	@GenModel(documentation="in m2")
+	attr double floorArea;
+	attr int numberOfFloors;
+	attr double slantedRoofArea;
+	attr double flatRoofArea;
+	attr RoofTypeEnum roofType;
+	attr double wallArea;
+	attr double windowArea;
+	attr double rcFloor;
+	attr double rcWall;
+	attr double rfRoof;
+	attr double uWindow;
+	attr GlassTypeEnum glassType = "UNDEFINED";
+	attr VentilationTypeEnum ventilationType = "UNDEFINED";
+}
+
+@GenModel(documentation="The Area class represents a physical geographic area or a more abstract logical area. In both cases it is the 'asset container', in a sense that all assets within the area are contained by the Area instance.")
+class Area {
+
+	@GenModel(documentation="Unique id of this area")
+	id attr String ~id;
+
+	@GenModel(documentation="Name for this area")
+	attr String name;
+
+	@GenModel(documentation="The scope that this area describes, such as Country, Province, Energy Region, etc.")
+	attr AreaScopeEnum scope = "UNDEFINED";
+
+	@GenModel(documentation="Type of area (e.g. road, terrain, water, etc.)")
+	attr AreaTypeEnum type;
+
+	@GenModel(documentation="(experimental) Used to model social aspects of the area, such as population density, number of inhabitants, etc.")
+	val SocialProperties socialProperties;
+
+	@GenModel(documentation="(experimental) Used to model economic properties of this area, such as income, WOZ-value, etc.")
+	val EconomicProperties economicProperties;
+
+	@GenModel(documentation="contains all the assets in this area, both Buildings and EnergyAssets")
+	val Asset[*]#area asset;
+
+	@GenModel(documentation="contains all sub areas of this area")
+	val Area[*]#containingArea area;
+
+	@GenModel(documentation="Refers to the area that contains this area, if not the top-level area")
+	ref Area#area containingArea;
+
+	@GenModel(documentation="Refers to the party owning the area (usually a government)")
+	ref Party#ownsArea isOwnedBy;
+
+	@GenModel(documentation="(experimental) Defines a URI to reference the geometric shape of this area")
+	attr String geometryReference;
+
+	@GenModel(documentation="(experimental) Describes the number of vehicles and types in this area")
+	val MobilityProperties mobilityProperties;
+
+	@GenModel(documentation="(experimental) Defines the number of buildings per m2")
+	attr double buildingDensity;
+
+	@GenModel(documentation="List of KPIs relevant for this area")
+	val KPIs KPIs;
+
+	@GenModel(documentation="Contains all energy potentials of this area, such as geothermal potential and wind potential")
+	val Potential[*] potential;
+
+	@GenModel(documentation="Describes the physical geometry of this area")
+	val Geometry geometry;
+}
+
+@GenModel(documentation="Ports allow connections between EnergyAssets. Ports can be connected to one or more other ports. There are two types of ports: InPort and OutPort, which defines the primary direction of positive energy flow. InPorts can only be connected to OutPorts and vice versa.")
+abstract class Port {
+
+	@GenModel(documentation="Unique identifier for this port")
+	id attr String[1] ~id;
+
+	@GenModel(documentation="Maximum power in Watt")
+	attr double maxPower;
+
+	@GenModel(documentation="Refers to the parent asset this port belongs to")
+	ref EnergyAsset[1]#port energyasset;
+
+	@GenModel(documentation="Contains the profile attached to this port. Profiles ")
+	val GenericProfile[*] profile;
+
+	@GenModel(documentation="Defines the carrier of this port")
+	ref Carrier carrier;
+
+	@GenModel(documentation="simultaneous power in Watt (under discussion)")
+	attr double simultaneousPower;
+
+	@GenModel(documentation="Name of the port")
+	attr String name;
+}
+
+@GenModel(documentation="Represents an aggregation of multiple producers as one aggregated producer. It allows you to reference the producers it is aggregated of by using the aggregationOf reference. Can be used to aggregate a heterogeneous collection of producers (e.g. of different types)")
+class AggregatedProducer extends Producer {
+	ref Producer[*] aggregationOf;
+}
+
+@GenModel(documentation="The scope of the area: Building, Street, ZipCode, Neighbourhood, District, Municipality, City, etc.
+")
+enum AreaScopeEnum {
+	UNDEFINED = 0;
+	BUILDING = 1;
+	STREET = 2;
+	ZIPCODE = 3;
+	NEIGHBOURHOOD = 4;
+	DISTRICT = 5;
+	VILLAGE = 6;
+	CITY = 7;
+	MUNICIPALITY = 8;
+	REGION = 9;
+	PROVINCE = 10;
+	STATE = 11;
+	COUNTRY = 12;
+	CONTINENT = 13;
+}
+
+@GenModel(documentation="(deprecated in future version, to be replaced with Quantity and Units)")
+enum ProfileTypeEnum {
+	UNDEFINED = 0;
+	SOLARIRRADIANCE_IN_W_PER_M2 = 1;
+	WINDSPEED_IN_M_PER_S = 2;
+	STATEOFCHARGE_IN_WS = 3;
+	ENERGY_IN_WH = 4;
+	ENERGY_IN_KWH = 5;
+	ENERGY_IN_MWH = 6;
+	ENERGY_IN_GWH = 7;
+	ENERGY_IN_J = 8;
+	ENERGY_IN_KJ = 9;
+	ENERGY_IN_MJ = 10;
+	ENERGY_IN_GJ = 11;
+	ENERGY_IN_TJ = 12;
+	ENERGY_IN_PJ = 13;
+	TEMPERATURE_IN_C = 14;
+	TEMPERATURE_IN_K = 15;
+	POWER_IN_W = 16;
+	POWER_IN_KW = 17;
+	POWER_IN_MW = 18;
+	POWER_IN_GW = 19;
+	POWER_IN_TW = 20;
+	MONEY_IN_EUR = 21;
+	MONEY_IN_KEUR = 22;
+	MONEY_IN_MEUR = 23;
+	PERCENTAGE = 24;
+	MONEY_IN_EUR_PER_KW = 25;
+	MONEY_IN_EUR_PER_KWH = 26;
+	VOLUME_IN_M3 = 27;
+	VOLUME_IN_LITERS = 28;
+}
+
+@GenModel(documentation="Specified a time period")
+enum DurationUnitEnum {
+	SECOND = 0;
+	MINUTE = 1;
+	HOUR = 2;
+	DAY = 3;
+	WEEK = 4;
+	MONTH = 5;
+	YEAR = 6;
+}
+
+@GenModel(documentation="Represents a port with a positive energy direction into the asset, e.g. for a Consumer. See Port for more details")
+class InPort extends Port {
+	ref OutPort[*]#connectedTo connectedTo;
+}
+
+@GenModel(documentation="Represents a port with a positive energy direction out of the asset, e.g. for a Producer. See Port for more details")
+class OutPort extends Port {
+	ref InPort[*]#connectedTo connectedTo;
+}
+
+@GenModel(documentation="Assets are all physical thing in the EnergySystem. Assets can have a location, a geometry, commissioning and decommissioning dates, cost information (investment, installation and operation and maintenance costs).")
+abstract class Asset extends Item {
+
+	@GenModel(documentation="The surface that is occupied by this asset in m2")
+	attr int surfaceArea;
+
+	@GenModel(documentation="If this date is in the future it is a planned asset in this energy system")
+	attr EDate commissioningDate;
+
+	@GenModel(documentation="If this date is in the past, it is an asset that has been decommissioned")
+	attr EDate decommissioningDate;
+
+	@GenModel(documentation="Defines the owner of an asset (free text). Use the isOwnedBy relationship to refer to a Party")
+	attr String owner;
+	ref Area#asset area;
+	ref AbstractBuilding#asset containingBuilding;
+
+	@GenModel(documentation="Describes the physical geometry of this asset. Can be a point location or a polygon")
+	val Geometry geometry;
+	val CostInformation costInformation;
+
+	@GenModel(documentation="in years")
+	attr double technicalLifetime;
+
+	@GenModel(documentation="Defines if this Asset is aggregated of other assets of the same type")
+	attr boolean aggregated;
+
+	@GenModel(documentation="Number of assets that are aggregated")
+	attr int aggregationCount = 1;
+
+	@GenModel(documentation="the time required to install the asset (e.g. for calculating the effects on employment or the time it takes to construct and install the asset) in days")
+	attr double installationDuration;
+	val KPIs KPIs;
+
+	@GenModel(documentation="the type (e.g. model number) of the asset")
+	attr String assetType;
+}
+
+@GenModel(documentation="Generic consumer class that can be used in cases that the actual asset type is not important or not supported yet in ESDL")
+class GenericConsumer extends Consumer {
+}
+
+@GenModel(documentation="Generic producer class that can be used in cases that the actual asset type is not important or not supported yet in ESDL")
+class GenericProducer extends Producer {
+}
+
+@GenModel(documentation="Generic storage class that can be used in cases that the actual asset type is not important or not supported yet in ESDL")
+class GenericStorage extends Storage {
+}
+
+@GenModel(documentation="Generic transport class that can be used in cases that the actual asset type is not important or not supported yet in ESDL")
+class GenericTransport extends Transport {
+}
+
+@GenModel(documentation="Generic conversion class that can be used in cases that the actual asset type is not important or not supported yet in ESDL")
+class GenericConversion extends Conversion {
+}
+
+@GenModel(documentation="Represents an aggregation of multiple transport assets as one aggregated transport asset. It allows you to reference the transport asset it is aggregated of by using the aggregationOf reference. Can be used to aggregate a heterogeneous collection of transport assets (e.g. of different types)")
+class AggregatedTransport extends Transport {
+	ref Transport[*] aggregationOf;
+}
+
+@GenModel(documentation="Represents an aggregation of multiple conversion assets as one aggregated conversion asset. It allows you to reference the conversion asset it is aggregated of by using the aggregationOf reference. Can be used to aggregate a heterogeneous collection of conversion assets (e.g. of different types)")
+class AggregatedConversion extends Conversion {
+	ref Conversion[*] aggregationOf;
+}
+
+@GenModel(documentation="Represents an aggregation of multiple storage assets as one aggregated storage asset. It allows you to reference the storage asset it is aggregated of by using the aggregationOf reference. Can be used to aggregate a heterogeneous collection of storage assets (e.g. of different types)")
+class AggregatedStorage extends Storage {
+	ref Storage[*] aggregationOf;
+}
+
+@GenModel(documentation="Defines the usage of the building (gebruiksdoel in dutch). Examples: Residential, Industry, Office, Greenhouse, etc. Based on the types defined in the BAG in the Netherlands")
+enum BuildingTypeEnum {
+	UNDEFINED = 0;
+	RESIDENTIAL = 1;
+	GATHERING = 2;
+	PRISON = 3;
+	HEALTHCARE = 4;
+	INDUSTRY = 5;
+	OFFICE = 6;
+	EDUCATION = 7;
+	SPORTS = 8;
+	SHOPPING = 9;
+	HOTEL = 10;
+	GREENHOUSE = 11;
+	UTILITY = 12;
+	OTHER = 13;
+}
+
+@GenModel(documentation="Represents a physical building")
+class Building extends AbstractBuilding {
+	attr int buildingYear;
+
+	@GenModel(documentation="Describes the building types as defined by RVO in the Netherlands, in dutch for now, e.g. Vrijstaande woning, Rijwoning, Flatwoning, Hoekwoning")
+	attr ResidentialBuildingTypeEnum residentialBuildingType;
+
+	@GenModel(documentation="in m2")
+	attr double floorArea;
+	attr int numberOfFloors;
+
+	@GenModel(documentation="in m2")
+	attr double slantedRoofArea;
+
+	@GenModel(documentation="in m2")
+	attr double flatRoofArea;
+
+	@GenModel(documentation="Flat roof, slanted roof, or combination")
+	attr RoofTypeEnum roofType;
+
+	@GenModel(documentation="in m2")
+	attr double wallArea;
+
+	@GenModel(documentation="in m2")
+	attr double windowArea;
+
+	@GenModel(documentation="in m")
+	attr double perimeter;
+
+	@GenModel(documentation="in m")
+	attr double height;
+
+	@GenModel(documentation="in m2K/W")
+	attr double rcFloor;
+
+	@GenModel(documentation="in m2K/W")
+	attr double rcWall;
+
+	@GenModel(documentation="in m2K/W")
+	attr double rcRoof;
+
+	@GenModel(documentation="in W/m2K")
+	attr double uWindow;
+
+	@GenModel(documentation="(experimental, no usage yet) in degrees")
+	attr int orientation;
+
+	@GenModel(documentation="e.g. HR++ glass")
+	attr GlassTypeEnum glassType;
+
+	@GenModel(documentation="Type of ventilation used in building, e.g. mechanical ventilation")
+	attr VentilationTypeEnum ventilationType;
+}
+
+@GenModel(documentation="Consumer type, i.e. primary energy or final energy")
+enum ConsTypeEnum {
+	PRIMARY = 0;
+	FINAL = 1;
+}
+
+@GenModel(documentation="Generic heat storage asset with min and max temperatures")
+class HeatStorage extends Storage {
+	attr double minStorageTemperature;
+	attr double maxStorageTemperature;
+}
+
+@GenModel(documentation="Converts gas to heat, e.g. a gas boiler or gas heater")
+class GasHeater extends Conversion {
+	attr double minimumBurnRate = "0.0";
+	attr GasHeaterTypeEnum type;
+}
+
+@GenModel(documentation="Describes an complete heat network, without detailing the complete topology. It is a Transport capability")
+class HeatNetwork extends EnergyNetwork {
+	attr double temperature;
+	attr double temperatureMin;
+	attr double temperatureMax;
+}
+
+@GenModel(documentation="Describes an complete gas network, without detailing the complete topology. It is a Transport capability")
+class GasNetwork extends EnergyNetwork {
+	attr double pressure;
+}
+
+@GenModel(documentation="Describes insulation that can be added to a building. The relation with the heat consumption is not defined and requires manual modelling")
+class Insulation extends Asset {
+	attr double thermalInsulation;
+}
+
+@GenModel(documentation="Represents a generic source that produces a certain commodity. Used to model the rest of the energy system that is out of the current scope")
+class SourceProducer extends Producer {
+}
+
+@GenModel(documentation="Represents a generic sink that consumes a certain commodity. Used to model the rest of the energy system that is out of the current scope")
+class SinkConsumer extends Consumer {
+}
+
+@GenModel(documentation="Represents a pipe to transport gasses or fluids. When defining the geometry of a pipe by means of a line, the first point of the line refers to the first port and the last point of the line refers to the second port.")
+class Pipe extends AbstractConductor {
+
+	@GenModel(documentation="Inner diameter of pipe in meters")
+	attr double innerDiameter = "0.0";
+
+	@GenModel(documentation="Outer diameter of pipe in meters")
+	attr double outerDiameter;
+
+	@GenModel(documentation="Length of the pipe in meters")
+	attr double length;
+
+	@GenModel(documentation="Roughness of the pipe in meters")
+	attr double roughness;
+
+	@GenModel(documentation="Defines the pipe diameter using DN standard. A pipe catalog is required to translate these DN sizes to actual diameters (in meter). When using the default value for this field (VALUE_SPECIFIED), both innerDIameter and outerDiameter fields are used, instead of the values in this Enumeration.")
+	attr PipeDiameterEnum diameter;
+}
+
+@GenModel(documentation="Geothermal source including the installation that connects the source to the network")
+class GeothermalSource extends Producer {
+
+	@GenModel(documentation="in m")
+	attr double wellDepth;
+
+	@GenModel(documentation="type of production of this source, e.g. Heat or Electricity")
+	attr GeothermalSourceTypeEnum geothermalSourceType;
+
+	@GenModel(documentation="Coefficient of Performance of this source")
+	attr double COP;
+
+	@GenModel(documentation="in degrees Celcius")
+	attr double aquiferTemperature;
+
+	@GenModel(documentation="in kg/s")
+	attr double flowRate;
+
+	@GenModel(documentation="in Watt")
+	attr double pumpPower;
+
+	@GenModel(documentation="references the potential this source is part of")
+	ref AbstractGTPotential#geothermalSource geothermalPotential;
+}
+
+@GenModel(documentation="Abstract asset describing a co-generation plant that produces heat and electricity")
+abstract class CoGeneration extends Conversion {
+	attr double heatEfficiency = "0.0";
+	attr double electricalEfficiency = "0.0";
+
+	@GenModel(documentation="(legacy/experimental) input energy carrier of this plant")
+	ref EnergyCarrier energyCarrier;
+
+	@GenModel(documentation="Ratio between heat and electricity in its output")
+	attr double HERatio;
+
+	@GenModel(documentation="(legacy/experimental) fuel type of this plant")
+	attr PowerPlantFuelEnum fuelType;
+	attr CommodityEnum leadCommodity;
+}
+
+@GenModel(documentation="Describes a Heat Pump")
+class HeatPump extends Conversion {
+
+	@GenModel(documentation="Type of the source, e.g. Air, subsurface, aquifer")
+	attr SourceTypeEnum source;
+
+	@GenModel(documentation="number of heat pump stages")
+	attr int stages = 1;
+
+	@GenModel(documentation="Coefficient of performance of this Heat Pump")
+	attr double COP;
+
+	@GenModel(documentation="(legacy/experimental) In case of hybrid usage")
+	attr AdditionalHeatingSourceTypeEnum additionalHeatingSourceType;
+}
+
+@GenModel(documentation="Type of the source, e.g. Air, subsurface, aquifer")
+enum SourceTypeEnum {
+	UNDEFINED = 0;
+	AIR = 1;
+	SUB_SURFACE = 2;
+	AQUIFER = 3;
+	SURFACE_WATER = 4;
+	HEAT_NETWORK = 5;
+}
+
+@GenModel(documentation="(under discussion) Describes how something is aggregated. Terms are currently not mutual exclusive and collectively exhaustive (MECE)")
+enum AggrTypeEnum {
+	UNDEFINED = 0;
+	NOT_AGGREGATED = 1;
+	PER_COMMODITY = 2;
+	TOTAL_ENERGY = 3;
+	TOTAL_CAPABILITY = 4;
+	PER_CAPIBILITY = 5;
+}
+
+@GenModel(documentation="Type of area (e.g. road, terrain, water, etc.)")
+enum AreaTypeEnum {
+	UNDEFINED = 0;
+	ROAD = 1;
+	RAILWAY = 2;
+	TERRAIN = 3;
+	RURAL_AREA = 4;
+	BUILT = 5;
+	WATER = 6;
+	SEA = 7;
+	RIVER = 8;
+	CANAL = 9;
+	LAKE = 10;
+	LAND = 11;
+	PARCEL = 12;
+}
+
+@GenModel(documentation="Describes the heating demand of e.g. a household, area, etc.")
+class HeatingDemand extends Consumer {
+	attr HeatDemandTypeEnum type;
+	attr HeatRadiationDeviceTypeEnum deviceType;
+}
+
+enum HeatDemandTypeEnum {
+	UNDEFINED = 0;
+	SPACE_HEATING = 1;
+	HOT_TAPWATER = 2;
+	SH_AND_HTW = 3;
+	OTHER = 4;
+}
+
+@GenModel(documentation="Describes the electricity demand of e.g. a household, area, etc.")
+class ElectricityDemand extends Consumer {
+}
+
+@GenModel(documentation="Describes the gas demand of e.g. a household, area, etc. This can be used for all types of gasses (e.g. CO2, Natural Gas, Hydrogen, etc.)")
+class GasDemand extends Consumer {
+}
+
+@GenModel(documentation="Defines the geothermal potential in a specific area. This type focusses on temperature and depth of the well. See GeothermalEnergyPotental for class focussing on Energy")
+class GeothermalPotential extends AbstractGTPotential {
+	attr int temperature;
+	attr int depth;
+	attr GeothermalPotentialEnum potential;
+	attr GeothermalPowerEnum powerPerDoublet = "UNKNOWN";
+}
+
+@GenModel(documentation="Describes a point geometry, which can be used for giving assets a location on a map")
+class Point extends Geometry {
+	attr double lat;
+	attr double lon;
+	attr double elevation;
+}
+
+@GenModel(documentation="Describes a polygon geometry, which can be used for defining the shape of an area or building")
+class Polygon extends Geometry {
+	val SubPolygon[1] exterior;
+	val SubPolygon[*] interior;
+}
+
+@GenModel(documentation="Defines the type of ownership such as Private, Rental or Housing association")
+enum HousingTypeEnum {
+	UNDEFINED = 0;
+	OWNER_OCCUPIED_PROPERTY = 1;
+	PRIVATE_RENTAL = 2;
+	HOUSING_ASSOCIATION = 3;
+}
+
+@GenModel(documentation="(experimental) Can be used to define the economic properties of an area")
+class EconomicProperties {
+
+	@GenModel(documentation="in euro")
+	attr double averageIncome;
+	attr double averageWOZvalue;
+	attr double percentageOwnerOccupiedProperties;
+	attr double percentageHousingAssociation;
+	attr double percentagePrivateRental;
+}
+
+@GenModel(documentation="(experimental) Can be used to define the social properties of an area")
+class SocialProperties {
+	attr double socialCohesion;
+	attr int populationDensity;
+	attr int numberOfInhabitants;
+}
+
+@GenModel(documentation="Used to define an area in which its purpose is defined by legal authorities, such as restricted areas. E.g. in areas where water is extracted, it is not allowed to plan new UTES.")
+class LegalArea extends Potential {
+
+	@GenModel(documentation="")
+	attr String purpose;
+}
+
+@GenModel(documentation="Type of roof (slanted / flat / combined)")
+enum RoofTypeEnum {
+	UNDEFINED = 0;
+	FLATROOF = 1;
+	SLANTEDROOF = 2;
+	COMBINATION = 3;
+}
+
+@GenModel(documentation="Dutch system for energy labels for residential buildings, e.g. Label A, B, F")
+enum EnergyLabelEnum {
+	UNDEFINED = 0;
+	LABEL_G = 1;
+	LABEL_F = 2;
+	LABEL_E = 3;
+	LABEL_D = 4;
+	LABEL_C = 5;
+	LABEL_B = 6;
+	LABEL_A = 7;
+	LABEL_AP = 8;
+	LABEL_APP = 9;
+	LABEL_APPP = 10;
+	LABEL_APPPP = 11;
+}
+
+@GenModel(documentation="Abstract class to represent logical entities in the energy system, e.g. demand response services, energy markets, etc.")
+abstract class EnergyService extends Service {
+}
+
+@GenModel(documentation="Indicates a service supporting demand response in the energy system")
+class DemandResponseService extends EnergyService {
+}
+
+@GenModel(documentation="Electrical transformer between different voltage levels")
+class Transformer extends AbstractTransformer {
+	attr double voltagePrimary;
+	attr double voltageSecundary;
+}
+
+@GenModel(documentation="Exchange heat between two circuits")
+class HeatExchange extends AbstractTransformer {
+
+	@GenModel(documentation="")
+	attr double LossDeltaT;
+}
+
+@GenModel(documentation="Defines the RVO woningtypes, such as vrijstaande woning, flat woning, hoekwoning")
+enum ResidentialBuildingTypeEnum {
+	UNDEFINED = 0;
+	VRIJSTAANDE_WONING = 1;
+	TWEE_ONDER_EEN_KAP_WONING = 2;
+	RIJWONING = 3;
+	MAISONNETTEWONING = 4;
+	GALERIJWONING = 5;
+	PORTIEKWONING = 6;
+	FLATWONING = 7;
+	TUSSENWONING = 8;
+	HOEKWONING = 9;
+	GALERIJCOMPLEX = 10;
+	APPARTEMENTENCOMPLEX = 11;
+	APPARTEMENT = 12;
+}
+
+@GenModel(documentation="Class describing an abstract thing in an energy system. It is the parent of many other classes in ESDL, such as Assets, Services and Potentials. Parties can own Items")
+abstract class Item {
+
+	@GenModel(documentation="Unique identifier for this object")
+	id attr String ~id;
+
+	@GenModel(documentation="Name describing this object")
+	attr String name;
+
+	@GenModel(documentation="Short name for this object, e.g. used in legends of graphs in presentations")
+	attr String shortName;
+
+	@GenModel(documentation="Refers to the owner of this object")
+	ref Party#owns isOwnedBy;
+
+	@GenModel(documentation="Human readable description of this object")
+	attr String description;
+
+	@GenModel(documentation="ID of item in the original data source. Can be used to make links to the original data")
+	attr String originalIdInSource;
+
+	@GenModel(documentation="Reference to the datasource where the information in this object is coming from")
+	val AbstractDataSource dataSource;
+
+	@GenModel(documentation="Refers to the sector this object is used in")
+	ref Sector sector;
+}
+
+@GenModel(documentation="Collection of measures that can be applied to an energy system")
+class Measures {
+	val Asset[*] asset;
+	val MeasuresCombination[*] measuresCollection;
+}
+
+@GenModel(documentation="Electricity connection of a building. Defines the demarcation between the inhouse network and the electricity grid (location where the (smart) meter is located)")
+class EConnection extends AbstractConnection {
+	attr String EANCode;
+}
+
+@GenModel(documentation="Heat connection of a building. Defines the demarcation between the inhouse network and the heat grid (location where the (smart) meter is located)")
+class HConnection extends AbstractConnection {
+}
+
+@GenModel(documentation="Gas connection of a building. Defines the demarcation between the inhouse network and the gas grid (location where the (smart) meter is located)")
+class GConnection extends AbstractConnection {
+}
+
+@GenModel(documentation="Defines an electricity generating plant")
+class PowerPlant extends Conversion {
+	attr PowerPlantFuelEnum fuel;
+	attr int maxLoad;
+	attr int minLoad;
+	attr double effMaxLoad;
+	attr double effMinLoad;
+
+	@GenModel(documentation="Reference to the source of the plant")
+	ref EnergyCarrier energyCarrier;
+	val GenericProfile mustRun;
+}
+
+@GenModel(documentation="(to be removed) Type of fuel of this plant")
+enum PowerPlantFuelEnum {
+	UNDEFINED = 0;
+	COAL = 1;
+	BLAST_FURNACE_GAS = 2;
+	NATURAL_GAS = 3;
+	URANIUM = 4;
+	HYDROGEN = 5;
+}
+
+@GenModel(documentation="Describes the shared properties of building, building unit and aggregated building")
+abstract class AbstractBuilding extends Asset {
+	attr EnergyLabelEnum energyLabel;
+	val Asset[*]#containingBuilding asset;
+	attr double energyIndex;
+	val AbstractBuildingUsage buildingUsage;
+}
+
+@GenModel(documentation="Instances are used to represent different representations of the same EnergySystem. Most of the times only one Instance will be used. The primary use case for having more than one Instance is when you have different aggregations of the same EnergySystem in the same model (e.g. the same region on house level and aggregated on neighbourhood level). Another option would be to create different instances for different years (to describe the progress of the energy transition).")
+class Instance {
+
+	@GenModel(documentation="Unique identifier for this instance")
+	id attr String ~id;
+
+	@GenModel(documentation="Name of the instance")
+	attr String name;
+
+	@GenModel(documentation="Human readable description of this instance")
+	attr String description;
+
+	@GenModel(documentation="(experimental) Scope of the instance, e.g. Country or Municipality")
+	attr AreaScopeEnum detailLevel = "UNDEFINED";
+
+	@GenModel(documentation="(experimental) defines how the data in this instance is aggregated, e.g. by commodity, total energy, per capability, etc.")
+	attr AggrTypeEnum aggrType;
+
+	@GenModel(documentation="Top level area of this instance")
+	val Area area;
+
+	@GenModel(documentation="Defines the time aspect of the data in this instance, e.g. a snapshot in time or a range in time where this instance is valid")
+	val AbstractInstanceDate date;
+}
+
+@GenModel(documentation="Abstract class to represent logical entities in the energy system, e.g. demand response services, energy markets, etc.")
+abstract class Service extends Item {
+}
+
+@GenModel(documentation="Indicates a aggregator service exploiting flexibility in the energy system")
+class AggregatorService extends EnergyService {
+}
+
+@GenModel(documentation="Represents a charging station for electrical vehicles. Both single private-owned car chargers and public charging spaces can be modelled by this class")
+class EVChargingStation extends Consumer {
+}
+
+@GenModel(documentation="Abstract class that represents energy potentials in an area, like wind potential, geothermal potential, residual heat source potential, etc.")
+abstract class Potential extends Item {
+	val Geometry geometry;
+	attr String geometryReference;
+	val AbstractQuantityAndUnit quantityAndUnit;
+	attr boolean aggregated = false;
+	attr int aggregationCount = 1;
+}
+
+@GenModel(documentation="Represents wind potential")
+class WindPotential extends Potential {
+	attr double value;
+	attr int height;
+}
+
+@GenModel(documentation="Represents more than one building aggregated into one entity. It supports different types of aggregation, such as building type, energy label etc.")
+class AggregatedBuilding extends AbstractBuilding {
+	ref AbstractBuilding[*] aggregationOf;
+	attr int numberOfBuildings;
+	val EnergyLabelDistribution energyLabelDistribution;
+	val FromToDistribution buildingYearDistribution;
+	val BuildingTypeDistribution buildingTypeDistribution;
+	val ResidentialBuildingTypeDistribution residentialBuildingTypeDistribution;
+	val HousingTypeDistribution housingTypeDistribution;
+	attr double floorArea;
+}
+
+@GenModel(documentation="(to be removed)")
+enum SectorEnum {
+	UNDEFINED = 0;
+	GEBOUWDE_OMGEVING = 1;
+	ZAKELIJKE_DIENSTVERLENING = 2;
+	INDUSTRIE = 3;
+	AGRO_TUINBOUW = 4;
+}
+
+@GenModel(documentation="Defines a carrier of energy with its emission and energy content properties")
+class EnergyCarrier extends Material {
+	attr double energyContent = "0.0";
+	attr double emission = "0.0";
+	attr RenewableTypeEnum energyCarrierType;
+	val AbstractQuantityAndUnit energyContentUnit;
+	val AbstractQuantityAndUnit emissionUnit;
+}
+
+@GenModel(documentation="Used to define losses explicitly (as a Consumer capability)")
+class Losses extends Consumer {
+}
+
+@GenModel(documentation="Represents the ability to convert electricity to some other form of energy")
+class PowerToX extends Conversion {
+}
+
+@GenModel(documentation="Represents Carbon Capture and Storage")
+class CCS extends Storage {
+}
+
+@GenModel(documentation="Type of energy: Fossil or Renewable")
+enum RenewableTypeEnum {
+	UNDEFINED = 0;
+	RENEWABLE = 1;
+	FOSSIL = 2;
+}
+
+@GenModel(documentation="Defines the state of matter of the energy carrier (gaseous, liquid, solid)")
+enum StateOfMatterEnum {
+	UNDEFINED = 0;
+	SOLID = 1;
+	LIQUID = 2;
+	GASEOUS = 3;
+}
+
+@GenModel(documentation="Collection of carriers as part of the Energy System Information. Both energy carriers and commodities.")
+class Carriers {
+	val Carrier[*] carrier;
+	val AbstractDataSource dataSource;
+	id attr String ~id;
+}
+
+@GenModel(documentation="Defines a Fuel Cell")
+class FuelCell extends CoGeneration {
+}
+
+@GenModel(documentation="Represents the ability to convert some other form of energy to electricity")
+class XToPower extends Conversion {
+}
+
+@GenModel(documentation="Deprecated - Defines a wind parc of multiple turbines")
+class WindParc extends WindTurbine {
+	attr int numberOfTurbines;
+}
+
+@GenModel(documentation="Deprecated - Defines a PV parc of multiple panels")
+class PVParc extends PVPanel {
+	attr int numberOfPanels;
+}
+
+@GenModel(documentation="Describes reusable information of the energy system, that other classes can refer to in this energy system, such as carriers, profiles, data sources, quantity and units.")
+class EnergySystemInformation {
+	val Carriers carriers;
+	val Profiles profiles;
+	val DataSources dataSources;
+	val MobilityFuelInformation mobilityFuelInformation;
+	val QuantityAndUnits quantityAndUnits;
+	val Sectors sectors;
+	id attr String ~id;
+	val BuildingUsageInformation buildingUsageInformation;
+}
+
+@GenModel(documentation="Defines a pump, e.g. in a water or heat network")
+class Pump extends AbstractTransformer {
+}
+
+@GenModel(documentation="Defines a valve, e.g. in a water, gas or heat network")
+class Valve extends AbstractSwitch {
+
+	@GenModel(documentation="The valve coefficient of a valve describes the relationship between the pressure drop across the valve and the corresponding flow rate")
+	attr double valveCoefficient = "0.0";
+}
+
+@GenModel(documentation="All profiles should describe these fields: a name and a ProfileType. There are two different profile types: static, with static values stored in the ESDL model itself. And External, which allows you to refer to an externally defined profile (e.g. in an Energy Information System or a timeseries database)")
+abstract class GenericProfile {
+	op ProfileElement[*] getProfile(EDate from, EDate to, Duration aggregationPrecision);
+	op boolean setProfile(ProfileElement[*] profileElementList);
+	attr String name;
+	attr ProfileTypeEnum profileType = "UNDEFINED";
+	id attr String ~id;
+	val AbstractDataSource dataSource;
+	val AbstractQuantityAndUnit profileQuantityAndUnit;
+	attr InterpolationMethodEnum interpolationMethod = "UNDEFINED";
+}
+
+@GenModel(documentation="Stores the profile in the ESDL model itself, in contrast with an external profile, which refers to an external source for a profile")
+abstract class StaticProfile extends GenericProfile {
+}
+
+@GenModel(documentation="Describes a profile using one or more Profile elements. Each element defines a from- and a to-datetime and a value which is valid for this range. The to-field may be ommitted, meaning this value is valid for all time after the to-date.")
+class DateTimeProfile extends StaticProfile {
+
+	@GenModel(documentation="List of profile elements. Should have at least one element.")
+	val ProfileElement[+] element;
+}
+
+@GenModel(documentation="ProfileElement describes a single profile element describing a range and a value which is valid for this range. From-field is inclusive, To-field is exclusive, allowing you to describe ranges such as 1-1-2017T00:00:00.000 to 1-1-2018T00:00:00.000 instead of 31-12-2017T23:59:59:999. The to-field may be ommitted, meaning this value is valid for all time after the specified to-datetime.
+Examples: The heat demand of a municipality in 2013 is 20 PJ. The range you define is then from 1-1-2013T to 1-1-2014T and the value 20 and ProfileType ENERGY_IN_PJ")
+class ProfileElement {
+
+	@GenModel(documentation="including the value itself")
+	attr EDate[1] from;
+
+	@GenModel(documentation="exclusive the value itself")
+	attr EDate to;
+	attr double[1] value;
+}
+
+@GenModel(documentation="ExternalProfile allows to refer to an externally defined profile. Common uses are a profile defined in a (timeseries) database such as InfluxDB.
+It allows you to specify a multiplier to scale the supplied external profile by a certain factor (e.g. when using NEDU profiles). Default the multiplier is '1'.")
+abstract class ExternalProfile extends GenericProfile {
+
+	@GenModel(documentation="A multiplier can be used to scale the supplied external profile by a certain factor (e.g. when using NEDU profiles). Default the multiplier is '1'.")
+	attr double multiplier = "1.0";
+	attr EDate startDate;
+	attr EDate endDate;
+}
+
+@GenModel(documentation="A profile used to define a single value. This should be used when no information is present about the time. E.g. the price of a PV panel as currently known
+When a model queries for a value from a certain date (and to a certain date), that information will be ignored and it will always return this value.")
+class SingleValue extends StaticProfile {
+	attr double[1] value;
+}
+
+@GenModel(documentation="Abstract class to represent different types of distributions")
+abstract class GenericDistribution {
+	attr String name;
+}
+
+@GenModel(documentation="Defines the percentile of a percentile distribution")
+class Percentile {
+	attr int percentile;
+	attr double value;
+}
+
+@GenModel(documentation="Defines a distribution in terms of percentiles")
+class PercentileDistribution extends GenericDistribution {
+	val Percentile[*] percentile;
+}
+
+@GenModel(documentation="Describes the cooling demand of e.g. a building")
+class CoolingDemand extends Consumer {
+	attr CoolingDeviceType deviceType;
+}
+
+@GenModel(documentation="Represents an air conditioning unit")
+class Airco extends Conversion {
+}
+
+@GenModel(documentation="(to be removed)")
+enum CostUnitEnum {
+	UNDEFINED = 0;
+	MONEY_IN_EUR = 1;
+	MONEY_IN_KEUR = 2;
+	MONEY_IN_MEUR = 3;
+	MONEY_IN_EUR_PER_KW = 4;
+	MONEY_IN_EUR_PER_KWH = 5;
+}
+
+@GenModel(documentation="Describes the costs to acquire, install and maintain a certain asset.")
+class CostInformation {
+	val GenericProfile investmentCosts;
+	val GenericProfile installationCosts;
+	val GenericProfile fixedOperationalAndMaintenanceCosts;
+	val GenericProfile marginalCosts;
+	val GenericProfile variableOperationalAndMaintenanceCosts;
+}
+
+@GenModel(documentation="Abstract class to define a distribution with labels")
+abstract class LabelDistribution extends GenericDistribution {
+}
+
+@GenModel(documentation="Defines a distribution in terms of self-defined labels")
+class StringLabelDistribution extends LabelDistribution {
+	val StringPerc[*] stringPerc;
+}
+
+@GenModel(documentation="Defines a distribution in terms of energy labels")
+class EnergyLabelDistribution extends LabelDistribution {
+	val EnergyLabelPerc[*] labelPerc;
+}
+
+@GenModel(documentation="Defines a label and a percentage, used in StringLabelDistribution")
+class StringPerc {
+	attr String label;
+	attr double percentage;
+}
+
+@GenModel(documentation="Defines an energy label and a percentage, used in EnergyLabelDistribution")
+class EnergyLabelPerc {
+	attr EnergyLabelEnum energyLabel;
+	attr double percentage;
+}
+
+@GenModel(documentation="Defines a distribution in terms of 'from' and 'to'")
+class FromToDistribution extends LabelDistribution {
+	val FromToPerc[*] fromToPerc;
+}
+
+@GenModel(documentation="Defines a range and a percentage, used in the FromToDistribution class")
+abstract class FromToPerc {
+	attr double percentage;
+}
+
+@GenModel(documentation="(experimental) Used to define statistical information")
+class PItemStat {
+	attr double value;
+	attr double sigma;
+}
+
+@GenModel(documentation="(experimental) Used to define statistical information")
+abstract class AbstractVariance {
+}
+
+@GenModel(documentation="(experimental) Used to define statistical information")
+class SymetricVariance extends AbstractVariance {
+	attr double sigma;
+}
+
+@GenModel(documentation="(experimental) Used to define statistical information")
+class AssymetricVariance extends AbstractVariance {
+	attr double sigmaMin;
+	attr double sigmaPlus;
+}
+
+@GenModel(documentation="(experimental) Used to define statistical information")
+class DoubleAssymetricVariance extends AbstractVariance {
+	attr double plus34perc;
+	attr double plus48perc;
+	attr double min34perc;
+	attr double min48perc;
+}
+
+@GenModel(documentation="Type of geothermal source (heat / electricity)")
+enum GeothermalSourceTypeEnum {
+	UNDEFINED = 0;
+	HEAT = 1;
+	ELECTRICITY = 2;
+}
+
+@GenModel(documentation="Type of CHP, such as STEG, Gas turbine or Gas motor")
+enum CHPTypeEnum {
+	UNDEFINED = 0;
+	STEG = 1;
+	GAS_TURBINE = 2;
+	GAS_MOTOR = 3;
+}
+
+@GenModel(documentation="Describes a Combined Heat and Power installation")
+class CHP extends CoGeneration {
+	attr CHPTypeEnum CHPType;
+}
+
+@GenModel(documentation="Defines a stakeholder in the energy system, to represent ownership")
+class Party {
+	ref Item[*]#isOwnedBy owns;
+	id attr String ~id;
+	attr String name;
+	attr String shortName;
+	ref Area[*]#isOwnedBy ownsArea;
+	ref Sector sector;
+}
+
+@GenModel(documentation="Describes a reference to a profile in an information system using a URI (e.g. a URI to a profile in Energy Information System (EIS))")
+class URIProfile extends ExternalProfile {
+	attr String URI;
+}
+
+@GenModel(documentation="Describes the fields of a generic database-based profile")
+abstract class DatabaseProfile extends ExternalProfile {
+	attr String host;
+	attr int port;
+	attr String database;
+
+	@GenModel(documentation="Can be used in the WHERE-clause of a query")
+	attr String filters;
+}
+
+@GenModel(documentation="Describes a profile based on a measurement and field as part of an InfluxDB timeseries query")
+class InfluxDBProfile extends DatabaseProfile {
+	attr String measurement;
+	attr String field;
+}
+
+@GenModel(documentation="Describes a line geometry based on a list of points, which can be used to define the shape of pipes and cables")
+class Line extends Geometry {
+	val Point[2..*] point;
+}
+
+@GenModel(documentation="Abstract class to define the shape/location of an asset or area. Parent class of e.g. Point, Line and Polygon")
+abstract class Geometry {
+
+	@GenModel(documentation="The Coordinate Reference System, e.g. WGS-84 (GPS / lattitude, longitude), RD (EPSG:28992)")
+	attr String CRS;
+}
+
+@GenModel(documentation="Defines the type of glass used in a building, e.g. HR-glass. Defined in dutch")
+enum GlassTypeEnum {
+	UNDEFINED = 0;
+	ENKEL_GLAS = 1;
+	DUBBEL_GLAS = 2;
+	HR_GLAS = 3;
+	HRP_GLAS = 4;
+	HRPP_GLAS = 5;
+	HRPPP_GLAS = 6;
+}
+
+@GenModel(documentation="Defines the ventilation type used in a building, such as mechanical or balanced ventilation")
+enum VentilationTypeEnum {
+	UNDEFINED = 0;
+	NATURAL = 1;
+	MECHANIC_IN = 2;
+	MECHANIC_OUT = 3;
+	MECHANIC_INOUT = 4;
+	BALANCED = 5;
+	BALANCED_WITH_HEATRECUPERATION = 6;
+}
+
+@GenModel(documentation="Efficiency type of gas heater, such as HR100, HRE, etc.")
+enum GasHeaterTypeEnum {
+	UNDEFINED = 0;
+	CR = 1;
+	VR = 2;
+	HR100 = 3;
+	HR104 = 4;
+	HR107 = 5;
+	HRE = 6;
+	HRWW = 7;
+}
+
+@GenModel(documentation="(experimental) Defines the composition of the household of a building unit in Dutch, e.g. Alleenstaand, Bejaard echtpaar")
+enum InhabitantsTypeEnum {
+	UNDEFINED = 0;
+	ALLEENSTAAND = 1;
+	TWEEVERDIENERS = 2;
+	GEZIN_MET_KINDEREN = 3;
+	SENIOREN = 4;
+}
+
+@GenModel(documentation="(experimetal) Used in defining a Hybrid Heat Pump if there are additional heating sources possible, but its usage is not modelled. Otherwise model a HeatPump and a GasHeater seperately")
+enum AdditionalHeatingSourceTypeEnum {
+	NONE = 0;
+	ELECTRIC = 1;
+	GAS = 2;
+}
+
+@GenModel(documentation="(experimental) Describes the chances of finding geothermal energy")
+enum GeothermalPotentialEnum {
+	UNKNOWN = 0;
+	POSSIBLE = 1;
+	GOOD = 2;
+}
+
+@GenModel(documentation="Describes the chances of finding geothermal energy including the expected thermal power")
+enum GeothermalPowerEnum {
+	UNKNOWN = 0;
+	POSSIBLE_GT5MWTH = 1;
+	GOOD_GT5MWTH = 2;
+	GOOD_GT7P5MWTH = 3;
+	GOOD_GT10MWTH = 4;
+}
+
+@GenModel(documentation="Abstract class for commodities")
+abstract class Commodity extends Carrier {
+}
+
+@GenModel(documentation="Defines a gas commodity. This class can be used as an abstract way of modelling gas commodity and can be used in conjunction with electricity commodity and heat commodity. If more detailed modelling is necessary, use energy carriers.")
+class GasCommodity extends Commodity {
+	attr double pressure;
+}
+
+@GenModel(documentation="Defines a heat commodity")
+class HeatCommodity extends Commodity {
+	attr double supplyTemperature = "0.0";
+	attr double returnTemperature;
+}
+
+@GenModel(documentation="Defines a electricity commodity")
+class ElectricityCommodity extends Commodity {
+	attr double voltage;
+}
+
+@GenModel(documentation="Abstract class to define the carrier of energy, e.g. a energy carrier or a commodity (such as electricity)")
+abstract interface Carrier {
+	attr String name;
+	id attr String ~id;
+	val GenericProfile cost;
+	val AbstractDataSource dataSource;
+}
+
+@GenModel(documentation="Defines a range between two values")
+class Range extends StaticProfile {
+	attr double minValue;
+	attr double maxValue;
+}
+
+@GenModel(documentation="Defines the potential for solar energy")
+class SolarPotential extends Potential {
+	attr double value = "0.0";
+	attr PVInstallationTypeEnum SolarPotentialType;
+	attr int fullLoadHours;
+	attr double area;
+}
+
+@GenModel(documentation="Defines the duration of a profile query")
+class Duration {
+	attr long value;
+	attr DurationUnitEnum durationUnit = "SECOND";
+}
+
+@GenModel(documentation="Used to refer to profiles defined in the Energy System Information section")
+class ProfileReference extends StaticProfile {
+
+	@GenModel(documentation="Allows to multiply the referred profile by a certain factor (e.g. when using normalized profiles)")
+	attr double multiplier = "1";
+	ref GenericProfile[1] reference;
+}
+
+@GenModel(documentation="Container for profiles in the Energy System Information where other profiles can refer to")
+class Profiles {
+	val GenericProfile[*] profile;
+}
+
+@GenModel(documentation="Container for parties that have a role in the energy system")
+class Parties {
+	val Party[*] party;
+}
+
+@GenModel(documentation="Collection of datasources used in the energy system")
+class DataSources {
+	val DataSource[*] dataSource;
+	id attr String ~id;
+}
+
+@GenModel(documentation="A DataSource describes the source of the piece of information used in the energy system. E.g. a profile from NEDU or typical parameters of an Asset")
+class DataSource extends AbstractDataSource {
+	attr String name;
+	attr String description;
+	attr String reference;
+	attr String attribution;
+	attr EDate releaseDate;
+	attr String version;
+	attr String licence;
+}
+
+@GenModel(documentation="Allows to describe the total energy demand when differentiation between energy carriers is not possible or required, otherwise e.g. ElectricityDemand or HeatingDemand is an alternative")
+class EnergyDemand extends Consumer {
+}
+
+@GenModel(documentation="Defines a SolarCollector asset")
+class SolarCollector extends Producer {
+	attr SolarCollectorTypeEnum type;
+}
+
+@GenModel(documentation="Defines a source of residual heat, e.g. a data center or factory")
+class ResidualHeatSource extends Producer {
+	attr ResidualHeatSourceTypeEnum type;
+	ref ResidualHeatSourcePotential#residualHeatSource residualHeatSourcePotential;
+}
+
+@GenModel(documentation="Defines the types of residual heat sources")
+enum ResidualHeatSourceTypeEnum {
+	UNDEFINED = 0;
+	INDUSTRIAL = 1;
+	DATACENTER = 2;
+	COOLING_HOUSE = 3;
+	OTHER = 4;
+}
+
+@GenModel(documentation="Defines a plant fuelled by biomass")
+class FermentationPlant extends Conversion {
+}
+
+@GenModel(documentation="Defines the residual heat potential in a specific area.")
+class ResidualHeatSourcePotential extends Potential {
+	attr double value = "0.0";
+	attr ResidualHeatSourceTypeEnum type;
+	ref Conversion#residualHeatSourcePotential associatedConversionAsset;
+	ref ResidualHeatSource#residualHeatSourcePotential residualHeatSource;
+}
+
+@GenModel(documentation="Part of a Polygon used to describe the internal or external boundary")
+class SubPolygon {
+	val Point[3..*] point;
+}
+
+@GenModel(documentation="Collection of Polygons")
+class MultiPolygon extends Geometry {
+	val Polygon[+] polygon;
+}
+
+@GenModel(documentation="Generic energy commodity, to be used in (national) energy balances")
+class EnergyCommodity extends Commodity {
+}
+
+@GenModel(documentation="Energy demand of the mobility sector. Allows to specify the vehicle types, fuel types and their efficiency and distance travelled")
+class MobilityDemand extends Consumer {
+
+	@GenModel(documentation="")
+	attr VehicleTypeEnum[*] type;
+	attr MobilityFuelTypeEnum fuelType;
+
+	@GenModel(documentation="distance travelled in kilometers")
+	attr int distance;
+	attr double efficiency;
+}
+
+@GenModel(documentation="Fuel type of the vehicle (category)")
+enum MobilityFuelTypeEnum {
+	UNDEFINED = 0;
+	PETROL = 1;
+	DIESEL = 2;
+	HYDROGEN = 3;
+	LPG = 4;
+	BIOFUEL = 5;
+	ELECTRICITY = 6;
+	OIL = 7;
+	LNG = 8;
+	KEROSENE = 9;
+}
+
+@GenModel(documentation="Type of vehicle, e.g. car, truck, train")
+enum VehicleTypeEnum {
+	UNDEFINED = 0;
+	CAR = 0;
+	TRUCK = 0;
+	VAN = 3;
+	BUS = 4;
+	METRO = 5;
+	TRAM = 6;
+	TRAIN = 7;
+	PASSENGER_TRAIN = 8;
+	FREIGHT_TRAIN = 9;
+	SCOOTER = 10;
+	MOTOR_CYCLE = 11;
+	NONROAD_VEHICLE = 12;
+	AGRARIAN_VEHICLE = 13;
+	BARGE = 14;
+	INTERNATIONAL_SHIPPING = 15;
+	AIRCRAFT = 16;
+	OTHER = 17;
+	TOTAL = 18;
+}
+
+@GenModel(documentation="Collection of information about vehicles, fuels and efficiency")
+class MobilityFuelInformation {
+	val VehicleFuelEfficiency[*] vehicleFuelEfficiency;
+	val AbstractDataSource dataSource;
+	id attr String ~id;
+}
+
+@GenModel(documentation="Information about vehicles, fuels and efficiency, used in MobilityFuelInformation")
+class VehicleFuelEfficiency {
+	attr VehicleTypeEnum vehicleType;
+	attr MobilityFuelTypeEnum fuel;
+
+	@GenModel(documentation="")
+	attr double efficiency;
+}
+
+@GenModel(documentation="(experimental) Can be used to define the mobility properties of an area")
+class MobilityProperties {
+	val NumberOfVehicles numberOfVehicles;
+}
+
+@GenModel(documentation="(experimental) Provides the ability to define the number of vehicles of an area")
+class NumberOfVehicles {
+	val VehicleCount[*] vehicleCount;
+}
+
+@GenModel(documentation="(experimental) Defines the number of vehicles per vehicle type")
+class VehicleCount {
+	attr VehicleTypeEnum type;
+	attr int count;
+}
+
+@GenModel(documentation="Defines an electrolyzer that converts electricity into hydrogen")
+class Electrolyzer extends PowerToX {
+	attr double outputPressure;
+	attr int maxLoad;
+	attr int minLoad;
+	attr double effMaxLoad;
+	attr double effMinLoad;
+}
+
+@GenModel(documentation="Defines a gas storage asset, see also CCS")
+class GasStorage extends Storage {
+	attr double minStoragePressure;
+	attr double maxStoragePressure = "0.0";
+}
+
+@GenModel(documentation="Defines a collection of logical services used in the energy system, e.g. Demand-Response, Aggregator services, Energy markets and control strategies.")
+class Services {
+	val Service[*] service;
+	id attr String ~id;
+}
+
+@GenModel(documentation="Defines a control strategy for a specific asset")
+abstract class ControlStrategy extends EnergyService {
+	ref EnergyAsset#controlStrategy energyAsset;
+}
+
+@GenModel(documentation="Control strategy specifying that an asset is driven by the demand of one of the output ports")
+class DrivenByDemand extends ControlStrategy {
+	ref OutPort outPort;
+}
+
+@GenModel(documentation="Defines the quantity and its unit for a specific parameter. Used in e.g. profiles and KPIs. For example Energy in Joules or CO2 emission in kton.")
+class QuantityAndUnitType extends AbstractQuantityAndUnit {
+	attr PhysicalQuantityEnum physicalQuantity;
+	attr MultiplierEnum multiplier;
+	attr UnitEnum unit;
+	attr MultiplierEnum perMultiplier;
+	attr UnitEnum perUnit;
+	attr String description;
+	attr TimeUnitEnum perTimeUnit;
+	id attr String ~id;
+}
+
+@GenModel(documentation="Defines the possible multipliers in QuantityAndUnitType")
+enum MultiplierEnum {
+	NONE = 0;
+	KILO = 1;
+	MEGA = 2;
+	GIGA = 3;
+	TERRA = 4;
+	PETA = 5;
+	MILLI = 6;
+	MICRO = 7;
+	NANO = 8;
+	PICO = 9;
+}
+
+@GenModel(documentation="Defines the possible physical quantities in QuantityAndUnitType")
+enum PhysicalQuantityEnum {
+	UNDEFINED = 0;
+	ENERGY = 1;
+	POWER = 2;
+	VOLTAGE = 3;
+	PRESSURE = 4;
+	TEMPERATURE = 5;
+	EMISSION = 6;
+	COST = 7;
+	TIME = 8;
+	LENGTH = 9;
+	DISTANCE = 10;
+	IRRADIANCE = 11;
+	SPEED = 12;
+	STATE_OF_CHARGE = 13;
+	VOLUME = 14;
+	AREA = 15;
+	POWER_REACTIVE = 16;
+	COMPOSITION = 17;
+	FLOW = 18;
+	STATE = 19;
+}
+
+@GenModel(documentation="Defines the possible units of a QuantityAndUnitType")
+enum UnitEnum {
+	NONE = 0;
+	JOULE = 1;
+	WATTHOUR = 2;
+	WATT = 3;
+	VOLT = 4;
+	BAR = 5;
+	PSI = 6;
+	DEGREES_CELSIUS = 7;
+	KELVIN = 8;
+	GRAM = 9;
+	EURO = 10;
+	DOLLAR = 11;
+	SECOND = 12;
+	MINUTE = 13;
+	QUARTER = 14;
+	HOUR = 15;
+	DAY = 16;
+	WEEK = 17;
+	MONTH = 18;
+	YEAR = 19;
+	METRE = 20;
+	SQUARE_METRE = 21;
+	CUBIC_METRE = 22;
+	LITRE = 23;
+	WATTSECOND = 24;
+	ARE = 25;
+	HECTARE = 26;
+	PERCENT = 27;
+	VOLT_AMPERE = 28;
+	VOLT_AMPERE_REACTIVE = 29;
+}
+
+@GenModel(documentation="Abstract class to describe data sources or references to data sources")
+abstract class AbstractDataSource {
+	id attr String ~id;
+}
+
+@GenModel(documentation="Defines a reference to a datasource, defined in the collection of DataSources (as part of the EnergySystemInformation)")
+class DataSourceReference extends AbstractDataSource {
+	ref DataSource[1] reference;
+}
+
+@GenModel(documentation="Defines the possible time units in a QuantityAndUnitType")
+enum TimeUnitEnum {
+	NONE = 0;
+	SECOND = 1;
+	MINUTE = 2;
+	QUARTER = 3;
+	HOUR = 4;
+	DAY = 5;
+	WEEK = 6;
+	MONTH = 7;
+	YEAR = 8;
+}
+
+@GenModel(documentation="Collection of key performance indicators of areas or assets")
+class KPIs {
+	val KPI[*] kpi;
+	attr String ~id;
+	attr String description;
+}
+
+@GenModel(documentation="Defines a key performance indicator (KPI)")
+abstract class KPI {
+	attr String ~id;
+	attr String name;
+	val AbstractQuantityAndUnit quantityAndUnit;
+}
+
+@GenModel(documentation="Collection of QuantityAndUnitTypes defined in the EnergySystemInformation section")
+class QuantityAndUnits {
+	val QuantityAndUnitType[*] quantityAndUnit;
+	id attr String ~id;
+}
+
+@GenModel(documentation="Abstract class to describe QuantityAndUnitTypes or references to these")
+abstract class AbstractQuantityAndUnit {
+}
+
+@GenModel(documentation="Defines a reference to a QuantityAndUnitType defined in the collection of QuantityAndUnits (as part of the EnergySystemInformation)")
+class QuantityAndUnitReference extends AbstractQuantityAndUnit {
+	ref QuantityAndUnitType[1] reference;
+}
+
+@GenModel(documentation="Defines an EnergyMarket of the energy system. A market is defined by specifying the assets that participate in this market.")
+class EnergyMarket extends EnergyService {
+	ref Asset[*] asset;
+	ref Carrier carrier;
+	val Parameters[*] parameters;
+}
+
+@GenModel(documentation="Defines an asset that can convert gas into another form of gas. E.g. SMR or ATR.")
+class GasConversion extends Conversion {
+	attr GasConversionTypeEnum type;
+	attr double outputPressure;
+}
+
+@GenModel(documentation="Type of gas conversion, e.g. SMR or ATR")
+enum GasConversionTypeEnum {
+	UNDEFINED = 0;
+	SMR = 1;
+	ATR = 2;
+}
+
+@GenModel(documentation="Used to describe properties of an EnergyMarket")
+abstract class Parameters {
+	attr String name;
+	val AbstractQuantityAndUnit parameterUnit;
+}
+
+@GenModel(documentation="Defines a parameter of type String")
+class StringParameter extends Parameters {
+	attr String value;
+}
+
+@GenModel(documentation="Defines a parameter of type Double")
+class DoubleParameter extends Parameters {
+	attr double value;
+}
+
+@GenModel(documentation="Defines a parameter of type Integer")
+class IntegerParameter extends Parameters {
+	attr int value;
+}
+
+@GenModel(documentation="Defines a parameter of type Boolean")
+class BooleanParameter extends Parameters {
+	attr boolean value;
+}
+
+@GenModel(documentation="Control strategy specifying that an asset is driven by the supply of one of the input ports (used in ESDL-based simulation tools)")
+class DrivenBySupply extends ControlStrategy {
+	ref InPort inPort;
+}
+
+@GenModel(documentation="Control strategy specifying that an asset is driven by a profile specified in one of the ports (used in ESDL-based simulation tools)")
+class DrivenByProfile extends ControlStrategy {
+
+	@GenModel(documentation="the profile to use for the DrivenByProfile strategy. Depending on the purpose profiles can be power, energy, temperature, pressure, flow profiles (or any other type).")
+	val GenericProfile profile;
+
+	@GenModel(documentation="a reference to the port for which the profile is relevant")
+	ref Port port;
+}
+
+@GenModel(documentation="Defines a Photo Voltaic Installation, e.g. roof top PV, a PV field or parc.")
+class PVInstallation extends PVPanel {
+	attr PVInstallationTypeEnum type;
+	attr int numberOfPanels;
+}
+
+@GenModel(documentation="Type of PV installation, such as installed on roofs or as a field")
+enum PVInstallationTypeEnum {
+	UNDEFINED = 0;
+	ROOFTOP_PV = 1;
+	BUILDING_INTEGRATED_PV = 2;
+	WINDOW = 3;
+	ROAD = 4;
+	FIELD = 5;
+	WATER = 6;
+}
+
+@GenModel(documentation="Type of wind turbine. E.g. on land, at sea, on a building, etc.")
+enum WindTurbineTypeEnum {
+	UNDEFINED = 0;
+	WIND_ON_LAND = 1;
+	WIND_AT_SEA = 2;
+	WIND_ON_COAST = 3;
+	WIND_ON_BUILDING = 4;
+}
+
+@GenModel(documentation="Defines a circuit breaker in electric transmission or distribution grids")
+class CircuitBreaker extends AbstractSwitch {
+}
+
+@GenModel(documentation="A combination of measures with single cost information that can be applied to an energy system. E.g. a combination of insulation and a heat pump. For a single measure (e.g. a PV installation) use Measures")
+class MeasuresCombination {
+	id attr String ~id;
+	attr String name;
+	val Asset[*] asset;
+	val CostInformation costInformation;
+	attr String description;
+	val AbstractDataSource dataSource;
+}
+
+@GenModel(documentation="Defines an asset that uses water to produce electricity. E.g.  hydro power, tidal power, wave power or osmotic power")
+class WaterToPower extends Producer {
+	attr WaterToPowerTypeEnum type;
+}
+
+@GenModel(documentation="Defines the different types of WaterToPower, such as hydro power, tidal power.")
+enum WaterToPowerTypeEnum {
+	UNDEFINED = 0;
+	HYDRO_POWER = 1;
+	WAVE_POWER = 2;
+	TIDAL_POWER = 3;
+	OSMOTIC_POWER = 4;
+}
+
+@GenModel(documentation="Collection of sectors. Both Party and Item can link to a sector")
+class Sectors {
+	val Sector[*] sector;
+	val AbstractDataSource dataSource;
+	id attr String ~id;
+}
+
+@GenModel(documentation="Defines a sector. Can be used for the Standaard Bedrijfsindeling (SBI) of the CBS in the Netherlands")
+class Sector {
+	id attr String ~id;
+	attr String name;
+	attr String description;
+	val AbstractDataSource dataSource;
+	attr String code;
+}
+
+@GenModel(documentation="Defines an energy network. Used for national energy balances, when the specific energy carrier is not required")
+class EnergyNetwork extends Transport {
+}
+
+@GenModel(documentation="Abstract class to describe conductors such as cables and pipes and joining them using a joint")
+abstract class AbstractConductor extends Transport {
+	attr StateEnum state;
+}
+
+@GenModel(documentation="Abstract class to describe switches such as valve and a circuit breaker")
+abstract class AbstractSwitch extends Transport {
+	attr StateEnum state;
+}
+
+@GenModel(documentation="Abstract class to describe transformers, such as Heat exchangers, transformers and pumps")
+abstract class AbstractTransformer extends Transport {
+}
+
+@GenModel(documentation="Abstract class to describe connections of a building to a grid. E.g. a heat connection, gas connection and electricity connection")
+abstract class AbstractConnection extends Transport {
+}
+
+@GenModel(documentation="Defines a collection of lines")
+class MultiLine extends Geometry {
+	val Line[+] line;
+}
+
+@GenModel(documentation="Defines the types of solar collectors, such as roof top, building integrated.")
+enum SolarCollectorTypeEnum {
+	UNDEFINED = 0;
+	ROOFTOP = 1;
+	BUILDING_INTEGRATED_SC = 2;
+	ROAD = 3;
+	FIELD = 4;
+	WATER = 5;
+}
+
+@GenModel(documentation="Defines the types of heat radiation devices, such as high and low temperature radiators, floor heating, etc.")
+enum HeatRadiationDeviceTypeEnum {
+	UNDEFINED = 0;
+	HT_RADIATOR = 1;
+	LT_RADIATOR = 2;
+	FLOOR_HEATING = 3;
+	WALL_HEATING = 4;
+	INFRARED_PANEL = 5;
+	AIR_HANDLING_UNIT = 6;
+}
+
+@GenModel(documentation="Defines the types of cooling devices, such as floor cooling and air conditioning")
+enum CoolingDeviceType {
+	UNDEFINED = 0;
+	FLOOR_COOLING = 1;
+	AIR_HANDLING_UNIT = 2;
+}
+
+@GenModel(documentation="Defines the geothermal potential in a specific area. This type focusses on energy and depth of the well. See GeothermalPotental for class focussing on temperature")
+class GeothermalEnergyPotential extends AbstractGTPotential {
+	attr int depth;
+	attr double value = "0.0";
+}
+
+@GenModel(documentation="Abstract class to describe geothermal potential")
+abstract class AbstractGTPotential extends Potential {
+	ref GeothermalSource[*]#geothermalPotential geothermalSource;
+}
+
+@GenModel(documentation="Defines the potential for underground thermal energy storage (UTES). E.g. ATES or BTES potential")
+class UTESPotential extends Potential {
+	attr double value;
+	attr UTESPotentialTypeEnum type;
+	ref UTES[*]#UTESPotential UTES;
+}
+
+@GenModel(documentation="Abstract class to define the date or period of the validity of the data that is used in this instance ")
+abstract class AbstractInstanceDate {
+}
+
+@GenModel(documentation="Describes the date of the validity of the data that is used in this instance ")
+class InstanceDate extends AbstractInstanceDate {
+	attr EDate date;
+}
+
+@GenModel(documentation="Describes the period of the validity of the data that is used in this instance ")
+class InstancePeriod extends AbstractInstanceDate {
+	attr EDate fromDate;
+	attr EDate toDate;
+}
+
+@GenModel(documentation="Defines an asset for heating rooms, such as infra red panels, gas stove, etc.")
+class RoomHeater extends Conversion {
+	attr RoomHeaterTypeEnum type;
+}
+
+@GenModel(documentation="Defines the types of a RoomHeater")
+enum RoomHeaterTypeEnum {
+	UNDEFINED = 0;
+	GAS_STOVE = 1;
+	WOOD_STOVE = 2;
+	ELECTRIC = 3;
+	INFRARED_PANEL = 4;
+}
+
+@GenModel(documentation="Defines the biomass potential in a specific area.")
+class BiomassPotential extends Potential {
+
+	@GenModel(documentation="The amount of biomass in Joule")
+	attr double value = "0.0";
+}
+
+@GenModel(documentation="Converts biomass into heat and/or electricity")
+class BiomassHeater extends Conversion {
+}
+
+@GenModel(documentation="Specifies the type of the BiomassHeater, such as CHP")
+enum BiomassHeaterTypeEnum {
+	UNDEFINED = 0;
+	FULLY_AUTOMATED = 1;
+	SEMI_AUTOMATED = 2;
+	PELLET_FIRED = 3;
+	CHP = 4;
+}
+
+@GenModel(documentation="Defines the type of the UTES potential, such as an open source for heat or cold.")
+enum UTESPotentialTypeEnum {
+	UNDEFINED = 0;
+	HEAT_OPEN = 1;
+	HEAT_CLOSED = 2;
+	COLD_OPEN = 3;
+	COLD_CLOSED = 4;
+}
+
+@GenModel(documentation="Underground Thermal Energy Storage")
+class UTES extends HeatStorage {
+
+	@GenModel(documentation="Specifies the type of the UTES, e.g. ATES (Aquifer), BTES (Borehole) and CTES (Cavern)")
+	attr UTESTypeEnum type = "UNDEFINED";
+
+	@GenModel(documentation="Reference to the potential area for this UTES")
+	ref UTESPotential#UTES UTESPotential;
+}
+
+@GenModel(documentation="Storage by means of storing energy in water, e.g. a tank.")
+class WaterBuffer extends HeatStorage {
+}
+
+@GenModel(documentation="Defines the different types of UTES, e.g. ATES (Aquifer), BTES (Borehole) and CTES (Cavern)")
+enum UTESTypeEnum {
+	UNDEFINED = 0;
+	AQUIFER_TES = 1;
+	BOREHOLE_TES = 2;
+	CAVERN_TES = 3;
+	OTHER = 4;
+}
+
+@GenModel(documentation="Allows to specify the glass of a building, e.g. for calculating heat loss")
+class Glass extends Asset {
+
+	@GenModel(documentation="The u-value of the window (thermal isolation) in W/m2.K")
+	attr double uWindow;
+
+	@GenModel(documentation="Enumeration of different types of glass, such as HR++")
+	attr GlassTypeEnum glasType = "UNDEFINED";
+}
+
+@GenModel(documentation="Type of interpolation between elements in the profile. See https://docs.scipy.org/doc/scipy/reference/tutorial/interpolate.html for additional documentation and figures")
+enum InterpolationMethodEnum {
+	UNDEFINED = 0;
+	NONE = 1;
+	LINEAR = 2;
+	CUBIC = 3;
+	NEAREST = 4;
+	PREVIOUS = 5;
+	NEXT = 6;
+	OTHER = 7;
+}
+
+@GenModel(documentation="Well-Known Text (see https://en.wikipedia.org/wiki/Well-known_text)")
+class WKT extends Geometry {
+	attr String value;
+}
+
+@GenModel(documentation="Well-Known Binary (See https://en.wikipedia.org/wiki/Well-known_text#Well-known_binary)")
+class WKB extends Geometry {
+
+	@GenModel(documentation="Base64 encoded WKB value")
+	attr String value;
+}
+
+@GenModel(documentation="Specifies search areas for wind turbines")
+class SearchAreaWind extends Potential {
+
+	@GenModel(documentation="Specifies expected full load hours in this search area")
+	attr int fullLoadHours;
+
+	@GenModel(documentation="in m2")
+	attr double area;
+}
+
+@GenModel(documentation="Specifies search areas for solar installations")
+class SearchAreaSolar extends Potential {
+
+	@GenModel(documentation="Specifies expected full load hours in this search area")
+	attr int fullLoadHours;
+
+	@GenModel(documentation="in m2")
+	attr double area;
+}
+
+@GenModel(documentation="A Joint is a means to connect AbstractConductors, such as Pipes and ElectricalCables. This helps when these conductors have opposite Ports.")
+class Joint extends AbstractConductor {
+}
+
+@GenModel(documentation="Control strategy specifying that a storage asset is driven by two profiles specifying the marginal cost to define its charging and discharging behavior (used in ESDL-based simulation tools)")
+class StorageStrategy extends ControlStrategy {
+	val GenericProfile marginalChargeCosts;
+	val GenericProfile marginalDischargeCosts;
+}
+
+@GenModel(documentation="Control strategy that specifies a max power at which the production is curtailed")
+class CurtailmentStrategy extends ControlStrategy {
+
+	@GenModel(documentation="in Watt")
+	attr double maxPower;
+}
+
+@GenModel(documentation="Defines an installation that combines PV and thermal energy collection")
+class PVTInstallation extends Producer {
+}
+
+@GenModel(documentation="Collection of information about the usage of a building, such as temperature set points and opening hours.")
+class BuildingUsage extends AbstractBuildingUsage {
+	id attr String ~id;
+
+	@GenModel(documentation="Name of the usage")
+	attr String name;
+
+	@GenModel(documentation="Specifies the week schedule for cooling")
+	val WeekSchedule coolingSetpoints;
+
+	@GenModel(documentation="Specifies the week schedule for heating")
+	val WeekSchedule heatingSetpoints;
+
+	@GenModel(documentation="Specifies the week schedule for opening hours")
+	val WeekSchedule openingHours;
+}
+
+@GenModel(documentation="Specifies a week schedule for building usage")
+class WeekSchedule {
+
+	@GenModel(documentation="Specifies a day schedule")
+	val DaySchedule mon;
+
+	@GenModel(documentation="Specifies a day schedule")
+	val DaySchedule tue;
+
+	@GenModel(documentation="Specifies a day schedule")
+	val DaySchedule wed;
+
+	@GenModel(documentation="Specifies a day schedule")
+	val DaySchedule thu;
+
+	@GenModel(documentation="Specifies a day schedule")
+	val DaySchedule fri;
+
+	@GenModel(documentation="Specifies a day schedule")
+	val DaySchedule sat;
+
+	@GenModel(documentation="Specifies a day schedule")
+	val DaySchedule sun;
+
+	@GenModel(documentation="Specifies a day schedule")
+	val DaySchedule weekdays;
+
+	@GenModel(documentation="Specifies a day schedule")
+	val DaySchedule weekenddays;
+}
+
+@GenModel(documentation="Specifies a day schedule as part of a week schedule. A day schedule is a collection of events with a timestamp")
+class DaySchedule {
+
+	@GenModel(documentation="Collection of events with a timestamp")
+	val Event[*] event;
+}
+
+@GenModel(documentation="Event with a timestamp")
+class Event {
+	attr String ~id;
+
+	@GenModel(documentation="Time at which the event occurs, e.g. 10:00")
+	attr String time;
+
+	@GenModel(documentation="Description of the event")
+	attr String description;
+
+	@GenModel(documentation="Specifies a value in an event, such as a setpoint temperature, on/off, etc.")
+	attr double value;
+}
+
+@GenModel(documentation="Abstract class to support references to building usages")
+abstract class AbstractBuildingUsage {
+}
+
+@GenModel(documentation="Specifies a reference to building usage (such as opening hours)")
+class BuildingUsageReference extends AbstractBuildingUsage {
+	ref BuildingUsage[1] reference;
+}
+
+@GenModel(documentation="Part of Energy System Information that specifies generic building usage information that can be referenced from multiple individual buildings")
+class BuildingUsageInformation {
+
+	@GenModel(documentation="A reference to building usage of a building")
+	val BuildingUsage[*] buildingUsage;
+	id attr String ~id;
+}
+
+@GenModel(documentation="Specifies the way the building type is distributed in this area (e.g. Utility, Residential), specifing the percentage of buildings per type.")
+class BuildingTypeDistribution extends LabelDistribution {
+
+	@GenModel(documentation="The distribution in percentages")
+	val BuildingTypePercentage[*] buildingTypePercentage;
+}
+
+@GenModel(documentation="Specifies the percentage of the selected building type")
+class BuildingTypePercentage {
+	attr BuildingTypeEnum buildingType;
+	attr double percentage;
+}
+
+@GenModel(documentation="Specifies the way the residential building type is distributed in this area (e.g. Vrijstaande Woning, Hoekwoning, Flatwoning), specifing the percentage of buildings per residential type.")
+class ResidentialBuildingTypeDistribution extends LabelDistribution {
+
+	@GenModel(documentation="The distribution in percentages")
+	val ResidentialBuildingTypePercentage[*] residentialBuildingTypePercentage;
+}
+
+@GenModel(documentation="Specifies the percentage of the selected residential building type")
+class ResidentialBuildingTypePercentage {
+
+	@GenModel(documentation="")
+	attr ResidentialBuildingTypeEnum residentialBuildingType;
+	attr double percentage;
+}
+
+@GenModel(documentation="Specifies the way the housing type is distributed in this area (e.g. Owner occupied, Housing Association, Private Rental), specifing the percentage of buildings per housing type.")
+class HousingTypeDistribution extends LabelDistribution {
+
+	@GenModel(documentation="The distribution in percentages")
+	val HousingTypePercentage[*] housingTypePercentage;
+}
+
+@GenModel(documentation="Specifies the percentage of the selected housing type")
+class HousingTypePercentage {
+	attr HousingTypeEnum housingType;
+	attr double percentage;
+}
+
+@GenModel(documentation="Specifies a KPI value as a double")
+class DoubleKPI extends KPI {
+	attr double value;
+}
+
+@GenModel(documentation="Specifies a KPI value as a string")
+class StringKPI extends KPI {
+	attr String value;
+}
+
+@GenModel(documentation="Specifies a KPI value as an integer")
+class IntKPI extends KPI {
+	attr int value;
+}
+
+@GenModel(documentation="Specifies a percentage range as an integer value, as part of a distribution, e.g. for defining a period of years (1945-1960) in Aggregated Buildings")
+class FromToIntPerc extends FromToPerc {
+	attr int from;
+	attr int to;
+}
+
+@GenModel(documentation="Specifies a percentage range as an double value, as part of a distribution, e.g. for defining energy usage (2.5-5.0 GJ of hot tap water) in Aggregated Buildings")
+class FromToDoublePerc extends FromToPerc {
+	attr double from;
+	attr double to;
+}
+
+@GenModel(documentation="Class for describing materials other than carriers (e.g. water as an input for an electrolyzer)")
+class Material extends Carrier {
+
+	@GenModel(documentation="The density of the material in kg/m3")
+	attr double density;
+
+	@GenModel(documentation="The state of matter of the material (SOLID, LIQUID, GASEOUS)")
+	attr StateOfMatterEnum stateOfMatter = "UNDEFINED";
+}
+
+@GenModel(documentation="Defines the pipe diameter in DN size. When this field is set to VALUE_SPECIFIED	 (default) both innerDiameter and outerDiameter fields are used for diameter specification. If not, an appropriate pipe catalog should be used to calculate the properties of the pipe, based on the speficied DN size. This allows for different pipe types, e.g. with or without insulation.")
+enum PipeDiameterEnum {
+
+	@GenModel(documentation="Default option for this Pipe diameter: it specifies that the innerDiameter and outerDiamter fields are used instead of values from this enumeration.")
+	VALUE_SPECIFIED = 0;
+	DN6 = 6;
+	DN8 = 8;
+	DN10 = 10;
+	DN15 = 15;
+	DN20 = 20;
+	DN25 = 25;
+	DN32 = 32;
+	DN40 = 40;
+	DN50 = 50;
+	DN65 = 65;
+	DN80 = 80;
+	DN100 = 100;
+	DN125 = 125;
+	DN150 = 150;
+	DN200 = 200;
+	DN250 = 250;
+	DN300 = 300;
+	DN350 = 350;
+	DN400 = 400;
+	DN450 = 450;
+	DN500 = 500;
+	DN600 = 600;
+	DN650 = 650;
+	DN700 = 700;
+	DN800 = 800;
+	DN900 = 900;
+	DN1000 = 1000;
+	DN1100 = 1100;
+	DN1200 = 1200;
+}
+
+class Bus extends AbstractConductor {
+	attr double voltage;
+}
+
+abstract class AbstractSensor extends Transport {
+}
+
+class Sensor extends AbstractSensor {
+	val AbstractQuantityAndUnit[1] quantityAndUnit;
+}
+
+enum StateEnum {
+	UNDEFINED = 0;
+	OPEN = 1;
+	CLOSED = 2;
+}
+
+class Switch extends AbstractSwitch {
+}
+
+class Compressor extends AbstractTransformer {
+}
+
+class PressureReducingValve extends AbstractTransformer {
+
+	@GenModel(documentation="The valve coefficient of a valve describes the relationship between the pressure drop across the valve and the corresponding flow rate")
+	attr double valveCoefficient = "0.0";
+}
+
+class CompoundMaterial extends Material {
+	val CompoundMaterialComponent[*] component;
+}
+
+class CompoundMaterialComponent {
+	attr double fraction;
+	ref Material[1] material;
+}
+
+@GenModel(documentation="Control strategy specifying that an asset is driven by a PID controller (used in ESDL-based simulation tools)")
+class PIDController extends ControlStrategy {
+
+	@GenModel(documentation="Proportional gain of the PID controller")
+	attr double Kp;
+
+	@GenModel(documentation="Integral gain of the PID controller")
+	attr double Ki;
+
+	@GenModel(documentation="Derivative gain of the PID controller")
+	attr double Kd;
+
+	@GenModel(documentation="Sensor used to measure the process variable. The PID controller tries to minimize the error between the setPoint and the measured process variable.")
+	ref Sensor[1] sensor;
+
+	@GenModel(documentation="Desired setpoint of the measured process variable. The PID controller tries to minimize the error between the setPoint and the measured process variable.")
+	val GenericProfile[1] setPoint;
+}
+
+@GenModel(documentation="Defines a PV park of multiple panels")
+class PVPark extends PVPanel {
+	attr int numberOfPanels;
+}
+
+@GenModel(documentation="Defines a wind park of multiple turbines")
+class WindPark extends WindTurbine {
+	attr int numberOfTurbines;
+}
+

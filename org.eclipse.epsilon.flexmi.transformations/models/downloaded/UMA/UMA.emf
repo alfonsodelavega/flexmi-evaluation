@@ -1,0 +1,1322 @@
+@namespace(uri="http://www.eclipse.org/epf/uma/1.0.6", prefix="uma")
+package uma;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@GenModel(documentation="A Work Breakdown Element and Work Definition which supports the nesting and logical grouping of related Breakdown Elements forming breakdown structures.  Although Activity is a concrete meta-class, other classes which represent breakdown structures derive from it; such as Phase, Iteration, Delivery Process, or Capability Pattern.
+Activity represents a grouping element for other Breakdown Elements such as Activities, Descriptors, Milestones, etc.  It is not per-se a 'high-level' grouping of only work as in other meta-models, but groups any kind of Breakdown Elements.  For example, one can define valid Activities that group only Work Products Descriptors without any matching Task Descriptors.  Activities also inherit all properties from Work Breakdown Element and indirectly from Process Element; i.e. Activity is ready to have a full content description attached to it.")
+@ExtendedMetaData(name="Activity", kind="elementOnly")
+class Activity extends WorkBreakdownElement {
+
+	@ExtendedMetaData(kind="element", name="Precondition")
+	attr type.String precondition;
+
+	@ExtendedMetaData(kind="element", name="Postcondition")
+	attr type.String postcondition;
+
+	@ExtendedMetaData(kind="group", name="group:37")
+	!unique attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="BreakdownElement", group="#group:37")
+	volatile transient derived !resolve val BreakdownElement[*] breakdownElement;
+
+	@ExtendedMetaData(kind="element", name="Roadmap", group="#group:37")
+	!unique volatile transient derived attr type.String[*] roadmap;
+
+	@ExtendedMetaData(kind="attribute", name="IsEnactable")
+	unsettable attr type.Boolean isEnactable;
+
+	@ExtendedMetaData(kind="attribute", name="variabilityBasedOnElement")
+	attr type.String variabilityBasedOnElement;
+
+	@ExtendedMetaData(kind="attribute", name="variabilityType")
+	unsettable attr VariabilityType variabilityType = "na";
+}
+
+@GenModel(documentation="A generalized Breakdown Element Description that is used to store the textual description for an Activity.")
+@ExtendedMetaData(name="ActivityDescription", kind="elementOnly")
+class ActivityDescription extends BreakdownElementDescription {
+
+	@GenModel(documentation="Comprises of summaries describing important exceptional and non-standard ways of doing the work of this Activity not covered by the Activity's Tasks.")
+	@ExtendedMetaData(kind="element", name="Alternatives")
+	attr type.String alternatives;
+
+	@GenModel(documentation="Provides background on who should be involved in this activity what are the required skills, experience,  and perhaps attitudes.")
+	@ExtendedMetaData(kind="element", name="HowToStaff")
+	attr type.String howToStaff;
+
+	@GenModel(documentation="Summarizes the main reason for performing this Activity, describes what the activity as a whole is intended to achieve.")
+	@ExtendedMetaData(kind="element", name="Purpose")
+	attr type.String purpose;
+}
+
+@ExtendedMetaData(name="ApplicableMetaClassInfo", kind="empty")
+class ApplicableMetaClassInfo extends PackageableElement {
+
+	@ExtendedMetaData(kind="attribute", name="isPrimaryExtension")
+	unsettable attr type.Boolean isPrimaryExtension;
+}
+
+@GenModel(documentation="A Work Product that provides a description and definition for tangible work product types. Artifacts may be composed of other artifacts. For example, a model artifact can be composed of model elements, which are also artifacts.
+Artifacts are tangible work products consumed, produced, or modified by Tasks.  It may serve as a basis for defining reusable assets.  Roles use Artifacts to perform Tasks and produce Artifacts in the course of performing Tasks.  Artifacts are the responsibility of a single Role, making responsibility easy to identify and understand, and promoting the idea that every piece of information produced in the method requires the appropriate set of skills. Even though one role might \"own\" a specific type of Artifacts, other roles can still use the Artifacts; perhaps even update them if the Role has been given permission to do so.")
+@ExtendedMetaData(name="Artifact", kind="elementOnly")
+class Artifact extends WorkProduct {
+
+	@ExtendedMetaData(kind="group", name="group:30")
+	!unique attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="ContainedArtifact", group="#group:30")
+	volatile transient derived !resolve val Artifact[*] containedArtifact;
+}
+
+@GenModel(documentation="A generalized Work Product Description that is used to store the textual description for an Artifact.")
+@ExtendedMetaData(name="ArtifactDescription", kind="elementOnly")
+class ArtifactDescription extends WorkProductDescription {
+
+	@GenModel(documentation="Provides a brief description of the information that can be found in this artifact. For example, discusses the contents for key chapters of a document artifact or the key packages and modules of a model artifact.")
+	@ExtendedMetaData(kind="element", name="BriefOutline")
+	attr type.String briefOutline;
+
+	@GenModel(documentation="Discusses different possible alternative representations for the artifact. For example a design model can be represented as a UML model or an informal block diagram or by textual description only.")
+	@ExtendedMetaData(kind="element", name="RepresentationOptions")
+	attr type.String representationOptions;
+
+	@ExtendedMetaData(kind="element", name="Representation")
+	attr type.String representation;
+
+	@ExtendedMetaData(kind="element", name="Notation")
+	attr type.String notation;
+}
+
+@GenModel(documentation="An abstract generalization for any type of Method Element that is part of a breakdown structure.  It defines a set of properties available to all of its specializations.")
+@ExtendedMetaData(name="BreakdownElement", kind="elementOnly")
+class BreakdownElement extends ProcessElement {
+
+	@ExtendedMetaData(kind="element", name="PresentedAfter")
+	attr type.String presentedAfter;
+
+	@ExtendedMetaData(kind="element", name="PresentedBefore")
+	attr type.String presentedBefore;
+
+	@ExtendedMetaData(kind="element", name="PlanningData")
+	attr type.String planningData;
+
+	@ExtendedMetaData(kind="element", name="SuperActivity")
+	attr type.String superActivity;
+
+	@ExtendedMetaData(kind="group", name="group:18")
+	!unique attr ecore.EFeatureMapEntry[*] group1;
+
+	@ExtendedMetaData(kind="element", name="Checklist", group="#group:18")
+	!unique volatile transient derived attr type.String[*] checklist;
+
+	@ExtendedMetaData(kind="element", name="Concept", group="#group:18")
+	!unique volatile transient derived attr type.String[*] concept;
+
+	@ExtendedMetaData(kind="element", name="Example", group="#group:18")
+	!unique volatile transient derived attr type.String[*] example;
+
+	@ExtendedMetaData(kind="element", name="Guideline", group="#group:18")
+	!unique volatile transient derived attr type.String[*] guideline;
+
+	@ExtendedMetaData(kind="element", name="ReusableAsset", group="#group:18")
+	!unique volatile transient derived attr type.String[*] reusableAsset;
+
+	@ExtendedMetaData(kind="element", name="SupportingMaterial", group="#group:18")
+	!unique volatile transient derived attr type.String[*] supportingMaterial;
+
+	@ExtendedMetaData(kind="element", name="Whitepaper", group="#group:18")
+	!unique volatile transient derived attr type.String[*] whitepaper;
+
+	@GenModel(documentation="Just as the isPlanned attribute the hasMultipleOccurrences attribute has an impact on generating plans from a Process.  When this attribute is set to True for a Breakdown Element then it will typically occur multiple times within the same Activity.  For example, a Task such as \"Detail Use Case\" would be performed for every use case identified for a particular Iteration or Activity.  Generating a plan would list one Task instance per use case.")
+	@ExtendedMetaData(kind="attribute", name="hasMultipleOccurrences")
+	unsettable attr type.Boolean hasMultipleOccurrences;
+
+	@GenModel(documentation="Indicates that the Breakdown Element describes work, a work result, or even work resources, which inclusion is not mandatory when performing a project that is planned based on a process containing this element.")
+	@ExtendedMetaData(kind="attribute", name="isOptional")
+	unsettable attr type.Boolean isOptional;
+
+	@GenModel(documentation="A key application for Development Processes expressed with Breakdown structures is to generate a project plan from it.  A process as defined in UMA (cf. with Sections XX and 5.2) is a multi-dimensional structure defining what work is being performed at what time by which roles using which input and producing what outputs.  A project plan as it is represented in project planning tools such as IBM Rational Portfolio Manager or Microsoft Project normally does not need all this information and is normally limited to just representing a subset.  For example, a typical MS Project plan only represents the work breakdown consisting of Tasks and Activities (sometimes referred to as summary tasks).  It does not show the input and output Work Products for a Task, but it can show which roles shall be staffed for performing the Task.  However, such role allocation need to be replaced with concrete resources when instantiating the plan for a concrete project.  Sometimes project plans can then again be organized differently by organizing work by deliverables in which Work Products are mapped to the plan's summary tasks and Task that have these work products as output mapped below such as summary task.  Therefore, a process can make recommendations about which elements to include and which to exclude when generating a plan.  When the isPlanned attribute is set to False for an instance of a Breakdown Element, then this element shall not be not included when a concrete project plan is being generated from the breakdown structure that contains this element.
+")
+	@ExtendedMetaData(kind="attribute", name="isPlanned")
+	unsettable attr type.Boolean isPlanned;
+
+	@GenModel(documentation="Prefix represents an additional label that will be presented as a prefix to any Breakdown Element to indicate a user-defined sub-type for the element.  For example, if the process engineer would like to distinguish his Activities by 'Module' (as done in the IBM Rational Summit Ascendant Method), he can define a different prefix for every model to be used in addition to naming Activities, e.g. \"SRA.Establish Requirements\" with SRA indicating that this Activity belongs to the \"Software Requirements Analysis\" module.  Another common application for prefix is to qualify roles in Role Descriptors.  For example, \"Customer.Architect\" would define a \"Customer\" prefix for the Role Descriptor \"Architect\" expressing that this is an architect on the customer side and not the development team side.")
+	@ExtendedMetaData(kind="attribute", name="prefix")
+	attr type.String prefix;
+}
+
+@GenModel(documentation="A generalized Content Description that is used to store the textual description for a Breakdown Element.")
+@ExtendedMetaData(name="BreakdownElementDescription", kind="elementOnly")
+class BreakdownElementDescription extends ContentDescription {
+
+	@GenModel(documentation="Provides information and guidance on the meaning of the Boolean flag values and under what circumstances they should be overridden. For example, it describes why the breakdown element is optional or considerations for repeating it and differences in the individual occurrences of this Breakdown Element across the lifecycle.")
+	@ExtendedMetaData(kind="attribute", name="usageGuidance")
+	attr type.String usageGuidance;
+}
+
+@GenModel(documentation="A special Process that describes a reusable cluster of doing work in common process areas.  Capabilities Patterns express and communicate process knowledge for a key area of interest such as a Discipline and can be directly used by process practitioner to guide his work.  They are also used as building blocks to assemble Delivery Processes or larger Capability Patterns ensuring optimal reuse and application of the key practices they express.
+A Capability Pattern is a special Process that describes a reusable cluster of doing work in a general process area that provides a consistent development approach to common problems.  Examples for Capability Pattern could be 'use case-based requirements management', 'use case analysis', or 'unit testing'. Typically but not necessarily, Capability Patterns have the scope of one discipline providing a breakdown of reusable complex Activities, relationships to the Roles which perform Tasks within these Activities, as well as to the Work Products that are used and produced.  A capability pattern does not relate to any specific phase or iteration of a development lifecycle, and should not imply any.  In other words, a pattern should be designed in a way that it is applicable anywhere in a Delivery Process.  This enables its Activities to be flexibly assigned to whatever phases there are in the Delivery Process to which it is being applied.  It is a good practice to design a Capability Pattern to produce one or more generic Deliverables.  The typical configuration is that each Activity in the Capability Pattern produces one Deliverable, and the last Task Descriptor in the Activity explicitly outputs just this Deliverable.  This enables the process engineer to select Patterns or just Activities by deciding which Deliverables are required.  It also offers a simple integration approach: an Activity from a capability pattern is linked to the Phase or Iteration which is required to produce the Activity's Deliverable.  Key applications areas of / areas of reuse for Capability Patterns are:
+- To serve as building blocks for assembling Delivery Processes or larger Capability Patterns.  Normally developing a Delivery Process is not done from scratch but by systematically applying and binding patterns.  In addition to the standard pattern application of 'copy-and-modify', which allows the process engineer to individually customize the pattern's content to the particular situation it is applied for, the Plugin meta-model package (Section 6.1) introduces even more sophisticated inheritance relationships that support dynamic binding of patterns (i.e. the pattern is referenced and not copied).  This unique new way of reusing process knowledge allows to factor out commonly reoccurring Activities into patterns and to apply them over and over again for a process.  When the pattern is being revised or updated, all changes will be automatically reflected in all pattern application in all processes because of the dynamic binding.
+- To support direct execution in a development project that does not work following a well-defined process, but works based on loosely connected process fragments of best practices in a flexible manner (e.g. Agile Development).
+- To support process education by describing knowledge for a key area such as best practices on how to perform the work for a Discipline (e.g. Requirements Management), for a specific development technique (aspect-oriented development), or a specific technical area (e.g. relational database design), which is used for education and teaching.")
+@ExtendedMetaData(name="CapabilityPattern", kind="elementOnly")
+class CapabilityPattern extends Process {
+}
+
+@GenModel(documentation="A specific type of guidance that identifies a series of items that need to be completed or veri-fied.  Checklists are often used in reviews such as walkthroughs or inspections. ")
+@ExtendedMetaData(name="Checklist", kind="elementOnly")
+class Checklist extends Guidance {
+}
+
+@GenModel(documentation="A special Role Descriptor that relates to more then one Role.  It represents a grouping of Roles with the main purpose of simplification, i.e. reducing the number of roles for a process.
+A Composite Role is a grouping of Roles that can be used in an Activity or Process to reduce the number of Roles.  A typical application would be a process for a small team in which a standard set of roles from the method content would be all performed by one or more resource.  By using Composite Role the process would suggest a typical clustering of Roles to Resources.  A Composite Role could perform all Tasks defined for the Roles it refers to.")
+@ExtendedMetaData(name="CompositeRole", kind="elementOnly")
+class CompositeRole extends RoleDescriptor {
+
+	@ExtendedMetaData(kind="group", name="group:33")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="AggregatedRole", group="#group:33")
+	volatile transient derived !resolve val Role[*] aggregatedRole;
+}
+
+@GenModel(documentation="A specific type of guidance that outlines key ideas associated with basic principles underlying the referenced item. Concepts normally address more general topics than Guidelines and span across sev-eral work product and/or tasks/activities.")
+@ExtendedMetaData(name="Concept", kind="elementOnly")
+class Concept extends Guidance {
+}
+
+@GenModel(documentation="A generalized Method Element that represents a condition or restriction expressed in natural language text or in a machine readable language for the purpose of declaring some of the semantics of a Method Element.")
+@ExtendedMetaData(name="Constraint", kind="elementOnly")
+class Constraint extends MethodElement {
+
+	@GenModel(documentation="Stores the main definition of the constraint.")
+	@ExtendedMetaData(kind="attribute", name="mainDescription")
+	attr type.String mainDescription;
+}
+
+@GenModel(documentation="An abstract class generalizing content category types.")
+@ExtendedMetaData(name="ContentCategory", kind="elementOnly")
+class ContentCategory extends ContentElement {
+}
+
+@GenModel(documentation="A special Method Package that only contains Content Category Elements.")
+@ExtendedMetaData(name="ContentCategoryPackage", kind="elementOnly")
+class ContentCategoryPackage extends MethodPackage {
+
+	@ExtendedMetaData(kind="group", name="group:13")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="ContentCategory", group="#group:13")
+	volatile transient derived !resolve val ContentCategory[*] contentCategory;
+}
+
+@GenModel(documentation="A generalized Method Element that is used to store the textual description for a Content Element.  It defines standard attributes applicable for all Content Element types.  Specific Content Element sub-types can define their own matching Content Description sub-types. ")
+@ExtendedMetaData(name="ContentDescription", kind="elementOnly")
+class ContentDescription extends MethodUnit {
+
+	@GenModel(documentation="Stores the main descriptive text for the Content Element.  All text that is not part of any of the more specific attributes shall be stored here.  If the Content Description is divided into sections using the Section class, then only the text from the 'start' of the content description to the first section will be stored here (similar to a normal document where you can place text between its beginning to its first diction heading).")
+	@ExtendedMetaData(kind="element", name="MainDescription")
+	attr type.String mainDescription;
+
+	@GenModel(documentation="Provides advise and guidance of a critical nature for the content element as well as warnings, cautions, pitfalls, dangers.")
+	@ExtendedMetaData(kind="element", name="KeyConsiderations")
+	attr type.String keyConsiderations;
+
+	@ExtendedMetaData(kind="element", name="Section")
+	!resolve val Section[*] section;
+
+	@GenModel(documentation="An external visible number that is used to reference this artifact. Used like a synonym.")
+	@ExtendedMetaData(kind="attribute", name="externalId")
+	attr type.String externalId;
+}
+
+@GenModel(documentation="A Describable Element that represents an abstract generalization for all elements that are considered to be and managed as Method Content.
+Content Elements represents reusable Method Content that is supposed to be managed in Content Packages.  The separation of Content Element from Process Element allows to clearly distinguish between pure method content from content that is represented in processes.")
+@ExtendedMetaData(name="ContentElement", kind="elementOnly")
+class ContentElement extends DescribableElement {
+
+	@ExtendedMetaData(kind="group", name="group:14")
+	!unique attr ecore.EFeatureMapEntry[*] group1;
+
+	@ExtendedMetaData(kind="element", name="Checklist", group="#group:14")
+	!unique volatile transient derived attr type.String[*] checklist;
+
+	@ExtendedMetaData(kind="element", name="Concept", group="#group:14")
+	!unique volatile transient derived attr type.String[*] concept;
+
+	@ExtendedMetaData(kind="element", name="Example", group="#group:14")
+	!unique volatile transient derived attr type.String[*] example;
+
+	@ExtendedMetaData(kind="element", name="Guideline", group="#group:14")
+	!unique volatile transient derived attr type.String[*] guideline;
+
+	@ExtendedMetaData(kind="element", name="ReusableAsset", group="#group:14")
+	!unique volatile transient derived attr type.String[*] reusableAsset;
+
+	@ExtendedMetaData(kind="element", name="SupportingMaterial", group="#group:14")
+	!unique volatile transient derived attr type.String[*] supportingMaterial;
+
+	@ExtendedMetaData(kind="element", name="Whitepaper", group="#group:14")
+	!unique volatile transient derived attr type.String[*] whitepaper;
+
+	@ExtendedMetaData(kind="attribute", name="variabilityBasedOnElement")
+	attr type.String variabilityBasedOnElement;
+
+	@ExtendedMetaData(kind="attribute", name="variabilityType")
+	unsettable attr VariabilityType variabilityType = "na";
+}
+
+@GenModel(documentation="A special Method Package that contains Content Elements and Content Elements, only.  Examples for Content Element are Artifacts, Tasks, Roles, etc.  A key separation of concerns in UMA is the distinction between Method Content and Process.  This separation is enforced by special package types, which do not allow the mixing of method content with processes.")
+@ExtendedMetaData(name="ContentPackage", kind="elementOnly")
+class ContentPackage extends MethodPackage {
+
+	@ExtendedMetaData(kind="group", name="group:13")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="ContentElement", group="#group:13")
+	volatile transient derived !resolve val ContentElement[*] contentElement;
+}
+
+@GenModel(documentation="A category introduced by a method content author to structure any number of method Content Elements of any subtype based on user-defined criteria.  Because Content Categories (and therefore Custom Categories, too) are Content Elements themselves, Custom Categories can be used to recursively categorize Content Categories as well.  Custom Categories can also be nested with any Content Category.  Custom categories can be used to categorize content based on the user's criteria as well as to define whole tree-structures of nested categories allowing the user to systematically navigate and browse method content and processes based on these categories.  For example, one could create a custom category to logically organize content relevant for the user's development organization departments; e.g. a \"Testing\" category that groups together all roles, work products, tasks, and guidance element relevant to testing.  Another example would be categories that express licensing levels of the content grouping freely distributable method content versus content that represent intellectual property and requires a license to be purchased to be able to use it.")
+@ExtendedMetaData(name="CustomCategory", kind="elementOnly")
+class CustomCategory extends ContentCategory {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="CategorizedElement", group="#group:24")
+	!unique volatile transient derived attr type.String[*] categorizedElement;
+
+	@ExtendedMetaData(kind="element", name="SubCategory", group="#group:24")
+	!unique volatile transient derived attr type.String[*] subCategory;
+}
+
+@GenModel(documentation="A Work Product that provides a description and definition for packaging other Work Products, and may be delivered to an internal or external party.  Therefore, a Deliverable aggregates other Work Products. Therefore, a Deliverable aggregates other Work Products.  A Deliverable is used to pre-define typical or recommended content in the form or work products that would be packaged for delivery.  The actual packaging of the Deliverable in an actual process or even project could be a modification of this recommendation.  Deliverables are used to represent an output from a process that has value, material or otherwise, to a client, customer or other stakeholder. ")
+@ExtendedMetaData(name="Deliverable", kind="elementOnly")
+class Deliverable extends WorkProduct {
+
+	@ExtendedMetaData(kind="group", name="group:30")
+	!unique attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="DeliveredWorkProduct", group="#group:30")
+	!unique volatile transient derived attr type.String[*] deliveredWorkProduct;
+}
+
+@GenModel(documentation="A generalized Work Product Description that is used to store the textual description for a Deliverable.")
+@ExtendedMetaData(name="DeliverableDescription", kind="elementOnly")
+class DeliverableDescription extends WorkProductDescription {
+
+	@GenModel(documentation="The description of the Deliverable used for client documents (proposal, statements of work or contractual agreements).  It might use a different language and follow legal constraints.")
+	@ExtendedMetaData(kind="element", name="ExternalDescription")
+	attr type.String externalDescription;
+
+	@GenModel(documentation="Provides guidance on how to assemble the deliverable from all its required inputs.  This section describes the most common content medium and format.  Distribution of the deliverable is addressed in this section, if necessary.")
+	@ExtendedMetaData(kind="element", name="PackagingGuidance")
+	attr type.String packagingGuidance;
+}
+
+@GenModel(documentation="A special Process describing a complete and integrated approach for performing a specific project type.  It describes a complete project lifecycle end-to-end and shall be used as a reference for running projects with similar characteristics as defined for the process.  A Delivery Process is related to specific supporting information such as Roadmaps (inherited via Activity) as well as Communications and Education Material.
+A Delivery Process is a Process that covers a whole development lifecycle from beginning to end.  A Delivery Process shall be used as a template for planning and running a project.  It provides a complete lifecycle model with predefined phases, iterations, and activities that have been detailed by sequencing referencing method content in breakdown structures.  It is defined on the basis of experience with past projects or engagements, and/or the best practice use of a development or delivery approach.  It defines what gets produced, how those items are produced, and the required staffing in the form of integrated Work, Work Product, and Team Breakdown Structures.  For example, a process engineer can define alternative Delivery Processes for software development projects that differ in the scale of the engagement and staffing necessary, the type of the software application to be developed, the development methods and technologies to be used, etc.  Although, the Delivery Process aims to cover a whole project it keeps certain decision that are too project specific open.  For example, the breakdown structure defines which Breakdown Elements have multiple occurrences or is repeatable via it respective attributes, but does not say how many occurrences and how many repeats/iterations it will have.  These decisions have to be done by a project manager when planning a concrete project, project phase, or project iterations.  A Delivery Process is always a complete description of a process in terms of completeness of the lifecycle, as well as in terms of all three views on the process which are the Work Breakdown Structure, Work Product Breakdown Structure, and Team Breakdown Structure have to be fully and consistently populated.  Consistency of a Delivery Process is actually ensured by the fact that all three breakdowns are represented by one single data structure and one particular breakdown such as Team Breakdown is just a view on that data structure.")
+@ExtendedMetaData(name="DeliveryProcess", kind="elementOnly")
+class DeliveryProcess extends Process {
+
+	@ExtendedMetaData(kind="group", name="group:47")
+	!unique attr ecore.EFeatureMapEntry[*] group4;
+
+	@ExtendedMetaData(kind="element", name="CommunicationsMaterial", group="#group:47")
+	!unique volatile transient derived attr type.String[*] communicationsMaterial;
+
+	@ExtendedMetaData(kind="element", name="EducationMaterial", group="#group:47")
+	!unique volatile transient derived attr type.String[*] educationMaterial;
+}
+
+@GenModel(documentation="A generalized Process Description that is used to store the textual description for a Delivery Process.")
+@ExtendedMetaData(name="DeliveryProcessDescription", kind="elementOnly")
+class DeliveryProcessDescription extends ProcessDescription {
+
+	@GenModel(documentation="Outlines characteristics about the size of a typical project that performs this project expressed in team size, man years, etc.")
+	@ExtendedMetaData(kind="element", name="Scale")
+	attr type.String scale;
+
+	@GenModel(documentation="Characterizes the project that would typically perform this Process")
+	@ExtendedMetaData(kind="element", name="ProjectCharacteristics")
+	attr type.String projectCharacteristics;
+
+	@GenModel(documentation="Outlines typical project risks that are addressed with this process.")
+	@ExtendedMetaData(kind="element", name="RiskLevel")
+	attr type.String riskLevel;
+
+	@GenModel(documentation="Describes the Estimation Techniques provided for this Process.")
+	@ExtendedMetaData(kind="element", name="EstimatingTechnique")
+	attr type.String estimatingTechnique;
+
+	@GenModel(documentation="Provides a profile of a typical project team, the distribution of roles, skills required for a team performs a project based on this process.")
+	@ExtendedMetaData(kind="element", name="ProjectMemberExpertise")
+	attr type.String projectMemberExpertise;
+
+	@GenModel(documentation="Provides background information about the coI'm chaI'm ntracts that need to be established between a project team that performs this process and a client (e.g. for an IGS engagement).")
+	@ExtendedMetaData(kind="element", name="TypeOfContract")
+	attr type.String typeOfContract;
+}
+
+@GenModel(documentation="An abstract generalization of Method Elements for which external presentation names as well as content descriptions have been defined, such as Roles or Work Products.  Presentation Name and Content Descriptions are typically localized using a resource allocation mechanism for its String type attributes.
+This abstraction represents all elements in the Method Content as well as Process space for which concrete textual descriptions are defined in the form of documenting attributes grouped in a matching Content Description instance.  Describable Elements are intended to be published in method or process publications (similar to the IBM Rational Unified Process web).  Describable Element defines that the element it represents will have content 'attached' to it.  Content Description is the abstraction for the actual places in which the content is being represented.  This separation allows a distinction between core method model elements describing the structure of the model from the actual description container providing, for example, the documentation of the content element in different alternatives languages, audiences, licensing levels, etc.")
+@ExtendedMetaData(name="DescribableElement", kind="elementOnly")
+class DescribableElement extends MethodElement {
+
+	@ExtendedMetaData(kind="element", name="Presentation")
+	!resolve val ContentDescription presentation;
+
+	@ExtendedMetaData(kind="element", name="Fulfill")
+	!unique attr type.String[*] fulfill;
+
+	@ExtendedMetaData(kind="attribute", name="isAbstract")
+	unsettable attr type.Boolean isAbstract;
+
+	@GenModel(documentation="A reference to an icon that can be used in tree browser presentations and breakdown structures.")
+	@ExtendedMetaData(kind="attribute", name="nodeicon")
+	attr type.String nodeicon;
+
+	@GenModel(documentation="A reference to an icon that can be used for modeling with specific Content Element instances (as graphical stereotypes, e.g. a use case symbol for a use case artifact) as well as publication of content.")
+	@ExtendedMetaData(kind="attribute", name="shapeicon")
+	attr type.String shapeicon;
+}
+
+@GenModel(documentation="An abstract generalization for special Breakdown Elements that references one concrete Content Element.  A descriptor provides a representation of a Content Element within breakdown structures.  In addition to just referencing Content Elements it allows overriding the Content Elements structural relationships by defining its own sets of associations.
+Descriptors are the key concept for realizing the separation of processes from method content.  A Descriptor can be characterized as a reference object for one particular Content Element, which has its own relationships and properties.  When a Descriptor is created it shall be provided with congruent copies of the relationships defined for the referenced content element.  However, a user can modify these relationships for the particular process situation for which the descriptor has been created. ")
+@ExtendedMetaData(name="Descriptor", kind="elementOnly")
+class Descriptor extends BreakdownElement {
+
+	@ExtendedMetaData(kind="attribute", name="isSynchronizedWithSource")
+	unsettable attr type.Boolean isSynchronizedWithSource;
+}
+
+@GenModel(documentation="A generalized Breakdown Element Description that is used to store the textual description for a Descriptor.")
+@ExtendedMetaData(name="DescriptorDescription", kind="elementOnly")
+class DescriptorDescription extends BreakdownElementDescription {
+
+	@GenModel(documentation="A Descriptor might add refinements to the main description of the Content Element it refers to.  For example, it could provide additional information about a Work Product relevant for the specific point in time in the process this Work Product type is being used.  It could describe additional skills needed for a Role at that particular point in time in a process, etc. ")
+	@ExtendedMetaData(kind="element", name="RefinedDescription")
+	attr type.String refinedDescription;
+}
+
+@GenModel(documentation="A categorization of work (i.e. Tasks for Method Content), based upon similarity of concerns and cooperation of work effort.
+A discipline is a collection of Tasks that are related to a major 'area of concern' within the overall project. The grouping of Tasks into disciplines is mainly an aid to understanding the project from a 'traditional' waterfall perspective. However, typically, for example, it is more common to perform certain requirements activities in close coordination with analysis and design activities. Separating these activities into separate disciplines makes the activities easier to comprehend.")
+@ExtendedMetaData(name="Discipline", kind="elementOnly")
+class Discipline extends ContentCategory {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="Task", group="#group:24")
+	!unique volatile transient derived attr type.String[*] task;
+
+	@ExtendedMetaData(kind="element", name="SubDiscipline", group="#group:24")
+	volatile transient derived !resolve val Discipline[*] subDiscipline;
+
+	@ExtendedMetaData(kind="element", name="ReferenceWorkflow", group="#group:24")
+	!unique volatile transient derived attr type.String[*] referenceWorkflow;
+}
+
+@GenModel(documentation="Used to group Disciplines.  For example, the Discipline Grouping \"Software Disciplines\" would be the group of all disciplines related to developing software such as \"Requirements Management\" or \"Testing\"; \"IT Infrastructure Management\" would be a Disciplines Grouping for disciplines such as \"IT Operational Services\", \"IT Customer Relationships\", or \"IT Enabling Services\".  Disciplines can be associated to more than one Discipline Grouping.")
+@ExtendedMetaData(name="DisciplineGrouping", kind="elementOnly")
+class DisciplineGrouping extends ContentCategory {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="Discipline", group="#group:24")
+	!unique volatile transient derived attr type.String[*] discipline;
+}
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@GenModel(documentation="A collection of selected Method Models and MethodPackages. A configuration can be exported into its own standalone library when it includes the full transitive closure of all elements all other elements depend on.")
+	@ExtendedMetaData(kind="element", name="MethodConfiguration", namespace="##targetNamespace")
+	volatile transient derived !resolve val MethodConfiguration[0..?] methodConfiguration;
+
+	@GenModel(documentation="A Method Library is a physical container for Method Plugins and Method Configuration definitions.  All Method Elements are stored in a Method Library.")
+	@ExtendedMetaData(kind="element", name="MethodLibrary", namespace="##targetNamespace")
+	volatile transient derived !resolve val MethodLibrary[0..?] methodLibrary;
+
+	@GenModel(documentation="A special Method Unit that represents a physical container for Method Packages.  It defines a granularity level for the modularization and organization of method content and processes.  A Method Plugin can extend many other Method Plugins and it can be extended by many Method Plugins.  It can also be used stand-alone, i.e. with no Extension relationship to other plug-ins.
+Method Plugin conceptually represents a unit for configuration, modularization, extension, packaging, and deployment of method content and processes.  A Process Engineer shall design his Plugins and allocate his content to these Plugins with requirements for extensibility, modularity, reuse, and maintainability in mind.
+Special extensibility mechanisms defined for the meta-classes Variability Element and Process Contribution allow Plugin content to directly contribute new content, replace existing content, or to cross-reference to any Content Element or Process within another Plugin that it extends.  Similar to UML 2.0's 'package merge' mechanism transformation interpretations, interpreting these Method Plugin mechanisms results into new extended Method Content and Processes.")
+	@ExtendedMetaData(kind="element", name="MethodPlugin", namespace="##targetNamespace")
+	volatile transient derived !resolve val MethodPlugin[0..?] methodPlugin;
+}
+
+@GenModel(documentation="A refineable hierarchy grouping related work products.  In other words, Domains can be further divided into sub-domains, with work product elements to be categorized only at the leaf-level of this hierarchy.
+Domain is a logical grouping of work products that have an affinity to each other based on resources, timing, or relationship.  A Domain may be divided into subdomains.  For example, GS Method uses six predefined Domains for Work Products: Application, Architecture, Business, Engagement, Operations and Organization.")
+@ExtendedMetaData(name="Domain", kind="elementOnly")
+class Domain extends ContentCategory {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="WorkProduct", group="#group:24")
+	!unique volatile transient derived attr type.String[*] workProduct;
+
+	@ExtendedMetaData(kind="element", name="Subdomain", group="#group:24")
+	volatile transient derived !resolve val Domain[*] subdomain;
+}
+
+@GenModel(documentation="A UML 2.0 meta-class Element.")
+@ExtendedMetaData(name="Element", kind="empty")
+class Element {
+}
+
+@GenModel(documentation="A specific type of Guidance that provides sizing measures, or standards for sizing the work effort associated with performing a particular piece of work and instructions for their successful use. It may be comprised of estimation considerations and estimation metrics.")
+@ExtendedMetaData(name="Estimate", kind="elementOnly")
+class Estimate extends Guidance {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="EstimationMetric", group="#group:24")
+	!unique volatile transient derived attr type.String[*] estimationMetric;
+
+	@ExtendedMetaData(kind="element", name="EstimationConsiderations", group="#group:24")
+	!unique volatile transient derived attr type.String[*] estimationConsiderations;
+}
+
+@GenModel(documentation="A specific type of Guidance that describes a metric or measure that is associated with an element and which is used to calculate the size of the work effort as well as a range of potential labor.")
+@ExtendedMetaData(name="EstimatingMetric", kind="elementOnly")
+class EstimatingMetric extends Guidance {
+}
+
+@GenModel(documentation="A specific type of Guidance that qualifies the usage and application of estimation metrics in the development of an actual estimate.")
+@ExtendedMetaData(name="EstimationConsiderations", kind="elementOnly")
+class EstimationConsiderations extends Guidance {
+}
+
+@GenModel(documentation="A specific type of Guidance that represents a typical, partially completed, sample instance of one or more work products or scenario like descriptions of how Task may be performed. Examples can be related to Work Products as well as Tasks that produce them as well as any other Content Element.")
+@ExtendedMetaData(name="Example", kind="elementOnly")
+class Example extends Guidance {
+}
+
+@GenModel(documentation="Guidance is an abstract generalization of additional information related to content elements such as Roles, Tasks, and Work Products.  Examples for Guidance are Guidelines, Templates, Checklists, Tool Mentors, Estimates, Supporting Materials, Reports, Concepts, etc.  This package only contains the definition of the abstract Guidance class.  The package Guidance Types defines concrete guidance types.")
+@ExtendedMetaData(name="Guidance", kind="elementOnly")
+class Guidance extends ContentElement {
+}
+
+@GenModel(documentation="A generalized Content Description that is used to store the textual description for a Guidance.")
+@ExtendedMetaData(name="GuidanceDescription", kind="elementOnly")
+class GuidanceDescription extends ContentDescription {
+
+	@GenModel(documentation="This field is primarily used for attachments augmenting the information provided for guidance.  In particular the attribute is used for Templates, Examples, and Reusable Assets to contain the actual attachment described in the mainDescription.  It can additionally contain representations of the guidance in just a third party format, e.g. PDF, MS Word, or Word Perfect.")
+	@ExtendedMetaData(kind="element", name="Attachment")
+	attr type.String attachment;
+}
+
+@GenModel(documentation="A specific type of guidance that provides additional detail on how to perform a particular task or grouping of tasks (e.g. grouped together as activities) or that provides additional detail, rules, and recommendations on work products and their properties.  Amongst others, it can include details about best practices and different approaches for doing work, how to use particular types of work products, information on different subtypes and variants of the work product and how they evolve throughout a lifecycle, discussions on skills the performing roles should acquire or improve upon, measurements for progress and maturity, etc.")
+@ExtendedMetaData(name="Guideline", kind="elementOnly")
+class Guideline extends Guidance {
+}
+
+@GenModel(documentation="A special Activity which prescribes pre-defined values for its instances for the attributes prefix ('Iteration') and isRepeatable ('True').  It has been included into the meta-model for convenience and to provide a special stereotype, because it represents a very commonly used Activity type.
+Iteration groups a set of nested Activities that are repeated more than once.  It represents an important structuring element to organize work in repetitive cycles.  The concept of Iteration can be associated with different rules in different methods.  For example, the IBM Rational Unified Process method framework (RUP) defines a rule that Iterations are not allowed to span across Phases.  In contrast IBM Global Services Method (GSMethod) based method frameworks this rule does not apply and Iteration can be defined which nest Phases.  Rules like these, which play an important role for each individual method and are therefore not enforced by this meta-model.  Instead, process authors are expected to follow and check these rules manually.  (Note: Any Breakdown Element can be repeated; however, Iterations has been introduced as a special meta-model concept, because of its important role for many methods.)")
+@ExtendedMetaData(name="Iteration", kind="elementOnly")
+class Iteration extends Activity {
+}
+
+@ExtendedMetaData(name="Kind", kind="elementOnly")
+class Kind extends ContentElement {
+
+	@ExtendedMetaData(kind="element", name="ApplicableMetaClassInfo")
+	!unique attr type.String[*] applicableMetaClassInfo;
+}
+
+@GenModel(documentation="A collection of selected Method Models and MethodPackages. A configuration can be exported into its own standalone library when it includes the full transitive closure of all elements all other elements depend on.")
+@ExtendedMetaData(name="MethodConfiguration", kind="elementOnly")
+class MethodConfiguration extends MethodUnit {
+
+	@ExtendedMetaData(kind="element", name="BaseConfiguration")
+	!unique attr type.String[*] baseConfiguration;
+
+	@ExtendedMetaData(kind="element", name="MethodPluginSelection")
+	!unique attr type.String[*] methodPluginSelection;
+
+	@ExtendedMetaData(kind="element", name="MethodPackageSelection")
+	!unique attr type.String[*] methodPackageSelection;
+
+	@ExtendedMetaData(kind="element", name="DefaultView")
+	attr type.String defaultView;
+
+	@ExtendedMetaData(kind="element", name="ProcessView")
+	!unique attr type.String[*] processView;
+
+	@ExtendedMetaData(kind="element", name="SubtractedCategory")
+	!unique attr type.String[*] subtractedCategory;
+
+	@ExtendedMetaData(kind="element", name="AddedCategory")
+	!unique attr type.String[*] addedCategory;
+}
+
+@GenModel(documentation="The root generalization for all UMA Method Elements.  Defines a common set of attributes inherited by all UMA Method Elements.  Method Element itself is derived from Packageable Element from the UML 2.0 Infrastructure.")
+@ExtendedMetaData(name="MethodElement", kind="elementOnly")
+class MethodElement extends PackageableElement {
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="Defines the packaging rules for this Method Element.")
+	@ExtendedMetaData(kind="element", name="OwnedRule", group="#group:1")
+	volatile transient derived !resolve val Constraint[*] ownedRule;
+
+	@ExtendedMetaData(kind="element", name="MethodElementProperty", group="#group:1")
+	volatile transient derived !resolve val MethodElementProperty[*] methodElementProperty;
+
+	@GenModel(documentation="Every instance of Method Element shall be briefly described with one or two sentences summarizing the element.")
+	@ExtendedMetaData(kind="attribute", name="briefDescription")
+	attr type.String briefDescription;
+
+	@GenModel(documentation="Every instance of Method Element has a global unique id.")
+	@ExtendedMetaData(kind="attribute", name="id")
+	attr type.String ~id;
+
+	@GenModel(documentation="Used for CASE tool realizations of this model to contain information about layout and ordering of the method element and its parts.")
+	@ExtendedMetaData(kind="attribute", name="orderingGuide")
+	attr type.String orderingGuide;
+
+	@GenModel(documentation="Every Describable Element has a presentation name, which is used for external presentation of the element.  For example, name (the internal representation) might be set to \"rup_architecture_document\" to differentiate from a \"j2ee_architcture_document\" whereas the external presentation would always be \"Architecture Document\".")
+	@ExtendedMetaData(kind="attribute", name="presentationName")
+	attr type.String presentationName;
+
+	@GenModel(documentation="If a Variability Element is derived from another Variability Element using the \"extends\" Variability Specialization, then this attribute can be used to suppress inherited Method Elements that were part of the based-on Variability Element, which can be any type of Method Element.  In other words, if this attribute is set to true on a Method Element that has the same name than an inherited method element then it will not be regarded as inherited at all.")
+	@ExtendedMetaData(kind="attribute", name="suppressed")
+	unsettable attr type.Boolean suppressed;
+}
+
+@ExtendedMetaData(name="MethodElementProperty", kind="empty")
+class MethodElementProperty extends PackageableElement {
+
+	@ExtendedMetaData(kind="attribute", name="value")
+	attr type.String value;
+}
+
+@GenModel(documentation="A Method Library is a physical container for Method Plugins and Method Configuration definitions.  All Method Elements are stored in a Method Library.")
+@ExtendedMetaData(name="MethodLibrary", kind="elementOnly")
+class MethodLibrary extends MethodUnit {
+
+	@ExtendedMetaData(kind="element", name="MethodPlugin")
+	!resolve val MethodPlugin[*] methodPlugin;
+
+	@ExtendedMetaData(kind="element", name="MethodConfiguration")
+	!resolve val MethodConfiguration[*] methodConfiguration;
+
+	@GenModel(documentation="The tool that generated the XML file.")
+	@ExtendedMetaData(kind="attribute", name="tool")
+	attr type.String tool;
+}
+
+@GenModel(documentation="An abstract class for packaging Method Elements.  All Method Elements shall be located in exactly one of Method Package's concrete specializations (e.g. Content Package).   Method Package defines common properties for all of its specializations. Elements are organized in Method Packages to structure large scale of method content and processes as well as to define a mechanism for reuse.  Method Elements from one package can reuse element from other packages by defining a reusedPackages link.  For example, a work product defined in one package can be used as an input for Tasks defined in other packages.  By reusing it from one common place (i.e. the package in which it has been defined) ensures that no redundant definitions of the same elements are required.  Also maintenance of method content is greatly improved as changes can be performed in only one place.  Note, that other packages will introduce more specializations of Method Package, e.g. Process Package and Process Component.")
+@ExtendedMetaData(name="MethodPackage", kind="elementOnly")
+class MethodPackage extends MethodElement {
+
+	@ExtendedMetaData(kind="group", name="group:9")
+	!unique attr ecore.EFeatureMapEntry[*] group1;
+
+	@ExtendedMetaData(kind="element", name="ReusedPackage", group="#group:9")
+	!unique volatile transient derived attr type.String[*] reusedPackage;
+
+	@ExtendedMetaData(kind="element", name="MethodPackage", group="#group:9")
+	volatile transient derived !resolve val MethodPackage[*] methodPackage;
+
+	@GenModel(documentation="Method Packages can have a global scope.  This means that every element of every other Method Package can see the global package's contents.  Global Method Packages are primarily used to store commonly used category definitions such as for Disciplines or Domains, which are used by many Task and Work Products respectively.")
+	@ExtendedMetaData(kind="attribute", name="global")
+	unsettable attr type.Boolean global;
+}
+
+@GenModel(documentation="A special Method Unit that represents a physical container for Method Packages.  It defines a granularity level for the modularization and organization of method content and processes.  A Method Plugin can extend many other Method Plugins and it can be extended by many Method Plugins.  It can also be used stand-alone, i.e. with no Extension relationship to other plug-ins.
+Method Plugin conceptually represents a unit for configuration, modularization, extension, packaging, and deployment of method content and processes.  A Process Engineer shall design his Plugins and allocate his content to these Plugins with requirements for extensibility, modularity, reuse, and maintainability in mind.
+Special extensibility mechanisms defined for the meta-classes Variability Element and Process Contribution allow Plugin content to directly contribute new content, replace existing content, or to cross-reference to any Content Element or Process within another Plugin that it extends.  Similar to UML 2.0's 'package merge' mechanism transformation interpretations, interpreting these Method Plugin mechanisms results into new extended Method Content and Processes.")
+@ExtendedMetaData(name="MethodPlugin", kind="elementOnly")
+class MethodPlugin extends MethodUnit {
+
+	@ExtendedMetaData(kind="element", name="ReferencedMethodPlugin")
+	!unique attr type.String[*] referencedMethodPlugin;
+
+	@ExtendedMetaData(kind="element", name="MethodPackage")
+	!resolve val MethodPackage[*] methodPackage;
+
+	@ExtendedMetaData(kind="attribute", name="supporting")
+	unsettable attr type.Boolean supporting;
+
+	@ExtendedMetaData(kind="attribute", name="userChangeable")
+	unsettable attr type.Boolean userChangeable;
+}
+
+@GenModel(documentation="A special Method Element that shall be maintained in a Method Library as a separate unit of control.")
+@ExtendedMetaData(name="MethodUnit", kind="elementOnly")
+class MethodUnit extends MethodElement {
+
+	@ExtendedMetaData(kind="element", name="Copyright")
+	attr type.String copyright;
+
+	@GenModel(documentation="Every Method Unit is being created and owned by an author or authoring team.")
+	@ExtendedMetaData(kind="attribute", name="authors")
+	attr type.String authors;
+
+	@GenModel(documentation="The date the last change that resulted into this version has been made.")
+	@ExtendedMetaData(kind="attribute", name="changeDate")
+	attr type.DateTime changeDate;
+
+	@GenModel(documentation="The description of the last change that resulted into this version.")
+	@ExtendedMetaData(kind="attribute", name="changeDescription")
+	attr type.String changeDescription;
+
+	@GenModel(documentation="Every Package has a version number used to track changes.")
+	@ExtendedMetaData(kind="attribute", name="version")
+	attr type.String version;
+}
+
+@GenModel(documentation="A special Breakdown Element that describes a significant event in a development project, such as a major decision, completion of a deliverable, or meeting of a major dependency (like completion of a project phase).  Because, Milestone is commonly used to refer to both the event itself and the point in time at which the event is scheduled to happen, it is modeled as a Breakdown Element (i.e. it appears as part of a breakdown structure).")
+@ExtendedMetaData(name="Milestone", kind="elementOnly")
+class Milestone extends WorkBreakdownElement {
+
+	@ExtendedMetaData(kind="element", name="RequiredResult")
+	!unique attr type.String[*] requiredResult;
+}
+
+@GenModel(documentation="A UML 2.0 meta-class Named Element.")
+@ExtendedMetaData(name="NamedElement", kind="empty")
+class NamedElement extends Element {
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String name;
+}
+
+@GenModel(documentation="A Work Product that describes intangible work products that are a result or state. Outcomes may also be used to describe work products that are not formally defined.  A key differentiator for outcomes against artifacts is that outcomes are not candidates for harvesting as reusable assets.")
+@ExtendedMetaData(name="Outcome", kind="elementOnly")
+class Outcome extends WorkProduct {
+}
+
+@GenModel(documentation="A UML 2.0 meta-class Packagable Element.")
+@ExtendedMetaData(name="PackageableElement", kind="empty")
+class PackageableElement extends NamedElement {
+}
+
+@GenModel(documentation="A special Activity which prescribes pre-defined values for its instances for the attributes prefix ('Phase') and isRepeatable ('False').  It has been included into the meta-model for convenience and to provide a special stereotype, because it represents a very commonly used Activity type.
+Phase represent a significant period in a project, ending with major management checkpoint, milestone or set of Deliverables.  It is included in the model as a predefined special Activity, because of its significance in defining breakdowns.")
+@ExtendedMetaData(name="Phase", kind="elementOnly")
+class Phase extends Activity {
+}
+
+@GenModel(documentation="A Process Element that adds planning data to Breakdown Elements when it is used for a Process Planning Template.  For Delivery Processes and Capability Patterns this class can either not be instantiated or populated with default data.
+Planning Data factors out specific optional data needed for representing planning templates.  This association allows to access planning data if it is stored for the Breakdown Element.
+(NOTE, THE ATTRIBUTES FOR THIS CLASS ARE NOT COMPLETE, YET)")
+@ExtendedMetaData(name="PlanningData", kind="elementOnly")
+class PlanningData extends ProcessElement {
+
+	@GenModel(documentation="The default finish date for a planed Task.")
+	@ExtendedMetaData(kind="attribute", name="finishDate")
+	attr type.DateTime finishDate;
+
+	@GenModel(documentation="The default rank for a planed Task.")
+	@ExtendedMetaData(kind="attribute", name="rank")
+	attr type.String rank;
+
+	@GenModel(documentation="The default start date for a planed Task.")
+	@ExtendedMetaData(kind="attribute", name="startDate")
+	attr type.DateTime startDate;
+}
+
+@GenModel(documentation="A specific type of guidance that represents a proven way or strategy of doing work to achieve a goal that has a positive impact on work product or process quality.  Practices are defined orthogonal to methods and processes.  They could summarize aspects that impact many different parts of a method or specific processes.  Examples for practices would be \"Manage Risks\", \"Continuously verify quality\", \"Architecture-centric and component-based development\", etc.")
+@ExtendedMetaData(name="Practice", kind="elementOnly")
+class Practice extends Guidance {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="ActivityReference", group="#group:24")
+	!unique volatile transient derived attr type.String[*] activityReference;
+
+	@ExtendedMetaData(kind="element", name="ContentReference", group="#group:24")
+	!unique volatile transient derived attr type.String[*] contentReference;
+
+	@ExtendedMetaData(kind="element", name="SubPractice", group="#group:24")
+	volatile transient derived !resolve val Practice[*] subPractice;
+}
+
+@GenModel(documentation="A generalized Content Description that is used to store the textual description for a Practice.")
+@ExtendedMetaData(name="PracticeDescription", kind="elementOnly")
+class PracticeDescription extends ContentDescription {
+
+	@GenModel(documentation="Any additional Information not covered by the other attributes.")
+	@ExtendedMetaData(kind="element", name="AdditionalInfo")
+	attr type.String additionalInfo;
+
+	@GenModel(documentation="Describes how the Practice is being applied or introduced into the context described in background.")
+	@ExtendedMetaData(kind="element", name="Application")
+	attr type.String application;
+
+	@GenModel(documentation="Elaboration on the background and the context in which the problem occurs and where the solution described by this Practice will fit in.")
+	@ExtendedMetaData(kind="element", name="Background")
+	attr type.String background;
+
+	@GenModel(documentation="A summary of the overall goals to be addressed by the Practice.")
+	@ExtendedMetaData(kind="element", name="Goals")
+	attr type.String goals;
+
+	@GenModel(documentation="Outlines the different forms or variants in which the practice could be realized. (e.g. full adoption verus a partial adoption of the Practice)")
+	@ExtendedMetaData(kind="element", name="LevelsOfAdoption")
+	attr type.String levelsOfAdoption;
+
+	@GenModel(documentation="A description of the problem the Practice addresses.")
+	@ExtendedMetaData(kind="element", name="Problem")
+	attr type.String problem;
+}
+
+@GenModel(documentation="A special Activity that describes a structure for particular types of development projects.  To perform such a development project a Processes would be 'instantiated' and adapted for the specific situation.  Process is an abstract class and this meta-model defines different special types of Processes for different process management applications and different situations of process reuse.  Every Process comprises of and is the top-level element of an n-level breakdown structure using the Nesting association defined on Activity.
+Core Method Content provides step-by-step explanations, describing how very specific development goals are achieved independent of the placement of these steps within a development lifecycle.  Processes take these method elements and relate them into semi-ordered sequences that are customized to specific types of projects.  Thus, a process is a set of partially ordered work descriptions intended to reach a higher development goal, such as the release of a specific software system.  A process and the process meta-model structure defined in this specification focuses on the lifecycle and the sequencing of work in breakdown structures.  To achieve this it uses the Descriptor concept referencing method content and allowing defining time-specific customizations of the referenced content (e.g. defining a focus on different steps of the same Task and providing input Work Products in different states within the different Phases of a process lifecycle in which the same Task is performed).")
+@ExtendedMetaData(name="Process", kind="elementOnly")
+class Process extends Activity {
+
+	@ExtendedMetaData(kind="element", name="IncludesPattern")
+	!unique attr type.String[*] includesPattern;
+
+	@ExtendedMetaData(kind="element", name="DefaultContext")
+	attr type.String defaultContext;
+
+	@ExtendedMetaData(kind="element", name="ValidContext")
+	!unique attr type.String[*] validContext;
+
+	@GenModel(documentation="The URI of the diagram file associated with the process.")
+	@ExtendedMetaData(kind="attribute", name="diagramURI")
+	attr type.String diagramURI;
+}
+
+@GenModel(documentation="A special Process Package that applies the principles of encapsulation.  A Process Component realizes one or more Interfaces which specify inputs and outputs of the component. There might be many components realizing the same interfaces, but using different techniques to achieve similar outputs for similar inputs.  Whereas the Component Interfaces represent component specifications (black box descriptions of the component), good candidates for component realizations can be found in Capability Patterns (white box descriptions for the component).
+UMA supports replaceable and reusable Process Components realizing the principles of encapsulation. Certain situations in a software development project might require that concrete realizations of parts of the process remain undecided or will be decided by the executing team itself (e.g. in outsourcing situations).  UMA provides a unique component concept defining interfaces for work product input and output, allowing treating the actual definition of the work that produces the outputs as a \"black box\".  At any point during a project the component \"realization\" detailing the work can be added to the process.  The component approach also allows that different styles or techniques of doing work can be replaced with one another.  For example, a software code output of a component could be produced with a model-driven development or a code-centric technique.  The component concept encapsulates the actual work and lets the development team choose the appropriate technique and fill the component's realization with their choice of Activities that produce the required outputs.")
+@ExtendedMetaData(name="ProcessComponent", kind="elementOnly")
+class ProcessComponent extends ProcessPackage {
+
+	@ExtendedMetaData(kind="element", name="Copyright")
+	attr type.String copyright;
+
+	@ExtendedMetaData(kind="element", name="Interface")
+	!resolve val ProcessComponentInterface ~interface;
+
+	@ExtendedMetaData(kind="element", name="Process")
+	!resolve val Process[1] process;
+
+	@GenModel(documentation="Every Method Unit is being created and owned by an author or authoring team.")
+	@ExtendedMetaData(kind="attribute", name="authors")
+	attr type.String authors;
+
+	@GenModel(documentation="The date the last change that resulted into this version has been made.")
+	@ExtendedMetaData(kind="attribute", name="changeDate")
+	attr type.DateTime changeDate;
+
+	@GenModel(documentation="The description of the last change that resulted into this version.")
+	@ExtendedMetaData(kind="attribute", name="changeDescription")
+	attr type.String changeDescription;
+
+	@GenModel(documentation="Every Package has a version number used to track changes.")
+	@ExtendedMetaData(kind="attribute", name="version")
+	attr type.String version;
+}
+
+@GenModel(documentation="Comprises of a list of interface specifications (similar to operation declarations) that express inputs and outputs for a process component.  These interface specifications are expressed using Task Descriptors which are not linked to Tasks that are related to Work Product Descriptors as well as optional a Role Descriptor.")
+@ExtendedMetaData(name="ProcessComponentInterface", kind="elementOnly")
+class ProcessComponentInterface extends BreakdownElement {
+
+	@ExtendedMetaData(kind="group", name="group:30")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="InterfaceSpecification", group="#group:30")
+	volatile transient derived !resolve val TaskDescriptor[*] interfaceSpecification;
+
+	@ExtendedMetaData(kind="element", name="InterfaceIO", group="#group:30")
+	volatile transient derived !resolve val WorkProductDescriptor[*] interfaceIO;
+}
+
+@GenModel(documentation="A generalized Activity Description that is used to store the textual description for a Process.")
+@ExtendedMetaData(name="ProcessDescription", kind="elementOnly")
+class ProcessDescription extends ActivityDescription {
+
+	@GenModel(documentation="Defines the scope of the Process, i.e. which types of projects does it address and which not.")
+	@ExtendedMetaData(kind="element", name="Scope")
+	attr type.String scope;
+
+	@GenModel(documentation="Any additional notes on how to apply and instantiate this process for a project.")
+	@ExtendedMetaData(kind="element", name="UsageNotes")
+	attr type.String usageNotes;
+}
+
+@GenModel(documentation="A Describable Element that represents an abstract generalization for all elements defined in the Process package.
+Process Elements represents Process specific elements that are supposed to be managed in Process Packages.  The separation of Process Element from Content Element allows to clearly distinguish between pure method content from content that is represented in processes. ")
+@ExtendedMetaData(name="ProcessElement", kind="elementOnly")
+class ProcessElement extends DescribableElement {
+}
+
+@GenModel(documentation="A special Method Package that contains Process Elements, only.
+A key separation of concerns in UMA is the distinction between Method Content and Process.  This separation is enforced by special package types, which do not allow the mixing of method content with processes.")
+@ExtendedMetaData(name="ProcessPackage", kind="elementOnly")
+class ProcessPackage extends MethodPackage {
+
+	@ExtendedMetaData(kind="group", name="group:13")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="ProcessElement", group="#group:13")
+	volatile transient derived !resolve val ProcessElement[*] processElement;
+}
+
+@GenModel(documentation="A special Process that is prepared for instantiation by a project planning tool.  Typically, it is created based on a Process such as a Delivery Process as a whole (e.g. in case of a waterfall-based development approach) or in parts (e.g. in case of an iterative development approach).
+A Process Planning Template represents a partially finished plan for a concrete project.  It uses the same information structures as all other Process Types to represent templates for project plans.  However, certain planning decisions have already been applied to the template as well as information has been removed and/or reformatted to be ready for export to a specific planning tool.  Examples for such decisions are: a template has been created to represent a plan for a particular Iteration in an iterative development project, which fr example distinguishes early from late iterations in the Elaboration phase of a project; if the targeted planning tool cannot represent input and output of Task, then these have been removed from the structure; certain repetitions have been already applied, e.g. stating that a cycle of specific Task grouped in an Activity have to be repeated n-times; etc.")
+@ExtendedMetaData(name="ProcessPlanningTemplate", kind="elementOnly")
+class ProcessPlanningTemplate extends Process {
+
+	@ExtendedMetaData(kind="group", name="group:47")
+	!unique attr ecore.EFeatureMapEntry[*] group4;
+
+	@ExtendedMetaData(kind="element", name="BaseProcess", group="#group:47")
+	!unique volatile transient derived attr type.String[*] baseProcess;
+}
+
+@GenModel(documentation="A predefined template of a result that is generated on the basis of other work products as an output from some form of tool automation. An example for a report would be a use case model survey, which is generated by extracting diagram information from a graphical model and textual information from documents and combines these two types of information into a report.")
+@ExtendedMetaData(name="Report", kind="elementOnly")
+class Report extends Guidance {
+}
+
+@GenModel(documentation="A specific type of guidance that provides a solution to a problem for a given context. The asset may have a variability point, which is a location in the asset that may have a value provided or customized by the asset consumer. The asset has rules for usage which are the instructions describing
+how the asset should be used.")
+@ExtendedMetaData(name="ReusableAsset", kind="elementOnly")
+class ReusableAsset extends Guidance {
+}
+
+@GenModel(documentation="A specific type of Guidance which is only related to Activates and therefore has been added by this package to the list of Guidance Types rather than listed in the Guidance Types package.  A Roadmap represents a linear walkthrough of an Activity, typically a Process.
+An instance of a Roadmap represents important documentation for the Activity or Process it is related to.  Often a complex Activity such as a Process can be much easier understood by providing a walkthrough with a linear thread of a typical instantiation of this Activity.  In addition to making the process practitioner understand how work in the process is being performed, a Roadmap provides additional information about how Activities and Tasks relate to each other over time.  Roadmaps are also used to show how specific aspects are distributed over a whole process providing a kind of filter on the process for this information.")
+@ExtendedMetaData(name="Roadmap", kind="elementOnly")
+class Roadmap extends Guidance {
+}
+
+@GenModel(documentation="A Content Element that defines a set of related skills, competencies, and responsibilities.  Roles are used by Tasks to define who performs them as well as define a set of work products they are responsible for.  
+A Role defines a set of related skills, competencies, and responsibilities of an individual or a set of individuals.  Roles are not individuals or resources.  Individual members of the development organization will wear different hats, or perform different roles. The mapping from individual to role, performed by the project manager when planning and staffing for a project, allows different individuals to act as several different roles, and for a role to be played by several individuals.")
+@ExtendedMetaData(name="Role", kind="elementOnly")
+class Role extends ContentElement {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="ResponsibleFor", group="#group:24")
+	!unique volatile transient derived attr type.String[*] responsibleFor;
+}
+
+@GenModel(documentation="A generalized Content Description that is used to store the textual description for a Role.")
+@ExtendedMetaData(name="RoleDescription", kind="elementOnly")
+class RoleDescription extends ContentDescription {
+
+	@GenModel(documentation="Provides guidance on for assigning individuals to the Role in terms of what other roles these individuals could perform and what responsibility different individuals assigned to this role might have.  The guidance can also describe different assignment approaches for different types of projects, e.g. for large versus small teams where individuals could be allocated to roles full time versus sharing roles within the team.")
+	@ExtendedMetaData(kind="element", name="AssignmentApproaches")
+	attr type.String assignmentApproaches;
+
+	@GenModel(documentation="Lists of set of required skills a person needs to possess to fulfill that Role.")
+	@ExtendedMetaData(kind="element", name="Skills")
+	attr type.String skills;
+
+	@GenModel(documentation="Lists synonyms, i.e. other names the Role might be referred by.  Tool support for the meta-model might support that a Role name can be consistently be replaced with one of its synonyms throught a Process.")
+	@ExtendedMetaData(kind="element", name="Synonyms")
+	attr type.String synonyms;
+}
+
+@GenModel(documentation="A special Descriptor that represents a Role in the context of one specific Activity.  Every breakdown structure can define different relationships of Role Descriptors to Task Descriptors and Work Product Descriptors.  Therefore one Role can be represented by many Role Descriptors each within the context of an Activity with its own set of relationships.")
+@ExtendedMetaData(name="RoleDescriptor", kind="elementOnly")
+class RoleDescriptor extends Descriptor {
+
+	@ExtendedMetaData(kind="element", name="Role")
+	attr type.String role;
+
+	@ExtendedMetaData(kind="element", name="ResponsibleFor")
+	!unique attr type.String[*] responsibleFor;
+}
+
+@GenModel(documentation="Organizes Roles into categories.  It is used to group roles together that have certain commonalities.  For example, the \"Analysts\" Role Set could group the \"Business Process Analyst\", \"System Analyst\", as well as \"Requirements Specifier\" roles.  All of these work with similar techniques and have overlapping skills, but are required as distinct roles for a method (e.g. the method the IBM Rational Unified Process is based on).")
+@ExtendedMetaData(name="RoleSet", kind="elementOnly")
+class RoleSet extends ContentCategory {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="Role", group="#group:24")
+	!unique volatile transient derived attr type.String[*] role;
+}
+
+@GenModel(documentation="Role Sets can be categorized into Role Set Groupings.  For example, different methods might define similar Role Sets, which however need to be distinguished from each other on a global scale.  Thus, Role Set Groupings allow distinguishing, for example, Software Services Manager Role Sets from Software Development Organization Manager Role Sets.")
+@ExtendedMetaData(name="RoleSetGrouping", kind="elementOnly")
+class RoleSetGrouping extends ContentCategory {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="RoleSet", group="#group:24")
+	!unique volatile transient derived attr type.String[*] roleSet;
+}
+
+@GenModel(documentation="A special Method Element that represents structural subsections of a Content Description's sectionDescription attribute.  It is used for either large scale documentation of Content Elements organized into sections as well as to flexibly add new Sections to Content Elements using contribution variability added to the Section concept for Method Plug-ins.")
+@ExtendedMetaData(name="Section", kind="elementOnly")
+class Section extends MethodElement {
+
+	@ExtendedMetaData(kind="element", name="SubSection")
+	!resolve val Section subSection;
+
+	@ExtendedMetaData(kind="element", name="Predecessor")
+	attr type.String predecessor;
+
+	@GenModel(documentation="This attributes store the description text for a Content Description's Section.")
+	@ExtendedMetaData(kind="element", name="Description")
+	attr type.String description;
+
+	@GenModel(documentation="Every Section has a name used for external presentation of the section, e.g. when published or when section heading are listed in a table of contents.  This attribute is similar to Presentation Name for Content Elements.")
+	@ExtendedMetaData(kind="attribute", name="sectionName")
+	attr type.String sectionName;
+
+	@ExtendedMetaData(kind="attribute", name="variabilityBasedOnElement")
+	attr type.String variabilityBasedOnElement;
+
+	@ExtendedMetaData(kind="attribute", name="variabilityType")
+	unsettable attr VariabilityType variabilityType = "na";
+}
+
+@GenModel(documentation="A catchall for other types of guidance not specifically defined elsewhere. It can be related to all kinds of Content Elements, i.e. including other guidance elements.")
+@ExtendedMetaData(name="SupportingMaterial", kind="elementOnly")
+class SupportingMaterial extends Guidance {
+}
+
+@GenModel(documentation="A Content Element that describes work being performed by Roles.  It defines one default performing Role as well as many additional performers.  A Task is associated to input and output work products.  Inputs are differentiated in mandatory versus optional inputs.  The associations to Work Products are not instantiatable/variable-like parameters.  They rather express (hyper-)links to the descriptions of the work products types that are related to the Task as inputs and outputs.  In other words, these associations are not intended to be used to capture which concrete instances will be passed when instantiating the method in a project.  All of the Task's default associations can be overridden in an actual process definition.
+A Task describes an assignable unit of work.  Every Task is assigned to specific Roles.  The granularity of a Task is generally a few hours to a few days.  It usually affects one or only a small number of work products. A Task is used as an element of defining a process. Tasks are further used for planning and tracking progress; therefore, if they are defined too fine-grained, they will be neglected, and if they are too large, progress would have to be expressed in terms of a Task's parts (e.g. Steps, which is not recommended). 
+A Task has a clear purpose in which the performing roles achieve a well defined goal.  It provides complete step-by-step explanations of doing all the work that needs to be done to achieve this goal.  This description is complete, independent of when in a process lifecycle the work would actually be done.  It therefore does not describe when you do what work at what point of time, but describes all the work that gets done throughout the development lifecycle that contributes to the achievement of this goal.  When the Task is being applied in a process then this process application (defined as Task Descriptor) provides the information of which pieces of the Task will actually be performed at any particular point in time. This assumes that the Task will be performed in the process over and over again, but each time with a slightly different emphasis on different steps or aspects of the task description. 
+For example, a Task such as \"Develop Use Case Model\" describes all the work that needs to be done to develop a complete use case model. This would comprise of the identification and naming of use cases and actors, the writing of a brief description, the modeling of use cases and their relationships in diagrams, the detailed description of a basic flow, the detailed description of alternatives flows, performing of walkthroughs workshops and reviews, etc.  All of these parts contribute to the development goal of developing the use case model, but the parts will be performed at different points in time in a process.  Identification, naming, and brief descriptions would be performed early in a typical development process versus the writing of detailed alternative flows which would be performed much later.  All these parts or steps within the same Task define the \"method\" of Developing a Use Case Model.  Applying such a method in a lifecycle (i.e. in a process) is defining which steps are done when going from one iteration to the next.")
+@ExtendedMetaData(name="Task", kind="elementOnly")
+class Task extends ContentElement {
+
+	@ExtendedMetaData(kind="element", name="Precondition")
+	attr type.String precondition;
+
+	@ExtendedMetaData(kind="element", name="Postcondition")
+	attr type.String postcondition;
+
+	@ExtendedMetaData(kind="element", name="PerformedBy")
+	!unique attr type.String[*] performedBy;
+
+	@ExtendedMetaData(kind="group", name="group:27")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="MandatoryInput", group="#group:27")
+	!unique volatile transient derived attr type.String[*] mandatoryInput;
+
+	@ExtendedMetaData(kind="element", name="Output", group="#group:27")
+	!unique volatile transient derived attr type.String[*] output;
+
+	@ExtendedMetaData(kind="element", name="AdditionallyPerformedBy", group="#group:27")
+	!unique volatile transient derived attr type.String[*] additionallyPerformedBy;
+
+	@ExtendedMetaData(kind="element", name="OptionalInput", group="#group:27")
+	!unique volatile transient derived attr type.String[*] optionalInput;
+
+	@ExtendedMetaData(kind="element", name="Estimate", group="#group:27")
+	!unique volatile transient derived attr type.String[*] estimate;
+
+	@ExtendedMetaData(kind="element", name="EstimationConsiderations", group="#group:27")
+	!unique volatile transient derived attr type.String[*] estimationConsiderations;
+
+	@ExtendedMetaData(kind="element", name="ToolMentor", group="#group:27")
+	!unique volatile transient derived attr type.String[*] toolMentor;
+}
+
+@GenModel(documentation="A generalized Content Description that is used to store the textual description for a Task.")
+@ExtendedMetaData(name="TaskDescription", kind="elementOnly")
+class TaskDescription extends ContentDescription {
+
+	@GenModel(documentation="Comprises of summaries describing important exceptional and non-standard ways of achieving this Task's development goals that were not covered by the Task's Steps.")
+	@ExtendedMetaData(kind="element", name="Alternatives")
+	attr type.String alternatives;
+
+	@GenModel(documentation="Summarizes the main reason for performing this Task and what is intended to be achieved.")
+	@ExtendedMetaData(kind="element", name="Purpose")
+	attr type.String purpose;
+}
+
+@GenModel(documentation="A special Descriptor that represents a proxy for a Task in the context of one specific Activity.  Every breakdown structure can define different relationships of Task Descriptors to Work Product Descriptors and Role Descriptors. Therefore one Task can be represented by many Task Descriptors each within the context of an Activity with its own set of relationships.
+A key difference between Method Content and Process is that a Content Element such as Task describes all aspects of doing work defined around this Task.  This description is managed in steps, which are modeled as Sections of the Tasks' Content Descriptions.  When applying a Task in a Process' Activity with a Task Descriptor a Process Engineer needs to indicate that at that particular point in time in the Process definition for which the Task Descriptor has been created, only a subset of steps shall be performed.  He defines this selection using the selectedSteps association.  If he wants to add steps to a Task Descriptor, he can describe these either pragmatically in the refinedDescription attribute or 'properly' create a contributing Task to the Task the Task Descriptor refers to.
+")
+@ExtendedMetaData(name="TaskDescriptor", kind="elementOnly")
+class TaskDescriptor extends WorkBreakdownElement {
+
+	@ExtendedMetaData(kind="element", name="Task")
+	attr type.String task;
+
+	@ExtendedMetaData(kind="group", name="group:36")
+	!unique attr ecore.EFeatureMapEntry[*] group3;
+
+	@ExtendedMetaData(kind="element", name="PerformedPrimarilyBy", group="#group:36")
+	!unique volatile transient derived attr type.String[*] performedPrimarilyBy;
+
+	@ExtendedMetaData(kind="element", name="AdditionallyPerformedBy", group="#group:36")
+	!unique volatile transient derived attr type.String[*] additionallyPerformedBy;
+
+	@ExtendedMetaData(kind="element", name="AssistedBy", group="#group:36")
+	!unique volatile transient derived attr type.String[*] assistedBy;
+
+	@ExtendedMetaData(kind="element", name="ExternalInput", group="#group:36")
+	!unique volatile transient derived attr type.String[*] externalInput;
+
+	@ExtendedMetaData(kind="element", name="MandatoryInput", group="#group:36")
+	!unique volatile transient derived attr type.String[*] mandatoryInput;
+
+	@ExtendedMetaData(kind="element", name="OptionalInput", group="#group:36")
+	!unique volatile transient derived attr type.String[*] optionalInput;
+
+	@ExtendedMetaData(kind="element", name="Output", group="#group:36")
+	!unique volatile transient derived attr type.String[*] output;
+
+	@ExtendedMetaData(kind="element", name="Step")
+	!resolve val Section[*] step;
+
+	@ExtendedMetaData(kind="attribute", name="isSynchronizedWithSource")
+	unsettable attr type.Boolean isSynchronizedWithSource;
+}
+
+@GenModel(documentation="A Breakdown Element that groups Role Descriptors or Resource Definitions defining a nested hierarchy of teams and team members.
+Work assignments and Work Product responsibilities can be different from Activity to Activity in a development project. Different phases require different staffing profiles, i.e. different skills and resources doing different types of work.  Therefore, a process needs to define such different profiles in a flexible manner.  Whereas Core Method Content defines standard responsibilities and assignments, a process express by a breakdown structures needs to be able refine and redefine these throughout its definition.  Role Descriptors, Resource Definitions, as well as Team Profiles provide the data structure necessary to achieve this flexibility and to provide a process user with the capability to define different teams and role relationships for every Activity (including Activities on any nesting-level as well as Iterations or Phases).
+Hence, in addition to the work breakdown and work product breakdown structures defined so far, Team Profiles are used to define a third type of breakdown structure: team breakdown structures.  These are created as an Activity specific hierarchy of Team Profiles comprising of Role Descriptors and Resource Definitions.  These structures can be presented as well-known Org-Charts.  Just as with any other Breakdown Element and Descriptors, Team Profiles can be defined within the scope of any Activity in a breakdown structure.  In other words every Activity can define its own Team Profiles consisting of Activity specific Role Descriptors and Resource Definitions.  Typically, Team Profiles are defined on the level of Iterations or Phases or other higher-level Activity.")
+@ExtendedMetaData(name="TeamProfile", kind="elementOnly")
+class TeamProfile extends BreakdownElement {
+
+	@ExtendedMetaData(kind="group", name="group:30")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="Role", group="#group:30")
+	!unique volatile transient derived attr type.String[*] role;
+
+	@ExtendedMetaData(kind="element", name="SuperTeam", group="#group:30")
+	!unique volatile transient derived attr type.String[*] superTeam;
+
+	@ExtendedMetaData(kind="element", name="SubTeam", group="#group:30")
+	!unique volatile transient derived attr type.String[*] subTeam;
+}
+
+@GenModel(documentation="A specific type of guidance that provides for a work product a pre-defined table of contents, sections, packages, and/or headings, a standardized format, as well as descriptions how the sections and packages are supposed to be used and completed. Templates cannot only be provided for documents, but also for conceptual models or physical data stores.")
+@ExtendedMetaData(name="Template", kind="elementOnly")
+class Template extends Guidance {
+}
+
+@GenModel(documentation="A specific type of guidance that defines concepts and are used to build up the Glossary. TermDefinitions are not directly related to ContentElements, but their relationship is being derived when the Term is used in the ContentElements description text.")
+@ExtendedMetaData(name="TermDefinition", kind="elementOnly")
+class TermDefinition extends Guidance {
+}
+
+@GenModel(documentation="A container/aggregate for ToolMentors.  It can also provide general descriptions of the tool and its general capabilities.")
+@ExtendedMetaData(name="Tool", kind="elementOnly")
+class Tool extends ContentCategory {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="ToolMentor", group="#group:24")
+	!unique volatile transient derived attr type.String[*] toolMentor;
+}
+
+@GenModel(documentation="A  specific type of guidance that shows how to use a specific tool to accomplish some piece of work a Work Product either in the context of or independent from a Task or Activity.")
+@ExtendedMetaData(name="ToolMentor", kind="elementOnly")
+class ToolMentor extends Guidance {
+}
+
+@GenModel(documentation="An Enumeration used for values for instances of Variability Element's attribute variabilityType.  It defines the nature of how a Variability Element extends another Variability Element. See enumeration literals for definitions for each type.")
+@ExtendedMetaData(name="VariabilityType")
+enum VariabilityType {
+	na = 0;
+	contributes = 1;
+	~extends = 2;
+	replaces = 3;
+	localContribution = 4;
+	localReplacement = 5;
+	extendsReplaces = 6;
+}
+
+@ExtendedMetaData(name="VariabilityType:Object", baseType="VariabilityType")
+datatype VariabilityTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="A special Concept guidance that have been externally reviewed or published and can be read and understood in isolation of other content elements and guidance.")
+@ExtendedMetaData(name="Whitepaper", kind="elementOnly")
+class Whitepaper extends Concept {
+}
+
+@GenModel(documentation="A special Breakdown Element that provides specific properties for Breakdown Elements that represent or refer to Work Definitions.  For example its subclass Activity defines work as it is also a subclass of Work Definition.  Its subclass Task Descriptor does not define work by itself, but refers to a Work Definition and therefore can have the same common properties and Work Breakdown Element has.")
+@ExtendedMetaData(name="WorkBreakdownElement", kind="elementOnly")
+class WorkBreakdownElement extends BreakdownElement {
+
+	@ExtendedMetaData(kind="group", name="group:30")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="Predecessor", group="#group:30")
+	volatile transient derived !resolve val WorkOrder[*] predecessor;
+
+	@GenModel(documentation="The isEventDriven attribute indicates that the Process Work Definition describes an instance of work which is not started because it has been scheduled to start at a certain point of time, because preceding work is being completed, or input work products are available, but because another specific event has occurred.  Examples for such events are exceptions or problem situations which require specific work to be performed as a result.  Also change management work can be modeled as event driven work analyzing a change request or defect and allocating work dynamically to resources to deal with it following the work described with such Process Work Definition.  The events themselves are not modeled in this version of the specification.  They shall be described as part of the normal descriptions fields available.
+")
+	@ExtendedMetaData(kind="attribute", name="isEventDriven")
+	unsettable attr type.Boolean isEventDriven;
+
+	@GenModel(documentation="If the isOngoing attribute is set to True for a Process Work Definition instance, then the element describes an ongoing piece of work without a fixed duration or end state.  For example, the Process Work Definition could represent work of an administrator continuously (e.g. 3h a day) working to ensure that systems are kept in a certain state.  Another example would be program management work overseeing many different projects being scheduled for one particular project at specific reoccurring intervals during the whole lifecycle of the project.")
+	@ExtendedMetaData(kind="attribute", name="isOngoing")
+	unsettable attr type.Boolean isOngoing;
+
+	@GenModel(documentation="This attribute is used to define repetition of work, e.g. iterations.  A Process Work Definition with this attribute set to True shall be repeated more than once on the same set of artifacts.  For example, for an instance of Iteration (defined as a special Process Work Definition below) this attribute is set to True by default indicating that every sub-Activity will be repeated more than once.  However, any Process Work Definition can set this attribute to True to define iterations (e.g. to iterate one Activity consisting of many sub-activities or even Phases, but to iterate just one Task).")
+	@ExtendedMetaData(kind="attribute", name="isRepeatable")
+	unsettable attr type.Boolean isRepeatable;
+}
+
+@GenModel(documentation="An abstract Method Element that generalizes all descriptions of work within the Unified Method Architecture.  This package introduces two concrete types of Work Definitions: Task and Step.  Work Definitions can contain sets of pre- and post-conditions defining constraints that need to be valid before the described work can begin or before it can be declared as finished.  Note that general ownedRules can be used to define additional constraints and rules for Work Definitions.
+Work Definitions represent behavioral descriptions for doing work.  These behavioral descriptions are not bound to one specific classifier, but represent an arbitrary definition of work.  For example, a Work Definition could represent work that is being performed by a specific Role (e.g. a Role performing a specific Task or Steps of a Task), by many Roles working in close collaboration (many Roles all working together on the same interdisciplinary Task), or complex work that is performed throughout the lifecycle (e.g. a process defining a breakdown structure for organizing larger composite units of work performed by many Roles working in collaboration).")
+@ExtendedMetaData(name="WorkDefinition", kind="elementOnly")
+class WorkDefinition extends MethodElement {
+
+	@ExtendedMetaData(kind="element", name="Precondition")
+	attr type.String precondition;
+
+	@ExtendedMetaData(kind="element", name="Postcondition")
+	attr type.String postcondition;
+}
+
+@GenModel(documentation="Represents a relationship between two Breakdown Elements in which one Breakdown Elements depends on the start or finish of another Breakdown Elements in order to begin or end.  
+The Work Order class defines predecessor and successor relations amongst Breakdown Elements.  This information is in particular critical for planning applications.  See more details on different types of Work Order relationships at Work Order Type.")
+@ExtendedMetaData(name="WorkOrder", kind="simple")
+class WorkOrder {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.String value;
+
+	@GenModel(documentation="Defines a global unique id for a work order.")
+	@ExtendedMetaData(kind="attribute", name="id")
+	attr type.String ~id;
+
+	@GenModel(documentation="This attribute expresses the type of the Work Order relationship by assigning a value from the Work Order Type enumeration.")
+	@ExtendedMetaData(kind="attribute", name="linkType")
+	unsettable attr WorkOrderType linkType = "finishToStart";
+
+	@GenModel(documentation="This attribute store method element property values associated with this work order")
+	@ExtendedMetaData(kind="attribute", name="properties")
+	attr type.String properties;
+}
+
+@GenModel(documentation="Represents a relationship between two Breakdown Element in which one Breakdown Element depends on the start or finish of another Breakdown Element in order to begin or end. This enumeration defines the different types of Work Order relationships available in UMA and is used to provide values for Work Order's linkType attribute.")
+@ExtendedMetaData(name="WorkOrderType")
+enum WorkOrderType {
+	finishToStart = 0;
+	finishToFinish = 1;
+	startToStart = 2;
+	startToFinish = 3;
+}
+
+@ExtendedMetaData(name="WorkOrderType:Object", baseType="WorkOrderType")
+datatype WorkOrderTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="An abstract class which provides a generalization for the content element types Artifact, Outcome, and Deliverable.  The meta-model class Work Product actually represents work product types, i.e. an instance of Work Product is a description of a specific type of work product and not an individual work product instance.  However, for simplicity reasons and because of low risk of misinterpretation we did not append the word 'type' to every meta-class.
+A work product is an abstraction for descriptions of content elements that are used to define anything used, produced, or modified by a task.")
+@ExtendedMetaData(name="WorkProduct", kind="elementOnly")
+class WorkProduct extends ContentElement {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="Estimate", group="#group:24")
+	!unique volatile transient derived attr type.String[*] estimate;
+
+	@ExtendedMetaData(kind="element", name="EstimationConsiderations", group="#group:24")
+	!unique volatile transient derived attr type.String[*] estimationConsiderations;
+
+	@ExtendedMetaData(kind="element", name="Report", group="#group:24")
+	!unique volatile transient derived attr type.String[*] report;
+
+	@ExtendedMetaData(kind="element", name="Template", group="#group:24")
+	!unique volatile transient derived attr type.String[*] template;
+
+	@ExtendedMetaData(kind="element", name="ToolMentor", group="#group:24")
+	!unique volatile transient derived attr type.String[*] toolMentor;
+}
+
+@GenModel(documentation="A generalized Content Description that is used to store the textual description for a Work Product.")
+@ExtendedMetaData(name="WorkProductDescription", kind="elementOnly")
+class WorkProductDescription extends ContentDescription {
+
+	@GenModel(documentation="Describes the consequences of not producing the work product.  This is intended to aid in the tailoring the method/process to the needs of a specific project.")
+	@ExtendedMetaData(kind="element", name="ImpactOfNotHaving")
+	attr type.String impactOfNotHaving;
+
+	@GenModel(documentation="Describes why the work product is produced and to what use it will be put.")
+	@ExtendedMetaData(kind="element", name="Purpose")
+	attr type.String purpose;
+
+	@GenModel(documentation="Describes the circumstances in which it is reasonable not to produce the work product.  This is intended to aid in the tailoring of the method/process to the needs of a specific project.")
+	@ExtendedMetaData(kind="element", name="ReasonsForNotNeeding")
+	attr type.String reasonsForNotNeeding;
+}
+
+@GenModel(documentation="A special Descriptor that represents a Work Product in the context of one specific Activity.  Every breakdown structure can define different relationships of Work Product Descriptors to Task Descriptors and Role Descriptors.  Therefore one Work Product can be represented by many Work Product Descriptors each within the context of an Activity with its own set of relationships.")
+@ExtendedMetaData(name="WorkProductDescriptor", kind="elementOnly")
+class WorkProductDescriptor extends Descriptor {
+
+	@ExtendedMetaData(kind="element", name="WorkProduct")
+	attr type.String workProduct;
+
+	@ExtendedMetaData(kind="element", name="ResponsibleRole")
+	attr type.String responsibleRole;
+
+	@ExtendedMetaData(kind="group", name="group:33")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="ExternalInputTo", group="#group:33")
+	!unique volatile transient derived attr type.String[*] externalInputTo;
+
+	@ExtendedMetaData(kind="element", name="ImpactedBy", group="#group:33")
+	!unique volatile transient derived attr type.String[*] impactedBy;
+
+	@ExtendedMetaData(kind="element", name="Impacts", group="#group:33")
+	!unique volatile transient derived attr type.String[*] impacts;
+
+	@ExtendedMetaData(kind="element", name="MandatoryInputTo", group="#group:33")
+	!unique volatile transient derived attr type.String[*] mandatoryInputTo;
+
+	@ExtendedMetaData(kind="element", name="OptionalInputTo", group="#group:33")
+	!unique volatile transient derived attr type.String[*] optionalInputTo;
+
+	@ExtendedMetaData(kind="element", name="OutputFrom", group="#group:33")
+	!unique volatile transient derived attr type.String[*] outputFrom;
+
+	@ExtendedMetaData(kind="element", name="DeliverableParts", group="#group:33")
+	!unique volatile transient derived attr type.String[*] deliverableParts;
+
+	@GenModel(documentation="Given that an instance of Work Product Descriptor has been created for a specific Activity, then the Activity Entry State attribute specifies the desired state of instances of the referenced Work Product when work on the Activity is initiated (i.e. work on the Activity's Task Descriptors is being initiated that use this Work Product Descriptor as input).  
+For some Work Products state is expressed in percentage of completion, compliance to work product checklist, informal state descriptions, etc.  Others have very specific states expressed as enumerations such as [identified, briefly described, outlined, detailed] for use cases.  Other Work Product states relate to some quality measures or lifecycle states such as [reviewed, implemented, tested].")
+	@ExtendedMetaData(kind="attribute", name="activityEntryState")
+	attr type.String activityEntryState;
+
+	@GenModel(documentation="Given that an instance of Work Product Descriptor has been created for a specific Activity, then the Activity Exist State attribute specifies the desired state of instances of the referenced Work Product when work on the Activity is finished (i.e. work on the Activity's Task Descriptors has finished that have this Work Product Descriptor as output).
+For some Work Products state is expressed in percentage of completion, compliance to work product checklist, informal state descriptions, etc.  Others have very specific states expressed as enumerations such as [identified, briefly described, outlined, detailed] for use cases.  Other Work Product states relate to some quality measures or lifecycle states such as [reviewed, implemented, tested].")
+	@ExtendedMetaData(kind="attribute", name="activityExitState")
+	attr type.String activityExitState;
+}
+
+@GenModel(documentation="A second category for work products, which in contrast to Domain is more presentation oriented.  A work product can have many Work Product Types.  Examples, for a Work Product Type is \"Class Diagram\", which categorizes the Artifacts Analysis Model, Design Model, User Experience Model, or \"Specification\", which categorizes requirements specifications that define a system with a well-defined system boundary, such as use case or functional requirements specification.  A Work Product can be categorized to be of many Work Product Types.  For example, a use case model can be categorized as a Specification as well as Diagram Work Product Type.")
+@ExtendedMetaData(name="WorkProductType", kind="elementOnly")
+class WorkProductType extends ContentCategory {
+
+	@ExtendedMetaData(kind="group", name="group:24")
+	!unique attr ecore.EFeatureMapEntry[*] group2;
+
+	@ExtendedMetaData(kind="element", name="WorkProduct", group="#group:24")
+	!unique volatile transient derived attr type.String[*] workProduct;
+}
+

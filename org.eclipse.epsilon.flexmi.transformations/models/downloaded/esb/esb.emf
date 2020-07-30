@@ -1,0 +1,3276 @@
+@namespace(uri="http:///org/wso2/developerstudio/eclipse/gmf/esb", prefix="esb")
+package esb;
+
+class EsbDiagram {
+	val EsbServer server;
+	attr Integer Test;
+}
+
+abstract class EsbNode {
+}
+
+abstract class EsbElement extends EsbNode {
+	attr String description;
+	!unique attr String[*] commentsList;
+}
+
+class EsbServer extends EsbNode {
+	val EsbElement[*] children;
+	val MessageMediator messageMediator;
+	attr ArtifactType type;
+}
+
+enum ArtifactType {
+	SYNAPSE_CONFIG = 0;
+	PROXY = 1;
+	SEQUENCE = 2;
+	ENDPOINT = 3;
+	LOCAL_ENTRY = 4;
+	TASK = 5;
+	TEMPLATE = 6;
+	API = 7;
+	MAIN_SEQUENCE = 8;
+	COMPLEX_ENDPOINT = 9;
+	MESSAGE_STORE = 10;
+	MESSAGE_PROCESSOR = 11;
+	INBOUND_ENDPOINT = 12;
+	TEMPLATE_ENDPOINT = 13;
+	TEMPLATE_ENDPOINT_ADDRESS = 14;
+	TEMPLATE_ENDPOINT_WSDL = 15;
+	TEMPLATE_ENDPOINT_DEFAULT = 16;
+	TEMPLATE_ENDPOINT_HTTP = 17;
+	TEMPLATE_SEQUENCE = 18;
+	ENDPOINT_ADDRESS = 19;
+	ENDPOINT_DEFAULT = 20;
+	ENDPOINT_HTTP = 21;
+	ENDPOINT_WSDL = 22;
+	ENDPOINT_LOADBALANCE = 23;
+	ENDPOINT_FAILOVER = 24;
+	ENDPOINT_RECIPIENTLIST = 25;
+}
+
+abstract class Mediator extends EsbElement {
+	attr boolean Reverse = false;
+}
+
+abstract class EsbConnector {
+}
+
+abstract class InputConnector extends EsbConnector {
+	op boolean shouldConnect(OutputConnector sourceEnd);
+	ref EsbLink[*]#target incomingLinks;
+}
+
+abstract class OutputConnector extends EsbConnector {
+	op boolean shouldConnect(InputConnector targetEnd);
+	val EsbLink#source outgoingLink;
+	val CommentMediator[*] commentMediators;
+}
+
+abstract class AdditionalOutputConnector extends EsbConnector {
+	op boolean shouldConnect(InputConnector targetEnd);
+	val EsbLink additionalOutgoingLink;
+}
+
+class EsbLink {
+	ref OutputConnector#outgoingLink source;
+	ref InputConnector#incomingLinks target;
+}
+
+abstract class EndPoint extends EsbElement {
+	attr String endPointName;
+	attr boolean anonymous = false;
+	attr boolean InLine = false;
+	attr boolean duplicate;
+	val EndPointProperty[*] properties;
+	attr boolean reversed = false;
+}
+
+class CallMediator extends Mediator {
+	val CallMediatorInputConnector inputConnector;
+	val CallMediatorOutputConnector outputConnector;
+	ref EndPoint[*] endpoint;
+	val CallMediatorEndpointOutputConnector endpointOutputConnector;
+	val MediatorFlow mediatorFlow;
+	attr CallMediatorEndpointType endpointType;
+	attr boolean enableBlockingCalls = false;
+	val RegistryKeyProperty endpointRegistrykey;
+	val NamespacedProperty endpointXpath;
+}
+
+class CallMediatorInputConnector extends InputConnector {
+}
+
+class CallMediatorOutputConnector extends OutputConnector {
+}
+
+class CallMediatorEndpointOutputConnector extends OutputConnector {
+}
+
+enum CallMediatorEndpointType {
+	INLINE = 1;
+	NONE = 0;
+	REGISRTYKEY = 2;
+	XPATH = 3;
+}
+
+enum EndPointPropertyScope {
+	SYNAPSE = 0;
+	TRANSPORT = 1;
+	AXIS2 = 2;
+	AXIS2_CLIENT = 3;
+}
+
+class EndPointProperty {
+	attr String[1] name;
+	attr String value;
+	attr EndPointPropertyScope[1] scope;
+	attr PropertyValueType valueType;
+	val NamespacedProperty valueExpression;
+}
+
+class ProxyService extends EsbElement {
+	val ProxyOutputConnector outputConnector;
+	val ProxyInputConnector inputConnector;
+	val ProxyFaultInputConnector faultInputConnector;
+	val ProxyOutSequenceOutputConnector outSequenceOutputConnector;
+	val ProxyInSequenceInputConnector[*] inSequenceInputConnectors;
+	attr String name = "proxy1";
+	attr String pinnedServers;
+	attr String serviceGroup;
+	attr boolean traceEnabled;
+	attr boolean statisticsEnabled;
+	attr boolean startOnLoad;
+	attr String transports = "https,http";
+	attr boolean reliableMessagingEnabled = false;
+	attr boolean securityEnabled = false;
+	val ProxyServiceParameter[*] serviceParameters;
+	val ProxyServicePolicy[*] servicePolicies;
+	val ProxyServiceContainer container;
+	attr SequenceType inSequenceType;
+	val RegistryKeyProperty inSequenceKey;
+	attr String inSequenceName;
+	val RegistryKeyProperty inSequenceOnError;
+	attr SequenceType outSequenceType;
+	val RegistryKeyProperty outSequenceKey;
+	attr String outSequenceName;
+	val RegistryKeyProperty outSequenceOnError;
+	attr SequenceType faultSequenceType;
+	val RegistryKeyProperty faultSequenceKey;
+	attr String faultSequenceName;
+	val RegistryKeyProperty faultSequenceOnError;
+	attr SequenceType endpointType;
+	val RegistryKeyProperty endpointKey;
+	attr String endpointName;
+	attr boolean mainSequence;
+	attr ProxyWsdlType wsdlType = "NONE";
+	attr boolean preservePolicy = true;
+	attr String wsdlXML = "<definitions/>";
+	attr String wsdlURL = "http://default/wsdl/url";
+	val RegistryKeyProperty wsdlKey;
+	val RegistryKeyProperty wsdlEndpoint;
+	val ProxyWSDLResource[*] wsdlResources;
+	val RegistryKeyProperty OnError;
+}
+
+enum SequenceType {
+	Anonymous = 0;
+	RegistryReference = 1;
+	NamedReference = 2;
+}
+
+enum ProxyWsdlType {
+	NONE = 0;
+	INLINE = 1;
+	SOURCE_URL = 2;
+	REGISTRY_KEY = 3;
+	ENDPOINT = 4;
+}
+
+class ProxyOutputConnector extends OutputConnector {
+}
+
+class ProxyInputConnector extends InputConnector {
+}
+
+class ProxyOutSequenceOutputConnector extends OutputConnector {
+}
+
+class ProxyInSequenceInputConnector extends InputConnector {
+}
+
+class ProxyWSDLResource extends AbstractLocationKeyResource {
+}
+
+class ProxyFaultInputConnector extends InputConnector {
+}
+
+class ProxyServiceParameter {
+	attr String name = "parameter_name";
+	attr String value = "parameter_value";
+}
+
+class ProxyServicePolicy {
+	val RegistryKeyProperty policyKey;
+}
+
+class ProxyServiceSequenceAndEndpointContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class ProxyServiceFaultContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class ProxyServiceContainer extends EsbNode {
+	val ProxyServiceSequenceAndEndpointContainer sequenceAndEndpointContainer;
+	val ProxyServiceFaultContainer faultContainer;
+}
+
+class MediatorFlow extends EsbNode {
+	val EsbElement[*] children;
+}
+
+class EndpointFlow extends EsbNode {
+	val EsbElement[*] children;
+}
+
+abstract class AbstractEndPoint extends EndPoint {
+	attr boolean reliableMessagingEnabled = false;
+	attr boolean securityEnabled = false;
+	attr boolean addressingEnabled = false;
+	attr EndPointAddressingVersion addressingVersion = "final";
+	attr boolean addressingSeparateListener = false;
+	attr String timeOutDuration = "0";
+	attr EndPointTimeOutAction timeOutAction = "never";
+	attr String retryErrorCodes;
+	attr String retryCount = "0";
+	attr long retryDelay = "0";
+	attr String suspendErrorCodes;
+	attr String suspendInitialDuration = "-1";
+	attr long suspendMaximumDuration = "0";
+	attr String suspendProgressionFactor = "-1";
+	val RegistryKeyProperty reliableMessagingPolicy;
+	val RegistryKeyProperty securityPolicy;
+	attr EndPointMessageFormat format;
+	attr EndPointAttachmentOptimization optimize;
+	val TemplateParameter[*] templateParameters;
+	attr boolean statisticsEnabled;
+	attr boolean traceEnabled;
+	val RegistryKeyProperty inboundPolicy;
+	val RegistryKeyProperty outboundPolicy;
+	attr EndPointFailoverRetryType failoverRetryType = "NON_RETRY_ERROR_CODES";
+	attr String failoverRetryErrorCodes = "";
+	attr String failoverNonRetryErrorCodes;
+}
+
+class MessageMediator extends EsbElement {
+	val MessageInputConnector inputConnector;
+	val MessageOutputConnector outputConnector;
+}
+
+class MessageInputConnector extends InputConnector {
+}
+
+class MessageOutputConnector extends OutputConnector {
+}
+
+class DefaultEndPoint extends AbstractEndPoint {
+	val DefaultEndPointInputConnector inputConnector;
+	val DefaultEndPointOutputConnector outputConnector;
+}
+
+class DefaultEndPointInputConnector extends InputConnector {
+}
+
+class DefaultEndPointOutputConnector extends OutputConnector {
+}
+
+class AddressEndPoint extends AbstractEndPoint {
+	val AddressEndPointInputConnector inputConnector;
+	val AddressEndPointOutputConnector outputConnector;
+	attr String URI = "http://www.example.org/service";
+}
+
+class AddressEndPointInputConnector extends InputConnector {
+}
+
+class AddressEndPointOutputConnector extends OutputConnector {
+}
+
+class TemplateEndpoint extends AbstractEndPoint {
+	val TemplateEndpointInputConnector inputConnector;
+	val TemplateEndpointOutputConnector outputConnector;
+	attr String address;
+	attr String targetTemplate;
+	val TemplateEndpointParameter[*] parameters;
+	attr String availableTemplates;
+}
+
+class TemplateEndpointInputConnector extends InputConnector {
+}
+
+class TemplateEndpointOutputConnector extends OutputConnector {
+}
+
+class TemplateEndpointParameter extends EsbNode {
+	attr String parameterName;
+	attr String parameterValue;
+}
+
+class HTTPEndpoint extends AbstractEndPoint {
+	val HTTPEndPointInputConnector inputConnector;
+	val HTTPEndPointOutputConnector outputConnector;
+	attr String URITemplate;
+	attr HttpMethodType HttpMethod;
+}
+
+class HTTPEndPointInputConnector extends InputConnector {
+}
+
+class HTTPEndPointOutputConnector extends OutputConnector {
+}
+
+enum HttpMethodType {
+	GET = 0;
+	POST = 1;
+	PUT = 2;
+	DELETE = 3;
+	HEAD = 4;
+	OPTIONS = 5;
+	PATCH = 6;
+	Leave_as_is = 7;
+}
+
+class DropMediator extends Mediator {
+	val DropMediatorInputConnector inputConnector;
+}
+
+class DropMediatorInputConnector extends InputConnector {
+}
+
+class FilterMediator extends Mediator {
+	attr FilterMediatorConditionType conditionType;
+	attr String regex = "";
+	val FilterMediatorInputConnector inputConnector;
+	val FilterMediatorOutputConnector outputConnector;
+	val FilterMediatorPassOutputConnector passOutputConnector;
+	val FilterMediatorFailOutputConnector failOutputConnector;
+	val NamespacedProperty xpath;
+	val NamespacedProperty source;
+	val FilterContainer filterContainer;
+}
+
+enum FilterMediatorConditionType {
+	SOURCE_REGEX = 0;
+	XPath = 1;
+}
+
+class FilterContainer extends EsbNode {
+	val FilterPassContainer passContainer;
+	val FilterFailContainer failContainer;
+}
+
+class FilterPassContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class FilterFailContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class FilterMediatorInputConnector extends InputConnector {
+}
+
+class FilterMediatorOutputConnector extends OutputConnector {
+}
+
+class FilterMediatorPassOutputConnector extends OutputConnector {
+}
+
+class FilterMediatorFailOutputConnector extends OutputConnector {
+}
+
+class MergeNode extends Mediator {
+	val MergeNodeFirstInputConnector firstInputConnector;
+	val MergeNodeSecondInputConnector secondInputConnector;
+	val MergeNodeOutputConnector outputConnector;
+}
+
+class MergeNodeFirstInputConnector extends InputConnector {
+}
+
+class MergeNodeSecondInputConnector extends InputConnector {
+}
+
+class MergeNodeOutputConnector extends OutputConnector {
+}
+
+class LogMediator extends Mediator {
+	attr LogCategory logCategory = "INFO";
+	attr LogLevel logLevel;
+	attr String logSeparator;
+	val LogMediatorInputConnector inputConnector;
+	val LogMediatorOutputConnector outputConnector;
+	val LogProperty[*] properties;
+}
+
+class LogMediatorInputConnector extends InputConnector {
+}
+
+class LogMediatorOutputConnector extends OutputConnector {
+}
+
+enum LogCategory {
+	TRACE = 0;
+	DEBUG = 1;
+	INFO = 2;
+	WARN = 3;
+	ERROR = 4;
+	FATAL = 5;
+}
+
+enum LogLevel {
+	SIMPLE = 0;
+	HEADERS = 1;
+	FULL = 2;
+	CUSTOM = 3;
+}
+
+class LogProperty extends AbstractNameValueExpressionProperty {
+}
+
+class PublishEventMediator extends Mediator {
+	val PublishEventMediatorInputConnector inputConnector;
+	val PublishEventMediatorOutputConnector outputconnector;
+	attr String streamName;
+	attr String streamVersion;
+	attr String eventSink;
+	val PublishEventMediatorAttribute[*] metaAttributes;
+	val PublishEventMediatorAttribute[*] correlationAttributes;
+	val PublishEventMediatorAttribute[*] payloadAttributes;
+	val PublishEventMediatorAttribute[*] arbitraryAttributes;
+	attr boolean Async = true;
+	attr String AsyncTimeout = "";
+}
+
+class PublishEventMediatorInputConnector extends InputConnector {
+}
+
+class PublishEventMediatorOutputConnector extends OutputConnector {
+}
+
+class PublishEventMediatorAttribute extends AbstractNameValueExpressionAttribute {
+	attr String defaultValue = "";
+}
+
+abstract class AbstractNameValueExpressionAttribute extends EsbNode {
+	attr String attributeName = "attribute_name";
+	attr AttributeValueType attributeValueType;
+	attr String attributeValue = "attribute_value";
+	attr AttributeType attributeType;
+	val NamespacedProperty attributeExpression;
+}
+
+enum AttributeValueType {
+	VALUE = 0;
+	EXPRESSION = 1;
+}
+
+enum AttributeType {
+	STRING = 0;
+	INTEGER = 1;
+	BOOLEAN = 2;
+	DOUBLE = 3;
+	FLOAT = 4;
+	LONG = 5;
+}
+
+class BAMMediator extends Mediator {
+	val BAMMediatorInputConnector inputConnector;
+	val BAMMediatorOutputConnector outputConnector;
+	attr String serverProfile = "";
+	attr String streamName;
+	attr String streamVersion;
+}
+
+class BAMMediatorInputConnector extends InputConnector {
+}
+
+class BAMMediatorOutputConnector extends OutputConnector {
+}
+
+class BeanMediator extends Mediator {
+	val BeanMediatorInputConnector inputConnector;
+	val BeanMediatorOutputConnector outputConnector;
+	attr String ~class;
+	attr BeanMediatorAction action;
+	attr String var;
+	attr String property;
+	attr PropertyValueType valueType;
+	attr String valueLiteral;
+	val NamespacedProperty valueExpression;
+	attr PropertyValueType targetType;
+	attr String targetLiteral;
+	val NamespacedProperty targetExpression;
+}
+
+class BeanMediatorInputConnector extends InputConnector {
+}
+
+class BeanMediatorOutputConnector extends OutputConnector {
+}
+
+enum BeanMediatorAction {
+	CREATE = 0;
+	REMOVE = 1;
+	SET_PROPERTY = 2;
+	GET_PROPERTY = 3;
+}
+
+class EJBMediator extends Mediator {
+	val EJBMediatorInputConnector inputConnector;
+	val EJBMediatorOutputConnector outputConnector;
+	attr String beanstalk;
+	attr String ~class;
+	attr String method;
+	attr PropertyValueType sessionIdType;
+	attr String sessionIdLiteral;
+	val NamespacedProperty sessionIdExpression;
+	attr boolean remove;
+	attr String target;
+	attr String JNDIName;
+	val MethodArgument[*] methodArguments;
+}
+
+class EJBMediatorInputConnector extends InputConnector {
+}
+
+class EJBMediatorOutputConnector extends OutputConnector {
+}
+
+class MethodArgument extends AbstractNameValueExpressionProperty {
+}
+
+enum EndPointAddressingVersion {
+	FINAL = 0;
+	SUBMISSION = 1;
+}
+
+enum EndPointTimeOutAction {
+	NEVER = 100;
+	DISCARD = 101;
+	FAULT = 102;
+}
+
+enum EndPointMessageFormat {
+	LEAVE_AS_IS = 0;
+	SOAP_1_1 = 1;
+	SOAP_1_2 = 2;
+	POX = 3;
+	GET = 4;
+	REST = 5;
+}
+
+enum EndPointAttachmentOptimization {
+	LEAVE_AS_IS = 0;
+	MTOM = 1;
+	SWA = 2;
+}
+
+enum EndPointFailoverRetryType {
+	RETRY_ERROR_CODES = 0;
+	NON_RETRY_ERROR_CODES = 1;
+}
+
+class RegistryKeyProperty {
+	attr String prettyName = "Registry Key";
+	attr String keyName = "keyName";
+	attr String keyValue;
+	attr Map<?, ?> filters;
+}
+
+class PropertyMediator extends Mediator {
+	val PropertyMediatorInputConnector inputConnector;
+	val PropertyMediatorOutputConnector outputConnector;
+	attr PropertyName propertyName = "New Property...";
+	attr PropertyDataType propertyDataType = "STRING";
+	attr PropertyAction propertyAction;
+	attr PropertyScope propertyScope;
+	attr PropertyValueType valueType = "LITERAL";
+	attr String value = "";
+	attr String expression;
+	attr String namespacePrefix;
+	attr String namespace;
+	val NamespacedProperty valueExpression;
+	attr boolean boolean;
+	attr String OM = "<value/>";
+	attr String valueStringPattern;
+	attr int valueStringCapturingGroup = 0;
+	attr String newPropertyName = "";
+}
+
+class PropertyMediatorInputConnector extends InputConnector {
+}
+
+class PropertyMediatorOutputConnector extends OutputConnector {
+}
+
+class PropertyGroupMediator extends Mediator {
+	val PropertyGroupMediatorInputConnector inputConnector;
+	val PropertyGroupMediatorOutputConnector outputConnector;
+	val PropertyMediator[*] properties;
+}
+
+class PropertyGroupMediatorInputConnector extends InputConnector {
+}
+
+class PropertyGroupMediatorOutputConnector extends OutputConnector {
+}
+
+enum PropertyDataType {
+	STRING = 0;
+	INTEGER = 1;
+	BOOLEAN = 2;
+	DOUBLE = 3;
+	FLOAT = 4;
+	LONG = 5;
+	SHORT = 6;
+	OM = 7;
+}
+
+enum PropertyAction {
+	SET = 0;
+	REMOVE = 1;
+}
+
+enum PropertyScope {
+	SYNAPSE = 0;
+	TRANSPORT = 1;
+	AXIS2 = 2;
+	AXIS2_CLIENT = 3;
+	OPERATION = 4;
+	REGISTRY = 5;
+}
+
+enum PropertyValueType {
+	LITERAL = 0;
+	EXPRESSION = 1;
+}
+
+enum PropertyName {
+	newPropertyName = 0;
+	Action = 1;
+	COPY_CONTENT_LENGTH_FROM_INCOMING = 2;
+	CacheLevel = 3;
+	ClientApiNonBlocking = 4;
+	ConcurrentConsumers = 5;
+	ContentType = 6;
+	disableAddressingForOutMessages = 7;
+	DISABLE_CHUNKING = 8;
+	DISABLE_SMOOKS_RESULT_PAYLOAD = 9;
+	ERROR_CODE = 10;
+	ERROR_DETAIL = 11;
+	ERROR_EXCEPTION = 12;
+	ERROR_MESSAGE = 13;
+	FAULTS_AS_HTTP_200 = 14;
+	FORCE_ERROR_ON_SOAP_FAULT = 15;
+	FORCE_HTTP_1_0 = 16;
+	FORCE_HTTP_CONTENT_LENGTH = 17;
+	FORCE_POST_PUT_NOBODY = 18;
+	FORCE_SC_ACCEPTED = 19;
+	FaultTo = 20;
+	From = 21;
+	HTTP_ETAG = 22;
+	HTTP_SC = 23;
+	JMS_COORELATION_ID = 24;
+	messageType = 25;
+	MESSAGE_FORMAT = 26;
+	MaxConcurrentConsumers = 27;
+	MercuryLastMessage = 28;
+	MercurySequenceKey = 29;
+	MessageID = 30;
+	NO_ENTITY_BODY = 31;
+	NO_KEEPALIVE = 32;
+	OUT_ONLY = 33;
+	OperationName = 34;
+	POST_TO_URI = 35;
+	preserveProcessedHeaders = 36;
+	PRESERVE_WS_ADDRESSING = 37;
+	REQUEST_HOST_HEADER = 38;
+	RESPONSE = 39;
+	REST_URL_POSTFIX = 40;
+	RelatesTo = 41;
+	ReplyTo = 42;
+	SERVER_IP = 43;
+	SYSTEM_DATE = 44;
+	SYSTEM_TIME = 45;
+	TRANSPORT_HEADERS = 46;
+	TRANSPORT_IN_NAME = 47;
+	To = 48;
+	transportNonBlocking = 49;
+	JMS_CONNECTION_FACTORY = 50;
+	JMS_DESTINATION = 51;
+	JMS_DESTINATION_TYPE = 52;
+	JMS_REPLY_DESTINATION = 53;
+	JMS_WRAPPER = 54;
+	VFS_FILE_URI = 55;
+	VFS_CONTENT_TYPE = 56;
+	VFS_FILENAME_PATTERN = 57;
+	POLL_INTERVAL = 58;
+	VFS_ACTION_AFTER_PROCESS = 59;
+	VFS_MOVE_AFTER_PROCESS = 60;
+	VFS_ACTION_AFTER_ERRORS = 61;
+	VFS_MOVE_AFTER_ERRORS = 62;
+	VFS_ACTION_AFTER_FAILURE = 63;
+	VFS_MOVE_AFTER_FAILURE = 64;
+	VFS_REPLY_FILE_URI = 65;
+	VFS_REPLY_FILENAME = 66;
+	VFS_MOVE_TIMESTAMP_FORMAT = 67;
+}
+
+class NamespacedProperty extends EsbNode {
+	attr String prettyName = "Namespaced Property";
+	attr String propertyName = "propertyName";
+	attr String propertyValue;
+	attr Map<String, String> namespaces;
+	attr boolean supportsDynamicXPaths;
+	attr boolean dynamic;
+	attr boolean supportJsonPaths;
+}
+
+datatype Map : java.util.Map;
+
+class EnrichMediator extends Mediator {
+	attr boolean cloneSource = true;
+	attr EnrichSourceType sourceType = "property";
+	val NamespacedProperty sourceXpath;
+	attr String sourceProperty = "";
+	attr String sourceXML = "<inline/>";
+	attr EnrichTargetAction targetAction;
+	attr EnrichTargetType targetType = "custom";
+	val NamespacedProperty targetXpath;
+	attr String targetProperty = "target_property";
+	attr EnrichSourceInlineType inlineType;
+	val RegistryKeyProperty inlineRegistryKey;
+	val EnrichMediatorInputConnector inputConnector;
+	val EnrichMediatorOutputConnector outputConnector;
+}
+
+enum EnrichSourceInlineType {
+	CONTENT = 0;
+	KEY = 1;
+}
+
+class EnrichMediatorInputConnector extends InputConnector {
+}
+
+class EnrichMediatorOutputConnector extends OutputConnector {
+}
+
+enum EnrichSourceType {
+	CUSTOM = 0;
+	ENVELOPE = 1;
+	BODY = 2;
+	PROPERTY = 3;
+	INLINE = 4;
+}
+
+enum EnrichTargetAction {
+	REPLACE = 0;
+	CHILD = 1;
+	SIBLING = 2;
+}
+
+enum EnrichTargetType {
+	CUSTOM = 0;
+	BODY = 2;
+	PROPERTY = 3;
+	ENVELOPE = 1;
+}
+
+abstract class AbstractNameValueExpressionProperty extends EsbNode {
+	attr String propertyName = "property_name";
+	attr PropertyValueType propertyValueType;
+	attr String propertyValue = "property_value";
+	val NamespacedProperty propertyExpression;
+}
+
+abstract class AbstractBooleanFeature extends EsbNode {
+	attr String featureName = "feature_name";
+	attr boolean featureEnabled = true;
+}
+
+abstract class AbstractLocationKeyResource extends EsbNode {
+	attr String location = "default_location";
+	val RegistryKeyProperty key;
+}
+
+class XSLTMediator extends Mediator {
+	val XSLTMediatorInputConnector inputConnector;
+	val XSLTMediatorOutputConnector outputConnector;
+	attr KeyType xsltSchemaKeyType;
+	val RegistryKeyProperty xsltStaticSchemaKey;
+	val NamespacedProperty xsltDynamicSchemaKey;
+	val RegistryKeyProperty xsltKey;
+	val NamespacedProperty sourceXPath;
+	val XSLTProperty[*] properties;
+	val XSLTFeature[*] features;
+	val XSLTResource[*] resources;
+}
+
+class XSLTProperty extends AbstractNameValueExpressionProperty {
+}
+
+class XSLTFeature extends AbstractBooleanFeature {
+}
+
+class XSLTResource extends AbstractLocationKeyResource {
+}
+
+class XSLTMediatorInputConnector extends InputConnector {
+}
+
+class XSLTMediatorOutputConnector extends OutputConnector {
+}
+
+class SwitchMediator extends Mediator {
+	val NamespacedProperty sourceXpath;
+	attr String source;
+	attr String namespace;
+	attr String namespacePrefix;
+	val SwitchCaseBranchOutputConnector[*] caseBranches;
+	val SwitchDefaultBranchOutputConnector defaultBranch;
+	val SwitchMediatorInputConnector inputConnector;
+	val SwitchMediatorOutputConnector outputConnector;
+	val SwitchMediatorContainer switchContainer;
+}
+
+class SwitchCaseBranchOutputConnector extends OutputConnector {
+	attr String caseRegex = ".*+";
+}
+
+class SwitchDefaultBranchOutputConnector extends OutputConnector {
+}
+
+class SwitchMediatorInputConnector extends InputConnector {
+}
+
+class SwitchMediatorOutputConnector extends OutputConnector {
+}
+
+class SwitchMediatorContainer extends EsbNode {
+	val SwitchCaseParentContainer switchCaseParentContainer;
+	val SwitchDefaultParentContainer switchDefaultParentContainer;
+}
+
+class SwitchCaseParentContainer extends EsbNode {
+	val SwitchCaseContainer[+] switchCaseContainer;
+}
+
+class SwitchDefaultParentContainer extends EsbNode {
+	val SwitchDefaultContainer switchDefaultContainer;
+}
+
+class SwitchCaseContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class SwitchDefaultContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class SequenceDiagram {
+	val EsbSequence sequence;
+}
+
+class EsbSequence extends EsbNode {
+	attr String name = ",";
+	val EsbSequenceInputConnector input;
+	val EsbSequenceOutputConnector output;
+	val Mediator[*] childMediators;
+}
+
+class EsbSequenceInput extends EsbNode {
+	val EsbSequenceInputConnector connector;
+}
+
+class EsbSequenceOutput extends EsbNode {
+	val EsbSequenceOutputConnector connector;
+}
+
+class EsbSequenceInputConnector extends OutputConnector {
+}
+
+class EsbSequenceOutputConnector extends InputConnector {
+}
+
+class Sequence extends Mediator {
+	attr String name;
+	attr String key = "<inline/>";
+	val SequenceInputConnector inputConnector;
+	val SequenceOutputConnector[*] outputConnector;
+	val Mediator[*] includedMediators;
+	attr boolean receiveSequence;
+	attr boolean duplicate;
+	attr KeyType referringSequenceType;
+	val NamespacedProperty dynamicReferenceKey;
+	val RegistryKeyProperty staticReferenceKey;
+}
+
+class SequenceInputConnector extends InputConnector {
+}
+
+class SequenceOutputConnector extends OutputConnector {
+}
+
+class EventMediator extends Mediator {
+	attr EventTopicType topicType;
+	attr String staticTopic = "";
+	val NamespacedProperty dynamicTopic;
+	val NamespacedProperty eventExpression;
+	val EventMediatorInputConnector inputConnector;
+	val EventMediatorOutputConnector outputConnector;
+}
+
+class EventMediatorInputConnector extends InputConnector {
+}
+
+class EventMediatorOutputConnector extends OutputConnector {
+}
+
+enum EventTopicType {
+	STATIC = 0;
+	DYNAMIC = 1;
+}
+
+abstract class AbstractNameValueProperty {
+	attr String propertyName = "property_name";
+	attr String propertyValue = "property_value";
+}
+
+class EntitlementMediator extends Mediator {
+	attr String entitlementServerURL = "";
+	attr String username = "";
+	attr String password = "";
+	attr String callbackClassName;
+	attr String thriftHost;
+	attr String thriftPort;
+	attr EntitlementClientType entitlementClientType;
+	attr EntitlementSequenceType onRejectSequenceType;
+	attr EntitlementSequenceType onAcceptSequenceType;
+	attr EntitlementSequenceType adviceSequenceType;
+	attr EntitlementSequenceType obligationsSequenceType;
+	val RegistryKeyProperty onRejectSequenceKey;
+	val RegistryKeyProperty onAcceptSequenceKey;
+	val RegistryKeyProperty adviceSequenceKey;
+	val RegistryKeyProperty obligationsSequenceKey;
+	val EntitlementContainer entitlementContainer;
+	val EntitlementMediatorInputConnector inputConnector;
+	val EntitlementMediatorOutputConnector outputConnector;
+	val EntitlementMediatorOnRejectOutputConnector onRejectOutputConnector;
+	val EntitlementMediatorOnAcceptOutputConnector onAcceptOutputConnector;
+	val EntitlementMediatorAdviceOutputConnector adviceOutputConnector;
+	val EntitlementMediatorObligationsOutputConnector obligationsOutputConnector;
+	attr EntitlementCallbackHandler callbackHandler;
+}
+
+enum EntitlementCallbackHandler {
+	UT = 0;
+	X509 = 1;
+	SAML = 2;
+	Kerberos = 3;
+	Custom = 4;
+}
+
+enum EntitlementClientType {
+	BASIC_AUTH = 0;
+	THRIFT = 1;
+	SOAP = 2;
+	WSXACML = 3;
+}
+
+class EntitlementMediatorInputConnector extends InputConnector {
+}
+
+class EntitlementMediatorOutputConnector extends OutputConnector {
+}
+
+class EntitlementMediatorOnRejectOutputConnector extends OutputConnector {
+}
+
+class EntitlementMediatorOnAcceptOutputConnector extends OutputConnector {
+}
+
+class EntitlementMediatorAdviceOutputConnector extends OutputConnector {
+}
+
+class EntitlementMediatorObligationsOutputConnector extends OutputConnector {
+}
+
+class EntitlementContainer extends EsbNode {
+	val EntitlementOnRejectContainer onRejectContainer;
+	val EntitlementOnAcceptContainer onAcceptContainer;
+	val EntitlementAdviceContainer adviceContainer;
+	val EntitlementObligationsContainer obligationsContainer;
+}
+
+class EntitlementOnRejectContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class EntitlementOnAcceptContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class EntitlementAdviceContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class EntitlementObligationsContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+enum EntitlementSequenceType {
+	ANONYMOUS = 0;
+	REGISTRY_REFERENCE = 1;
+}
+
+class EnqueueMediator extends Mediator {
+	attr String executor = "";
+	attr int priority = 0;
+	val RegistryKeyProperty sequenceKey;
+	val EnqueueMediatorInputConnector inputConnector;
+	val EnqueueMediatorOutputConnector outputConnector;
+}
+
+class EnqueueMediatorInputConnector extends InputConnector {
+}
+
+class EnqueueMediatorOutputConnector extends OutputConnector {
+}
+
+class ClassMediator extends Mediator {
+	attr String className = "";
+	readonly val ClassProperty[*] properties;
+	val ClassMediatorInputConnector inputConnector;
+	val ClassMediatorOutputConnector outputConnector;
+}
+
+class ClassMediatorInputConnector extends InputConnector {
+}
+
+class ClassMediatorOutputConnector extends OutputConnector {
+}
+
+class ClassProperty extends AbstractNameValueExpressionProperty {
+}
+
+class SpringMediator extends Mediator {
+	attr String beanName = "";
+	val RegistryKeyProperty configurationKey;
+	val SpringMediatorInputConnector inputConnector;
+	val SpringMediatorOutputConnector outputConnector;
+}
+
+class SpringMediatorInputConnector extends InputConnector {
+}
+
+class SpringMediatorOutputConnector extends OutputConnector {
+}
+
+class ScriptMediator extends Mediator {
+	attr ScriptType scriptType = "REGISTRY_REFERENCE";
+	attr ScriptLanguage scriptLanguage;
+	attr String mediateFunction = "";
+	val NamespacedProperty scriptDynamicKey;
+	attr String scriptBody = "script_code";
+	val ScriptMediatorInputConnector inputConnector;
+	val ScriptMediatorOutputConnector outputConnector;
+	attr scriptKeyTypeEnum keyType;
+	val RegistryKeyProperty scriptStaticKey;
+	val RegistryKeyProperty[*] scriptKeys;
+}
+
+enum scriptKeyTypeEnum {
+	STATIC_KEY = 0;
+	DYNAMIC_kEY = 1;
+}
+
+class ScriptMediatorInputConnector extends InputConnector {
+}
+
+class ScriptMediatorOutputConnector extends OutputConnector {
+}
+
+enum ScriptType {
+	INLINE = 0;
+	REGISTRY_REFERENCE = 1;
+}
+
+enum ScriptLanguage {
+	JAVASCRIPT = 0;
+	RUBY = 1;
+	GROOVY = 2;
+	NASHORNJS = 3;
+}
+
+class FaultMediator extends Mediator {
+	attr FaultSoapVersion soapVersion;
+	attr boolean serializeResponse;
+	attr boolean markAsResponse;
+	attr FaultCodeSoap11 faultCodeSoap11;
+	attr FaultCodeType faultCodeType;
+	val NamespacedProperty faultCodeExpression;
+	attr FaultStringType faultStringType;
+	attr String faultStringValue = "";
+	val NamespacedProperty faultStringExpression;
+	attr String faultActor;
+	attr FaultCodeSoap12 faultCodeSoap12;
+	attr FaultReasonType faultReasonType;
+	attr String faultReasonValue = "";
+	val NamespacedProperty faultReasonExpression;
+	attr String roleName;
+	attr String nodeName;
+	attr FaultDetailType faultDetailType;
+	attr String faultDetailValue;
+	val NamespacedProperty faultDetailExpression;
+	val FaultMediatorInputConnector inputConnector;
+	val FaultMediatorOutputConnector outputConnector;
+}
+
+class FaultMediatorInputConnector extends InputConnector {
+}
+
+class FaultMediatorOutputConnector extends OutputConnector {
+}
+
+enum FaultSoapVersion {
+	SOAP_1_1 = 0;
+	SOAP_1_2 = 1;
+	POX = 2;
+}
+
+enum FaultCodeSoap11 {
+	VERSION_MISSMATCH = 0;
+	MUST_UNDERSTAND = 1;
+	CLIENT = 2;
+	SERVER = 3;
+}
+
+enum FaultCodeSoap12 {
+	VERSION_MISSMATCH = 0;
+	MUST_UNDERSTAND = 1;
+	DATA_ENCODING_UNKNOWN = 2;
+	SENDER = 3;
+	RECEIVER = 4;
+}
+
+enum FaultCodeType {
+	VALUE = 0;
+	EXPRESSION = 1;
+}
+
+enum FaultStringType {
+	VALUE = 0;
+	EXPRESSION = 1;
+}
+
+enum FaultReasonType {
+	VALUE = 0;
+	EXPRESSION = 1;
+}
+
+enum FaultDetailType {
+	VALUE = 0;
+	EXPRESSION = 1;
+}
+
+class AggregateMediator extends Mediator {
+	attr String aggregateID;
+	val NamespacedProperty correlationExpression;
+	attr long completionTimeout;
+	attr CompletionMessagesType completionMinMessagesType;
+	attr CompletionMessagesType completionMaxMessagesType;
+	attr int completionMinMessagesValue = -1;
+	val NamespacedProperty completionMinMessagesExpression;
+	attr int completionMaxMessagesValue = -1;
+	val NamespacedProperty completionMaxMessagesExpression;
+	val AggregateMediatorInputConnector inputConnector;
+	val AggregateMediatorOutputConnector outputConnector;
+	val AggregateMediatorOnCompleteOutputConnector onCompleteOutputConnector;
+	val MediatorFlow mediatorFlow;
+	val NamespacedProperty aggregationExpression;
+	attr AggregateSequenceType sequenceType;
+	val RegistryKeyProperty sequenceKey;
+	attr String enclosingElementProperty;
+}
+
+enum CompletionMessagesType {
+	VALUE = 0;
+	EXPRESSION = 1;
+}
+
+class AggregateMediatorInputConnector extends InputConnector {
+}
+
+class AggregateMediatorOutputConnector extends OutputConnector {
+}
+
+class AggregateMediatorOnCompleteOutputConnector extends OutputConnector {
+}
+
+enum AggregateSequenceType {
+	ANONYMOUS = 0;
+	REGISTRY_REFERENCE = 1;
+}
+
+class RouterMediator extends Mediator {
+	attr boolean continueAfterRouting;
+	val RouterMediatorTargetOutputConnector[*] targetOutputConnector;
+	val RouterMediatorInputConnector inputConnector;
+	val RouterMediatorOutputConnector outputConnector;
+	val RouterMediatorContainer routerContainer;
+}
+
+class RouterRoute extends EsbNode {
+	attr boolean breakAfterRoute;
+	ref NamespacedProperty routeExpression;
+	attr String routePattern;
+}
+
+class RouterTarget extends AbstractCommonTarget {
+}
+
+class RouterMediatorInputConnector extends InputConnector {
+}
+
+class RouterMediatorOutputConnector extends OutputConnector {
+}
+
+class RouterMediatorTargetOutputConnector extends OutputConnector {
+	attr String soapAction = "soapAction";
+	attr String toAddress = "toAddress";
+}
+
+class RouterMediatorContainer extends EsbNode {
+	val RouterTargetContainer[*] routerTargetContainer;
+}
+
+class RouterTargetContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+	attr boolean breakAfterRoute;
+	val NamespacedProperty routeExpression;
+	attr String routePattern;
+	val RouterTarget Target;
+}
+
+class CloneMediator extends Mediator {
+	attr String cloneID;
+	attr boolean sequentialMediation;
+	attr boolean continueParent;
+	val CloneTarget[*] targets;
+	val CloneMediatorTargetOutputConnector[*] targetsOutputConnector;
+	val CloneMediatorInputConnector inputConnector;
+	val CloneMediatorOutputConnector outputConnector;
+	val CloneMediatorContainer cloneContainer;
+}
+
+class CloneTarget extends AbstractCommonTarget {
+	attr String soapAction = "soap_action";
+	attr String toAddress = "to_address";
+}
+
+class CloneMediatorInputConnector extends InputConnector {
+}
+
+class CloneMediatorOutputConnector extends OutputConnector {
+}
+
+class CloneMediatorTargetOutputConnector extends OutputConnector {
+	attr String soapAction = "soapAction";
+	attr String toAddress = "toAddress";
+}
+
+class CloneMediatorContainer extends EsbNode {
+	val CloneTargetContainer[*] cloneTargetContainer;
+}
+
+class CloneTargetContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class ForEachMediator extends Mediator {
+	attr String forEachID;
+	val NamespacedProperty forEachExpression;
+	val NamespacedProperty attachPath;
+	val ForEachTarget target;
+	val ForEachMediatorInputConnector inputConnector;
+	val ForEachMediatorOutputConnector outputConnector;
+	val ForEachMediatorTargetOutputConnector targetOutputConnector;
+	val MediatorFlow mediatorFlow;
+	attr SequenceType sequenceType;
+	val RegistryKeyProperty sequenceKey;
+	attr String sequenceName;
+}
+
+class ForEachMediatorInputConnector extends InputConnector {
+}
+
+class ForEachMediatorOutputConnector extends OutputConnector {
+}
+
+class ForEachMediatorTargetOutputConnector extends OutputConnector {
+}
+
+class ForEachTarget extends AbstractCommonTarget {
+	attr String soapAction;
+	attr String toAddress;
+}
+
+class IterateMediator extends Mediator {
+	attr String iterateID;
+	attr boolean sequentialMediation;
+	attr boolean continueParent;
+	attr boolean preservePayload;
+	val NamespacedProperty iterateExpression;
+	val NamespacedProperty attachPath;
+	val IterateTarget target;
+	val IterateMediatorInputConnector inputConnector;
+	val IterateMediatorOutputConnector outputConnector;
+	val IterateMediatorTargetOutputConnector targetOutputConnector;
+	val MediatorFlow mediatorFlow;
+	attr SequenceType sequenceType;
+	val RegistryKeyProperty sequenceKey;
+	attr String sequenceName;
+}
+
+class IterateMediatorInputConnector extends InputConnector {
+}
+
+class IterateMediatorOutputConnector extends OutputConnector {
+}
+
+class IterateMediatorTargetOutputConnector extends OutputConnector {
+}
+
+class IterateTarget extends AbstractCommonTarget {
+	attr String soapAction;
+	attr String toAddress;
+}
+
+class AbstractCommonTarget extends EsbNode {
+	attr TargetSequenceType sequenceType = "NONE";
+	ref MediatorSequence sequence;
+	val RegistryKeyProperty sequenceKey;
+	attr TargetEndpointType endpointType = "NONE";
+	val EndPoint endpoint;
+	val RegistryKeyProperty endpointKey;
+}
+
+enum TargetSequenceType {
+	NONE = 0;
+	ANONYMOUS = 1;
+	REGISTRY_REFERENCE = 0;
+}
+
+enum TargetEndpointType {
+	NONE = 0;
+	ANONYMOUS = 1;
+	REGISTRY_REFERENCE = 2;
+}
+
+class MediatorSequence extends EsbNode {
+	attr boolean anonymous = false;
+	attr String sequenceName = "sequence_name";
+	ref Mediator[*] mediators;
+	ref RegistryKeyProperty onError;
+	attr String description;
+}
+
+class CacheMediator extends Mediator {
+	attr CacheProtocolType cacheProtocolType;
+	attr CacheType cacheType = "FINDER";
+	attr String hashGenerator = "org.wso2.carbon.mediator.cache.digest.HttpRequestHashGenerator";
+	attr int cacheTimeout = 120;
+	attr int maxMessageSize = 2000;
+	attr String cacheProtocolMethods = "*";
+	attr int maxEntryCount = 1000;
+	attr CacheSequenceType sequenceType = "REGISTRY_REFERENCE";
+	val RegistryKeyProperty sequenceKey;
+	val CacheMediatorInputConnector inputConnector;
+	val CacheMediatorOutputConnector outputConnector;
+	val CacheMediatorOnHitOutputConnector onHitOutputConnector;
+	val MediatorFlow mediatorFlow;
+	attr String headersToExcludeInHash;
+	attr String responseCodes = ".*";
+	attr boolean enableCacheControl = false;
+	attr boolean includeAgeHeader = false;
+	attr String ~id = "";
+	attr String hashGeneratorAttribute = "org.wso2.carbon.mediator.cache.digest.DOMHASHGenerator";
+	attr CacheScopeType scope = "Per_Host";
+	attr CacheImplementationType implementationType = "memory";
+	attr CacheMediatorType cacheMediatorImplementation = "Default";
+}
+
+class CacheMediatorInputConnector extends InputConnector {
+}
+
+class CacheMediatorOutputConnector extends OutputConnector {
+}
+
+class CacheMediatorOnHitOutputConnector extends OutputConnector {
+}
+
+class CacheOnHitBranch {
+}
+
+enum CacheSequenceType {
+	ANONYMOUS = 0;
+	REGISTRY_REFERENCE = 0;
+}
+
+enum CacheType {
+	FINDER = 0;
+	COLLECTOR = 1;
+}
+
+enum CacheProtocolType {
+	HTTP = 0;
+}
+
+class XQueryMediator extends Mediator {
+	val XQueryVariable[*] variables;
+	val NamespacedProperty targetXPath;
+	attr KeyType scriptKeyType;
+	val RegistryKeyProperty staticScriptKey;
+	val NamespacedProperty dynamicScriptKey;
+	val RegistryKeyProperty queryKey;
+	val XQueryMediatorInputConnector inputConnector;
+	val XQueryMediatorOutputConnector outputConnector;
+}
+
+class XQueryMediatorInputConnector extends InputConnector {
+}
+
+class XQueryMediatorOutputConnector extends OutputConnector {
+}
+
+class XQueryVariable {
+	attr String variableName = "variable_name";
+	attr XQueryVariableType variableType = "STRING";
+	attr XQueryVariableValueType valueType = "LITERAL";
+	attr String valueLiteral = "literal_value";
+	val NamespacedProperty valueExpression;
+	val RegistryKeyProperty valueKey;
+}
+
+enum XQueryVariableType {
+	DOCUMENT = 0;
+	DOCUMENT_ELEMENT = 1;
+	ELEMENT = 2;
+	INT = 3;
+	INTEGER = 4;
+	BOOLEAN = 5;
+	BYTE = 6;
+	DOUBLE = 7;
+	SHORT = 8;
+	LONG = 9;
+	FLOAT = 10;
+	STRING = 11;
+}
+
+enum XQueryVariableValueType {
+	LITERAL = 0;
+	EXPRESSION = 1;
+}
+
+class CalloutMediator extends Mediator {
+	attr String serviceURL;
+	attr String soapAction;
+	attr String pathToAxis2xml;
+	attr String pathToAxis2Repository;
+	attr CalloutPayloadType payloadType;
+	val NamespacedProperty payloadMessageXpath;
+	attr CalloutResultType resultType;
+	val NamespacedProperty resultMessageXpath;
+	attr String resultContextProperty = "context_property_name";
+	attr boolean passHeaders;
+	val CalloutMediatorInputConnector inputConnector;
+	val CalloutMediatorOutputConnector outputConnector;
+	val RegistryKeyProperty AddressEndpoint;
+	attr CalloutEndpointType EndpointType;
+	attr String payloadProperty;
+	attr CalloutSecurityType securityType;
+	val RegistryKeyProperty outboundPolicyKey;
+	val RegistryKeyProperty inboundPolicyKey;
+	attr CalloutSecurityPolicies policies;
+	val RegistryKeyProperty policyKey;
+	attr boolean initAxis2ClientOptions;
+}
+
+enum CalloutEndpointType {
+	URL = 0;
+	AddressEndpoint = 1;
+}
+
+class CalloutMediatorInputConnector extends InputConnector {
+}
+
+class CalloutMediatorOutputConnector extends OutputConnector {
+}
+
+enum CalloutPayloadType {
+	XPATH = 0;
+	PROPERTY = 1;
+	ENVELOPE = 2;
+}
+
+enum CalloutSecurityPolicies {
+	FALSE = 0;
+	TRUE = 1;
+}
+
+enum CalloutSecurityType {
+	FALSE = 0;
+	TRUE = 1;
+}
+
+enum CalloutResultType {
+	XPATH = 0;
+	PROPERTY = 1;
+}
+
+class RMSequenceMediator extends Mediator {
+	attr RMSpecVersion rmSpecVersion;
+	attr RMSequenceType sequenceType = "SINGLE_MESSAGE";
+	val NamespacedProperty correlationXpath;
+	val NamespacedProperty lastMessageXpath;
+	val RMSequenceMediatorInputConnector inputConnector;
+	val RMSequenceMediatorOutputConnector outputConnector;
+}
+
+class RMSequenceMediatorInputConnector extends InputConnector {
+}
+
+class RMSequenceMediatorOutputConnector extends OutputConnector {
+}
+
+enum RMSpecVersion {
+	VERSION_1_0 = 0;
+	VERSION_1_1 = 1;
+}
+
+enum RMSequenceType {
+	SINGLE_MESSAGE = 0;
+	CORRELATED_SEQUENCE = 1;
+}
+
+class TransactionMediator extends Mediator {
+	attr TransactionAction action;
+	val TransactionMediatorInputConnector inputConnector;
+	val TransactionMediatorOutputConnector outputConnector;
+}
+
+class TransactionMediatorInputConnector extends InputConnector {
+}
+
+class TransactionMediatorOutputConnector extends OutputConnector {
+}
+
+enum TransactionAction {
+	COMMIT = 0;
+	FAULT_IF_NO_TRANSACTION = 1;
+	INITIATE_NEW = 2;
+	RESUME = 3;
+	SUSPEND = 4;
+	ROLLBACK = 5;
+	USE_EXISTING_OR_NEW = 6;
+}
+
+class OAuthMediator extends Mediator {
+	attr String remoteServiceUrl = "";
+	attr String username;
+	attr String password;
+	val OAuthMediatorInputConnector inputConnector;
+	val OAuthMediatorOutputConnector outputConnector;
+}
+
+class OAuthMediatorInputConnector extends InputConnector {
+}
+
+class OAuthMediatorOutputConnector extends OutputConnector {
+}
+
+class AutoscaleInMediator extends Mediator {
+}
+
+class AutoscaleOutMediator extends Mediator {
+}
+
+class HeaderMediator extends Mediator {
+	val NamespacedProperty headerName;
+	attr HeaderAction headerAction;
+	attr HeaderValueType valueType;
+	attr ScopeType scope;
+	attr String valueLiteral = "";
+	val NamespacedProperty valueExpression;
+	val HeaderMediatorInputConnector inputConnector;
+	val HeaderMediatorOutputConnector outputConnector;
+	attr String valueInline;
+}
+
+class HeaderMediatorInputConnector extends InputConnector {
+}
+
+class HeaderMediatorOutputConnector extends OutputConnector {
+}
+
+enum HeaderAction {
+	SET = 0;
+	REMOVE = 1;
+}
+
+enum HeaderValueType {
+	LITERAL = 0;
+	EXPRESSION = 1;
+	INLINE = 2;
+}
+
+enum ScopeType {
+	DEFAULT = 0;
+	TRANSPORT = 1;
+}
+
+class ThrottleMediator extends Mediator {
+	attr String groupId = "";
+	attr ThrottlePolicyType policyType = "INLINE";
+	val RegistryKeyProperty policyKey;
+	attr int maxConcurrentAccessCount;
+	val ThrottlePolicyEntry[*] policyEntries;
+	val ThrottlePolicyConfiguration policyConfiguration;
+	val ThrottleOnAcceptBranch onAcceptBranch;
+	val ThrottleOnRejectBranch onRejectBranch;
+	val ThrottleMediatorInputConnector inputConnector;
+	val ThrottleMediatorOutputConnector outputConnector;
+	val ThrottleMediatorOnAcceptOutputConnector onAcceptOutputConnector;
+	val ThrottleMediatorOnRejectOutputConnector onRejectOutputConnector;
+	val ThrottleContainer throttleContainer;
+	attr ThrottleSequenceType OnAcceptBranchsequenceType = "ANONYMOUS";
+	val RegistryKeyProperty OnAcceptBranchsequenceKey;
+	attr ThrottleSequenceType OnRejectBranchsequenceType = "ANONYMOUS";
+	val RegistryKeyProperty OnRejectBranchsequenceKey;
+}
+
+class ThrottleMediatorInputConnector extends InputConnector {
+}
+
+class ThrottleMediatorOutputConnector extends OutputConnector {
+}
+
+class ThrottleMediatorOnAcceptOutputConnector extends OutputConnector {
+}
+
+class ThrottleMediatorOnRejectOutputConnector extends OutputConnector {
+}
+
+class ThrottlePolicyConfiguration {
+	attr ThrottlePolicyType policyType = "INLINE";
+	val RegistryKeyProperty policyKey;
+	attr int maxConcurrentAccessCount;
+	val ThrottlePolicyEntry[*] policyEntries;
+}
+
+enum ThrottlePolicyType {
+	INLINE = 0;
+	REGISTRY_REFERENCE = 1;
+}
+
+class ThrottlePolicyEntry {
+	attr ThrottleConditionType throttleType = "IP";
+	attr String throttleRange = "other";
+	attr ThrottleAccessType accessType;
+	attr int maxRequestCount;
+	attr int unitTime;
+	attr int prohibitPeriod;
+}
+
+enum ThrottleConditionType {
+	IP = 0;
+	DOMAIN = 1;
+}
+
+enum ThrottleAccessType {
+	ALLOW = 0;
+	DENY = 1;
+	CONTROL = 2;
+}
+
+class ThrottleOnAcceptBranch {
+	attr ThrottleSequenceType sequenceType = "ANONYMOUS";
+	val RegistryKeyProperty sequenceKey;
+}
+
+class ThrottleOnRejectBranch {
+	attr ThrottleSequenceType sequenceType = "ANONYMOUS";
+	val RegistryKeyProperty sequenceKey;
+}
+
+class ThrottleContainer extends EsbNode {
+	val ThrottleOnAcceptContainer onAcceptContainer;
+	val ThrottleOnRejectContainer onRejectContainer;
+}
+
+class ThrottleOnAcceptContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class ThrottleOnRejectContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+enum ThrottleSequenceType {
+	ANONYMOUS = 0;
+	REGISTRY_REFERENCE = 1;
+}
+
+class CommandMediator extends Mediator {
+	attr String className = "";
+	val CommandProperty[*] properties;
+	val CommandMediatorInputConnector inputConnector;
+	val CommandMediatorOutputConnector outputConnector;
+}
+
+class CommandMediatorInputConnector extends InputConnector {
+}
+
+class CommandMediatorOutputConnector extends OutputConnector {
+}
+
+class CommandProperty {
+	attr String propertyName = "property_name";
+	attr CommandPropertyValueType valueType = "LITERAL";
+	attr String valueLiteral = "literal_value";
+	attr String valueContextPropertyName = "context_property_name";
+	val NamespacedProperty valueMessageElementXpath;
+	attr CommandPropertyContextAction contextAction;
+	attr CommandPropertyMessageAction messageAction;
+}
+
+enum CommandPropertyValueType {
+	LITERAL = 0;
+	MESSAGE_ELEMENT = 1;
+	CONTEXT_PROPERTY = 2;
+}
+
+enum CommandPropertyMessageAction {
+	READ_MESSAGE = 0;
+	UPDATE_MESSAGE = 1;
+	READ_AND_UPDATE_MESSAGE = 2;
+}
+
+enum CommandPropertyContextAction {
+	READ_CONTEXT = 0;
+	UPDATE_CONTEXT = 1;
+	READ_AND_UPDATE_CONTEXT = 2;
+}
+
+abstract class AbstractSqlExecutorMediator extends Mediator {
+	attr SqlExecutorConnectionType connectionType = "DB_CONNECTION";
+	attr SqlExecutorDatasourceType connectionDsType = "EXTERNAL";
+	attr SqlDatabaseType connectionDbType = "OTHER";
+	attr String connectionDbDriver = "";
+	attr String connectionDsInitialContext = "";
+	attr String connectionDsName = "";
+	attr String connectionURL = "";
+	attr String connectionUsername = "";
+	attr String connectionPassword = "";
+	attr SqlExecutorBooleanValue propertyAutocommit = "DEFAULT";
+	attr SqlExecutorIsolationLevel propertyIsolation = "DEFAULT";
+	attr int propertyMaxactive = -1;
+	attr int propertyMaxidle = -1;
+	attr int propertyMaxopenstatements = -1;
+	attr int propertyMaxwait = -1;
+	attr int propertyMinidle = -1;
+	attr SqlExecutorBooleanValue propertyPoolstatements = "DEFAULT";
+	attr SqlExecutorBooleanValue propertyTestonborrow = "DEFAULT";
+	attr SqlExecutorBooleanValue propertyTestwhileidle = "DEFAULT";
+	attr String propertyValidationquery;
+	attr int propertyInitialsize = -1;
+	val SqlStatement[*] sqlStatements;
+	attr boolean isRegistryBasedDriverConfig = false;
+	attr boolean isRegistryBasedUrlConfig = false;
+	attr boolean isRegistryBasedUserConfig = false;
+	attr boolean isRegistryBasedPassConfig = false;
+	val RegistryKeyProperty registryBasedDriverConfigKey;
+	val RegistryKeyProperty registryBasedUrlConfigKey;
+	val RegistryKeyProperty registryBasedUserConfigKey;
+	val RegistryKeyProperty registryBasedPassConfigKey;
+}
+
+enum SqlExecutorConnectionType {
+	DB_CONNECTION = 0;
+	DATA_SOURCE = 1;
+}
+
+enum SqlExecutorDatasourceType {
+	EXTERNAL = 0;
+	CARBON = 1;
+}
+
+enum SqlExecutorBooleanValue {
+	FALSE = 0;
+	TRUE = 1;
+	DEFAULT = 2;
+}
+
+enum SqlExecutorIsolationLevel {
+	TRANSACTION_NONE = 0;
+	TRANSACTION_READ_COMMITTED = 1;
+	TRANSACTION_READ_UNCOMMITTED = 2;
+	TRANSACTION_REPEATABLE_READ = 3;
+	TRANSACTION_SERIALIZABLE = 4;
+	DEFAULT = 5;
+}
+
+enum SqlDatabaseType {
+	OTHER = 0;
+	MYSQL = 1;
+	ORACLE = 2;
+	MSSQL = 3;
+	POSTGRESQL = 4;
+}
+
+class SqlStatement {
+	attr String queryString = "sql_query";
+	val SqlParameterDefinition[*] parameters;
+	attr boolean resultsEnabled = false;
+	val SqlResultMapping[*] results;
+}
+
+class SqlParameterDefinition {
+	attr SqlParameterDataType dataType = "CHAR";
+	attr SqlParameterValueType valueType = "LITERAL";
+	attr String valueLiteral = "value";
+	val NamespacedProperty valueExpression;
+}
+
+enum SqlParameterValueType {
+	LITERAL = 0;
+	EXPRESSION = 1;
+}
+
+enum SqlParameterDataType {
+	CHAR = 0;
+	VARCHAR = 1;
+	LONGVARCHAR = 2;
+	NUMERIC = 3;
+	DECIMAL = 4;
+	BIT = 5;
+	TINYINT = 6;
+	SMALLINT = 7;
+	INTEGER = 8;
+	BIGINT = 9;
+	REAL = 10;
+	FLOAT = 11;
+	DOUBLE = 12;
+	DATE = 13;
+	TIME = 14;
+	TIMESTAMP = 15;
+}
+
+class SqlResultMapping {
+	attr String propertyName = "message_context_property_name";
+	attr String columnId = "column_name_or_index";
+}
+
+class DBLookupMediator extends AbstractSqlExecutorMediator {
+	val DBLookupMediatorInputConnector inputConnector;
+	val DBLookupMediatorOutputConnector outputConnector;
+}
+
+class DBLookupMediatorInputConnector extends InputConnector {
+}
+
+class DBLookupMediatorOutputConnector extends OutputConnector {
+}
+
+class DBReportMediator extends AbstractSqlExecutorMediator {
+	attr boolean connectionUseTransaction = false;
+	val DBReportMediatorInputConnector inputConnector;
+	val DBReportMediatorOutputConnector outputConnector;
+}
+
+class DBReportMediatorInputConnector extends InputConnector {
+}
+
+class DBReportMediatorOutputConnector extends OutputConnector {
+}
+
+class RuleMediator extends Mediator {
+	attr String RuleSetURL;
+	attr RuleSourceType ruleSetSourceType = "INLINE";
+	attr String ruleSetSourceCode = "<code/>";
+	val RegistryKeyProperty ruleSetSourceKey;
+	attr boolean statefulSession = true;
+	val RuleSessionProperty[*] RuleSessionProperties;
+	val RuleFactsConfiguration factsConfiguration;
+	val RuleResultsConfiguration resultsConfiguration;
+	val RuleChildMediatorsConfiguration childMediatorsConfiguration;
+	val RuleMediatorInputConnector inputConnector;
+	val RuleMediatorOutputConnector outputConnector;
+	val RuleMediatorChildMediatorsOutputConnector childMediatorsOutputConnector;
+	val MediatorFlow mediatorFlow;
+	attr String sourceValue;
+	val NamespacedProperty sourceXpath;
+	attr String targetValue;
+	val NamespacedProperty targetResultXpath;
+	val NamespacedProperty targetXpath;
+	attr RuleActions targetAction;
+	attr String InputWrapperName;
+	attr String InputNameSpace;
+	attr String OutputWrapperName;
+	attr String OutputNameSpace;
+	attr RuleType RuleSetType;
+}
+
+class RuleMediatorInputConnector extends InputConnector {
+}
+
+enum RuleActions {
+	replace = 0;
+	child = 1;
+	sibling = 2;
+}
+
+enum RuleType {
+	regular = 0;
+	dtable = 1;
+}
+
+class RuleMediatorOutputConnector extends OutputConnector {
+}
+
+class RuleMediatorChildMediatorsOutputConnector extends OutputConnector {
+}
+
+enum RuleSourceType {
+	inline = 0;
+	registry = 1;
+	url = 2;
+}
+
+class RuleSetCreationProperty extends AbstractNameValueProperty {
+}
+
+class RuleSessionProperty extends AbstractNameValueProperty {
+}
+
+class RuleFactsConfiguration {
+	val RuleFact[*] facts;
+}
+
+class RuleFact {
+	attr RuleFactType factType = "CUSTOM";
+	attr String factCustomType = "custom_type";
+	attr String factName = "fact_name";
+	attr RuleFactValueType valueType = "LITERAL";
+	attr String valueLiteral = "value";
+	val NamespacedProperty valueExpression;
+	val RegistryKeyProperty valueKey;
+}
+
+enum RuleFactType {
+	CUSTOM = 0;
+	DOM = 1;
+	MESSAGE = 2;
+	CONTEXT = 3;
+	OMELEMENT = 4;
+	MEDIATOR = 5;
+}
+
+enum RuleFactValueType {
+	NONE = 0;
+	LITERAL = 1;
+	EXPRESSION = 2;
+	REGISTRY_REFERENCE = 3;
+}
+
+class RuleResultsConfiguration {
+	val RuleResult[*] results;
+}
+
+class RuleResult {
+	attr RuleResultType resultType = "CUSTOM";
+	attr String resultCustomType = "custom_type";
+	attr String resultName = "result_name";
+	attr RuleResultValueType valueType = "LITERAL";
+	attr String valueLiteral = "value";
+	val NamespacedProperty valueExpression;
+	val RegistryKeyProperty valueKey;
+}
+
+enum RuleResultType {
+	CUSTOM = 0;
+	DOM = 1;
+	MESSAGE = 2;
+	CONTEXT = 3;
+	OMELEMENT = 4;
+	MEDIATOR = 5;
+}
+
+enum RuleResultValueType {
+	LITERAL = 0;
+	EXPRESSION = 1;
+	REGISTRY_REFERENCE = 3;
+}
+
+class RuleChildMediatorsConfiguration {
+}
+
+enum RuleOptionType {
+	VALUE = 0;
+	EXPRESSION = 1;
+}
+
+class CallTemplateParameter extends EsbNode {
+	attr String parameterName;
+	attr RuleOptionType templateParameterType;
+	attr String parameterValue;
+	val NamespacedProperty parameterExpression;
+}
+
+class CallTemplateMediator extends Mediator {
+	attr String availableTemplates;
+	val CallTemplateParameter[*] templateParameters;
+	val CallTemplateMediatorInputConnector inputConnector;
+	val CallTemplateMediatorOutputConnector outputConnector;
+	attr String targetTemplate;
+}
+
+class CallTemplateMediatorInputConnector extends InputConnector {
+}
+
+class CallTemplateMediatorOutputConnector extends OutputConnector {
+}
+
+class LoopBackMediator extends Mediator {
+	val LoopBackMediatorInputConnector inputConnector;
+	val LoopBackMediatorOutputConnector outputConnector;
+}
+
+class LoopBackMediatorInputConnector extends InputConnector {
+}
+
+class LoopBackMediatorOutputConnector extends OutputConnector {
+}
+
+class RespondMediator extends Mediator {
+	val RespondMediatorInputConnector inputConnector;
+	val RespondMediatorOutputConnector outputConnector;
+}
+
+class RespondMediatorInputConnector extends InputConnector {
+}
+
+class RespondMediatorOutputConnector extends OutputConnector {
+}
+
+enum SmooksIODataType {
+	XML = 0;
+	TEXT = 1;
+}
+
+enum SmooksOutputDataType {
+	XML = 0;
+	TEXT = 1;
+	JAVA = 2;
+}
+
+class SmooksMediator extends Mediator {
+	val RegistryKeyProperty configurationKey;
+	attr SmooksIODataType inputType;
+	val NamespacedProperty inputExpression;
+	attr SmooksOutputDataType outputType;
+	val NamespacedProperty outputExpression;
+	attr String outputProperty;
+	attr ExpressionAction outputAction;
+	attr OutputMethod outputMethod;
+	val SmooksMediatorInputConnector inputConnector;
+	val SmooksMediatorOutputConnector outputConnector;
+}
+
+class SmooksMediatorInputConnector extends InputConnector {
+}
+
+class SmooksMediatorOutputConnector extends OutputConnector {
+}
+
+enum ExpressionAction {
+	ADD = 0;
+	REPLACE = 1;
+	SIBLING = 2;
+}
+
+enum OutputMethod {
+	DEFAULT = 0;
+	PROPERTY = 1;
+	EXPRESSION = 2;
+}
+
+enum ReceivingSequenceType {
+	DEFAULT = 0;
+	STATIC = 1;
+	DYNAMIC = 2;
+}
+
+enum KeyType {
+	STATIC = 0;
+	DYNAMIC = 1;
+}
+
+class StoreMediator extends Mediator {
+	attr String messageStore;
+	val RegistryKeyProperty onStoreSequence;
+	val StoreMediatorInputConnector inputConnector;
+	val StoreMediatorOutputConnector outputConnector;
+	attr String availableMessageStores;
+	attr StoreMediatorSpecifyType SpecifyAs;
+	val NamespacedProperty Expression;
+}
+
+class StoreMediatorInputConnector extends InputConnector {
+}
+
+class StoreMediatorOutputConnector extends OutputConnector {
+}
+
+class BuilderMediator extends Mediator {
+	val MessageBuilder[*] messageBuilders;
+	val BuilderMediatorInputConnector inputConnector;
+	val BuilderMediatorOutputConector outputConnector;
+}
+
+class BuilderMediatorInputConnector extends InputConnector {
+}
+
+class BuilderMediatorOutputConector extends OutputConnector {
+}
+
+class MessageBuilder extends EsbNode {
+	attr String contentType;
+	attr String builderClass;
+	attr String formatterClass;
+}
+
+class PayloadFactoryMediator extends Mediator {
+	attr String payload;
+	val RegistryKeyProperty payloadKey;
+	val PayloadFactoryArgument[*] args;
+	val PayloadFactoryMediatorInputConnector inputConnector;
+	val PayloadFactoryMediatorOutputConnector outputConnector;
+	attr MediaType mediaType = "xml";
+	attr PayloadFormatType payloadFormat;
+}
+
+enum MediaType {
+	XML = 0;
+	JSON = 1;
+	TEXT = 2;
+}
+
+class PayloadFactoryMediatorInputConnector extends InputConnector {
+}
+
+class PayloadFactoryMediatorOutputConnector extends OutputConnector {
+}
+
+class PayloadFactoryArgument extends EsbNode {
+	attr PayloadFactoryArgumentType argumentType;
+	attr String argumentValue;
+	val NamespacedProperty argumentExpression;
+	attr PayloadFactoryEvaluatorType evaluator = "xml";
+	attr boolean literal;
+}
+
+enum PayloadFactoryArgumentType {
+	VALUE = 0;
+	EXPRESSION = 1;
+}
+
+enum PayloadFormatType {
+	INLINE = 0;
+	REGISTRY_REFERENCE = 1;
+}
+
+class ConditionalRouteBranch extends EsbNode {
+	attr boolean breakAfterRoute;
+	val EvaluatorExpressionProperty evaluatorExpression;
+	val RegistryKeyProperty targetSequence;
+}
+
+class ConditionalRouterMediator extends Mediator {
+	attr boolean continueAfterRoute;
+	val ConditionalRouteBranch[*] conditionalRouteBranches;
+	val ConditionalRouterMediatorInputConnector inputConnector;
+	val ConditionalRouterMediatorOutputConnector outputConnector;
+	val ConditionalRouterMediatorAdditionalOutputConnector additionalOutputConnector;
+	val MediatorFlow mediatorFlow;
+}
+
+class ConditionalRouterMediatorInputConnector extends InputConnector {
+}
+
+class ConditionalRouterMediatorOutputConnector extends OutputConnector {
+}
+
+class ConditionalRouterMediatorAdditionalOutputConnector extends OutputConnector {
+}
+
+class SendMediator extends Mediator {
+	ref EndPoint[*] EndPoint;
+	val SendMediatorInputConnector InputConnector;
+	val SendMediatorOutputConnector OutputConnector;
+	attr ReceivingSequenceType receivingSequenceType;
+	val RegistryKeyProperty StaticReceivingSequence;
+	val NamespacedProperty DynamicReceivingSequence;
+	val SendMediatorEndpointOutputConnector endpointOutputConnector;
+	val MediatorFlow mediatorFlow;
+	attr boolean skipSerialization;
+	attr boolean buildMessageBeforeSending;
+}
+
+class SendContainer extends EsbNode {
+	val EndpointFlow endpointFlow;
+}
+
+class SendMediatorInputConnector extends InputConnector {
+}
+
+class SendMediatorOutputConnector extends OutputConnector {
+}
+
+class SendMediatorEndpointOutputConnector extends OutputConnector {
+}
+
+class FailoverEndPoint extends ParentEndPoint {
+	val FailoverEndPointInputConnector inputConnector;
+	val FailoverEndPointOutputConnector[*] OutputConnector;
+	val FailoverEndPointWestOutputConnector westOutputConnector;
+	val MediatorFlow mediatorFlow;
+	attr boolean buildMessage;
+}
+
+class FailoverEndPointInputConnector extends InputConnector {
+}
+
+class FailoverEndPointOutputConnector extends OutputConnector {
+}
+
+class FailoverEndPointWestOutputConnector extends OutputConnector {
+}
+
+class ParentEndPoint extends EndPoint {
+	val EndPoint[*] Children;
+	attr String name;
+}
+
+class WSDLEndPoint extends AbstractEndPoint {
+	val WSDLEndPointInputConnector inputConnector;
+	val WSDLEndPointOutputConnector outputConnector;
+	attr String wsdlUri;
+	attr String service;
+	attr String port;
+}
+
+class WSDLEndPointInputConnector extends InputConnector {
+}
+
+class WSDLEndPointOutputConnector extends OutputConnector {
+}
+
+enum Type {
+	HTTP = 0;
+	SIMPLE_CLIENT_SESSION = 1;
+}
+
+class LoadBalanceEndPoint extends ParentEndPoint {
+	attr boolean failover;
+	attr String policy;
+	val LoadBalanceEndPointInputConnector inputConnector;
+	val LoadBalanceEndPointOutputConnector[*] outputConnector;
+	val LoadBalanceEndPointWestOutputConnector westOutputConnector;
+	derived val Member[*] member;
+	attr LoadBalanceSessionType sessionType = "NONE";
+	attr String algorithm = "org.apache.synapse.endpoints.algorithms.RoundRobin";
+	attr long sessionTimeout = "0";
+	val MediatorFlow mediatorFlow;
+	attr boolean buildMessage;
+}
+
+enum LoadBalanceSessionType {
+	NONE = 0;
+	TRANSPORT = 1;
+	SOAP = 2;
+	CLIENT_ID = 3;
+}
+
+class Member {
+	attr String hostName;
+	attr String httpPort;
+	attr String httpsPort;
+}
+
+class LoadBalanceEndPointInputConnector extends InputConnector {
+}
+
+class LoadBalanceEndPointOutputConnector extends OutputConnector {
+}
+
+class LoadBalanceEndPointWestOutputConnector extends OutputConnector {
+}
+
+class LocalEntry extends EsbElement {
+	attr String entryName = "entry_name";
+	attr LocalEntryValueType localEntryType = "In-lined Text Entry";
+	attr String valueLiteral = "entry_value";
+	attr String valueXML = "<value/>";
+	attr String valueURL = "file:/path/to/resource.ext";
+}
+
+enum LocalEntryValueType {
+	LITERAL = 0;
+	XML = 1;
+	URL = 2;
+}
+
+class Session {
+	attr Type type;
+}
+
+class Sequences extends EsbElement {
+	val SequencesOutputConnector outputConnector;
+	val SequencesInputConnector inputConnector;
+	val MediatorFlow mediatorFlow;
+	attr String name;
+	attr boolean recieveSequence;
+	attr String[*] associatedProxy;
+	val RegistryKeyProperty onError;
+	val TemplateParameter[*] templateParameters;
+	attr boolean traceEnabled;
+	attr boolean statisticsEnabled;
+}
+
+class SequencesOutputConnector extends OutputConnector {
+}
+
+class SequencesInputConnector extends InputConnector {
+}
+
+class URLRewriteRuleAction extends EsbNode {
+	attr RuleActionType ruleAction;
+	attr RuleFragmentType ruleFragment;
+	attr RuleOptionType ruleOption;
+	val NamespacedProperty actionExpression;
+	attr String actionValue;
+	attr String actionRegex;
+}
+
+enum RuleActionType {
+	REPLACE = 3;
+	REMOVE = 4;
+	APPEND = 1;
+	PREPEND = 2;
+	SET = 0;
+}
+
+enum RuleFragmentType {
+	PROTOCOL = 0;
+	HOST = 2;
+	PORT = -1;
+	PATH = 3;
+	QUERY = 4;
+	REF = 5;
+	USER = 1;
+	FULL = -2;
+}
+
+class URLRewriteRule extends EsbNode {
+	val EvaluatorExpressionProperty urlRewriteRuleCondition;
+	val URLRewriteRuleAction[*] rewriteRuleAction;
+}
+
+class URLRewriteMediator extends Mediator {
+	val URLRewriteRule[*] urlRewriteRules;
+	attr String InProperty;
+	attr String outProperty;
+	val URLRewriteMediatorInputConnector inputConnector;
+	val URLRewriteMediatorOutputConnector outputConnector;
+}
+
+class URLRewriteMediatorInputConnector extends InputConnector {
+}
+
+class URLRewriteMediatorOutputConnector extends OutputConnector {
+}
+
+class EvaluatorExpressionProperty extends EsbNode {
+	attr String prettyName;
+	attr String evaluatorName;
+	attr String evaluatorValue;
+}
+
+class ValidateMediator extends Mediator {
+	val NamespacedProperty sourceXpath;
+	val ValidateFeature[*] features;
+	val ValidateSchema[*] schemas;
+	val ValidateMediatorInputConnector inputConnector;
+	val ValidateMediatorOutputConnector outputConnector;
+	val ValidateMediatorOnFailOutputConnector onFailOutputConnector;
+	val MediatorFlow mediatorFlow;
+	val ValidateResource[*] resources;
+	attr boolean enableCacheSchema = true;
+}
+
+class ValidateResource extends AbstractLocationKeyResource {
+}
+
+class ValidateFeature extends AbstractBooleanFeature {
+}
+
+class ValidateSchema extends EsbNode {
+	val RegistryKeyProperty validateStaticSchemaKey;
+	val NamespacedProperty validateDynamicSchemaKey;
+	attr KeyType validateSchemaKeyType;
+	ref RegistryKeyProperty schemaKey;
+}
+
+class ValidateMediatorInputConnector extends InputConnector {
+}
+
+class ValidateMediatorOutputConnector extends OutputConnector {
+}
+
+class ValidateMediatorOnFailOutputConnector extends OutputConnector {
+}
+
+class EndpointDiagram extends EsbElement {
+	val EndPoint child;
+	attr String name;
+}
+
+class NamedEndpoint extends AbstractEndPoint {
+	val NamedEndpointInputConnector inputConnector;
+	val NamedEndpointOutputConnector outputConnector;
+	attr String name;
+	attr KeyType referringEndpointType;
+	val NamespacedProperty dynamicReferenceKey;
+	val RegistryKeyProperty staticReferenceKey;
+}
+
+class NamedEndpointInputConnector extends InputConnector {
+}
+
+class NamedEndpointOutputConnector extends OutputConnector {
+}
+
+class Template extends EsbElement {
+	attr String name;
+	attr TemplateType templateType;
+	val EsbElement child;
+	val TemplateParameter[*] parameters;
+}
+
+enum TemplateType {
+	SEQUENCE = 0;
+	ENDPOINT = 1;
+}
+
+class TemplateParameter {
+	attr String[1] name;
+}
+
+class Task extends EsbElement {
+	attr String taskName;
+	attr String taskGroup = "synapse.simple.quartz";
+	attr TaskTriggerType triggerType;
+	attr long count = "-1";
+	attr long interval;
+	attr String cron;
+	attr String pinnedServers;
+	attr String[1] taskImplementation = "org.apache.synapse.startup.tasks.MessageInjector";
+	val TaskProperty[*] taskProperties;
+}
+
+enum TaskPropertyType {
+	LITERAL = 0;
+	XML = 1;
+}
+
+class NameValueTypeProperty extends EsbNode {
+	attr String propertyName;
+	attr String propertyValue;
+	attr TaskPropertyType propertyType;
+}
+
+class TaskProperty extends NameValueTypeProperty {
+}
+
+enum TaskTriggerType {
+	Simple = 0;
+	Cron = 1;
+}
+
+class SynapseAPI extends EsbElement {
+	attr String[1] apiName = "api_name";
+	attr String[1] context = "/context";
+	attr String hostName;
+	attr int port;
+	val APIResource[*] resources;
+	val APIHandler[*] handlers;
+	attr boolean traceEnabled;
+	attr boolean statisticsEnabled;
+	attr String version = "";
+	attr APIVersionType versionType = "none";
+	val RegistryKeyProperty publishSwagger;
+}
+
+class APIResource extends EsbNode {
+	val APIResourceInputConnector inputConnector;
+	val APIResourceOutputConnector outputConnector;
+	val APIResourceOutSequenceOutputConnector outSequenceOutputConnector;
+	val APIResourceInSequenceInputConnector[*] inSequenceInputConnectors;
+	val APIResourceFaultInputConnector faultInputConnector;
+	attr ApiResourceUrlStyle urlStyle;
+	attr String uriTemplate;
+	attr String urlMapping;
+	attr boolean allowGet;
+	attr boolean allowPost;
+	attr boolean allowPut;
+	attr boolean allowDelete;
+	attr boolean allowOptions;
+	attr boolean allowHead;
+	attr boolean allowPatch;
+	val ProxyServiceContainer container;
+	attr SequenceType inSequenceType;
+	val RegistryKeyProperty inSequenceKey;
+	attr String inSequenceName;
+	attr SequenceType outSequenceType;
+	val RegistryKeyProperty outSequenceKey;
+	attr String outSequenceName;
+	attr SequenceType faultSequenceType;
+	val RegistryKeyProperty faultSequenceKey;
+	attr String faultSequenceName;
+	attr Protocol protocol;
+}
+
+enum ApiResourceUrlStyle {
+	NONE = 0;
+	URI_TEMPLATE = 1;
+	URL_MAPPING = 2;
+}
+
+class APIResourceInputConnector extends InputConnector {
+}
+
+class APIResourceOutputConnector extends OutputConnector {
+}
+
+class APIResourceOutSequenceOutputConnector extends OutputConnector {
+}
+
+class APIResourceInSequenceInputConnector extends InputConnector {
+}
+
+class APIResourceFaultInputConnector extends InputConnector {
+}
+
+class APIResourceEndpoint extends AbstractEndPoint {
+	val APIResourceEndpointInputConnector inputConnector;
+	val APIResourceEndpointOutputConnector outputConnector;
+}
+
+class APIResourceEndpointInputConnector extends InputConnector {
+}
+
+class APIResourceEndpointOutputConnector extends OutputConnector {
+}
+
+class ComplexEndpoints extends EsbElement {
+	val ComplexEndpointsOutputConnector[*] outputConnector;
+	val MediatorFlow mediatorFlow;
+	attr String name;
+}
+
+class ComplexEndpointsOutputConnector extends OutputConnector {
+}
+
+class AddressingEndpoint extends AbstractEndPoint {
+	val AddressingEndpointInputConnector inputConnector;
+	val AddressingEndpointOutputConnector outputConnector;
+}
+
+class AddressingEndpointInputConnector extends InputConnector {
+}
+
+class AddressingEndpointOutputConnector extends OutputConnector {
+}
+
+class RecipientListEndPoint extends ParentEndPoint {
+	val RecipientListEndPointInputConnector inputConnector;
+	val RecipientListEndPointOutputConnector[*] outputConnector;
+	val RecipientListEndPointWestOutputConnector westOutputConnector;
+	attr RecipientListEndpointType endpointType;
+	attr String endpointsValue;
+	val NamespacedProperty endpointsExpression;
+	attr int maxCache = 20;
+	val MediatorFlow mediatorFlow;
+}
+
+class RecipientListEndPointInputConnector extends InputConnector {
+}
+
+class RecipientListEndPointOutputConnector extends OutputConnector {
+}
+
+class RecipientListEndPointWestOutputConnector extends OutputConnector {
+}
+
+enum RecipientListEndpointType {
+	INLINE = 0;
+	VALUE = 1;
+	XPATH = 2;
+}
+
+enum MessageStoreType {
+	IN_MEMORY = 0;
+	JMS = 1;
+	CUSTOM = 2;
+	RABBITMQ = 3;
+	JDBC = 4;
+	RESEQUENCE = 5;
+}
+
+enum JMSSpecVersion {
+	JMS_1_1 = 0;
+	JMS_1_0 = 1;
+}
+
+enum JDBCConnectionInformationType {
+	JDBC_POOL = 0;
+	JDBC_CARBON_DATASOURCE = 1;
+}
+
+class MessageStoreParameter extends EsbNode {
+	attr String parameterName;
+	attr String parameterValue;
+}
+
+class MessageStore extends EsbElement {
+	attr String storeName;
+	attr MessageStoreType storeType;
+	attr String initialContextFactory;
+	attr String providerURL;
+	attr String jndiQueueName;
+	attr String connectionFactory;
+	attr String userName;
+	attr String password;
+	attr boolean cacheConnection;
+	attr JMSSpecVersion jmsSpecVersion;
+	attr boolean enableCaching;
+	attr String providerClass;
+	attr String rabbitMQServerHostName;
+	attr String rabbitMQServerHostPort;
+	attr String rabbitMQQueueName;
+	attr String rabbitMQExchangeName;
+	attr String routingKey;
+	attr String rabbitMQUserName;
+	attr String rabbitMQPassword;
+	attr String virtualHost;
+	attr String jdbcDatabaseTable;
+	attr JDBCConnectionInformationType jdbcConnectionInformation = "JDBC_POOL";
+	attr String jdbcDriver;
+	attr String jdbcURL;
+	attr String jdbcUser;
+	attr String jdbcPassword;
+	attr String jdbcDatasourceName;
+	val MessageStoreParameter[*] parameters;
+	attr boolean enableProducerGuaranteedDelivery = false;
+	attr String failoverMessageStore = "";
+	attr String resequencepolling;
+	attr String resequenceDatabaseTable;
+	attr JDBCConnectionInformationType resequenceConnectionInformation;
+	attr String resequenceDriver;
+	attr String resequenceURL;
+	attr String resequenceUser;
+	attr String resequencePassword;
+	attr String resequenceDatasourceName;
+	attr String resequenceXpath = "";
+	ref NamespacedProperty resequenceXpathAttr;
+}
+
+enum MessageProcessorType {
+	SCHEDULED_MSG_FORWARDING = 0;
+	SCHEDULED_FAILOVER_MSG_FORWARDING = 1;
+	MSG_SAMPLING = 2;
+	CUSTOM = 3;
+}
+
+enum ProcessorState {
+	ACTIVATE = 0;
+	DEACTIVATE = 1;
+}
+
+class MessageProcessorParameter extends EsbNode {
+	attr String parameterName;
+	attr String parameterValue;
+}
+
+class MessageProcessor extends EsbElement {
+	attr String processorName;
+	attr MessageProcessorType processorType;
+	attr String messageProcessorProvider;
+	attr String messageStore;
+	attr String sourceMessageStore;
+	attr String targetMessageStore;
+	attr ProcessorState processorState;
+	val RegistryKeyProperty endpointName;
+	val RegistryKeyProperty sequence;
+	attr long retryInterval;
+	attr long forwardingInterval = "1000";
+	attr long samplingInterval = "1000";
+	attr int samplingConcurrency = 1;
+	attr int maxDeliveryAttempts = 4;
+	attr EnableDisableState dropMessageAfterMaximumDeliveryAttempts;
+	attr String axis2ClientRepository;
+	attr String axis2Configuration;
+	val RegistryKeyProperty replySequenceName;
+	val RegistryKeyProperty faultSequenceName;
+	val RegistryKeyProperty deactivateSequenceName;
+	attr String quartzConfigFilePath;
+	attr String cronExpression;
+	attr String nonRetryHttpStatusCodes;
+	val MessageProcessorParameter[*] parameters;
+	attr String taskCount;
+	attr int maxStoreConnectionAttempts = -1;
+	attr int storeConnectionInterval = 1000;
+	attr String failMessagesStore;
+}
+
+class APIHandler extends EsbNode {
+	attr String className;
+	val APIHandlerProperty[*] properties;
+}
+
+class APIHandlerProperty extends EsbNode {
+	attr String name;
+	attr String value;
+}
+
+class CloudConnector extends EsbElement {
+	val CloudConnectorInputConnector inputConnector;
+	val CloudConnectorOutputConnector outputConnector;
+	val CallTemplateParameter[*] connectorParameters;
+}
+
+class CloudConnectorInputConnector extends InputConnector {
+}
+
+class CloudConnectorOutputConnector extends OutputConnector {
+}
+
+class CloudConnectorOperation extends Mediator {
+	val CloudConnectorOperationInputConnector inputConnector;
+	val CloudConnectorOperationOutputConnector outputConnector;
+	val CallTemplateParameter[*] connectorParameters;
+	attr String configRef;
+	attr String connectorName;
+	attr String operationName;
+	attr String cloudConnectorName;
+	val RegistryKeyProperty newConfig;
+	attr String availableConfigs;
+	attr CloudConnectorOperationParamEditorType parameterEditorType;
+}
+
+class CloudConnectorOperationInputConnector extends InputConnector {
+}
+
+class CloudConnectorOperationOutputConnector extends OutputConnector {
+}
+
+enum CloudConnectorOperationParamEditorType {
+	Inline = 0;
+	NamespacedPropertyEditor = 1;
+}
+
+class DataMapperMediator extends Mediator {
+	val DataMapperMediatorInputConnector inputConnector;
+	attr DataMapperMediatorDataTypes inputType;
+	val DataMapperMediatorOutputConnector outputConnector;
+	val RegistryKeyProperty configuration;
+	val RegistryKeyProperty InputSchema;
+	val RegistryKeyProperty outputSchema;
+	val RegistryKeyProperty xsltStyleSheet;
+	attr String configurationLocalPath;
+	attr String inputSchemaLocalPath;
+	attr String outputSchemaLocalPath;
+	attr String xsltStyleSheetLocalPath;
+	attr DataMapperMediatorDataTypes outputType;
+}
+
+enum DataMapperMediatorDataTypes {
+	XML = 0;
+	CSV = 1;
+	JSON = 2;
+}
+
+class DataMapperMediatorInputConnector extends InputConnector {
+}
+
+class DataMapperMediatorOutputConnector extends OutputConnector {
+}
+
+class FastXSLTMediator extends Mediator {
+	attr KeyType fastXsltSchemaKeyType;
+	val RegistryKeyProperty fastXsltStaticSchemaKey;
+	val NamespacedProperty fastXsltDynamicSchemaKey;
+	val FastXSLTMediatorInputConnector inputConnector;
+	val FastXSLTMediatorOutputConnector outputConnector;
+}
+
+class FastXSLTMediatorInputConnector extends InputConnector {
+}
+
+class FastXSLTMediatorOutputConnector extends OutputConnector {
+}
+
+enum Protocol {
+	http_https = 0;
+	https = 2;
+	http = 1;
+}
+
+class InboundEndpoint extends EsbElement {
+	val InboundEndpointSequenceInputConnector sequenceInputConnector;
+	val InboundEndpointSequenceOutputConnector sequenceOutputConnector;
+	val InboundEndpointOnErrorSequenceInputConnector onErrorSequenceInputConnector;
+	val InboundEndpointOnErrorSequenceOutputConnector onErrorSequenceOutputConnector;
+	val InboundEndpointContainer container;
+	attr String name;
+	attr InboundEndpointType type;
+	attr String ~class = "";
+	attr String protocol = "";
+	attr InboundEndpointBehaviourType inboundEndpointBehaviour;
+	attr String inboundHttpPort = "8000";
+	attr String inboundWorkerPoolSizeCore = "400";
+	attr String inboundWorkerPoolSizeMax = "500";
+	attr String inboundWorkerThreadKeepAliveSec = "60";
+	attr String inboundWorkerPoolQueueLength = "-1";
+	attr String inboundThreadGroupId = "";
+	attr String inboundThreadId = "PassThroughInboundWorkerPool";
+	attr String dispatchFilterPattern = "";
+	attr String interval = "1000";
+	attr boolean sequential = true;
+	attr boolean coordination = true;
+	attr String transportVFSFileURI = "";
+	attr String wso2mbConnectionUrl;
+	attr String transportVFSContentType = "text/plain";
+	attr String transportVFSFileNamePattern = ".*.txt";
+	attr String transportVFSFileProcessInterval = "";
+	attr String transportVFSFileProcessCount = "";
+	attr Enable transportVFSLocking;
+	attr String transportVFSMaxRetryCount = "";
+	attr String transportVFSMoveAfterFailedMove;
+	attr String transportVFSReconnectTimeout = "";
+	attr boolean transportJMSSharedSubscription = false;
+	attr String transportJMSSubscriptionName;
+	attr String transportJMSPinnedServers;
+	attr VFSAction transportVFSActionAfterProcess;
+	attr String transportVFSMoveAfterProcess = "";
+	attr VFSAction transportVFSActionAfterErrors;
+	attr String transportVFSMoveAfterErrors = "";
+	attr String transportVFSFailedRecordsFileName = "vfs-move-failed-records.properties";
+	attr String transportVFSFailedRecordsFileDestination = "repository/conf/";
+	attr String transportVFSMoveFailedRecordTimestampFormat = "dd-MM-yyyy HH:mm:ss";
+	attr String transportVFSFailedRecordNextRetryDuration = "3000";
+	attr VFSAction transportVFSActionAfterFailure;
+	attr String transportVFSMoveAfterFailure = "";
+	attr String transportVFSReplyFileURI;
+	attr String transportVFSReplyFileName = "response.xml";
+	attr boolean transportVFSAutoLockRelease = false;
+	attr String transportVFSAutoLockReleaseInterval = "";
+	attr boolean transportVFSLockReleaseSameNode = false;
+	attr boolean transportVFSDistributedLock = false;
+	attr boolean transportVFSStreaming = false;
+	attr boolean transportVFSBuild = false;
+	attr String transportVFSDistributedTimeout = "";
+	attr String javaNamingFactoryInitial = "";
+	attr String javaNamingProviderUrl = "";
+	attr String transportJMSConnectionFactoryJNDIName = "";
+	attr JMSConnectionFactoryType transportJMSConnectionFactoryType = "queue";
+	attr String transportJMSConcurrentConsumers;
+	attr String transportJMSDestination = "";
+	attr boolean transportJMSSessionTransacted = false;
+	attr JMSSessionAcknowledgement transportJMSSessionAcknowledgement;
+	attr JMSCacheLevel transportJMSCacheLevel;
+	attr String transportJMSUserName = "";
+	attr String transportJMSPassword = "";
+	attr String transportJMSJMSSpecVersion = "";
+	attr String transportJMSSubscriptionDurable = "";
+	attr String transportJMSDurableSubscriberClientID = "";
+	attr String transportJMSMessageSelector = "";
+	attr String transportJMSRetryDuration;
+	attr String transportVFSMoveTimestampFormat = "";
+	attr VFSFileSort transportVFSFileSortAttribute;
+	attr boolean transportVFSFileSortAscending = true;
+	attr String transportVFSSubFolderTimestampFormat = "";
+	attr boolean transportVFSCreateFolder = true;
+	attr String transportJMSReceiveTimeout = "";
+	attr String transportJMSContentType = "";
+	attr String transportJMSContentTypeProperty = "";
+	attr String transportJMSReplyDestination = "";
+	attr String transportJMSPubSubNoLocal = "";
+	attr String transportJMSDurableSubscriberName;
+	attr JMSBrokerType transportJMSBrokerType = "OTHER";
+	attr String transportMQTTConnectionFactory = "AMQPConnectionFactory";
+	attr String transportMQTTServerHostName = "";
+	attr String transportMQTTServerPort = "";
+	attr String transportMQTTTopicName = "";
+	attr MQTTSubscriptionQOS transportMQTTSubscriptionQOS;
+	attr boolean transportMQTTSessionClean;
+	attr String transportMQTTSslEnable = "";
+	attr String transportMQTTTemporaryStoreDirectory = "";
+	attr String transportMQTTSubscriptionUsername = "";
+	attr String transportMQTTSubscriptionPassword = "";
+	attr String transportMQTTClientId = "";
+	attr String truststore = "";
+	attr String keystore = "";
+	attr String sslVerifyClient = "";
+	attr String sslProtocol = "";
+	attr String httpsProtocols = "";
+	attr String certificateRevocationVerifier = "";
+	attr String inboundHL7Port = "";
+	attr boolean inboundHL7AutoAck = true;
+	attr String inboundHL7MessagePreProcessor = "";
+	attr String inboundHL7CharSet = "UTF-8";
+	attr String inboundHL7TimeOut = "10000";
+	attr boolean inboundHL7ValidateMessage = true;
+	attr boolean inboundHL7BuildInvalidMessages = true;
+	attr boolean inboundHL7PassThroughInvalidMessages = true;
+	attr String zookeeperConnect = "localhost:2181";
+	attr String groupId = "";
+	attr String contentType;
+	attr ConsumerType consumerType;
+	attr TopicsType topicsOrTopicFilter;
+	attr String topicsName;
+	attr TopicFilterFromType topicFilterFrom;
+	attr String topicFilterName;
+	attr String simpleConsumerTopic;
+	attr String simpleConsumerBrokers;
+	attr String simpleConsumerPort;
+	attr String simpleConsumerPartition;
+	attr String simpleConsumerMaxMessagesToRead;
+	attr String threadCount = "1";
+	attr String consumerId;
+	attr String socketTimeoutMs = "30000";
+	attr String socketReceiveBufferBytes = "65536";
+	attr String fetchMessageMaxBytes = "1048576";
+	attr String numConsumerFetches = "1";
+	attr boolean autoCommitEnable;
+	attr String autoCommitIntervalMs = "60000";
+	attr String queuedMaxMessageChunks = "2";
+	attr String rebalanceMaxRetries = "4";
+	attr String fetchMinBytes = "1";
+	attr String fetchWaitMaxMs = "100";
+	attr String rebalanceBackoffMs = "2000";
+	attr String refreshLeaderBackoffMs = "200";
+	attr AutoOffsetResetType autoOffsetReset = "largest";
+	attr String consumerTimeoutMs = "3000";
+	attr boolean excludeInternalTopics = false;
+	attr PartitionAssignmentStrategyType partitionAssignmentStrategy = "roundrobin";
+	attr String clientId = "";
+	attr String zookeeperSessionTimeoutMs = "6000";
+	attr String zookeeperConnectionTimeoutMs = "6000";
+	attr String zookeeperSyncTimeMs = "2000";
+	attr OffsetsStorageType offsetsStorage = "zookeeper";
+	attr String offsetsChannelBackoffMs = "1000";
+	attr String offsetsChannelSocketTimeoutMs = "10000";
+	attr String offsetsCommitMaxRetries = "5";
+	attr boolean dualCommitEnabled = true;
+	attr String inboundCxfRmHost = "";
+	attr String inboundCxfRmPort = "";
+	attr String inboundCxfRmConfigFile = "";
+	attr boolean enableSSL;
+	val InboundEndpointParameter[*] serviceParameters;
+	attr boolean suspend = false;
+	attr String transportRabbitMqConnectionFactory = "AMQPConnectionFactory";
+	attr String transportRabbitMqServerHostName;
+	attr String transportRabbitMqServerPort;
+	attr String transportRabbitMqServerUserName;
+	attr String transportRabbitMqServerPassword;
+	attr String transportRabbitMqQueueName;
+	attr String transportRabbitMqExchangeName;
+	attr String transportRabbitMqQueueDurable;
+	attr String transportRabbitMqQueueExclusive;
+	attr String transportRabbitMqQueueAutoDelete;
+	attr String transportRabbitMqQueueAutoAck;
+	attr String transportRabbitMqQueueRoutingKey;
+	attr String transportRabbitMqQueueDeliveryMode;
+	attr String transportRabbitMqExchangeType;
+	attr String transportRabbitMqExchangeDurable;
+	attr String transportRabbitMqExchangeAutoDelete;
+	attr String transportRabbitMqServerVirtualHost;
+	attr String transportRabbitMqFactoryHeartbeat;
+	attr String transportRabbitMqConnectionSslEnabled;
+	attr String transportRabbitMqConnectionSslKeystoreLocation;
+	attr String transportRabbitMqConnectionSslKeystoreType;
+	attr String transportRabbitMqConnectionSslKeystorePassword;
+	attr String transportRabbitMqConnectionSslTruststoreLocation;
+	attr String transportRabbitMqConnectionSslTruststoreType;
+	attr String transportRabbitMqConnectionSslTruststorePassword;
+	attr String transportRabbitMqConnectionSslVersion;
+	attr String transportRabbitMqMessageContentType;
+	attr String transportRabbitMqConnectionRetryCount;
+	attr String transportRabbitMqConnectionRetryInterval;
+	attr String transportRabbitMqServerRetryInterval;
+	val RegistryKeyProperty transportRabbitMqConsumerQosKey;
+	attr String wsInboundPort;
+	attr WSClientSideBroadcastLevel wsClientSideBroadcastLevel;
+	attr String wsOutflowDispatchSequence;
+	attr String wsOutflowDispatchFaultSequence;
+	attr String wsBossThreadPoolSize;
+	attr String wsWorkerThreadPoolSize;
+	attr String wsSubprotocolHandlerClass;
+	attr String wsPipelineHandlerClass;
+	attr String transportFeedURL = "";
+	attr FeedType transportFeedType;
+	attr boolean traceEnabled;
+	attr boolean statisticsEnabled;
+	attr String transportJMSRetriesBeforeSuspension;
+	attr boolean transportJMSResetConnectionOnPollingSuspension = false;
+	attr String transportJMSPollingSuspensionPeriod;
+	attr String transportMQTTSslKeystoreLocation;
+	attr String transportMQTTSslKeystoreType;
+	attr String transportMQTTSslKeystorePassword;
+	attr String transportMQTTSslTruststoreLocation;
+	attr String transportMQTTSslTruststoreType;
+	attr String transportMQTTSslTruststorePassword;
+	attr String transportMQTTSslVersion;
+	attr String wssSslKeyStoreFile;
+	attr String wssSslKeyStorePass;
+	attr String wssSslTrustStoreFile;
+	attr String wssSslTrustStorePass = "";
+	attr String wssSslCertPass;
+	attr String wsDefaultContentType;
+	attr String wsShutdownStatusCode;
+	attr String wsShutdownStatusMessage;
+	attr boolean wsUsePortOffset;
+	attr String wssSslProtocols;
+	attr String wssSslCipherSuites;
+	attr String transportRabbitMqConsumerQos;
+	attr PayloadFormatType transportRabbitMqConsumerQosType = "Registry Reference";
+	attr String transportJMSDBUrl = "";
+}
+
+class InboundEndpointParameter {
+	attr String name = "parameter_name";
+	attr String value = "parameter_value";
+}
+
+enum InboundEndpointType {
+	http = 0;
+	file = 1;
+	jms = 2;
+	custom = 3;
+	https = 4;
+	hl7 = 5;
+	kafka = 6;
+	cxf_ws_rm = 7;
+	mqtt = 8;
+	rabbitmq = 9;
+	feed = 10;
+	wso2_mb = 11;
+	ws = 12;
+	wss = 13;
+}
+
+enum InboundEndpointBehaviourType {
+	pollingInboundEndpoint = 0;
+	listeningInboundEndpoint = 1;
+	eventBasedInboundEndpoint = 2;
+}
+
+enum ContentType {
+	xml = 0;
+	json = 1;
+}
+
+enum TopicsType {
+	topics = 0;
+	TopicFilter = 1;
+}
+
+enum TopicFilterFromType {
+	filterFromWhitelist = 0;
+	filterFromBlacklist = 1;
+}
+
+enum ConsumerType {
+	highlevel = 0;
+	simple = 1;
+}
+
+enum AutoOffsetResetType {
+	smallest = 0;
+	largest = 1;
+}
+
+enum PartitionAssignmentStrategyType {
+	roundrobin = 0;
+	range = 1;
+}
+
+enum OffsetsStorageType {
+	zookeeper = 0;
+	kafka = 1;
+}
+
+enum Enable {
+	enable = 0;
+	disable = 1;
+}
+
+enum VFSAction {
+	DELETE = 0;
+	MOVE = 1;
+}
+
+enum VFSFileSort {
+	none = 0;
+	name = 1;
+	size = 2;
+	lastmodifiedtimestamp = 3;
+}
+
+enum JMSConnectionFactoryType {
+	topic = 0;
+	queue = 1;
+}
+
+enum JMSSessionAcknowledgement {
+	AUTO_ACKNOWLEDGE = 0;
+	CLIENT_ACKNOWLEDGE = 1;
+	DUPS_OK_ACKNOWLEDGE = 2;
+	SESSION_TRANSACTED = 3;
+}
+
+enum JMSCacheLevel {
+	three = 3;
+	two = 2;
+	one = 1;
+}
+
+enum JMSBrokerType {
+	WSO2_BROKER_PROFILE = 0;
+	ActiveMQ = 1;
+	OTHER = 2;
+}
+
+enum StoreMediatorSpecifyType {
+	Value = 0;
+	Expression = 0;
+}
+
+enum WSClientSideBroadcastLevel {
+	zero = 0;
+	one = 1;
+	two = 2;
+}
+
+enum MQTTSubscriptionQOS {
+	zero = 0;
+	one = 1;
+	two = 2;
+}
+
+enum FeedType {
+	atom = 0;
+	rss = 1;
+}
+
+class InboundEndpointContainer extends EsbElement {
+	val InboundEndpointSequenceContainer sequenceContainer;
+	val InboundEndpointOnErrorSequenceContainer onErrorSequenceContainer;
+}
+
+class InboundEndpointSequenceContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class InboundEndpointOnErrorSequenceContainer extends EsbNode {
+	val MediatorFlow mediatorFlow;
+}
+
+class InboundEndpointSequenceInputConnector extends InputConnector {
+}
+
+class InboundEndpointSequenceOutputConnector extends OutputConnector {
+}
+
+class InboundEndpointOnErrorSequenceOutputConnector extends OutputConnector {
+}
+
+class InboundEndpointOnErrorSequenceInputConnector extends InputConnector {
+}
+
+class CommentMediator extends Mediator {
+	attr String commentText = "class_name";
+}
+
+enum EnableDisableState {
+	Disabled = 0;
+	Enabled = 1;
+}
+
+enum APIVersionType {
+	None = 0;
+	Context = 1;
+	URL = 2;
+}
+
+enum CacheScopeType {
+	Per_Host = 0;
+	Per_Mediator = 1;
+}
+
+enum CacheImplementationType {
+	memory = 0;
+	disk = 1;
+}
+
+enum CacheMediatorType {
+	Default = 0;
+	Compatibility_611 = 1;
+}
+
+enum PayloadFactoryEvaluatorType {
+	XML = 0;
+	JSON = 1;
+}
+
+class JsonTransformMediator extends Mediator {
+	val JsonTransformMediatorInputConnector inputConnector;
+	val JsonTransformMediatorOutputConnector outputConnector;
+	val JsonTransformMediatorProperty[*] jsonTransformProperties;
+	val RegistryKeyProperty schema;
+}
+
+class JsonTransformMediatorOutputConnector extends OutputConnector {
+}
+
+class JsonTransformMediatorInputConnector extends InputConnector {
+}
+
+class JsonTransformMediatorProperty extends AbstractNameValueExpressionProperty {
+}
+

@@ -1,0 +1,3041 @@
+@Tags(deprecated="Anything tagged as deprecated will disappear quite soon.
+
+", "to be renamed"="Anything tagged \"to be renamed\" will be renamed, at least in the UI
+")
+@namespace(uri="http://www.eclipse.org/sirius/1.1.0", prefix="viewpoint")
+package viewpoint;
+
+import "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore";
+
+class DAnalysis {
+	ref DAnalysis[*] referencedAnalysis;
+	ref ecore.EObject[*] models;
+	!resolve val description.DAnnotationEntry[*] eAnnotations;
+	val DView[*] ownedViews;
+	ref DView[*] selectedViews;
+	val DFeatureExtension[*] ownedFeatureExtensions;
+	attr ecore.EString version;
+}
+
+abstract class DFeatureExtension {
+	ref description.FeatureExtensionDescription[1] description;
+}
+
+@GenModel(documentation="Represents an element that can be validated.")
+abstract interface DValidable {
+
+	@GenModel(documentation="Validate the element. Return <code>false</code> if the element is not valid.")
+	op ecore.EBoolean validate();
+}
+
+@GenModel(documentation="Represents an element that can be navigate. The user can see the details in another editor.")
+abstract class DNavigable {
+
+	@GenModel(documentation="The links of the navigable element.")
+	val DNavigationLink[*] ownedNavigationLinks;
+}
+
+@GenModel(documentation="An element that has a style.")
+abstract interface DStylizable {
+
+	@GenModel(documentation="Return the style of the element.")
+	op Style getStyle();
+}
+
+@GenModel(documentation="An element that can be refreshed.")
+abstract interface DRefreshable {
+
+	@GenModel(documentation="Refresh the element.")
+	op void refresh();
+}
+
+@GenModel(documentation="An element that has a label.")
+abstract interface DLabelled {
+}
+
+@GenModel(documentation="An element that has a mapping.")
+abstract interface DMappingBased {
+
+	@GenModel(documentation="Return the mapping of the element.")
+	op description.RepresentationElementMapping getMapping();
+}
+
+@GenModel(documentation="An element that contains others diagram elements.")
+abstract interface DContainer {
+}
+
+class DRepresentationContainer extends DView {
+	op void addSemanticDiagram(diagram.DSemanticDiagram diagram);
+
+	@GenModel(documentation="Set of diagrams grouped by DiagramDescription.")
+	unsettable val diagram.DDiagramSet[*] diagramSet;
+	readonly volatile transient derived ref ecore.EObject[*] models;
+}
+
+@GenModel(documentation="An element that has a link to the semantic model.")
+abstract class DSemanticDecorator {
+
+	@GenModel(documentation="The referenced EObject.")
+	ref EObject[1] target;
+}
+
+abstract class DRepresentation extends description.DocumentedElement, DRefreshable, description.DModelElement {
+
+	@GenModel(documentation="Initialize the contents (ViewNode, ViewNodeContainer, etc.) of the viewpoint.")
+	op void createContents();
+
+	@GenModel(documentation="Initialize the content (ViewNode, ViewNodeContainer, etc.) of the viewpoint.")
+	op void createContents(@GenModel(documentation="The root EObject of the semantic model.
+The content of the viewpoint is computed from this object.")
+ecore.EObject rootElement);
+
+	@GenModel(documentation="Update the content of the viewpoint according to the semantic model changes. It deletes useless elements and adds new elements.")
+	op void updateContent();
+
+	@GenModel(documentation="The directly contained representation elements")
+	readonly volatile transient derived ref DRepresentationElement[*] ownedRepresentationElements;
+
+	@GenModel(documentation="The directly and indirectly contained representation elements")
+	readonly volatile transient derived ref DRepresentationElement[*] representationElements;
+
+	@GenModel(documentation="The name of the representation.")
+	attr String name = "";
+	val description.AnnotationEntry[*] ownedAnnotationEntries;
+}
+
+abstract class DRepresentationElement extends DLabelled, DMappingBased, DStylizable, DRefreshable, DSemanticDecorator {
+
+	@GenModel(documentation="The name of the element. It is the name that is displayed on the diagram.")
+	attr String name = "";
+
+	@GenModel(documentation="The semantic elements to show that represents this view point element.")
+	ref ecore.EObject[*] semanticElements;
+}
+
+@GenModel(documentation="An view is the root element")
+class DView extends DRefreshable {
+
+	@GenModel(documentation="The viewpoints that are owned by this analysis.")
+	val DRepresentation[*] ownedRepresentations;
+
+	@GenModel(documentation="The Meta Model extension for this analysis. It may be null.")
+	val MetaModelExtension ownedExtensions;
+
+	@GenModel(documentation="All viewpoints of this analysis")
+	readonly volatile transient derived ref DRepresentation[*] allRepresentations;
+
+	@GenModel(documentation="All hidden viewpoints of this analysis.")
+	val DRepresentation[*] hiddenRepresentations;
+
+	@GenModel(documentation="ViewPoints referenced but not contained in this analysis.")
+	ref DRepresentation[*] referencedRepresentations;
+	attr ecore.EBoolean[1] initialized;
+
+	@GenModel(documentation="The viewpoint that is used for this view")
+	ref description.Viewpoint[1] viewpoint;
+}
+
+@GenModel(documentation="Represent a Meta Model extension.
+A meta model extension adds types, attributes and references into an existing meta model")
+class MetaModelExtension {
+
+	@GenModel(documentation="The referenced meta model extension. It should be an instance of ExtensionGroup.")
+	ref ecore.EObject[1] extensionGroup;
+}
+
+@GenModel(documentation="Represent a decoration of a diagram element with a specific icon, based on its relationships with MetaElements of the MetaModel.
+")
+class Decoration {
+
+	@GenModel(documentation="The referenced DecorationDescription.")
+	ref description.DecorationDescription[1] description;
+}
+
+@GenModel(documentation="A link for a navigable.")
+abstract class DNavigationLink {
+
+	@GenModel(documentation="Return true if the navigation is available.")
+	op ecore.EBoolean isAvailable();
+
+	@GenModel(documentation="The type of the target.")
+	attr description.NavigationTargetType targetType;
+
+	@GenModel(documentation="The label of the navigation.")
+	attr ecore.EString label = "link to...";
+}
+
+@GenModel(documentation="A link that references an EObject.")
+class DEObjectLink extends DNavigationLink {
+
+	@GenModel(documentation="The referenced EObject.")
+	ref ecore.EObject[1] target;
+}
+
+@GenModel(documentation="A link that references a Source File.")
+class DSourceFileLink extends DNavigationLink {
+
+	@GenModel(documentation="The path of the source file.")
+	attr ecore.EString[1] filePath;
+
+	@GenModel(documentation="The index of the start portion of code.")
+	attr ecore.EInt startPosition = "0";
+
+	@GenModel(documentation="The index of the end portion of code.")
+	attr ecore.EInt endPosition = "1";
+}
+
+class DAnalysisCustomData {
+	attr ecore.EString[1] key;
+	val ecore.EObject[1] data;
+}
+
+@GenModel(documentation="The style of a label.")
+class LabelStyle extends BasicLabelStyle {
+	attr LabelAlignment labelAlignment;
+}
+
+@GenModel(documentation="The format of the font.")
+enum FontFormat {
+	normal = 0;
+	italic = 1;
+	bold = 2;
+	bold_italic = 3;
+}
+
+@GenModel(documentation="The super class of all styles.")
+abstract class Style extends DRefreshable, Customizable {
+	ref description.style.StyleDescription description;
+}
+
+datatype ExtendedPackage : org.eclipse.sirius.ecore.extender.business.api.accessor.ModelAccessor;
+
+@GenModel(documentation="A DragAndDropTarget is an element that can managed drop requests.")
+class DragAndDropTarget {
+
+	@GenModel(documentation="Return the description of this Drag&Drop Target.")
+	op description.DragAndDropTargetDescription getDragAndDropDescription();
+}
+
+enum LabelAlignment {
+	CENTER = 0;
+	LEFT = 1;
+	RIGHT = 2;
+}
+
+class RGBValues {
+	attr ecore.EInt[1] red;
+	attr ecore.EInt[1] green;
+	attr ecore.EInt[1] blue;
+}
+
+class DAnalysisSessionEObject {
+	attr ecore.EBoolean[1] open;
+	attr ecore.EBoolean[1] blocked;
+	transient attr ecore.EResource[*] resources;
+	transient attr ecore.EResource[*] controlledResources;
+	ref description.Viewpoint[*] activatedViewpoints;
+	ref DAnalysis[*] analyses;
+	attr SyncStatus[1] synchronizationStatus = "dirty";
+}
+
+enum SyncStatus {
+	dirty = 0;
+	sync = 1;
+}
+
+class SessionManagerEObject {
+	val DAnalysisSessionEObject[*] ownedSessions;
+}
+
+abstract interface DResource {
+	attr String[1] name;
+	attr String[1] path;
+}
+
+class DFile extends DResource {
+}
+
+class DResourceContainer extends DResource {
+	val DResource[*] members;
+}
+
+class DProject extends DResourceContainer {
+}
+
+class DFolder extends DResourceContainer {
+}
+
+class DModel extends DFile {
+}
+
+@GenModel(documentation="The style of a label.")
+class BasicLabelStyle extends Customizable {
+
+	@GenModel(documentation="The font size.")
+	attr ecore.EInt labelSize = "8";
+
+	@GenModel(documentation="The font format.")
+	attr FontFormat labelFormat = "normal";
+
+	@GenModel(documentation="True, if the icon shoud be dispayed on the element.")
+	attr boolean showIcon = true;
+	val RGBValues labelColor;
+
+	@GenModel(documentation="The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.")
+	attr ecore.EString iconPath = "";
+}
+
+abstract class Customizable {
+	attr String[*] customFeatures;
+}
+
+@namespace(uri="http://www.eclipse.org/sirius/description/1.1.0", prefix="description")
+package description {
+	class Group extends DModelElement, DocumentedElement {
+		attr String name = "";
+		val Viewpoint[*] ownedViewpoints;
+		transient ref SytemColorsPalette[1] systemColorsPalette;
+		val UserColorsPalette[*] userColorsPalettes;
+		attr ecore.EString version;
+	}
+
+	abstract interface Component {
+	}
+
+	@GenModel(documentation="A Viewpoint defines a \"way of looking at your model\", you could make an analogy with \"What is your current concern about your analysis\". It defines representations and might also define specific data only relevant for this concern.")
+	class Viewpoint extends DocumentedElement, Component, EndUserDocumentedElement, IdentifiedElement {
+
+		@GenModel(documentation="Initialize the analysis.")
+		op void initView(@GenModel(documentation="The root model element.")
+ecore.EObject model);
+
+		@GenModel(documentation="Might be used to restrict your viewpoint to a set of file extensions, for instance \"ecore\"")
+		attr String modelFileExtension = "*";
+
+		@GenModel(documentation="The validations rules")
+		val diagram.description.validation.ValidationSet validationSet;
+		val RepresentationDescription[*] ownedRepresentations;
+		val RepresentationExtensionDescription[*] ownedRepresentationExtensions;
+		val JavaExtension[*] ownedJavaExtensions;
+		val MetamodelExtensionSetting[*] ownedMMExtensions;
+		val FeatureExtensionDescription[*] ownedFeatureExtensions;
+
+		@GenModel(documentation="image path to use as an icon for the viewpoint ")
+		attr ecore.EString icon;
+		val RepresentationTemplate[*] ownedTemplates;
+		attr URI[*] conflicts;
+		attr URI[*] reuses;
+		attr URI[*] customizes;
+	}
+
+	abstract interface FeatureExtensionDescription {
+	}
+
+	abstract interface RepresentationDescription extends DocumentedElement, EndUserDocumentedElement, IdentifiedElement {
+
+		@GenModel(documentation="The default title of the representation. (new + name if empty)")
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a string.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+		attr InterpretedExpression titleExpression = "";
+
+		@GenModel(documentation="Set to true if your want your representation to be automatically created when initializing a new session.")
+		attr boolean[1] initialisation;
+
+		@GenModel(documentation="You might use this reference to statically bind your representation with a set of Ecore packages. Keep in mind that this is not mandatory.")
+		ref ecore.EPackage[*] metamodel;
+		attr ecore.EBoolean showOnStartup;
+	}
+
+	abstract class RepresentationTemplate {
+		attr ecore.EString[1] name;
+		val RepresentationDescription[*] ownedRepresentations;
+	}
+
+	abstract interface RepresentationImportDescription extends RepresentationDescription {
+	}
+
+	abstract interface RepresentationExtensionDescription {
+		attr ecore.EString[1] name;
+
+		@GenModel(documentation="The logical URI of the viewpoint you want to extend, in the form of viewpoint:/pluginID/ViewpointName")
+		attr ecore.EString[1] viewpointURI;
+
+		@GenModel(documentation="The name of the Representation you are extending.")
+		attr ecore.EString[1] representationName;
+
+		@GenModel(documentation="You might use this reference to statically bind your representation extension with a set of Ecore packages. Keep in mind that this is not mandatory.")
+		ref ecore.EPackage[*] metamodel;
+	}
+
+	@GenModel(documentation="Describe the Meta Model extension to use.")
+	class MetamodelExtensionSetting {
+
+		@GenModel(documentation="The Meta Model extension.")
+		ref ecore.EObject extensionGroup;
+	}
+
+	@GenModel(documentation="This class allows to import a Java Class that is used as an Acceleo Service. All acceleo expressions can use the services.")
+	class JavaExtension {
+
+		@GenModel(documentation="The name of the class to import.")
+		attr String[1] qualifiedClassName;
+	}
+
+	abstract class RepresentationElementMapping extends IdentifiedElement {
+
+		@GenModel(documentation="All details that can be created from this node.")
+		ref tool.RepresentationCreationDescription[*] detailDescriptions;
+
+		@GenModel(documentation="All details that can be created from this node.")
+		ref tool.RepresentationNavigationDescription[*] navigationDescriptions;
+	}
+
+	abstract class AbstractMappingImport {
+
+		@GenModel(documentation="Set to true if you don't want to inherit the sub mappings of the imported mapping.")
+		attr ecore.EBoolean hideSubMappings = "false";
+
+		@GenModel(documentation="Set to true if you want the filters applying on the imported mappings apply on this one.")
+		attr boolean inheritsAncestorFilters = true;
+	}
+
+	abstract class DocumentedElement {
+		attr String documentation = "";
+	}
+
+	abstract class DModelElement {
+		op DAnnotation getDAnnotation(String source);
+		!resolve val DAnnotation[*] eAnnotations;
+	}
+
+	class DAnnotation {
+		attr String source;
+		!resolve val ecore.EStringToStringMapEntry[*] details;
+	}
+
+	abstract class ConditionalStyleDescription {
+		op ecore.EBoolean checkPredicate(ecore.EObject modelElement, ecore.EObject viewVariable, ecore.EObject containerVariable);
+
+		@GenModel(documentation="This expression will get evaluated and if it returns true the contained style will be choosen.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"(view="ecore.EObject | the current view.", container="ecore.EObject | the semantic container.")
+		attr InterpretedExpression[1] predicateExpression;
+	}
+
+	datatype TypeName : java.lang.String;
+
+	datatype InterpretedExpression : java.lang.String;
+
+	datatype FeatureName : java.lang.String;
+
+	enum NavigationTargetType {
+		model = 0;
+		file = 1;
+	}
+
+	@GenModel(documentation="A DragAndDropTargetDescription is a Description or Mapping that can have many DropTools")
+	abstract class DragAndDropTargetDescription {
+		ref tool.ContainerDropDescription[*] dropDescriptions;
+	}
+
+	@GenModel(documentation="A PasteTargetDescription is a Description or Mapping that can have many PasteTools.")
+	abstract class PasteTargetDescription {
+		ref tool.PasteDescription[*] pasteDescriptions;
+	}
+
+	class DecorationDescriptionsSet {
+		val DecorationDescription[*] decorationDescriptions;
+	}
+
+	abstract class DecorationDescription {
+
+		@GenModel(documentation="The name of the decoration.")
+		attr ecore.EString[1] name;
+		attr Position[1] position = "SOUTH_WEST";
+
+		@GenModel(documentation="The path of the icon of the decoration.")
+		attr ecore.EString[1] decoratorPath;
+
+		@GenModel(documentation="Expression that filters the elements on which we want to display the decoration.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"(containerView="viewpoint.DSemanticDecorator | the view that would contain the potential views of the checked elements.", container="ecore.EObject | the semantic element of the container view.", viewpoint="diagram.DDiagram | (deprecated) the current diagram.", diagram="diagram.DDiagram | the current diagram.")
+		attr InterpretedExpression preconditionExpression;
+	}
+
+	enum Position {
+		NORTH = 0;
+		WEST = 1;
+		SOUTH = 2;
+		EAST = 3;
+		NORTH_WEST = 4;
+		NORTH_EAST = 5;
+		SOUTH_WEST = 6;
+		SOUTH_EAST = 7;
+		CENTER = 8;
+	}
+
+	@GenModel(documentation="A SemanticBasedDecoration applies decoration on views that targeted an element of the given type.")
+	class SemanticBasedDecoration extends DecorationDescription {
+
+		@GenModel(documentation="The path of the icon of the decoration.")
+		attr ecore.EString domainClass;
+	}
+
+	class Customization {
+		val IVSMElementCustomization[+] vsmElementCustomizations;
+	}
+
+	abstract interface IVSMElementCustomization {
+	}
+
+	class VSMElementCustomization extends IVSMElementCustomization {
+
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean result. True to enable the customization, false to disabled it. True by default.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"(view="ecore.EObject | the current view.", container="ecore.EObject | the semantic container.")
+		attr InterpretedExpression predicateExpression;
+		val EStructuralFeatureCustomization[+] featureCustomizations;
+	}
+
+	class VSMElementCustomizationReuse extends IVSMElementCustomization {
+		ref EStructuralFeatureCustomization[+] reuse;
+		ref ecore.EObject[+] appliedOn;
+	}
+
+	abstract class EStructuralFeatureCustomization {
+		ref ecore.EObject[*] appliedOn;
+		attr boolean applyOnAll;
+	}
+
+	class EAttributeCustomization extends EStructuralFeatureCustomization {
+		attr ecore.EString[1] attributeName;
+
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="A java Object to affect as new value of a EAttribute, for example a java primitive.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"(view="ecore.EObject | the current view.", container="ecore.EObject | the semantic container.")
+		attr InterpretedExpression value;
+	}
+
+	class EReferenceCustomization extends EStructuralFeatureCustomization {
+		attr ecore.EString[1] referenceName;
+		ref ecore.EObject value;
+	}
+
+	abstract interface SelectionDescription {
+
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", containerView="viewpoint.DSemanticDecorator | the view of the container.", container="ecore.EObject | the semantic element of the container.")
+		attr InterpretedExpression[1] candidatesExpression;
+		attr ecore.EBoolean[1] multiple;
+
+		@GenModel(documentation="Set to true if you want a tree representation of the selection candidates.")
+		attr ecore.EBoolean[1] tree;
+
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", containerView="viewpoint.DSemanticDecorator | the view of the container.", container="ecore.EObject | the semantic element of the container.")
+		attr InterpretedExpression rootExpression;
+
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", containerView="viewpoint.DSemanticDecorator | the view of the container.", container="ecore.EObject | the semantic element of the container.")
+		attr InterpretedExpression childrenExpression;
+		attr ecore.EString message;
+	}
+
+	@GenModel(documentation="A color definition, which can produce a concrete RGB triplet.")
+	abstract class ColorDescription {
+	}
+
+	@GenModel(documentation="A subtype of FixedColor which is only used in the system palette.
+Graphical elements which only support colors from the system
+palette can use this type instead of the more general FixedColor.")
+	class SystemColor extends FixedColor {
+
+		@GenModel(documentation="The name of the color description, as shown to the user in color palettes.")
+		attr String[1] name;
+	}
+
+	@GenModel(documentation="Describes a color which varies between two level color depending on the values of dynamically computed expressions.
+
+@Deprecated : Describes a color which varies between two extremes (red and green)
+depending on the values of dynamically computed expressions.")
+	class InterpolatedColor extends ColorDescription, UserColor {
+
+		@GenModel(documentation="An expression computing the value of the color. The value of the color must be include in the scale bounds")
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+		attr InterpretedExpression[1] colorValueComputationExpression = "<%eContents().nSize%>";
+
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+		attr InterpretedExpression[1] minValueComputationExpression = "0";
+
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+		attr InterpretedExpression[1] maxValueComputationExpression = "10";
+		val ColorStep[*] colorSteps;
+	}
+
+	@GenModel(documentation="A ColorStep is identified by its associatedValue and references an associatedColor (FixedColor).
+")
+	class ColorStep {
+
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+		attr InterpretedExpression[1] associatedValue = "";
+		ref FixedColor[1] associatedColor;
+	}
+
+	@GenModel(documentation="A fixed color description defined by a specific RGB triplet.")
+	class FixedColor extends ColorDescription {
+
+		@GenModel(documentation="The red value of the RGB color.")
+		attr ecore.EInt[1] red = "125";
+
+		@GenModel(documentation="The green value of the RGB color.")
+		attr ecore.EInt[1] green = "125";
+
+		@GenModel(documentation="The blue value of the RGB color.")
+		attr ecore.EInt[1] blue = "125";
+	}
+
+	class UserFixedColor extends FixedColor, UserColor {
+	}
+
+	abstract class UserColor {
+
+		@GenModel(documentation="The name of the color description, as shown to the user in color palettes.")
+		attr String[1] name;
+	}
+
+	@GenModel(documentation="The list of colors available in the system palette.")
+	enum SystemColors {
+		black = 0;
+		blue = 1;
+		red = 2;
+		green = 3;
+		yellow = 4;
+		purple = 5;
+		orange = 6;
+		chocolate = 7;
+		gray = 8;
+		white = 9;
+		dark_blue = 11;
+		dark_red = 12;
+		dark_green = 13;
+		dark_yellow = 14;
+		dark_purple = 15;
+		dark_orange = 16;
+		dark_chocolate = 17;
+		dark_gray = 18;
+		light_blue = 21;
+		light_red = 22;
+		light_green = 23;
+		light_yellow = 24;
+		light_purple = 25;
+		light_orange = 26;
+		light_chocolate = 27;
+		light_gray = 28;
+	}
+
+	class Environment {
+		val SytemColorsPalette systemColors;
+		val tool.ToolEntry[*] defaultTools;
+		val style.LabelBorderStyles labelBorderStyles;
+	}
+
+	class SytemColorsPalette {
+		val SystemColor[*] entries;
+	}
+
+	class UserColorsPalette {
+		attr ecore.EString[1] name;
+		val UserColor[*] entries;
+	}
+
+	class AnnotationEntry {
+		attr String source;
+		!resolve val ecore.EObject data;
+	}
+
+	abstract class EndUserDocumentedElement {
+		attr String endUserDocumentation = "";
+	}
+
+	@GenModel(documentation="All elements which are identified by its name (id) and which have a label to display it to the end-user.")
+	class IdentifiedElement {
+
+		@GenModel(documentation="The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.")
+		attr String[1] name = "";
+
+		@GenModel(documentation="The label used to display this viewpoint to the end-user.")
+		attr String label;
+	}
+
+	@GenModel(documentation="Describes a color which each value red, blue and green are computed expressions.")
+	class ComputedColor extends UserColor, ColorDescription {
+
+		@GenModel(documentation="An expression computing the value of the color.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+		attr InterpretedExpression[1] red = "";
+
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+		attr InterpretedExpression[1] green = "";
+
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+		attr InterpretedExpression[1] blue = "";
+	}
+
+	class DAnnotationEntry {
+		attr String source;
+		attr String[*] details;
+	}
+
+	datatype URI : org.eclipse.emf.common.util.URI;
+
+	@namespace(uri="http://www.eclipse.org/sirius/description/style/1.1.0", prefix="style")
+	package style {
+		abstract interface StyleDescription {
+		}
+
+		@GenModel(documentation="The style of a label.")
+		class BasicLabelStyleDescription {
+
+			@GenModel(documentation="The font size.")
+			attr ecore.EInt labelSize = "8";
+
+			@GenModel(documentation="The font format.")
+			attr FontFormat labelFormat = "normal";
+
+			@GenModel(documentation="True, if the icon shoud be dispayed on the element.")
+			attr boolean showIcon = true;
+
+			@GenModel(documentation="Expression that computes the name of a node.")
+			@GenModel(contentassist="")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a string.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DSemanticDiagram.", view="diagram.DDiagramElement | the current view for which the label is calculated.")
+			attr InterpretedExpression labelExpression = "feature:name";
+			ref ColorDescription[1] labelColor;
+
+			@GenModel(documentation="The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.")
+			attr ecore.EString iconPath = "";
+		}
+
+		@GenModel(documentation="The style of a label.")
+		class LabelStyleDescription extends BasicLabelStyleDescription {
+			attr LabelAlignment labelAlignment;
+		}
+
+		@GenModel(documentation="A group of LabelBorderStyleDescription to store in Environment.xmi.")
+		class LabelBorderStyles {
+			val LabelBorderStyleDescription[*] labelBorderStyleDescriptions;
+		}
+
+		@GenModel(documentation="The style of the border of a container label.")
+		class LabelBorderStyleDescription {
+			attr ecore.EString ~id;
+			attr ecore.EString name;
+			attr ecore.EInt cornerHeight;
+			attr ecore.EInt cornerWidth;
+		}
+
+		class TooltipStyleDescription {
+
+			@GenModel(documentation="This expression is used to compute the text of the optional tooltip shown when the user leaves the mouse on an element.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a string.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(view="viewpoint.DSemanticDecorator | the current view.")
+			attr InterpretedExpression tooltipExpression = "";
+		}
+
+	}
+
+	@namespace(uri="http://www.eclipse.org/sirius/description/tool/1.1.0", prefix="tool")
+	package tool {
+		abstract interface ToolEntry extends DocumentedElement, IdentifiedElement {
+		}
+
+		@GenModel(documentation="Base class of all tools.")
+		abstract class AbstractToolDescription extends ToolEntry {
+
+			@GenModel(documentation="The precondition of the tool.")
+			@GenModel(contentassist="")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(container="ecore.EObject | the container.")
+			attr InterpretedExpression precondition = "";
+
+			@GenModel(documentation="If true then a refresh for the whole representation is executed after every execution of the tool.")
+			attr ecore.EBoolean forceRefresh = "false";
+			val ToolFilterDescription[*] filters;
+		}
+
+		@GenModel(documentation="A mapping based tool. This is a tool that create a ViewPointElement.")
+		abstract class MappingBasedToolDescription extends AbstractToolDescription {
+		}
+
+		class ToolDescription extends MappingBasedToolDescription {
+
+			@GenModel(documentation="The path of the icon to display in the palette. If unset, the icon corresponding to the semantic element associated with the mapping will be displayed.")
+			attr ecore.EString iconPath = "";
+
+			@GenModel(documentation="The variable container that represents the semantic element of the clicked view.", documentedName="element")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(type="ecore.EObject")
+			val ElementVariable[1] element;
+
+			@GenModel(documentation="The variable that represents the clicked view.", documentedName="elementView")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(type="ecore.EObject")
+			val ElementViewVariable[1] elementView;
+
+			@GenModel(documentation="The first operation to execute.")
+			val InitialOperation[1] initialOperation;
+		}
+
+		@GenModel(documentation="Tool that describes a Drag & Drop operation.")
+		class ContainerDropDescription extends MappingBasedToolDescription {
+			op diagram.description.DiagramElementMapping getBestMapping(DragAndDropTarget targetContainer, ecore.EObject droppedElement);
+			op DragAndDropTargetDescription[+] getContainers();
+
+			@GenModel(documentation="All mapping that can create the target view.")
+			ref diagram.description.DiagramElementMapping[*] mappings;
+
+			@GenModel(documentation="The semantic element of the old container view.", documentedName="oldSemanticElement")
+			val DropContainerVariable[1] oldContainer;
+
+			@GenModel(documentation="The semantic element of the new container view.", documentedName="newSemanticContainer")
+			val DropContainerVariable[1] newContainer;
+
+			@GenModel(documentation="The semantic element that is dragged and dropped.")
+			val ElementDropVariable[1] element;
+
+			@GenModel(documentation="The new view container (instance of ViewPoint or ViewPointElement).", documentedName="newContainerView")
+			val ContainerViewVariable[1] newViewContainer;
+
+			@GenModel(documentation="The first operation.")
+			val InitialContainerDropOperation[1] initialOperation;
+
+			@GenModel(documentation="Authorized sources of the drag.")
+			attr DragSource[1] dragSource;
+
+			@GenModel(documentation="Set to true if you want to automatically move the edges associated with a node.")
+			attr boolean[1] moveEdges;
+		}
+
+		@GenModel(documentation="Tool that describes a paste operation.")
+		class PasteDescription extends MappingBasedToolDescription {
+			op PasteTargetDescription[*] getContainers();
+
+			@GenModel(documentation="The semantic element of the new container view.", documentedName="newSemanticContainer")
+			val DropContainerVariable[1] container;
+
+			@GenModel(documentation="The new view container (DRepresentation of DRepresentationElement).", documentedName="newContainerView")
+			val ContainerViewVariable[1] containerView;
+
+			@GenModel(documentation="The copied view.", documentedName="oldSemanticElement")
+			val ElementViewVariable[1] copiedView;
+
+			@GenModel(documentation="The copied semantic element.")
+			val ElementVariable[1] copiedElement;
+
+			@GenModel(documentation="The first operation.")
+			val InitialOperation[1] initialOperation;
+		}
+
+		class SelectionWizardDescription extends AbstractToolDescription, SelectionDescription {
+			val ElementSelectVariable[1] element;
+			val ContainerViewVariable[1] containerView;
+			val SelectContainerVariable[1] container;
+			val InitialOperation[1] initialOperation;
+			attr ecore.EString[1] iconPath = "/org.eclipse.sirius.ui/icons/full/obj16/NodeMapping.gif";
+
+			@GenModel(documentation="Title of the dialog.")
+			attr ecore.EString[1] windowTitle = "Selection Wizard";
+			attr ecore.EString windowImagePath;
+		}
+
+		class PaneBasedSelectionWizardDescription extends AbstractToolDescription {
+			val ElementSelectVariable[1] element;
+			val ContainerViewVariable[1] containerView;
+			val SelectContainerVariable[1] container;
+			val InitialOperation[1] initialOperation;
+			attr ecore.EString[1] iconPath = "/org.eclipse.sirius.ui/icons/full/obj16/NodeMapping.gif";
+
+			@GenModel(documentation="Title of the dialog.")
+			attr ecore.EString[1] windowTitle = "Selection Wizard";
+			attr ecore.EString windowImagePath;
+			attr ecore.EString message;
+			attr ecore.EString choiceOfValuesMessage = "Choice of values";
+
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", containerView="viewpoint.DSemanticDecorator | the selected view.", container="ecore.EObject | the semantic element of containerView.")
+			attr InterpretedExpression[1] candidatesExpression;
+
+			@GenModel(documentation="Set to true if you want a tree representation of the selection candidates.")
+			attr ecore.EBoolean[1] tree;
+
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", containerView="viewpoint.DSemanticDecorator | the selected view.", container="ecore.EObject | the semantic element of containerView.")
+			attr InterpretedExpression rootExpression;
+
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", containerView="viewpoint.DSemanticDecorator | the selected view.", container="ecore.EObject | the semantic element of containerView.")
+			attr InterpretedExpression childrenExpression;
+			attr ecore.EString selectedValuesMessage = "Selected values";
+
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", containerView="viewpoint.DSemanticDecorator | the selected view.", container="ecore.EObject | the semantic element of containerView.")
+			attr InterpretedExpression preSelectedCandidatesExpression;
+		}
+
+		abstract class RepresentationCreationDescription extends AbstractToolDescription {
+			op RepresentationElementMapping[+] getMappings();
+
+			@GenModel(documentation="The default title of the representation to create. (new + name if empty)")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a string.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression titleExpression = "";
+
+			@GenModel(documentation="You might put here an expression to browse the semantic model to get to a new place before creating the representation.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression browseExpression;
+			readonly volatile transient derived ref RepresentationDescription[1] representationDescription;
+			val InitialOperation initialOperation;
+
+			@GenModel(documentation="The variable containerView that represents the clickedView (instance of ViewPoint or ViewPointElement).", documentedName="containerView")
+			val ContainerViewVariable[1] containerViewVariable;
+
+			@GenModel(documentation="The variable representationName that represents the name of the created representation.", documentedName="representationName")
+			val NameVariable[1] representationNameVariable;
+		}
+
+		abstract class RepresentationNavigationDescription extends AbstractToolDescription {
+			op RepresentationElementMapping[+] getMappings();
+
+			@GenModel(documentation="Expression returning the navigation target.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression browseExpression;
+
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a string.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(name="name of the targeted Representation.")
+			attr InterpretedExpression navigationNameExpression;
+			readonly volatile transient derived ref RepresentationDescription[1] representationDescription;
+
+			@GenModel(documentation="The variable containerView that represents the clickedView (instance of ViewPoint or ViewPointElement).", documentedName="containerView")
+			val ContainerViewVariable[1] containerViewVariable;
+
+			@GenModel(documentation="The variable container that represents the semantic element of the clicked view.", documentedName="container")
+			val ElementSelectVariable[1] containerVariable;
+
+			@GenModel(documentation="The variable representationName that represents the name of the representation to open.", documentedName="representationName")
+			val NameVariable[1] representationNameVariable;
+		}
+
+		abstract interface MenuItemOrRef {
+		}
+
+		abstract class MenuItemDescription extends AbstractToolDescription, MenuItemOrRef {
+			attr ecore.EString icon;
+		}
+
+		class MenuItemDescriptionReference extends MenuItemOrRef {
+			ref MenuItemDescription[1] item;
+		}
+
+		class OperationAction extends MenuItemDescription {
+			val ContainerViewVariable[1] view;
+			val InitialOperation[1] initialOperation;
+		}
+
+		class ExternalJavaAction extends MenuItemDescription, ContainerModelOperation {
+
+			@GenModel(documentation="Identifier for your External Java Action provided through extension points.")
+			attr ecore.EString[1] ~id;
+			val ExternalJavaActionParameter[*] parameters;
+		}
+
+		@GenModel(documentation="An operation which can be used to call an ExternalJavaAction defined elsewhere.")
+		class ExternalJavaActionCall extends MenuItemDescription, ContainerModelOperation {
+
+			@GenModel(documentation="The action to call.")
+			ref ExternalJavaAction[1] action;
+		}
+
+		class PopupMenu extends AbstractToolDescription {
+			val MenuItemDescription[+] menuItemDescription;
+		}
+
+		abstract class AbstractVariable {
+			attr ecore.EString name;
+		}
+
+		abstract class VariableContainer {
+			val SubVariable[*] subVariables;
+		}
+
+		class AcceleoVariable extends VariableContainer, SubVariable {
+
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<Object> or an Object.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression computationExpression;
+		}
+
+		abstract class SubVariable extends AbstractVariable {
+		}
+
+		abstract class DialogVariable extends AbstractVariable {
+			attr ecore.EString dialogPrompt;
+		}
+
+		class ElementDropVariable extends AbstractVariable, VariableContainer {
+		}
+
+		class ElementSelectVariable extends AbstractVariable {
+		}
+
+		class ElementVariable extends AbstractVariable, VariableContainer {
+		}
+
+		class ElementViewVariable extends AbstractVariable, VariableContainer {
+		}
+
+		class ElementDeleteVariable extends AbstractVariable, VariableContainer {
+		}
+
+		class DropContainerVariable extends AbstractVariable, VariableContainer {
+		}
+
+		class SelectContainerVariable extends AbstractVariable, VariableContainer {
+		}
+
+		class ContainerViewVariable extends AbstractVariable, VariableContainer {
+		}
+
+		class SelectModelElementVariable extends SubVariable, SelectionDescription {
+		}
+
+		class EditMaskVariables {
+
+			@GenModel(documentation="Editing mask, in the form of {0} : {1} for instance.")
+			attr ecore.EString mask;
+		}
+
+		abstract class ContainerModelOperation extends ModelOperation {
+			val ModelOperation[*] subModelOperations;
+		}
+
+		abstract class ModelOperation {
+		}
+
+		class InitialNodeCreationOperation {
+			val ModelOperation[1] firstModelOperations;
+		}
+
+		class InitialOperation {
+			val ModelOperation[1] firstModelOperations;
+		}
+
+		class InitEdgeCreationOperation {
+			val ModelOperation[1] firstModelOperations;
+		}
+
+		class InitialContainerDropOperation {
+			val ModelOperation[1] firstModelOperations;
+		}
+
+		@GenModel(documentation="This operation allows to create a new instance. The context must be the container of the new instance.")
+		class CreateInstance extends ContainerModelOperation {
+
+			@GenModel(documentation="The type of the new instance.")
+			attr TypeName typeName;
+
+			@GenModel(documentation="The name of the reference that contained the new instance.")
+			attr FeatureName[1] referenceName;
+
+			@GenModel(documentation="Once the instance is created, a new variable will be bound with the name given here and will be available to any contained operation.")
+			attr ecore.EString variableName = "instance";
+		}
+
+		@GenModel(documentation="This operation allows to change the execution context.")
+		class ChangeContext extends ContainerModelOperation {
+
+			@GenModel(documentation="Expression to  browse to a new context (kind of a GOTO for models).")
+			@GenModel(contentassist="")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression browseExpression;
+		}
+
+		@GenModel(documentation="This operation allows to set a value of a feature of the current context.")
+		class SetValue extends ContainerModelOperation {
+
+			@GenModel(documentation="The name of the feature to set.")
+			attr FeatureName[1] featureName;
+
+			@GenModel(documentation="An expression computing the value to set.")
+			@GenModel(contentassist="")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="any type supported by the feature.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression valueExpression;
+		}
+
+		class SetObject extends ContainerModelOperation {
+
+			@GenModel(documentation="The name of the feature to set.")
+			attr FeatureName[1] featureName;
+
+			@GenModel(documentation="An instance to set, you might need to use \"load resource\" in the editor in order to be able to pick it.")
+			ref ecore.EObject object;
+		}
+
+		class Unset extends ContainerModelOperation {
+
+			@GenModel(documentation="Name of the feature to unset.")
+			attr FeatureName[1] featureName = "";
+
+			@GenModel(documentation="Expression returning the elements to unset from the feature.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression elementExpression;
+		}
+
+		@GenModel(documentation="Move the element of the current context to another container.")
+		class MoveElement extends ContainerModelOperation {
+
+			@GenModel(documentation="Expression computing the new container.")
+			@GenModel(contentassist="")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression[1] newContainerExpression;
+
+			@GenModel(documentation="The name of the reference in the new container to put the element in.")
+			attr FeatureName[1] featureName;
+		}
+
+		@GenModel(documentation="Remove the element represented by the current context.")
+		class RemoveElement extends ContainerModelOperation {
+		}
+
+		@GenModel(documentation="This operation allows to iterate a list of elements.")
+		class For extends ContainerModelOperation {
+
+			@GenModel(documentation="Expression returning the elements to iterate on.")
+			@GenModel(contentassist="")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression[1] expression;
+
+			@GenModel(documentation="On every iteration, the current element will be binded with the given name.")
+			attr ecore.EString[1] iteratorName = "i";
+		}
+
+		enum DragSource {
+			DIAGRAM = 1;
+			PROJECT_EXPLORER = 2;
+			BOTH = 3;
+		}
+
+		@GenModel(documentation="If the evaluation of the condition returns true then all operations contains by this If statement will be executed, otherwise all operations will be ignored.")
+		class If extends ContainerModelOperation {
+
+			@GenModel(contentassist="", documentation="Expression representing the condition, if it returns true, every operation contained by this statement will be executed.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression conditionExpression;
+		}
+
+		@GenModel(documentation="Deletes the current context if it is a view")
+		class DeleteView extends ContainerModelOperation {
+		}
+
+		class NameVariable extends AbstractVariable {
+		}
+
+		class ExternalJavaActionParameter {
+
+			@GenModel(documentation="Name of the parameter")
+			attr ecore.EString[1] name;
+
+			@GenModel(documentation="Value of the parameter.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="any type supported by the corresponding java parameter.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression value;
+		}
+
+		@GenModel(documentation="filter to hide a tool in UI based on preconditon evaluated when specified elements to listen are modified ")
+		class ToolFilterDescription {
+
+			@GenModel(documentation="The precondition of the filter.")
+			@GenModel(contentassist="")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression precondition;
+
+			@GenModel(documentation="The elements to listen by the filter.")
+			@GenModel(contentassist="")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a collection.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression elementsToListen;
+			val FeatureChangeListener[+] listeners;
+		}
+
+		class FeatureChangeListener {
+			attr TypeName[1] domainClass;
+			attr FeatureName[1] featureName;
+		}
+
+		@GenModel(documentation="If the evaluation of the condition returns true then all operations contains by this case statement will be executed, otherwise all operations will be ignored.")
+		class Case extends SwitchChild {
+
+			@GenModel(contentassist="", documentation="Expression representing the condition, if it returns true, every operation contained by this statement will be executed.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr InterpretedExpression conditionExpression;
+		}
+
+		abstract class SwitchChild {
+			val ModelOperation[*] subModelOperations;
+		}
+
+		@GenModel(documentation="The Default Case is executed if none of Case condition are true.")
+		class Default extends SwitchChild {
+		}
+
+		@GenModel(documentation="Swich contains 1 or more Case and 1 Default Case. If no Case condition return true, Default Case is executed. If there are more Case condition who return true it's the first Condition Case true who is executed.")
+		class Switch extends ModelOperation {
+			val Case[+] cases;
+			val Default[1] default;
+		}
+
+	}
+
+	@namespace(uri="http://www.eclipse.org/sirius/description/audit/1.1.0", prefix="audit")
+	package audit {
+		@GenModel(documentation="The section that displays informations about the selected element.")
+		abstract class InformationSection {
+
+			@GenModel(documentation="Return the content of the section.")
+			op ecore.EString getContent(@GenModel(documentation="The selected element.")
+ecore.EObject eObj);
+		}
+
+		@GenModel(documentation="This information section is based on an Acceleo template.")
+		class TemplateInformationSection extends InformationSection {
+
+			@GenModel(documentation="The file path of the template.")
+			attr ecore.EString templatePath;
+		}
+
+	}
+
+}
+
+@namespace(uri="http://www.eclipse.org/sirius/diagram/1.1.0", prefix="diagram")
+package diagram {
+	@GenModel(documentation="ViewPoint is the type of all diagrams in AIR.
+A viewpoint is composed of nodes, containers and connections. It is owned by an anlysis or by a parent viewpoint. In this last case the viewpoint should be called detailed viewpoint.")
+	class DDiagram extends DRepresentation, description.DocumentedElement, DragAndDropTarget, DValidable, DContainer {
+
+		@GenModel(documentation="Clean the viewpoint. It deletes useless elements that have been deleted from the semantic model.")
+		op void clean();
+
+		@GenModel(documentation="Returns all nodes owned (directly or not) by this viewpoint that have been created from the specified mapping.")
+		op DNode[*] getNodesFromMapping(@GenModel(documentation="The mapping that has created the returned ViewNodes")
+description.NodeMapping mapping);
+
+		@GenModel(documentation="Returns all edges owned (directly or not) by this viewpoint that have been created from the specified mapping.")
+		op DEdge[*] getEdgesFromMapping(@GenModel(documentation="The mapping that has created the returned ViewEdges")
+description.EdgeMapping mapping);
+
+		@GenModel(documentation="Returns all containers owned (directly or not) by this viewpoint that have been created from the specified mapping.")
+		op DDiagramElementContainer[*] getContainersFromMapping(@GenModel(documentation="The mapping that has created the returned ViewPointElementContainers")
+description.ContainerMapping mapping);
+
+		@GenModel(documentation="Finds all view point elements that have the specified semantic element has target and that are instances of the specified type.")
+		op DDiagramElement[*] findDiagramElements(ecore.EObject semanticElement, ecore.EClass type);
+
+		@GenModel(documentation="The DDiagramElements directly owned by this diagram.")
+		val DDiagramElement[*] ownedDiagramElements;
+
+		@GenModel(documentation="The diagram elements directly and indirectly owned by this diagram.")
+		readonly volatile transient derived ref DDiagramElement[*] diagramElements;
+
+		@GenModel(documentation="The description of the diagram. It may be null.")
+		ref description.DiagramDescription description;
+
+		@GenModel(documentation="The information of the diagram.")
+		attr String info = "";
+
+		@GenModel(documentation="Diagrams that are owned by this diagram.")
+		val DDiagram[*] subDiagrams;
+
+		@GenModel(documentation="All edges of the diagram. It is a subset of diagramElements")
+		readonly volatile transient derived ref DEdge[*] edges;
+
+		@GenModel(documentation="All nodes of the diagram. It is a subset of diagramElements")
+		readonly volatile transient derived ref DNode[*] nodes;
+
+		@GenModel(documentation=" All node list elements of the diagram. It is a subset of diagramElements")
+		readonly volatile transient derived ref DNodeListElement[*] nodeListElements;
+
+		@GenModel(documentation="All containers of the diagram. It is a subset of diagramElements")
+		readonly volatile transient derived ref DDiagramElementContainer[*] containers;
+
+		@GenModel(documentation="The current selected concer. It may be null")
+		ref description.concern.ConcernDescription currentConcern;
+
+		@GenModel(documentation="Filters that are currently activated for this viewpoint.")
+		ref description.filter.FilterDescription[*] activatedFilters;
+
+		@GenModel(documentation="Filters that can be activated for this viewpoint.")
+		readonly volatile transient derived ref description.filter.FilterDescription[*] allFilters;
+
+		@GenModel(documentation="Validation rules that are currently activated for this viewpoint.")
+		ref description.validation.ValidationRule[*] activatedRules;
+
+		@GenModel(documentation="Behaviors that are currently activated for this viewpoint.")
+		ref description.tool.BehaviorTool[*] activateBehaviors;
+		val FilterVariableHistory[1] filterVariableHistory;
+		ref description.Layer[*] activatedLayers;
+		attr ecore.EBoolean synchronized = "true";
+
+		@GenModel(documentation="List of DDiagramElement : Either the DDiagramElement is hidden or its label is hidden.")
+		transient ref DDiagramElement[*] hiddenElements;
+		transient attr ecore.EBoolean isInLayoutingMode;
+
+		@GenModel(documentation="The number of lines to display the header labels (1 by default). This field is used only if the IDiagramDescriptionProvider.supportHeader() return true for this DDiagram.")
+		attr ecore.EInt headerHeight = "1";
+	}
+
+	@GenModel(documentation="A semantic viewpoint is a viewpoint that is rattached to a semantic element.")
+	class DSemanticDiagram extends DDiagram, DSemanticDecorator {
+
+		@GenModel(documentation="Return the EObject from where the creation of the viewpoint starts.")
+		op ecore.EObject getRootContent();
+	}
+
+	abstract class DDiagramElement extends DRepresentationElement, DValidable, DNavigable {
+
+		@GenModel(documentation="Return the parent of this ViewPointElement.")
+		op DDiagram getParentDiagram();
+
+		@GenModel(documentation="Return <code>true</code> if this element is fold.")
+		op ecore.EBoolean isFold(@GenModel(documentation="Maps all elements with their isFold attribute value.")
+ecore.EMap<?, ?> alreadyManagedElements);
+
+		@GenModel(documentation="True if the element is visible, false otherwise.")
+		attr ecore.EBoolean visible = "true";
+
+		@GenModel(documentation="The text to show in the element's tooltip.")
+		attr ecore.EString tooltipText;
+		ref description.Layer[*] parentLayers;
+		val Decoration[*] decorations;
+
+		@GenModel(documentation="The mapping of the element.")
+		readonly volatile transient derived ref description.DiagramElementMapping diagramElementMapping;
+
+		@GenModel(documentation="Graphical filters allowing to handle this element.")
+		val GraphicalFilter[*] graphicalFilters;
+	}
+
+	@GenModel(documentation="A filter that allow to graphically filter the owner DDiagramElement.")
+	abstract interface GraphicalFilter {
+	}
+
+	@GenModel(documentation="Graphical filter specifying that the owner element has to be hidden.")
+	class HideFilter extends GraphicalFilter {
+	}
+
+	class HideLabelFilter extends GraphicalFilter {
+	}
+
+	@GenModel(documentation="Graphical filter specifying that the owner element has been folded explictly. It should itself be visible, but other elements accesible from it through folded edges should not be.")
+	class FoldingPointFilter extends GraphicalFilter {
+	}
+
+	@GenModel(documentation="Graphical filter specifying that the owner element has been folded indirectly because it is accessible from a folded folding point through folable edges.")
+	class FoldingFilter extends GraphicalFilter {
+	}
+
+	@GenModel(documentation="Graphical filter listing the active filters applied on a diagram element.")
+	class AppliedCompositeFilters extends GraphicalFilter {
+		ref description.filter.CompositeFilterDescription[*] compositeFilterDescriptions;
+	}
+
+	@GenModel(documentation="Graphical filter to store absolute bounds.")
+	class AbsoluteBoundsFilter extends GraphicalFilter {
+		attr Integer x;
+		attr Integer y;
+		attr Integer height;
+		attr Integer width;
+	}
+
+	@GenModel(documentation="A link that references a ViewPoint.")
+	class DDiagramLink extends DNavigationLink {
+
+		@GenModel(documentation="The referenced ViewPoint.")
+		ref DDiagram[1] target;
+
+		@GenModel(documentation="The referenced node.")
+		ref EdgeTarget node;
+	}
+
+	abstract interface AbstractDNode extends DDiagramElement {
+
+		@GenModel(documentation="The nodes that are on the border of the container.")
+		val DNode[*] ownedBorderedNodes;
+		attr ArrangeConstraint[*] arrangeConstraints = "KEEP_LOCATION";
+	}
+
+	@GenModel(documentation="A node.")
+	class DNode extends AbstractDNode, EdgeTarget, DragAndDropTarget {
+		attr ecore.EIntegerObject width;
+		attr ecore.EIntegerObject height;
+
+		@GenModel(documentation="The style of the node.")
+		val NodeStyle ownedStyle;
+
+		@GenModel(documentation="The position of the label :
+BORDER : The label is around the node, on the border.
+NODE : the label is in the node.")
+		attr LabelPosition labelPosition;
+
+		@GenModel(documentation="Detailed viewpoints owned by this node.")
+		val DDiagram[*] ownedDetails;
+
+		@GenModel(documentation="<code>true</code> if the node is resizable.")
+		attr ResizeKind resizeKind = "NONE";
+
+		@GenModel(documentation="The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of this style.")
+		ref Style originalStyle;
+
+		@GenModel(documentation="The actual mapping of this node.")
+		ref description.NodeMapping[1] actualMapping;
+
+		@GenModel(documentation="The candidates mapping of this node.", deprecated="This element should not be used")
+		ref description.NodeMapping[*] candidatesMapping;
+	}
+
+	@GenModel(documentation="The referenced ViewPoint.")
+	abstract class DDiagramElementContainer extends AbstractDNode, EdgeTarget, DragAndDropTarget, DContainer {
+
+		@GenModel(documentation="Return all nodes that have been created with the specified mapping.")
+		op DNode[*] getNodesFromMapping(@GenModel(documentation="The node mapping.")
+description.NodeMapping mapping);
+
+		@GenModel(documentation="Return all containers that have been created with the specified mapping.")
+		op DDiagramElementContainer[*] getContainersFromMapping(@GenModel(documentation="The container mapping")
+description.ContainerMapping mapping);
+
+		@GenModel(documentation="Nodes owned by this container.")
+		readonly volatile transient derived ref DNode[*] nodes;
+
+		@GenModel(documentation="Containers owned by this container.")
+		readonly volatile transient derived ref DDiagramElementContainer[*] containers;
+
+		@GenModel(documentation="elements owned by this container.")
+		readonly volatile transient derived ref DDiagramElement[*] elements;
+
+		@GenModel(documentation="The style of the container.")
+		val ContainerStyle ownedStyle;
+
+		@GenModel(documentation="The details of this container.")
+		val DDiagram[*] ownedDetails;
+
+		@GenModel(documentation="The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of this style.")
+		ref Style originalStyle;
+
+		@GenModel(documentation="The actual mapping of this node.")
+		ref description.ContainerMapping[1] actualMapping;
+
+		@GenModel(documentation="The candidates mapping of this node.", deprecated="This field should not be used")
+		ref description.ContainerMapping[*] candidatesMapping;
+		attr Integer width;
+		attr Integer height;
+	}
+
+	@GenModel(documentation="A classic container.")
+	class DNodeContainer extends DDiagramElementContainer {
+
+		@GenModel(documentation="elements owned by this container.")
+		val DDiagramElement[*] ownedDiagramElements;
+		attr ContainerLayout[1] childrenPresentation = "FreeForm";
+	}
+
+	enum ContainerLayout {
+		FreeForm = 0;
+		List = 1;
+		HorizontalStack = 2;
+		VerticalStack = 3;
+	}
+
+	@GenModel(documentation="A container that shows its contents as a list.")
+	class DNodeList extends DDiagramElementContainer {
+
+		@GenModel(documentation="elements owned by this list.")
+		val DNodeListElement[*] ownedElements;
+
+		@GenModel(documentation="The width of the line.")
+		attr ecore.EInt lineWidth = "1";
+	}
+
+	@GenModel(documentation="An element of a list.")
+	class DNodeListElement extends AbstractDNode {
+
+		@GenModel(documentation="The style of this element.")
+		val NodeStyle ownedStyle;
+
+		@GenModel(documentation="The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of this style.")
+		ref Style originalStyle;
+
+		@GenModel(documentation="The actual mapping of this node.")
+		ref description.NodeMapping[1] actualMapping;
+
+		@GenModel(documentation="The candidates mapping of this node.", deprecated="This element should not be used")
+		ref description.NodeMapping[*] candidatesMapping;
+	}
+
+	@GenModel(documentation="A view edge. It is a connection between two EdgeTarget.")
+	class DEdge extends DDiagramElement, EdgeTarget {
+
+		@GenModel(documentation="<code>true</code> if the edge is the root of a folded branch.")
+		op ecore.EBoolean isRootFolding();
+
+		@GenModel(documentation="The style of the connection.")
+		val EdgeStyle ownedStyle;
+
+		@GenModel(documentation="The line width.")
+		attr Integer size = "1";
+
+		@GenModel(documentation="The source of the connection.")
+		ref EdgeTarget[1]#outgoingEdges sourceNode;
+
+		@GenModel(documentation="The target of the connection.")
+		ref EdgeTarget[1]#incomingEdges targetNode;
+
+		@GenModel(documentation="The mapping that has created the view edge.")
+		ref description.IEdgeMapping[1] actualMapping;
+
+		@GenModel(documentation="The routing style of the edge.")
+		attr EdgeRouting[1] routingStyle = "straight";
+
+		@GenModel(documentation="<code>true</code> if the view edge is folded.")
+		attr ecore.EBoolean isFold;
+
+		@GenModel(documentation="<code>true</code> if the edge is an edge that is displayed only to have the plus image to decollapse a branch.")
+		attr ecore.EBoolean isMockEdge;
+
+		@GenModel(documentation="The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of this style.")
+		ref Style originalStyle;
+		!unique ref EdgeTarget[*] path;
+		attr ArrangeConstraint[*] arrangeConstraints = "KEEP_LOCATION";
+
+		@GenModel(documentation="The name of the representation.")
+		attr String beginLabel = "";
+
+		@GenModel(documentation="The name of the representation.")
+		attr String endLabel = "";
+	}
+
+	@GenModel(documentation="A set of semantic diagrams")
+	class DDiagramSet {
+
+		@GenModel(documentation="The ViewPointDescription of all viewpoints that are in this set.")
+		unsettable ref description.DiagramDescription description;
+
+		@GenModel(documentation="The viewpoints referenced by this set.")
+		!ordered derived ref DDiagram[*] diagrams;
+		transient ref DRepresentationContainer view;
+	}
+
+	@GenModel(documentation="Position of the label.")
+	enum LabelPosition {
+
+		@GenModel(documentation="The label is on border.")
+		border = 0;
+
+		@GenModel(documentation="The label is on the node.")
+		node = 1;
+	}
+
+	@GenModel(documentation="Style of a node.")
+	abstract class NodeStyle extends LabelStyle, Style, BorderedStyle {
+
+		@GenModel(documentation="The position of the label :
+BORDER : The label is around the node, on the border.
+NODE : the label is in the node.")
+		attr LabelPosition labelPosition;
+
+		@GenModel(documentation="The default visibility of the label (available only if labelPosition equals BORDER).
+A change of this option does not affect already existing elements.")
+		attr boolean hideLabelByDefault = false;
+	}
+
+	@GenModel(documentation="The dot style.")
+	class Dot extends NodeStyle {
+
+		@GenModel(documentation="The background color.")
+		val RGBValues backgroundColor;
+
+		@GenModel(documentation="An expression computing the size of a stroke.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+		attr description.InterpretedExpression strokeSizeComputationExpression = "2";
+	}
+
+	@GenModel(documentation="The gauge section represents one gauge of a GaugeCompositeStyle.")
+	class GaugeSection extends Customizable {
+
+		@GenModel(documentation="The min value of the gauge.")
+		attr ecore.EIntegerObject min;
+
+		@GenModel(documentation="The max value of the gauge.")
+		attr ecore.EIntegerObject max;
+
+		@GenModel(documentation="The current value.")
+		attr ecore.EIntegerObject value;
+
+		@GenModel(documentation="The label of the gauge.")
+		attr ecore.EString label;
+
+		@GenModel(documentation="The background color.")
+		val RGBValues backgroundColor;
+
+		@GenModel(documentation="The foreground color.")
+		val RGBValues foregroundColor;
+	}
+
+	@GenModel(documentation="The style of a container.")
+	abstract class ContainerStyle extends LabelStyle, Style, BorderedStyle {
+	}
+
+	class FlatContainerStyle extends ContainerStyle {
+
+		@GenModel(documentation="The background style.")
+		attr BackgroundStyle[1] backgroundStyle;
+
+		@GenModel(documentation="The background color.")
+		val RGBValues backgroundColor;
+
+		@GenModel(documentation="The foreground color.")
+		val RGBValues foregroundColor;
+	}
+
+	class ShapeContainerStyle extends ContainerStyle {
+		attr ContainerShape[1] shape;
+		val RGBValues[1] backgroundColor;
+	}
+
+	enum ContainerShape {
+		parallelogram = 0;
+	}
+
+	@GenModel(documentation="Style of the background of a container.")
+	enum BackgroundStyle {
+
+		@GenModel(documentation="Gradient style.")
+		GradientLeftToRight = 0;
+
+		@GenModel(documentation="Liquid style.")
+		Liquid = 1;
+
+		@GenModel(documentation="Gradient style.")
+		GradientTopToBottom = 3;
+	}
+
+	@GenModel(documentation="The square style to display a node as a square.")
+	class Square extends NodeStyle {
+
+		@GenModel(documentation="Return all nodes that have been created with the specified mapping.")
+		attr Integer width = "0";
+
+		@GenModel(documentation="The height of the square.")
+		attr Integer height = "0";
+		val RGBValues color;
+	}
+
+	@GenModel(documentation="The ellipse style to display a node as an ellipse.")
+	class Ellipse extends NodeStyle {
+
+		@GenModel(documentation="The horizontal diameter size of the ellipse. (Semimajor axis)")
+		attr Integer horizontalDiameter = "0";
+
+		@GenModel(documentation="The vertical diameter of the ellipse. (Semiminor axis)")
+		attr Integer verticalDiameter = "0";
+		val RGBValues color;
+	}
+
+	@GenModel(documentation="The lozenge style to display a node as a lozenge.")
+	class Lozenge extends NodeStyle {
+
+		@GenModel(documentation="The width of the lozenge.")
+		attr Integer width = "0";
+
+		@GenModel(documentation="The height of the lozenge.")
+		attr Integer height = "0";
+		val RGBValues color;
+	}
+
+	@GenModel(documentation="The bundled image style allows to use the default images provide by the ViewPoint editor.")
+	class BundledImage extends NodeStyle {
+
+		@GenModel(documentation="The shape to use.")
+		attr BundledImageShape[1] shape;
+		val RGBValues[1] color;
+	}
+
+	@GenModel(documentation="A custom image that is present in the user workspace.")
+	class WorkspaceImage extends NodeStyle, ContainerStyle {
+
+		@GenModel(documentation="The path of the image to use.")
+		attr ecore.EString[1] workspacePath;
+	}
+
+	class CustomStyle extends NodeStyle {
+		attr ecore.EString ~id;
+	}
+
+	@GenModel(documentation="Default shapes.")
+	enum BundledImageShape {
+		square = 0;
+		stroke = 1;
+		triangle = 3;
+		dot = 4;
+		ring = 5;
+	}
+
+	@GenModel(documentation="The target of a ViewEdge.")
+	abstract class EdgeTarget {
+
+		@GenModel(documentation="The outgoing view edges.")
+		ref DEdge[*]#sourceNode outgoingEdges;
+
+		@GenModel(documentation="The incoming view edges.")
+		ref DEdge[*]#targetNode incomingEdges;
+	}
+
+	@GenModel(documentation="The style of an edge.")
+	class EdgeStyle extends Style {
+
+		@GenModel(documentation="The color of the edge.")
+		val RGBValues strokeColor;
+
+		@GenModel(documentation="The style of the line.")
+		attr LineStyle lineStyle;
+
+		@GenModel(documentation="The source decoration.")
+		attr EdgeArrows[1] sourceArrow = "NoDecoration";
+
+		@GenModel(documentation="The target decoration.")
+		attr EdgeArrows[1] targetArrow = "InputArrow";
+		attr description.FoldingStyle[1] foldingStyle = "NONE";
+
+		@GenModel(documentation="The line width.")
+		attr Integer size = "1";
+
+		@GenModel(documentation="The routing style of the edge.")
+		attr EdgeRouting[1] routingStyle = "straight";
+		val BeginLabelStyle beginLabelStyle;
+		val CenterLabelStyle centerLabelStyle;
+		val EndLabelStyle endLabelStyle;
+	}
+
+	@GenModel(documentation="Style of a connection.")
+	enum LineStyle {
+		solid = 0;
+		dash = 1;
+		dot = 2;
+		dash_dot = 3;
+	}
+
+	@GenModel(documentation="Decoration of a connection.")
+	enum EdgeArrows {
+
+		@Sirius(imagePath="icons/full/decorator/noDecoration.gif")
+		NoDecoration = 0;
+
+		@Sirius(imagePath="icons/full/decorator/outputArrow.gif")
+		OutputArrow = 1;
+
+		@Sirius(imagePath="icons/full/decorator/inputArrow.gif")
+		InputArrow = 2;
+
+		@Sirius(imagePath="icons/full/decorator/outputClosedArrow.gif")
+		OutputClosedArrow = 3;
+
+		@Sirius(imagePath="icons/full/decorator/inputClosedArrow.gif")
+		InputClosedArrow = 4;
+
+		@Sirius(imagePath="icons/full/decorator/outputFillClosedArrow.gif")
+		OutputFillClosedArrow = 5;
+
+		@Sirius(imagePath="icons/full/decorator/inputFillClosedArrow.gif")
+		InputFillClosedArrow = 6;
+
+		@Sirius(imagePath="icons/full/decorator/diamond.gif")
+		Diamond = 7;
+
+		@Sirius(imagePath="icons/full/decorator/fillDiamond.gif")
+		FillDiamond = 8;
+
+		@Sirius(imagePath="icons/full/decorator/inputArrowWithDiamond.gif")
+		InputArrowWithDiamond = 9;
+
+		@Sirius(imagePath="icons/full/decorator/inputArrowWithFillDiamond.gif")
+		InputArrowWithFillDiamond = 10;
+	}
+
+	@GenModel(documentation="Routing style of edges.")
+	enum EdgeRouting {
+		straight = 0;
+		manhattan = 1;
+		tree = 2;
+	}
+
+	@GenModel(documentation="This style groups many GaugeSection.")
+	class GaugeCompositeStyle extends NodeStyle {
+
+		@GenModel(documentation="The alignment of the gauges")
+		attr AlignmentKind alignment = "SQUARE";
+
+		@GenModel(documentation="The sections.")
+		val GaugeSection[*] sections;
+	}
+
+	@GenModel(documentation="Possible alignments of gauges.")
+	enum AlignmentKind {
+		VERTICAL = 0;
+		HORIZONTAL = 1;
+		SQUARE = 2;
+	}
+
+	class BorderedStyle extends Style {
+		attr ecore.EIntegerObject[1] borderSize = "0";
+
+		@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+		@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+		attr description.InterpretedExpression borderSizeComputationExpression = "0";
+		val RGBValues borderColor;
+	}
+
+	class Note extends NodeStyle {
+		val RGBValues color;
+	}
+
+	class FilterVariableHistory {
+		val FilterVariableValue[*] ownedValues;
+	}
+
+	class FilterVariableValue {
+		ref description.filter.FilterVariable[1] variableDefinition;
+		ref ecore.EObject[1] modelElement;
+	}
+
+	enum ResizeKind {
+		NONE = 0;
+		NSEW = 1;
+		NORTH_SOUTH = 2;
+		EAST_WEST = 3;
+	}
+
+	enum ArrangeConstraint {
+		KEEP_LOCATION = 0;
+		KEEP_SIZE = 1;
+		KEEP_RATIO = 2;
+	}
+
+	@GenModel(Documentation="Graphical filter specifying that the owner element has to be collapsed.")
+	class CollapseFilter extends GraphicalFilter {
+		attr int width;
+		attr int height;
+	}
+
+	class IndirectlyCollapseFilter extends CollapseFilter {
+	}
+
+	@GenModel(documentation="The style of a label.")
+	class BeginLabelStyle extends BasicLabelStyle {
+		op description.style.BasicLabelStyleDescription getDescription();
+		op void setDescription(description.style.BasicLabelStyleDescription description);
+	}
+
+	@GenModel(documentation="The style of a label.")
+	class CenterLabelStyle extends BasicLabelStyle {
+		op description.style.BasicLabelStyleDescription getDescription();
+		op void setDescription(description.style.BasicLabelStyleDescription description);
+	}
+
+	@GenModel(documentation="The style of a label.")
+	class EndLabelStyle extends BasicLabelStyle {
+		op description.style.BasicLabelStyleDescription getDescription();
+		op void setDescription(description.style.BasicLabelStyleDescription description);
+	}
+
+	class BracketEdgeStyle extends EdgeStyle {
+	}
+
+	class ComputedStyleDescriptionRegistry {
+		val description.style.StyleDescription[*] computedStyleDescriptions;
+		val DiagramElementMapping2ModelElement[*] cache;
+	}
+
+	class DiagramElementMapping2ModelElement : java.util.Map$Entry {
+		ref description.DiagramElementMapping[1] key;
+		val ModelElement2ViewVariable[*] value;
+	}
+
+	class ModelElement2ViewVariable : java.util.Map$Entry {
+		ref ecore.EObject[1] key;
+		val ViewVariable2ContainerVariable[*] value;
+	}
+
+	class ViewVariable2ContainerVariable : java.util.Map$Entry {
+		ref ecore.EObject[1] key;
+		val ContainerVariable2StyleDescription[*] value;
+	}
+
+	class ContainerVariable2StyleDescription : java.util.Map$Entry {
+		ref ecore.EObject[1] key;
+		ref description.style.StyleDescription value;
+	}
+
+	@namespace(uri="http://www.eclipse.org/sirius/diagram/description/1.1.0", prefix="description")
+	package description {
+		@GenModel(documentation="The description of a diagram.")
+		class DiagramDescription extends description.DragAndDropTargetDescription, description.RepresentationDescription, description.PasteTargetDescription {
+			op DSemanticDiagram createDiagram();
+
+			@GenModel(documentation="Filters that are owned by this simple mapping.")
+			val filter.FilterDescription[*] filters;
+
+			@GenModel(documentation="All edge mappings (including import edge ampping) of this simple mapping.")
+			readonly volatile transient derived ref EdgeMapping[*] allEdgeMappings;
+
+			@GenModel(documentation="All node mappings of this simple mapping.")
+			readonly volatile transient derived ref NodeMapping[*] allNodeMappings;
+
+			@GenModel(documentation="All container mappings of this simple mapping.")
+			readonly volatile transient derived ref ContainerMapping[*] allContainerMappings;
+
+			@GenModel(documentation="The validations rules")
+			val validation.ValidationSet validationSet;
+
+			@GenModel(documentation="All concerns of the viewpoint. A concern is a set of filters, validations and behaviors.")
+			val concern.ConcernSet concerns;
+
+			@GenModel(documentation="All tools of the viewpoint.")
+			readonly volatile transient derived ref description.tool.AbstractToolDescription[*] allTools;
+
+			@GenModel(documentation="The domain class of the viewpoint.")
+			attr description.TypeName[1] domainClass;
+
+			@GenModel(documentation="The predicate that allows (or not) to create a viewpoint from a Meta Class.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr description.InterpretedExpression preconditionExpression;
+
+			@GenModel(documentation="The default concern to use.")
+			@TagValues
+			ref concern.ConcernDescription defaultConcern;
+
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", viewpoint="diagram.DDiagram | (deprecated) the current DDiagram.")
+			attr description.InterpretedExpression rootExpression;
+
+			@TagValues
+			ref description.tool.RepresentationCreationDescription init;
+			val Layout layout;
+			val description.tool.InitialOperation diagramInitialisation;
+			val Layer defaultLayer;
+			val AdditionalLayer[*] additionalLayers;
+			volatile transient derived ref Layer[*] allLayers;
+			volatile transient derived ref description.tool.AbstractToolDescription[*] allActivatedTools;
+
+			@GenModel(documentation="Node mappings that are owned by this simple mapping.")
+			@TagValues
+			val NodeMapping[*] nodeMappings;
+
+			@GenModel(documentation="Edge mappings that are owned by this simple mapping.")
+			@TagValues
+			val EdgeMapping[*] edgeMappings;
+
+			@GenModel(documentation="Edge mapping imports that are owned by this simple mapping.")
+			val EdgeMappingImport[*] edgeMappingImports;
+
+			@GenModel(documentation="container mappings that are owned by this simple mapping.")
+			@TagValues
+			val ContainerMapping[*] containerMappings;
+
+			@GenModel(documentation="The reused mappings.")
+			@TagValues
+			ref DiagramElementMapping[*] reusedMappings;
+
+			@GenModel(documentation="A tool section encloses many tools")
+			val tool.ToolSection toolSection;
+
+			@GenModel(documentation="Tools that are reused by this viewpoint.")
+			@TagValues
+			ref description.tool.AbstractToolDescription[*] reusedTools;
+
+			@GenModel(documentation="Boolean indicating whether or not to show dynamic popup bars with creation tools.")
+			attr ecore.EBoolean enablePopupBars;
+		}
+
+		class DiagramImportDescription extends description.RepresentationImportDescription, DiagramDescription {
+
+			@GenModel(documentation="Diagram representation to import.")
+			ref DiagramDescription importedDiagram;
+		}
+
+		class DiagramExtensionDescription extends description.RepresentationExtensionDescription {
+			val AdditionalLayer[*] layers;
+
+			@GenModel(documentation="The validations rules to add")
+			val validation.ValidationSet validationSet;
+
+			@GenModel(documentation="All concerns of the diagrams to add. A concern is a set of filters, validations and behaviors.")
+			val concern.ConcernSet concerns;
+		}
+
+		@GenModel(documentation="Represent the mapping of a ViewPointElement.")
+		abstract class DiagramElementMapping extends description.RepresentationElementMapping, description.PasteTargetDescription {
+
+			@GenModel(documentation="Check the precondition of the mapping. Return true if the condition is checked, false otherwise.")
+			op ecore.EBoolean checkPrecondition(@GenModel(documentation="The element to test.")
+ecore.EObject modelElement, @GenModel(documentation="The semantic element of the view container of the eventual view of the modelElement")
+ecore.EObject container, @GenModel(documentation="The view container of the eventual view of the modelElement")
+ecore.EObject containerView);
+
+			@GenModel(documentation="Return all sub mappings.")
+			op DiagramElementMapping[*] getAllMappings();
+
+			@GenModel(documentation="Returns true if the given ViewPointElement has been produced from this Mapping or any imported mapping.")
+			op ecore.EBoolean isFrom(@GenModel(documentation="Any ViewPointElement")
+DMappingBased element);
+
+			@GenModel(documentation="An expression guarding the effect if evaluated to false.")
+			@GenModel(contentassist="")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(containerView="viewpoint.DragAndDropTarget | the view that sould contain the potential views of the checked elements.", container="ecore.EObject | the semantic element of containerView.", viewpoint="diagram.DSemanticDiagram | (deprecated) the current DSemanticDiagram.", diagram="diagram.DSemanticDiagram | the current DSemanticDiagram.", sourceView="viewpoint.DSemanticDecorator | (edge only) the source view of the current potential edge.", source="ecore.EObject | (edge only) the semantic element of sourceView.", targetView="viewpoint.DSemanticDecorator | (edge only) the target view of the current potential edge.", target="ecore.EObject | (edge only) the semantic element of targetView.")
+			attr description.InterpretedExpression preconditionExpression = "";
+
+			@GenModel(documentation="The tool that describes how to delete this element.")
+			ref tool.DeleteElementDescription deletionDescription;
+
+			@GenModel(documentation="The tool that describes what to do when the user edits the label of the elements.")
+			ref tool.DirectEditLabel labelDirectEdit;
+
+			@GenModel(documentation="In the default case, candidates of a mapping are all EObjet owned by the semantic element of the view container. The semanticCandidatesExpression is an expression that returns the list of EObject that are candidates of the mapping instead of the candidates of the default case. The context of the expression is the semantic element of the view container.")
+			@GenModel(contentassist="")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(containerView="diagram.DDiagram | the parent view of potential candidates.", diagram="diagram.DDiagram | the current DDiagram.", viewpoint="diagram.DDiagram | (deprecated) the current DDiagram.", viewPoint="diagram.DDiagram | (deprecated) the current DDiagram.")
+			attr description.InterpretedExpression semanticCandidatesExpression;
+
+			@GenModel(documentation="true if the init/refresh operations should create elements for this mapping.")
+			attr ecore.EBoolean[1] createElements = "true";
+
+			@GenModel(documentation="The elements that are represented by this connection.")
+			@GenModel(contentassist="")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DSemanticDiagram.", view="diagram.DDiagramElement | the current view created from the current mapping.", viewpoint="diagram.DDiagram | (deprecated) the current DSemanticDiagram.")
+			attr description.InterpretedExpression semanticElements;
+			ref tool.DoubleClickDescription#mappings doubleClickDescription;
+
+			@GenModel(documentation="Set to true to force the synchronization of the elements of this mapping when the current diagram is in an unsynchronized mode.
+This option is used only if createElements is true and the diagram which contain the elements of this mapping is unsynchronized.")
+			attr boolean synchronizationLock = false;
+		}
+
+		@GenModel(documentation="An abstract mapping.")
+		abstract class AbstractNodeMapping extends DiagramElementMapping, description.DocumentedElement {
+
+			@GenModel(documentation="Return all nodes that have been created by this mapping.")
+			op DDiagramElement[*] getDNodesDone();
+
+			@GenModel(documentation="Return the node that has been created by this mapping and the specified EObject as semantic element.")
+			op DDiagramElement[*] findDNodeFromEObject(@GenModel(documentation="The semantic element.")
+ecore.EObject eObject);
+
+			@GenModel(documentation="Clear the list of done nodes.")
+			op void clearDNodesDone();
+
+			@GenModel(documentation="Add a new node in the done nodes.
+")
+			op void addDoneNode(DSemanticDecorator[1] node);
+			op NodeMapping[*] getAllBorderedNodeMappings();
+
+			@GenModel(documentation="The domain class of the mapping.")
+			attr description.TypeName[1] domainClass;
+
+			@GenModel(documentation="The mapping for nodes that are on the border of nodes created by this mapping.")
+			val NodeMapping[*] borderedNodeMappings;
+			ref NodeMapping[*] reusedBorderedNodeMappings;
+		}
+
+		@GenModel(documentation="Represents a node mapping. A node mapping allows to create nodes (ViewNode).")
+		class NodeMapping extends AbstractNodeMapping, description.DragAndDropTargetDescription {
+
+			@GenModel(documentation="Create a node for the specified element.")
+			op DNode createNode(@GenModel(documentation="The element.")
+ecore.EObject modelElement, @GenModel(documentation="The container of the element.")
+ecore.EObject container, DDiagram viewPoint);
+
+			@GenModel(documentation="Update the node.
+")
+			op void updateNode(@GenModel(documentation="The node to update.")
+DNode node);
+
+			@GenModel(documentation="Retrieve the best style to use.")
+			op NodeStyle getBestStyle(@GenModel(documentation="The model element.")
+ecore.EObject modelElement, @GenModel(documentation="The view of the element.")
+ecore.EObject viewVariable, ecore.EObject containerVariable);
+
+			@GenModel(documentation="Create a list element. This method is equivalent of createNode but returns a ViewNodeListElement.")
+			op DNodeListElement createListElement(@GenModel(documentation="The semantic model element.")
+ecore.EObject modelElement, DDiagram diagram);
+
+			@GenModel(documentation="Update a ViewNodeListElement.")
+			op void updateListElement(@GenModel(documentation="The view node list element to update")
+DNodeListElement listElement);
+
+			@GenModel(documentation="Return all semantic elements that are candidates for the mapping.")
+			op ecore.EObject[*] getNodesCandidates(@GenModel(documentation="The root element.")
+ecore.EObject semanticOrigin, @GenModel(documentation="The container element")
+ecore.EObject container);
+
+			@GenModel(documentation="Return all semantic elements that are candidates for the mapping.")
+			op ecore.EObject[*] getNodesCandidates(@GenModel(documentation="The root element.")
+ecore.EObject semanticOrigin, @GenModel(documentation="The container of the element.")
+ecore.EObject container, @GenModel(documentation="The view of the container.")
+ecore.EObject containerView);
+
+			@GenModel(documentation="The style of the node.")
+			val style.NodeStyleDescription style;
+
+			@GenModel(documentation="All conditional styles.")
+			val ConditionalNodeStyleDescription[*] conditionnalStyles;
+		}
+
+		@GenModel(documentation="A container mapping allows to create containers (ViewNodeContainer or ViewNodeList).")
+		class ContainerMapping extends AbstractNodeMapping, description.DragAndDropTargetDescription {
+			op DDiagramElementContainer createContainer(ecore.EObject modelElement, ecore.EObject container, DDiagram viewPoint);
+			op void updateContainer(DDiagramElementContainer node);
+			op ContainerStyle getBestStyle(ecore.EObject modelElement, ecore.EObject viewVariable, ecore.EObject containerVariable);
+			op ecore.EObject[*] getNodesCandidates(ecore.EObject semanticOrigin, ecore.EObject container);
+			op ecore.EObject[*] getNodesCandidates(ecore.EObject semanticOrigin, ecore.EObject container, ecore.EObject containerView);
+			val NodeMapping[*] subNodeMappings;
+			readonly volatile transient derived ref NodeMapping[*] allNodeMappings;
+			ref NodeMapping[*] reusedNodeMappings;
+			val ContainerMapping[*] subContainerMappings;
+			ref ContainerMapping[*] reusedContainerMappings;
+			readonly volatile transient derived ref ContainerMapping[*] allContainerMappings;
+			val style.ContainerStyleDescription style;
+			val ConditionalContainerStyleDescription[*] conditionnalStyles;
+
+			@GenModel(documentation="Set to List if you want a container acting like a list.")
+			attr ContainerLayout[1] childrenPresentation = "FreeForm";
+		}
+
+		@GenModel(documentation="Ease the reuse of existing mappings. If the feature is not defined in this instance it will re-use the feature value of the imported one.")
+		class NodeMappingImport extends NodeMapping, description.AbstractMappingImport {
+
+			@GenModel(documentation="The imported mapping used to define default values for the current mapping.")
+			ref NodeMapping[1] importedMapping;
+		}
+
+		@GenModel(documentation="Ease the reuse of existing mappings. If the feature is not defined in this instance it will re-use the feature value of the imported one.")
+		class ContainerMappingImport extends ContainerMapping, description.AbstractMappingImport {
+
+			@GenModel(documentation="The imported mapping used to define default values for the current mapping.")
+			ref ContainerMapping[1] importedMapping;
+		}
+
+		@GenModel(documentation="An edge mapping allows to create ViewEdge.")
+		class EdgeMapping extends DiagramElementMapping, description.DocumentedElement, IEdgeMapping {
+			op DEdge createEdge(EdgeTarget[1] source, EdgeTarget[1] target, ecore.EObject semanticTarget);
+			op DEdge createEdge(EdgeTarget[1] source, EdgeTarget[1] target, ecore.EObject container, ecore.EObject semanticTarget);
+			op EdgeStyle getBestStyle(ecore.EObject modelElement, ecore.EObject viewVariable, ecore.EObject containerVariable);
+			op void updateEdge(DEdge[1] viewEdge);
+			op ecore.EObject[*] getEdgeTargetCandidates(ecore.EObject semanticOrigin, DDiagram viewPoint);
+			op ecore.EObject[*] getEdgeSourceCandidates(ecore.EObject semanticOrigin, DDiagram viewPoint);
+			op ecore.EObject[*] getEdgeTargetCandidates(ecore.EObject semanticOrigin, ecore.EObject container, ecore.EObject containerView);
+
+			@GenModel(documentation="The mapping that creates EdgeTargets that are the sources of the ViewEdges that are created by this EdgeMapping.")
+			ref DiagramElementMapping[+] sourceMapping;
+
+			@GenModel(documentation="The mapping that creates EdgeTargets that are the targets of the ViewEdges that are created by this EdgeMapping.")
+			ref DiagramElementMapping[+] targetMapping;
+
+			@GenModel(documentation="An expression  to retrieve the targets of an edge.
+The context of the expression depends on the useDomainElement value. If useDomainElement is true, the expression will be evaluated with all objects that are instances of the type represented by the domainClass value.
+All this objects will depends on the semanticCandidatesExpression. By default all objects are the objects that are in the enclosing viewpoint's rootContent subtree. If the semanticCandidatesExpression is filled in then all the objects will be the objects of the returned list.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", viewpoint="diagram.DDiagram | (deprecated) the current DDiagram.", viewPoint="diagram.DDiagram | (deprecated) the current DDiagram.")
+			attr description.InterpretedExpression[1] targetFinderExpression = "";
+
+			@GenModel(documentation="An expression to retrieve the sources of an edge.
+All this objects will depends on the semanticCandidatesExpression. By default all objects are the objects that are in the enclosing viewpoint's rootContent subtree. If the semanticCandidatesExpression is filled in then all the objects will be the objects of the returned list.
+This attribute is taking in account only if the useDomainElement is true.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", viewpoint="diagram.DDiagram | (deprecated) the current DDiagram.", viewPoint="diagram.DDiagram | (deprecated) the current DDiagram.")
+			attr description.InterpretedExpression sourceFinderExpression;
+
+			@GenModel(documentation="The style of the edge.")
+			val style.EdgeStyleDescription style;
+
+			@GenModel(documentation="All conditional styles.")
+			val ConditionalEdgeStyleDescription[*] conditionnalStyles;
+
+			@GenModel(documentation="An expression computing the targeted semantic element of this edge.
+If this attribut is not filled in. Then the target element will be :
+ - The target element of the source node if useDomainElement is false.
+ - The object that is an instance of domainClass value if useDomainElement is true.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", viewpoint="diagram.DDiagram | (deprecated) the current DDiagram.", viewPoint="diagram.DDiagram | (deprecated) the current DDiagram.")
+			attr description.InterpretedExpression targetExpression;
+
+			@GenModel(documentation="The type of the target elements that are represented by this edge. Useful only if useDomainElement is true.")
+			attr description.TypeName domainClass;
+			attr ecore.EBoolean useDomainElement = "false";
+			ref tool.ReconnectEdgeDescription[*] reconnections;
+
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DDiagram.", viewpoint="diagram.DDiagram | (deprecated) the current DDiagram.", element="ecore.EObject | the semantic element  of the current edge.", source="ecore.EObject | the semantic target of the current source node.", target="ecore.EObject | the semantic element of the current target node.")
+			attr description.InterpretedExpression pathExpression;
+			ref AbstractNodeMapping[*] pathNodeMapping;
+		}
+
+		abstract interface IEdgeMapping {
+			op EdgeStyle getBestStyle(ecore.EObject modelElement, ecore.EObject viewVariable, ecore.EObject containerVariable);
+		}
+
+		class EdgeMappingImport extends description.DocumentedElement, IEdgeMapping, description.IdentifiedElement {
+
+			@GenModel(documentation="The imported mapping used to define default values for the current mapping.")
+			ref IEdgeMapping[1] importedMapping;
+
+			@GenModel(documentation="All conditional styles.")
+			val ConditionalEdgeStyleDescription[*] conditionnalStyles;
+
+			@GenModel(documentation="Set to true if you want the filters applying on the imported mappings apply on this one.")
+			attr boolean inheritsAncestorFilters = true;
+		}
+
+		class ConditionalNodeStyleDescription extends description.ConditionalStyleDescription {
+			val style.NodeStyleDescription style;
+		}
+
+		class ConditionalEdgeStyleDescription extends description.ConditionalStyleDescription {
+			val style.EdgeStyleDescription style;
+		}
+
+		class ConditionalContainerStyleDescription extends description.ConditionalStyleDescription {
+			val style.ContainerStyleDescription style;
+		}
+
+		enum FoldingStyle {
+			NONE = 0;
+			SOURCE = 1;
+			TARGET = 2;
+		}
+
+		@GenModel(documentation="The layout entry allow you to choose a predefined existing layout for the arrange all feature")
+		abstract interface Layout extends description.DocumentedElement {
+		}
+
+		class OrderedTreeLayout extends Layout {
+
+			@GenModel(documentation="An expression returning the semantic children of an element, the result of this expression is used to compute a hiearchical tree for the layout.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+			@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+			attr description.InterpretedExpression[1] childrenExpression;
+
+			@GenModel(documentation="The list of mappings affected by the ordered tree routing.")
+			ref AbstractNodeMapping[+] nodeMapping;
+		}
+
+		class CompositeLayout extends Layout {
+			attr ecore.EInt[1] padding = "30";
+			attr LayoutDirection[1] direction = "topToBottom";
+		}
+
+		enum LayoutDirection {
+			TopToBottom = 0;
+			LeftToRight = 1;
+			BottomToTop = 2;
+		}
+
+		@GenModel(documentation="A MappingBasedDecoration applies decorations on views that are issued from one or more mappings.")
+		class MappingBasedDecoration extends description.DecorationDescription {
+			ref DiagramElementMapping[+] mappings;
+		}
+
+		class Layer extends description.DocumentedElement, description.EndUserDocumentedElement, description.IdentifiedElement {
+
+			@GenModel(documentation="Node mappings that are owned by this simple mapping.")
+			val NodeMapping[*] nodeMappings;
+
+			@GenModel(documentation="Edge mappings that are owned by this simple mapping.")
+			val EdgeMapping[*] edgeMappings;
+
+			@GenModel(documentation="Edge mapping imports that are owned by this simple mapping.")
+			val EdgeMappingImport[*] edgeMappingImports;
+
+			@GenModel(documentation="container mappings that are owned by this simple mapping.")
+			val ContainerMapping[*] containerMappings;
+
+			@GenModel(documentation="Add here any mapping you want to reuse from another layer or diagram.")
+			ref DiagramElementMapping[*] reusedMappings;
+
+			@GenModel(documentation="All tools of the viewpoint.")
+			readonly volatile transient derived ref description.tool.AbstractToolDescription[*] allTools;
+
+			@GenModel(documentation="A tool section encloses many tools")
+			val tool.ToolSection[*] toolSections;
+
+			@GenModel(documentation="Tools that are reused by this viewpoint.")
+			ref description.tool.AbstractToolDescription[*] reusedTools;
+			val description.DecorationDescriptionsSet decorationDescriptionsSet;
+
+			@GenModel(documentation="image path to use as an icon for the layer")
+			attr ecore.EString icon;
+
+			@GenModel(documentation="All edge mappings (including import edge mapping) of this simple mapping.")
+			readonly volatile transient derived ref EdgeMapping[*] allEdgeMappings;
+			val description.Customization customization;
+		}
+
+		class AdditionalLayer extends Layer {
+			attr ecore.EBoolean activeByDefault;
+			attr boolean optional = true;
+		}
+
+		@namespace(uri="http://www.eclipse.org/sirius/diagram/description/style/1.1.0", prefix="style")
+		package style {
+			class BorderedStyleDescription extends description.style.StyleDescription {
+
+				@GenModel(documentation="An expression computing the size of the border.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression borderSizeComputationExpression = "0";
+				ref description.ColorDescription[1] borderColor;
+			}
+
+			@GenModel(documentation="Style of a node.")
+			abstract class NodeStyleDescription extends description.style.StyleDescription, BorderedStyleDescription, description.style.LabelStyleDescription, description.style.TooltipStyleDescription {
+
+				@GenModel(documentation="Expression that computes the size of the node.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression sizeComputationExpression = "3";
+
+				@GenModel(documentation="The relative position of the label to the node.")
+				attr LabelPosition labelPosition = "border";
+
+				@GenModel(documentation="The default visibility of the label (available only if labelPosition equals BORDER).
+A change of this option does not affect already existing elements.")
+				attr boolean hideLabelByDefault = false;
+
+				@GenModel(documentation="Define the directions the user is able to resize.")
+				attr ResizeKind[1] resizeKind = "NONE";
+			}
+
+			class CustomStyleDescription extends NodeStyleDescription {
+
+				@GenModel(documentation="Set here an ID to identify your custom style.  You'll then be able to provide your own figure implementation for every representation element having a style with this ID.")
+				attr ecore.EString ~id;
+			}
+
+			@GenModel(documentation="The square style to display a node as a square.")
+			class SquareDescription extends NodeStyleDescription {
+
+				@GenModel(documentation="Return all nodes that have been created with the specified mapping.")
+				attr Integer width = "0";
+
+				@GenModel(documentation="The height of the square.")
+				attr Integer height = "0";
+				ref description.ColorDescription[1] color;
+			}
+
+			@GenModel(documentation="The lozenge style to display a node as a lozenge.")
+			class LozengeNodeDescription extends NodeStyleDescription {
+
+				@GenModel(documentation="An expression to compute the width of the lozenge.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression widthComputationExpression;
+
+				@GenModel(documentation="An expression to computes the height of the lozenge.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression heightComputationExpression;
+
+				@GenModel(documentation="The color of the lozenge.")
+				ref description.ColorDescription[1] color;
+			}
+
+			@GenModel(documentation="The ellipse style to display a node as an ellipse.")
+			class EllipseNodeDescription extends NodeStyleDescription {
+
+				@GenModel(documentation="The color of the ellipse.")
+				ref description.ColorDescription[1] color;
+
+				@GenModel(documentation="An expression to compute the horizontal diameter of the ellipse. (Semimajor axis)")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression horizontalDiameterComputationExpression = "0";
+
+				@GenModel(documentation="An expression to compute the vertical diameter of the ellipse. (Semiminor axis)")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression verticalDiameterComputationExpression = "0";
+			}
+
+			@GenModel(documentation="The bundled image style allows to use the default images provide by the Viewpoint editor.")
+			class BundledImageDescription extends NodeStyleDescription {
+
+				@GenModel(documentation="The shape to use.")
+				attr BundledImageShape[1] shape;
+
+				@GenModel(documentation="The color to use.")
+				ref description.ColorDescription[1] color;
+			}
+
+			class NoteDescription extends NodeStyleDescription {
+
+				@GenModel(documentation="The color to use.")
+				ref description.ColorDescription[1] color;
+			}
+
+			@GenModel(documentation="The dot style.")
+			class DotDescription extends NodeStyleDescription {
+
+				@GenModel(documentation="The background color.")
+				ref description.ColorDescription[1] backgroundColor;
+
+				@GenModel(documentation="An expression to compute the size of the stroke.")
+				@TagValues
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression strokeSizeComputationExpression = "2";
+			}
+
+			@GenModel(documentation="This style groups many GaugeSection.")
+			class GaugeCompositeStyleDescription extends NodeStyleDescription {
+
+				@GenModel(documentation="The alignment of the gauges")
+				attr AlignmentKind alignment = "SQUARE";
+
+				@GenModel(documentation="The sections.")
+				val GaugeSectionDescription[*] sections;
+			}
+
+			@GenModel(documentation="The gauge section represents one gauge of a GaugeCompositeStyle.")
+			class GaugeSectionDescription {
+
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression minValueExpression = "0";
+
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression maxValueExpression = "0";
+
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression valueExpression = "0";
+
+				@GenModel(documentation="The background color.")
+				ref description.ColorDescription[1] backgroundColor;
+
+				@GenModel(documentation="The foreground color.")
+				ref description.ColorDescription[1] foregroundColor;
+
+				@GenModel(documentation="The label of the gauge.")
+				attr ecore.EString label;
+			}
+
+			abstract class SizeComputationContainerStyleDescription {
+
+				@GenModel(documentation="Expression that computes the size of the node.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression widthComputationExpression = "-1";
+
+				@GenModel(documentation="Expression that computes the size of the node.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression heightComputationExpression = "-1";
+			}
+
+			abstract class RoundedCornerStyleDescription extends description.style.StyleDescription {
+
+				@GenModel(documentation="The width of the ellipse used to draw the corners.")
+				attr ecore.EIntegerObject arcWidth = "1";
+
+				@GenModel(documentation="The height of the ellipse used to draw the corners.")
+				attr ecore.EIntegerObject arcHeight = "1";
+			}
+
+			@GenModel(documentation="The style of a container.")
+			abstract class ContainerStyleDescription extends RoundedCornerStyleDescription, BorderedStyleDescription, description.style.LabelStyleDescription, description.style.TooltipStyleDescription {
+
+				@GenModel(documentation="")
+				attr ecore.EBoolean roundedCorner;
+			}
+
+			class FlatContainerStyleDescription extends ContainerStyleDescription, SizeComputationContainerStyleDescription {
+
+				@GenModel(documentation="The background style.")
+				attr BackgroundStyle[1] backgroundStyle;
+
+				@GenModel(documentation="The color to use.")
+				ref description.ColorDescription[1] backgroundColor;
+
+				@GenModel(documentation="The color to use.")
+				ref description.ColorDescription[1] foregroundColor;
+				ref description.style.LabelBorderStyleDescription labelBorderStyle;
+			}
+
+			class ShapeContainerStyleDescription extends ContainerStyleDescription, SizeComputationContainerStyleDescription {
+				attr ContainerShape[1] shape;
+
+				@GenModel(documentation="The color to use.")
+				ref description.ColorDescription[1] backgroundColor;
+			}
+
+			@GenModel(documentation="A custom image that is present in the user workspace.")
+			class WorkspaceImageDescription extends NodeStyleDescription, ContainerStyleDescription {
+
+				@GenModel(documentation="The path of the image to use in the form of /myProjectID/path/to/image.png,  if the image is not found in the workspace it will be looked for in the plugins.")
+				attr ecore.EString[1] workspacePath;
+			}
+
+			@GenModel(documentation="The style of an edge.")
+			class EdgeStyleDescription extends description.style.StyleDescription {
+
+				@GenModel(documentation="The color of the edge.")
+				ref description.ColorDescription[1] strokeColor;
+
+				@GenModel(documentation="The style of the line.")
+				attr LineStyle lineStyle;
+
+				@GenModel(documentation="The source decoration.")
+				attr EdgeArrows[1] sourceArrow = "NoDecoration";
+
+				@GenModel(documentation="The target decoration.")
+				attr EdgeArrows[1] targetArrow = "InputArrow";
+
+				@GenModel(documentation="An expression to compute the thickness of the link.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an integer.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DSemanticDiagram.", view="diagram.DEdge | the current edge view for which the size is calculated.", sourceView="diagram.EdgeTarget | the source view of the current edge.", targetView="diagram.EdgeTarget | the target view of the current edge.")
+				attr description.InterpretedExpression[1] sizeComputationExpression = "<%eContents().nSize%>";
+
+				@GenModel(documentation="The routing style for your edge.")
+				attr EdgeRouting[1] routingStyle = "straight";
+
+				@GenModel(documentation="A folding style allow to collapse the elements targeted by the edge.")
+				attr FoldingStyle foldingStyle;
+				val BeginLabelStyleDescription beginLabelStyleDescription;
+				val CenterLabelStyleDescription centerLabelStyleDescription;
+				val EndLabelStyleDescription endLabelStyleDescription;
+			}
+
+			@GenModel(documentation="The style of a begin label.")
+			class BeginLabelStyleDescription extends description.style.BasicLabelStyleDescription {
+			}
+
+			@GenModel(documentation="The style of a center label.")
+			class CenterLabelStyleDescription extends description.style.BasicLabelStyleDescription {
+			}
+
+			@GenModel(documentation="The style of a end label.")
+			class EndLabelStyleDescription extends description.style.BasicLabelStyleDescription {
+			}
+
+			class BracketEdgeStyleDescription extends EdgeStyleDescription {
+			}
+
+		}
+
+		@namespace(uri="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0", prefix="tool")
+		package tool {
+			@GenModel(documentation="A tool section enclosed some tools.")
+			class ToolSection extends description.DocumentedElement, description.IdentifiedElement {
+
+				@GenModel(documentation="image path used for presenting the section with this icon in the palette")
+				attr ecore.EString icon;
+
+				@GenModel(documentation="All tools of the section.")
+				val description.tool.ToolEntry[*] ownedTools;
+
+				@GenModel(documentation="All sub sections")
+				val ToolSection[*] subSections;
+
+				@GenModel(documentation="Popup menus available on this layer.")
+				readonly volatile transient derived ref description.tool.PopupMenu[*] popupMenus;
+
+				@GenModel(documentation="Tools that are reused by this viewpoint.")
+				ref description.tool.ToolEntry[*] reusedTools;
+				val ToolGroupExtension[*] groupExtensions;
+			}
+
+			class ToolGroup extends description.tool.ToolEntry {
+				val description.tool.AbstractToolDescription[*] tools;
+			}
+
+			class ToolGroupExtension {
+				ref ToolGroup[1] group;
+				val description.tool.AbstractToolDescription[*] tools;
+			}
+
+			@GenModel(documentation="Tool to create a ViewNode. It appears in the palette.")
+			class NodeCreationDescription extends description.tool.MappingBasedToolDescription {
+
+				@GenModel(documentation="Node mappings used by this tool.")
+				ref NodeMapping[+] nodeMappings;
+
+				@GenModel(documentation="The variable container that represents the semantic element of the clicked view.", documentedName="container")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"(type="ecore.EObject")
+				val NodeCreationVariable[1] variable;
+
+				@GenModel(documentation="The variable containerView that represents the clickedView (instance of ViewPoint or ViewPointElement).", documentedName="containerView")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"(type="diagram.DDiagramElementContainer")
+				val description.tool.ContainerViewVariable[1] viewVariable;
+
+				@GenModel(documentation="The first operation to execute.")
+				val description.tool.InitialNodeCreationOperation[1] initialOperation;
+
+				@GenModel(documentation="The path of the icon to display in the palette. If unset, the icon corresponding to the semantic element associated with the mapping will be displayed.")
+				attr ecore.EString iconPath = "";
+
+				@GenModel(documentation="Add here any mapping in which you want to allow the tool execution.")
+				ref AbstractNodeMapping[*] extraMappings;
+			}
+
+			@GenModel(documentation="Tools to create a ViewEdge it appears in the palette.")
+			class EdgeCreationDescription extends description.tool.MappingBasedToolDescription {
+
+				@GenModel(documentation="Returns the best mapping to use.")
+				op EdgeMapping getBestMapping(@GenModel(documentation="The source View.")
+EdgeTarget source, @GenModel(documentation="The target view.")
+EdgeTarget target, @GenModel(documentation="The element that has been created by this tool.")
+ecore.EObject[*] createdElements);
+
+				@GenModel(documentation="All EdgeMappings used by this tool.")
+				ref EdgeMapping[+] edgeMappings;
+
+				@GenModel(documentation="The semantic element of the source view.", documentedName="source")
+				val SourceEdgeCreationVariable[1] sourceVariable;
+
+				@GenModel(documentation="The semantic element of the target view.", documentedName="target")
+				val TargetEdgeCreationVariable[1] targetVariable;
+
+				@GenModel(documentation="The source view (instance of EdgeTarget)", documentedName="sourceView")
+				val SourceEdgeViewCreationVariable[1] sourceViewVariable;
+
+				@GenModel(documentation="The target view (instance of EdgeTarget)", documentedName="targetView")
+				val TargetEdgeViewCreationVariable[1] targetViewVariable;
+
+				@GenModel(documentation="The first operation.")
+				val description.tool.InitEdgeCreationOperation[1] initialOperation;
+
+				@GenModel(documentation="The path of the icon to display in the palette. If unset, the icon corresponding to the semantic element associated with the mapping will be displayed.")
+				attr ecore.EString iconPath = "";
+
+				@GenModel(documentation="All mappings that create views that are able to received a request to manage this creation
+")
+				ref DiagramElementMapping[*] extraSourceMappings;
+
+				@GenModel(documentation="All mappings that create views that are able to received a request to manage this creation
+")
+				ref DiagramElementMapping[*] extraTargetMappings;
+
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"(container="ecore.EObject | the semantic element of diagram.", preSourceView="diagram.EdgeTarget | (edge only) the source view of the current potential edge.", preSource="ecore.EObject | (edge only) the semantic element of $preSourceView.", diagram="diagram.DDiagram | the diagram of the current potential edge")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+				@GenModel(documentation="The start precondition of the tool.")
+				attr description.InterpretedExpression connectionStartPrecondition;
+			}
+
+			@GenModel(documentation="Tool to create a Container (ViewNodeContainer or ViewNodeList).")
+			class ContainerCreationDescription extends description.tool.MappingBasedToolDescription {
+
+				@GenModel(documentation="The ContainerMapping to use.")
+				ref ContainerMapping[+] containerMappings;
+
+				@GenModel(documentation="The semantic element of the cicked view.", documentedName="container")
+				val NodeCreationVariable[1] variable;
+
+				@GenModel(documentation="The clicked view (instance of ViewPoint or ViewNodeContainer).", documentedName="containerView")
+				val description.tool.ContainerViewVariable[1] viewVariable;
+
+				@GenModel(documentation="The first operation.")
+				val description.tool.InitialNodeCreationOperation[1] initialOperation;
+
+				@GenModel(documentation="The path of the icon to display in the palette. If unset, the icon corresponding to the semantic element associated with the mapping will be displayed.")
+				attr ecore.EString iconPath = "";
+
+				@GenModel(documentation="All mappings that create views that are able to received a request to manage this creation
+")
+				ref AbstractNodeMapping[*] extraMappings;
+			}
+
+			@GenModel(documentation="Tool that describes how to delete a ViewPointElement.")
+			class DeleteElementDescription extends description.tool.MappingBasedToolDescription {
+				op DiagramElementMapping[+] getMappings();
+
+				@GenModel(documentation="The semantic element of the ViewPointElement to delete.")
+				val description.tool.ElementDeleteVariable[1] element;
+				val description.tool.ElementDeleteVariable elementView;
+
+				@GenModel(documentation="The view that contains the ViewPointElement to delete.")
+				val description.tool.ContainerViewVariable[1] containerView;
+
+				@GenModel(documentation="The first operation.")
+				val description.tool.InitialOperation[1] initialOperation;
+				val DeleteHook hook;
+			}
+
+			@GenModel(documentation="Tool that describes double click behaviour.")
+			class DoubleClickDescription extends description.tool.MappingBasedToolDescription {
+
+				@GenModel(documentation="Mappings associated with this deletion behavior.")
+				ref DiagramElementMapping[+]#doubleClickDescription mappings;
+
+				@GenModel(documentation="The semantic element of the ViewPointElement to delete.")
+				val ElementDoubleClickVariable[1] element;
+				val ElementDoubleClickVariable elementView;
+
+				@GenModel(documentation="The first operation.")
+				val description.tool.InitialOperation[1] initialOperation;
+			}
+
+			class DeleteHook {
+				attr ecore.EString[1] ~id;
+				val DeleteHookParameter[*] parameters;
+			}
+
+			class DeleteHookParameter {
+
+				@GenModel(documentation="Name of the parameter")
+				attr ecore.EString[1] name;
+
+				@GenModel(documentation="Value of the parameter.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a Collection<EObject> or an EObject.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression value;
+			}
+
+			@GenModel(documentation="A tool that describes how to reconnect a ViewEdge.")
+			class ReconnectEdgeDescription extends description.tool.MappingBasedToolDescription {
+				op EdgeMapping[+] getMappings();
+
+				@GenModel(documentation="The kind of reconnection :
+SOURCE : the source of the ViewEdge can be reconnected but not the target.
+TARGET : the target of the ViewEdge can be reconnected but not the source.
+")
+				attr ReconnectionKind[1] reconnectionKind = "RECONNECT_TARGET";
+
+				@GenModel(documentation="The semantic element of the source view of the reconnection operation.")
+				val SourceEdgeCreationVariable[1] source;
+
+				@GenModel(documentation="The semantic element of the target view of the reconnection operation.")
+				val TargetEdgeCreationVariable[1] target;
+
+				@GenModel(documentation="The source view of the reconnection operation.")
+				val SourceEdgeViewCreationVariable[1] sourceView;
+
+				@GenModel(documentation="The target view of the reconnection operation.")
+				val TargetEdgeViewCreationVariable[1] targetView;
+
+				@GenModel(documentation="The semantic element of the ViewEdge.")
+				val description.tool.ElementSelectVariable[1] element;
+
+				@GenModel(documentation="The first operation.")
+				val description.tool.InitialOperation[1] initialOperation;
+				val description.tool.ElementSelectVariable[1] edgeView;
+			}
+
+			enum ReconnectionKind {
+				RECONNECT_TARGET = 0;
+				RECONNECT_SOURCE = 1;
+				RECONNECT_BOTH = 2;
+			}
+
+			class RequestDescription extends description.tool.AbstractToolDescription {
+
+				@GenModel(documentation="An Identifier for your request. This request will be send through GEF and any EditPolicy handling this request will then be able to perform commands.")
+				attr ecore.EString[1] type;
+			}
+
+			@GenModel(documentation="A tool that allows to edit the label of a ViewPointElement.")
+			class DirectEditLabel extends description.tool.MappingBasedToolDescription {
+				op DiagramElementMapping[+] getMapping();
+
+				@GenModel(documentation="The edit mask.")
+				val description.tool.EditMaskVariables[1] mask;
+
+				@GenModel(documentation="The first operation.")
+				val description.tool.InitialOperation[1] initialOperation;
+
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a string.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"(diagram="diagram.DDiagram | the current DSemanticDiagram.", view="diagram.DDiagramElement | the current view for which the label is calculated.")
+				@GenModel(documentation="Expression that computes the name of a diagramElement to edit with direct edit tool.")
+				attr description.InterpretedExpression inputLabelExpression;
+			}
+
+			@GenModel(documentation="A tool that can be launched by the user.")
+			class BehaviorTool extends description.tool.AbstractToolDescription {
+
+				@GenModel(documentation="The type of elements on which we want to appy the tool.")
+				attr description.TypeName[1] domainClass = "EObject";
+
+				@GenModel(documentation="The first operation.")
+				val description.tool.InitialOperation[1] initialOperation;
+			}
+
+			class SourceEdgeCreationVariable extends description.tool.AbstractVariable, description.tool.VariableContainer {
+			}
+
+			class SourceEdgeViewCreationVariable extends description.tool.AbstractVariable, description.tool.VariableContainer {
+			}
+
+			class TargetEdgeCreationVariable extends description.tool.AbstractVariable, description.tool.VariableContainer {
+			}
+
+			class TargetEdgeViewCreationVariable extends description.tool.AbstractVariable, description.tool.VariableContainer {
+			}
+
+			class ElementDoubleClickVariable extends description.tool.AbstractVariable, description.tool.VariableContainer {
+			}
+
+			class NodeCreationVariable extends description.tool.AbstractVariable, description.tool.VariableContainer {
+			}
+
+			@GenModel(documentation="This operation allows to create a view.")
+			class CreateView extends description.tool.ContainerModelOperation {
+
+				@GenModel(documentation="Mapping to create a view from.")
+				ref DiagramElementMapping[1] mapping;
+
+				@GenModel(contentassist="")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a view (DNode, DEdge, DDiagram -> any DSemanticDecorator).")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression[1] containerViewExpression = "";
+
+				@GenModel(documentation="Once the view is created, a new variable will be bound with the name given here and will be available to any contained operation.")
+				attr ecore.EString variableName = "createdView";
+			}
+
+			class CreateEdgeView extends CreateView {
+
+				@GenModel(contentassist="")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an EObject.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression[1] sourceExpression;
+
+				@GenModel(contentassist="")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="an EObject.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression[1] targetExpression;
+			}
+
+			@GenModel(documentation="Open or create a representation for the element.")
+			class Navigation extends description.tool.ContainerModelOperation {
+				attr ecore.EBoolean createIfNotExistent;
+				ref DiagramDescription[1] diagramDescription;
+			}
+
+			class DiagramCreationDescription extends description.tool.RepresentationCreationDescription {
+				ref DiagramDescription[1] diagramDescription;
+			}
+
+			class DiagramNavigationDescription extends description.tool.RepresentationNavigationDescription {
+				ref DiagramDescription[1] diagramDescription;
+			}
+
+		}
+
+		@namespace(uri="http://www.eclipse.org/sirius/diagram/description/filter/1.1.0", prefix="filter")
+		package filter {
+			@GenModel(documentation="Describe a filter. A filter allows to hide some elements.")
+			abstract class FilterDescription extends description.DocumentedElement, description.IdentifiedElement {
+
+				@GenModel(documentation="Return true if the specified viewpoint element is visible for this filter.")
+				op ecore.EBoolean isVisible(@GenModel(documentation="The element to test.")
+DDiagramElement element);
+			}
+
+			@GenModel(documentation="A filter.")
+			abstract class Filter {
+
+				@GenModel(documentation="Return true if the specified viewpoint element is visible for this filter.")
+				op ecore.EBoolean isVisible(@GenModel(documentation="The element to test.")
+DDiagramElement element);
+
+				@GenModel(documentation="A filter might hide elements or just shrink them. In the case of the shrink, the edges going to this element will be kept.")
+				attr FilterKind filterKind = "HIDE";
+			}
+
+			@GenModel(documentation="A filter that filters mappings.")
+			class MappingFilter extends Filter {
+
+				@GenModel(documentation="All mappings to filter.")
+				ref DiagramElementMapping[*] mappings;
+
+				@GenModel(documentation="The condition to apply on the semantic element, if true the element is filtered.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression semanticConditionExpression;
+
+				@GenModel(documentation="The condition to apply on the view element.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression viewConditionExpression;
+			}
+
+			@GenModel(documentation="A composite filter description.")
+			class CompositeFilterDescription extends FilterDescription {
+
+				@GenModel(documentation="All filters.")
+				val Filter[+] filters;
+			}
+
+			@GenModel(documentation="A filter that filters viewpoint elements considering an expression and some variables defined by the user.
+")
+			class VariableFilter extends Filter {
+
+				@GenModel(documentation="Set the couple (name,value) of variables to consider while evaluating the filter.")
+				op void setFilterContext(@GenModel(documentation="(name,value) couples where name is a String and value is an EObject")
+ecore.EMap<?, ?> variables);
+				val FilterVariable[*] ownedVariables;
+
+				@GenModel(documentation="The condition to apply on the semantic element.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression semanticConditionExpression = "";
+			}
+
+			class FilterVariable extends description.SelectionDescription {
+
+				@GenModel(documentation="Name of the variable.")
+				attr ecore.EString[1] name;
+			}
+
+			enum FilterKind {
+				HIDE = 0;
+				COLLAPSE = 1;
+			}
+
+		}
+
+		@namespace(uri="http://www.eclipse.org/sirius/diagram/description/validation/1.1.0", prefix="validation")
+		package validation {
+			@GenModel(documentation="A set of validation rules.")
+			class ValidationSet extends description.DocumentedElement {
+
+				@GenModel(documentation="The validation rules owned by this set.")
+				val ValidationRule[*] ownedRules;
+
+				@GenModel(documentation="The name of the set.")
+				attr String name = "";
+
+				@GenModel(documentation="The validations rules that are reused by this set.")
+				ref ValidationRule[*] reusedRules;
+
+				@GenModel(documentation="All rules of the set.")
+				readonly volatile transient derived ref ValidationRule[*] allRules;
+			}
+
+			@GenModel(documentation="A validation rule.")
+			abstract class ValidationRule {
+
+				@GenModel(documentation="Check the rule for the specified element.")
+				op ecore.EBoolean checkRule(@GenModel(documentation="The object to test.")
+ecore.EObject eObj);
+				op ecore.EString getMessage(ecore.EObject eObj);
+				attr ERROR_LEVEL[1] level = "INFO";
+
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression message = "The <%name%> element has...";
+				val RuleAudit[*] audits;
+				val ValidationFix[*] fixes;
+			}
+
+			@GenModel(documentation="A validation rule that is applied on a semantic element.")
+			class SemanticValidationRule extends ValidationRule {
+
+				@GenModel(documentation="The name of the domain class of the element.")
+				attr description.TypeName[1] targetClass;
+			}
+
+			@GenModel(documentation="A validation rule that is applied on a view element.")
+			class ViewValidationRule extends ValidationRule {
+
+				@GenModel(documentation="The mapping to validate.")
+				ref DiagramElementMapping[*] targets;
+			}
+
+			@GenModel(documentation="The validation expression.")
+			class RuleAudit {
+
+				@GenModel(documentation="An expression checked on the model, if the audit fails (return false) then the rule fail.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/returnType"(returnType="a boolean.")
+				@"http://www.eclipse.org/sirius/interpreted/expression/variables"
+				attr description.InterpretedExpression[1] auditExpression;
+			}
+
+			@GenModel(documentation="All levels of error for a validation rule.")
+			enum ERROR_LEVEL {
+
+				@GenModel(documentation="Info level.")
+				INFO = 0;
+
+				@GenModel(documentation="Warning level.")
+				WARNING = 1;
+
+				@GenModel(documentation="Error level.")
+				ERROR = 3;
+			}
+
+			class ValidationFix {
+
+				@GenModel(documentation="Name of the quick fix displayed to the user.")
+				attr ecore.EString[1] name;
+
+				@GenModel(documentation="The first operation.")
+				val description.tool.InitialOperation[1] initialOperation;
+			}
+
+		}
+
+		@namespace(uri="http://www.eclipse.org/sirius/diagram/description/concern/1.1.0", prefix="concern")
+		package concern {
+			@GenModel(documentation="A set of many concerns.")
+			@TagValues
+			class ConcernSet extends description.DocumentedElement {
+
+				@GenModel(documentation="All concerns")
+				val ConcernDescription[*] ownedConcernDescriptions;
+			}
+
+			@GenModel(documentation="Describe a concern. A concern could be seen as an aspect. It allows to enable some filters, validation rules or behaviors in one click.")
+			@TagValues
+			class ConcernDescription extends description.DocumentedElement, description.IdentifiedElement {
+
+				@GenModel(documentation="All filters of this concern.")
+				ref filter.FilterDescription[*] filters;
+
+				@GenModel(documentation="All rules of this concern.")
+				ref validation.ValidationRule[*] rules;
+
+				@GenModel(documentation="All behaviors of the concern.")
+				ref tool.BehaviorTool[*] behaviors;
+			}
+
+		}
+
+	}
+
+}
+

@@ -1,0 +1,1767 @@
+@GenModel(documentation="
+   <div xmlns=\"http://www.w3.org/1999/xhtml\">
+    <h1>About the XML namespace</h1>
+
+    <div class=\"bodytext\">
+     <p>
+      This schema document describes the XML namespace, in a form
+      suitable for import by other schema documents.
+     </p>
+     <p>
+      See <a href=\"http://www.w3.org/XML/1998/namespace.html\">
+      http://www.w3.org/XML/1998/namespace.html</a> and
+      <a href=\"http://www.w3.org/TR/REC-xml\">
+      http://www.w3.org/TR/REC-xml</a> for information 
+      about this namespace.
+     </p>
+     <p>
+      Note that local names in this namespace are intended to be
+      defined only by the World Wide Web Consortium or its subgroups.
+      The names currently defined in this namespace are listed below.
+      They should not be used with conflicting semantics by any Working
+      Group, specification, or document instance.
+     </p>
+     <p>   
+      See further below in this document for more information about <a href=\"#usage\">how to refer to this schema document from your own
+      XSD schema documents</a> and about <a href=\"#nsversioning\">the
+      namespace-versioning policy governing this schema document</a>.
+     </p>
+    </div>
+   </div>
+  
+
+   <div xmlns=\"http://www.w3.org/1999/xhtml\">
+   
+    <h3>Father (in any context at all)</h3> 
+
+    <div class=\"bodytext\">
+     <p>
+      denotes Jon Bosak, the chair of 
+      the original XML Working Group.  This name is reserved by 
+      the following decision of the W3C XML Plenary and 
+      XML Coordination groups:
+     </p>
+     <blockquote>
+       <p>
+	In appreciation for his vision, leadership and
+	dedication the W3C XML Plenary on this 10th day of
+	February, 2000, reserves for Jon Bosak in perpetuity
+	the XML name \"xml:Father\".
+       </p>
+     </blockquote>
+    </div>
+   </div>
+  
+
+   <div id=\"usage\" xml:id=\"usage\" xmlns=\"http://www.w3.org/1999/xhtml\">
+    <h2>
+      <a name=\"usage\">About this schema document</a>
+    </h2>
+
+    <div class=\"bodytext\">
+     <p>
+      This schema defines attributes and an attribute group suitable
+      for use by schemas wishing to allow <code>xml:base</code>,
+      <code>xml:lang</code>, <code>xml:space</code> or
+      <code>xml:id</code> attributes on elements they define.
+     </p>
+     <p>
+      To enable this, such a schema must import this schema for
+      the XML namespace, e.g. as follows:
+     </p>
+     <pre>
+          &lt;schema . . .&gt;
+           . . .
+           &lt;import namespace=\"http://www.w3.org/XML/1998/namespace\"
+                      schemaLocation=\"http://www.w3.org/2001/xml.xsd\"/&gt;
+     </pre>
+     <p>
+      or
+     </p>
+     <pre>
+           &lt;import namespace=\"http://www.w3.org/XML/1998/namespace\"
+                      schemaLocation=\"http://www.w3.org/2009/01/xml.xsd\"/&gt;
+     </pre>
+     <p>
+      Subsequently, qualified reference to any of the attributes or the
+      group defined below will have the desired effect, e.g.
+     </p>
+     <pre>
+          &lt;type . . .&gt;
+           . . .
+           &lt;attributeGroup ref=\"xml:specialAttrs\"/&gt;
+     </pre>
+     <p>
+      will define a type which will schema-validate an instance element
+      with any of those attributes.
+     </p>
+    </div>
+   </div>
+  
+
+   <div id=\"nsversioning\" xml:id=\"nsversioning\" xmlns=\"http://www.w3.org/1999/xhtml\">
+    <h2>
+      <a name=\"nsversioning\">Versioning policy for this schema document</a>
+    </h2>
+    <div class=\"bodytext\">
+     <p>
+      In keeping with the XML Schema WG's standard versioning
+      policy, this schema document will persist at
+      <a href=\"http://www.w3.org/2009/01/xml.xsd\">
+       http://www.w3.org/2009/01/xml.xsd</a>.
+     </p>
+     <p>
+      At the date of issue it can also be found at
+      <a href=\"http://www.w3.org/2001/xml.xsd\">
+       http://www.w3.org/2001/xml.xsd</a>.
+     </p>
+     <p>
+      The schema document at that URI may however change in the future,
+      in order to remain compatible with the latest version of XML
+      Schema itself, or with the XML namespace itself.  In other words,
+      if the XML Schema or XML namespaces change, the version of this
+      document at <a href=\"http://www.w3.org/2001/xml.xsd\">
+       http://www.w3.org/2001/xml.xsd 
+      </a> 
+      will change accordingly; the version at 
+      <a href=\"http://www.w3.org/2009/01/xml.xsd\">
+       http://www.w3.org/2009/01/xml.xsd 
+      </a> 
+      will not change.
+     </p>
+     <p>
+      Previous dated (and unchanging) versions of this schema 
+      document are at:
+     </p>
+     <ul>
+      <li>
+          <a href=\"http://www.w3.org/2009/01/xml.xsd\">
+	http://www.w3.org/2009/01/xml.xsd</a>
+        </li>
+      <li>
+          <a href=\"http://www.w3.org/2007/08/xml.xsd\">
+	http://www.w3.org/2007/08/xml.xsd</a>
+        </li>
+      <li>
+          <a href=\"http://www.w3.org/2004/10/xml.xsd\">
+	http://www.w3.org/2004/10/xml.xsd</a>
+        </li>
+      <li>
+          <a href=\"http://www.w3.org/2001/03/xml.xsd\">
+	http://www.w3.org/2001/03/xml.xsd</a>
+        </li>
+     </ul>
+    </div>
+   </div>
+  ")
+@namespace(uri="http://www.eclipse.org/rmf/tests/serialization/env/myreqif.xsd", prefix="myreqif")
+package myreqif;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+import "platform:/plugin/org.eclipse.emf.ecore/model/XMLNamespace.ecore";
+
+@ExtendedMetaData(name="ALTERNATIVE-ID", kind="empty")
+class ALTERNATIVEID {
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	attr type.String[1] iDENTIFIER;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._type", kind="elementOnly")
+class ALTERNATIVEIDType {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._1_._type", kind="elementOnly")
+class ALTERNATIVEIDType1 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._2_._type", kind="elementOnly")
+class ALTERNATIVEIDType2 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._3_._type", kind="elementOnly")
+class ALTERNATIVEIDType3 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._4_._type", kind="elementOnly")
+class ALTERNATIVEIDType4 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._5_._type", kind="elementOnly")
+class ALTERNATIVEIDType5 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._6_._type", kind="elementOnly")
+class ALTERNATIVEIDType6 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._7_._type", kind="elementOnly")
+class ALTERNATIVEIDType7 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._8_._type", kind="elementOnly")
+class ALTERNATIVEIDType8 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._9_._type", kind="elementOnly")
+class ALTERNATIVEIDType9 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._10_._type", kind="elementOnly")
+class ALTERNATIVEIDType10 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._11_._type", kind="elementOnly")
+class ALTERNATIVEIDType11 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._12_._type", kind="elementOnly")
+class ALTERNATIVEIDType12 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._13_._type", kind="elementOnly")
+class ALTERNATIVEIDType13 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._14_._type", kind="elementOnly")
+class ALTERNATIVEIDType14 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._15_._type", kind="elementOnly")
+class ALTERNATIVEIDType15 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._16_._type", kind="elementOnly")
+class ALTERNATIVEIDType16 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._17_._type", kind="elementOnly")
+class ALTERNATIVEIDType17 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._18_._type", kind="elementOnly")
+class ALTERNATIVEIDType18 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._19_._type", kind="elementOnly")
+class ALTERNATIVEIDType19 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._20_._type", kind="elementOnly")
+class ALTERNATIVEIDType20 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._21_._type", kind="elementOnly")
+class ALTERNATIVEIDType21 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._22_._type", kind="elementOnly")
+class ALTERNATIVEIDType22 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ALTERNATIVE-ID_._23_._type", kind="elementOnly")
+class ALTERNATIVEIDType23 {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEID aLTERNATIVEID;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-DEFINITION-BOOLEAN", kind="elementOnly")
+class ATTRIBUTEDEFINITIONBOOLEAN {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType16 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="DEFAULT-VALUE", namespace="##targetNamespace")
+	!resolve val DEFAULTVALUEType6 dEFAULTVALUE;
+
+	@ExtendedMetaData(kind="element", name="TYPE", namespace="##targetNamespace")
+	!resolve val TYPEType10[1] tYPE;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="IS-EDITABLE")
+	unsettable attr type.Boolean iSEDITABLE;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-DEFINITION-DATE", kind="elementOnly")
+class ATTRIBUTEDEFINITIONDATE {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType18 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="DEFAULT-VALUE", namespace="##targetNamespace")
+	!resolve val DEFAULTVALUEType dEFAULTVALUE;
+
+	@ExtendedMetaData(kind="element", name="TYPE", namespace="##targetNamespace")
+	!resolve val TYPEType8[1] tYPE;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="IS-EDITABLE")
+	unsettable attr type.Boolean iSEDITABLE;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-DEFINITION-ENUMERATION", kind="elementOnly")
+class ATTRIBUTEDEFINITIONENUMERATION {
+
+	@ExtendedMetaData(kind="element", name="DEFAULT-VALUE", namespace="##targetNamespace")
+	!resolve val DEFAULTVALUEType1 dEFAULTVALUE;
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType20 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="TYPE", namespace="##targetNamespace")
+	!resolve val TYPEType9[1] tYPE;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="IS-EDITABLE")
+	unsettable attr type.Boolean iSEDITABLE;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+
+	@ExtendedMetaData(kind="attribute", name="MULTI-VALUED")
+	unsettable attr type.Boolean[1] mULTIVALUED;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-DEFINITION-INTEGER", kind="elementOnly")
+class ATTRIBUTEDEFINITIONINTEGER {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType21 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="DEFAULT-VALUE", namespace="##targetNamespace")
+	!resolve val DEFAULTVALUEType2 dEFAULTVALUE;
+
+	@ExtendedMetaData(kind="element", name="TYPE", namespace="##targetNamespace")
+	!resolve val TYPEType2[1] tYPE;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="IS-EDITABLE")
+	unsettable attr type.Boolean iSEDITABLE;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-DEFINITION-REAL", kind="elementOnly")
+class ATTRIBUTEDEFINITIONREAL {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType22 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="DEFAULT-VALUE", namespace="##targetNamespace")
+	!resolve val DEFAULTVALUEType3 dEFAULTVALUE;
+
+	@ExtendedMetaData(kind="element", name="TYPE", namespace="##targetNamespace")
+	!resolve val TYPEType4[1] tYPE;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="IS-EDITABLE")
+	unsettable attr type.Boolean iSEDITABLE;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-DEFINITION-STRING", kind="elementOnly")
+class ATTRIBUTEDEFINITIONSTRING {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType15 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="DEFAULT-VALUE", namespace="##targetNamespace")
+	!resolve val DEFAULTVALUEType4 dEFAULTVALUE;
+
+	@ExtendedMetaData(kind="element", name="TYPE", namespace="##targetNamespace")
+	!resolve val TYPEType3[1] tYPE;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="IS-EDITABLE")
+	unsettable attr type.Boolean iSEDITABLE;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-DEFINITION-XHTML", kind="elementOnly")
+class ATTRIBUTEDEFINITIONXHTML {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType6 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="DEFAULT-VALUE", namespace="##targetNamespace")
+	!resolve val DEFAULTVALUEType5 dEFAULTVALUE;
+
+	@ExtendedMetaData(kind="element", name="TYPE", namespace="##targetNamespace")
+	!resolve val TYPEType5[1] tYPE;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="IS-EDITABLE")
+	unsettable attr type.Boolean iSEDITABLE;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-VALUE-BOOLEAN", kind="elementOnly")
+class ATTRIBUTEVALUEBOOLEAN {
+
+	@ExtendedMetaData(kind="element", name="DEFINITION", namespace="##targetNamespace")
+	!resolve val DEFINITIONType6[1] dEFINITION;
+
+	@ExtendedMetaData(kind="attribute", name="THE-VALUE")
+	unsettable attr type.Boolean[1] tHEVALUE;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-VALUE-DATE", kind="elementOnly")
+class ATTRIBUTEVALUEDATE {
+
+	@ExtendedMetaData(kind="element", name="DEFINITION", namespace="##targetNamespace")
+	!resolve val DEFINITIONType1[1] dEFINITION;
+
+	@ExtendedMetaData(kind="attribute", name="THE-VALUE")
+	attr type.DateTime[1] tHEVALUE;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-VALUE-ENUMERATION", kind="elementOnly")
+class ATTRIBUTEVALUEENUMERATION {
+
+	@ExtendedMetaData(kind="element", name="DEFINITION", namespace="##targetNamespace")
+	!resolve val DEFINITIONType[1] dEFINITION;
+
+	@ExtendedMetaData(kind="element", name="VALUES", namespace="##targetNamespace")
+	!resolve val VALUESType3 vALUES;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-VALUE-INTEGER", kind="elementOnly")
+class ATTRIBUTEVALUEINTEGER {
+
+	@ExtendedMetaData(kind="element", name="DEFINITION", namespace="##targetNamespace")
+	!resolve val DEFINITIONType5[1] dEFINITION;
+
+	@ExtendedMetaData(kind="attribute", name="THE-VALUE")
+	attr type.Integer[1] tHEVALUE;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-VALUE-REAL", kind="elementOnly")
+class ATTRIBUTEVALUEREAL {
+
+	@ExtendedMetaData(kind="element", name="DEFINITION", namespace="##targetNamespace")
+	!resolve val DEFINITIONType4[1] dEFINITION;
+
+	@ExtendedMetaData(kind="attribute", name="THE-VALUE")
+	unsettable attr type.Double[1] tHEVALUE;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-VALUE-STRING", kind="elementOnly")
+class ATTRIBUTEVALUESTRING {
+
+	@ExtendedMetaData(kind="element", name="DEFINITION", namespace="##targetNamespace")
+	!resolve val DEFINITIONType2[1] dEFINITION;
+
+	@ExtendedMetaData(kind="attribute", name="THE-VALUE")
+	attr type.String[1] tHEVALUE;
+}
+
+@ExtendedMetaData(name="ATTRIBUTE-VALUE-XHTML", kind="elementOnly")
+class ATTRIBUTEVALUEXHTML {
+
+	@ExtendedMetaData(kind="element", name="THE-VALUE", namespace="##targetNamespace")
+	attr XHTMLCONTENT[1] tHEVALUE;
+
+	@ExtendedMetaData(kind="element", name="THE-ORIGINAL-VALUE", namespace="##targetNamespace")
+	attr XHTMLCONTENT tHEORIGINALVALUE;
+
+	@ExtendedMetaData(kind="element", name="DEFINITION", namespace="##targetNamespace")
+	!resolve val DEFINITIONType3[1] dEFINITION;
+
+	@ExtendedMetaData(kind="attribute", name="IS-SIMPLIFIED")
+	unsettable attr type.Boolean iSSIMPLIFIED;
+}
+
+@ExtendedMetaData(name="CHILDREN_._type", kind="elementOnly")
+class CHILDRENType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="SPEC-HIERARCHY", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SPECHIERARCHY[*] sPECHIERARCHY;
+}
+
+@ExtendedMetaData(name="CHILDREN_._1_._type", kind="elementOnly")
+class CHILDRENType1 {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="SPEC-HIERARCHY", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SPECHIERARCHY[*] sPECHIERARCHY;
+}
+
+@ExtendedMetaData(name="CORE-CONTENT_._type", kind="elementOnly")
+class CORECONTENTType {
+
+	@ExtendedMetaData(kind="element", name="REQ-IF-CONTENT", namespace="##targetNamespace")
+	!resolve val REQIFCONTENT rEQIFCONTENT;
+}
+
+@ExtendedMetaData(name="DATATYPE-DEFINITION-BOOLEAN", kind="elementOnly")
+class DATATYPEDEFINITIONBOOLEAN {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType23 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="DATATYPE-DEFINITION-DATE", kind="elementOnly")
+class DATATYPEDEFINITIONDATE {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="DATATYPE-DEFINITION-ENUMERATION", kind="elementOnly")
+class DATATYPEDEFINITIONENUMERATION {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType1 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="SPECIFIED-VALUES", namespace="##targetNamespace")
+	!resolve val SPECIFIEDVALUESType sPECIFIEDVALUES;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="DATATYPE-DEFINITION-INTEGER", kind="elementOnly")
+class DATATYPEDEFINITIONINTEGER {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType19 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+
+	@ExtendedMetaData(kind="attribute", name="MAX")
+	attr type.Integer[1] mAX;
+
+	@ExtendedMetaData(kind="attribute", name="MIN")
+	attr type.Integer[1] mIN;
+}
+
+@ExtendedMetaData(name="DATATYPE-DEFINITION-REAL", kind="elementOnly")
+class DATATYPEDEFINITIONREAL {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType3 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="attribute", name="ACCURACY")
+	attr type.Integer[1] aCCURACY;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+
+	@ExtendedMetaData(kind="attribute", name="MAX")
+	unsettable attr type.Double[1] mAX;
+
+	@ExtendedMetaData(kind="attribute", name="MIN")
+	unsettable attr type.Double[1] mIN;
+}
+
+@ExtendedMetaData(name="DATATYPE-DEFINITION-STRING", kind="elementOnly")
+class DATATYPEDEFINITIONSTRING {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType17 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+
+	@ExtendedMetaData(kind="attribute", name="MAX-LENGTH")
+	attr type.Integer[1] mAXLENGTH;
+}
+
+@ExtendedMetaData(name="DATATYPE-DEFINITION-XHTML", kind="elementOnly")
+class DATATYPEDEFINITIONXHTML {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType4 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="DATATYPES_._type", kind="elementOnly")
+class DATATYPESType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-BOOLEAN", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DATATYPEDEFINITIONBOOLEAN[*] dATATYPEDEFINITIONBOOLEAN;
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-DATE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DATATYPEDEFINITIONDATE[*] dATATYPEDEFINITIONDATE;
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-ENUMERATION", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DATATYPEDEFINITIONENUMERATION[*] dATATYPEDEFINITIONENUMERATION;
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-INTEGER", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DATATYPEDEFINITIONINTEGER[*] dATATYPEDEFINITIONINTEGER;
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-REAL", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DATATYPEDEFINITIONREAL[*] dATATYPEDEFINITIONREAL;
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-STRING", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DATATYPEDEFINITIONSTRING[*] dATATYPEDEFINITIONSTRING;
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-XHTML", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DATATYPEDEFINITIONXHTML[*] dATATYPEDEFINITIONXHTML;
+}
+
+@ExtendedMetaData(name="DEFAULT-VALUE_._type", kind="elementOnly")
+class DEFAULTVALUEType {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-DATE", namespace="##targetNamespace")
+	!resolve val ATTRIBUTEVALUEDATE aTTRIBUTEVALUEDATE;
+}
+
+@ExtendedMetaData(name="DEFAULT-VALUE_._1_._type", kind="elementOnly")
+class DEFAULTVALUEType1 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-ENUMERATION", namespace="##targetNamespace")
+	!resolve val ATTRIBUTEVALUEENUMERATION aTTRIBUTEVALUEENUMERATION;
+}
+
+@ExtendedMetaData(name="DEFAULT-VALUE_._2_._type", kind="elementOnly")
+class DEFAULTVALUEType2 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-INTEGER", namespace="##targetNamespace")
+	!resolve val ATTRIBUTEVALUEINTEGER aTTRIBUTEVALUEINTEGER;
+}
+
+@ExtendedMetaData(name="DEFAULT-VALUE_._3_._type", kind="elementOnly")
+class DEFAULTVALUEType3 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-REAL", namespace="##targetNamespace")
+	!resolve val ATTRIBUTEVALUEREAL aTTRIBUTEVALUEREAL;
+}
+
+@ExtendedMetaData(name="DEFAULT-VALUE_._4_._type", kind="elementOnly")
+class DEFAULTVALUEType4 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-STRING", namespace="##targetNamespace")
+	!resolve val ATTRIBUTEVALUESTRING aTTRIBUTEVALUESTRING;
+}
+
+@ExtendedMetaData(name="DEFAULT-VALUE_._5_._type", kind="elementOnly")
+class DEFAULTVALUEType5 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-XHTML", namespace="##targetNamespace")
+	!resolve val ATTRIBUTEVALUEXHTML aTTRIBUTEVALUEXHTML;
+}
+
+@ExtendedMetaData(name="DEFAULT-VALUE_._6_._type", kind="elementOnly")
+class DEFAULTVALUEType6 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-BOOLEAN", namespace="##targetNamespace")
+	!resolve val ATTRIBUTEVALUEBOOLEAN aTTRIBUTEVALUEBOOLEAN;
+}
+
+@ExtendedMetaData(name="DEFINITION_._type", kind="elementOnly")
+class DEFINITIONType {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-ENUMERATION-REF", namespace="##targetNamespace")
+	attr LOCALREF aTTRIBUTEDEFINITIONENUMERATIONREF;
+}
+
+@ExtendedMetaData(name="DEFINITION_._1_._type", kind="elementOnly")
+class DEFINITIONType1 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-DATE-REF", namespace="##targetNamespace")
+	attr LOCALREF aTTRIBUTEDEFINITIONDATEREF;
+}
+
+@ExtendedMetaData(name="DEFINITION_._2_._type", kind="elementOnly")
+class DEFINITIONType2 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-STRING-REF", namespace="##targetNamespace")
+	attr LOCALREF aTTRIBUTEDEFINITIONSTRINGREF;
+}
+
+@ExtendedMetaData(name="DEFINITION_._3_._type", kind="elementOnly")
+class DEFINITIONType3 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-XHTML-REF", namespace="##targetNamespace")
+	attr LOCALREF aTTRIBUTEDEFINITIONXHTMLREF;
+}
+
+@ExtendedMetaData(name="DEFINITION_._4_._type", kind="elementOnly")
+class DEFINITIONType4 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-REAL-REF", namespace="##targetNamespace")
+	attr LOCALREF aTTRIBUTEDEFINITIONREALREF;
+}
+
+@ExtendedMetaData(name="DEFINITION_._5_._type", kind="elementOnly")
+class DEFINITIONType5 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-INTEGER-REF", namespace="##targetNamespace")
+	attr LOCALREF aTTRIBUTEDEFINITIONINTEGERREF;
+}
+
+@ExtendedMetaData(name="DEFINITION_._6_._type", kind="elementOnly")
+class DEFINITIONType6 {
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-BOOLEAN-REF", namespace="##targetNamespace")
+	attr LOCALREF aTTRIBUTEDEFINITIONBOOLEANREF;
+}
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@ExtendedMetaData(kind="element", name="REQ-IF", namespace="##targetNamespace")
+	volatile transient derived !resolve val REQIF[0..?] rEQIF;
+}
+
+@ExtendedMetaData(name="EDITABLE-ATTS_._type", kind="elementOnly")
+class EDITABLEATTSType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-BOOLEAN-REF", namespace="##targetNamespace", group="#group:0")
+	!unique volatile transient derived attr LOCALREF[*] aTTRIBUTEDEFINITIONBOOLEANREF;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-DATE-REF", namespace="##targetNamespace", group="#group:0")
+	!unique volatile transient derived attr LOCALREF[*] aTTRIBUTEDEFINITIONDATEREF;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-ENUMERATION-REF", namespace="##targetNamespace", group="#group:0")
+	!unique volatile transient derived attr LOCALREF[*] aTTRIBUTEDEFINITIONENUMERATIONREF;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-INTEGER-REF", namespace="##targetNamespace", group="#group:0")
+	!unique volatile transient derived attr LOCALREF[*] aTTRIBUTEDEFINITIONINTEGERREF;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-REAL-REF", namespace="##targetNamespace", group="#group:0")
+	!unique volatile transient derived attr LOCALREF[*] aTTRIBUTEDEFINITIONREALREF;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-STRING-REF", namespace="##targetNamespace", group="#group:0")
+	!unique volatile transient derived attr LOCALREF[*] aTTRIBUTEDEFINITIONSTRINGREF;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-XHTML-REF", namespace="##targetNamespace", group="#group:0")
+	!unique volatile transient derived attr LOCALREF[*] aTTRIBUTEDEFINITIONXHTMLREF;
+}
+
+@ExtendedMetaData(name="EMBEDDED-VALUE", kind="empty")
+class EMBEDDEDVALUE {
+
+	@ExtendedMetaData(kind="attribute", name="KEY")
+	attr type.Integer[1] kEY;
+
+	@ExtendedMetaData(kind="attribute", name="OTHER-CONTENT")
+	attr type.String[1] oTHERCONTENT;
+}
+
+@ExtendedMetaData(name="ENUM-VALUE", kind="elementOnly")
+class ENUMVALUE {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType2 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="PROPERTIES", namespace="##targetNamespace")
+	!resolve val PROPERTIESType[1] pROPERTIES;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="GLOBAL-REF", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype GLOBALREF : java.lang.String;
+
+@ExtendedMetaData(name="LOCAL-REF", baseType="http://www.eclipse.org/emf/2003/XMLType#IDREF")
+datatype LOCALREF : java.lang.String;
+
+@ExtendedMetaData(name="OBJECT_._type", kind="elementOnly")
+class OBJECTType {
+
+	@ExtendedMetaData(kind="element", name="SPEC-OBJECT-REF", namespace="##targetNamespace")
+	attr LOCALREF sPECOBJECTREF;
+}
+
+@ExtendedMetaData(name="PROPERTIES_._type", kind="elementOnly")
+class PROPERTIESType {
+
+	@ExtendedMetaData(kind="element", name="EMBEDDED-VALUE", namespace="##targetNamespace")
+	!resolve val EMBEDDEDVALUE eMBEDDEDVALUE;
+}
+
+@ExtendedMetaData(name="RELATION-GROUP", kind="elementOnly")
+class RELATIONGROUP {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType12 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="SOURCE-SPECIFICATION", namespace="##targetNamespace")
+	!resolve val SOURCESPECIFICATIONType[1] sOURCESPECIFICATION;
+
+	@ExtendedMetaData(kind="element", name="SPEC-RELATIONS", namespace="##targetNamespace")
+	!resolve val SPECRELATIONSType sPECRELATIONS;
+
+	@ExtendedMetaData(kind="element", name="TARGET-SPECIFICATION", namespace="##targetNamespace")
+	!resolve val TARGETSPECIFICATIONType[1] tARGETSPECIFICATION;
+
+	@ExtendedMetaData(kind="element", name="TYPE", namespace="##targetNamespace")
+	!resolve val TYPEType[1] tYPE;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="RELATION-GROUP-TYPE", kind="elementOnly")
+class RELATIONGROUPTYPE {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType5 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="SPEC-ATTRIBUTES", namespace="##targetNamespace")
+	!resolve val SPECATTRIBUTESType3 sPECATTRIBUTES;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="REQ-IF", kind="elementOnly")
+class REQIF {
+
+	@ExtendedMetaData(kind="element", name="THE-HEADER", namespace="##targetNamespace")
+	!resolve val THEHEADERType[1] tHEHEADER;
+
+	@ExtendedMetaData(kind="element", name="CORE-CONTENT", namespace="##targetNamespace")
+	!resolve val CORECONTENTType[1] cORECONTENT;
+
+	@ExtendedMetaData(kind="element", name="TOOL-EXTENSIONS", namespace="##targetNamespace")
+	!resolve val TOOLEXTENSIONSType tOOLEXTENSIONS;
+
+	@GenModel(documentation="
+    <div xmlns=\"http://www.w3.org/1999/xhtml\">
+     
+      <h3>lang (as an attribute name)</h3>
+      <p>
+       denotes an attribute whose value
+       is a language code for the natural language of the content of
+       any element; its value is inherited.  This name is reserved
+       by virtue of its definition in the XML specification.</p>
+     
+    </div>
+    <div xmlns=\"http://www.w3.org/1999/xhtml\">
+     <h4>Notes</h4>
+     <p>
+      Attempting to install the relevant ISO 2- and 3-letter
+      codes as the enumerated possible values is probably never
+      going to be a realistic possibility.  
+     </p>
+     <p>
+      See BCP 47 at <a href=\"http://www.rfc-editor.org/rfc/bcp/bcp47.txt\">
+       http://www.rfc-editor.org/rfc/bcp/bcp47.txt</a>
+      and the IANA language subtag registry at
+      <a href=\"http://www.iana.org/assignments/language-subtag-registry\">
+       http://www.iana.org/assignments/language-subtag-registry</a>
+      for further information.
+     </p>
+     <p>
+      The union allows for the 'un-declaration' of xml:lang with
+      the empty string.
+     </p>
+    </div>
+   ")
+	@ExtendedMetaData(kind="attribute", name="lang", namespace="http://www.w3.org/XML/1998/namespace")
+	attr namespace.LangType lang;
+}
+
+@ExtendedMetaData(name="REQ-IF-CONTENT", kind="elementOnly")
+class REQIFCONTENT {
+
+	@ExtendedMetaData(kind="element", name="DATATYPES", namespace="##targetNamespace")
+	!resolve val DATATYPESType dATATYPES;
+
+	@ExtendedMetaData(kind="element", name="SPEC-TYPES", namespace="##targetNamespace")
+	!resolve val SPECTYPESType sPECTYPES;
+
+	@ExtendedMetaData(kind="element", name="SPEC-OBJECTS", namespace="##targetNamespace")
+	!resolve val SPECOBJECTSType sPECOBJECTS;
+
+	@ExtendedMetaData(kind="element", name="SPEC-RELATIONS", namespace="##targetNamespace")
+	!resolve val SPECRELATIONSType1 sPECRELATIONS;
+
+	@ExtendedMetaData(kind="element", name="SPECIFICATIONS", namespace="##targetNamespace")
+	!resolve val SPECIFICATIONSType sPECIFICATIONS;
+
+	@ExtendedMetaData(kind="element", name="SPEC-RELATION-GROUPS", namespace="##targetNamespace")
+	!resolve val SPECRELATIONGROUPSType sPECRELATIONGROUPS;
+}
+
+@ExtendedMetaData(name="REQ-IF-HEADER", kind="elementOnly")
+class REQIFHEADER {
+
+	@ExtendedMetaData(kind="element", name="COMMENT", namespace="##targetNamespace")
+	attr type.String cOMMENT;
+
+	@ExtendedMetaData(kind="element", name="CREATION-TIME", namespace="##targetNamespace")
+	attr type.DateTime[1] cREATIONTIME;
+
+	@ExtendedMetaData(kind="element", name="REPOSITORY-ID", namespace="##targetNamespace")
+	attr type.String rEPOSITORYID;
+
+	@ExtendedMetaData(kind="element", name="REQ-IF-TOOL-ID", namespace="##targetNamespace")
+	attr type.String[1] rEQIFTOOLID;
+
+	@ExtendedMetaData(kind="element", name="REQ-IF-VERSION", namespace="##targetNamespace")
+	unsettable attr type.String[1] rEQIFVERSION = "1.0";
+
+	@ExtendedMetaData(kind="element", name="SOURCE-TOOL-ID", namespace="##targetNamespace")
+	attr type.String[1] sOURCETOOLID;
+
+	@ExtendedMetaData(kind="element", name="TITLE", namespace="##targetNamespace")
+	attr type.String[1] tITLE;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+}
+
+@ExtendedMetaData(name="REQ-IF-TOOL-EXTENSION", kind="elementOnly")
+class REQIFTOOLEXTENSION {
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":0", processing="lax")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+}
+
+@ExtendedMetaData(name="SOURCE-SPECIFICATION_._type", kind="elementOnly")
+class SOURCESPECIFICATIONType {
+
+	@ExtendedMetaData(kind="element", name="SPECIFICATION-REF", namespace="##targetNamespace")
+	attr GLOBALREF sPECIFICATIONREF;
+}
+
+@ExtendedMetaData(name="SOURCE_._type", kind="elementOnly")
+class SOURCEType {
+
+	@ExtendedMetaData(kind="element", name="SPEC-OBJECT-REF", namespace="##targetNamespace")
+	attr GLOBALREF sPECOBJECTREF;
+}
+
+@ExtendedMetaData(name="SPEC-ATTRIBUTES_._type", kind="elementOnly")
+class SPECATTRIBUTESType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-BOOLEAN", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONBOOLEAN[*] aTTRIBUTEDEFINITIONBOOLEAN;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-DATE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONDATE[*] aTTRIBUTEDEFINITIONDATE;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-ENUMERATION", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONENUMERATION[*] aTTRIBUTEDEFINITIONENUMERATION;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-INTEGER", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONINTEGER[*] aTTRIBUTEDEFINITIONINTEGER;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-REAL", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONREAL[*] aTTRIBUTEDEFINITIONREAL;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-STRING", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONSTRING[*] aTTRIBUTEDEFINITIONSTRING;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-XHTML", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONXHTML[*] aTTRIBUTEDEFINITIONXHTML;
+}
+
+@ExtendedMetaData(name="SPEC-ATTRIBUTES_._1_._type", kind="elementOnly")
+class SPECATTRIBUTESType1 {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-BOOLEAN", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONBOOLEAN[*] aTTRIBUTEDEFINITIONBOOLEAN;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-DATE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONDATE[*] aTTRIBUTEDEFINITIONDATE;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-ENUMERATION", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONENUMERATION[*] aTTRIBUTEDEFINITIONENUMERATION;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-INTEGER", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONINTEGER[*] aTTRIBUTEDEFINITIONINTEGER;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-REAL", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONREAL[*] aTTRIBUTEDEFINITIONREAL;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-STRING", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONSTRING[*] aTTRIBUTEDEFINITIONSTRING;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-XHTML", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONXHTML[*] aTTRIBUTEDEFINITIONXHTML;
+}
+
+@ExtendedMetaData(name="SPEC-ATTRIBUTES_._2_._type", kind="elementOnly")
+class SPECATTRIBUTESType2 {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-BOOLEAN", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONBOOLEAN[*] aTTRIBUTEDEFINITIONBOOLEAN;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-DATE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONDATE[*] aTTRIBUTEDEFINITIONDATE;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-ENUMERATION", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONENUMERATION[*] aTTRIBUTEDEFINITIONENUMERATION;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-INTEGER", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONINTEGER[*] aTTRIBUTEDEFINITIONINTEGER;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-REAL", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONREAL[*] aTTRIBUTEDEFINITIONREAL;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-STRING", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONSTRING[*] aTTRIBUTEDEFINITIONSTRING;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-XHTML", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONXHTML[*] aTTRIBUTEDEFINITIONXHTML;
+}
+
+@ExtendedMetaData(name="SPEC-ATTRIBUTES_._3_._type", kind="elementOnly")
+class SPECATTRIBUTESType3 {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-BOOLEAN", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONBOOLEAN[*] aTTRIBUTEDEFINITIONBOOLEAN;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-DATE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONDATE[*] aTTRIBUTEDEFINITIONDATE;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-ENUMERATION", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONENUMERATION[*] aTTRIBUTEDEFINITIONENUMERATION;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-INTEGER", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONINTEGER[*] aTTRIBUTEDEFINITIONINTEGER;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-REAL", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONREAL[*] aTTRIBUTEDEFINITIONREAL;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-STRING", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONSTRING[*] aTTRIBUTEDEFINITIONSTRING;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-DEFINITION-XHTML", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEDEFINITIONXHTML[*] aTTRIBUTEDEFINITIONXHTML;
+}
+
+@ExtendedMetaData(name="SPEC-HIERARCHY", kind="elementOnly")
+class SPECHIERARCHY {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType11 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="CHILDREN", namespace="##targetNamespace")
+	!resolve val CHILDRENType cHILDREN;
+
+	@ExtendedMetaData(kind="element", name="EDITABLE-ATTS", namespace="##targetNamespace")
+	!resolve val EDITABLEATTSType eDITABLEATTS;
+
+	@ExtendedMetaData(kind="element", name="OBJECT", namespace="##targetNamespace")
+	!resolve val OBJECTType[1] oBJECT;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="IS-EDITABLE")
+	unsettable attr type.Boolean iSEDITABLE;
+
+	@ExtendedMetaData(kind="attribute", name="IS-TABLE-INTERNAL")
+	unsettable attr type.Boolean iSTABLEINTERNAL;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="SPECIFICATION", kind="elementOnly")
+class SPECIFICATION {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType10 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="VALUES", namespace="##targetNamespace")
+	!resolve val VALUESType vALUES;
+
+	@ExtendedMetaData(kind="element", name="CHILDREN", namespace="##targetNamespace")
+	!resolve val CHILDRENType1 cHILDREN;
+
+	@ExtendedMetaData(kind="element", name="TYPE", namespace="##targetNamespace")
+	!resolve val TYPEType1[1] tYPE;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="SPECIFICATIONS_._type", kind="elementOnly")
+class SPECIFICATIONSType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="SPECIFICATION", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SPECIFICATION[*] sPECIFICATION;
+}
+
+@ExtendedMetaData(name="SPECIFICATION-TYPE", kind="elementOnly")
+class SPECIFICATIONTYPE {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType8 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="SPEC-ATTRIBUTES", namespace="##targetNamespace")
+	!resolve val SPECATTRIBUTESType1 sPECATTRIBUTES;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="SPECIFIED-VALUES_._type", kind="elementOnly")
+class SPECIFIEDVALUESType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="ENUM-VALUE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ENUMVALUE[*] eNUMVALUE;
+}
+
+@ExtendedMetaData(name="SPEC-OBJECT", kind="elementOnly")
+class SPECOBJECT {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType13 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="VALUES", namespace="##targetNamespace")
+	!resolve val VALUESType2 vALUES;
+
+	@ExtendedMetaData(kind="element", name="TYPE", namespace="##targetNamespace")
+	!resolve val TYPEType6[1] tYPE;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="SPEC-OBJECTS_._type", kind="elementOnly")
+class SPECOBJECTSType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="SPEC-OBJECT", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SPECOBJECT[*] sPECOBJECT;
+}
+
+@ExtendedMetaData(name="SPEC-OBJECT-TYPE", kind="elementOnly")
+class SPECOBJECTTYPE {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType7 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="SPEC-ATTRIBUTES", namespace="##targetNamespace")
+	!resolve val SPECATTRIBUTESType2 sPECATTRIBUTES;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="SPEC-RELATION", kind="elementOnly")
+class SPECRELATION {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType9 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="VALUES", namespace="##targetNamespace")
+	!resolve val VALUESType1 vALUES;
+
+	@ExtendedMetaData(kind="element", name="SOURCE", namespace="##targetNamespace")
+	!resolve val SOURCEType[1] sOURCE;
+
+	@ExtendedMetaData(kind="element", name="TARGET", namespace="##targetNamespace")
+	!resolve val TARGETType[1] tARGET;
+
+	@ExtendedMetaData(kind="element", name="TYPE", namespace="##targetNamespace")
+	!resolve val TYPEType7[1] tYPE;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="SPEC-RELATION-GROUPS_._type", kind="elementOnly")
+class SPECRELATIONGROUPSType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="RELATION-GROUP", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val RELATIONGROUP[*] rELATIONGROUP;
+}
+
+@ExtendedMetaData(name="SPEC-RELATIONS_._type", kind="elementOnly")
+class SPECRELATIONSType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="SPEC-RELATION-REF", namespace="##targetNamespace", group="#group:0")
+	!unique volatile transient derived attr LOCALREF[*] sPECRELATIONREF;
+}
+
+@ExtendedMetaData(name="SPEC-RELATIONS_._1_._type", kind="elementOnly")
+class SPECRELATIONSType1 {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="SPEC-RELATION", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SPECRELATION[*] sPECRELATION;
+}
+
+@ExtendedMetaData(name="SPEC-RELATION-TYPE", kind="elementOnly")
+class SPECRELATIONTYPE {
+
+	@ExtendedMetaData(kind="element", name="ALTERNATIVE-ID", namespace="##targetNamespace")
+	!resolve val ALTERNATIVEIDType14 aLTERNATIVEID;
+
+	@ExtendedMetaData(kind="element", name="SPEC-ATTRIBUTES", namespace="##targetNamespace")
+	!resolve val SPECATTRIBUTESType sPECATTRIBUTES;
+
+	@ExtendedMetaData(kind="attribute", name="DESC")
+	attr type.String dESC;
+
+	@ExtendedMetaData(kind="attribute", name="IDENTIFIER")
+	id attr type.ID[1] iDENTIFIER;
+
+	@ExtendedMetaData(kind="attribute", name="LAST-CHANGE")
+	attr type.DateTime[1] lASTCHANGE;
+
+	@ExtendedMetaData(kind="attribute", name="LONG-NAME")
+	attr type.String lONGNAME;
+}
+
+@ExtendedMetaData(name="SPEC-TYPES_._type", kind="elementOnly")
+class SPECTYPESType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="RELATION-GROUP-TYPE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val RELATIONGROUPTYPE[*] rELATIONGROUPTYPE;
+
+	@ExtendedMetaData(kind="element", name="SPEC-OBJECT-TYPE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SPECOBJECTTYPE[*] sPECOBJECTTYPE;
+
+	@ExtendedMetaData(kind="element", name="SPEC-RELATION-TYPE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SPECRELATIONTYPE[*] sPECRELATIONTYPE;
+
+	@ExtendedMetaData(kind="element", name="SPECIFICATION-TYPE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SPECIFICATIONTYPE[*] sPECIFICATIONTYPE;
+}
+
+@ExtendedMetaData(name="TARGET-SPECIFICATION_._type", kind="elementOnly")
+class TARGETSPECIFICATIONType {
+
+	@ExtendedMetaData(kind="element", name="SPECIFICATION-REF", namespace="##targetNamespace")
+	attr GLOBALREF sPECIFICATIONREF;
+}
+
+@ExtendedMetaData(name="TARGET_._type", kind="elementOnly")
+class TARGETType {
+
+	@ExtendedMetaData(kind="element", name="SPEC-OBJECT-REF", namespace="##targetNamespace")
+	attr GLOBALREF sPECOBJECTREF;
+}
+
+@ExtendedMetaData(name="THE-HEADER_._type", kind="elementOnly")
+class THEHEADERType {
+
+	@ExtendedMetaData(kind="element", name="REQ-IF-HEADER", namespace="##targetNamespace")
+	!resolve val REQIFHEADER rEQIFHEADER;
+}
+
+@ExtendedMetaData(name="TOOL-EXTENSIONS_._type", kind="elementOnly")
+class TOOLEXTENSIONSType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="REQ-IF-TOOL-EXTENSION", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val REQIFTOOLEXTENSION[*] rEQIFTOOLEXTENSION;
+}
+
+@ExtendedMetaData(name="TYPE_._type", kind="elementOnly")
+class TYPEType {
+
+	@ExtendedMetaData(kind="element", name="RELATION-GROUP-TYPE-REF", namespace="##targetNamespace")
+	attr LOCALREF rELATIONGROUPTYPEREF;
+}
+
+@ExtendedMetaData(name="TYPE_._1_._type", kind="elementOnly")
+class TYPEType1 {
+
+	@ExtendedMetaData(kind="element", name="SPECIFICATION-TYPE-REF", namespace="##targetNamespace")
+	attr LOCALREF sPECIFICATIONTYPEREF;
+}
+
+@ExtendedMetaData(name="TYPE_._2_._type", kind="elementOnly")
+class TYPEType2 {
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-INTEGER-REF", namespace="##targetNamespace")
+	attr LOCALREF dATATYPEDEFINITIONINTEGERREF;
+}
+
+@ExtendedMetaData(name="TYPE_._3_._type", kind="elementOnly")
+class TYPEType3 {
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-STRING-REF", namespace="##targetNamespace")
+	attr LOCALREF dATATYPEDEFINITIONSTRINGREF;
+}
+
+@ExtendedMetaData(name="TYPE_._4_._type", kind="elementOnly")
+class TYPEType4 {
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-REAL-REF", namespace="##targetNamespace")
+	attr LOCALREF dATATYPEDEFINITIONREALREF;
+}
+
+@ExtendedMetaData(name="TYPE_._5_._type", kind="elementOnly")
+class TYPEType5 {
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-XHTML-REF", namespace="##targetNamespace")
+	attr LOCALREF dATATYPEDEFINITIONXHTMLREF;
+}
+
+@ExtendedMetaData(name="TYPE_._6_._type", kind="elementOnly")
+class TYPEType6 {
+
+	@ExtendedMetaData(kind="element", name="SPEC-OBJECT-TYPE-REF", namespace="##targetNamespace")
+	attr LOCALREF sPECOBJECTTYPEREF;
+}
+
+@ExtendedMetaData(name="TYPE_._7_._type", kind="elementOnly")
+class TYPEType7 {
+
+	@ExtendedMetaData(kind="element", name="SPEC-RELATION-TYPE-REF", namespace="##targetNamespace")
+	attr LOCALREF sPECRELATIONTYPEREF;
+}
+
+@ExtendedMetaData(name="TYPE_._8_._type", kind="elementOnly")
+class TYPEType8 {
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-DATE-REF", namespace="##targetNamespace")
+	attr LOCALREF dATATYPEDEFINITIONDATEREF;
+}
+
+@ExtendedMetaData(name="TYPE_._9_._type", kind="elementOnly")
+class TYPEType9 {
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-ENUMERATION-REF", namespace="##targetNamespace")
+	attr LOCALREF dATATYPEDEFINITIONENUMERATIONREF;
+}
+
+@ExtendedMetaData(name="TYPE_._10_._type", kind="elementOnly")
+class TYPEType10 {
+
+	@ExtendedMetaData(kind="element", name="DATATYPE-DEFINITION-BOOLEAN-REF", namespace="##targetNamespace")
+	attr LOCALREF dATATYPEDEFINITIONBOOLEANREF;
+}
+
+@ExtendedMetaData(name="VALUES_._type", kind="elementOnly")
+class VALUESType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-BOOLEAN", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEBOOLEAN[*] aTTRIBUTEVALUEBOOLEAN;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-DATE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEDATE[*] aTTRIBUTEVALUEDATE;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-ENUMERATION", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEENUMERATION[*] aTTRIBUTEVALUEENUMERATION;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-INTEGER", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEINTEGER[*] aTTRIBUTEVALUEINTEGER;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-REAL", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEREAL[*] aTTRIBUTEVALUEREAL;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-STRING", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUESTRING[*] aTTRIBUTEVALUESTRING;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-XHTML", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEXHTML[*] aTTRIBUTEVALUEXHTML;
+}
+
+@ExtendedMetaData(name="VALUES_._1_._type", kind="elementOnly")
+class VALUESType1 {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-BOOLEAN", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEBOOLEAN[*] aTTRIBUTEVALUEBOOLEAN;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-DATE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEDATE[*] aTTRIBUTEVALUEDATE;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-ENUMERATION", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEENUMERATION[*] aTTRIBUTEVALUEENUMERATION;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-INTEGER", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEINTEGER[*] aTTRIBUTEVALUEINTEGER;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-REAL", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEREAL[*] aTTRIBUTEVALUEREAL;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-STRING", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUESTRING[*] aTTRIBUTEVALUESTRING;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-XHTML", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEXHTML[*] aTTRIBUTEVALUEXHTML;
+}
+
+@ExtendedMetaData(name="VALUES_._2_._type", kind="elementOnly")
+class VALUESType2 {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-BOOLEAN", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEBOOLEAN[*] aTTRIBUTEVALUEBOOLEAN;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-DATE", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEDATE[*] aTTRIBUTEVALUEDATE;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-ENUMERATION", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEENUMERATION[*] aTTRIBUTEVALUEENUMERATION;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-INTEGER", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEINTEGER[*] aTTRIBUTEVALUEINTEGER;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-REAL", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEREAL[*] aTTRIBUTEVALUEREAL;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-STRING", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUESTRING[*] aTTRIBUTEVALUESTRING;
+
+	@ExtendedMetaData(kind="element", name="ATTRIBUTE-VALUE-XHTML", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ATTRIBUTEVALUEXHTML[*] aTTRIBUTEVALUEXHTML;
+}
+
+@ExtendedMetaData(name="VALUES_._3_._type", kind="elementOnly")
+class VALUESType3 {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="ENUM-VALUE-REF", namespace="##targetNamespace", group="#group:0")
+	!unique volatile transient derived attr LOCALREF[*] eNUMVALUEREF;
+}
+
+@ExtendedMetaData(name="XHTML-CONTENT", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype XHTMLCONTENT : java.lang.String;
+

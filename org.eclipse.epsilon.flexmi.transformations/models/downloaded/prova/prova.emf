@@ -1,0 +1,2663 @@
+@namespace(uri="http:///com.eu.evidence.rtdruid.oil.autoecore.test.ecore", prefix="test")
+package test;
+
+class OS {
+	attr String[1] name;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] EE_OPT;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] CFLAGS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] ASFLAGS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] LDFLAGS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] LDDEPS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] LIBS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="STANDARD")
+	val OS__STATUS STATUS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__STARTUPHOOK STARTUPHOOK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__ERRORHOOK ERRORHOOK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__SHUTDOWNHOOK SHUTDOWNHOOK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__PRETASKHOOK PRETASKHOOK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__POSTTASKHOOK POSTTASKHOOK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__USEGETSERVICEID USEGETSERVICEID;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__USEPARAMETERACCESS USEPARAMETERACCESS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="TRUE")
+	val OS__USERESSCHEDULER USERESSCHEDULER;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__STARTUPSYNC STARTUPSYNC;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="IFREQUIRED")
+	val OS__USEREMOTETASK USEREMOTETASK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String MP_SHARED_RAM = "";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String MP_SHARED_ROM = "";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String NIOS2_MUTEX_BASE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IPIC_GLOBAL_NAME;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String NIOS2_SYS_CONFIG;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String NIOS2_APP_CONFIG;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__NIOS2_1DO_1MAKE_1OBJDUMP NIOS2_DO_MAKE_OBJDUMP;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String NIOS2_JAM_FILE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="default_cpu")
+	attr String MASTER_CPU = "default_cpu";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__CPU_1DATA[*] CPU_DATA;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__MCU_1DATA MCU_DATA;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="NO_BOARD")
+	val OS__BOARD_1DATA BOARD_DATA;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__LIB[*] LIB;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__KERNEL_1TYPE KERNEL_TYPE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__ORTI_1SECTIONS[*] ORTI_SECTIONS;
+}
+
+abstract class OS__STATUS {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__STATUS__STANDARD extends OS__STATUS {
+	readonly attr String[1] type = "STANDARD";
+}
+
+class OS__STATUS__EXTENDED extends OS__STATUS {
+	readonly attr String[1] type = "EXTENDED";
+}
+
+abstract class OS__STARTUPHOOK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__STARTUPHOOK__TRUE extends OS__STARTUPHOOK {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__STARTUPHOOK__FALSE extends OS__STARTUPHOOK {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__ERRORHOOK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__ERRORHOOK__TRUE extends OS__ERRORHOOK {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__ERRORHOOK__FALSE extends OS__ERRORHOOK {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__SHUTDOWNHOOK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__SHUTDOWNHOOK__TRUE extends OS__SHUTDOWNHOOK {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__SHUTDOWNHOOK__FALSE extends OS__SHUTDOWNHOOK {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__PRETASKHOOK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__PRETASKHOOK__TRUE extends OS__PRETASKHOOK {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__PRETASKHOOK__FALSE extends OS__PRETASKHOOK {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__POSTTASKHOOK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__POSTTASKHOOK__TRUE extends OS__POSTTASKHOOK {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__POSTTASKHOOK__FALSE extends OS__POSTTASKHOOK {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__USEGETSERVICEID {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__USEGETSERVICEID__TRUE extends OS__USEGETSERVICEID {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__USEGETSERVICEID__FALSE extends OS__USEGETSERVICEID {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__USEPARAMETERACCESS {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__USEPARAMETERACCESS__TRUE extends OS__USEPARAMETERACCESS {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__USEPARAMETERACCESS__FALSE extends OS__USEPARAMETERACCESS {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__USERESSCHEDULER {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__USERESSCHEDULER__TRUE extends OS__USERESSCHEDULER {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__USERESSCHEDULER__FALSE extends OS__USERESSCHEDULER {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__STARTUPSYNC {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__STARTUPSYNC__TRUE extends OS__STARTUPSYNC {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__STARTUPSYNC__FALSE extends OS__STARTUPSYNC {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__USEREMOTETASK {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__USEREMOTETASK__ALWAYS extends OS__USEREMOTETASK {
+	readonly attr String[1] type = "ALWAYS";
+}
+
+class OS__USEREMOTETASK__IFREQUIRED extends OS__USEREMOTETASK {
+	readonly attr String[1] type = "IFREQUIRED";
+}
+
+abstract class OS__NIOS2_1DO_1MAKE_1OBJDUMP {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__NIOS2_1DO_1MAKE_1OBJDUMP__TRUE extends OS__NIOS2_1DO_1MAKE_1OBJDUMP {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__NIOS2_1DO_1MAKE_1OBJDUMP__FALSE extends OS__NIOS2_1DO_1MAKE_1OBJDUMP {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__CPU_1DATA {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__CPU_1DATA__ARM7 extends OS__CPU_1DATA {
+	readonly attr String[1] type = "ARM7";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="default_cpu")
+	attr String ID = "default_cpu";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] APP_SRC;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] THUMB_SRC;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__CPU_1DATA__ARM7__MULTI_1STACK MULTI_STACK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int STACK_TOP;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int STACK_BOTTOM;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int IRQ_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SVC_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int FIQ_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int ABT_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int UND_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SHARED_MIN_SYS_SIZE;
+}
+
+abstract class OS__CPU_1DATA__ARM7__MULTI_1STACK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE extends OS__CPU_1DATA__ARM7__MULTI_1STACK {
+	readonly attr String[1] type = "TRUE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__IRQ_1STACK IRQ_STACK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__DUMMY_1STACK DUMMY_STACK;
+}
+
+abstract class OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__IRQ_1STACK__TRUE extends OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] type = "TRUE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+}
+
+class OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__IRQ_1STACK__FALSE extends OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__DUMMY_1STACK__SHARED extends OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] type = "SHARED";
+}
+
+class OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__DUMMY_1STACK__PRIVATE extends OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] type = "PRIVATE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+}
+
+class OS__CPU_1DATA__ARM7__MULTI_1STACK__FALSE extends OS__CPU_1DATA__ARM7__MULTI_1STACK {
+	readonly attr String[1] type = "FALSE";
+}
+
+class OS__CPU_1DATA__NIOSII extends OS__CPU_1DATA {
+	readonly attr String[1] type = "NIOSII";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="default_cpu")
+	attr String ID = "default_cpu";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] APP_SRC;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__CPU_1DATA__NIOSII__MULTI_1STACK MULTI_STACK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String STACK_TOP;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SHARED_MIN_SYS_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String SYSTEM_LIBRARY_NAME;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String SYSTEM_LIBRARY_PATH;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IPIC_LOCAL_NAME;
+}
+
+abstract class OS__CPU_1DATA__NIOSII__MULTI_1STACK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE extends OS__CPU_1DATA__NIOSII__MULTI_1STACK {
+	readonly attr String[1] type = "TRUE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__IRQ_1STACK IRQ_STACK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__DUMMY_1STACK DUMMY_STACK;
+}
+
+abstract class OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__IRQ_1STACK__TRUE extends OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] type = "TRUE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+}
+
+class OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__IRQ_1STACK__FALSE extends OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__DUMMY_1STACK__SHARED extends OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] type = "SHARED";
+}
+
+class OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__DUMMY_1STACK__PRIVATE extends OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] type = "PRIVATE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+}
+
+class OS__CPU_1DATA__NIOSII__MULTI_1STACK__FALSE extends OS__CPU_1DATA__NIOSII__MULTI_1STACK {
+	readonly attr String[1] type = "FALSE";
+}
+
+class OS__CPU_1DATA__MPC5 extends OS__CPU_1DATA {
+	readonly attr String[1] type = "MPC5";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="default_cpu")
+	attr String ID = "default_cpu";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] APP_SRC;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__CPU_1DATA__MPC5__MULTI_1STACK MULTI_STACK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int STACK_BOTTOM;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SHARED_MIN_SYS_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ0;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_LVL0;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ1;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_LVL1;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ2;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_LVL2;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ3;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_LVL3;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ4;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_LVL4;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ5;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_LVL5;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ6;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_LVL6;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ7;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_LVL7;
+}
+
+abstract class OS__CPU_1DATA__MPC5__MULTI_1STACK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE extends OS__CPU_1DATA__MPC5__MULTI_1STACK {
+	readonly attr String[1] type = "TRUE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__IRQ_1STACK IRQ_STACK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__DUMMY_1STACK DUMMY_STACK;
+}
+
+abstract class OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__IRQ_1STACK__TRUE extends OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] type = "TRUE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+}
+
+class OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__IRQ_1STACK__FALSE extends OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__DUMMY_1STACK__SHARED extends OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] type = "SHARED";
+}
+
+class OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__DUMMY_1STACK__PRIVATE extends OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] type = "PRIVATE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+}
+
+class OS__CPU_1DATA__MPC5__MULTI_1STACK__FALSE extends OS__CPU_1DATA__MPC5__MULTI_1STACK {
+	readonly attr String[1] type = "FALSE";
+}
+
+class OS__CPU_1DATA__PIC30 extends OS__CPU_1DATA {
+	readonly attr String[1] type = "PIC30";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="default_cpu")
+	attr String ID = "default_cpu";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] APP_SRC;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__CPU_1DATA__PIC30__MULTI_1STACK MULTI_STACK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__CPU_1DATA__PIC30__ICD2 ICD2;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="TRUE")
+	val OS__CPU_1DATA__PIC30__ENABLE_1SPLIM ENABLE_SPLIM;
+}
+
+abstract class OS__CPU_1DATA__PIC30__MULTI_1STACK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE extends OS__CPU_1DATA__PIC30__MULTI_1STACK {
+	readonly attr String[1] type = "TRUE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE__IRQ_1STACK IRQ_STACK;
+}
+
+abstract class OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE__IRQ_1STACK__TRUE extends OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] type = "TRUE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+}
+
+class OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE__IRQ_1STACK__FALSE extends OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] type = "FALSE";
+}
+
+class OS__CPU_1DATA__PIC30__MULTI_1STACK__FALSE extends OS__CPU_1DATA__PIC30__MULTI_1STACK {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__CPU_1DATA__PIC30__ICD2 {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__PIC30__ICD2__TRUE extends OS__CPU_1DATA__PIC30__ICD2 {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__CPU_1DATA__PIC30__ICD2__FALSE extends OS__CPU_1DATA__PIC30__ICD2 {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__CPU_1DATA__PIC30__ENABLE_1SPLIM {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__PIC30__ENABLE_1SPLIM__TRUE extends OS__CPU_1DATA__PIC30__ENABLE_1SPLIM {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__CPU_1DATA__PIC30__ENABLE_1SPLIM__FALSE extends OS__CPU_1DATA__PIC30__ENABLE_1SPLIM {
+	readonly attr String[1] type = "FALSE";
+}
+
+class OS__CPU_1DATA__AVR_15 extends OS__CPU_1DATA {
+	readonly attr String[1] type = "AVR_5";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="default_cpu")
+	attr String ID = "default_cpu";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] APP_SRC;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__CPU_1DATA__AVR_15__MULTI_1STACK MULTI_STACK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int STACK_BOTTOM;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SHARED_MIN_SYS_SIZE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="STOP")
+	val OS__CPU_1DATA__AVR_15__TIMER0 TIMER0;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="STOP")
+	val OS__CPU_1DATA__AVR_15__TIMER1 TIMER1;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="STOP")
+	val OS__CPU_1DATA__AVR_15__TIMER2 TIMER2;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="STOP")
+	val OS__CPU_1DATA__AVR_15__TIMER3 TIMER3;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ0;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ1;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ2;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ3;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ4;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ5;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ6;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_IRQ7;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T0_MATCH;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T0_OVERFLW;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T1_EVENT;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T1_MATCH_A;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T1_MATCH_B;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T1_MATCH_C;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T1_OVERFLW;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T2_MATCH;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T2_OVERFLW;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T3_EVENT;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T3_MATCH_A;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T3_MATCH_B;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T3_MATCH_C;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_T3_OVERFLW;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_SPI;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_US0_RX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_US0_EMPTY;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_US0_TX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_US1_RX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_US1_EMPTY;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_US1_TX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_ADC;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_EEPROM;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_ANALOG_COMP;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_2WSI;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String HANDLER_SPM_READY;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__CPU_1DATA__AVR_15__HANDLER[*] HANDLER;
+}
+
+abstract class OS__CPU_1DATA__AVR_15__MULTI_1STACK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE extends OS__CPU_1DATA__AVR_15__MULTI_1STACK {
+	readonly attr String[1] type = "TRUE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__IRQ_1STACK IRQ_STACK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__DUMMY_1STACK DUMMY_STACK;
+}
+
+abstract class OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__IRQ_1STACK__TRUE extends OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] type = "TRUE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+}
+
+class OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__IRQ_1STACK__FALSE extends OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__IRQ_1STACK {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__DUMMY_1STACK__SHARED extends OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] type = "SHARED";
+}
+
+class OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__DUMMY_1STACK__PRIVATE extends OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__DUMMY_1STACK {
+	readonly attr String[1] type = "PRIVATE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+}
+
+class OS__CPU_1DATA__AVR_15__MULTI_1STACK__FALSE extends OS__CPU_1DATA__AVR_15__MULTI_1STACK {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__CPU_1DATA__AVR_15__TIMER0 {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER0__STOP extends OS__CPU_1DATA__AVR_15__TIMER0 {
+	readonly attr String[1] type = "STOP";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER0__DIV1 extends OS__CPU_1DATA__AVR_15__TIMER0 {
+	readonly attr String[1] type = "DIV1";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER0__DIV8 extends OS__CPU_1DATA__AVR_15__TIMER0 {
+	readonly attr String[1] type = "DIV8";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER0__DIV32 extends OS__CPU_1DATA__AVR_15__TIMER0 {
+	readonly attr String[1] type = "DIV32";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER0__DIV64 extends OS__CPU_1DATA__AVR_15__TIMER0 {
+	readonly attr String[1] type = "DIV64";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER0__DIV256 extends OS__CPU_1DATA__AVR_15__TIMER0 {
+	readonly attr String[1] type = "DIV256";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER0__DIV1024 extends OS__CPU_1DATA__AVR_15__TIMER0 {
+	readonly attr String[1] type = "DIV1024";
+}
+
+abstract class OS__CPU_1DATA__AVR_15__TIMER1 {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER1__STOP extends OS__CPU_1DATA__AVR_15__TIMER1 {
+	readonly attr String[1] type = "STOP";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER1__DIV1 extends OS__CPU_1DATA__AVR_15__TIMER1 {
+	readonly attr String[1] type = "DIV1";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER1__DIV8 extends OS__CPU_1DATA__AVR_15__TIMER1 {
+	readonly attr String[1] type = "DIV8";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER1__DIV64 extends OS__CPU_1DATA__AVR_15__TIMER1 {
+	readonly attr String[1] type = "DIV64";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER1__DIV256 extends OS__CPU_1DATA__AVR_15__TIMER1 {
+	readonly attr String[1] type = "DIV256";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER1__DIV1024 extends OS__CPU_1DATA__AVR_15__TIMER1 {
+	readonly attr String[1] type = "DIV1024";
+}
+
+abstract class OS__CPU_1DATA__AVR_15__TIMER2 {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER2__STOP extends OS__CPU_1DATA__AVR_15__TIMER2 {
+	readonly attr String[1] type = "STOP";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER2__DIV1 extends OS__CPU_1DATA__AVR_15__TIMER2 {
+	readonly attr String[1] type = "DIV1";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER2__DIV8 extends OS__CPU_1DATA__AVR_15__TIMER2 {
+	readonly attr String[1] type = "DIV8";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER2__DIV64 extends OS__CPU_1DATA__AVR_15__TIMER2 {
+	readonly attr String[1] type = "DIV64";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER2__DIV256 extends OS__CPU_1DATA__AVR_15__TIMER2 {
+	readonly attr String[1] type = "DIV256";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER2__DIV1024 extends OS__CPU_1DATA__AVR_15__TIMER2 {
+	readonly attr String[1] type = "DIV1024";
+}
+
+abstract class OS__CPU_1DATA__AVR_15__TIMER3 {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER3__STOP extends OS__CPU_1DATA__AVR_15__TIMER3 {
+	readonly attr String[1] type = "STOP";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER3__DIV1 extends OS__CPU_1DATA__AVR_15__TIMER3 {
+	readonly attr String[1] type = "DIV1";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER3__DIV8 extends OS__CPU_1DATA__AVR_15__TIMER3 {
+	readonly attr String[1] type = "DIV8";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER3__DIV64 extends OS__CPU_1DATA__AVR_15__TIMER3 {
+	readonly attr String[1] type = "DIV64";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER3__DIV256 extends OS__CPU_1DATA__AVR_15__TIMER3 {
+	readonly attr String[1] type = "DIV256";
+}
+
+class OS__CPU_1DATA__AVR_15__TIMER3__DIV1024 extends OS__CPU_1DATA__AVR_15__TIMER3 {
+	readonly attr String[1] type = "DIV1024";
+}
+
+abstract class OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ0 extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_IRQ0";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ1 extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_IRQ1";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ2 extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_IRQ2";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ3 extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_IRQ3";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ4 extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_IRQ4";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ5 extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_IRQ5";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ6 extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_IRQ6";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ7 extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_IRQ7";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T0_1MATCH extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T0_MATCH";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T0_1OVERFLW extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T0_OVERFLW";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T1_1EVENT extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T1_EVENT";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T1_1MATCH_1A extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T1_MATCH_A";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T1_1MATCH_1B extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T1_MATCH_B";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T1_1MATCH_1C extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T1_MATCH_C";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T1_1OVERFLW extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T1_OVERFLW";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T2_1MATCH extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T2_MATCH";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T2_1OVERFLW extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T2_OVERFLW";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T3_1EVENT extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T3_EVENT";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T3_1MATCH_1A extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T3_MATCH_A";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T3_1MATCH_1B extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T3_MATCH_B";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T3_1MATCH_1C extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T3_MATCH_C";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T3_1OVERFLW extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_T3_OVERFLW";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1SPI extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_SPI";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US0_1RX extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_US0_RX";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US0_1EMPTY extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_US0_EMPTY";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US0_1TX extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_US0_TX";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US1_1RX extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_US1_RX";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US1_1EMPTY extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_US1_EMPTY";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US1_1TX extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_US1_TX";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1ADC extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_ADC";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1EEPROM extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_EEPROM";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1ANALOG_1COMP extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_ANALOG_COMP";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_12WSI extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_2WSI";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+class OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1SPM_1READY extends OS__CPU_1DATA__AVR_15__HANDLER {
+	readonly attr String[1] type = "HANDLER_SPM_READY";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String FUNCTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int TYPE = 1;
+}
+
+abstract class OS__MCU_1DATA {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__MCU_1DATA__SAMSUNG_1KS32C50100 extends OS__MCU_1DATA {
+	readonly attr String[1] type = "SAMSUNG_KS32C50100";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_EXT0;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_EXT1;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_EXT2;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_EXT3;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_UART0TX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_UART0RX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_UART1TX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_UART1RX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_GDMA0;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_GDMA1;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_TIMER0;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_TIMER1;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_HDLCATX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_HDLCARX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_HDLCBTX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_HDLCBRX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_ETHBDMATX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_ETHBDMARX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_ETHMACTX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_ETHMACRX;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_I2C;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String IRQ_NO_PENDING;
+}
+
+class OS__MCU_1DATA__PIC30 extends OS__MCU_1DATA {
+	readonly attr String[1] type = "PIC30";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__MCU_1DATA__PIC30__MODEL MODEL;
+}
+
+abstract class OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__CUSTOM extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "CUSTOM";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String MODEL;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String LINKERSCRIPT;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String DEV_LIB;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String INCLUDE_C;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String INCLUDE_S;
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ128GA006 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ128GA006";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ128GA008 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ128GA008";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ128GA010 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ128GA010";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ32GA002 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ32GA002";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ32GA004 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ32GA004";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ64GA002 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ64GA002";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ64GA004 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ64GA004";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ64GA006 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ64GA006";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ64GA008 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ64GA008";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ64GA010 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ64GA010";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ96GA006 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ96GA006";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ96GA008 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ96GA008";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24FJ96GA010 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24FJ96GA010";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP206 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ128GP206";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP210 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ128GP210";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP306 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ128GP306";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP310 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ128GP310";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP506 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ128GP506";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP510 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ128GP510";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ256GP206 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ256GP206";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ256GP210 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ256GP210";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ256GP610 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ256GP610";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ64GP206 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ64GP206";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ64GP210 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ64GP210";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ64GP506 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ64GP506";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC24HJ64GP510 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC24HJ64GP510";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F1010 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F1010";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F2010 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F2010";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F2011 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F2011";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F2012 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F2012";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F2020 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F2020";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F2021 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F2021";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F2022 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F2022";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F2023 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F2023";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F3010 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F3010";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F3011 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F3011";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F3012 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F3012";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F3013 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F3013";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F3014 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F3014";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F4011 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F4011";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F4012 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F4012";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F4013 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F4013";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F5011 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F5011";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F5013 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F5013";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F5015 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F5015";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F5016 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F5016";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F6010 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F6010";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F6010A extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F6010A";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F6011 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F6011";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F6011A extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F6011A";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F6012 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F6012";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F6012A extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F6012A";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F6013 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F6013";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F6013A extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F6013A";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F6014 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F6014";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F6014A extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F6014A";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC30F6015 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC30F6015";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP206 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ128GP206";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP306 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ128GP306";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP310 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ128GP310";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP706 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ128GP706";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP708 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ128GP708";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP710 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ128GP710";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128MC506 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ128MC506";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128MC510 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ128MC510";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128MC706 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ128MC706";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128MC708 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ128MC708";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128MC710 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ128MC710";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ256GP506 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ256GP506";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ256GP510 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ256GP510";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ256GP710 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ256GP710";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ256MC510 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ256MC510";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ256MC710 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ256MC710";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP206 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ64GP206";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP306 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ64GP306";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP310 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ64GP310";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP706 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ64GP706";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP708 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ64GP708";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP710 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ64GP710";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64MC506 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ64MC506";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64MC508 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ64MC508";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64MC510 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ64MC510";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64MC706 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ64MC706";
+}
+
+class OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64MC710 extends OS__MCU_1DATA__PIC30__MODEL {
+	readonly attr String[1] type = "PIC33FJ64MC710";
+}
+
+abstract class OS__BOARD_1DATA {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__BOARD_1DATA__NO_1BOARD extends OS__BOARD_1DATA {
+	readonly attr String[1] type = "NO_BOARD";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX extends OS__BOARD_1DATA {
+	readonly attr String[1] type = "EE_FLEX";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__BOARD_1DATA__EE_1FLEX__USELEDS USELEDS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__BOARD_1DATA__EE_1FLEX__USELCD USELCD;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="STANDARD")
+	val OS__BOARD_1DATA__EE_1FLEX__TYPE TYPE;
+}
+
+abstract class OS__BOARD_1DATA__EE_1FLEX__USELEDS {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__USELEDS__TRUE extends OS__BOARD_1DATA__EE_1FLEX__USELEDS {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__USELEDS__FALSE extends OS__BOARD_1DATA__EE_1FLEX__USELEDS {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__BOARD_1DATA__EE_1FLEX__USELCD {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__USELCD__TRUE extends OS__BOARD_1DATA__EE_1FLEX__USELCD {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__USELCD__FALSE extends OS__BOARD_1DATA__EE_1FLEX__USELCD {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__BOARD_1DATA__EE_1FLEX__TYPE {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO extends OS__BOARD_1DATA__EE_1FLEX__TYPE {
+	readonly attr String[1] type = "DEMO";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS[*] OPTIONS;
+}
+
+abstract class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__ACCELEROMETER extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "ACCELEROMETER";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__ADC_1IN extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "ADC_IN";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__BUTTONS extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "BUTTONS";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__BUZZER extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "BUZZER";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__DAC extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "DAC";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__ENCODER extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "ENCODER";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__IR extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "IR";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__LCD extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "LCD";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__LEDS extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "LEDS";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__PWM_1OUT extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "PWM_OUT";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__PWM_1MOTOR extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "PWM_MOTOR";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__SENSORS extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "SENSORS";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__TRIMMER extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "TRIMMER";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__USB extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "USB";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__ZIGBEE extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "ZIGBEE";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__ALL extends OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS {
+	readonly attr String[1] type = "ALL";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI extends OS__BOARD_1DATA__EE_1FLEX__TYPE {
+	readonly attr String[1] type = "MULTI";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS[*] OPTIONS;
+}
+
+abstract class OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS__ETHERNET extends OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS {
+	readonly attr String[1] type = "ETHERNET";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS__EIB extends OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS {
+	readonly attr String[1] type = "EIB";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS__ALL extends OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS {
+	readonly attr String[1] type = "ALL";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD extends OS__BOARD_1DATA__EE_1FLEX__TYPE {
+	readonly attr String[1] type = "STANDARD";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS[*] OPTIONS;
+}
+
+abstract class OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS__LEDS extends OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS {
+	readonly attr String[1] type = "LEDS";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS__LCD extends OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS {
+	readonly attr String[1] type = "LCD";
+}
+
+class OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS__ALL extends OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS {
+	readonly attr String[1] type = "ALL";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16 extends OS__BOARD_1DATA {
+	readonly attr String[1] type = "MICROCHIP_EXPLORER16";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELEDS USELEDS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEBUTTONS USEBUTTONS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELCD USELCD;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEANALOG USEANALOG;
+}
+
+abstract class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELEDS {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELEDS__TRUE extends OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELEDS {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELEDS__FALSE extends OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELEDS {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEBUTTONS {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEBUTTONS__TRUE extends OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEBUTTONS {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEBUTTONS__FALSE extends OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEBUTTONS {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELCD {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELCD__TRUE extends OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELCD {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELCD__FALSE extends OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELCD {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEANALOG {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEANALOG__TRUE extends OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEANALOG {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEANALOG__FALSE extends OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEANALOG {
+	readonly attr String[1] type = "FALSE";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS extends OS__BOARD_1DATA {
+	readonly attr String[1] type = "MICROCHIP_DSPICDEM11PLUS";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELEDS USELEDS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELCD USELCD;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEBUTTONS USEBUTTONS;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEAUDIO USEAUDIO;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEANALOG USEANALOG;
+}
+
+abstract class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELEDS {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELEDS__TRUE extends OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELEDS {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELEDS__FALSE extends OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELEDS {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELCD {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELCD__TRUE extends OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELCD {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELCD__FALSE extends OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELCD {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEBUTTONS {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEBUTTONS__TRUE extends OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEBUTTONS {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEBUTTONS__FALSE extends OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEBUTTONS {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEAUDIO {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEAUDIO__TRUE extends OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEAUDIO {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEAUDIO__FALSE extends OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEAUDIO {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEANALOG {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEANALOG__TRUE extends OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEANALOG {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEANALOG__FALSE extends OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEANALOG {
+	readonly attr String[1] type = "FALSE";
+}
+
+class OS__BOARD_1DATA__ATMEGA_1STK50X extends OS__BOARD_1DATA {
+	readonly attr String[1] type = "ATMEGA_STK50X";
+}
+
+class OS__BOARD_1DATA__XBOW_1MIB5X0 extends OS__BOARD_1DATA {
+	readonly attr String[1] type = "XBOW_MIB5X0";
+}
+
+abstract class OS__LIB {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__LIB__ENABLE extends OS__LIB {
+	readonly attr String[1] type = "ENABLE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] NAME;
+}
+
+abstract class OS__KERNEL_1TYPE {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__KERNEL_1TYPE__FP extends OS__KERNEL_1TYPE {
+	readonly attr String[1] type = "FP";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__KERNEL_1TYPE__FP__NESTED_1IRQ NESTED_IRQ;
+}
+
+abstract class OS__KERNEL_1TYPE__FP__NESTED_1IRQ {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__KERNEL_1TYPE__FP__NESTED_1IRQ__TRUE extends OS__KERNEL_1TYPE__FP__NESTED_1IRQ {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__KERNEL_1TYPE__FP__NESTED_1IRQ__FALSE extends OS__KERNEL_1TYPE__FP__NESTED_1IRQ {
+	readonly attr String[1] type = "FALSE";
+}
+
+class OS__KERNEL_1TYPE__EDF extends OS__KERNEL_1TYPE {
+	readonly attr String[1] type = "EDF";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String TICK_TIME;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__KERNEL_1TYPE__EDF__NESTED_1IRQ NESTED_IRQ;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="FALSE")
+	val OS__KERNEL_1TYPE__EDF__REL_1DEADLINES_1IN_1RAM REL_DEADLINES_IN_RAM;
+}
+
+abstract class OS__KERNEL_1TYPE__EDF__NESTED_1IRQ {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__KERNEL_1TYPE__EDF__NESTED_1IRQ__TRUE extends OS__KERNEL_1TYPE__EDF__NESTED_1IRQ {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__KERNEL_1TYPE__EDF__NESTED_1IRQ__FALSE extends OS__KERNEL_1TYPE__EDF__NESTED_1IRQ {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class OS__KERNEL_1TYPE__EDF__REL_1DEADLINES_1IN_1RAM {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class OS__KERNEL_1TYPE__EDF__REL_1DEADLINES_1IN_1RAM__TRUE extends OS__KERNEL_1TYPE__EDF__REL_1DEADLINES_1IN_1RAM {
+	readonly attr String[1] type = "TRUE";
+}
+
+class OS__KERNEL_1TYPE__EDF__REL_1DEADLINES_1IN_1RAM__FALSE extends OS__KERNEL_1TYPE__EDF__REL_1DEADLINES_1IN_1RAM {
+	readonly attr String[1] type = "FALSE";
+}
+
+class OS__KERNEL_1TYPE__BCC1 extends OS__KERNEL_1TYPE {
+	readonly attr String[1] type = "BCC1";
+}
+
+class OS__KERNEL_1TYPE__BCC2 extends OS__KERNEL_1TYPE {
+	readonly attr String[1] type = "BCC2";
+}
+
+class OS__KERNEL_1TYPE__ECC1 extends OS__KERNEL_1TYPE {
+	readonly attr String[1] type = "ECC1";
+}
+
+class OS__KERNEL_1TYPE__ECC2 extends OS__KERNEL_1TYPE {
+	readonly attr String[1] type = "ECC2";
+}
+
+class OS__KERNEL_1TYPE__IRIS extends OS__KERNEL_1TYPE {
+	readonly attr String[1] type = "IRIS";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__KERNEL_1TYPE__IRIS__CONTRACTS[*] CONTRACTS;
+}
+
+abstract class OS__KERNEL_1TYPE__IRIS__CONTRACTS {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__KERNEL_1TYPE__IRIS__CONTRACTS__CONTRACT extends OS__KERNEL_1TYPE__IRIS__CONTRACTS {
+	readonly attr String[1] type = "CONTRACT";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String NAME;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int BUDGET;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int PERIOD;
+}
+
+class OS__KERNEL_1TYPE__CBS extends OS__KERNEL_1TYPE {
+	readonly attr String[1] type = "CBS";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val OS__KERNEL_1TYPE__CBS__CONTRACTS[*] CONTRACTS;
+}
+
+abstract class OS__KERNEL_1TYPE__CBS__CONTRACTS {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__KERNEL_1TYPE__CBS__CONTRACTS__CONTRACT extends OS__KERNEL_1TYPE__CBS__CONTRACTS {
+	readonly attr String[1] type = "CONTRACT";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String NAME;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int BUDGET;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int PERIOD;
+}
+
+abstract class OS__ORTI_1SECTIONS {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class OS__ORTI_1SECTIONS__NONE extends OS__ORTI_1SECTIONS {
+	readonly attr String[1] type = "NONE";
+}
+
+class OS__ORTI_1SECTIONS__ALL extends OS__ORTI_1SECTIONS {
+	readonly attr String[1] type = "ALL";
+}
+
+class OS__ORTI_1SECTIONS__OS_1SECTION extends OS__ORTI_1SECTIONS {
+	readonly attr String[1] type = "OS_SECTION";
+}
+
+class OS__ORTI_1SECTIONS__TASK_1SECTION extends OS__ORTI_1SECTIONS {
+	readonly attr String[1] type = "TASK_SECTION";
+}
+
+class OS__ORTI_1SECTIONS__RESOURCE_1SECTION extends OS__ORTI_1SECTIONS {
+	readonly attr String[1] type = "RESOURCE_SECTION";
+}
+
+class OS__ORTI_1SECTIONS__STACK_1SECTION extends OS__ORTI_1SECTIONS {
+	readonly attr String[1] type = "STACK_SECTION";
+}
+
+class OS__ORTI_1SECTIONS__ALARM_1SECTION extends OS__ORTI_1SECTIONS {
+	readonly attr String[1] type = "ALARM_SECTION";
+}
+
+class APPMODE {
+	attr String[1] name;
+}
+
+class TASK {
+	attr String[1] name;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val TASK__AUTOSTART AUTOSTART;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int PRIORITY;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="1")
+	attr int ACTIVATION = 1;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String REL_DEADLINE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val TASK__SCHEDULE SCHEDULE;
+	ref EVENT[*] EVENT;
+	ref RESOURCE[*] RESOURCE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="SHARED")
+	val TASK__STACK STACK;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="default_cpu")
+	attr String CPU_ID = "default_cpu";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] APP_SRC;
+	ref TASK[*] LINKED;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String CONTRACT;
+}
+
+abstract class TASK__AUTOSTART {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class TASK__AUTOSTART__TRUE extends TASK__AUTOSTART {
+	readonly attr String[1] type = "TRUE";
+	ref APPMODE[*] APPMODE;
+}
+
+class TASK__AUTOSTART__FALSE extends TASK__AUTOSTART {
+	readonly attr String[1] type = "FALSE";
+}
+
+abstract class TASK__SCHEDULE {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class TASK__SCHEDULE__NON extends TASK__SCHEDULE {
+	readonly attr String[1] type = "NON";
+}
+
+class TASK__SCHEDULE__FULL extends TASK__SCHEDULE {
+	readonly attr String[1] type = "FULL";
+}
+
+abstract class TASK__STACK {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class TASK__STACK__SHARED extends TASK__STACK {
+	readonly attr String[1] type = "SHARED";
+}
+
+class TASK__STACK__PRIVATE extends TASK__STACK {
+	readonly attr String[1] type = "PRIVATE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int SYS_SIZE;
+}
+
+class RESOURCE {
+	attr String[1] name;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val RESOURCE__RESOURCEPROPERTY RESOURCEPROPERTY;
+}
+
+abstract class RESOURCE__RESOURCEPROPERTY {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class RESOURCE__RESOURCEPROPERTY__STANDARD extends RESOURCE__RESOURCEPROPERTY {
+	readonly attr String[1] type = "STANDARD";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String[*] APP_SRC;
+}
+
+class RESOURCE__RESOURCEPROPERTY__LINKED extends RESOURCE__RESOURCEPROPERTY {
+	readonly attr String[1] type = "LINKED";
+	ref RESOURCE LINKEDRESOURCE;
+}
+
+class RESOURCE__RESOURCEPROPERTY__INTERNAL extends RESOURCE__RESOURCEPROPERTY {
+	readonly attr String[1] type = "INTERNAL";
+}
+
+class EVENT {
+	attr String[1] name;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="true")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="true")
+	attr int MASK;
+}
+
+class COUNTER {
+	attr String[1] name;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int MINCYCLE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int MAXALLOWEDVALUE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int TICKSPERBASE;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(DEFAULT_VALUE="default_cpu")
+	attr String CPU_ID = "default_cpu";
+}
+
+class ALARM {
+	attr String[1] name;
+	ref COUNTER COUNTER;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val ALARM__ACTION ACTION;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	val ALARM__AUTOSTART AUTOSTART;
+}
+
+abstract class ALARM__ACTION {
+	readonly attr String[1] variant_type = "ENUM";
+}
+
+class ALARM__ACTION__ACTIVATETASK extends ALARM__ACTION {
+	readonly attr String[1] type = "ACTIVATETASK";
+	ref TASK TASK;
+}
+
+class ALARM__ACTION__SETEVENT extends ALARM__ACTION {
+	readonly attr String[1] type = "SETEVENT";
+	ref TASK TASK;
+	ref EVENT EVENT;
+}
+
+class ALARM__ACTION__ALARMCALLBACK extends ALARM__ACTION {
+	readonly attr String[1] type = "ALARMCALLBACK";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr String ALARMCALLBACKNAME;
+}
+
+abstract class ALARM__AUTOSTART {
+	readonly attr String[1] variant_type = "BOOLEAN";
+}
+
+class ALARM__AUTOSTART__TRUE extends ALARM__AUTOSTART {
+	readonly attr String[1] type = "TRUE";
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int ALARMTIME;
+
+	@"htt:///com/eu/evidence/rtdruid/annotations"(WITH_AUTO="false")
+	@"htt:///com/eu/evidence/rtdruid/annotations"(AUTO="false")
+	attr int CYCLETIME;
+	ref APPMODE[*] APPMODE;
+}
+
+class ALARM__AUTOSTART__FALSE extends ALARM__AUTOSTART {
+	readonly attr String[1] type = "FALSE";
+}
+

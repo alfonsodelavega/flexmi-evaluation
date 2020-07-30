@@ -1,0 +1,2969 @@
+@"http://www.eclipse.org/OCL/Import"(ecore="http://www.eclipse.org/emf/2002/Ecore")
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel", prefix="camel")
+package camel;
+
+abstract class Model {
+	attr String[1] name;
+
+	@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="Metric", "unique"="false", upper="*")
+	attr String[*] importURI;
+}
+
+class CamelModel extends Model {
+	!ordered val Action[*] actions;
+	!ordered val Application[*] applications;
+	!ordered val deployment.DeploymentModel[*] deploymentModels;
+	!ordered val execution.ExecutionModel[*] executionModels;
+	val location.LocationModel[*] locationModels;
+	val metric.MetricModel[*] metricModels;
+	!ordered val organisation.OrganisationModel[*] organisationModels;
+	!ordered val provider.ProviderModel[*] providerModels;
+	val requirement.RequirementModel[*] requirementModels;
+	!ordered val scalability.ScalabilityModel[*] scalabilityModels;
+	!ordered val security.SecurityModel[*] securityModels;
+	!ordered val type.TypeModel[*] typeModels;
+	!ordered val unit.UnitModel[*] unitModels;
+}
+
+@Ecore(constraints="correct_action_type")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(correct_action_type="Tuple {
+	message : String = 'Action: ' + self.toString() + ' has a wrong type (' + self.type.toString() +
+					'). Any kind of scaling action should be take one of the four possible action type values, while in the opposite case should map to a CREATION_EVENT',
+	status : Boolean = if
+						(self.oclIsKindOf(camel::scalability::ScalingAction))
+					then (self.type = ActionType::SCALE_IN or self.type = ActionType::SCALE_OUT or self.type = ActionType::SCALE_UP or
+						self.type = ActionType::SCALE_DOWN)
+					else not (self.type = ActionType::SCALE_IN or self.type = ActionType::SCALE_OUT or self.type =
+						ActionType::SCALE_UP or self.type = ActionType::SCALE_DOWN)
+					endif
+}.status")
+class Action {
+
+	@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="InternalComponentMeasurement", "unique"="false", upper="*")
+	attr String[1] name;
+
+	@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="UserGroup", "unique"="false", upper="*")
+	attr ActionType[1] type;
+}
+
+enum ActionType {
+	EVENT_CREATION = 0;
+	SCALE_IN = 1;
+	SCALE_OUT = 2;
+	SCALE_UP = 3;
+	SCALE_DOWN = 4;
+	READ = 5;
+	WRITE = 6;
+}
+
+class Application {
+	attr String[1] name;
+	attr String[1] version;
+	attr String description;
+	ref organisation.Entity[1] owner;
+	!ordered ref deployment.DeploymentModel[*] deploymentModels;
+}
+
+enum LayerType {
+	SaaS = 0;
+	PaaS = 1;
+	IaaS = 2;
+	BPM = 3;
+	SCC = 4;
+}
+
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel/deployment", prefix="deployment")
+package deployment {
+	abstract class DeploymentElement {
+		attr String[1] name;
+	}
+
+	class DeploymentModel extends Model {
+		val InternalComponent[*] internalComponents;
+		val InternalComponentInstance[*] internalComponentInstances;
+		val VM[*] vms;
+		val VMInstance[*] vmInstances;
+		val Communication[*] communications;
+		val CommunicationInstance[*] communicationInstances;
+		val Hosting[*] hostings;
+		val HostingInstance[*] hostingInstances;
+		val VMRequirementSet[*] vmRequirementSets;
+		ref VMRequirementSet globalVMRequirementSet;
+	}
+
+	abstract class Component extends DeploymentElement {
+		val ProvidedCommunication[*] providedCommunications;
+		val ProvidedHost[*] providedHosts;
+		val Configuration[*] configurations;
+	}
+
+	@Ecore(constraints="no_recursion_in_parts_of_internal_component")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(no_recursion_in_parts_of_internal_component="Tuple {
+	message : String = 'InternalComponent: ' + self.name +
+				' should not be recursively contained by itself via the compositeInternalComponent association',
+	status : Boolean = not
+				(self.contains(self, self))
+}.status")
+	class InternalComponent extends Component {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="ic.compositeInternalComponents
+					->exists(p | p.name = rc.name or p.contains(p, rc))")
+		op boolean contains(InternalComponent[1] ic, InternalComponent[1] rc);
+		val InternalComponent[*] compositeInternalComponents;
+		val RequiredCommunication[*] requiredCommunications;
+		val RequiredHost requiredHost;
+		attr String version;
+	}
+
+	class VM extends Component {
+		ref VMRequirementSet vmRequirementSet;
+	}
+
+	@Ecore(constraints="at_least_one_alternative_in_vm_req_set")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(at_least_one_alternative_in_vm_req_set="Tuple {
+	message : String = 'VMRequirementSet: ' + self.name +
+				' should include the specification of at least one requirement',
+	status : Boolean = (locationRequirement <> null or
+				providerRequirement <> null or osOrImageRequirement <> null or qualitativeHardwareRequirement <> null or
+				quantitativeHardwareRequirement <> null)
+}.status")
+	class VMRequirementSet {
+		attr String[1] name;
+		ref requirement.LocationRequirement locationRequirement;
+		ref requirement.ProviderRequirement providerRequirement;
+
+		@teneo.jpa(value="@JoinColumn(name=\"qualitativehardwarerequirement\")")
+		ref requirement.QualitativeHardwareRequirement qualitativeHardwareRequirement;
+
+		@teneo.jpa(value="@JoinColumn(name=\"quantitativehardwarerequirement\")")
+		ref requirement.QuantitativeHardwareRequirement quantitativeHardwareRequirement;
+		ref requirement.OSOrImageRequirement osOrImageRequirement;
+	}
+
+	class Configuration extends DeploymentElement {
+		attr String downloadCommand;
+		attr String uploadCommand;
+		attr String installCommand;
+		attr String configureCommand;
+		attr String startCommand;
+		attr String stopCommand;
+	}
+
+	@Ecore(constraints="local_communication_both_comp_same_vm")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(local_communication_both_comp_same_vm="Tuple {
+	message : String = 'The communication:' + self.name +
+				' is local but the communicating components are mapped to different VMs',
+	status : Boolean = let firstOwner : Component =
+				self.providedCommunication.oclContainer().oclContainer().oclAsType(DeploymentModel).hostings
+				->select(p | p.requiredHost.oclContainer() = self.providedCommunication.oclContainer())
+				->first().providedHost.oclContainer() , secondOwner : Component =
+				self.requiredCommunication.oclContainer().oclContainer().oclAsType(DeploymentModel).hostings
+				->select(q | q.requiredHost.oclContainer() = self.requiredCommunication.oclContainer())
+				->first().providedHost.oclContainer()
+			in (self.type = CommunicationType::LOCAL) implies (if (firstOwner.oclIsTypeOf(InternalComponent) and
+					secondOwner.oclIsTypeOf(InternalComponent))
+				then firstOwner.oclAsType(InternalComponent).oclContainer().oclAsType(DeploymentModel).hostings
+					->select(p | p.requiredHost.oclContainer() = firstOwner)
+					->first().providedHost.oclContainer() =
+					secondOwner.oclAsType(InternalComponent).oclContainer().oclAsType(DeploymentModel).hostings
+					->select(p | p.requiredHost.oclContainer() = secondOwner)
+					->first().providedHost.oclContainer()
+				else if (firstOwner.oclIsTypeOf(VM) and secondOwner.oclIsTypeOf(InternalComponent))
+					then firstOwner = secondOwner.oclAsType(InternalComponent).oclContainer().oclAsType(DeploymentModel).hostings
+						->select(p | p.requiredHost.oclContainer() = secondOwner)
+						->first().providedHost.oclContainer()
+					else if (firstOwner.oclIsTypeOf(InternalComponent) and secondOwner.oclIsTypeOf(VM))
+						then firstOwner.oclAsType(InternalComponent).oclContainer().oclAsType(DeploymentModel).hostings
+							->select(p | p.requiredHost.oclContainer() = firstOwner)
+							->first().providedHost.oclContainer() = secondOwner
+						else if (firstOwner = secondOwner)
+							then true
+							else false
+							endif
+						endif
+					endif
+				endif)
+}.status")
+	class Communication extends DeploymentElement {
+		attr CommunicationType[1] type = "ANY";
+		ref ProvidedCommunication[1] providedCommunication;
+		ref RequiredCommunication[1] requiredCommunication;
+		val Configuration providedPortConfiguration;
+		val Configuration requiredPortConfiguration;
+	}
+
+	enum CommunicationType {
+		ANY = 0;
+		LOCAL = 1;
+		REMOTE = 2;
+	}
+
+	abstract class CommunicationPort extends DeploymentElement {
+		attr int portNumber;
+	}
+
+	class ProvidedCommunication extends CommunicationPort {
+	}
+
+	class RequiredCommunication extends CommunicationPort {
+		attr boolean[1] isMandatory;
+	}
+
+	class Hosting extends DeploymentElement {
+		ref ProvidedHost[1] providedHost;
+		ref RequiredHost[1] requiredHost;
+		val Configuration providedHostConfiguration;
+		val Configuration requiredHostConfiguration;
+	}
+
+	abstract class HostingPort extends DeploymentElement {
+	}
+
+	class ProvidedHost extends HostingPort {
+	}
+
+	class RequiredHost extends HostingPort {
+	}
+
+	@Ecore(constraints="component_port_instances_of_correct_type")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(component_port_instances_of_correct_type="Tuple {
+	message : String = 'The type of component instance:' + self.name +
+				' should have as provided communication/hosts the types of the component instance\'s provided communication/host instances',
+	status : Boolean = providedCommunicationInstances
+				->forAll(p | type.providedCommunications
+					->includes(p.type)) and providedHostInstances
+				->forAll(p | type.providedHosts
+					->includes(p.type))
+}.status")
+	abstract class ComponentInstance extends DeploymentElement {
+		ref Component[1] type;
+		val ProvidedCommunicationInstance[*] providedCommunicationInstances;
+		val ProvidedHostInstance[*] providedHostInstances;
+		attr EDate instantiatedOn;
+		attr EDate destroyedOn;
+	}
+
+	@Ecore(constraints="internal_component_port_instances_of_correct_type")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(internal_component_port_instances_of_correct_type="Tuple {
+	message : String = 'The type of component instance:' + self.name +
+				' should have as required communication/hosts the types of the component instance\'s required communication/host instances',
+	status : Boolean = type.oclIsKindOf(InternalComponent)
+				and requiredCommunicationInstances
+				->forAll(p | type.oclAsType(InternalComponent).requiredCommunications
+					->includes(p.type)) and (requiredHostInstance <> null implies requiredHostInstance.type =
+				type.oclAsType(InternalComponent).requiredHost)
+}.status")
+	class InternalComponentInstance extends ComponentInstance {
+		val RequiredCommunicationInstance[*] requiredCommunicationInstances;
+		val RequiredHostInstance requiredHostInstance;
+	}
+
+	@Ecore(constraints="correct_type_for_vm_instance correct_vm_type_value_in_vm_instance")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(correct_type_for_vm_instance="Tuple {
+	message : String = 'VM Instance: ' + self.name +
+				' should have as type a VM',
+	status : Boolean = type.oclIsTypeOf(VM)
+}.status", correct_vm_type_value_in_vm_instance="Tuple {
+	message : String = 'VMInstance: ' + self.name +
+				' has a vmTypeValue which is not included in the ValueType of the vmType Attribute',
+	status : Boolean = ((vmType <> null and
+				vmType.valueType <> null) implies (if (vmType.valueType.oclIsTypeOf(camel::type::Range))
+				then if (vmTypeValue.oclIsTypeOf(camel::type::IntegerValue))
+					then
+						vmType.valueType.oclAsType(camel::type::Range).includesValue(vmTypeValue.oclAsType(camel::type::IntegerValue).value.oclAsType(ecore::EDouble))
+					else if (vmTypeValue.oclIsTypeOf(camel::type::FloatsValue))
+						then
+							vmType.valueType.oclAsType(camel::type::Range).includesValue(vmTypeValue.oclAsType(camel::type::FloatsValue).value.oclAsType(ecore::EDouble))
+						else if (vmTypeValue.oclIsTypeOf(camel::type::DoublePrecisionValue))
+							then
+								vmType.valueType.oclAsType(camel::type::Range).includesValue(vmTypeValue.oclAsType(camel::type::DoublePrecisionValue).value)
+							else false
+							endif
+						endif
+					endif
+				else if (vmType.valueType.oclIsTypeOf(camel::type::Enumeration))
+					then if (vmTypeValue.oclIsTypeOf(camel::type::StringsValue))
+						then
+							vmType.valueType.oclAsType(camel::type::Enumeration).includesName(vmTypeValue.oclAsType(camel::type::StringsValue).value)
+						else if (vmTypeValue.oclIsTypeOf(camel::type::EnumerateValue))
+							then
+								vmType.valueType.oclAsType(camel::type::Enumeration).includesName(vmTypeValue.oclAsType(camel::type::EnumerateValue).name)
+							else false
+							endif
+						endif
+					else if (vmType.valueType.oclIsTypeOf(camel::type::List))
+						then vmType.valueType.oclAsType(camel::type::List).includesValue(vmTypeValue)
+						else if (vmType.valueType.oclIsTypeOf(camel::type::RangeUnion))
+							then if (vmTypeValue.oclIsTypeOf(camel::type::IntegerValue))
+								then
+									vmType.valueType.oclAsType(camel::type::RangeUnion).includesValue(vmTypeValue.oclAsType(camel::type::IntegerValue).value.oclAsType(ecore::EDouble))
+								else if (vmTypeValue.oclIsTypeOf(camel::type::FloatsValue))
+									then
+										vmType.valueType.oclAsType(camel::type::RangeUnion).includesValue(vmTypeValue.oclAsType(camel::type::FloatsValue).value.oclAsType(ecore::EDouble))
+									else if (vmTypeValue.oclIsTypeOf(camel::type::DoublePrecisionValue))
+										then
+											vmType.valueType.oclAsType(camel::type::RangeUnion).includesValue(vmTypeValue.oclAsType(camel::type::DoublePrecisionValue).value)
+										else false
+										endif
+									endif
+								endif
+							else false
+							endif
+						endif
+					endif
+				endif))
+}.status")
+	class VMInstance extends ComponentInstance {
+
+		@GenModel(body="System.out.println(\"Checking dates for VMInstance: \" + vm);
+		java.util.Date createdOn = vm.getInstantiatedOn();
+		java.util.Date destroyedOn = vm.getDestroyedOn();
+		if (createdOn != null && destroyedOn != null && destroyedOn.before(createdOn)) return Boolean.FALSE;
+		return Boolean.TRUE;")
+		op boolean checkDates(VMInstance vm);
+		ref provider.Attribute vmType;
+		ref type.SingleValue vmTypeValue;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="CommunicationInstance", "unique"="false", upper="*")
+		attr String ip;
+	}
+
+	@Ecore(constraints="communication_instance_correct_port_instances")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(communication_instance_correct_port_instances="Tuple {
+	message : String = 'CommunicationInstance: ' + self.name +
+				' should have its provided and required communication instances\' types mapping to its required communication/host type, respectively',
+	status : Boolean = requiredCommunicationInstance.type
+				= type.requiredCommunication and providedCommunicationInstance.type = type.providedCommunication
+}.status")
+	class CommunicationInstance extends DeploymentElement {
+		ref Communication[1] type;
+		ref ProvidedCommunicationInstance[1] providedCommunicationInstance;
+		ref RequiredCommunicationInstance[1] requiredCommunicationInstance;
+	}
+
+	class CommunicationPortInstance extends DeploymentElement {
+		ref CommunicationPort[1] type;
+	}
+
+	class ProvidedCommunicationInstance extends CommunicationPortInstance {
+	}
+
+	class RequiredCommunicationInstance extends CommunicationPortInstance {
+	}
+
+	class HostingInstance extends DeploymentElement {
+		ref Hosting[1] type;
+		ref ProvidedHostInstance[1] providedHostInstance;
+		ref RequiredHostInstance[1] requiredHostInstance;
+	}
+
+	abstract class HostingPortInstance extends DeploymentElement {
+		ref HostingPort[1] type;
+	}
+
+	class ProvidedHostInstance extends HostingPortInstance {
+	}
+
+	class RequiredHostInstance extends HostingPortInstance {
+	}
+
+}
+
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel/execution", prefix="execution")
+package execution {
+	class ExecutionModel extends Model {
+		!ordered val ActionRealisation[*] actionRealisations;
+		val scalability.EventInstance[*] eventInstances;
+		!ordered val ExecutionContext[*] executionContexts;
+		!ordered val Measurement[*] measurements;
+		!ordered val SLOAssessment[*] sloAssessessments;
+		!ordered val RuleTrigger[*] ruleTriggers;
+	}
+
+	class ActionRealisation {
+		id attr String[1] name;
+		ref Action[1] action;
+		attr EDate startTime;
+		attr EDate endTime;
+		attr String lowLevelActions;
+	}
+
+	@Ecore(constraints="execution_context_total_cost execution_context_unit_cost")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(execution_context_total_cost="Tuple {
+	message : String = 'The total cost of execution context: ' + self.name +
+				' should be non-negative',
+	status : Boolean = self.totalCost >= 0
+}.status", execution_context_unit_cost="Tuple {
+	message : String = 'The unit of cost should be provided as the totalCost of execution context: '
+				+ self.name + ' is positive',
+	status : Boolean = self.totalCost > 0 implies costUnit <> null
+}.status")
+	class ExecutionContext {
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="Measurement", "unique"="false", upper="*")
+		id attr String[1] name;
+		ref Application[1] application;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="Measurement", "unique"="false", upper="*")
+		attr EDate startTime;
+		attr EDate endTime;
+		attr double totalCost;
+		ref unit.MonetaryUnit costUnit;
+		ref deployment.DeploymentModel[1] deploymentModel;
+		ref requirement.RequirementGroup[1] requirementGroup;
+	}
+
+	@Ecore(constraints="measurement_slo_refer_to_correct_metric measurement_event_instance_same_metric correct_measurement_value measurement_metric_refers_to_correct_execution_context")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(measurement_slo_refer_to_correct_metric="Tuple {
+	message : String = 'Measurement: ' + self.name +
+				' should have a metric instance with a type that maps to the metric referred to by the the measurement\'s respective SLO',
+	status : Boolean = self.slo
+				<> null implies (if (self.slo.customServiceLevel.oclIsTypeOf(camel::metric::MetricCondition))
+				then self.slo.customServiceLevel.oclAsType(camel::metric::MetricCondition).metricContext.metric =
+					self.metricInstance.metric
+				else false
+				endif)
+}.status", measurement_event_instance_same_metric="Tuple {
+	message : String = 'Measurement: ' + self.name +
+				' maps to non-functional event instance : ' + eventInstance.toString() +
+				' with a type related to a metric different from the one of this measurement',
+	status : Boolean = (self.eventInstance <> null and
+				self.eventInstance.event.oclIsTypeOf(camel::scalability::NonFunctionalEvent)) implies self.metricInstance.metric =
+				self.eventInstance.event.oclAsType(camel::scalability::NonFunctionalEvent).metricCondition.metricContext.metric
+}.status", correct_measurement_value="Tuple {
+	message : String = 'Measurement: ' + self.name + ' has a value: ' + value.toString() +
+				' that is outside the range of values of metric instance: ' + metricInstance.name,
+	status : Boolean = let type :
+				camel::type::ValueType = metricInstance.metric.valueType
+			in if (type <> null)
+				then if (type.oclIsTypeOf(camel::type::Range))
+					then type.oclAsType(camel::type::Range).includesValue(self.value)
+					else if (type.oclIsTypeOf(camel::type::RangeUnion))
+						then type.oclAsType(camel::type::RangeUnion).includesValue(self.value)
+						else true
+						endif
+					endif
+				else true
+				endif
+}.status", measurement_metric_refers_to_correct_execution_context="Tuple {
+	message : String = 'Measurement: ' + self.name +
+				' has execution context:' + executionContext.name +
+				' which is different from the one of the binding of the respective metric instance:' +
+				metricInstance.name,
+	status : Boolean = executionContext = metricInstance.objectBinding.executionContext
+}.status")
+	class Measurement {
+		id attr String[1] name;
+		ref ExecutionContext[1] executionContext;
+		ref metric.MetricInstance[1] metricInstance;
+		attr double[1] value;
+		attr String rawData;
+		attr EDate[1] measurementTime;
+		ref requirement.ServiceLevelObjective slo;
+		ref scalability.EventInstance eventInstance;
+	}
+
+	@Ecore(constraints="application_measurement_same_app")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(application_measurement_same_app="Tuple {
+	message : String = 'ApplicationMeasurement: ' + self.name +
+				' has a different application from the one referenced by its execution context: ' +
+				self.executionContext.name,
+	status : Boolean = self.executionContext.application = self.application
+}.status")
+	class ApplicationMeasurement extends Measurement {
+		ref Application[1] application;
+	}
+
+	@Ecore(constraints="internal_component_measurement_metric_refer_to_same_component internal_component_measurement_included_in_execution_context")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(internal_component_measurement_metric_refer_to_same_component="Tuple {
+	message : String = 'The ComponentInstance: ' +
+				internalComponentInstance.name + ' of InternalComponentMeasurement: ' + self.name +
+				' is different from the one referenced by the binding of the respective metric instance: ' +
+				self.metricInstance.name,
+	status : Boolean = metricInstance.objectBinding.oclIsTypeOf(camel::metric::MetricComponentBinding) and
+				metricInstance.objectBinding.oclAsType(camel::metric::MetricComponentBinding).componentInstance =
+				internalComponentInstance
+}.status", internal_component_measurement_included_in_execution_context="Tuple {
+	message : String = 'ComponentInstance: ' +
+				internalComponentInstance.name + ' is not included in the deployment model of execution context: ' +
+				self.executionContext.name + ' for InternalComponentMeasurement: ' +
+				self.name,
+	status : Boolean = executionContext.deploymentModel.internalComponentInstances
+				->includes(internalComponentInstance)
+}.status")
+	class InternalComponentMeasurement extends Measurement {
+		ref deployment.InternalComponentInstance[1] internalComponentInstance;
+	}
+
+	@Ecore(constraints="resource_coupling_measurement_diff_vm_instances")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(resource_coupling_measurement_diff_vm_instances="Tuple {
+	message : String = 'The source: ' + sourceVMInstance.name +
+				' and destination: ' + destinationVMInstance.name + ' VM instances of ResourceCouplingMeasurement: ' + self.name +
+				' are either identical or not included in the deployment model of the respective execution context: ' +
+				self.executionContext.name,
+	status : Boolean = sourceVMInstance <> destinationVMInstance and
+				(executionContext.deploymentModel.vmInstances
+				->includes(sourceVMInstance)) and (executionContext.deploymentModel.vmInstances
+				->includes(destinationVMInstance))
+}.status")
+	class CommunicationMeasurement extends Measurement {
+		ref deployment.VMInstance[1] sourceVMInstance;
+		ref deployment.VMInstance[1] destinationVMInstance;
+	}
+
+	@Ecore(constraints="resource_measurement_ec_deployment_model_vm_instance resource_measurement_metric_vm_instance")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(resource_measurement_ec_deployment_model_vm_instance="Tuple {
+	message : String = 'The VMInstance: ' + vmInstance.name +
+				' of ResourceMeasurement: ' + self.name +
+				' is not included in the deployment model of the respective execution context: ' +
+				self.executionContext.name,
+	status : Boolean = vmInstance <> null implies (executionContext.deploymentModel.vmInstances
+				->includes(vmInstance))
+}.status", resource_measurement_metric_vm_instance="Tuple {
+	message : String = 'The binding of metric instance: ' + metricInstance.name +
+				' associated to ResourceMeasurement: ' + self.name +
+				' refers to a different VMInstance from the one related to this measurement',
+	status : Boolean = vmInstance <> null implies
+				(metricInstance.objectBinding.oclIsTypeOf(camel::metric::MetricVMBinding) and
+				metricInstance.objectBinding.oclAsType(camel::metric::MetricVMBinding).vmInstance = vmInstance)
+}.status")
+	class VMMeasurement extends Measurement {
+		ref deployment.VMInstance[1] vmInstance;
+	}
+
+	@Ecore(constraints="slo_assessment_same_metric slo_assessment_slo_in_reqs_for_execution_context slo_assessment_same_exec_context")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(slo_assessment_same_metric="Tuple {
+	message : String = 'The metric in slo: ' + slo.name + ' of SLOAssessment: ' + self.name +
+				' is not the same as the one referenced by the respective measurement: ' + measurement.name,
+	status : Boolean = if
+					(slo.customServiceLevel.oclIsTypeOf(camel::metric::MetricCondition))
+				then measurement.metricInstance.metric =
+					slo.customServiceLevel.oclAsType(camel::metric::MetricCondition).metricContext.metric
+				else false
+				endif
+}.status", slo_assessment_slo_in_reqs_for_execution_context="Tuple {
+	message : String = 'SLO: ' + self.slo.name +
+				' is not included in the requirement group of the respective execution context: ' + self.executionContext.name +
+				' of SLO Assessment: ' + self.name,
+	status : Boolean = self.executionContext.requirementGroup.requirements
+				->includes(self.slo)
+}.status", slo_assessment_same_exec_context="Tuple {
+	message : String = 'ExecutionContext: ' + executionContext.name + ' in SLOAssessment: ' +
+				self.name + ' is not the same as the one of the respective measurement: ' +
+				self.measurement.name,
+	status : Boolean = executionContext = measurement.executionContext
+}.status")
+	class SLOAssessment {
+		attr String[1] name;
+		ref requirement.ServiceLevelObjective[1] slo;
+		attr boolean[1] assessment;
+		ref ExecutionContext[1] executionContext;
+		ref Measurement[1] measurement;
+		attr EDate[1] assessmentTime;
+	}
+
+	@Ecore(constraints="rule_trigger_event_instance_correct_events rule_trigger_correct_action rule_trigger_scal_reqs_of_correct_dep_model")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(rule_trigger_event_instance_correct_events="Tuple {
+	message : String = 'The eventInstances ' + ' of RuleTrigger: ' + self.name +
+				' do not correspond to the event(s) of the respective scalability rule: ' + self.scalabilityRule.name,
+	status : Boolean = if
+					(self.scalabilityRule.event.oclIsKindOf(camel::scalability::SimpleEvent))
+				then (self.eventInstances
+					->size() = 1 and self.eventInstances
+					->exists(p | p.event.oclAsType(camel::scalability::SimpleEvent) =
+						self.scalabilityRule.event.oclAsType(camel::scalability::SimpleEvent)))
+				else self.eventInstances
+					->forAll(p | self.scalabilityRule.event.oclAsType(camel::scalability::EventPattern).includesEvent(p.event))
+				endif
+}.status", rule_trigger_correct_action="Tuple {
+	message : String = 'Either the size of action realizations for RuleTrigger: ' + self.name +
+				' is not the same as the one corresponding to the actions of the respective scalability rule: ' +
+				self.scalabilityRule.name +
+				' or there is an action realization mapping to an action not contained in the action list of the trigger\'s scalability rule',
+	status : Boolean = (self.actionRealisations
+				->size() = self.scalabilityRule.actions
+				->size()) and (self.actionRealisations
+				->forAll(p | self.scalabilityRule.actions
+					->exists(q | q = p.action)))
+}.status", rule_trigger_scal_reqs_of_correct_dep_model="Tuple {
+	message : String = 'There is a scale requirements for the scalability rule: ' +
+				self.scalabilityRule.name + ' of RuleTrigger: ' + self.name +
+				' with a component or vm not included in the deployment model of the trigger\'s respective execution context: ' +
+				self.executionContext.name,
+	status : Boolean = scalabilityRule.scaleRequirements
+				->forAll(p | if (p.oclIsTypeOf(camel::requirement::HorizontalScaleRequirement) and
+						p.oclAsType(camel::requirement::HorizontalScaleRequirement).component <> null)
+					then (executionContext.deploymentModel.internalComponents
+						->includes(p.oclAsType(camel::requirement::HorizontalScaleRequirement).component))
+					else if (p.oclIsTypeOf(camel::requirement::VerticalScaleRequirement) and
+							p.oclAsType(camel::requirement::VerticalScaleRequirement).vm <> null)
+						then (executionContext.deploymentModel.vms
+							->includes(p.oclAsType(camel::requirement::VerticalScaleRequirement).vm))
+						else true
+						endif
+					endif)
+}.status")
+	class RuleTrigger {
+		attr String[1] name;
+		ref scalability.ScalabilityRule[1] scalabilityRule;
+		ref scalability.EventInstance[+] eventInstances;
+		ref ActionRealisation[+] actionRealisations;
+		attr EDate[1] trigerringTime;
+		ref ExecutionContext[1] executionContext;
+	}
+
+}
+
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel/location", prefix="location")
+package location {
+	class LocationModel extends Model {
+		val CloudLocation[*] cloudLocations;
+		val Country[*] countries;
+		val GeographicalRegion[*] regions;
+	}
+
+	abstract class Location {
+		attr String[1] ~id;
+	}
+
+	@Ecore(constraints="cloud_location_same_as_parent")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(cloud_location_same_as_parent="Tuple {
+	message : String = 'CloudLocation: ' + self.id +
+					' should not be the same as its parent',
+	status : Boolean = parent <> null implies parent.id <> self.id
+}.status")
+	class CloudLocation extends Location {
+
+		@GenModel(body="System.out.println(\"Checking recursiveness for CloudLocation: \" + cl1.getId());
+		for (eu.paasage.camel.location.CloudLocation cl: cl1.getSubLocations()){
+				if (cl.getId().equals(cl2.getId())) return Boolean.TRUE;
+				if (checkRecursiveness(cl,cl2)) return Boolean.TRUE;
+		}
+		return Boolean.FALSE;")
+		op boolean checkRecursiveness(CloudLocation cl1, CloudLocation cl2);
+		attr boolean[1] isAssignable = false;
+		val CloudLocation[*] subLocations;
+		ref CloudLocation parent;
+		ref GeographicalRegion geographicalRegion;
+	}
+
+	@Ecore(constraints="geographical_region_not_in_parents")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(geographical_region_not_in_parents="Tuple {
+	message : String = 'Geographical Region:' + self.name +
+					' cannot be equivalent to any of its parents',
+	status : Boolean = self.parentRegions
+					->forAll(p | p.name <> self.name)
+}.status")
+	class GeographicalRegion extends Location {
+		attr String[1] name;
+		ref GeographicalRegion[*] parentRegions;
+		attr String[*] alternativeNames;
+	}
+
+	class Country extends GeographicalRegion {
+	}
+
+}
+
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel/metric", prefix="metric")
+package metric {
+	abstract class Condition {
+		attr String[1] name;
+		attr ComparisonOperatorType[1] comparisonOperator;
+		attr double[1] threshold;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="MetricCondition", "unique"="false", upper="*")
+		attr EDate validity;
+	}
+
+	class MetricCondition extends Condition {
+		ref MetricContext[1] metricContext;
+	}
+
+	class PropertyCondition extends Condition {
+		ref PropertyContext[1] propertyContext;
+		ref unit.MonetaryUnit unit;
+		ref unit.TimeIntervalUnit timeUnit;
+	}
+
+	enum ComparisonOperatorType {
+		GREATER_THAN = 0;
+		GREATER_EQUAL_THAN = 1;
+		LESS_THAN = 2;
+		LESS_EQUAL_THAN = 3;
+		EQUAL = 4;
+		NOT_EQUAL = 5;
+	}
+
+	abstract class MetricInstance {
+
+		@GenModel(body="System.out.println(\"Checking recursiveness for MetricInstance: \" + m1.getName());
+		eu.paasage.camel.metric.CompositeMetricInstance cmi = (eu.paasage.camel.metric.CompositeMetricInstance)m1;
+		for (eu.paasage.camel.metric.MetricInstance m: cmi.getComposingMetricInstances()){
+			if (m.getName().equals(m2.getName())) return Boolean.TRUE;
+			if (m instanceof eu.paasage.camel.metric.CompositeMetricInstance && checkRecursiveness(m,m2)) return Boolean.TRUE;
+		}
+		return Boolean.FALSE;")
+		op boolean checkRecursiveness(MetricInstance m1, MetricInstance m2);
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="MetricFormulaParameter", "unique"="false", upper="*")
+		id attr String[1] name;
+		ref Metric[1] metric;
+		ref Schedule schedule;
+		ref Window window;
+		ref MetricObjectBinding[1] objectBinding;
+		ref MetricContext metricContext;
+	}
+
+	@Ecore(constraints="composite_metric_instance_to_components component_instances_metric_map_formula_templates component_metrics_refer_to_same_level_or_lower")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(composite_metric_instance_to_components="Tuple {
+	message : String = 'CompositeMetricInstance: ' + self.name +
+					' maps to a composite metric but there exists a composing metric with a different execution context associated to it',
+	status : Boolean = metric.oclIsTypeOf(CompositeMetric)
+					and composingMetricInstances
+					->forAll(p | p.objectBinding.executionContext = objectBinding.executionContext)
+}.status", component_instances_metric_map_formula_templates="Tuple {
+	message : String = 'CompositeMetricInstance: ' + self.name +
+					' should have component metric instances which map to the metrics referenced in the formula of the composite instance\'s metric',
+	status : Boolean = metric.oclIsTypeOf(CompositeMetric)
+					and self.metric.oclAsType(CompositeMetric).formula.parameters
+					->forAll(p | p.oclIsKindOf(Metric) implies self.composingMetricInstances
+						->exists(q | q.metric = p)) and self.metric.oclAsType(CompositeMetric).formula.parameters
+					->select(p | p.oclIsKindOf(Metric))
+					->size() = self.composingMetricInstances
+					->size()
+}.status", component_metrics_refer_to_same_level_or_lower="Tuple {
+	message : String = 'CompositeMetricInstance: ' + self.name +
+					' as a binding with a type that maps to a lower cloud level with respect to the one of its composing metrics (e.g., MetricVMBinding while composing metric has MetricComponentBinding)',
+	status : Boolean = if
+						(not (objectBinding.oclIsTypeOf(MetricApplicationBinding)))
+					then if (objectBinding.oclIsTypeOf(MetricComponentBinding))
+						then composingMetricInstances
+							->forAll(p | p.objectBinding.executionContext = self.objectBinding.executionContext and not
+								(p.objectBinding.oclIsTypeOf(MetricApplicationBinding)) and if
+									(self.objectBinding.oclAsType(MetricComponentBinding).componentInstance.oclIsKindOf(camel::deployment::InternalComponentInstance))
+								then if (p.objectBinding.oclIsTypeOf(MetricVMBinding))
+									then self.objectBinding.executionContext.deploymentModel.hostingInstances
+										->exists(q | q.providedHostInstance.oclContainer() = p.objectBinding.oclAsType(MetricVMBinding).vmInstance and
+											q.requiredHostInstance.oclContainer() = self.objectBinding.oclAsType(MetricComponentBinding).componentInstance)
+									else true
+									endif
+								else false
+								endif)
+						else composingMetricInstances
+							->forAll(p | p.objectBinding.oclIsTypeOf(MetricVMBinding))
+						endif
+					else true
+					endif
+}.status")
+	class CompositeMetricInstance extends MetricInstance {
+		ref MetricInstance[+] composingMetricInstances;
+	}
+
+	@Ecore(constraints="raw_metric_instance_correct_metric_type")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(raw_metric_instance_correct_metric_type="Tuple {
+	message : String = 'RawMetricInstance: ' + self.name +
+					' mut map to a raw metric',
+	status : Boolean = metric.oclIsTypeOf(RawMetric)
+}.status")
+	class RawMetricInstance extends MetricInstance {
+		ref Sensor[1] sensor;
+	}
+
+	@Ecore(constraints="value_attribute_set_for_non_metric_formula_parameters")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(value_attribute_set_for_non_metric_formula_parameters="Tuple {
+	message : String = 'MetricFormulaParameter: ' + self.name +
+					' has a value of null while not mapping to a metric or metric formula',
+	status : Boolean = not (self.oclIsKindOf(Metric) or
+					(self.oclIsKindOf(MetricFormula))) implies self.value <> null
+}.status")
+	class MetricFormulaParameter {
+		attr String[1] name;
+		val type.SingleValue value;
+	}
+
+	@Ecore(constraints="metric_formula_has_metric metric_formula_correct_arity_for_function_wrt_parameters metric_formula_correct_arity_for_function")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metric_formula_has_metric="Tuple {
+	message : String = 'MetricFormula: ' + self.toString() + ' does not involve any metric as input parameter',
+	status : Boolean = 
+				hasMetric()
+}.status", metric_formula_correct_arity_for_function_wrt_parameters="Tuple {
+	message : String = 'MetricFormula: ' + self.toString() +
+					' has an incorrect arity: ' + functionArity.toString() + ' according to the size of the parameters list: ' +
+					parameters
+					->size().toString(),
+	status : Boolean = ((self.functionArity = MetricFunctionArityType::UNARY) implies (self.parameters
+					->size() = 1)) and ((self.functionArity = MetricFunctionArityType::BINARY) implies self.parameters
+					->size() = 2) and ((self.functionArity = MetricFunctionArityType::N_ARY) implies self.parameters
+					->size() >= 2)
+}.status", metric_formula_correct_arity_for_function="Tuple {
+	message : String = 'MetricFormula: ' + self.toString() + ' has function: ' +
+					function.toString() + ' that does not correctly correspond to its arity: ' +
+					functionArity.toString(),
+	status : Boolean = ((self.function = MetricFunctionType::MODULO or self.function =
+					MetricFunctionType::PERCENTILE) implies self.functionArity = MetricFunctionArityType::BINARY) and (((self.function
+					= MetricFunctionType::MEAN or self.function = MetricFunctionType::STD or self.function = MetricFunctionType::MIN
+					or self.function = MetricFunctionType::MAX or self.function = MetricFunctionType::MODE or self.function =
+					MetricFunctionType::MEDIAN or self.function = MetricFunctionType::DERIVATIVE or self.function =
+					MetricFunctionType::COUNT) implies self.functionArity = MetricFunctionArityType::UNARY)) and (((self.function =
+					MetricFunctionType::TIMES or self.function = MetricFunctionType::DIV) implies (self.functionArity =
+					MetricFunctionArityType::BINARY or self.functionArity = MetricFunctionArityType::N_ARY)))
+}.status")
+	class MetricFormula extends MetricFormulaParameter {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="self.parameters
+						->includes(m) or self.parameters
+						->exists(p | p.oclIsTypeOf(MetricFormula) and p.oclAsType(MetricFormula).containsMetric(m))")
+		op boolean containsMetric(Metric[1] m);
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="self.parameters
+						->exists(p | p.oclIsKindOf(Metric)) or 
+						self.parameters->exists(p | p.oclIsTypeOf(MetricFormula) and p.oclAsType(MetricFormula).hasMetric())")
+		op boolean hasMetric();
+		attr MetricFunctionType[1] function;
+		attr MetricFunctionArityType[1] functionArity;
+		attr FunctionPatternType functionPattern;
+		ref MetricFormulaParameter[+] parameters;
+	}
+
+	@Ecore(constraints="metric_measures_measurable_property")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metric_measures_measurable_property="Tuple {
+	message : String = 'Metric: ' + name + ' measures property: ' + self.property.name +
+					' which is ABSTRACT (i.e., not MEASURABLE)',
+	status : Boolean = self.property.type = PropertyType::MEASURABLE
+}.status")
+	abstract class Metric extends MetricFormulaParameter {
+
+		@GenModel(body="System.out.println(\"Checking recursiveness for Metric: \" + mt1.getName());
+		eu.paasage.camel.metric.CompositeMetric m1 = (eu.paasage.camel.metric.CompositeMetric)mt1;
+		for (eu.paasage.camel.metric.MetricFormulaParameter param: m1.getFormula().getParameters()){
+			if (param instanceof eu.paasage.camel.metric.Metric){
+				eu.paasage.camel.metric.Metric mt = (eu.paasage.camel.metric.Metric)param;
+				if (mt.getName().equals(mt2.getName())) return Boolean.TRUE;
+				if (mt instanceof eu.paasage.camel.metric.CompositeMetric && checkRecursiveness(mt,mt2)) return Boolean.TRUE;
+			}
+		}
+		return Boolean.FALSE;")
+		op boolean checkRecursiveness(Metric mt1, Metric mt2);
+		attr String description;
+		ref type.ValueType valueType;
+		attr short valueDirection;
+		ref unit.Unit[1] unit;
+		attr LayerType layer;
+		ref Property[1] property;
+		attr boolean isVariable;
+	}
+
+	@Ecore(constraints="metric_layer_enforcement metric_percentage_unit_enforcement metric_composite_unit_enforcement")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metric_layer_enforcement="Tuple {
+	message : String = 'Composite Metric: ' + name +
+					' has a layer which is below those of its composing metrics in the respective formula',
+	status : Boolean = self.formula.parameters
+					->forAll(p | (p.oclIsKindOf(Metric) implies self.greaterEqualThanLayer(self.layer, p.oclAsType(Metric).layer)))
+}.status", metric_percentage_unit_enforcement="Tuple {
+	message : String = 'Composite Metric: ' + name +
+					' has an incorrect unit (percentage) by considering the units of its composing metrics and the function(s) involved in the respective metric formula',
+	status : Boolean = if
+						(self.unit.unit = camel::unit::UnitType::PERCENTAGE)
+					then (self.formula.parameters
+						->forAll(p | p.oclIsKindOf(Metric) implies p.oclAsType(Metric).unit.unit = camel::unit::UnitType::PERCENTAGE) or
+						(self.formula.function = MetricFunctionType::DIV and self.formula.parameters
+						->size() = 2 and self.formula.parameters
+						->forAll(p1, p2 | (p1.oclIsKindOf(Metric) and p2.oclIsKindOf(Metric)) implies p1.oclAsType(Metric).unit.unit =
+							p2.oclAsType(Metric).unit.unit)))
+					else true
+					endif
+}.status", metric_composite_unit_enforcement="Tuple {
+	message : String = 'Composite Metric: ' + self.name +
+					' has a composite unit that does not correspond to the units of its composing metrics by also considering that its derivation formula maps to the DIV function',
+	status : Boolean = if
+						(self.formula.function = MetricFunctionType::DIV)
+					then ((self.unit.unit = camel::unit::UnitType::BYTES_PER_SECOND) implies (self.formula.parameters
+						->size() = 2 and self.formula.parameters
+						->at(1).oclAsType(Metric).unit.unit = camel::unit::UnitType::BYTES and self.formula.parameters
+						->at(2).oclAsType(Metric).unit.unit = camel::unit::UnitType::SECONDS) and (self.unit.unit =
+						camel::unit::UnitType::REQUESTS_PER_SECOND) implies (self.formula.parameters
+						->size() = 2 and self.formula.parameters
+						->at(1).oclAsType(Metric).unit.unit = camel::unit::UnitType::REQUESTS and self.formula.parameters
+						->at(2).oclAsType(Metric).unit.unit = camel::unit::UnitType::SECONDS) and (self.unit.unit =
+						camel::unit::UnitType::TRANSACTIONS_PER_SECOND) implies (self.formula.parameters
+						->size() = 2 and self.formula.parameters
+						->at(1).oclAsType(Metric).unit.unit = camel::unit::UnitType::TRANSACTIONS and self.formula.parameters
+						->at(2).oclAsType(Metric).unit.unit = camel::unit::UnitType::SECONDS))
+					else true
+					endif
+}.status")
+	class CompositeMetric extends Metric {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (l1 = camel::LayerType::SaaS)
+						then true
+						else (if (l1 = camel::LayerType::PaaS)
+							then (if (l2 = camel::LayerType::PaaS or l2 = camel::LayerType::IaaS)
+								then true
+								else false
+								endif)
+							else (if (l2 = camel::LayerType::IaaS)
+								then true
+								else false
+								endif)
+							endif)
+						endif")
+		op boolean[1] greaterEqualThanLayer(LayerType[1] l1, LayerType[1] l2);
+		val MetricFormula[1] formula;
+	}
+
+	class RawMetric extends Metric {
+	}
+
+	enum MetricFunctionArityType {
+		UNARY = 0;
+		BINARY = 1;
+		N_ARY = 2;
+	}
+
+	enum MetricFunctionType {
+		PLUS = 0;
+		MINUS = 1;
+		TIMES = 2;
+		DIV = 3;
+		MODULO = 4;
+		MEAN = 5;
+		STD = 6;
+		COUNT = 7;
+		MIN = 8;
+		MAX = 9;
+		PERCENTILE = 10;
+		DERIVATIVE = 11;
+		MODE = 12;
+		MEDIAN = 13;
+	}
+
+	abstract class MetricObjectBinding {
+		attr String[1] name;
+		ref execution.ExecutionContext[1] executionContext;
+	}
+
+	class MetricApplicationBinding extends MetricObjectBinding {
+	}
+
+	@Ecore(constraints="vm_and_sw_comp_connected_in_component_binding")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(vm_and_sw_comp_connected_in_component_binding="Tuple {
+	message : String = 'MetricComponentBinding: ' + self.name +
+					' has a componentInstance: ' + self.componentInstance.name +
+					'which is either not included in the the respective deployment model of the binding\'s execution context: ' +
+					self.executionContext.name +
+					' or is not connected in this deployment model with the vmInstance or it is an external component such that in this case a null value for the vmInstance should have been provided',
+	status : Boolean = if
+						(componentInstance.oclIsTypeOf(camel::deployment::InternalComponentInstance))
+					then (executionContext.deploymentModel.internalComponentInstances
+						->includes(componentInstance)) and if (vmInstance <> null)
+						then (executionContext.deploymentModel.vmInstances
+							->includes(vmInstance)) and (executionContext.deploymentModel.hostingInstances
+							->exists(c | c.requiredHostInstance.oclContainer() = componentInstance and c.providedHostInstance.oclContainer() = vmInstance) or
+							(executionContext.deploymentModel.hostingInstances
+							->exists(c | c.requiredHostInstance.oclContainer() = componentInstance and
+								executionContext.deploymentModel.hostingInstances
+								->exists(d | d.requiredHostInstance.oclContainer() = c.providedHostInstance.oclContainer() and d.providedHostInstance.oclContainer() =
+									vmInstance))))
+						else true
+						endif
+					else false
+					endif
+}.status")
+	class MetricComponentBinding extends MetricObjectBinding {
+		ref deployment.VMInstance vmInstance;
+		ref deployment.ComponentInstance[1] componentInstance;
+	}
+
+	@Ecore(constraints="vm_binding_vm_in_dep_model_of_app")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(vm_binding_vm_in_dep_model_of_app="Tuple {
+	message : String = 'MetricVMBinding: ' + self.name + ' has VMInstance: ' + vmInstance.name
+					+ ' which is not included in the deployment model of the respective execution context: ' +
+					self.executionContext.name,
+	status : Boolean = (executionContext.deploymentModel.vmInstances
+					->includes(vmInstance))
+}.status")
+	class MetricVMBinding extends MetricObjectBinding {
+		ref deployment.VMInstance[1] vmInstance;
+	}
+
+	class Property {
+		attr String[1] name;
+		attr String description;
+		attr PropertyType[1] type;
+		ref Property[*] subProperties;
+		ref Sensor[*] sensors;
+	}
+
+	enum PropertyType {
+		ABSTRACT = 0;
+		MEASURABLE = 1;
+	}
+
+	@Ecore(constraints="schedule_correct_values")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(schedule_correct_values="Tuple {
+	message : String = 'Schedule: ' + self.name +
+					' has wrong value combination for its attributes and properties. In particular, either the type of the schedule is SINGLE_EVENT and a value of any of the rest of the attributes or the unit property has been given or the schedule type is different but a non-positive value of the interval attribute or no value for the unit property has been provided',
+	status : Boolean = (self.type
+					<> ScheduleType::SINGLE_EVENT implies (self.interval > 0 and self.unit <> null)) and ((self.type =
+					ScheduleType::SINGLE_EVENT implies (interval = 0 and start = null and end = null and unit = null)))
+}.status")
+	class Schedule {
+
+		@GenModel(body="System.out.println(\"CHECKING Schedule_Start_Before_End: \" + this + \" \" + this.getStart() + \" \" + this.getEnd()); java.util.Date date1 = this.getStart(); java.util.Date date2 = this.getEnd(); if ((this.getType() != ScheduleType.SINGLE_EVENT) && (date1 == null || date2 == null)) return Boolean.FALSE; if (date1 == null || date2 == null || (date1 != null && date2 != null && date1.before(date2))) return Boolean.TRUE; return Boolean.FALSE;")
+		op boolean checkStartEndDates(Schedule[1] this);
+
+		@GenModel(body="System.out.println(\"Schedule_correct_rep: \" + s + \" \" + s.getStart() + \" \" + s.getEnd() + \" \" + s.getInterval() + \" \" + s.getRepetitions());
+		Date d1 = s.getStart();
+		Date d2 = s.getEnd();
+		int reps = s.getRepetitions();
+		long interval = s.getInterval();
+		eu.paasage.camel.unit.TimeIntervalUnit unit = s.getUnit();
+		double diff = d2.getTime()-d1.getTime();
+		if (d1 != null && d2 != null && interval != 0){
+			if (unit.equals(eu.paasage.camel.unit.UnitType.SECONDS)){
+				diff = diff / 1000.0;
+			}
+			else if (unit.equals(eu.paasage.camel.unit.UnitType.MINUTES)){
+				diff = diff / (60 * 1000.0);
+			}
+			else if (unit.equals(eu.paasage.camel.unit.UnitType.HOURS)){
+				diff = diff / (60 * 60 * 1000.0);
+			}
+			else if (unit.equals(eu.paasage.camel.unit.UnitType.DAYS)){
+				diff = diff / (24 * 60 * 60 * 1000.0);
+			}
+			else if (unit.equals(eu.paasage.camel.unit.UnitType.WEEKS)){
+				diff = diff / (7 * 24 * 60 * 60 * 1000.0);
+			}
+			else if (unit.equals(eu.paasage.camel.unit.UnitType.MONTHS)){
+				diff = diff / (30 * 24 * 60 * 60 * 1000.0);
+			}
+			if (diff >= interval){
+				if (reps == 0 || (reps != 0 && reps * interval <= diff)) return Boolean.TRUE;
+			}
+		}
+		return Boolean.FALSE;")
+		op boolean checkIntervalRepetitions(Schedule[1] s);
+		attr String[1] name;
+		attr EDate start;
+		attr EDate end;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="HorizontalScalingPolicy", "unique"="false", upper="*")
+		attr ScheduleType[1] type;
+		ref unit.TimeIntervalUnit[1] unit;
+		attr int repetitions;
+		attr long[1] interval;
+	}
+
+	enum ScheduleType {
+		FIXED_RATE = 0;
+		FIXED_DELAY = 1;
+		SINGLE_EVENT = 2;
+	}
+
+	class Sensor {
+		attr String[1] name;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ResourceGroup", "unique"="false", upper="*")
+		attr String configuration;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ScalabilityRule", "unique"="false", upper="*")
+		attr boolean isPush;
+	}
+
+	@Ecore(constraints="window_positive_params window_right_params_exist")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(window_positive_params="Tuple {
+	message : String = 'Window:' + self.name +
+					' has a negative value for the measurementSize and timeSize attributes',
+	status : Boolean = (measurementSize >= 0) and (timeSize >=
+					0)
+}.status", window_right_params_exist="Tuple {
+	message : String = 'Window: ' + self.name +
+					' has wrong value combinations for its attributes and properties. If sizeType is MEASUREMENTS_ONLY, then the measurementSize should be positive and all other values zero or null. If sizeType is TIME_ONLY, then both the unit should not be null and the timeSize should be positive, while the measurementSize should be zero. For the other values of sizeType, the values of all remaining attributes and units should be provided',
+	status : Boolean = (self.sizeType
+					= WindowSizeType::MEASUREMENTS_ONLY implies (unit = null and timeSize = 0 and measurementSize > 0)) and
+					(self.sizeType = WindowSizeType::TIME_ONLY implies (unit <> null and timeSize > 0 and measurementSize = 0)) and
+					((self.sizeType = WindowSizeType::FIRST_MATCH or self.sizeType = WindowSizeType::BOTH_MATCH) implies (timeSize > 0
+					and unit <> null and measurementSize > 0))
+}.status")
+	class Window {
+		attr String[1] name;
+		ref unit.TimeIntervalUnit unit;
+		attr WindowType[1] windowType;
+		attr WindowSizeType[1] sizeType;
+		attr long measurementSize;
+		attr long timeSize;
+	}
+
+	enum WindowSizeType {
+		MEASUREMENTS_ONLY = 0;
+		TIME_ONLY = 1;
+		FIRST_MATCH = 2;
+		BOTH_MATCH = 3;
+	}
+
+	enum WindowType {
+		FIXED = 0;
+		SLIDING = 1;
+	}
+
+	@Ecore(constraints="context_right_params at_least_one_alternative_in_condition_context")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(context_right_params="Tuple {
+	message : String = 'Context: ' + self.name +
+					' has wrong value combinations for the quantifier and quantity attributes. When quantifier equals to SOME, then we have the two following cases: (a) relative values: minQuantity should be greater than 0.0 and maxQuantity less or equal to 1.0 and minQuantity less or equal to maxQuantity; (b) absolute values: minQuantity should be greater or equal to 1 and maxQuantity either -1 (inf) or greater or equal to minQuantity and both quantities should be integer',
+	status : Boolean = ((self.quantifier
+					= QuantifierType::SOME and self.isRelative = true) implies (minQuantity > 0.0 and maxQuantity <= 1.0 and
+					maxQuantity >= minQuantity)) and ((self.quantifier = QuantifierType::SOME and self.isRelative = false) implies
+					(minQuantity >= 1.0 and ((maxQuantity >= 1.0 and maxQuantity >= minQuantity) or maxQuantity = - 1.0)) and
+					(minQuantity / minQuantity.round()) = 1 and (maxQuantity / maxQuantity.round()) = 1)
+}.status", at_least_one_alternative_in_condition_context="Tuple {
+	message : String = 'In ConditionContext: ' + self.name +
+					' either a component or an application should be referenced',
+	status : Boolean = self.component <> null or self.application <> null
+}.status")
+	abstract class ConditionContext {
+		attr String[1] name;
+		ref deployment.Component component;
+		ref Application application;
+		attr QuantifierType[1] quantifier = "ANY";
+		attr double minQuantity;
+		attr double maxQuantity;
+		attr boolean isRelative;
+	}
+
+	enum QuantifierType {
+		ANY = 0;
+		ALL = 1;
+		SOME = 2;
+	}
+
+	class MetricModel extends Model {
+		val ConditionContext[*] contexts;
+		!ordered val Metric[*] metrics;
+		!ordered val MetricInstance[*] metricInstances;
+		!ordered val Condition[*] conditions;
+		!ordered val Property[*] properties;
+		!ordered val MetricObjectBinding[*] bindings;
+		!ordered val Window[*] windows;
+		!ordered val Schedule[*] schedules;
+		!ordered val MetricFormulaParameter[*] parameters;
+		!ordered val Sensor[*] sensors;
+		!ordered val unit.Unit[*] units;
+	}
+
+	abstract class MetricContext extends ConditionContext {
+		ref Metric[1] metric;
+		ref Window window;
+		ref Schedule schedule;
+	}
+
+	@Ecore(constraints="metrics_in_composing_contexts_in_metric_formula composite_metric_context_correct_metric_type")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metrics_in_composing_contexts_in_metric_formula="Tuple {
+	message : String = 'In MetricContext: ' + self.name +
+					' one or more composingMetricContexts correspond to metrics which are either equal to this context metric: ' +
+					self.metric.name + ' or do not belong to the context metric'
+					's formula',
+	status : Boolean = self.metric.oclIsTypeOf(CompositeMetric) and self.composingMetricContexts
+					->forAll(p | p.metric <> self.metric and self.metric.oclAsType(CompositeMetric).formula.containsMetric(p.metric))
+}.status", composite_metric_context_correct_metric_type="Tuple {
+	message : String = 'In CompositeMetricContext: ' + self.name + ' the metric: '
+					+ self.metric.name + ' should be composite but it isn\'t',
+	status : Boolean = self.metric.oclIsTypeOf(CompositeMetric)
+}.status")
+	class CompositeMetricContext extends MetricContext {
+		ref MetricContext[*] composingMetricContexts;
+	}
+
+	@Ecore(constraints="raw_metric_context_correct_metric_type")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(raw_metric_context_correct_metric_type="Tuple {
+	message : String = 'In RawMetricContext: ' + self.name + ' the metric: ' +
+					self.metric.name + ' should be raw but it isn\'t',
+	status : Boolean = self.metric.oclIsTypeOf(RawMetric)
+}.status")
+	class RawMetricContext extends MetricContext {
+		ref Sensor[1] sensor;
+	}
+
+	class PropertyContext extends ConditionContext {
+		ref Property[1] property;
+	}
+
+	enum FunctionPatternType {
+		MAP = 0;
+		REDUCE = 1;
+	}
+
+}
+
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel/organisation", prefix="organisation")
+package organisation {
+	@Ecore(constraints="org_model_provider_or_organisation_supplied")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(org_model_provider_or_organisation_supplied="Tuple {
+	message : String = 'The OrganisationModel: ' + self.name +
+					' should map to one and only organisation or cloud provider',
+	status : Boolean = provider <> null or organisation <> null
+}.status")
+	class OrganisationModel extends Model {
+		val Organisation organisation;
+		val CloudProvider provider;
+		!ordered val ExternalIdentifier[*] externalIdentifiers;
+		!ordered val User[*] users;
+		!ordered val UserGroup[*] userGroups;
+		!ordered val DataCenter[*] dataCentres;
+		!ordered val Role[*] roles;
+		!ordered val RoleAssignment[*] roleAssigments;
+		!ordered val Permission[*] permissions;
+		attr SecurityLevel[1] securityLevel;
+		val ResourceFilter[*] resourceFilters;
+	}
+
+	abstract class Credentials {
+	}
+
+	class CloudCredentials extends Credentials {
+		attr String[1] name;
+		ref CloudProvider[1] cloudProvider;
+		attr String securityGroup;
+		attr String publicSSHKey;
+		attr String privateSSHKey;
+		attr String username;
+		attr String password;
+	}
+
+	@Ecore(constraints="unique_datacenter_per_provider no_datacenter_same_location_same_provider")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(unique_datacenter_per_provider="Tuple {
+	message : String = 'There exist data centers of cloud provider that have the same name or the same code name',
+	status : Boolean = DataCenter.allInstances()
+					->forAll(p1, p2 | p1 <> p2 and p1.oclContainer().oclAsType(OrganisationModel).provider = p2.oclContainer().oclAsType(OrganisationModel).provider implies p1.name <> p2.name and p1.codeName <>
+						p2.codeName)
+}.status", no_datacenter_same_location_same_provider="Tuple {
+	message : String = 'There exist data centers of cloud provider which are on the same fine-grained location',
+	status : Boolean = DataCenter.allInstances()
+					->forAll(p1, p2 | p1 <> p2 and p1.name <> p2.name and p1.oclContainer().oclAsType(OrganisationModel).provider = p2.oclContainer().oclAsType(OrganisationModel).provider implies p1.location <>
+						p2.location)
+}.status")
+	class DataCenter {
+		attr String[1] name;
+		attr String[1] codeName;
+		ref location.Location[1] location;
+	}
+
+	class Entity {
+	}
+
+	class Organisation extends Entity {
+		attr String[1] name;
+		attr String www;
+		attr String postalAddress;
+		attr String[1] email;
+	}
+
+	class CloudProvider extends Organisation {
+		attr boolean public;
+		attr boolean SaaS;
+		attr boolean PaaS;
+		attr boolean IaaS;
+		ref provider.ProviderModel providerModel;
+		!ordered ref security.SecurityCapability[*] securityCapability;
+	}
+
+	class User extends Entity {
+		attr String[1] name;
+		attr String[1] email;
+		attr String[1] firstName;
+		attr String[1] lastName;
+		attr String www;
+		val ExternalIdentifier[*] externalIdentifiers;
+		ref requirement.RequirementModel[*] requirementModels;
+		val CloudCredentials[*] cloudCredentials;
+		ref deployment.DeploymentModel[*] deploymentModels;
+		val PaaSageCredentials[1] paasageCredentials;
+	}
+
+	class ExternalIdentifier {
+		attr String[1] identifier;
+		attr String description;
+	}
+
+	@Ecore(constraints="permission_valid_actions")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(permission_valid_actions="Tuple {
+	message : String = 'Wrong actions were identified for resource:' + self.resourceFilter.name +
+					' in the context of Permission: ' + self.name,
+	status : Boolean = self.action = camel::ActionType::READ or self.action =
+					camel::ActionType::WRITE
+}.status")
+	class Permission {
+
+		@GenModel(body="System.out.println(\"CHECKING Permission_Start_Before_End: \" + this + \" \" + this.getStartTime() + \" \" + this.getEndTime()); java.util.Date date1 = this.getStartTime(); java.util.Date date2 = this.getEndTime(); if (date1 == null || date2 == null || (date1 != null && date2 != null && date1.before(date2))) return Boolean.TRUE; return Boolean.FALSE;")
+		op boolean checkStartEndDates(Permission[1] this);
+		attr String[1] name;
+		ref Role[1] role;
+		attr EDate[1] startTime;
+		attr EDate endTime;
+		ref ResourceFilter[1] resourceFilter;
+		attr ActionType[1] action;
+	}
+
+	enum SecurityLevel {
+		LOW = 0;
+		MEDIUM = 1;
+		HIGH = 2;
+	}
+
+	enum ResourcePattern {
+		EXACT = 0;
+		TREE = 1;
+	}
+
+	abstract class ResourceFilter {
+		attr String[1] name;
+		attr ResourcePattern[1] resourcePattern;
+	}
+
+	@Ecore(constraints="information_resource_filter_validity")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(information_resource_filter_validity="Tuple {
+	message : String = 'InformationResourceFilter: ' + self.name +
+					' is not valid as both its own attributes were set',
+	status : Boolean = everyInformationResource = true implies
+					informationResourcePath = null
+}.status")
+	class InformationResourceFilter extends ResourceFilter {
+		attr String informationResourcePath;
+		attr boolean[1] everyInformationResource;
+	}
+
+	@Ecore(constraints="service_resource_filter_validity")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(service_resource_filter_validity="Tuple {
+	message : String = 'ServiceResourceFilter: ' + self.name +
+					' is not valid as both its own attributes were set',
+	status : Boolean = everyService = true implies serviceURL = null
+}.status")
+	class ServiceResourceFilter extends ResourceFilter {
+		attr String serviceURL;
+		attr boolean[1] everyService;
+	}
+
+	class Role {
+		attr String[1] name;
+	}
+
+	@Ecore(constraints="role_assignment_at_least_user_or_group same_role_concurrent_assignments")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(role_assignment_at_least_user_or_group="Tuple {
+	message : String = 'There is no user or user group associated to RoleAssigment:' +
+					self.name,
+	status : Boolean = self.user <> null or self.userGroup <> null
+}.status", same_role_concurrent_assignments="Tuple {
+	message : String = 'There are two or more role assignments which are odentical, i.e., refer to the same organisation, user/user group and role',
+	status : Boolean = RoleAssignment.allInstances()
+					->forAll(p1, p2 | p1 <> p2 and ((p1.user <> null and p2.user <> null and p1.user = p2.user) or (p1.userGroup <>
+						null and p2.userGroup <> null and p1.userGroup = p2.userGroup)) implies p1.role <> p2.role)
+}.status")
+	class RoleAssignment {
+
+		@GenModel(body="System.out.println(\"CHECKING Assignment_Assigned_Before_Start: \" + this + \" \" + this.getStartTime() + \" \" + this.getEndTime() + \" \" + this.getAssignmentTime()); java.util.Date date1 = this.getStartTime(); java.util.Date date2 = this.getEndTime(); java.util.Date date = this.getAssignmentTime(); if (date == null) return Boolean.TRUE; else if (date1 != null){ if (date.equals(date1) || date.before(date1)) return Boolean.TRUE; else return Boolean.FALSE;} else if (date2 != null && date.before(date2)) return Boolean.TRUE; return Boolean.FALSE;")
+		op boolean checkAssignedOnDates(RoleAssignment[1] this);
+
+		@GenModel(body="System.out.println(\"CHECKING Assignment_Start_Before_End: \" + this + \" \" + this.getStartTime() + \" \" + this.getEndTime() + \" \" + this.getAssignmentTime()); java.util.Date date1 = this.getStartTime(); java.util.Date date2 = this.getEndTime(); if (date1 == null || date2 == null || (date1 != null && date2 != null && date1.before(date2))) return Boolean.TRUE; return Boolean.FALSE;")
+		op boolean checkStartEndDates(RoleAssignment[1] this);
+		attr String[1] name;
+		ref User user;
+		ref Role[1] role;
+		ref UserGroup userGroup;
+		attr EDate startTime;
+		attr EDate endTime;
+		attr EDate[1] assignmentTime;
+	}
+
+	class UserGroup {
+		attr String[1] name;
+		ref User[+] users;
+	}
+
+	class PaaSageCredentials extends Credentials {
+		attr String[1] password;
+	}
+
+}
+
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel/provider", prefix="provider")
+package provider {
+	class ProviderModel extends Model {
+		val Constraint[*] constraints;
+		val Feature[1] rootFeature;
+	}
+
+	@Ecore(constraints="attribute_must_have_at_least_value_or_value_type attribute_value_in_value_type")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(attribute_must_have_at_least_value_or_value_type="Tuple {
+	message : String = 'Attribute: ' + self.name +
+					' does not have a value or value type',
+	status : Boolean = value <> null or valueType <> null
+}.status", attribute_value_in_value_type="Tuple {
+	message : String = 'Value  is not contained in ValueType in Attribute: ' + self.name,
+	status : Boolean = (value
+					<> null and valueType <> null) implies self.checkValue(value, false)
+}.status")
+	class Attribute {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (self.valueType <> null)
+						then if (self.valueType.oclIsTypeOf(camel::type::Range))
+							then if (v.oclIsTypeOf(camel::type::BoolValue) or v.oclIsTypeOf(camel::type::StringsValue))
+								then false
+								else if (v.oclIsTypeOf(camel::type::IntegerValue))
+									then
+										self.valueType.oclAsType(camel::type::Range).includesValue(v.oclAsType(camel::type::IntegerValue).value.oclAsType(ecore::EDouble))
+									else if (v.oclIsTypeOf(camel::type::FloatsValue))
+										then
+											self.valueType.oclAsType(camel::type::Range).includesValue(v.oclAsType(camel::type::FloatsValue).value.oclAsType(ecore::EDouble))
+										else
+											self.valueType.oclAsType(camel::type::Range).includesValue(v.oclAsType(camel::type::DoublePrecisionValue).value)
+										endif
+									endif
+								endif
+							else if (self.valueType.oclIsTypeOf(camel::type::RangeUnion))
+								then if (v.oclIsTypeOf(camel::type::BoolValue) or v.oclIsTypeOf(camel::type::StringsValue))
+									then false
+									else if (v.oclIsTypeOf(camel::type::IntegerValue))
+										then
+											self.valueType.oclAsType(camel::type::RangeUnion).includesValue(v.oclAsType(camel::type::IntegerValue).value.oclAsType(ecore::EDouble))
+										else if (v.oclIsTypeOf(camel::type::FloatsValue))
+											then
+												self.valueType.oclAsType(camel::type::RangeUnion).includesValue(v.oclAsType(camel::type::FloatsValue).value.oclAsType(ecore::EDouble))
+											else
+												self.valueType.oclAsType(camel::type::RangeUnion).includesValue(v.oclAsType(camel::type::DoublePrecisionValue).value)
+											endif
+										endif
+									endif
+								else if (self.valueType.oclIsTypeOf(camel::type::List))
+									then (self.valueType.oclAsType(camel::type::List).checkValueType(v) and
+										self.valueType.oclAsType(camel::type::List).includesValue(v))
+									else if (self.valueType.oclIsTypeOf(camel::type::Enumeration) and v.oclIsTypeOf(camel::type::StringsValue))
+										then
+											self.valueType.oclAsType(camel::type::Enumeration).includesName(v.oclAsType(camel::type::StringsValue).value)
+										else if (self.valueType.oclIsTypeOf(camel::type::Enumeration) and v.oclIsTypeOf(camel::type::EnumerateValue))
+											then
+												(self.valueType.oclAsType(camel::type::Enumeration).includesName(v.oclAsType(camel::type::EnumerateValue).name)
+												and
+												self.valueType.oclAsType(camel::type::Enumeration).includesValue(v.oclAsType(camel::type::EnumerateValue).value))
+											else if (self.valueType.oclIsTypeOf(camel::type::StringValueType))
+												then v.oclIsTypeOf(camel::type::StringsValue)
+												else if (self.valueType.oclIsTypeOf(camel::type::BooleanValueType))
+													then v.oclIsTypeOf(camel::type::BoolValue)
+													else false
+													endif
+												endif
+											endif
+										endif
+									endif
+								endif
+							endif
+						else if (diff and self.value <> null)
+							then self.value.valueEquals(v)
+							else false
+							endif
+						endif")
+		op boolean checkValue(type.SingleValue[1] v, boolean[1] diff);
+		attr String[1] name;
+		val type.SingleValue value;
+		ref type.ValueType valueType;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="OptimizationRequirement", "unique"="false", upper="*")
+		attr unit.UnitType unitType;
+	}
+
+	@Ecore(attributeConstraintValidation="atLeastOneDefinied")
+	@Ecore(constraints="attribute_constraint_correct_values different_attrs_in_attribute_constraint")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(attribute_constraint_correct_values="Tuple {
+	message : String = 'In AttributeConstraint: ' + self.toString() +
+					' either the fromValue: ' + fromValue.toString() + ' or the toValue: ' + toValue.toString() +
+					' are not contained in the value types of the respective attributes: ' + from.name + ' ' + to.name +
+					', respectively',
+	status : Boolean = from.checkValue(fromValue, true) and to.checkValue(toValue, true)
+}.status", different_attrs_in_attribute_constraint="Tuple {
+	message : String = 'In AttributeConstraint: ' + self.toString() +
+					' the same attribute: ' + from.name + ' is used in the from and to associations',
+	status : Boolean = from <> to
+}.status")
+	class AttributeConstraint {
+		attr String name;
+		ref Attribute[1] from;
+		ref Attribute[1] to;
+		val type.SingleValue[1] fromValue;
+		val type.SingleValue[1] toValue;
+	}
+
+	@Ecore(constraints="cardinality_min_less_equal_than_max")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(cardinality_min_less_equal_than_max="Tuple {
+	message : String = 'In Cardinality' + self.toString() +
+					' either negative values are given for cardinalityMin or cardinalityMax or cardinalityMin is greater than cardinalityMax',
+	status : Boolean = cardinalityMin
+					>= 0 and (cardinalityMax >= 0 implies cardinalityMin <= cardinalityMax)
+}.status")
+	abstract class Cardinality {
+		attr int[1] cardinalityMin;
+		attr int[1] cardinalityMax;
+	}
+
+	@Ecore(constraints="correct_feat_cardinality")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(correct_feat_cardinality="Tuple {
+	message : String = 'In FeatCardinality: ' + self.toString() +
+					' either the value given is negative or the value is less than cardinalityMin or value is greater than cardinalityMax',
+	status : Boolean = (value
+					> 0 implies (cardinalityMin <= value) and (cardinalityMax <> - 1 implies value <= cardinalityMax))
+}.status")
+	class FeatCardinality extends Cardinality {
+		attr int[1] value;
+	}
+
+	class GroupCardinality extends Cardinality {
+	}
+
+	class Clone {
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ServiceLevelObjective", "unique"="false", upper="*")
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ServiceLevelObjective", "unique"="false", upper="*")
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="MetricCondition", "unique"="false", upper="*")
+		attr String[1] name;
+		ref Clone[*] subClones;
+	}
+
+	@Ecore(fromAttributeConstraintsvalidation="fromAttributesBelongsToFromFeature", toAttributeConstraintsvalidation="toAttributesBelongsToToFeature")
+	@Ecore(constraints="constraint_from_attributes_belong_to_from_feature_and_symmetric")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(constraint_from_attributes_belong_to_from_feature_and_symmetric="Tuple {
+	message : String = 'Constraint: ' + name +
+					' has attribute constraints which map to from or to attributes that do not belong to the respective from: ' +
+					from.name + ' or to: ' + to.name + ' feature of this constraint',
+	status : Boolean = attributeConstraints
+					->forAll(p | (from.attributes
+						->includes(p.from) and to.attributes
+						->includes(p.to)))
+}.status")
+	abstract class Constraint {
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="PropertyCondition", "unique"="false", upper="*")
+		attr String[1] name;
+		ref Feature[1] from;
+		ref Feature[1] to;
+		val AttributeConstraint[*] attributeConstraints;
+	}
+
+	class Excludes extends Constraint {
+	}
+
+	class Implies extends Constraint {
+	}
+
+	@Ecore(constraints="requires_cardFrom_to_conformance")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(requires_cardFrom_to_conformance="Tuple {
+	message : String = 'In Requires Constraint: ' + self.name +
+					' there are from or to cardinalities that do not conform to the designated cardinality restrictions of the respective from: '
+					+ from.name + ' or to: ' + to.name + ' features of this constraint',
+	status : Boolean = (cardFrom <> null implies
+					(cardFrom.cardinalityMin >= from.featureCardinality.cardinalityMin and ((from.featureCardinality.cardinalityMax =
+					- 1) or (cardFrom.cardinalityMax <> - 1 and cardFrom.cardinalityMax <= from.featureCardinality.cardinalityMax))))
+					and (cardTo <> null implies (cardTo.cardinalityMin >= to.featureCardinality.cardinalityMin and
+					((to.featureCardinality.cardinalityMax = - 1) or (cardTo.cardinalityMax <> - 1 and cardTo.cardinalityMax <=
+					to.featureCardinality.cardinalityMax))))
+}.status")
+	class Requires extends Constraint {
+		val Scope scopeFrom;
+		val Scope scopeTo;
+		val FeatCardinality cardFrom;
+		val FeatCardinality cardTo;
+	}
+
+	@Ecore(constraints="correct_values_for_functional")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(correct_values_for_functional="Tuple {
+	message : String = 'In Functional Constraint: ' + self.name +
+					', either the value of order is negative or that of the value attributes is not positive',
+	status : Boolean = order >= 0 and value >
+					0
+}.status")
+	class Functional extends Requires {
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ProviderRequirement", "unique"="false", upper="*")
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ProviderRequirement", "unique"="false", upper="*")
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="BinaryEventPattern", "unique"="false", upper="*")
+		attr Operator type;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="BinaryEventPattern", "unique"="false", upper="*")
+		attr int order;
+		attr int[1] value;
+	}
+
+	class Feature {
+		attr String[1] name;
+		val Attribute[*] attributes;
+		val Feature[*] subFeatures;
+		val FeatCardinality[1] featureCardinality;
+		val Clone[*] clones;
+	}
+
+	@Ecore(constraints="alternative_variants_diff_from_sub_features")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(alternative_variants_diff_from_sub_features="Tuple {
+	message : String = 'There is a pair of subFeature and variant with the same name for Feature: '
+					+ self.name,
+	status : Boolean = subFeatures
+					->forAll(p | not (variants
+						->exists(q | q.name = p.name)))
+}.status")
+	class Alternative extends Feature {
+		val GroupCardinality groupCardinality;
+		val Feature[+] variants;
+	}
+
+	class Exclusive extends Alternative {
+	}
+
+	enum Operator {
+		select = 0;
+		add = 1;
+		remove = 2;
+		multiply = 3;
+		divide = 4;
+	}
+
+	abstract class Scope {
+	}
+
+	class Instance extends Scope {
+		ref Feature[1] feature;
+	}
+
+	class Product extends Scope {
+	}
+
+}
+
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel/requirement", prefix="requirement")
+package requirement {
+	class RequirementModel extends Model {
+		val Requirement[*] requirements;
+	}
+
+	abstract class Requirement {
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="SecurityCapability", "unique"="false", upper="*")
+		attr String[1] name;
+	}
+
+	@Ecore(constraints="applications_in_sub_groups_in_group requirement_group_no_conflict_reqs requirements_in_group_refer_to_group_applications")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(applications_in_sub_groups_in_group="Tuple {
+	message : String = 'RequirementGroup: ' + self.name +
+					' has one or more sub-groups that map to applications which are not included in the group\'s list of applications',
+	status : Boolean = self.requirements
+					->forAll(p | p.oclIsTypeOf(RequirementGroup) implies p.oclAsType(RequirementGroup).application
+						->forAll(a | self.application
+							->includes(a)))
+}.status", requirement_group_no_conflict_reqs="Tuple {
+	message : String = 'RequirementGroup: ' + self.name +
+					' has two or more scale requirements of the same type that are conflicting, i.e., refer to the same VM (in case of vertical requirements) or component (in case of horizontal requirements)',
+	status : Boolean = if
+						(self.requirementOperator = RequirementOperatorType::AND)
+					then self.requirements
+						->forAll(p1, p2 | (p1 <> p2 and p1.oclIsKindOf(camel::requirement::ScaleRequirement) and
+							p2.oclIsKindOf(camel::requirement::ScaleRequirement) and p1.oclType() = p2.oclType()) implies if
+								(p1.oclIsTypeOf(camel::requirement::VerticalScaleRequirement))
+							then p1.oclAsType(camel::requirement::VerticalScaleRequirement).vm <>
+								p2.oclAsType(camel::requirement::VerticalScaleRequirement).vm
+							else p1.oclAsType(camel::requirement::HorizontalScaleRequirement).component <>
+								p2.oclAsType(camel::requirement::HorizontalScaleRequirement).component
+							endif)
+					else true
+					endif
+}.status", requirements_in_group_refer_to_group_applications="Tuple {
+	message : String = 'RequirementGroup: ' + self.name +
+					' has one or more requirements that map to an application which is not included in the group\'s list of applications',
+	status : Boolean = if
+						(application
+						->notEmpty())
+					then requirements
+						->forAll(p | if (p.oclIsTypeOf(camel::requirement::ServiceLevelObjective))
+							then if
+									(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclIsTypeOf(camel::metric::MetricCondition))
+								then application
+									->includes(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::MetricCondition).metricContext.application)
+								else if
+										(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclIsTypeOf(camel::metric::MetricCondition))
+									then if
+											(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::MetricCondition).metricContext.application
+											<> null)
+										then application
+											->includes(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::MetricCondition).metricContext.application)
+										else if
+												(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::MetricCondition).metricContext.component
+												<> null)
+											then if
+													(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::MetricCondition).metricContext.component.oclIsTypeOf(camel::deployment::InternalComponent))
+												then application
+													->exists(q | q.deploymentModels
+														->exists(r | (r.internalComponents
+															->includes(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::MetricCondition).metricContext.component.oclAsType(camel::deployment::InternalComponent)))))
+												else application
+													->exists(q | q.deploymentModels
+														->exists(r | (r.vms
+															->includes(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::MetricCondition).metricContext.component.oclAsType(camel::deployment::VM)))))
+												endif
+											else false
+											endif
+										endif
+									else if
+											(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclIsTypeOf(camel::metric::PropertyCondition))
+										then if
+												(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::PropertyCondition).propertyContext.application
+												<> null)
+											then application
+												->includes(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::PropertyCondition).propertyContext.application)
+											else if
+													(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::PropertyCondition).propertyContext.component
+													<> null)
+												then if
+														(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::PropertyCondition).propertyContext.component.oclIsTypeOf(camel::deployment::InternalComponent))
+													then application
+														->exists(q | q.deploymentModels
+															->exists(r | (r.internalComponents
+																->includes(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::PropertyCondition).propertyContext.component.oclAsType(camel::deployment::InternalComponent)))))
+													else application
+														->exists(q | q.deploymentModels
+															->exists(r | (r.vms
+																->includes(p.oclAsType(camel::requirement::ServiceLevelObjective).customServiceLevel.oclAsType(camel::metric::PropertyCondition).propertyContext.component.oclAsType(camel::deployment::VM)))))
+													endif
+												else false
+												endif
+											endif
+										else false
+										endif
+									endif
+								endif
+							else if (p.oclIsTypeOf(camel::requirement::OptimisationRequirement))
+								then if (p.oclAsType(camel::requirement::OptimisationRequirement).metric <> null or
+										p.oclAsType(camel::requirement::OptimisationRequirement).property <> null)
+									then if (p.oclAsType(camel::requirement::OptimisationRequirement).application <> null)
+										then application
+											->includes(p.oclAsType(camel::requirement::OptimisationRequirement).application)
+										else if (p.oclAsType(camel::requirement::OptimisationRequirement).component <> null)
+											then if
+													(p.oclAsType(camel::requirement::OptimisationRequirement).component.oclIsTypeOf(camel::deployment::InternalComponent))
+												then application
+													->exists(q | q.deploymentModels
+														->exists(r | (r.internalComponents
+															->includes(p.oclAsType(camel::requirement::OptimisationRequirement).component.oclAsType(camel::deployment::InternalComponent)))))
+												else application
+													->exists(q | q.deploymentModels
+														->exists(r | (r.vms
+															->includes(p.oclAsType(camel::requirement::OptimisationRequirement).component.oclAsType(camel::deployment::VM)))))
+												endif
+											else false
+											endif
+										endif
+									else false
+									endif
+								else if (p.oclIsTypeOf(camel::requirement::SecurityRequirement))
+									then if (p.oclAsType(camel::requirement::SecurityRequirement).application <> null)
+										then application
+											->includes(p.oclAsType(camel::requirement::SecurityRequirement).application)
+										else false
+										endif
+									else true
+									endif
+								endif
+							endif)
+					else true
+					endif
+}.status")
+	class RequirementGroup extends Requirement {
+
+		@GenModel(body="System.out.println(\"Checking recursiveness for RequirementGroup: \" + rg1);
+		for (Requirement r2: rg1.getRequirements()){
+			EList<RequirementGroup> context2 = null;
+			if (context == null) context2 = new org.eclipse.emf.common.util.BasicEList<RequirementGroup>();
+			else context2 = new org.eclipse.emf.common.util.BasicEList<RequirementGroup>(context);
+			if (!resources){
+				if (r2 instanceof RequirementGroup){
+					RequirementGroup rg2 = (RequirementGroup)r2;
+					if (context == null || !context.contains(rg2)){
+						context2.add(rg2);
+						if (rg2.getName().equals(r.getName())) return Boolean.TRUE;
+						if (checkRecursiveness(rg2,r,resources,context2)) return Boolean.TRUE;
+					}
+				}
+			}
+			else{
+				if (r.getName().equals(r2.getName())) return true;
+				if (r2 instanceof RequirementGroup){
+					RequirementGroup rg2 = (RequirementGroup)r2;
+					if (context == null || !context.contains(rg2)){
+						context2.add(rg2);
+						if (checkRecursiveness(rg2,r,resources,context2)) return Boolean.TRUE;
+					}
+				}
+			}
+		}
+		return Boolean.FALSE;")
+		op boolean checkRecursiveness(RequirementGroup rg1, HardRequirement r, boolean resources, RequirementGroup[*] context);
+		ref Requirement[+] requirements;
+		ref Application[*] application;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="Requires")
+		attr RequirementOperatorType[1] requirementOperator;
+	}
+
+	enum RequirementOperatorType {
+		AND = 0;
+		OR = 1;
+		XOR = 2;
+	}
+
+	abstract class HardRequirement extends Requirement {
+	}
+
+	@Ecore(constraints="non_negative_priorities_for_soft_requirement")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(non_negative_priorities_for_soft_requirement="Tuple {
+	message : String = 'Requirement: ' + self.name + ' has a negative priority: ' +
+					self.priority.toString(),
+	status : Boolean = self.priority >= 0.0
+}.status")
+	abstract class SoftRequirement extends Requirement {
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="BinaryEventPattern", "unique"="false", upper="*")
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="BinaryEventPattern", "unique"="false", upper="*")
+		attr double priority;
+	}
+
+	class ServiceLevelObjective extends HardRequirement {
+		ref metric.Condition[1] customServiceLevel;
+	}
+
+	@Ecore(constraints="optimization_requirement_metric_or_prop")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(optimization_requirement_metric_or_prop="Tuple {
+	message : String = 'In OptimizationRequirement: ' + self.name +
+					' no metric or property has been given',
+	status : Boolean = (metric <> null and property = null and (application <> null or
+					component <> null)) or (property <> null and metric = null and (application <> null or component <> null))
+}.status")
+	class OptimisationRequirement extends SoftRequirement {
+		attr OptimisationFunctionType[1] optimisationFunction;
+		ref metric.Metric metric;
+		ref metric.Property property;
+		ref Application application;
+		ref deployment.Component component;
+		ref metric.MetricContext metricContext;
+	}
+
+	abstract class HardwareRequirement extends HardRequirement {
+	}
+
+	class QualitativeHardwareRequirement extends HardwareRequirement {
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="NonFunctionalEvent", "unique"="false", upper="*")
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="NonFunctionalEvent", "unique"="false", upper="*")
+		attr double minBenchmark;
+		attr double maxBenchmark;
+	}
+
+	@Ecore(constraints="one_alternative_provided_in_quantitative_req quantitative_req_correct_input")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(one_alternative_provided_in_quantitative_req="Tuple {
+	message : String = 'QuantitativeHardwareRequirement with name: ' + self.name +
+					' should be have at least one min or max value for a VM characteristic',
+	status : Boolean = ((minRAM > 0 or maxRAM > 0)) or
+					((minStorage > 0 or maxStorage > 0)) or (minCores > 0 or maxCores > 0)
+}.status", quantitative_req_correct_input="Tuple {
+	message : String = 'Correct (non-negative) values for the characteristics of VM in QuantitativeHardwareRequirement with name: '
+					+ self.name + ' should be provided',
+	status : Boolean = minRAM >= 0 and maxRAM >= 0 and minCores >= 0 and maxCores >= 0 and
+					minStorage >= 0 and maxStorage >= 0
+}.status")
+	class QuantitativeHardwareRequirement extends HardwareRequirement {
+		attr double minCPU;
+		attr double maxCPU;
+		attr int minCores;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="EventInstance", "unique"="false", upper="*")
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="EventInstance", "unique"="false", upper="*")
+		attr int maxCores;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="EventInstance", "unique"="false", upper="*")
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="EventInstance", "unique"="false", upper="*")
+		attr int minRAM;
+		attr int maxRAM;
+		attr int minStorage;
+		attr int maxStorage;
+	}
+
+	class ProviderRequirement extends HardRequirement {
+		ref organisation.CloudProvider[+] providers;
+	}
+
+	abstract class OSOrImageRequirement extends HardRequirement {
+	}
+
+	class OSRequirement extends OSOrImageRequirement {
+		attr String[1] os;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="HorizontalScalingAction", "unique"="false", upper="*")
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="HorizontalScalingAction", "unique"="false", upper="*")
+		attr boolean[1] is64os = true;
+	}
+
+	class ImageRequirement extends OSOrImageRequirement {
+		attr String[1] imageId;
+	}
+
+	@Ecore(constraints="security_req_component_in_app")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(security_req_component_in_app="Tuple {
+	message : String = 'SecurityRequirement' + self.name +
+					' maps to a component  which is not included in any deploymentModel of the respective application referenced',
+	status : Boolean = (application
+					<> null and component <> null) implies application.deploymentModels
+					->exists(d | (d.internalComponents
+						->includes(component)))
+}.status")
+	class SecurityRequirement extends HardRequirement {
+		ref security.SecurityControl[+] securityControls;
+		ref Application application;
+		ref deployment.InternalComponent component;
+	}
+
+	class LocationRequirement extends HardRequirement {
+		ref location.Location[+] locations;
+	}
+
+	abstract class ScaleRequirement extends HardRequirement {
+	}
+
+	@Ecore(constraints="horiz_scale_requirement_min_max_enforcement")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(horiz_scale_requirement_min_max_enforcement="Tuple {
+	message : String = 'HorizontalScaleRequirement: ' + self.name +
+					' has wrong values for the minInstances and/or maxInstance properties. The minInstances value should be positive, the maxInstances value positive or equal to -1, and when maxInstances value is positive, then minInstances value should not be greater than it',
+	status : Boolean = self.minInstances
+					> 0 and (self.maxInstances > 0 or self.maxInstances = - 1) and (self.maxInstances <> - 1 implies self.minInstances
+					<= self.maxInstances)
+}.status")
+	class HorizontalScaleRequirement extends ScaleRequirement {
+		attr int[1] minInstances;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ScalabilityRule", "unique"="false", upper="*")
+		attr int[1] maxInstances;
+		ref deployment.InternalComponent[1] component;
+	}
+
+	@Ecore(constraints="vert_scale_requirement_correct_param_vals vert_scale_requirement_activ_one_alt")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(vert_scale_requirement_correct_param_vals="Tuple {
+	message : String = 'In VerticalScaleRequirement: ' + self.name +
+					' there are wrong combinations of values mapping to the respective VM characteristics. For each characteristic, the min value should be non-negative, the max value greater or equal to -1 and if the max value is greater than -1, then it should be greater or equal to the min value',
+	status : Boolean = minCores
+					>= 0 and maxCores >= - 1 and (maxCores <> - 1 implies minCores <= maxCores) and minRAM >= 0 and maxRAM >= - 1 and
+					(maxRAM <> - 1 implies minRAM <= maxRAM) and minCPU >= 0 and maxCPU >= - 1 and (maxCPU <> - 1 implies minCPU <=
+					maxCPU) and minStorage >= 0 and maxStorage >= - 1 and (maxStorage <> - 1 implies minStorage <= maxStorage)
+}.status", vert_scale_requirement_activ_one_alt="Tuple {
+	message : String = 'In VerticalScaleRequirement: ' + self.name +
+					' the maximum value for no VM characteristic has been specified',
+	status : Boolean = maxCores > 0 or maxCores = - 1 or maxCPU > 0 or
+					maxCPU = - 1 or maxRAM > 0 or maxRAM = - 1 or maxStorage > 0 or maxStorage = - 1
+}.status")
+	class VerticalScaleRequirement extends ScaleRequirement {
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ScalabilityRule", "unique"="false", upper="*")
+		attr double minCPU;
+		attr double maxCPU;
+		attr int minCores;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ScalabilityRule", "unique"="false", upper="*")
+		attr int maxCores;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="Property", "unique"="false", upper="*")
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ScalabilityRule", "unique"="false", upper="*")
+		attr int minRAM;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ScalabilityRule", "unique"="false", upper="*")
+		attr int maxRAM;
+		attr int minStorage;
+		attr int maxStorage;
+		ref deployment.VM[1] vm;
+	}
+
+	enum OptimisationFunctionType {
+		MINIMISE = 0;
+		MAXIMISE = 1;
+	}
+
+}
+
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel/scalability", prefix="scalability")
+package scalability {
+	class ScalabilityModel extends Model {
+		!ordered val ScalabilityRule[*] rules;
+		!ordered val Event[*] events;
+		!ordered val EventInstance[*] eventInstances;
+		!ordered val ScalingAction[*] actions;
+		!ordered val EventPattern[*] patterns;
+		!ordered val Timer[*] timers;
+		val requirement.ScaleRequirement[*] scaleRequirements;
+	}
+
+	enum BinaryPatternOperatorType {
+		AND = 0;
+		OR = 1;
+		XOR = 3;
+		PRECEDES = 4;
+		REPEAT_UNTIL = 5;
+	}
+
+	class Event {
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="EventPattern", "unique"="false", upper="*")
+		attr String[1] name;
+	}
+
+	abstract class EventPattern extends Event {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (self.oclIsTypeOf(UnaryEventPattern))
+						then self.oclAsType(UnaryEventPattern).event = e
+						else (includesLeftEvent(e) or includesRightEvent(e))
+						endif")
+		op boolean includesEvent(SimpleEvent[1] e);
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (self.oclAsType(BinaryEventPattern).leftEvent.oclIsKindOf(EventPattern))
+						then self.oclAsType(BinaryEventPattern).leftEvent.oclAsType(EventPattern).includesEvent(e)
+						else (if (self.oclAsType(BinaryEventPattern).leftEvent.oclIsKindOf(SimpleEvent))
+							then self.oclAsType(BinaryEventPattern).leftEvent.oclAsType(SimpleEvent) = e
+							else false
+							endif)
+						endif")
+		op boolean includesLeftEvent(SimpleEvent[1] e);
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (self.oclAsType(BinaryEventPattern).rightEvent.oclIsKindOf(EventPattern))
+						then self.oclAsType(BinaryEventPattern).rightEvent.oclAsType(EventPattern).includesEvent(e)
+						else (if (self.oclAsType(BinaryEventPattern).rightEvent.oclIsKindOf(SimpleEvent))
+							then self.oclAsType(BinaryEventPattern).rightEvent.oclAsType(SimpleEvent) = e
+							else false
+							endif)
+						endif")
+		op boolean includesRightEvent(SimpleEvent[1] e);
+		ref Timer timer;
+	}
+
+	@Ecore(constraints="binary_event_pattern_at_least_left_right binary_event_pattern_timer_one_event binary_event_pattern_occur_bounds")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(binary_event_pattern_at_least_left_right="Tuple {
+	message : String = 'In BinaryEventPattern: ' + self.name +
+					' no left or right event has been specified',
+	status : Boolean = self.leftEvent <> null or self.rightEvent <> null
+}.status", binary_event_pattern_timer_one_event="Tuple {
+	message : String = 'In BinaryEventPattern: ' + self.name +
+					' both a timer as well as left and right events have been specified',
+	status : Boolean = self.oclAsType(EventPattern).timer <> null
+					implies (self.leftEvent = null or self.rightEvent = null)
+}.status", binary_event_pattern_occur_bounds="Tuple {
+	message : String = 'In BinaryEventPattern: ' + self.name +
+					' incorrect values were given for the lowerOccurrenceBound and upperOccurrenceBound attributes in conjunction with the use of the respective pattern operator: '
+					+ operator.toString(),
+	status : Boolean = (self.operator <> BinaryPatternOperatorType::REPEAT_UNTIL implies
+					(self.lowerOccurrenceBound = 0 and self.upperOccurrenceBound = 0)) and (self.operator =
+					BinaryPatternOperatorType::REPEAT_UNTIL and self.lowerOccurrenceBound >= 0 and self.upperOccurrenceBound > 0
+					implies self.lowerOccurrenceBound <= upperOccurrenceBound)
+}.status")
+	class BinaryEventPattern extends EventPattern {
+		ref Event leftEvent;
+		ref Event rightEvent;
+		attr int lowerOccurrenceBound;
+		attr int upperOccurrenceBound;
+		attr BinaryPatternOperatorType[1] operator;
+	}
+
+	@Ecore(constraints="unary_event_pattern_correct_values_per_operator")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(unary_event_pattern_correct_values_per_operator="Tuple {
+	message : String = 'In UnaryEventPattern: ' + self.name +
+					' either a REPEAT operator there is an incorrect combination of values of the operator and occurrenceNum attributes and of the timer association. When operator is REPEAT, occurrenceNum should be positive; otherwise, equal to zero. When operator is WHERE, then a timer must be specified; otherwise, no timer should be specified',
+	status : Boolean = (self.operator
+					= UnaryPatternOperatorType::REPEAT implies occurrenceNum > 0) and (self.operator <>
+					UnaryPatternOperatorType::REPEAT implies occurrenceNum = 0) and (self.operator = UnaryPatternOperatorType::WHEN
+					implies self.oclAsType(EventPattern).timer <> null) and (self.operator <> UnaryPatternOperatorType::WHEN implies
+					self.oclAsType(EventPattern).timer = null)
+}.status")
+	class UnaryEventPattern extends EventPattern {
+		ref Event[1] event;
+		attr int occurrenceNum;
+		attr UnaryPatternOperatorType[1] operator;
+	}
+
+	class SimpleEvent extends Event {
+	}
+
+	class FunctionalEvent extends SimpleEvent {
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="NonFunctionalEvent", "unique"="false", upper="*")
+		attr String[1] functionalType;
+	}
+
+	class NonFunctionalEvent extends SimpleEvent {
+		ref metric.MetricCondition[1] metricCondition;
+		attr boolean[1] isViolation;
+	}
+
+	@Ecore(constraints="event_instance_same_layer_of_metric_as_in_event event_instance_metric_in_event")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(event_instance_same_layer_of_metric_as_in_event="Tuple {
+	message : String = 'EventInstance: ' + self.name +
+					' does not map to the same layer as the one designated by the metric referenced by the instance\'s respective event:'
+					+ self.event.name,
+	status : Boolean = if (self.event.oclIsTypeOf(NonFunctionalEvent))
+					then self.equalLayer(self.layer,
+							self.event.oclAsType(NonFunctionalEvent).metricCondition.metricContext.metric.layer)
+					else true
+					endif
+}.status", event_instance_metric_in_event="Tuple {
+	message : String = 'EventInstance: ' + self.name +
+					' has a metric instance with a metric which is not identical to the one associated to the event instance\'s event: '
+					+ self.event.name,
+	status : Boolean = if (self.event.oclIsTypeOf(NonFunctionalEvent))
+					then metricInstance.metric = event.oclAsType(NonFunctionalEvent).metricCondition.metricContext.metric
+					else true
+					endif
+}.status")
+	class EventInstance {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (l1 = LayerType::SaaS)
+						then (if (l2 = LayerType::SaaS)
+							then true
+							else false
+							endif)
+						else (if (l1 = LayerType::PaaS)
+							then (if (l2 = LayerType::PaaS)
+								then true
+								else false
+								endif)
+							else (if (l2 = LayerType::IaaS)
+								then true
+								else false
+								endif)
+							endif)
+						endif")
+		op boolean equalLayer(LayerType[1] l1, LayerType[1] l2);
+		attr String[1] name;
+		attr StatusType[1] status;
+		attr LayerType layer;
+		ref SimpleEvent[1] event;
+		ref metric.MetricInstance metricInstance;
+	}
+
+	@Ecore(constraints="scal_rule_horiz_req_count scal_rule_vert_req_correct_vals scal_rule_no_conficting_reqs")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(scal_rule_horiz_req_count="Tuple {
+	message : String = 'In ScalabilityRule: ' + self.name +
+					' there is a HorizontalScalingAction which conflicts with a rule\'s respective HorizontalScaleRequirement',
+	status : Boolean = self.actions
+					->forAll(p | (p.oclIsTypeOf(HorizontalScalingAction) and p.oclAsType(HorizontalScalingAction).count > 0 and
+						(p.type = camel::ActionType::SCALE_IN or p.type = camel::ActionType::SCALE_OUT and self.scaleRequirements
+						->exists(q | q.oclIsTypeOf(camel::requirement::HorizontalScaleRequirement))) implies self.scaleRequirements
+						->forAll(t | if (t.oclIsTypeOf(camel::requirement::HorizontalScaleRequirement))
+							then (t.oclAsType(camel::requirement::HorizontalScaleRequirement).maxInstances = - 1 or
+								p.oclAsType(HorizontalScalingAction).count <=
+								(t.oclAsType(camel::requirement::HorizontalScaleRequirement).maxInstances -
+								t.oclAsType(camel::requirement::HorizontalScaleRequirement).minInstances))
+							else true
+							endif)))
+}.status", scal_rule_vert_req_correct_vals="Tuple {
+	message : String = 'In ScalabilityRule: ' + self.name +
+					' there is a VerticalScalingAction which conflicts with a rule\'s respective VerticalScaleRequirement',
+	status : Boolean = self.actions
+					->forAll(p | (p.oclIsTypeOf(VerticalScalingAction) and (p.type = camel::ActionType::SCALE_UP or p.type =
+						camel::ActionType::SCALE_DOWN and self.scaleRequirements
+						->exists(t | t.oclIsTypeOf(camel::requirement::VerticalScaleRequirement))) implies self.scaleRequirements
+						->forAll(q | q.oclIsTypeOf(camel::requirement::VerticalScaleRequirement) implies
+							((p.oclAsType(VerticalScalingAction).coreUpdate > 0) implies
+							(q.oclAsType(camel::requirement::VerticalScaleRequirement).maxCores = - 1 or
+							p.oclAsType(VerticalScalingAction).coreUpdate <=
+							(q.oclAsType(camel::requirement::VerticalScaleRequirement).maxCores -
+							q.oclAsType(camel::requirement::VerticalScaleRequirement).minCores))) and
+							((p.oclAsType(VerticalScalingAction).storageUpdate > 0) implies
+							(q.oclAsType(camel::requirement::VerticalScaleRequirement).maxStorage = - 1 or
+							p.oclAsType(VerticalScalingAction).storageUpdate <=
+							(q.oclAsType(camel::requirement::VerticalScaleRequirement).maxStorage -
+							q.oclAsType(camel::requirement::VerticalScaleRequirement).minStorage))) and
+							((p.oclAsType(VerticalScalingAction).CPUUpdate > 0) implies
+							(q.oclAsType(camel::requirement::VerticalScaleRequirement).maxCPU = - 1 or
+							p.oclAsType(VerticalScalingAction).CPUUpdate <=
+							(q.oclAsType(camel::requirement::VerticalScaleRequirement).maxCPU -
+							q.oclAsType(camel::requirement::VerticalScaleRequirement).minCPU))) and
+							((p.oclAsType(VerticalScalingAction).memoryUpdate > 0) implies
+							(q.oclAsType(camel::requirement::VerticalScaleRequirement).maxRAM = - 1 or
+							p.oclAsType(VerticalScalingAction).memoryUpdate <=
+							(q.oclAsType(camel::requirement::VerticalScaleRequirement).maxRAM -
+							q.oclAsType(camel::requirement::VerticalScaleRequirement).minRAM))))))
+}.status", scal_rule_no_conficting_reqs="Tuple {
+	message : String = 'In ScalabilityRule: ' + self.name +
+					' there is a pair of vertical or horizontal scale requirements that are conflicting, where conflicting means that they concern the same vm or component, respectively',
+	status : Boolean = self.scaleRequirements
+					->forAll(p1, p2 | if (p1 <> p2 and p1.oclType() = p2.oclType())
+						then if (p1.oclIsTypeOf(camel::requirement::VerticalScaleRequirement))
+							then p1.oclAsType(camel::requirement::VerticalScaleRequirement).vm <>
+								p2.oclAsType(camel::requirement::VerticalScaleRequirement).vm
+							else p1.oclAsType(camel::requirement::HorizontalScaleRequirement).component <>
+								p2.oclAsType(camel::requirement::HorizontalScaleRequirement).component
+							endif
+						else true
+						endif)
+}.status")
+	class ScalabilityRule {
+		attr String[1] name;
+		ref Event[1] event;
+		ref Action[+] actions;
+		ref organisation.Entity[*] entity;
+		ref requirement.ScaleRequirement[*] scaleRequirements;
+	}
+
+	abstract class ScalingAction extends Action {
+		ref deployment.VM[1] vm;
+	}
+
+	@Ecore(constraints="horizontal_scale_action_correct_count horizontal_scale_action_correct_type")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(horizontal_scale_action_correct_count="Tuple {
+	message : String = 'HorizontalScalingAction: ' + self.name +
+					' has a wrong (negative) value for the count attribute',
+	status : Boolean = count >= 0
+}.status", horizontal_scale_action_correct_type="Tuple {
+	message : String = 'HorizontalScalingAction: ' + self.name + ' has a wrong type (' +
+					self.type.toString() + '). It should be either SCALE_IN or SCALE_OUT',
+	status : Boolean = (self.type = camel::ActionType::SCALE_IN)
+					or (self.type = camel::ActionType::SCALE_OUT)
+}.status")
+	class HorizontalScalingAction extends ScalingAction {
+		attr int count;
+		ref deployment.InternalComponent[1] internalComponent;
+	}
+
+	@Ecore(constraints="vertical_scale_action_correct_input vertical_scale_action_correct_type")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(vertical_scale_action_correct_input="Tuple {
+	message : String = 'VerticalScalingAction: ' + self.name +
+					' has the value of all VM characteristic update attributes equal to zero. At least one should be positive.',
+	status : Boolean = memoryUpdate
+					<> 0 or CPUUpdate <> 0.0 or coreUpdate <> 0 or storageUpdate <> 0
+}.status", vertical_scale_action_correct_type="Tuple {
+	message : String = 'VerticalScalingAction: ' + self.name + ' has a wrong type (' +
+					self.type.toString() + '). It should be either SCALE_UP or SCALE_DOWN',
+	status : Boolean = (self.type = camel::ActionType::SCALE_UP)
+					or (self.type = camel::ActionType::SCALE_DOWN)
+}.status")
+	class VerticalScalingAction extends ScalingAction {
+		attr int memoryUpdate;
+		attr double CPUUpdate;
+		attr int coreUpdate;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="Schedule", "unique"="false", upper="*")
+		attr int storageUpdate;
+		attr int ioUpdate;
+		attr int networkUpdate;
+	}
+
+	@Ecore(constraints="timer_correct_values")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(timer_correct_values="Tuple {
+	message : String = 'Timer: ' + self.toString() +
+					' as wrong value combinations for its attributes. This means that either the timeValue is non-positive or the time type is WITHIN_MAX and a non-positive maxOccurrenceNum has been provided or that the time type is not WITHIN_MAX and a positive maxOccurrenceNum has been given',
+	status : Boolean = timeValue
+					> 0 and (self.type = TimerType::WITHIN_MAX implies self.maxOccurrenceNum > 0) and (self.type <>
+					TimerType::WITHIN_MAX implies self.maxOccurrenceNum = 0)
+}.status")
+	class Timer {
+		attr String name;
+		attr TimerType[1] type;
+		attr int[1] timeValue;
+		attr int maxOccurrenceNum;
+		ref unit.TimeIntervalUnit[1] unit;
+	}
+
+	enum TimerType {
+		WITHIN = 0;
+		WITHIN_MAX = 1;
+		INTERVAL = 2;
+	}
+
+	enum UnaryPatternOperatorType {
+		EVERY = 0;
+		NOT = 1;
+		REPEAT = 2;
+		WHEN = 3;
+	}
+
+	enum StatusType {
+		CRITICAL = 0;
+		WARNING = 1;
+		SUCCESS = 2;
+		FATAL = 3;
+	}
+
+}
+
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel/security", prefix="security")
+package security {
+	class SecurityModel extends Model {
+		!ordered val SecurityControl[*] securityControls;
+		!ordered val requirement.SecurityRequirement[*] securityRequirements;
+		!ordered val SecurityProperty[*] securityProperties;
+		!ordered val RawSecurityMetric[*] rawSecurityMetrics;
+		!ordered val CompositeSecurityMetric[*] compositeSecurityMetrics;
+
+		@teneo.jpa(value="@JoinColumn(name=\"rawsecuritymetricInstances\")")
+		!ordered val RawSecurityMetricInstance[*] rawSecurityMetricInstances;
+
+		@teneo.jpa(value="@JoinColumn(name=\"compositesecuritymetricInstances\")")
+		!ordered val CompositeSecurityMetricInstance[*] compositeSecurityMetricInstances;
+		!ordered val SecurityDomain[*] securityDomains;
+		!ordered val SecurityCapability[*] securityCapabilities;
+		val SecuritySLO[*] securitySLOs;
+	}
+
+	class SecurityDomain {
+		attr String[1] ~id;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="Limit")
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="Limit")
+		attr String[1] name;
+		!ordered ref SecurityDomain[*] subDomain;
+	}
+
+	class SecurityControl {
+		attr String[1] name;
+		ref SecurityDomain[1] domain;
+		ref SecurityDomain[1] subDomain;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="AgreementType")
+		@teneo.jpa(value="@Column(length=4000)")
+		attr String[1] specification;
+		ref SecurityProperty[*] securityProperties;
+		ref RawSecurityMetric[*] rawSecurityMetrics;
+		ref CompositeSecurityMetric[*] compositeSecurityMetrics;
+	}
+
+	class RawSecurityMetricInstance extends metric.RawMetricInstance {
+	}
+
+	class RawSecurityMetric extends metric.RawMetric {
+	}
+
+	class SecurityProperty extends metric.Property {
+		ref SecurityDomain[1] domain;
+	}
+
+	@Ecore(constraints="certifiable_realized_by")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(certifiable_realized_by="Tuple {
+	message : String = 'Certifiable Property: ' + self.name +
+					' has a non-empty list of sub-properties',
+	status : Boolean = self.subProperties
+					->isEmpty()
+}.status")
+	class Certifiable extends SecurityProperty {
+	}
+
+	@Ecore(constraints="only_sec_constructs_in_condition")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(only_sec_constructs_in_condition="Tuple {
+	message : String = 'SecuritySLO: ' + self.name +
+					' maps to non-security metrics or properties',
+	status : Boolean = if
+						(customServiceLevel.oclIsTypeOf(camel::metric::MetricCondition))
+					then
+						customServiceLevel.oclAsType(camel::metric::MetricCondition).metricContext.metric.oclIsTypeOf(camel::security::RawSecurityMetric)
+						or
+						customServiceLevel.oclAsType(camel::metric::MetricCondition).metricContext.metric.oclIsTypeOf(camel::security::CompositeSecurityMetric)
+					else if (customServiceLevel.oclIsTypeOf(camel::metric::PropertyCondition))
+						then
+							customServiceLevel.oclAsType(camel::metric::PropertyCondition).propertyContext.property.oclIsTypeOf(camel::security::SecurityProperty)
+						else false
+						endif
+					endif
+}.status")
+	class SecuritySLO extends requirement.ServiceLevelObjective {
+	}
+
+	class SecurityCapability {
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="ServiceLevelObjectiveType")
+		attr String[1] name;
+		!ordered ref SecurityControl[+] securityControls;
+		ref organisation.DataCenter dataCenter;
+	}
+
+	class CompositeSecurityMetric extends metric.CompositeMetric {
+	}
+
+	class CompositeSecurityMetricInstance extends metric.CompositeMetricInstance {
+	}
+
+}
+
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel/type", prefix="type")
+package type {
+	class TypeModel extends Model {
+		val ValueType[*] dataTypes;
+		val SingleValue[*] values;
+	}
+
+	class Limit {
+		attr boolean[1] included;
+		val NumericValue[1] value;
+	}
+
+	enum TypeEnum {
+		IntType = 0;
+		StringType = 1;
+		BooleanType = 2;
+		FloatType = 3;
+		DoubleType = 4;
+	}
+
+	abstract class SingleValue {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (self.oclIsTypeOf(IntegerValue) and v.oclIsTypeOf(IntegerValue))
+						then self.oclAsType(IntegerValue).value = v.oclAsType(IntegerValue).value
+						else if (self.oclIsTypeOf(FloatsValue) and v.oclIsTypeOf(FloatsValue))
+							then self.oclAsType(FloatsValue).value = v.oclAsType(FloatsValue).value
+							else if (self.oclIsTypeOf(DoublePrecisionValue) and v.oclIsTypeOf(DoublePrecisionValue))
+								then self.oclAsType(DoublePrecisionValue).value = v.oclAsType(DoublePrecisionValue).value
+								else if (self.oclIsTypeOf(StringsValue) and v.oclIsTypeOf(StringsValue))
+									then self.oclAsType(StringsValue).value = v.oclAsType(StringsValue).value
+									else if (self.oclIsTypeOf(BoolValue) and v.oclIsTypeOf(BoolValue))
+										then self.oclAsType(BoolValue).value = v.oclAsType(BoolValue).value
+										else false
+										endif
+									endif
+								endif
+							endif
+						endif")
+		op boolean valueEquals(SingleValue[1] v);
+	}
+
+	class BoolValue extends SingleValue {
+		attr boolean[1] value;
+	}
+
+	class EnumerateValue extends SingleValue {
+		attr String[1] name;
+		attr int[1] value;
+	}
+
+	abstract class NumericValue extends SingleValue {
+	}
+
+	class IntegerValue extends NumericValue {
+		attr int[1] value;
+	}
+
+	class FloatsValue extends NumericValue {
+		attr float[1] value;
+	}
+
+	class DoublePrecisionValue extends NumericValue {
+		attr double[1] value;
+	}
+
+	class NegativeInf extends NumericValue {
+	}
+
+	class PositiveInf extends NumericValue {
+	}
+
+	class ValueToIncrease extends NumericValue {
+		val NumericValue[1] value;
+	}
+
+	class StringsValue extends SingleValue {
+		attr String[1] value;
+	}
+
+	abstract class ValueType {
+		attr String name;
+	}
+
+	class BooleanValueType extends ValueType {
+		attr TypeEnum[1] primitiveType;
+	}
+
+	@Ecore(constraints="enumeration_all_values_diff")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(enumeration_all_values_diff="Tuple {
+	message : String = 'Enumeration: ' + self.toString() +
+					' has two or more members which have either the same name or the same value',
+	status : Boolean = values
+					->forAll(p1, p2 | p1 <> p2 implies (p1.name <> p2.name and p1.value <> p2.value))
+}.status")
+	class Enumeration extends ValueType {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="self.values
+						->exists(p | p.name = name)")
+		op boolean includesName(String[1] name);
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="self.values
+						->exists(p | p.value = value)")
+		op boolean includesValue(int[1] value);
+		val EnumerateValue[+] values;
+	}
+
+	@Ecore(constraints="list_must_have_type all_list_values_correct_type")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(list_must_have_type="Tuple {
+	message : String = 'List:' + self.toString() +
+					' should either have a primitive or a normal type of values',
+	status : Boolean = (primitiveType <> null and type = null) or (type <>
+					null and primitiveType = null)
+}.status", all_list_values_correct_type="Tuple {
+	message : String = 'List: ' + self.toString() +
+					' has one or more values that do not conform to its value type',
+	status : Boolean = values
+					->forAll(p | self.checkValueType(p))
+}.status")
+	class List extends ValueType {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (type <> null)
+						then if (type.oclIsTypeOf(Range))
+							then if (type.oclAsType(Range).primitiveType = TypeEnum::IntType)
+								then values
+									->exists(p | p.oclAsType(IntegerValue).value = v.oclAsType(IntegerValue).value)
+								else if (type.oclAsType(Range).primitiveType = TypeEnum::FloatType)
+									then values
+										->exists(p | p.oclAsType(FloatsValue).value = v.oclAsType(FloatsValue).value)
+									else values
+										->exists(p | p.oclAsType(DoublePrecisionValue).value = v.oclAsType(DoublePrecisionValue).value)
+									endif
+								endif
+							else if (type.oclIsTypeOf(RangeUnion))
+								then if (type.oclAsType(RangeUnion).primitiveType = TypeEnum::IntType)
+									then values
+										->exists(p | p.oclAsType(IntegerValue).value = v.oclAsType(IntegerValue).value)
+									else if (type.oclAsType(RangeUnion).primitiveType = TypeEnum::FloatType)
+										then values
+											->exists(p | p.oclAsType(FloatsValue).value = v.oclAsType(FloatsValue).value)
+										else values
+											->exists(p | p.oclAsType(DoublePrecisionValue).value = v.oclAsType(DoublePrecisionValue).value)
+										endif
+									endif
+								else if (type.oclIsTypeOf(StringValueType))
+									then values
+										->exists(p | p.oclAsType(StringsValue).value = v.oclAsType(StringsValue).value)
+									else if (type.oclIsTypeOf(BooleanValueType))
+										then values
+											->exists(p | p.oclAsType(BoolValue).value = v.oclAsType(BoolValue).value)
+										else false
+										endif
+									endif
+								endif
+							endif
+						else if (primitiveType = TypeEnum::IntType)
+							then values
+								->exists(p | p.oclAsType(IntegerValue).value = v.oclAsType(IntegerValue).value)
+							else if (primitiveType = TypeEnum::FloatType)
+								then values
+									->exists(p | p.oclAsType(FloatsValue).value = v.oclAsType(FloatsValue).value)
+								else if (primitiveType = TypeEnum::DoubleType)
+									then values
+										->exists(p | p.oclAsType(DoublePrecisionValue).value = v.oclAsType(DoublePrecisionValue).value)
+									else if (primitiveType = TypeEnum::StringType)
+										then values
+											->exists(p | p.oclAsType(StringsValue).value = v.oclAsType(StringsValue).value)
+										else if (primitiveType = TypeEnum::BooleanType)
+											then values
+												->exists(p | p.oclAsType(BoolValue).value = v.oclAsType(BoolValue).value)
+											else false
+											endif
+										endif
+									endif
+								endif
+							endif
+						endif")
+		op boolean includesValue(SingleValue[1] v);
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (type <> null)
+						then if (type.oclIsTypeOf(Range))
+							then if (type.oclAsType(Range).primitiveType = TypeEnum::IntType)
+								then p.oclIsTypeOf(IntegerValue) and
+									type.oclAsType(Range).includesValue(p.oclAsType(IntegerValue).value.oclAsType(ecore::EDouble))
+								else if (type.oclAsType(Range).primitiveType = TypeEnum::FloatType)
+									then p.oclIsTypeOf(FloatsValue) and
+										type.oclAsType(Range).includesValue(p.oclAsType(FloatsValue).value.oclAsType(ecore::EDouble))
+									else p.oclIsTypeOf(DoublePrecisionValue) and
+										type.oclAsType(Range).includesValue(p.oclAsType(DoublePrecisionValue).value.oclAsType(ecore::EDouble))
+									endif
+								endif
+							else if (type.oclIsTypeOf(RangeUnion))
+								then if (type.oclAsType(RangeUnion).primitiveType = TypeEnum::IntType)
+									then p.oclIsTypeOf(IntegerValue) and
+										type.oclAsType(RangeUnion).includesValue(p.oclAsType(IntegerValue).value.oclAsType(ecore::EDouble))
+									else if (type.oclAsType(RangeUnion).primitiveType = TypeEnum::FloatType)
+										then p.oclIsTypeOf(FloatsValue) and
+											type.oclAsType(RangeUnion).includesValue(p.oclAsType(FloatsValue).value.oclAsType(ecore::EDouble))
+										else p.oclIsTypeOf(DoublePrecisionValue) and
+											type.oclAsType(RangeUnion).includesValue(p.oclAsType(DoublePrecisionValue).value.oclAsType(ecore::EDouble))
+										endif
+									endif
+								else if (type.oclIsTypeOf(StringValueType))
+									then p.oclIsTypeOf(StringsValue)
+									else if (type.oclIsTypeOf(BooleanValueType))
+										then p.oclIsTypeOf(BoolValue)
+										else false
+										endif
+									endif
+								endif
+							endif
+						else if (primitiveType = TypeEnum::IntType)
+							then p.oclIsTypeOf(IntegerValue)
+							else if (primitiveType = TypeEnum::StringType)
+								then p.oclIsTypeOf(StringsValue)
+								else if (primitiveType = TypeEnum::BooleanType)
+									then p.oclIsTypeOf(BoolValue)
+									else if (primitiveType = TypeEnum::FloatType)
+										then p.oclIsTypeOf(FloatsValue)
+										else if (primitiveType = TypeEnum::DoubleType)
+											then p.oclIsTypeOf(DoublePrecisionValue)
+											else true
+											endif
+										endif
+									endif
+								endif
+							endif
+						endif")
+		op boolean checkValueType(SingleValue[1] p);
+		val SingleValue[+] values;
+		attr TypeEnum primitiveType;
+		ref ValueType type;
+	}
+
+	@Ecore(constraints="correct_range_type enforce_correct_range_type range_low_less_than_upper range_infs_at_appropriate_pos")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(correct_range_type="Tuple {
+	message : String = 'Range: ' + self.toString() + ' has a non-numeric primitiveType: ' +
+					primitiveType.toString(),
+	status : Boolean = (primitiveType = TypeEnum::IntType) or (primitiveType = TypeEnum::FloatType) or
+					(primitiveType = TypeEnum::DoubleType)
+}.status", enforce_correct_range_type="Tuple {
+	message : String = 'Range: ' + self.toString() +
+					' has either its low or upper limit not conforming to its primitive type',
+	status : Boolean = self.checkType(self.lowerLimit,
+						primitiveType, true) and self.checkType(self.upperLimit, primitiveType, false)
+}.status", range_low_less_than_upper="Tuple {
+	message : String = 'Range: ' + self.toString() +
+					' has its lower limit greater than the upper',
+	status : Boolean = if (not (lowerLimit.value.oclIsTypeOf(NegativeInf)) and not
+						(upperLimit.value.oclIsTypeOf(PositiveInf)))
+					then if (primitiveType = TypeEnum::IntType)
+						then if (not (upperLimit.included) and not (lowerLimit.included))
+							then (upperLimit.value.oclAsType(IntegerValue).value -
+								lowerLimit.value.oclAsType(IntegerValue).value.oclAsType(ecore::EInt)) >= 2
+							else if (upperLimit.included)
+								then lowerLimit.value.oclAsType(IntegerValue).value.oclAsType(ecore::EInt) <=
+									upperLimit.value.oclAsType(IntegerValue).value
+								else lowerLimit.value.oclAsType(IntegerValue).value.oclAsType(ecore::EInt) <
+									upperLimit.value.oclAsType(IntegerValue).value
+								endif
+							endif
+						else (if (primitiveType = TypeEnum::FloatType)
+							then if (upperLimit.included)
+								then lowerLimit.value.oclAsType(FloatsValue).value.oclAsType(ecore::EFloat) <=
+									upperLimit.value.oclAsType(FloatsValue).value
+								else lowerLimit.value.oclAsType(FloatsValue).value.oclAsType(ecore::EFloat) <
+									upperLimit.value.oclAsType(FloatsValue).value
+								endif
+							else if (upperLimit.included)
+								then lowerLimit.value.oclAsType(DoublePrecisionValue).value.oclAsType(ecore::EDouble) <=
+									upperLimit.value.oclAsType(DoublePrecisionValue).value
+								else lowerLimit.value.oclAsType(DoublePrecisionValue).value.oclAsType(ecore::EDouble) <
+									upperLimit.value.oclAsType(DoublePrecisionValue).value
+								endif
+							endif)
+						endif
+					else true
+					endif
+}.status", range_infs_at_appropriate_pos="Tuple {
+	message : String = 'Range: ' + self.toString() +
+					' has a PositiveInf value for its lower limit or a NegativeInf value for its upper limit',
+	status : Boolean = not
+					(lowerLimit.value.oclIsTypeOf(PositiveInf) or upperLimit.value.oclIsTypeOf(NegativeInf))
+}.status")
+	class Range extends ValueType {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (type = TypeEnum::IntType)
+						then if (lower and not (lowerLimit.value.oclIsTypeOf(NegativeInf)))
+							then lowerLimit.value.oclIsTypeOf(IntegerValue)
+							else if (not (lower) and not (upperLimit.value.oclIsTypeOf(PositiveInf)))
+								then upperLimit.value.oclIsTypeOf(IntegerValue)
+								else true
+								endif
+							endif
+						else if (type = TypeEnum::FloatType)
+							then if (lower and not (lowerLimit.value.oclIsTypeOf(NegativeInf)))
+								then lowerLimit.value.oclIsTypeOf(FloatsValue)
+								else if (not (lower) and not (upperLimit.value.oclIsTypeOf(PositiveInf)))
+									then upperLimit.value.oclIsTypeOf(FloatsValue)
+									else true
+									endif
+								endif
+							else if (lower and not (lowerLimit.value.oclIsTypeOf(NegativeInf)))
+								then lowerLimit.value.oclIsTypeOf(DoublePrecisionValue)
+								else if (not (lower) and not (upperLimit.value.oclIsTypeOf(PositiveInf)))
+									then upperLimit.value.oclIsTypeOf(DoublePrecisionValue)
+									else true
+									endif
+								endif
+							endif
+						endif")
+		op boolean checkType(Limit[1] l, TypeEnum[1] type, boolean[1] lower);
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (primitiveType = TypeEnum::IntType)
+						then if (not (lowerLimit.value.oclIsTypeOf(NegativeInf)))
+							then ((lowerLimit.included and lowerLimit.value.oclAsType(IntegerValue).value <= n) or (not
+								(lowerLimit.included) and lowerLimit.value.oclAsType(IntegerValue).value < n)) and if (not
+									(upperLimit.value.oclIsTypeOf(PositiveInf)))
+								then (upperLimit.included and upperLimit.value.oclAsType(IntegerValue).value >= n) or (not
+									(upperLimit.included) and upperLimit.value.oclAsType(IntegerValue).value > n)
+								else true
+								endif
+							else if (not (upperLimit.value.oclIsTypeOf(PositiveInf)))
+								then (upperLimit.included and upperLimit.value.oclAsType(IntegerValue).value >= n) or (not
+									(upperLimit.included) and upperLimit.value.oclAsType(IntegerValue).value > n)
+								else true
+								endif
+							endif
+						else if (primitiveType = TypeEnum::FloatType)
+							then if (not (lowerLimit.value.oclIsTypeOf(NegativeInf)))
+								then ((lowerLimit.included and lowerLimit.value.oclAsType(FloatsValue).value <= n) or (not
+									(lowerLimit.included) and lowerLimit.value.oclAsType(FloatsValue).value < n)) and if (not
+										(upperLimit.value.oclIsTypeOf(PositiveInf)))
+									then (upperLimit.included and upperLimit.value.oclAsType(FloatsValue).value >= n) or (not
+										(upperLimit.included) and upperLimit.value.oclAsType(FloatsValue).value > n)
+									else true
+									endif
+								else if (not (upperLimit.value.oclIsTypeOf(PositiveInf)))
+									then (upperLimit.included and upperLimit.value.oclAsType(FloatsValue).value >= n) or (not
+										(upperLimit.included) and upperLimit.value.oclAsType(FloatsValue).value > n)
+									else true
+									endif
+								endif
+							else if (not (lowerLimit.value.oclIsTypeOf(NegativeInf)))
+								then ((lowerLimit.included and lowerLimit.value.oclAsType(DoublePrecisionValue).value <= n) or (not
+									(lowerLimit.included) and lowerLimit.value.oclAsType(DoublePrecisionValue).value < n)) and if (not
+										(upperLimit.value.oclIsTypeOf(PositiveInf)))
+									then (upperLimit.included and upperLimit.value.oclAsType(DoublePrecisionValue).value >= n) or (not
+										(upperLimit.included) and upperLimit.value.oclAsType(DoublePrecisionValue).value > n)
+									else true
+									endif
+								else if (not (upperLimit.value.oclIsTypeOf(PositiveInf)))
+									then (upperLimit.included and upperLimit.value.oclAsType(DoublePrecisionValue).value >= n) or (not
+										(upperLimit.included) and upperLimit.value.oclAsType(DoublePrecisionValue).value > n)
+									else true
+									endif
+								endif
+							endif
+						endif")
+		op boolean includesValue(double[1] n);
+		val Limit[1] lowerLimit;
+		val Limit[1] upperLimit;
+		attr TypeEnum[1] primitiveType;
+	}
+
+	@Ecore(constraints="same_primitive_types_in_union_ranges correct_range_union_sequence")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(same_primitive_types_in_union_ranges="Tuple {
+	message : String = 'RangeUnion: ' + self.name +
+					' has one or more ranges with a different primitive type',
+	status : Boolean = self.ranges
+					->forAll(p | p.primitiveType = self.primitiveType)
+}.status", correct_range_union_sequence="Tuple {
+	message : String = 'RangeUnion: ' + self.name +
+					' has a wrong sequence of ranges. This means that two or more ranges are conflicting',
+	status : Boolean = not
+					(invalidRangeSequence(self))
+}.status")
+	class RangeUnion extends ValueType {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="ranges
+						->exists(p | p.includesValue(n))")
+		op boolean includesValue(double[1] n);
+
+		@GenModel(body="EList<Range> ranges = ru.getRanges();
+		Range prev = ranges.get(0);
+		for (int i = 1; i < ranges.size(); i++){
+			Range next = ranges.get(i);
+			eu.paasage.camel.type.Limit lowerLimit = prev.getUpperLimit();
+			eu.paasage.camel.type.Limit upperLimit = next.getLowerLimit();
+			boolean lowerInclusive = lowerLimit.isIncluded();
+			boolean upperInclusive = upperLimit.isIncluded();
+			if (!(lowerLimit instanceof eu.paasage.camel.type.NegativeInf) && !(upperLimit instanceof eu.paasage.camel.type.PositiveInf)){
+				double low = 0.0, upper = 0.0;
+				//Checking if already at end (positive infinity or next range starts with negative infinity
+				eu.paasage.camel.type.NumericValue prevVal = lowerLimit.getValue();
+				if (prevVal instanceof eu.paasage.camel.type.PositiveInf) return Boolean.TRUE;
+				eu.paasage.camel.type.NumericValue nextVal = upperLimit.getValue();
+				if (nextVal instanceof eu.paasage.camel.type.NegativeInf) return Boolean.TRUE;
+				//Checking now that low is less or equal to upper
+				if (prevVal instanceof eu.paasage.camel.type.IntegerValue){
+					low = ((eu.paasage.camel.type.IntegerValue)prevVal).getValue();
+					if (!lowerInclusive){
+						low = low -1;
+						lowerInclusive = true;
+					}
+				}
+				else if (prevVal instanceof eu.paasage.camel.type.FloatsValue) low = ((eu.paasage.camel.type.FloatsValue)prevVal).getValue();
+				else low = ((eu.paasage.camel.type.DoublePrecisionValue)prevVal).getValue();
+				if (nextVal instanceof eu.paasage.camel.type.IntegerValue){
+					upper = ((eu.paasage.camel.type.IntegerValue)nextVal).getValue();
+					if (!upperInclusive){
+						upper = upper + 1;
+						upperInclusive = true;
+					}
+				}
+				else if (nextVal instanceof eu.paasage.camel.type.FloatsValue) upper = ((eu.paasage.camel.type.FloatsValue)nextVal).getValue();
+				else upper = ((eu.paasage.camel.type.DoublePrecisionValue)nextVal).getValue();
+				System.out.println(\"Low is: \" + low + \" upper is: \" + upper);
+				if (low > upper || (low == upper && lowerInclusive == true )) return Boolean.TRUE;
+			}
+			prev = next;
+		}
+		return Boolean.FALSE;")
+		op boolean invalidRangeSequence(RangeUnion[1] ru);
+		val Range[+] ranges;
+		attr TypeEnum[1] primitiveType;
+	}
+
+	class StringValueType extends ValueType {
+		attr TypeEnum[1] primitiveType;
+	}
+
+}
+
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://www.paasage.eu/2015/06/camel/unit", prefix="unit")
+package unit {
+	@Ecore(constraints="correct_unit")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(correct_unit="Tuple {
+	message : String = 'Unit: ' + name + ' is incorrect as its type( ' + self.unit.toString() +
+						' that does not correspond to its dimension',
+	status : Boolean = checkUnit()
+}.status")
+	abstract class Unit {
+
+		@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if (self.oclIsTypeOf(TimeIntervalUnit))
+						then if (unit = UnitType::MILLISECONDS or unit = UnitType::SECONDS or unit = UnitType::MINUTES or unit =
+								UnitType::HOURS or unit = UnitType::DAYS or unit = UnitType::WEEKS or unit = UnitType::MONTHS)
+							then true
+							else false
+							endif
+						else if (self.oclIsTypeOf(StorageUnit))
+							then if (unit = UnitType::BYTES or unit = UnitType::KILOBYTES or unit = UnitType::MEGABYTES or unit =
+									UnitType::GIGABYTES)
+								then true
+								else false
+								endif
+							else if (self.oclIsTypeOf(MonetaryUnit))
+								then if (unit = UnitType::EUROS or unit = UnitType::DOLLARS or unit = UnitType::POUNDS)
+									then true
+									else false
+									endif
+								else if (self.oclIsTypeOf(ThroughputUnit))
+									then if (unit = UnitType::BYTES_PER_SECOND or unit = UnitType::TRANSACTIONS_PER_SECOND or unit =
+											UnitType::REQUESTS_PER_SECOND)
+										then true
+										else false
+										endif
+									else if (self.oclIsTypeOf(RequestUnit))
+										then if (unit = UnitType::REQUESTS)
+											then true
+											else false
+											endif
+										else if (self.oclIsTypeOf(TransactionUnit))
+											then if (unit = UnitType::TRANSACTIONS)
+												then true
+												else false
+												endif
+											else if (self.oclIsTypeOf(Dimensionless))
+												then if (unit = UnitType::PERCENTAGE)
+													then true
+													else false
+													endif
+												else if (self.oclIsTypeOf(CoreUnit))
+													then if (unit = UnitType::CORES)
+														then true
+														else false
+														endif
+													else false
+													endif
+												endif
+											endif
+										endif
+									endif
+								endif
+							endif
+						endif")
+		op boolean checkUnit();
+		attr String[1] name;
+
+		@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="Feature")
+		attr UnitType[1] unit;
+	}
+
+	class CoreUnit extends Unit {
+	}
+
+	class Dimensionless extends Unit {
+	}
+
+	class MonetaryUnit extends Unit {
+	}
+
+	class RequestUnit extends Unit {
+	}
+
+	class StorageUnit extends Unit {
+	}
+
+	class ThroughputUnit extends Unit {
+	}
+
+	class TimeIntervalUnit extends Unit {
+	}
+
+	class TransactionUnit extends Unit {
+	}
+
+	enum UnitType {
+		BYTES = 0;
+		BYTES_PER_SECOND = 1;
+		KILOBYTES = 2;
+		MEGABYTES = 3;
+		GIGABYTES = 4;
+		MILLISECONDS = 5;
+		SECONDS = 6;
+		MINUTES = 7;
+		HOURS = 8;
+		DAYS = 9;
+		WEEKS = 10;
+		MONTHS = 11;
+		REQUESTS = 12;
+		REQUESTS_PER_SECOND = 13;
+		TRANSACTIONS = 14;
+		TRANSACTIONS_PER_SECOND = 15;
+		CORES = 16;
+		PERCENTAGE = 17;
+		EUROS = 18;
+		POUNDS = 19;
+		DOLLARS = 20;
+	}
+
+	enum UnitDimensionType {
+		TIME_INTERVAL = 0;
+		STORAGE = 1;
+		COST = 2;
+		THROUGHPUT = 3;
+		REQUEST_NUM = 4;
+		TRANSACTION_NUM = 5;
+		DIMENSIONLESS = 6;
+		CORE_NUM = 7;
+	}
+
+	class UnitModel extends Model {
+		val Unit[*] units;
+	}
+
+}
+

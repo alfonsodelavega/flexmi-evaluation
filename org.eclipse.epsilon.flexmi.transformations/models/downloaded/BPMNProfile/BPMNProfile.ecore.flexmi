@@ -1,0 +1,3142 @@
+<?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<?import http://www.eclipse.org/emf/2002/Ecore?>
+<package name="BPMNProfile" nsURI="http://www.omg.org/spec/BPMNProfile/20121112/" nsPrefix="BPMNProfile">
+	<class name="InclusiveGateway">
+		<EOperation name="inclusiveGatewaydefault" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="inclusiveGateway.default"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="inclusiveGateway::/default : SequenceFlow [0..1] = an outgoing control flow with guard "else""/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="default" ordered="false" type="SequenceFlow"/>
+	</class>
+	<class name="NonExclusiveGateway" abstract="true">
+		<ref name="base_JoinNode" ordered="false" type=""/>
+		<ref name="base_ForkNode" ordered="false" type=""/>
+	</class>
+	<class name="Gateway" abstract="true">
+		<ref name="base_ControlNode" ordered="false" lowerBound="1" type=""/>
+		<ref name="base_ActivityGroup" ordered="false" type=""/>
+	</class>
+	<class name="FlowNode" abstract="true">
+		<EAnnotation source="duplicates">
+			<ref name="incoming" ordered="false" upperBound="-1" changeable="false" volatile="true" transient="true" derived="true" type="SequenceFlow">
+				<EAnnotation source="redefines"/>
+			</ref>
+			<ref name="outgoing" ordered="false" upperBound="-1" changeable="false" volatile="true" transient="true" derived="true" type="SequenceFlow">
+				<EAnnotation source="redefines"/>
+			</ref>
+		</EAnnotation>
+		<ref name="base_ActivityNode" ordered="false" type=""/>
+	</class>
+	<class name="FlowElement" abstract="true">
+		<ref name="auditing" ordered="false" type="Auditing"/>
+		<ref name="monitoring" ordered="false" type="Monitoring"/>
+		<ref name="_categoryValueRef" ordered="false" upperBound="-1" type="CategoryValue">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value=" categoryValueRef"/>
+			</EAnnotation>
+		</ref>
+		<ref name="container" ordered="false" lowerBound="1" changeable="false" volatile="true" transient="true" derived="true" type="FlowElementsContainer"/>
+	</class>
+	<class name="BaseElement" abstract="true">
+		<attr name="id" ordered="false" type="//null"/>
+		<ref name="extensionValues" ordered="false" upperBound="-1" type="ExtensionAttributeValue"/>
+		<ref name="base_Element" ordered="false" lowerBound="1" type=""/>
+		<ref name="documentation" ordered="false" upperBound="-1" type="Documentation"/>
+		<ref name="extensionDefinitions" ordered="false" upperBound="-1" type="ExtensionDefinition"/>
+		<ref name="outgoing" ordered="false" upperBound="-1" type="BPMNAssociation"/>
+		<ref name="incoming" ordered="false" upperBound="-1" type="BPMNAssociation"/>
+	</class>
+	<class name="ExtensionAttributeValue">
+		<ref name="base_Slot" ordered="false" lowerBound="1" type=""/>
+		<ref name="valueRef" ordered="false" type=""/>
+		<ref name="extensionAttributeDefinition" ordered="false" lowerBound="1" type="ExtensionAttributeDefinition"/>
+	</class>
+	<class name="ExtensionAttributeDefinition">
+		<ref name="base_Property" ordered="false" lowerBound="1" type=""/>
+		<attr name="type" ordered="false" lowerBound="1" type="//null"/>
+		<attr name="isReference" ordered="false" lowerBound="1" type="//null"/>
+	</class>
+	<class name="Documentation">
+		<ref name="base_Comment" ordered="false" lowerBound="1" type=""/>
+		<attr name="textFormat" ordered="false" lowerBound="1" type="//null"/>
+		<attr name="text" ordered="false" lowerBound="1" type="//null"/>
+	</class>
+	<class name="ExtensionDefinition">
+		<ref name="base_Stereotype" ordered="false" lowerBound="1" type=""/>
+		<ref name="extensionAttributeDefinitions" ordered="false" upperBound="-1" type="ExtensionAttributeDefinition"/>
+	</class>
+	<class name="BPMNAssociation">
+		<EOperation name="AssociationEnd" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="At least one of association ends (target or source) must be TextAnnotation."/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="base_Dependency" ordered="false" lowerBound="1" type=""/>
+		<attr name="associationDirection" ordered="false" lowerBound="1" defaultValueLiteral="none" type="//AssociationDirection"/>
+		<ref name="targetRef" ordered="false" lowerBound="1" type="BaseElement"/>
+		<ref name="sourceRef" ordered="false" lowerBound="1" type="BaseElement"/>
+	</class>
+	<class name="BPMNArtifact" abstract="true"/>
+	<EEnum name="AssociationDirection">
+		<EEnumLiteral name="none"/>
+		<EEnumLiteral name="one" value="1"/>
+		<EEnumLiteral name="both" value="2"/>
+	</EEnum>
+	<class name="Auditing">
+		<ref name="base_Class" ordered="false" lowerBound="1" type=""/>
+	</class>
+	<class name="Monitoring">
+		<ref name="base_Class" ordered="false" lowerBound="1" type=""/>
+	</class>
+	<class name="CategoryValue">
+		<ref name="base_EnumerationLiteral" ordered="false" lowerBound="1" type=""/>
+		<ref name="categorizedFlowElements" ordered="false" upperBound="-1" type="FlowElement"/>
+	</class>
+	<class name="FlowElementsContainer" abstract="true">
+		<ref name="laneSets" ordered="false" upperBound="-1" changeable="false" volatile="true" transient="true" derived="true" type="LaneSet"/>
+		<ref name="flowElements" ordered="false" upperBound="-1" changeable="false" volatile="true" transient="true" derived="true" type="FlowElement"/>
+	</class>
+	<class name="LaneSet">
+		<EOperation name="LaneSetlanes" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="LaneSet.lanes"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="LaneSet::/lanes : Lane [*] = ActivityPartition.SubPartition"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="LaneSetparentLane" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="LaneSet.parentLane"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="LaneSet::/parentLane : Lane [*] = ActivityPartition.superpartition"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="LaneSetflowElementsContainer" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="LaneSet.flowElementsContainer"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="LaneSet::/flowElementsContainer [0..1] inverse of Activity.partition and SubProcess.laneSets"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="LaneSet" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="ActivityPartitions with LaneSet stereotype applied must have isDimension = true"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="base_ActivityPartition" ordered="false" lowerBound="1" type=""/>
+		<ref name="lanes" ordered="false" upperBound="-1" changeable="false" volatile="true" transient="true" derived="true" type="Lane"/>
+		<ref name="parentLane" ordered="false" upperBound="-1" changeable="false" volatile="true" transient="true" derived="true" type="Lane"/>
+		<ref name="flowElementsContainer" ordered="false" volatile="true" transient="true" derived="true" type="FlowElementsContainer"/>
+	</class>
+	<class name="Lane">
+		<EOperation name="LanelaneSet" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="Lane.laneSet"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="Lane::/laneSet : Lane  = ActivityPartition.superPartition"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="LanechildLaneSet" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="Lane.childLaneSet"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="Lane::/childLaneSet : Lane  [0..1] = ActivityPartition.subPartition"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="LanepartitionElementRef" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="Lane.partitionElementRef"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="Lane::/partitionElementRef [0..1] = ActivityPartition.represents"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="LaneflowNodeRefs" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="Lane.flowNodeRefs"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="Lane::/flowNodeRefs [*] = ActivityPartition.node"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="base_ActivityPartition" ordered="false" lowerBound="1" type=""/>
+		<ref name="_partitionElement" ordered="false" type="">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value=" partitionElement"/>
+			</EAnnotation>
+		</ref>
+		<ref name="flowNodeRefs" ordered="false" upperBound="-1" type="FlowNode"/>
+		<ref name="partitionElementRef" ordered="false" type="BaseElement"/>
+		<ref name="childLaneSet" ordered="false" changeable="false" volatile="true" transient="true" derived="true" type="LaneSet">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="childLaneSet "/>
+			</EAnnotation>
+		</ref>
+		<ref name="laneSet" ordered="false" changeable="false" volatile="true" transient="true" derived="true" type="LaneSet"/>
+	</class>
+	<class name="SequenceFlow">
+		<EOperation name="SequenceFlowconditionExpression" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="SequenceFlow.conditionExpression"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="SequenceFlow::/conditionExpression : BPMNExpression = ControlFloe.guard  (defined on Activity edge)"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="SequenceFlowsourceRef" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="SequenceFlow.sourceRef"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="SequenceFlow::/sourceRef : ActivityNode = ControlFlow.source (defined on Activity edge). Constrained to elements stereotyped by BPMN Flow Node  stereotypes"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="SequenceFlowtargetRef" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="SequenceFlow.targetRef"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="SequenceFlow::/targetRef : ActivityNode = ControlFlow.target (defined on Activity edge). Constrained to elements stereotyped by BPMN Flow Node  stereotypes"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="base_ControlFlow" ordered="false" lowerBound="1" type=""/>
+		<attr name="isImmediate" ordered="false" lowerBound="1" type="//null"/>
+		<ref name="conditionExpression" ordered="false" type="BPMNExpression"/>
+		<ref name="sourceRef" ordered="false" lowerBound="1" changeable="false" volatile="true" transient="true" derived="true" type="FlowNode"/>
+		<ref name="targetRef" ordered="false" lowerBound="1" changeable="false" volatile="true" transient="true" derived="true" type="FlowNode"/>
+	</class>
+	<class name="BPMNExpression">
+		<ref name="base_OpaqueExpression" ordered="false" type=""/>
+	</class>
+	<class name="EventBasedGateway">
+		<attr name="instantiate" ordered="false" lowerBound="1" defaultValueLiteral="false" type="//null"/>
+		<attr name="eventGatewayType" ordered="false" lowerBound="1" defaultValueLiteral="exclusive" type="//EventBasedGatewayType"/>
+		<ref name="base_ForkNode" ordered="false" lowerBound="1" type=""/>
+		<ref name="base_StructuredActivityNode" ordered="false" lowerBound="1" type=""/>
+		<ref name="base_InterruptibleActivityRegion" ordered="false" lowerBound="1" type=""/>
+	</class>
+	<EEnum name="EventBasedGatewayType">
+		<EEnumLiteral name="exclusive"/>
+		<EEnumLiteral name="parallel" value="1"/>
+	</EEnum>
+	<EEnum name="GatewayDirection">
+		<EEnumLiteral name="unspecified"/>
+		<EEnumLiteral name="converging" value="1"/>
+		<EEnumLiteral name="diverging" value="2"/>
+		<EEnumLiteral name="mixed" value="3"/>
+	</EEnum>
+	<class name="ParallelGateway"/>
+	<class name="ComplexGateway">
+		<EOperation name="complexGatewaydefault" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="complexGateway.default"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="complexGateway::/default : SequenceFlow [0..1] = an outgoing control flow with guard "else""/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="complexGatewayactivationCondition" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="complexGateway.activationCondition"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="complexGateway::/activationCondition : BPMNExpression [0..1] = JoinNode::joinSpec"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="complexGatewayjoinSpec" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="complexGateway.joinSpec"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="complexGateway::joinSpec = "BPMNInclusive" when applied to join nodes"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="default" ordered="false" type="SequenceFlow"/>
+		<ref name="activationCondition" ordered="false" type="BPMNExpression"/>
+	</class>
+	<class name="ExclusiveGateway">
+		<EOperation name="exclusiveGatewaydefault" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="exclusiveGateway.default"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="exclusiveGateway::/default : SequenceFlow [0..1] = an outgoing control flow with guard "else""/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="base_DecisionNode" ordered="false" type=""/>
+		<ref name="base_MergeNode" ordered="false" type=""/>
+		<ref name="default" ordered="false" type="SequenceFlow"/>
+	</class>
+	<class name="RootElement" abstract="true">
+		<ref name="base_PackageableElement" ordered="false" lowerBound="1" type=""/>
+		<ref name="definition" ordered="false" type="Definitions"/>
+	</class>
+	<class name="Definitions">
+		<ref name="base_Package" ordered="false" lowerBound="1" type=""/>
+		<attr name="targetNamespace" ordered="false" lowerBound="1" type="//null"/>
+		<attr name="expressionLanguage" ordered="false" type="//null"/>
+		<attr name="typeLanguage" ordered="false" type="//null"/>
+		<attr name="exporter" ordered="false" lowerBound="1" type="//null"/>
+		<attr name="exporterVersion" ordered="false" lowerBound="1" type="//null"/>
+		<ref name="extensions" ordered="false" upperBound="-1" type="BPMNExtension"/>
+		<ref name="imports" ordered="false" upperBound="-1" type="Import"/>
+		<ref name="relationships" ordered="false" upperBound="-1" type="BPMNRelationship"/>
+		<ref name="rootElements" ordered="false" upperBound="-1" type="RootElement"/>
+	</class>
+	<class name="BPMNExtension">
+		<ref name="base_Stereotype" ordered="false" lowerBound="1" type=""/>
+		<attr name="mustUnderstand" ordered="false" defaultValueLiteral="false" type="//null"/>
+		<ref name="definition" ordered="false" lowerBound="1" type="ExtensionDefinition"/>
+	</class>
+	<class name="Import">
+		<ref name="base_PackageImport" ordered="false" lowerBound="1" type=""/>
+		<attr name="importType" ordered="false" lowerBound="1" type="//null"/>
+		<attr name="location" ordered="false" lowerBound="1" type="//null"/>
+		<attr name="namespace" ordered="false" lowerBound="1" type="//null"/>
+		<ref name="definitions" ordered="false" lowerBound="1" type="Definitions"/>
+	</class>
+	<class name="BPMNRelationship">
+		<ref name="base_Constraint" ordered="false" lowerBound="1" type=""/>
+		<attr name="type" ordered="false" lowerBound="1" type="//null"/>
+		<attr name="direction" ordered="false" lowerBound="1" type="//RelationshipDirection"/>
+		<ref name="targets" ordered="false" lowerBound="1" upperBound="-1" type=""/>
+		<ref name="sources" ordered="false" lowerBound="1" upperBound="-1" type=""/>
+		<ref name="definition" ordered="false" lowerBound="1" type="Definitions"/>
+	</class>
+	<EEnum name="RelationshipDirection">
+		<EEnumLiteral name="none"/>
+		<EEnumLiteral name="forward" value="1"/>
+		<EEnumLiteral name="backward" value="2"/>
+		<EEnumLiteral name="both" value="3"/>
+	</EEnum>
+	<class name="BPMNProcess">
+		<EOperation name="ProcesssupportedInterfaceRefs" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="Process.supportedInterfaceRefs"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="BPMN::Process supportedInterfaceRefs are referenced by UML property RealizedInterface."/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="Processsupports" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="Process.supports"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="self.supports = self.base_Activity./general.extension_Process "/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="Processproperties" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="Process.properties"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="self.properties = self.base_Activity.ownedAttribute.bpmnProperty"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="ProcesslaneSets" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="Process.laneSets"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="Process::/laneSets : LaneSet [*] = Activity.partition"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="ProcessflowElements" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="Process.flowElements"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="Process::/flowElements : RedefinableElement = the collected values of Activity::node, Activity::edge and Activity::group. Constrained to elements stereotyped by BPMN process element stereotypes."/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<attr name="processType" ordered="false" lowerBound="1" defaultValueLiteral="none" type="//ProcessType"/>
+		<attr name="isClosed" ordered="false" lowerBound="1" defaultValueLiteral="false" type="//null"/>
+		<ref name="auditing" ordered="false" type="Auditing"/>
+		<attr name="isExecutable" ordered="false" type="//null"/>
+		<ref name="definitionalCollaborationRef" ordered="false" type="BPMNCollaboration"/>
+		<ref name="base_Activity" ordered="false" lowerBound="1" type=""/>
+		<ref name="correlationSubscriptions" ordered="false" upperBound="-1" type="CorrelationSubscription"/>
+		<ref name="monitoring" ordered="false" type="Monitoring"/>
+		<ref name="supports" ordered="false" lowerBound="1" changeable="false" volatile="true" transient="true" derived="true" type="BPMNProcess"/>
+		<ref name="properties" ordered="false" upperBound="-1" type="BPMNProperty"/>
+		<ref name="resources" ordered="false" upperBound="-1" type="ResourceRole"/>
+	</class>
+	<class name="CallableElement" abstract="true">
+		<EOperation name="CallableEelementsupportedInterfaceRefs" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="CallableEelement.supportedInterfaceRefs"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="CallableEelement::/supportedInterfaceRefs : BPMNInterface [*] = Activity.interfaceRealization.contract (defined on BehavioralClassifier and InterfaceRealization)"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="CallableElementresources" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="CallableElement.resources"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="CallableElement::/resources : ResourceRole [*] = Behavior.ownedAttribute with the ResourceRole stereotype applied."/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="base_Behavior" ordered="false" lowerBound="1" type=""/>
+		<ref name="ioSpecification" ordered="false" type="InputOutputSpecification"/>
+		<ref name="supportedInterfaceRefs" ordered="false" upperBound="-1" type="BPMNInterface"/>
+		<ref name="ioBinding" ordered="false" upperBound="-1" type="InputOutputBinding"/>
+	</class>
+	<class name="InputOutputSpecification">
+		<ref name="base_Behavior" ordered="false" lowerBound="1" type=""/>
+		<ref name="base_Action" ordered="false" lowerBound="1" type=""/>
+		<ref name="dataInputs" ordered="false" upperBound="-1" type="DataInput"/>
+		<ref name="dataOutputs" ordered="false" upperBound="-1" type="DataOutput"/>
+		<ref name="inputSets" ordered="false" lowerBound="1" upperBound="-1" type="InputSet"/>
+		<ref name="outputSets" ordered="false" lowerBound="1" upperBound="-1" type="OutputSet"/>
+	</class>
+	<class name="DataInput">
+		<EOperation name="DataInputAssociation" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="DataInput.Association"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="DataInput must not have incoming DataAssociations"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="DataInputnotation" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="DataInput.notation"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="DataInput owned by BPMN Process has a notation. 
+				DataInput owned by BPMN Activity has no notation. "/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="DataInputitemSubjectRef" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="DataInput.itemSubjectRef"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="DataInput::/itemSubjectRef :ItemDefinition [0..1] = ObjectNode.type (defined on typed element)"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<attr name="isCollection" ordered="false" lowerBound="1" defaultValueLiteral="false" type="//null"/>
+		<ref name="base_InputPin" ordered="false" type=""/>
+		<ref name="base_Parameter" ordered="false" type=""/>
+		<ref name="base_ActivityParameterNode" ordered="false" type=""/>
+		<ref name="inputSetRefs" ordered="false" upperBound="-1" type="InputSet"/>
+		<ref name="inputSetWithOptional" ordered="false" upperBound="-1" type="InputSet"/>
+		<ref name="inputSetWithWhileExecuting" ordered="false" upperBound="-1" type="InputSet"/>
+	</class>
+	<class name="ItemAwareElement" abstract="true">
+		<EOperation name="ItemAwareElementdataState" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="ItemAwareElement.dataState"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="States extended by DataStates that are dataStates of item aware element stereotypes applied to ObjectNodes must be values of the inState property of the ObjectNodes, and vice versa."/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="dataState" ordered="false" upperBound="-1" type="DataState"/>
+		<ref name="base_TypedElement" ordered="false" lowerBound="1" type=""/>
+		<ref name="itemSubjectRef" ordered="false" type="ItemDefinition">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="itemSubjectRef "/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="DataState">
+		<ref name="base_State" ordered="false" lowerBound="1" type=""/>
+	</class>
+	<class name="ItemDefinition">
+		<EOperation name="ItemDefinitionstructureRef" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="ItemDefinition.structureRef"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="self.structureRef = self.base_Class"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<attr name="itemKind" ordered="false" lowerBound="1" defaultValueLiteral="information" type="//ItemKind"/>
+		<attr name="isCollection" ordered="false" lowerBound="1" defaultValueLiteral="false" type="//null"/>
+		<ref name="base_Class" ordered="false" lowerBound="1" type=""/>
+		<ref name="structureRef" ordered="false" type="">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+				<EStringToStringMapEntry key="derivation" value="self.base_Class"/>
+			</EAnnotation>
+		</ref>
+		<ref name="import" ordered="false" type="Import"/>
+	</class>
+	<EEnum name="ItemKind">
+		<EEnumLiteral name="physical"/>
+		<EEnumLiteral name="information" value="1"/>
+	</EEnum>
+	<class name="InputSet">
+		<EOperation name="InputSetdataInputRefs" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="InputSet.dataInputRefs"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="InputSet::/dataInputRefs : DataIntput [*] = ParameterSet.parameter"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="InputSetoptionalInputRefs" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="InputSet.optionalInputRefs"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="InputSet::/optionalInputRefs : DataInput [*] = ParameterSet.parameters with multiplicity lower = 0"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="InputSetwhileExecutingInputRefs" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="InputSet.whileExecutingInputRefs"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="InputSet::/whileExecutingInputRefs : DataInput [*] = ParameterSet.parameters with isStreaming = true"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="base_ParameterSet" ordered="false" lowerBound="1" type=""/>
+		<ref name="optionalInputRefs" ordered="false" upperBound="-1" type="DataInput"/>
+		<ref name="whileExecutingInputRefs" ordered="false" upperBound="-1" type="DataInput"/>
+		<ref name="dataInputRefs" ordered="false" upperBound="-1" type="DataInput"/>
+	</class>
+	<class name="DataOutput">
+		<EOperation name="DataOutputnotation" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="DataOutput.notation"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="DataOutput owned by BPMN Process has a notation. 
+				DataOutput owned by BPMN Activity has no notation. "/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="DataOutputitemSubjectRef" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="DataOutput.itemSubjectRef"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="DataOutput::/itemSubjectRef :ItemDefinition [0..1] = ObjectNode.type (defined on typed element)"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="base_OutputPin" ordered="false" type=""/>
+		<attr name="isCollection" ordered="false" lowerBound="1" defaultValueLiteral="false" type="//null"/>
+		<ref name="base_Parameter" ordered="false" type=""/>
+		<ref name="base_ActivityParameterNode" ordered="false" type=""/>
+		<ref name="outputSetRefs" ordered="false" upperBound="-1" type="OutputSet"/>
+		<ref name="outputSetWithOptional" ordered="false" upperBound="-1" type="OutputSet"/>
+		<ref name="outputSetWithWhileExecuting" ordered="false" upperBound="-1" type="OutputSet"/>
+	</class>
+	<class name="OutputSet">
+		<EOperation name="OutputSetdataOutputRefs" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="OutputSet.dataOutputRefs"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="OutputSet::/dataOutputRefs : DataOutput [*] = ParameterSet.parameter"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="OutputSetoptionalOutputRefs" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="OutputSet.optionalOutputRefs"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="OutputSet::\optionalOutputRefs : DataOutput [*] = ParameterSet.parameters with multiplicity lower = 0"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="OutputSetwhileExecutingOutputRefs" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="OutputSet.whileExecutingOutputRefs"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="OutputSet::\whileExecutingOutputRefs : DataOutput [*] = ParameterSet.parameters with isStreaming  = true"/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<ref name="base_ParameterSet" ordered="false" lowerBound="1" type=""/>
+		<ref name="optionalOutputRefs" ordered="false" upperBound="-1" type="DataOutput">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="optionalOutputRefs "/>
+			</EAnnotation>
+		</ref>
+		<ref name="whileExecutingOutputRefs" ordered="false" upperBound="-1" type="DataOutput">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="whileExecutingOutputRefs "/>
+			</EAnnotation>
+		</ref>
+		<ref name="dataOutputRefs" ordered="false" upperBound="-1" type="DataOutput"/>
+	</class>
+	<class name="BPMNInterface">
+		<EOperation name="Interfaceoperationmultiplicity" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="Interface.operation.multiplicity"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="Interface may have from 1 to many operations."/>
+			</EAnnotation>
+			<EParameter name="diagnostics" type="EDiagnosticChain">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+				</EAnnotation>
+			</EParameter>
+			<EParameter name="context" type="EMap">
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+				</EAnnotation>
+			</EParameter>
+		</EOperation>
+		<EOperation name="InterfaceownedOperation" type="EBoolean">
+			<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<EStringToStringMapEntry key="originalName" value="Interface.ownedOperation"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="All interface operations should have BPMN <<Operation>> sterereotype applied."/>
+				</EAnnotation>
+				<EParameter name="diagnostics" type="EDiagnosticChain">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+					</EAnnotation>
+				</EParameter>
+				<EParameter name="context" type="EMap">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+					</EAnnotation>
+				</EParameter>
+			</EOperation>
+			<EOperation name="BPMNInterfacecallableElements" type="EBoolean">
+				<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<EStringToStringMapEntry key="originalName" value="BPMNInterface.callableElements"/>
+				</EAnnotation>
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="BPMNInterface::/callableElements : CallableElement [*] = Interface.interfaceRealization.implementingClassifier"/>
+				</EAnnotation>
+				<EParameter name="diagnostics" type="EDiagnosticChain">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+					</EAnnotation>
+				</EParameter>
+				<EParameter name="context" type="EMap">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+					</EAnnotation>
+				</EParameter>
+			</EOperation>
+			<EOperation name="BPMNInterfaceoperations" type="EBoolean">
+				<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<EStringToStringMapEntry key="originalName" value="BPMNInterface.operations"/>
+				</EAnnotation>
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="BPMNInterface::/operations: BPMNOperation : Interface.ownedOperation"/>
+				</EAnnotation>
+				<EParameter name="diagnostics" type="EDiagnosticChain">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+					</EAnnotation>
+				</EParameter>
+				<EParameter name="context" type="EMap">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+					</EAnnotation>
+				</EParameter>
+			</EOperation>
+			<ref name="base_Interface" ordered="false" lowerBound="1" type=""/>
+			<ref name="implementationRef" ordered="false" type=""/>
+			<ref name="operations" ordered="false" upperBound="-1" type="BPMNOperation"/>
+			<ref name="callableElements" ordered="false" upperBound="-1" type="CallableElement"/>
+		</class>
+		<class name="BPMNOperation">
+			<EOperation name="BPMNOperationowner" type="EBoolean">
+				<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<EStringToStringMapEntry key="originalName" value="BPMNOperation.owner"/>
+				</EAnnotation>
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="BPMN Operation owner must be BPMN Interface."/>
+				</EAnnotation>
+				<EParameter name="diagnostics" type="EDiagnosticChain">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+					</EAnnotation>
+				</EParameter>
+				<EParameter name="context" type="EMap">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+					</EAnnotation>
+				</EParameter>
+			</EOperation>
+			<EOperation name="BPMNOperationinMessageRef" type="EBoolean">
+				<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<EStringToStringMapEntry key="originalName" value="BPMNOperation.inMessageRef"/>
+				</EAnnotation>
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="BPMNOperation::/inMessageRef : BPMNMessage = the first in Operation.ownedParameter with direction = in, and a type that has the BPMNMessage stereotype applied."/>
+				</EAnnotation>
+				<EParameter name="diagnostics" type="EDiagnosticChain">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+					</EAnnotation>
+				</EParameter>
+				<EParameter name="context" type="EMap">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+					</EAnnotation>
+				</EParameter>
+			</EOperation>
+			<EOperation name="BPMNOperationoutMessageRef" type="EBoolean">
+				<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<EStringToStringMapEntry key="originalName" value="BPMNOperation.outMessageRef"/>
+				</EAnnotation>
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="BPMNOperation::/outMessageRef : BPMNMessage = the first in Operation.ownedParameter with direction = out or return, and a type that has the BPMNMessage stereotype applied."/>
+				</EAnnotation>
+				<EParameter name="diagnostics" type="EDiagnosticChain">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+					</EAnnotation>
+				</EParameter>
+				<EParameter name="context" type="EMap">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+					</EAnnotation>
+				</EParameter>
+			</EOperation>
+			<EOperation name="BPMNOperationerrorRefs" type="EBoolean">
+				<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<EStringToStringMapEntry key="originalName" value="BPMNOperation.errorRefs"/>
+				</EAnnotation>
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="BPMNOperation::/errorRefs : Error [*] =  Operation.raisedException (defined on Behavioral Feature)"/>
+				</EAnnotation>
+				<EParameter name="diagnostics" type="EDiagnosticChain">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+					</EAnnotation>
+				</EParameter>
+				<EParameter name="context" type="EMap">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+					</EAnnotation>
+				</EParameter>
+			</EOperation>
+			<ref name="base_Operation" ordered="false" lowerBound="1" type=""/>
+			<ref name="implementationRef" ordered="false" type=""/>
+			<ref name="inMessageRef" ordered="false" lowerBound="1" type="BPMNMessage"/>
+			<ref name="outMessageRef" ordered="false" type="BPMNMessage"/>
+			<ref name="errorRef" ordered="false" upperBound="-1" type="Error"/>
+		</class>
+		<class name="BPMNMessage">
+			<EOperation name="MessageitemRef" type="EBoolean">
+				<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<EStringToStringMapEntry key="originalName" value="Message.itemRef"/>
+				</EAnnotation>
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="self.iitemRef : ItemDefintion [0..1] = self.base_Class.extension_ItemDefinition"/>
+				</EAnnotation>
+				<EParameter name="diagnostics" type="EDiagnosticChain">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+					</EAnnotation>
+				</EParameter>
+				<EParameter name="context" type="EMap">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+					</EAnnotation>
+				</EParameter>
+			</EOperation>
+			<ref name="itemRef" ordered="false" type="ItemDefinition"/>
+		</class>
+		<class name="Error">
+			<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+				<EStringToStringMapEntry key="documentation" value="self.structureRef = self.base_Class"/>
+			</EAnnotation>
+			<EAnnotation source="duplicates">
+				<EAnnotation source="structureRef">
+					<EStringToStringMapEntry key="eType" value="uml::Class"/>
+				</EAnnotation>
+				<ref name="structureRef" ordered="false" type="">
+					<EAnnotation source="redefines"/>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+						<EStringToStringMapEntry key="derivation" value="self.base_Class"/>
+					</EAnnotation>
+				</ref>
+			</EAnnotation>
+			<attr name="errorCode" ordered="false" type="//null"/>
+		</class>
+		<class name="InputOutputBinding">
+			<ref name="inputDataRef" ordered="false" lowerBound="1" type="InputSet"/>
+			<ref name="outputDataRef" ordered="false" lowerBound="1" type="OutputSet"/>
+			<ref name="operationRef" ordered="false" lowerBound="1" type="BPMNOperation"/>
+			<ref name="base_Dependency" ordered="false" lowerBound="1" type=""/>
+		</class>
+		<EEnum name="ProcessType">
+			<EEnumLiteral name="none"/>
+			<EEnumLiteral name="public" value="1"/>
+			<EEnumLiteral name="private" value="2"/>
+		</EEnum>
+		<class name="BPMNCollaboration">
+			<EOperation name="Collaborationparticipants" type="EBoolean">
+				<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<EStringToStringMapEntry key="originalName" value="Collaboration.participants"/>
+				</EAnnotation>
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="Collaboration::/participants : Participant [*] = Collaboration.ownedAttributes with Participant stereotype applied."/>
+				</EAnnotation>
+				<EParameter name="diagnostics" type="EDiagnosticChain">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+					</EAnnotation>
+				</EParameter>
+				<EParameter name="context" type="EMap">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+					</EAnnotation>
+				</EParameter>
+			</EOperation>
+			<attr name="isClosed" ordered="false" lowerBound="1" defaultValueLiteral="false" type="//null"/>
+			<ref name="participantAssociations" ordered="false" upperBound="-1" type="ParticipantAssociation"/>
+			<ref name="conversationLinks" ordered="false" upperBound="-1" type="ConversationLink"/>
+			<ref name="messageFlowAssociations" ordered="false" upperBound="-1" type="MessageFlowAssociation"/>
+			<ref name="messageFlows" ordered="false" upperBound="-1" type="MessageFlow"/>
+			<ref name="base_Collaboration" ordered="false" lowerBound="1" type=""/>
+			<ref name="conversations" ordered="false" upperBound="-1" type="ConversationNode"/>
+			<ref name="correlationKeys" ordered="false" upperBound="-1" type="CorrelationKey"/>
+			<ref name="participants" ordered="false" upperBound="-1" type="Participant"/>
+		</class>
+		<class name="ParticipantAssociation">
+			<EOperation name="ParticipantAssociationinnerParticipantRef" type="EBoolean">
+				<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<EStringToStringMapEntry key="originalName" value="ParticipantAssociation.innerParticipantRef"/>
+				</EAnnotation>
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="ParticipantAssociation::/innerParticipantRef : Participant = Dependency.supplier"/>
+				</EAnnotation>
+				<EParameter name="diagnostics" type="EDiagnosticChain">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+					</EAnnotation>
+				</EParameter>
+				<EParameter name="context" type="EMap">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+					</EAnnotation>
+				</EParameter>
+			</EOperation>
+			<EOperation name="ParticipantAssociationouterParticipantRef" type="EBoolean">
+				<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<EStringToStringMapEntry key="originalName" value="ParticipantAssociation.outerParticipantRef"/>
+				</EAnnotation>
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="ParticipantAssociation::/outerParticipantRef : Participant = Dependency.clients"/>
+				</EAnnotation>
+				<EParameter name="diagnostics" type="EDiagnosticChain">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+					</EAnnotation>
+				</EParameter>
+				<EParameter name="context" type="EMap">
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+					</EAnnotation>
+				</EParameter>
+			</EOperation>
+			<ref name="base_Dependency" ordered="false" lowerBound="1" type=""/>
+			<ref name="innerParticipantRef" ordered="false" lowerBound="1" type="Participant"/>
+			<ref name="outerParticipantRef" ordered="false" lowerBound="1" type="Participant"/>
+		</class>
+		<class name="Participant">
+			<EOperation name="Participantownership" type="EBoolean">
+				<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+					<EStringToStringMapEntry key="originalName" value="Participant.ownership"/>
+				</EAnnotation>
+				<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+					<EStringToStringMapEntry key="documentation" value="Participant must be owned by BPMN <<Collaboration>>"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="Participanttype" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="Participant.type"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="Participant must be typed either by UML class or a stereotyped class."/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="ParticipantmultiplicityMinimum" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="Participant.multiplicityMinimum"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="Participant.multiplicityMaximum : UnlimitedNatural = Property.upper (defined on Multiplicity element)"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="Participantrealizationsupplier" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="Participant.realization.supplier"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value=" The supplier is a UML Interface stereotyped
+						by BPMN Interface"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="ParticipantprocessRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="Participant.processRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="Participant:://processRef : Process [0..1] = Property.type if type is activity, or Property.type.classifierBehavior if type is a BehavioredClassifier that is not Activity"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="ParticipantmultiplicityMaximum" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="Participant.multiplicityMaximum"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="Participant.multiplicityMaximum : Integer = Property.upper (defined on Multiplicity element)"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="participantpartnerEntityRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="participant.partnerEntityRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="participant::/partnerEntityRef : PartnerEntity [*] = inverse of PartnerEntity::/participantRef"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="participantpartnerRoleRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="participant.partnerRoleRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="participant::/partnerRoleRef : PartnerRole [*] = inverse of PartnerRole::/participantRef"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="ParticipantinterfaceRefs" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="Participant.interfaceRefs"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="Participant:://interfaceRefs : BPMNInterface [*] = Property.type with BPMNInterface stereotype applied"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<ref name="base_Property" ordered="false" lowerBound="1" type=""/>
+				<ref name="processRef" ordered="false" type="BPMNProcess"/>
+				<ref name="participantMultiplicity" ordered="false" type="ParticipantMultiplicity">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="participantMultiplicity "/>
+					</EAnnotation>
+				</ref>
+				<ref name="partnerEntityRef" ordered="false" upperBound="-1" type="PartnerEntity"/>
+				<ref name="partnerRoleRef" ordered="false" upperBound="-1" type="PartnerRole"/>
+				<ref name="interfaceRefs" ordered="false" upperBound="-1" type="BPMNInterface"/>
+			</class>
+			<class name="InteractionNode" abstract="true">
+				<ref name="base_InteractionNode_Element" ordered="false" lowerBound="1" type="">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="base_Element"/>
+					</EAnnotation>
+				</ref>
+				<ref name="outgoingConversationLinks" ordered="false" upperBound="-1" type="ConversationLink"/>
+				<ref name="incomingConversationLinks" ordered="false" lowerBound="1" type="ConversationLink"/>
+			</class>
+			<class name="ConversationLink">
+				<ref name="collaboration" ordered="false" lowerBound="1" type="BPMNCollaboration"/>
+				<ref name="base_Dependency" ordered="false" lowerBound="1" type=""/>
+				<ref name="targetRef" ordered="false" lowerBound="1" type="InteractionNode"/>
+				<ref name="sourceRef" ordered="false" lowerBound="1" type="InteractionNode"/>
+			</class>
+			<class name="ParticipantMultiplicity">
+				<ref name="base_MultiplicityElement" ordered="false" lowerBound="1" type=""/>
+				<attr name="minimum" ordered="false" lowerBound="1" type="//null"/>
+				<attr name="maximum" ordered="false" lowerBound="1" type="//null"/>
+			</class>
+			<class name="PartnerEntity">
+				<EOperation name="PartnerEntityparticipantRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="PartnerEntity.participantRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="PartnerEntity::/participantRef : Participant [*] = properties with Participant stereotype applied that the instance specification is default value of."/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<ref name="base_InstanceSpecification" ordered="false" lowerBound="1" type=""/>
+				<ref name="participantRef" ordered="false" upperBound="-1" type="Participant"/>
+			</class>
+			<class name="PartnerRole">
+				<EOperation name="PartnerRoleparticipantRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="PartnerRole.participantRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="PartnerRole::/participantRef : Participant [*] = properties with Participant stereotype applied that the class is the type of."/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<ref name="base_Class" ordered="false" lowerBound="1" type=""/>
+				<ref name="participantRef" ordered="false" upperBound="-1" type="Participant"/>
+			</class>
+			<class name="MessageFlowAssociation">
+				<EOperation name="MessageFlowAssociationinnerMessageFlowRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="MessageFlowAssociation.innerMessageFlowRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="MessageFlowAssociation InnerMessageFlowRef is a UML dependency supplier"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="MessageFlowAssociationouterMessageFlowRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="MessageFlowAssociation.outerMessageFlowRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="MessageFlowAssociation OuterMessageFlowRef is a UML dependency client"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<ref name="base_Dependency" ordered="false" lowerBound="1" type=""/>
+				<ref name="innerMessageFlowRef" ordered="false" lowerBound="1" type="MessageFlow"/>
+				<ref name="outerMessageFlowRef" ordered="false" lowerBound="1" type="MessageFlow"/>
+			</class>
+			<class name="MessageFlow">
+				<EOperation name="MessageFlowsourceRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="MessageFlow.sourceRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="MessageFlow::/sourceRef = InformationFlow.informationSource"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="MessageFlowtargetRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="MessageFlow.targetRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="MessageFlow::/messageRef : Message [0..1] = InformationFlow.conveyed"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="MessageFlowmessageRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="MessageFlow.messageRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="MessageFlow::/targetRef = InformationFlow.informationTarget"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<ref name="base_InformationFlow" ordered="false" lowerBound="1" type=""/>
+				<ref name="sourceRef" ordered="false" lowerBound="1" type="InteractionNode"/>
+				<ref name="targetRef" ordered="false" lowerBound="1" type="InteractionNode"/>
+				<ref name="messageRef" ordered="false" type="BPMNMessage"/>
+			</class>
+			<class name="ConversationNode" abstract="true">
+				<EOperation name="ConversationNodeparticipantRefs" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="ConversationNode.participantRefs"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="ConversationNode::/participantRefs : Participant [2..*] = the informationSource and informationTarget on the InformationFlow"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<ref name="base_InformationFlow" ordered="false" lowerBound="1" type=""/>
+				<ref name="messageFlowRefs" ordered="false" upperBound="-1" type="MessageFlow"/>
+				<ref name="correlationKeys" ordered="false" upperBound="-1" type="CorrelationKey"/>
+				<ref name="participantRefs" ordered="false" lowerBound="2" upperBound="-1" type="Participant"/>
+			</class>
+			<class name="CorrelationKey">
+				<ref name="base_Class" ordered="false" lowerBound="1" type=""/>
+				<ref name="correlationPropertyRef" ordered="false" upperBound="-1" type="CorrelationProperty"/>
+			</class>
+			<class name="CorrelationProperty">
+				<ref name="base_Property" ordered="false" lowerBound="1" type=""/>
+				<ref name="type" ordered="false" type="ItemDefinition"/>
+				<ref name="correlationPropertyRetrievalExpression" ordered="false" lowerBound="1" upperBound="-1" type="CorrelationPropertyRetrievalExpression"/>
+			</class>
+			<class name="CorrelationPropertyRetrievalExpression">
+				<ref name="base_Dependency" ordered="false" lowerBound="1" type=""/>
+				<ref name="messageRef" ordered="false" lowerBound="1" type="BPMNMessage"/>
+				<ref name="messagePath" ordered="false" lowerBound="1" type="FormalExpression"/>
+			</class>
+			<class name="FormalExpression">
+				<EOperation name="FormalExpressionevaluatesToTypeRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="FormalExpression.evaluatesToTypeRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="self.evaluatesToTypeRef = self.base_OpaqueExpression.type. extension_ItemDefinition"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<ref name="evaluatesToTypeRef" ordered="false" lowerBound="1" type="ItemDefinition"/>
+			</class>
+			<class name="CorrelationSubscription">
+				<ref name="base_Class" ordered="false" lowerBound="1" type=""/>
+				<ref name="correlationKeyRef" ordered="false" lowerBound="1" type="CorrelationKey"/>
+				<ref name="correlationPropertyBinding" ordered="false" upperBound="-1" type="CorrelationPropertyBinding"/>
+			</class>
+			<class name="CorrelationPropertyBinding">
+				<ref name="base_Property" ordered="false" lowerBound="1" type=""/>
+				<ref name="dataPath" ordered="false" lowerBound="1" type="FormalExpression"/>
+				<ref name="correlationPropertyRef" ordered="false" lowerBound="1" type="CorrelationProperty"/>
+			</class>
+			<class name="BPMNProperty">
+				<EOperation name="Propertynotation" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="Property.notation"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="Property elements are NOT
+						visible in a Process diagram.
+						Figure"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="BPMNPropertyapply" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="BPMNProperty.apply"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="may be applied only for:
+						pin owned by CallActivity or Task
+						Parameter owned by BPMNProcess 
+						Variable owned by SubProcess"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<ref name="base_DataStoreNode" ordered="false" lowerBound="1" type=""/>
+				<ref name="umlProperty" ordered="false" lowerBound="1" type=""/>
+			</class>
+			<class name="ResourceRole">
+				<EOperation name="ResourceRoleowner" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="ResourceRole.owner"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="Owner of the ResourceRole must be BPMN Process or BPMN Activity."/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="ResourceRoleresourceRef" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="ResourceRole.resourceRef"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="ResourceRole.resourceRef : Resource [0..1] = Property.type. ResourceRole type must be UML Class with stereotype BPMN Resource applied."/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="ResourceRoleisRequired" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="ResourceRole.isRequired"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="ResourceRole IsRequired translates to UML::Property::lower wot values 0 or 1"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="ResourceRoleprocess" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="ResourceRole.process"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="ResourceRole::/process : Process [0..1] = Property.class"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<EOperation name="ResourceRoleresourceParameterBindings" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="ResourceRole.resourceParameterBindings"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="ResourceRole.resourceParameterBindings : ResourceParameterBinding [*] = property.defaultValue.slot"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<ref name="base_Property" ordered="false" lowerBound="1" type=""/>
+				<ref name="resourceAssignmentExpression" ordered="false" type="ResourceAssignmentExpression"/>
+				<ref name="resourceRef" ordered="false" type="Resource"/>
+				<ref name="resourceParameterBindings" ordered="false" upperBound="-1" type="ResourceParameterBinding">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="resourceParameterBindings "/>
+					</EAnnotation>
+				</ref>
+				<ref name="process" ordered="false" type="BPMNProcess"/>
+			</class>
+			<class name="ResourceAssignmentExpression">
+				<EAnnotation source="duplicates">
+					<EAnnotation source="base_OpaqueExpression">
+						<EStringToStringMapEntry key="lowerBound" value="1"/>
+					</EAnnotation>
+					<ref name="base_OpaqueExpression" ordered="false" type="">
+						<EAnnotation source="redefines"/>
+					</ref>
+				</EAnnotation>
+				<EOperation name="ResourceAssignmentExpressionexpression" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="ResourceAssignmentExpression.expression"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="ResourceAssignmentExpression::/expression = self"/>
+					</EAnnotation>
+					<EParameter name="diagnostics" type="EDiagnosticChain">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+						</EAnnotation>
+					</EParameter>
+					<EParameter name="context" type="EMap">
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+						</EAnnotation>
+					</EParameter>
+				</EOperation>
+				<ref name="expression" ordered="false" lowerBound="1" type="BPMNExpression"/>
+			</class>
+			<class name="Resource">
+				<EOperation name="ResourceresourceParameters" type="EBoolean">
+					<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+						<EStringToStringMapEntry key="originalName" value="Resource.resourceParameters"/>
+					</EAnnotation>
+					<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+						<EStringToStringMapEntry key="documentation" value="Resource::/resourceParameters : ResourceParameter [*] = class.ownedAcctribute with the stereotype <<ResourceParameter>> applied."/>
+						</EAnnotation>
+						<EParameter name="diagnostics" type="EDiagnosticChain">
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+							</EAnnotation>
+						</EParameter>
+						<EParameter name="context" type="EMap">
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+							</EAnnotation>
+						</EParameter>
+					</EOperation>
+					<ref name="resourceParameters" ordered="false" upperBound="-1" type="ResourceParameter"/>
+				</class>
+				<class name="ResourceParameter">
+					<EOperation name="ResourceParameterowner" type="EBoolean">
+						<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+							<EStringToStringMapEntry key="originalName" value="ResourceParameter.owner"/>
+						</EAnnotation>
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="Resource Parameter must be owned by Resource."/>
+						</EAnnotation>
+						<EParameter name="diagnostics" type="EDiagnosticChain">
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+							</EAnnotation>
+						</EParameter>
+						<EParameter name="context" type="EMap">
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+							</EAnnotation>
+						</EParameter>
+					</EOperation>
+					<EOperation name="ResourceParametertype" type="EBoolean">
+						<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+							<EStringToStringMapEntry key="originalName" value="ResourceParameter.type"/>
+						</EAnnotation>
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="ResourceParameter::/type : Item Definition [0..1] = Property.type (defined on typed element)."/>
+						</EAnnotation>
+						<EParameter name="diagnostics" type="EDiagnosticChain">
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+							</EAnnotation>
+						</EParameter>
+						<EParameter name="context" type="EMap">
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+							</EAnnotation>
+						</EParameter>
+					</EOperation>
+					<EOperation name="ResourceParameterisRequired" type="EBoolean">
+						<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+							<EStringToStringMapEntry key="originalName" value="ResourceParameter.isRequired"/>
+						</EAnnotation>
+						<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+							<EStringToStringMapEntry key="documentation" value="ResourceParameter.isRequired : Boolean = Property.lower > 0 
+								(defined on Multiplicity Element)"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="base_Property" ordered="false" lowerBound="1" type=""/>
+						<ref name="type" ordered="false" type="ItemDefinition">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="type "/>
+							</EAnnotation>
+						</ref>
+						<attr name="isRequired" ordered="false" lowerBound="1" type="//null"/>
+					</class>
+					<class name="ResourceParameterBinding">
+						<EOperation name="ResourceParameterBindingexpression" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="ResourceParameterBinding.expression"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="ResourceParameterBinding::/expression :BPMNExpression = Slot.value"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="ResourceParameterBindingparameterRef" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="ResourceParameterBinding.parameterRef"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="ResourceParameterBinding::/parameterRef : ResourceParameter = Slot.definingFeature"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="base_Slot" ordered="false" lowerBound="1" type=""/>
+						<ref name="parameterRef" ordered="false" lowerBound="1" type="ResourceParameter"/>
+						<ref name="expression" ordered="false" lowerBound="1" type="BPMNExpression"/>
+					</class>
+					<class name="GlobalScriptTask">
+						<EOperation name="GlobalScriptTaskscriptFormat" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="GlobalScriptTask.scriptFormat"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="GlobalScriptTask::/scriptFormat : String [*] {ordered}= OpaqueBehavior.language"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="GlobalScriptTaskscript" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="GlobalScriptTask.script"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="GlobalScriptTask::/script : String [*] {ordered, non-unique}= OpaqueBehavior.body"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<attr name="script" unique="false" upperBound="-1" type="//null"/>
+						<attr name="scriptFormat" upperBound="-1" type="//null"/>
+					</class>
+					<class name="GlobalTask">
+						<EOperation name="GlobalTasksupportedInterfaceRefs" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="GlobalTask.supportedInterfaceRefs"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="GlobalTask supportedInterfaceRefs are referenced by UML property RealizedInterface."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="base_OpaqueBehavior" ordered="false" lowerBound="1" type=""/>
+						<ref name="resources" ordered="false" upperBound="-1" type="ResourceRole"/>
+					</class>
+					<class name="GlobalBusinessRuleTask">
+						<EOperation name="GlobalBusinessRuleTaskimplementation" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="GlobalBusinessRuleTask.implementation"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="GlobalBusinessRuleTask::/implementation: String [*] {ordered,non-unique} = OpaqueBehavior.body (defaults to "##unspecified")"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<attr name="implementation" unique="false" upperBound="-1" defaultValueLiteral="##unspecified" type="//null"/>
+					</class>
+					<class name="CompensateEventDefinition">
+						<attr name="waitForCompletion" ordered="false" lowerBound="1" defaultValueLiteral="true" type="//null"/>
+						<ref name="activityRef" ordered="false" type="BPMNActivity"/>
+						<ref name="base_CallEvent" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="EventDefinition" abstract="true">
+						<ref name="base_Event" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="BPMNActivity" abstract="true">
+						<EOperation name="BPMNActivityresources" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="BPMNActivity.resources"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="self.properties = self.base_BPMNActivity.activityClass. ownedAttribute.bpmnProperty"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="BPMNActivitycontainer" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="BPMNActivity.container"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="BPMNActivity::/container : RederinableElement the collected values of Action::Activity and Action::inGroup. Constrained to elements stereotyped by BPMNActivity or SubProcess"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="BPMNActivityproperties" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="BPMNActivity.properties"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="BPMNActivity::/resources : ResourceRole [*] = BPMNActivity.activityClass.OwnedAttribute with the ResourceRole stereotype applied."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="BPMNActivitydefault" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="BPMNActivity.default"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="BPMNActivity::/default : SequenceFlow [0..1] = and outgoingSequenceFlow with guard = "else""/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="BPMNActivityboundaryEventsRefs" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="BPMNActivity.boundaryEventsRefs"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="BPMNActivity::/boundaryEventsRefs : BoundaryEvent [*] = accept Event Actions in the same interruptible region as the BPMNActivity action."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="BPMNActivityloopCharacteristics" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="BPMNActivity.loopCharacteristics"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="BPMNActivity::/loopCharacteristics = inStructuredActivityNode, if the inStructuredActivityNode is a LoopNode with the StandardLoopCharacteristics stereotype applied or an ExpansionRegion with MultiInstanceLoopCharacteristics stereotype applied, otherwise empty."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<attr name="isForCompensation" ordered="false" lowerBound="1" defaultValueLiteral="false" type="//null"/>
+						<attr name="startQuantity" ordered="false" lowerBound="1" defaultValueLiteral="1" type="//null"/>
+						<attr name="completionQuantity" ordered="false" lowerBound="1" defaultValueLiteral="1" type="//null"/>
+						<ref name="base_Action" ordered="false" lowerBound="1" type=""/>
+						<ref name="activityClass" ordered="false" type=""/>
+						<ref name="properties" ordered="false" upperBound="-1" type="BPMNProperty"/>
+						<ref name="default" ordered="false" type="SequenceFlow"/>
+						<ref name="boundaryEventRefs" ordered="false" upperBound="-1" type="BoundaryEvent"/>
+						<ref name="dataInputAssociations" ordered="false" upperBound="-1" type="DataInputAssociation"/>
+						<ref name="dataOutputAssociations" ordered="false" upperBound="-1" type="DataOutputAssociation"/>
+						<ref name="loopCharacteristics" ordered="false" type="LoopCharacteristics"/>
+						<ref name="resources" ordered="false" upperBound="-1" type="ResourceRole"/>
+					</class>
+					<class name="BoundaryEvent">
+						<EAnnotation source="duplicates">
+							<EAnnotation source="base_AcceptEventAction">
+								<EStringToStringMapEntry key="lowerBound" value="1"/>
+							</EAnnotation>
+							<ref name="base_AcceptEventAction" ordered="false" type="">
+								<EAnnotation source="redefines"/>
+							</ref>
+						</EAnnotation>
+						<EOperation name="boundaryEventattachedToRef" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="boundaryEvent.attachedToRef"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="boundaryEvent::/attachedToRef : BPMNActivity = action in the same interruptible region as the event."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<attr name="cancelActivity" ordered="false" lowerBound="1" type="//null"/>
+						<ref name="attachedToRef" ordered="false" lowerBound="1" changeable="false" volatile="true" transient="true" derived="true" type="BPMNActivity"/>
+					</class>
+					<class name="CatchEvent" abstract="true">
+						<EOperation name="catchEventeventDefinitionsRefs" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="catchEvent.eventDefinitionsRefs"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="catchEvent::/eventDefinitionsRefs : EventDefinitions [*] = the events of the triggers of an accept event action to which the stereotype is applied that are not owned by the action."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<attr name="parallelMultiple" ordered="false" lowerBound="1" defaultValueLiteral="false" type="//null"/>
+						<ref name="base_AcceptEventAction" ordered="false" type=""/>
+						<ref name="base_InitialNode" ordered="false" type=""/>
+						<ref name="dataOutputAssociation" ordered="false" upperBound="-1" type="DataOutputAssociation"/>
+					</class>
+					<class name="BPMNEvent" abstract="true">
+						<ref name="eventClass" ordered="false" type=""/>
+						<ref name="_eventDefinitions" ordered="false" upperBound="-1" type="EventDefinition">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value=" eventDefinitions"/>
+							</EAnnotation>
+						</ref>
+						<ref name="properties" ordered="false" upperBound="-1" type="BPMNProperty"/>
+						<ref name="eventDefinitionRefs" ordered="false" upperBound="-1" type="EventDefinition"/>
+					</class>
+					<class name="DataOutputAssociation">
+						<EOperation name="dataOutputAssociationsource" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="dataOutputAssociation.source"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The source of DataAssociation shall be DataOutput"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="dataOutputAssociationtarget" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="dataOutputAssociation.target"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The target of DataAssociation can be every item-aware element visible to the current scope, e.g. a Data Object, a
+								Property or an Expression."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+					</class>
+					<class name="DataAssociation" abstract="true">
+						<EOperation name="DataAssociationsource" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="DataAssociation.source"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="DataAssociation source must be ItemAwareElement"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="DataAssociationtransformation" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="DataAssociation.transformation"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="BPMN DataAssociation::/transformation : FormalExpression [0..1] = ObjectFlow::transformation.
+								"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="DataAssociationtarget" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="DataAssociation.target"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="DataAssociation target must be ItemAwareElement"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="base_ObjectFlow" ordered="false" lowerBound="1" type=""/>
+						<ref name="sourceRef" ordered="false" lowerBound="1" type="ItemAwareElement"/>
+						<ref name="targetRef" ordered="false" lowerBound="1" type="ItemAwareElement"/>
+						<ref name="transformation" ordered="false" lowerBound="1" type="FormalExpression"/>
+						<ref name="assignment" ordered="false" upperBound="-1" type="Assignment"/>
+					</class>
+					<class name="Assignment">
+						<ref name="base_Dependency" ordered="false" lowerBound="1" type=""/>
+						<ref name="from" ordered="false" lowerBound="1" type="BPMNExpression"/>
+						<ref name="to" ordered="false" lowerBound="1" type="BPMNExpression"/>
+					</class>
+					<class name="DataInputAssociation">
+						<EOperation name="dataInputAssociationsource" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="dataInputAssociation.source"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The source of DataAssociation can be every item-aware element visible to the current
+								scope, e.g. a Data Object, a Property or an Expression."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="dataInputAssociationtarget" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="dataInputAssociation.target"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The target for DataInputAssociation shall be DataInput."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+					</class>
+					<class name="LoopCharacteristics" abstract="true">
+						<ref name="base_StructuredActivityNode" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="EscalationEventDefinition">
+						<ref name="escalationRef" ordered="false" type="Escalation"/>
+						<ref name="base_CallEvent" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="Escalation">
+						<EAnnotation source="duplicates">
+							<EAnnotation source="structureRef">
+								<EStringToStringMapEntry key="eType" value="uml::Class"/>
+							</EAnnotation>
+							<ref name="structureRef" ordered="false" type="">
+								<EAnnotation source="redefines"/>
+								<EAnnotation source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+									<EStringToStringMapEntry key="derivation" value="self.base_Class"/>
+								</EAnnotation>
+							</ref>
+						</EAnnotation>
+						<EOperation name="EscalationstructureRef" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="Escalation.structureRef"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="self.structureRef = self.base_Class"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<attr name="escalationCode" ordered="false" type="//null"/>
+					</class>
+					<class name="TimerEventDefinition">
+						<ref name="timeCycle" ordered="false" type="BPMNExpression"/>
+						<ref name="timeDate" ordered="false" type="BPMNExpression"/>
+						<ref name="timeDuration" ordered="false" type="BPMNExpression"/>
+						<ref name="base_ChangeEvent" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="SignalEventDefinition">
+						<ref name="signalRef" ordered="false" type="BPMNSignal"/>
+						<ref name="base_CallEvent" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="BPMNSignal">
+						<EAnnotation source="duplicates">
+							<EAnnotation source="structureRef">
+								<EStringToStringMapEntry key="lowerBound" value="1"/>
+								<EStringToStringMapEntry key="eType" value="uml::Class"/>
+							</EAnnotation>
+							<ref name="structureRef" ordered="false" type="">
+								<EAnnotation source="redefines"/>
+								<EAnnotation source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+									<EStringToStringMapEntry key="derivation" value="self.base_Class"/>
+								</EAnnotation>
+							</ref>
+						</EAnnotation>
+						<EOperation name="BPMNSignalstructureRef" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="BPMNSignal.structureRef"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="self.structureRef= self.base_Class"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+					</class>
+					<class name="EndEvent">
+						<ref name="base_FinalNode" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="ThrowEvent" abstract="true">
+						<EOperation name="ThrowEventeventDefinitionRefs" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="ThrowEvent.eventDefinitionRefs"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="ThrowEvent::/eventDefinitionRefs : EventDefintion [*] = the events of the triggers of a call operation action to which the stereotype is applied that are not owned by action."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="base_CallOperationAction" ordered="false" type=""/>
+						<ref name="base_FlowFinalNode" ordered="false" lowerBound="1" type=""/>
+						<ref name="dataInputAssociation" ordered="false" upperBound="-1" type="DataInputAssociation"/>
+					</class>
+					<class name="MessageEventDefinition">
+						<ref name="messageRef" ordered="false" type="BPMNMessage"/>
+						<ref name="operationRef" ordered="false" type="BPMNOperation"/>
+						<ref name="base_CallEvent" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="StartEvent">
+						<attr name="isInterrupting" ordered="false" lowerBound="1" defaultValueLiteral="true" type="//null"/>
+					</class>
+					<class name="ConditionalEventDefinition">
+						<EOperation name="conditionalEventDefinitioncondition" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="conditionalEventDefinition.condition"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="conditionalEventDefinition::/condition :BPMNExpression = ChangeEvent.changeExpression"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="base_ChangeEvent" ordered="false" lowerBound="1" type=""/>
+						<ref name="condition" ordered="false" lowerBound="1" type="BPMNExpression"/>
+					</class>
+					<class name="LinkEventDefinition">
+						<ref name="_target" ordered="false" type="LinkEventDefinition">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value=" target"/>
+							</EAnnotation>
+						</ref>
+						<ref name="source" ordered="false" upperBound="-1" type="LinkEventDefinition"/>
+						<ref name="base_CallEvent" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="ErrorEventDefinition">
+						<ref name="errorRef" ordered="false" type="Error"/>
+						<ref name="base_CallEvent" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="IntermediateCatchEvent">
+						<EAnnotation source="duplicates">
+							<EAnnotation source="base_AcceptEventAction">
+								<EStringToStringMapEntry key="lowerBound" value="1"/>
+							</EAnnotation>
+							<ref name="base_AcceptEventAction" ordered="false" type="">
+								<EAnnotation source="redefines"/>
+							</ref>
+						</EAnnotation>
+					</class>
+					<class name="IntermediateThrowEvent">
+						<ref name="base_SendObjectAction" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="TerminateEventDefinition">
+						<ref name="base_CallEvent" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="ImplicitThrowEvent">
+						<EAnnotation source="duplicates">
+							<EAnnotation source="base_CallOperationAction">
+								<EStringToStringMapEntry key="lowerBound" value="1"/>
+							</EAnnotation>
+							<ref name="base_CallOperationAction" ordered="false" type="">
+								<EAnnotation source="redefines"/>
+							</ref>
+						</EAnnotation>
+					</class>
+					<class name="CancelEventDefinition">
+						<ref name="base_CallEvent" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="TextAnnotation">
+						<ref name="base_Comment" ordered="false" lowerBound="1" type=""/>
+						<attr name="textFormat" ordered="false" lowerBound="1" type="//null"/>
+						<attr name="text" ordered="false" lowerBound="1" type="//null"/>
+					</class>
+					<class name="Category">
+						<ref name="base_Enumeration" ordered="false" lowerBound="1" type=""/>
+						<ref name="categoryValue" ordered="false" upperBound="-1" type="CategoryValue"/>
+					</class>
+					<class name="Group">
+						<ref name="base_ActivityPartition" ordered="false" lowerBound="1" type=""/>
+						<ref name="_categoryValueRef" ordered="false" type="CategoryValue">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value=" categoryValueRef"/>
+							</EAnnotation>
+						</ref>
+					</class>
+					<class name="DataObjectReference">
+						<EOperation name="DataObjectRefsourcetarget" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="DataObjectRef.source.target"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="Should be used between UML DataStoreNodes with BPMN
+								DataObject sytereotype applied,"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="DataObjectRefdataState" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="DataObjectRef.dataState"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="DataObjectRef::/dataState = DataStoreNode.inState (defined on ObjectNode)"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="dataObjectRef" ordered="false" lowerBound="1" type="DataObject"/>
+						<ref name="base_DataStoreNode" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="DataObject">
+						<EOperation name="DataObjectdataState" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="DataObject.dataState"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="DataObject DataState property shall reuse UML::CentralBuffer property inState"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<attr name="isCollection" ordered="false" lowerBound="1" defaultValueLiteral="false" type="//null"/>
+						<ref name="base_DataStoreNode" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="DataStore">
+						<attr name="capacity" ordered="false" type="//null"/>
+						<attr name="isUnlimited" ordered="false" lowerBound="1" defaultValueLiteral="true" type="//null"/>
+						<ref name="base_Class" ordered="false" lowerBound="1" type=""/>
+						<ref name="itemSubjectRef" ordered="false" type="ItemDefinition">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="itemSubjectRef "/>
+							</EAnnotation>
+						</ref>
+					</class>
+					<class name="DataStoreReference">
+						<ref name="_dataStore" ordered="false" type="DataStore">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value=" dataStore"/>
+							</EAnnotation>
+						</ref>
+						<ref name="base_DataStoreNode" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="UserTask">
+						<EOperation name="UserTaskimplementation" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="UserTask.implementation"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="self.implementation = self.base_OpaqueAction.body.first"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="UserTaskrenderings" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="UserTask.renderings"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="UserTask::/renderings : Image [*] = OpaqueAction.appliedStereotype.icon"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="base_OpaqueAction" ordered="false" lowerBound="1" type=""/>
+						<attr name="implementation" unique="false" lowerBound="1" defaultValueLiteral="##unspecified" type="//null"/>
+						<ref name="renderings" ordered="false" upperBound="-1" type="Rendering"/>
+					</class>
+					<class name="Task">
+						<ref name="ioSpecification" ordered="false" type="InputOutputSpecification"/>
+					</class>
+					<class name="Rendering">
+						<ref name="base_Image" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="HumanPerformer"/>
+					<class name="Performer"/>
+					<class name="GlobalUserTask">
+						<EOperation name="GlobalUserTaskrenderings" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="GlobalUserTask.renderings"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="GlobalUserTask::/renderings: Image [*] = Stereotype.icon"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="GlobalUserTaskimplementation" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="GlobalUserTask.implementation"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="GlobalUserTask::/implementation : String [*] {ordered,non-unique}= OpaqueBehavior.body (defaults to "##unspecified")"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<attr name="implementation" unique="false" upperBound="-1" defaultValueLiteral="##unspecified" type="//null"/>
+						<ref name="renderings" ordered="false" upperBound="-1" type="Rendering"/>
+					</class>
+					<class name="GlobalManualTask"/>
+					<class name="ManualTask">
+						<ref name="base_OpaqueAction" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="PotentialOwner"/>
+					<class name="SubConversation">
+						<EOperation name="SubConversationconnectedelements" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="SubConversation.connected.elements"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="SubConversation can link only collaboration properties (BPMN participants) and actions (BPMN events and BPMN activities)"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="conversationNodes" ordered="false" upperBound="-1" type="ConversationNode"/>
+					</class>
+					<class name="GlobalConversation">
+						<EOperation name="GlobalConversationcontainedelements" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="GlobalConversation.contained.elements"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="A GlobalConversation MUST NOT contain any ConversationNodes."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+					</class>
+					<class name="CallConversation">
+						<EOperation name="CallConversationcalledCollaborationRef" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="CallConversation.calledCollaborationRef"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="CallConversation::/calledCollaborationRef : BPMNCollaboration [0..1] = Collaboration.type"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="CallConversationparticipantAssociations" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="CallConversation.participantAssociations"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="CallConversation::/participantAssociations : ParticipantAssociation [*] = CollaborationUse.RoleBinding"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="_collaborationUse" ordered="false" lowerBound="1" type="">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value=" collaborationUse"/>
+							</EAnnotation>
+						</ref>
+						<ref name="calledCollaborationRef" ordered="false" type="BPMNCollaboration"/>
+						<ref name="participantAssociations" ordered="false" upperBound="-1" type="ParticipantAssociation"/>
+					</class>
+					<class name="Conversation"/>
+					<class name="SubProcess">
+						<EOperation name="SubProcesstriggeredByEvent" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="SubProcess.triggeredByEvent"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="StructuredActivityNodes with SubProcess Stereotype applied that have triggeredByEvent=true, and containing initial nodes with Start Event applied that have isInterrupting = false, have isLocallyReentrant = true."/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<attr name="triggeredByEvent" ordered="false" lowerBound="1" defaultValueLiteral="false" type="//null"/>
+						<ref name="base_StructuredActivityNode" ordered="false" lowerBound="1" type=""/>
+						<ref name="hasLaneSets" ordered="false" upperBound="-1" type="LaneSet"/>
+					</class>
+					<class name="CallActivity">
+						<EOperation name="CallActivitycalledElementRefvalues" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="CallActivity.calledElementRef.values"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="self.calledElementRef = self.base_CallBehaviorAction.behavior.extension_CallableElement"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="base_CallBehaviorAction" ordered="false" lowerBound="1" type=""/>
+						<ref name="calledElementRef" ordered="false" changeable="false" volatile="true" transient="true" derived="true" type="CallableElement"/>
+					</class>
+					<class name="BusinessRuleTask">
+						<EOperation name="BusinessRuleTaskimplementation" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="BusinessRuleTask.implementation"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="self.implementation = self.base_OpaqueAction.body.first"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="base_OpaqueAction" ordered="false" lowerBound="1" type=""/>
+						<attr name="implementation" unique="false" lowerBound="1" defaultValueLiteral="##unspecified" type="//null"/>
+					</class>
+					<EEnum name="AdHocOrdering">
+						<EEnumLiteral name="parallel"/>
+						<EEnumLiteral name="sequential" value="1"/>
+					</EEnum>
+					<class name="ComplexBehaviorDefinition">
+						<ref name="condition" ordered="false" lowerBound="1" type="FormalExpression"/>
+						<ref name="event" ordered="false" type="ImplicitThrowEvent"/>
+						<ref name="base_ControlFlow" ordered="false" lowerBound="1" type=""/>
+					</class>
+					<class name="AdHocSubProcess">
+						<EOperation name="AdHocSubProcesscancelRemainingInstances" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="AdHocSubProcess.cancelRemainingInstances"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="cancelRemainingInstances attribute shall be used only if ordering = parallel"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="completionCondition" ordered="false" lowerBound="1" type="BPMNExpression"/>
+						<attr name="ordering" ordered="false" lowerBound="1" defaultValueLiteral="parallel" type="//AdHocOrdering"/>
+						<attr name="cancelRemainingInstances" ordered="false" lowerBound="1" defaultValueLiteral="true" type="//null"/>
+					</class>
+					<class name="ScriptTask">
+						<EOperation name="ScriptTaskscriptFormat" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="ScriptTask.scriptFormat"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="ScriptTask::/script : String [*] {ordered} = OpaqueAction.body"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="ScriptTaskscript" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="ScriptTask.script"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="ScriptTask::/scriptFormat : String [*] {ordered, non-unique} = OpaqueAction.language"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="base_OpaqueAction" ordered="false" lowerBound="1" type=""/>
+						<attr name="scriptFormat" type="//null"/>
+						<attr name="script" unique="false" type="//null"/>
+					</class>
+					<class name="SendTask">
+						<EOperation name="SendTaskoperationRef" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="SendTask.operationRef"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="SendTask::/operationRef : BPMNOperation [0..1] = CallOperationAction.operation"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="messageRef" ordered="false" type="BPMNMessage"/>
+						<ref name="base_CallOperationAction" ordered="false" lowerBound="1" type=""/>
+						<attr name="implementation" ordered="false" lowerBound="1" defaultValueLiteral="##webService" type="//null"/>
+						<ref name="operationRef" ordered="false" type="BPMNOperation"/>
+					</class>
+					<class name="Transaction">
+						<attr name="method" ordered="false" lowerBound="1" defaultValueLiteral=""##compensate"" type="//null"/>
+					</class>
+					<class name="StandardLoopCharacteristics">
+						<EOperation name="StandardLoopCharacteristicstestBefore" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="StandardLoopCharacteristics.testBefore"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="StandardLoopCharacteristics::/testBefore :Boolean = isTestedFirst"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="StandardLoopCharacteristicsloopCondition" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="StandardLoopCharacteristics.loopCondition"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="StandardLoopCharacteristics:::/loopCondition :BPMNExpression = loopNode.test.value"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<attr name="loopMaximum" ordered="false" type="//null"/>
+						<ref name="base_LoopNode" ordered="false" lowerBound="1" type=""/>
+						<attr name="testBefore" ordered="false" lowerBound="1" changeable="false" volatile="true" transient="true" derived="true" type="//null"/>
+						<ref name="loopCondition" ordered="false" lowerBound="1" changeable="false" volatile="true" transient="true" derived="true" type="BPMNExpression"/>
+					</class>
+					<EEnum name="MultiInstanceBehavior">
+						<EEnumLiteral name="none"/>
+						<EEnumLiteral name="one" value="1"/>
+						<EEnumLiteral name="all" value="2"/>
+						<EEnumLiteral name="complex" value="3"/>
+					</EEnum>
+					<class name="ReceiveTask">
+						<EOperation name="ReceiveTaskoperationRef" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="ReceiveTask.operationRef"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="ReceiveTask::/operationRef : BPMNOperation [0..1] = AcceptEventAction.trigger.operation"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="messageRef" ordered="false" type="BPMNMessage"/>
+						<ref name="base_AcceptEventAction" ordered="false" lowerBound="1" type=""/>
+						<attr name="implementation" ordered="false" lowerBound="1" defaultValueLiteral="##webService" type="//null"/>
+						<attr name="instantiate" ordered="false" lowerBound="1" defaultValueLiteral="false" type="//null"/>
+						<ref name="operationRef" ordered="false" type="BPMNOperation"/>
+					</class>
+					<class name="ServiceTask">
+						<EOperation name="ServiceTaskinputSet" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="ServiceTask.inputSet"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The Service Task has exactly one InputSet"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="ServiceTaskoutputSet" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="ServiceTask.outputSet"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="The Service Task has at most one OutputSet"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<EOperation name="ServiceTaskoperationRef" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="ServiceTask.operationRef"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="ServiceTask::/operationRef : BPMNOperation [0..1] = CallOperationAction.operation"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<ref name="base_CallOperationAction" ordered="false" lowerBound="1" type=""/>
+						<attr name="implementation" ordered="false" lowerBound="1" defaultValueLiteral="##webService" type="//null"/>
+						<ref name="operationRef" ordered="false" type="BPMNOperation"/>
+					</class>
+					<class name="MultiInstanceLoopCharacteristics">
+						<EOperation name="MultiinstanceLoopCharacteristicstarget" type="EBoolean">
+							<EAnnotation source="http://www.eclipse.org/uml2/2.0.0/UML">
+								<EStringToStringMapEntry key="originalName" value="MultiinstanceLoopCharacteristics.target"/>
+							</EAnnotation>
+							<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+								<EStringToStringMapEntry key="documentation" value="Stereotype may be applied only on CallActivity, Task, and SubProcess"/>
+							</EAnnotation>
+							<EParameter name="diagnostics" type="EDiagnosticChain">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+								</EAnnotation>
+							</EParameter>
+							<EParameter name="context" type="EMap">
+								<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+									<EStringToStringMapEntry key="documentation" value="The cache of context-specific information."/>
+								</EAnnotation>
+							</EParameter>
+						</EOperation>
+						<attr name="behavior" ordered="false" lowerBound="1" defaultValueLiteral="all" type="//MultiInstanceBehavior"/>
+						<ref name="loopCardinality" ordered="false" type="BPMNExpression"/>
+						<ref name="completionCondition" ordered="false" type="BPMNExpression"/>
+						<ref name="base_ExpansionRegion" ordered="false" lowerBound="1" type=""/>
+						<attr name="isSequential" ordered="false" lowerBound="1" type="//null"/>
+						<ref name="loopDataInputRef" ordered="false" type="ItemAwareElement"/>
+						<ref name="loopDataOutputRef" ordered="false" type="ItemAwareElement"/>
+						<ref name="outputDataItem" ordered="false" lowerBound="1" type="DataOutput"/>
+						<ref name="inputDataItem" ordered="false" lowerBound="1" type="DataInput"/>
+						<ref name="oneBehaviorEventRef" ordered="false" type="EventDefinition"/>
+						<ref name="noneBehaviorEventRef" ordered="false" type="EventDefinition"/>
+						<ref name="complexBehaviorDefinition" ordered="false" upperBound="-1" type="ComplexBehaviorDefinition"/>
+					</class>
+				</package>

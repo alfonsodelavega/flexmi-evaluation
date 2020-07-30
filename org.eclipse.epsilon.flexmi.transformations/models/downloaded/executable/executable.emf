@@ -1,0 +1,1855 @@
+@namespace(uri="http://docs.oasis-open.org/wsbpel/2.0/process/executable", prefix="executable")
+package executable;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+import "http://www.w3.org/XML/1998/namespace";
+
+@ExtendedMetaData(name="BPELVariableName", baseType="http://www.eclipse.org/emf/2003/XMLType#NCName", pattern="[^\.]+")
+datatype BPELVariableName : java.lang.String;
+
+@ExtendedMetaData(name="BPELVariableNames", baseType="BPELVariableNames_._base", minLength="1")
+datatype BPELVariableNames : java.util.List;
+
+@ExtendedMetaData(name="BPELVariableNames_._base", itemType="BPELVariableName")
+datatype BPELVariableNamesBase : java.util.List;
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace")
+	volatile transient derived !resolve val Assign[0..?] assign;
+
+	@ExtendedMetaData(kind="element", name="branches", namespace="##targetNamespace")
+	volatile transient derived !resolve val Branches[0..?] branches;
+
+	@ExtendedMetaData(kind="element", name="catch", namespace="##targetNamespace")
+	volatile transient derived !resolve val Catch[0..?] catch;
+
+	@ExtendedMetaData(kind="element", name="catchAll", namespace="##targetNamespace")
+	volatile transient derived !resolve val ActivityContainer[0..?] catchAll;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace")
+	volatile transient derived !resolve val Compensate[0..?] compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace")
+	volatile transient derived !resolve val CompensateScope[0..?] compensateScope;
+
+	@ExtendedMetaData(kind="element", name="compensationHandler", namespace="##targetNamespace")
+	volatile transient derived !resolve val ActivityContainer[0..?] compensationHandler;
+
+	@ExtendedMetaData(kind="element", name="completionCondition", namespace="##targetNamespace")
+	volatile transient derived !resolve val CompletionCondition[0..?] completionCondition;
+
+	@ExtendedMetaData(kind="element", name="condition", namespace="##targetNamespace")
+	volatile transient derived !resolve val BooleanExpr[0..?] condition;
+
+	@ExtendedMetaData(kind="element", name="copy", namespace="##targetNamespace")
+	volatile transient derived !resolve val Copy[0..?] copy;
+
+	@ExtendedMetaData(kind="element", name="correlationSet", namespace="##targetNamespace")
+	volatile transient derived !resolve val CorrelationSet[0..?] correlationSet;
+
+	@ExtendedMetaData(kind="element", name="correlationSets", namespace="##targetNamespace")
+	volatile transient derived !resolve val CorrelationSets[0..?] correlationSets;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	volatile transient derived !resolve val Documentation[0..?] documentation;
+
+	@ExtendedMetaData(kind="element", name="else", namespace="##targetNamespace")
+	volatile transient derived !resolve val ActivityContainer[0..?] else;
+
+	@ExtendedMetaData(kind="element", name="elseif", namespace="##targetNamespace")
+	volatile transient derived !resolve val Elseif[0..?] elseif;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace")
+	volatile transient derived !resolve val Empty[0..?] empty;
+
+	@ExtendedMetaData(kind="element", name="eventHandlers", namespace="##targetNamespace")
+	volatile transient derived !resolve val EventHandlers[0..?] eventHandlers;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace")
+	volatile transient derived !resolve val Exit[0..?] exit;
+
+	@ExtendedMetaData(kind="element", name="extension", namespace="##targetNamespace")
+	volatile transient derived !resolve val Extension[0..?] extension;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace")
+	volatile transient derived !resolve val ExtensionActivity[0..?] extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="extensionAssignOperation", namespace="##targetNamespace")
+	volatile transient derived !resolve val ExtensionAssignOperation[0..?] extensionAssignOperation;
+
+	@ExtendedMetaData(kind="element", name="extensions", namespace="##targetNamespace")
+	volatile transient derived !resolve val Extensions[0..?] extensions;
+
+	@ExtendedMetaData(kind="element", name="faultHandlers", namespace="##targetNamespace")
+	volatile transient derived !resolve val FaultHandlers[0..?] faultHandlers;
+
+	@ExtendedMetaData(kind="element", name="finalCounterValue", namespace="##targetNamespace")
+	volatile transient derived !resolve val Expression[0..?] finalCounterValue;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace")
+	volatile transient derived !resolve val Flow[0..?] flow;
+
+	@ExtendedMetaData(kind="element", name="for", namespace="##targetNamespace")
+	volatile transient derived !resolve val DurationExpr[0..?] for;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace")
+	volatile transient derived !resolve val ForEach[0..?] forEach;
+
+	@ExtendedMetaData(kind="element", name="from", namespace="##targetNamespace")
+	volatile transient derived !resolve val From[0..?] from;
+
+	@ExtendedMetaData(kind="element", name="fromPart", namespace="##targetNamespace")
+	volatile transient derived !resolve val FromPart[0..?] fromPart;
+
+	@ExtendedMetaData(kind="element", name="fromParts", namespace="##targetNamespace")
+	volatile transient derived !resolve val FromParts[0..?] fromParts;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace")
+	volatile transient derived !resolve val If[0..?] if;
+
+	@ExtendedMetaData(kind="element", name="import", namespace="##targetNamespace")
+	volatile transient derived !resolve val Import[0..?] ~import;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace")
+	volatile transient derived !resolve val Invoke[0..?] invoke;
+
+	@ExtendedMetaData(kind="element", name="joinCondition", namespace="##targetNamespace")
+	volatile transient derived !resolve val Condition[0..?] joinCondition;
+
+	@ExtendedMetaData(kind="element", name="link", namespace="##targetNamespace")
+	volatile transient derived !resolve val Link[0..?] link;
+
+	@ExtendedMetaData(kind="element", name="links", namespace="##targetNamespace")
+	volatile transient derived !resolve val Links[0..?] links;
+
+	@ExtendedMetaData(kind="element", name="literal", namespace="##targetNamespace")
+	volatile transient derived !resolve val Literal[0..?] literal;
+
+	@ExtendedMetaData(kind="element", name="messageExchange", namespace="##targetNamespace")
+	volatile transient derived !resolve val MessageExchange[0..?] messageExchange;
+
+	@ExtendedMetaData(kind="element", name="messageExchanges", namespace="##targetNamespace")
+	volatile transient derived !resolve val MessageExchanges[0..?] messageExchanges;
+
+	@ExtendedMetaData(kind="element", name="onEvent", namespace="##targetNamespace")
+	volatile transient derived !resolve val OnEvent[0..?] onEvent;
+
+	@ExtendedMetaData(kind="element", name="onMessage", namespace="##targetNamespace")
+	volatile transient derived !resolve val OnMessage[0..?] onMessage;
+
+	@ExtendedMetaData(kind="element", name="partnerLink", namespace="##targetNamespace")
+	volatile transient derived !resolve val PartnerLink[0..?] partnerLink;
+
+	@ExtendedMetaData(kind="element", name="partnerLinks", namespace="##targetNamespace")
+	volatile transient derived !resolve val PartnerLinks[0..?] partnerLinks;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace")
+	volatile transient derived !resolve val Pick[0..?] pick;
+
+	@ExtendedMetaData(kind="element", name="process", namespace="##targetNamespace")
+	volatile transient derived !resolve val Process[0..?] process;
+
+	@ExtendedMetaData(kind="element", name="query", namespace="##targetNamespace")
+	volatile transient derived !resolve val Query[0..?] query;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace")
+	volatile transient derived !resolve val Receive[0..?] receive;
+
+	@ExtendedMetaData(kind="element", name="repeatEvery", namespace="##targetNamespace")
+	volatile transient derived !resolve val DurationExpr[0..?] repeatEvery;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace")
+	volatile transient derived !resolve val RepeatUntil[0..?] repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace")
+	volatile transient derived !resolve val Reply[0..?] reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace")
+	volatile transient derived !resolve val Rethrow[0..?] rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	volatile transient derived !resolve val Scope[0..?] scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace")
+	volatile transient derived !resolve val Sequence[0..?] sequence;
+
+	@ExtendedMetaData(kind="element", name="source", namespace="##targetNamespace")
+	volatile transient derived !resolve val Source[0..?] source;
+
+	@ExtendedMetaData(kind="element", name="sources", namespace="##targetNamespace")
+	volatile transient derived !resolve val Sources[0..?] sources;
+
+	@ExtendedMetaData(kind="element", name="startCounterValue", namespace="##targetNamespace")
+	volatile transient derived !resolve val Expression[0..?] startCounterValue;
+
+	@ExtendedMetaData(kind="element", name="target", namespace="##targetNamespace")
+	volatile transient derived !resolve val Target[0..?] target;
+
+	@ExtendedMetaData(kind="element", name="targets", namespace="##targetNamespace")
+	volatile transient derived !resolve val Targets[0..?] targets;
+
+	@ExtendedMetaData(kind="element", name="terminationHandler", namespace="##targetNamespace")
+	volatile transient derived !resolve val ActivityContainer[0..?] terminationHandler;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace")
+	volatile transient derived !resolve val Throw[0..?] throw;
+
+	@ExtendedMetaData(kind="element", name="to", namespace="##targetNamespace")
+	volatile transient derived !resolve val To[0..?] to;
+
+	@ExtendedMetaData(kind="element", name="toPart", namespace="##targetNamespace")
+	volatile transient derived !resolve val ToPart[0..?] toPart;
+
+	@ExtendedMetaData(kind="element", name="toParts", namespace="##targetNamespace")
+	volatile transient derived !resolve val ToParts[0..?] toParts;
+
+	@ExtendedMetaData(kind="element", name="transitionCondition", namespace="##targetNamespace")
+	volatile transient derived !resolve val Condition[0..?] transitionCondition;
+
+	@ExtendedMetaData(kind="element", name="until", namespace="##targetNamespace")
+	volatile transient derived !resolve val DeadlineExpr[0..?] until;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace")
+	volatile transient derived !resolve val Validate[0..?] validate;
+
+	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
+	volatile transient derived !resolve val Variable[0..?] variable;
+
+	@ExtendedMetaData(kind="element", name="variables", namespace="##targetNamespace")
+	volatile transient derived !resolve val Variables[0..?] variables;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace")
+	volatile transient derived !resolve val Wait[0..?] wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace")
+	volatile transient derived !resolve val While[0..?] while;
+}
+
+@ExtendedMetaData(name="QNames", baseType="QNames_._base", minLength="1")
+datatype QNames : java.util.List;
+
+@ExtendedMetaData(name="QNames_._base", itemType="http://www.eclipse.org/emf/2003/XMLType#QName")
+datatype QNamesBase : java.util.List;
+
+@ExtendedMetaData(name="tActivity", kind="elementOnly")
+class Activity extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="targets", namespace="##targetNamespace")
+	!resolve val Targets targets;
+
+	@ExtendedMetaData(kind="element", name="sources", namespace="##targetNamespace")
+	!resolve val Sources sources;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.NCName name;
+
+	@ExtendedMetaData(kind="attribute", name="suppressJoinFailure")
+	unsettable attr Boolean suppressJoinFailure = "yes";
+}
+
+@ExtendedMetaData(name="tActivityContainer", kind="elementOnly")
+class ActivityContainer extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace")
+	!resolve val Assign assign;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace")
+	!resolve val Compensate compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace")
+	!resolve val CompensateScope compensateScope;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace")
+	!resolve val Empty empty;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace")
+	!resolve val Exit exit;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace")
+	!resolve val ExtensionActivity extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace")
+	!resolve val Flow flow;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace")
+	!resolve val ForEach forEach;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace")
+	!resolve val If if;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace")
+	!resolve val Invoke invoke;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace")
+	!resolve val Pick pick;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace")
+	!resolve val Receive receive;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace")
+	!resolve val RepeatUntil repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace")
+	!resolve val Reply reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace")
+	!resolve val Rethrow rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace")
+	!resolve val Sequence sequence;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace")
+	!resolve val Throw throw;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace")
+	!resolve val Validate validate;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace")
+	!resolve val Wait wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace")
+	!resolve val While while;
+}
+
+@ExtendedMetaData(name="tAssign", kind="elementOnly")
+class Assign extends Activity {
+
+	@ExtendedMetaData(kind="group", name="group:7")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="copy", namespace="##targetNamespace", group="#group:7")
+	volatile transient derived !resolve val Copy[*] copy;
+
+	@ExtendedMetaData(kind="element", name="extensionAssignOperation", namespace="##targetNamespace", group="#group:7")
+	volatile transient derived !resolve val ExtensionAssignOperation[*] extensionAssignOperation;
+
+	@ExtendedMetaData(kind="attribute", name="validate")
+	unsettable attr Boolean validate = "no";
+}
+
+@ExtendedMetaData(name="tBoolean")
+enum Boolean {
+	yes = 0;
+	no = 1;
+}
+
+@ExtendedMetaData(name="tBoolean-expr", kind="mixed")
+class BooleanExpr extends Expression {
+}
+
+@ExtendedMetaData(name="tBoolean:Object", baseType="tBoolean")
+datatype BooleanObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tBranches", kind="mixed")
+class Branches extends Expression {
+
+	@ExtendedMetaData(kind="attribute", name="successfulBranchesOnly")
+	unsettable attr Boolean successfulBranchesOnly = "no";
+}
+
+@ExtendedMetaData(name="tCatch", kind="elementOnly")
+class Catch extends ActivityContainer {
+
+	@ExtendedMetaData(kind="attribute", name="faultElement")
+	attr type.QName faultElement;
+
+	@ExtendedMetaData(kind="attribute", name="faultMessageType")
+	attr type.QName faultMessageType;
+
+	@ExtendedMetaData(kind="attribute", name="faultName")
+	attr type.QName faultName;
+
+	@ExtendedMetaData(kind="attribute", name="faultVariable")
+	attr BPELVariableName faultVariable;
+}
+
+@ExtendedMetaData(name="tCompensate", kind="elementOnly")
+class Compensate extends Activity {
+}
+
+@ExtendedMetaData(name="tCompensateScope", kind="elementOnly")
+class CompensateScope extends Activity {
+
+	@ExtendedMetaData(kind="attribute", name="target")
+	attr type.NCName[1] target;
+}
+
+@ExtendedMetaData(name="tCompletionCondition", kind="elementOnly")
+class CompletionCondition extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="branches", namespace="##targetNamespace")
+	!resolve val Branches branches;
+}
+
+@ExtendedMetaData(name="tCondition", kind="mixed")
+class Condition extends Expression {
+}
+
+@ExtendedMetaData(name="tCopy", kind="elementOnly")
+class Copy extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="from", namespace="##targetNamespace")
+	!resolve val From[1] from;
+
+	@ExtendedMetaData(kind="element", name="to", namespace="##targetNamespace")
+	!resolve val To[1] to;
+
+	@ExtendedMetaData(kind="attribute", name="ignoreMissingFromData")
+	unsettable attr Boolean ignoreMissingFromData = "no";
+
+	@ExtendedMetaData(kind="attribute", name="keepSrcElementName")
+	unsettable attr Boolean keepSrcElementName = "no";
+}
+
+@ExtendedMetaData(name="tCorrelation", kind="elementOnly")
+class Correlation extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="attribute", name="initiate")
+	unsettable attr Initiate initiate = "no";
+
+	@ExtendedMetaData(kind="attribute", name="set")
+	attr type.NCName[1] set;
+}
+
+@ExtendedMetaData(name="tCorrelations", kind="elementOnly")
+class Correlations extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="correlation", namespace="##targetNamespace")
+	!resolve val Correlation[+] correlation;
+}
+
+@ExtendedMetaData(name="tCorrelationSet", kind="elementOnly")
+class CorrelationSet extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.NCName[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="properties")
+	attr QNames[1] properties;
+}
+
+@ExtendedMetaData(name="tCorrelationSets", kind="elementOnly")
+class CorrelationSets extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="correlationSet", namespace="##targetNamespace")
+	!resolve val CorrelationSet[+] correlationSet;
+}
+
+@ExtendedMetaData(name="tCorrelationsWithPattern", kind="elementOnly")
+class CorrelationsWithPattern extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="correlation", namespace="##targetNamespace")
+	!resolve val CorrelationWithPattern[+] correlation;
+}
+
+@ExtendedMetaData(name="tCorrelationWithPattern", kind="elementOnly")
+class CorrelationWithPattern extends Correlation {
+
+	@ExtendedMetaData(kind="attribute", name="pattern")
+	unsettable attr Pattern pattern = "request";
+}
+
+@ExtendedMetaData(name="tDeadline-expr", kind="mixed")
+class DeadlineExpr extends Expression {
+}
+
+@ExtendedMetaData(name="tDocumentation", kind="mixed")
+class Documentation {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##any", name=":1", processing="lax")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attribute", name="lang", namespace="http://www.w3.org/XML/1998/namespace")
+	attr namespace.LangType lang;
+
+	@ExtendedMetaData(kind="attribute", name="source")
+	attr type.AnyURI source;
+}
+
+@ExtendedMetaData(name="tDuration-expr", kind="mixed")
+class DurationExpr extends Expression {
+}
+
+@ExtendedMetaData(name="tElseif", kind="elementOnly")
+class Elseif extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="condition", namespace="##targetNamespace")
+	!resolve val BooleanExpr[1] condition;
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace")
+	!resolve val Assign assign;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace")
+	!resolve val Compensate compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace")
+	!resolve val CompensateScope compensateScope;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace")
+	!resolve val Empty empty;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace")
+	!resolve val Exit exit;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace")
+	!resolve val ExtensionActivity extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace")
+	!resolve val Flow flow;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace")
+	!resolve val ForEach forEach;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace")
+	!resolve val If if;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace")
+	!resolve val Invoke invoke;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace")
+	!resolve val Pick pick;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace")
+	!resolve val Receive receive;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace")
+	!resolve val RepeatUntil repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace")
+	!resolve val Reply reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace")
+	!resolve val Rethrow rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace")
+	!resolve val Sequence sequence;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace")
+	!resolve val Throw throw;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace")
+	!resolve val Validate validate;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace")
+	!resolve val Wait wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace")
+	!resolve val While while;
+}
+
+@ExtendedMetaData(name="tEmpty", kind="elementOnly")
+class Empty extends Activity {
+}
+
+@ExtendedMetaData(name="tEventHandlers", kind="elementOnly")
+class EventHandlers extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="onEvent", namespace="##targetNamespace")
+	!resolve val OnEvent[*] onEvent;
+
+	@ExtendedMetaData(kind="element", name="onAlarm", namespace="##targetNamespace")
+	!resolve val OnAlarmEvent[*] onAlarm;
+}
+
+@ExtendedMetaData(name="tExit", kind="elementOnly")
+class Exit extends Activity {
+}
+
+@ExtendedMetaData(name="tExpression", kind="mixed")
+class Expression {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##any", name=":1", processing="lax")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attribute", name="expressionLanguage")
+	attr type.AnyURI expressionLanguage;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="lax")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="tExtensibleElements", kind="elementOnly")
+class ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val Documentation[*] documentation;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":1", processing="lax")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":2", processing="lax")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="tExtension", kind="elementOnly")
+class Extension extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="attribute", name="mustUnderstand")
+	unsettable attr Boolean[1] mustUnderstand = "yes";
+
+	@ExtendedMetaData(kind="attribute", name="namespace")
+	attr type.AnyURI[1] namespace;
+}
+
+@ExtendedMetaData(name="tExtensionActivity", kind="elementOnly")
+class ExtensionActivity {
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":0", processing="lax")
+	attr ecore.EFeatureMapEntry[1] any;
+}
+
+@ExtendedMetaData(name="tExtensionAssignOperation", kind="elementOnly")
+class ExtensionAssignOperation extends ExtensibleElements {
+}
+
+@ExtendedMetaData(name="tExtensions", kind="elementOnly")
+class Extensions extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="extension", namespace="##targetNamespace")
+	!resolve val Extension[+] extension;
+}
+
+@ExtendedMetaData(name="tFaultHandlers", kind="elementOnly")
+class FaultHandlers extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="catch", namespace="##targetNamespace")
+	!resolve val Catch[*] catch;
+
+	@ExtendedMetaData(kind="element", name="catchAll", namespace="##targetNamespace")
+	!resolve val ActivityContainer catchAll;
+}
+
+@ExtendedMetaData(name="tFlow", kind="elementOnly")
+class Flow extends Activity {
+
+	@ExtendedMetaData(kind="element", name="links", namespace="##targetNamespace")
+	!resolve val Links links;
+
+	@ExtendedMetaData(kind="group", name="Activity:8")
+	!unique attr ecore.EFeatureMapEntry[*] activity;
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Assign[*] assign;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Compensate[*] compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val CompensateScope[*] compensateScope;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Empty[*] empty;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Exit[*] exit;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val ExtensionActivity[*] extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Flow[*] flow;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val ForEach[*] forEach;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val If[*] if;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Invoke[*] invoke;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Pick[*] pick;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Receive[*] receive;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val RepeatUntil[*] repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Reply[*] reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Rethrow[*] rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Scope[*] scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Sequence[*] sequence;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Throw[*] throw;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Validate[*] validate;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val Wait[*] wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace", group="#Activity:8")
+	volatile transient derived !resolve val While[*] while;
+}
+
+@ExtendedMetaData(name="tForEach", kind="elementOnly")
+class ForEach extends Activity {
+
+	@ExtendedMetaData(kind="element", name="startCounterValue", namespace="##targetNamespace")
+	!resolve val Expression[1] startCounterValue;
+
+	@ExtendedMetaData(kind="element", name="finalCounterValue", namespace="##targetNamespace")
+	!resolve val Expression[1] finalCounterValue;
+
+	@ExtendedMetaData(kind="element", name="completionCondition", namespace="##targetNamespace")
+	!resolve val CompletionCondition completionCondition;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope[1] scope;
+
+	@ExtendedMetaData(kind="attribute", name="counterName")
+	attr BPELVariableName[1] counterName;
+
+	@ExtendedMetaData(kind="attribute", name="parallel")
+	unsettable attr Boolean[1] parallel = "yes";
+}
+
+@ExtendedMetaData(name="tFrom", kind="mixed")
+class From {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	volatile transient derived !resolve val Documentation[*] documentation;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":2", processing="lax")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="element", name="literal", namespace="##targetNamespace")
+	volatile transient derived !resolve val Literal literal;
+
+	@ExtendedMetaData(kind="element", name="query", namespace="##targetNamespace")
+	volatile transient derived !resolve val Query query;
+
+	@ExtendedMetaData(kind="attribute", name="endpointReference")
+	unsettable attr Roles endpointReference = "myRole";
+
+	@ExtendedMetaData(kind="attribute", name="expressionLanguage")
+	attr type.AnyURI expressionLanguage;
+
+	@ExtendedMetaData(kind="attribute", name="part")
+	attr type.NCName part;
+
+	@ExtendedMetaData(kind="attribute", name="partnerLink")
+	attr type.NCName partnerLink;
+
+	@ExtendedMetaData(kind="attribute", name="property")
+	attr type.QName property;
+
+	@ExtendedMetaData(kind="attribute", name="variable")
+	attr BPELVariableName variable;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":11", processing="lax")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="tFromPart", kind="elementOnly")
+class FromPart extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="attribute", name="part")
+	attr type.NCName[1] part;
+
+	@ExtendedMetaData(kind="attribute", name="toVariable")
+	attr BPELVariableName[1] toVariable;
+}
+
+@ExtendedMetaData(name="tFromParts", kind="elementOnly")
+class FromParts extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="fromPart", namespace="##targetNamespace")
+	!resolve val FromPart[+] fromPart;
+}
+
+@ExtendedMetaData(name="tIf", kind="elementOnly")
+class If extends Activity {
+
+	@ExtendedMetaData(kind="element", name="condition", namespace="##targetNamespace")
+	!resolve val BooleanExpr[1] condition;
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace")
+	!resolve val Assign assign;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace")
+	!resolve val Compensate compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace")
+	!resolve val CompensateScope compensateScope;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace")
+	!resolve val Empty empty;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace")
+	!resolve val Exit exit;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace")
+	!resolve val ExtensionActivity extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace")
+	!resolve val Flow flow;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace")
+	!resolve val ForEach forEach;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace")
+	!resolve val If if;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace")
+	!resolve val Invoke invoke;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace")
+	!resolve val Pick pick;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace")
+	!resolve val Receive receive;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace")
+	!resolve val RepeatUntil repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace")
+	!resolve val Reply reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace")
+	!resolve val Rethrow rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace")
+	!resolve val Sequence sequence;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace")
+	!resolve val Throw throw;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace")
+	!resolve val Validate validate;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace")
+	!resolve val Wait wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace")
+	!resolve val While while;
+
+	@ExtendedMetaData(kind="element", name="elseif", namespace="##targetNamespace")
+	!resolve val Elseif[*] elseif;
+
+	@ExtendedMetaData(kind="element", name="else", namespace="##targetNamespace")
+	!resolve val ActivityContainer else;
+}
+
+@ExtendedMetaData(name="tImport", kind="elementOnly")
+class Import extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="attribute", name="importType")
+	attr type.AnyURI[1] importType;
+
+	@ExtendedMetaData(kind="attribute", name="location")
+	attr type.AnyURI location;
+
+	@ExtendedMetaData(kind="attribute", name="namespace")
+	attr type.AnyURI namespace;
+}
+
+@ExtendedMetaData(name="tInitiate")
+enum Initiate {
+	yes = 0;
+	join = 1;
+	no = 2;
+}
+
+@ExtendedMetaData(name="tInitiate:Object", baseType="tInitiate")
+datatype InitiateObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tInvoke", kind="elementOnly")
+class Invoke extends Activity {
+
+	@ExtendedMetaData(kind="element", name="correlations", namespace="##targetNamespace")
+	!resolve val CorrelationsWithPattern correlations;
+
+	@ExtendedMetaData(kind="element", name="catch", namespace="##targetNamespace")
+	!resolve val Catch[*] catch;
+
+	@ExtendedMetaData(kind="element", name="catchAll", namespace="##targetNamespace")
+	!resolve val ActivityContainer catchAll;
+
+	@ExtendedMetaData(kind="element", name="compensationHandler", namespace="##targetNamespace")
+	!resolve val ActivityContainer compensationHandler;
+
+	@ExtendedMetaData(kind="element", name="toParts", namespace="##targetNamespace")
+	!resolve val ToParts toParts;
+
+	@ExtendedMetaData(kind="element", name="fromParts", namespace="##targetNamespace")
+	!resolve val FromParts fromParts;
+
+	@ExtendedMetaData(kind="attribute", name="inputVariable")
+	attr BPELVariableName inputVariable;
+
+	@ExtendedMetaData(kind="attribute", name="operation")
+	attr type.NCName[1] operation;
+
+	@ExtendedMetaData(kind="attribute", name="outputVariable")
+	attr BPELVariableName outputVariable;
+
+	@ExtendedMetaData(kind="attribute", name="partnerLink")
+	attr type.NCName[1] partnerLink;
+
+	@ExtendedMetaData(kind="attribute", name="portType")
+	attr type.QName portType;
+}
+
+@ExtendedMetaData(name="tLink", kind="elementOnly")
+class Link extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.NCName[1] name;
+}
+
+@ExtendedMetaData(name="tLinks", kind="elementOnly")
+class Links extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="link", namespace="##targetNamespace")
+	!resolve val Link[+] link;
+}
+
+@ExtendedMetaData(name="tLiteral", kind="mixed")
+class Literal {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##any", name=":1", processing="lax")
+	volatile transient derived attr ecore.EFeatureMapEntry any;
+}
+
+@ExtendedMetaData(name="tMessageExchange", kind="elementOnly")
+class MessageExchange extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.NCName[1] name;
+}
+
+@ExtendedMetaData(name="tMessageExchanges", kind="elementOnly")
+class MessageExchanges extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="messageExchange", namespace="##targetNamespace")
+	!resolve val MessageExchange[+] messageExchange;
+}
+
+@ExtendedMetaData(name="tOnAlarmEvent", kind="elementOnly")
+class OnAlarmEvent extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="for", namespace="##targetNamespace")
+	!resolve val DurationExpr for;
+
+	@ExtendedMetaData(kind="element", name="until", namespace="##targetNamespace")
+	!resolve val DeadlineExpr until;
+
+	@ExtendedMetaData(kind="element", name="repeatEvery", namespace="##targetNamespace")
+	!resolve val DurationExpr repeatEvery;
+
+	@ExtendedMetaData(kind="element", name="repeatEvery", namespace="##targetNamespace")
+	!resolve val DurationExpr repeatEvery1;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope[1] scope;
+}
+
+@ExtendedMetaData(name="tOnAlarmPick", kind="elementOnly")
+class OnAlarmPick extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="for", namespace="##targetNamespace")
+	!resolve val DurationExpr for;
+
+	@ExtendedMetaData(kind="element", name="until", namespace="##targetNamespace")
+	!resolve val DeadlineExpr until;
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace")
+	!resolve val Assign assign;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace")
+	!resolve val Compensate compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace")
+	!resolve val CompensateScope compensateScope;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace")
+	!resolve val Empty empty;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace")
+	!resolve val Exit exit;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace")
+	!resolve val ExtensionActivity extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace")
+	!resolve val Flow flow;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace")
+	!resolve val ForEach forEach;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace")
+	!resolve val If if;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace")
+	!resolve val Invoke invoke;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace")
+	!resolve val Pick pick;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace")
+	!resolve val Receive receive;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace")
+	!resolve val RepeatUntil repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace")
+	!resolve val Reply reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace")
+	!resolve val Rethrow rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace")
+	!resolve val Sequence sequence;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace")
+	!resolve val Throw throw;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace")
+	!resolve val Validate validate;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace")
+	!resolve val Wait wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace")
+	!resolve val While while;
+}
+
+@ExtendedMetaData(name="tOnEvent", kind="elementOnly")
+class OnEvent extends OnMsgCommon {
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope[1] scope;
+
+	@ExtendedMetaData(kind="attribute", name="element")
+	attr type.QName element;
+
+	@ExtendedMetaData(kind="attribute", name="messageType")
+	attr type.QName messageType;
+}
+
+@ExtendedMetaData(name="tOnMessage", kind="elementOnly")
+class OnMessage extends OnMsgCommon {
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace")
+	!resolve val Assign assign;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace")
+	!resolve val Compensate compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace")
+	!resolve val CompensateScope compensateScope;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace")
+	!resolve val Empty empty;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace")
+	!resolve val Exit exit;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace")
+	!resolve val ExtensionActivity extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace")
+	!resolve val Flow flow;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace")
+	!resolve val ForEach forEach;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace")
+	!resolve val If if;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace")
+	!resolve val Invoke invoke;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace")
+	!resolve val Pick pick;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace")
+	!resolve val Receive receive;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace")
+	!resolve val RepeatUntil repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace")
+	!resolve val Reply reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace")
+	!resolve val Rethrow rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace")
+	!resolve val Sequence sequence;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace")
+	!resolve val Throw throw;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace")
+	!resolve val Validate validate;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace")
+	!resolve val Wait wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace")
+	!resolve val While while;
+}
+
+@ExtendedMetaData(name="tOnMsgCommon", kind="elementOnly")
+class OnMsgCommon extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="correlations", namespace="##targetNamespace")
+	!resolve val Correlations correlations;
+
+	@ExtendedMetaData(kind="element", name="fromParts", namespace="##targetNamespace")
+	!resolve val FromParts fromParts;
+
+	@ExtendedMetaData(kind="attribute", name="messageExchange")
+	attr type.NCName messageExchange;
+
+	@ExtendedMetaData(kind="attribute", name="operation")
+	attr type.NCName[1] operation;
+
+	@ExtendedMetaData(kind="attribute", name="partnerLink")
+	attr type.NCName[1] partnerLink;
+
+	@ExtendedMetaData(kind="attribute", name="portType")
+	attr type.QName portType;
+
+	@ExtendedMetaData(kind="attribute", name="variable")
+	attr BPELVariableName variable;
+}
+
+@ExtendedMetaData(name="tPartnerLink", kind="elementOnly")
+class PartnerLink extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="attribute", name="initializePartnerRole")
+	unsettable attr Boolean initializePartnerRole = "yes";
+
+	@ExtendedMetaData(kind="attribute", name="myRole")
+	attr type.NCName myRole;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.NCName[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="partnerLinkType")
+	attr type.QName[1] partnerLinkType;
+
+	@ExtendedMetaData(kind="attribute", name="partnerRole")
+	attr type.NCName partnerRole;
+}
+
+@ExtendedMetaData(name="tPartnerLinks", kind="elementOnly")
+class PartnerLinks extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="partnerLink", namespace="##targetNamespace")
+	!resolve val PartnerLink[+] partnerLink;
+}
+
+@ExtendedMetaData(name="tPattern")
+enum Pattern {
+	request = 0;
+	response = 1;
+	requestResponse = 2;
+}
+
+@ExtendedMetaData(name="tPattern:Object", baseType="tPattern")
+datatype PatternObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tPick", kind="elementOnly")
+class Pick extends Activity {
+
+	@ExtendedMetaData(kind="element", name="onMessage", namespace="##targetNamespace")
+	!resolve val OnMessage[+] onMessage;
+
+	@ExtendedMetaData(kind="element", name="onAlarm", namespace="##targetNamespace")
+	!resolve val OnAlarmPick[*] onAlarm;
+
+	@ExtendedMetaData(kind="attribute", name="createInstance")
+	unsettable attr Boolean createInstance = "no";
+}
+
+@ExtendedMetaData(name="tProcess", kind="elementOnly")
+class Process extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="extensions", namespace="##targetNamespace")
+	!resolve val Extensions extensions;
+
+	@ExtendedMetaData(kind="element", name="import", namespace="##targetNamespace")
+	!resolve val Import[*] ~import;
+
+	@ExtendedMetaData(kind="element", name="partnerLinks", namespace="##targetNamespace")
+	!resolve val PartnerLinks partnerLinks;
+
+	@ExtendedMetaData(kind="element", name="messageExchanges", namespace="##targetNamespace")
+	!resolve val MessageExchanges messageExchanges;
+
+	@ExtendedMetaData(kind="element", name="variables", namespace="##targetNamespace")
+	!resolve val Variables variables;
+
+	@ExtendedMetaData(kind="element", name="correlationSets", namespace="##targetNamespace")
+	!resolve val CorrelationSets correlationSets;
+
+	@ExtendedMetaData(kind="element", name="faultHandlers", namespace="##targetNamespace")
+	!resolve val FaultHandlers faultHandlers;
+
+	@ExtendedMetaData(kind="element", name="eventHandlers", namespace="##targetNamespace")
+	!resolve val EventHandlers eventHandlers;
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace")
+	!resolve val Assign assign;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace")
+	!resolve val Compensate compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace")
+	!resolve val CompensateScope compensateScope;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace")
+	!resolve val Empty empty;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace")
+	!resolve val Exit exit;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace")
+	!resolve val ExtensionActivity extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace")
+	!resolve val Flow flow;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace")
+	!resolve val ForEach forEach;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace")
+	!resolve val If if;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace")
+	!resolve val Invoke invoke;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace")
+	!resolve val Pick pick;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace")
+	!resolve val Receive receive;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace")
+	!resolve val RepeatUntil repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace")
+	!resolve val Reply reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace")
+	!resolve val Rethrow rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace")
+	!resolve val Sequence sequence;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace")
+	!resolve val Throw throw;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace")
+	!resolve val Validate validate;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace")
+	!resolve val Wait wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace")
+	!resolve val While while;
+
+	@ExtendedMetaData(kind="attribute", name="exitOnStandardFault")
+	unsettable attr Boolean exitOnStandardFault = "no";
+
+	@ExtendedMetaData(kind="attribute", name="expressionLanguage")
+	unsettable attr type.AnyURI expressionLanguage = "urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0";
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.NCName[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="queryLanguage")
+	unsettable attr type.AnyURI queryLanguage = "urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0";
+
+	@ExtendedMetaData(kind="attribute", name="suppressJoinFailure")
+	unsettable attr Boolean suppressJoinFailure = "no";
+
+	@ExtendedMetaData(kind="attribute", name="targetNamespace")
+	attr type.AnyURI[1] targetNamespace;
+}
+
+@ExtendedMetaData(name="tQuery", kind="mixed")
+class Query {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##any", name=":1", processing="lax")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attribute", name="queryLanguage")
+	attr type.AnyURI queryLanguage;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="lax")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="tReceive", kind="elementOnly")
+class Receive extends Activity {
+
+	@ExtendedMetaData(kind="element", name="correlations", namespace="##targetNamespace")
+	!resolve val Correlations correlations;
+
+	@ExtendedMetaData(kind="element", name="fromParts", namespace="##targetNamespace")
+	!resolve val FromParts fromParts;
+
+	@ExtendedMetaData(kind="attribute", name="createInstance")
+	unsettable attr Boolean createInstance = "no";
+
+	@ExtendedMetaData(kind="attribute", name="messageExchange")
+	attr type.NCName messageExchange;
+
+	@ExtendedMetaData(kind="attribute", name="operation")
+	attr type.NCName[1] operation;
+
+	@ExtendedMetaData(kind="attribute", name="partnerLink")
+	attr type.NCName[1] partnerLink;
+
+	@ExtendedMetaData(kind="attribute", name="portType")
+	attr type.QName portType;
+
+	@ExtendedMetaData(kind="attribute", name="variable")
+	attr BPELVariableName variable;
+}
+
+@ExtendedMetaData(name="tRepeatUntil", kind="elementOnly")
+class RepeatUntil extends Activity {
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace")
+	!resolve val Assign assign;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace")
+	!resolve val Compensate compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace")
+	!resolve val CompensateScope compensateScope;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace")
+	!resolve val Empty empty;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace")
+	!resolve val Exit exit;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace")
+	!resolve val ExtensionActivity extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace")
+	!resolve val Flow flow;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace")
+	!resolve val ForEach forEach;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace")
+	!resolve val If if;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace")
+	!resolve val Invoke invoke;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace")
+	!resolve val Pick pick;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace")
+	!resolve val Receive receive;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace")
+	!resolve val RepeatUntil repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace")
+	!resolve val Reply reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace")
+	!resolve val Rethrow rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace")
+	!resolve val Sequence sequence;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace")
+	!resolve val Throw throw;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace")
+	!resolve val Validate validate;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace")
+	!resolve val Wait wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace")
+	!resolve val While while;
+
+	@ExtendedMetaData(kind="element", name="condition", namespace="##targetNamespace")
+	!resolve val BooleanExpr[1] condition;
+}
+
+@ExtendedMetaData(name="tReply", kind="elementOnly")
+class Reply extends Activity {
+
+	@ExtendedMetaData(kind="element", name="correlations", namespace="##targetNamespace")
+	!resolve val Correlations correlations;
+
+	@ExtendedMetaData(kind="element", name="toParts", namespace="##targetNamespace")
+	!resolve val ToParts toParts;
+
+	@ExtendedMetaData(kind="attribute", name="faultName")
+	attr type.QName faultName;
+
+	@ExtendedMetaData(kind="attribute", name="messageExchange")
+	attr type.NCName messageExchange;
+
+	@ExtendedMetaData(kind="attribute", name="operation")
+	attr type.NCName[1] operation;
+
+	@ExtendedMetaData(kind="attribute", name="partnerLink")
+	attr type.NCName[1] partnerLink;
+
+	@ExtendedMetaData(kind="attribute", name="portType")
+	attr type.QName portType;
+
+	@ExtendedMetaData(kind="attribute", name="variable")
+	attr BPELVariableName variable;
+}
+
+@ExtendedMetaData(name="tRethrow", kind="elementOnly")
+class Rethrow extends Activity {
+}
+
+@ExtendedMetaData(name="tRoles")
+enum Roles {
+	myRole = 0;
+	partnerRole = 1;
+}
+
+@ExtendedMetaData(name="tRoles:Object", baseType="tRoles")
+datatype RolesObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tScope", kind="elementOnly")
+class Scope extends Activity {
+
+	@ExtendedMetaData(kind="element", name="partnerLinks", namespace="##targetNamespace")
+	!resolve val PartnerLinks partnerLinks;
+
+	@ExtendedMetaData(kind="element", name="messageExchanges", namespace="##targetNamespace")
+	!resolve val MessageExchanges messageExchanges;
+
+	@ExtendedMetaData(kind="element", name="variables", namespace="##targetNamespace")
+	!resolve val Variables variables;
+
+	@ExtendedMetaData(kind="element", name="correlationSets", namespace="##targetNamespace")
+	!resolve val CorrelationSets correlationSets;
+
+	@ExtendedMetaData(kind="element", name="faultHandlers", namespace="##targetNamespace")
+	!resolve val FaultHandlers faultHandlers;
+
+	@ExtendedMetaData(kind="element", name="compensationHandler", namespace="##targetNamespace")
+	!resolve val ActivityContainer compensationHandler;
+
+	@ExtendedMetaData(kind="element", name="terminationHandler", namespace="##targetNamespace")
+	!resolve val ActivityContainer terminationHandler;
+
+	@ExtendedMetaData(kind="element", name="eventHandlers", namespace="##targetNamespace")
+	!resolve val EventHandlers eventHandlers;
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace")
+	!resolve val Assign assign;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace")
+	!resolve val Compensate compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace")
+	!resolve val CompensateScope compensateScope;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace")
+	!resolve val Empty empty;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace")
+	!resolve val Exit exit;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace")
+	!resolve val ExtensionActivity extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace")
+	!resolve val Flow flow;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace")
+	!resolve val ForEach forEach;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace")
+	!resolve val If if;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace")
+	!resolve val Invoke invoke;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace")
+	!resolve val Pick pick;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace")
+	!resolve val Receive receive;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace")
+	!resolve val RepeatUntil repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace")
+	!resolve val Reply reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace")
+	!resolve val Rethrow rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace")
+	!resolve val Sequence sequence;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace")
+	!resolve val Throw throw;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace")
+	!resolve val Validate validate;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace")
+	!resolve val Wait wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace")
+	!resolve val While while;
+
+	@ExtendedMetaData(kind="attribute", name="exitOnStandardFault")
+	unsettable attr Boolean exitOnStandardFault = "yes";
+
+	@ExtendedMetaData(kind="attribute", name="isolated")
+	unsettable attr Boolean isolated = "no";
+}
+
+@ExtendedMetaData(name="tSequence", kind="elementOnly")
+class Sequence extends Activity {
+
+	@ExtendedMetaData(kind="group", name="Activity:7")
+	!unique attr ecore.EFeatureMapEntry[*] activity;
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Assign[*] assign;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Compensate[*] compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val CompensateScope[*] compensateScope;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Empty[*] empty;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Exit[*] exit;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val ExtensionActivity[*] extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Flow[*] flow;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val ForEach[*] forEach;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val If[*] if;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Invoke[*] invoke;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Pick[*] pick;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Receive[*] receive;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val RepeatUntil[*] repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Reply[*] reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Rethrow[*] rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Scope[*] scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Sequence[*] sequence;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Throw[*] throw;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Validate[*] validate;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val Wait[*] wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace", group="#Activity:7")
+	volatile transient derived !resolve val While[*] while;
+}
+
+@ExtendedMetaData(name="tSource", kind="elementOnly")
+class Source extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="transitionCondition", namespace="##targetNamespace")
+	!resolve val Condition transitionCondition;
+
+	@ExtendedMetaData(kind="attribute", name="linkName")
+	attr type.NCName[1] linkName;
+}
+
+@ExtendedMetaData(name="tSources", kind="elementOnly")
+class Sources extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="source", namespace="##targetNamespace")
+	!resolve val Source[+] source;
+}
+
+@ExtendedMetaData(name="tTarget", kind="elementOnly")
+class Target extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="attribute", name="linkName")
+	attr type.NCName[1] linkName;
+}
+
+@ExtendedMetaData(name="tTargets", kind="elementOnly")
+class Targets extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="joinCondition", namespace="##targetNamespace")
+	!resolve val Condition joinCondition;
+
+	@ExtendedMetaData(kind="element", name="target", namespace="##targetNamespace")
+	!resolve val Target[+] target;
+}
+
+@ExtendedMetaData(name="tThrow", kind="elementOnly")
+class Throw extends Activity {
+
+	@ExtendedMetaData(kind="attribute", name="faultName")
+	attr type.QName[1] faultName;
+
+	@ExtendedMetaData(kind="attribute", name="faultVariable")
+	attr BPELVariableName faultVariable;
+}
+
+@ExtendedMetaData(name="tTo", kind="mixed")
+class To {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	volatile transient derived !resolve val Documentation[*] documentation;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":2", processing="lax")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="element", name="query", namespace="##targetNamespace")
+	volatile transient derived !resolve val Query query;
+
+	@ExtendedMetaData(kind="attribute", name="expressionLanguage")
+	attr type.AnyURI expressionLanguage;
+
+	@ExtendedMetaData(kind="attribute", name="part")
+	attr type.NCName part;
+
+	@ExtendedMetaData(kind="attribute", name="partnerLink")
+	attr type.NCName partnerLink;
+
+	@ExtendedMetaData(kind="attribute", name="property")
+	attr type.QName property;
+
+	@ExtendedMetaData(kind="attribute", name="variable")
+	attr BPELVariableName variable;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":9", processing="lax")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="tToPart", kind="elementOnly")
+class ToPart extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="attribute", name="fromVariable")
+	attr BPELVariableName[1] fromVariable;
+
+	@ExtendedMetaData(kind="attribute", name="part")
+	attr type.NCName[1] part;
+}
+
+@ExtendedMetaData(name="tToParts", kind="elementOnly")
+class ToParts extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="toPart", namespace="##targetNamespace")
+	!resolve val ToPart[+] toPart;
+}
+
+@ExtendedMetaData(name="tValidate", kind="elementOnly")
+class Validate extends Activity {
+
+	@ExtendedMetaData(kind="attribute", name="variables")
+	attr BPELVariableNames[1] variables;
+}
+
+@ExtendedMetaData(name="tVariable", kind="elementOnly")
+class Variable extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="from", namespace="##targetNamespace")
+	!resolve val From from;
+
+	@ExtendedMetaData(kind="attribute", name="element")
+	attr type.QName element;
+
+	@ExtendedMetaData(kind="attribute", name="messageType")
+	attr type.QName messageType;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr BPELVariableName[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr type.QName type;
+}
+
+@ExtendedMetaData(name="tVariables", kind="elementOnly")
+class Variables extends ExtensibleElements {
+
+	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
+	!resolve val Variable[+] variable;
+}
+
+@ExtendedMetaData(name="tWait", kind="elementOnly")
+class Wait extends Activity {
+
+	@ExtendedMetaData(kind="element", name="for", namespace="##targetNamespace")
+	!resolve val DurationExpr for;
+
+	@ExtendedMetaData(kind="element", name="until", namespace="##targetNamespace")
+	!resolve val DeadlineExpr until;
+}
+
+@ExtendedMetaData(name="tWhile", kind="elementOnly")
+class While extends Activity {
+
+	@ExtendedMetaData(kind="element", name="condition", namespace="##targetNamespace")
+	!resolve val BooleanExpr[1] condition;
+
+	@ExtendedMetaData(kind="element", name="assign", namespace="##targetNamespace")
+	!resolve val Assign assign;
+
+	@ExtendedMetaData(kind="element", name="compensate", namespace="##targetNamespace")
+	!resolve val Compensate compensate;
+
+	@ExtendedMetaData(kind="element", name="compensateScope", namespace="##targetNamespace")
+	!resolve val CompensateScope compensateScope;
+
+	@ExtendedMetaData(kind="element", name="empty", namespace="##targetNamespace")
+	!resolve val Empty empty;
+
+	@ExtendedMetaData(kind="element", name="exit", namespace="##targetNamespace")
+	!resolve val Exit exit;
+
+	@ExtendedMetaData(kind="element", name="extensionActivity", namespace="##targetNamespace")
+	!resolve val ExtensionActivity extensionActivity;
+
+	@ExtendedMetaData(kind="element", name="flow", namespace="##targetNamespace")
+	!resolve val Flow flow;
+
+	@ExtendedMetaData(kind="element", name="forEach", namespace="##targetNamespace")
+	!resolve val ForEach forEach;
+
+	@ExtendedMetaData(kind="element", name="if", namespace="##targetNamespace")
+	!resolve val If if;
+
+	@ExtendedMetaData(kind="element", name="invoke", namespace="##targetNamespace")
+	!resolve val Invoke invoke;
+
+	@ExtendedMetaData(kind="element", name="pick", namespace="##targetNamespace")
+	!resolve val Pick pick;
+
+	@ExtendedMetaData(kind="element", name="receive", namespace="##targetNamespace")
+	!resolve val Receive receive;
+
+	@ExtendedMetaData(kind="element", name="repeatUntil", namespace="##targetNamespace")
+	!resolve val RepeatUntil repeatUntil;
+
+	@ExtendedMetaData(kind="element", name="reply", namespace="##targetNamespace")
+	!resolve val Reply reply;
+
+	@ExtendedMetaData(kind="element", name="rethrow", namespace="##targetNamespace")
+	!resolve val Rethrow rethrow;
+
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	!resolve val Scope scope;
+
+	@ExtendedMetaData(kind="element", name="sequence", namespace="##targetNamespace")
+	!resolve val Sequence sequence;
+
+	@ExtendedMetaData(kind="element", name="throw", namespace="##targetNamespace")
+	!resolve val Throw throw;
+
+	@ExtendedMetaData(kind="element", name="validate", namespace="##targetNamespace")
+	!resolve val Validate validate;
+
+	@ExtendedMetaData(kind="element", name="wait", namespace="##targetNamespace")
+	!resolve val Wait wait;
+
+	@ExtendedMetaData(kind="element", name="while", namespace="##targetNamespace")
+	!resolve val While while;
+}
+

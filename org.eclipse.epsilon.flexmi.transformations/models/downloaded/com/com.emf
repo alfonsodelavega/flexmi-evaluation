@@ -1,0 +1,3187 @@
+@GenModel(documentation="
+Type mappings are used to store mappings along with a type.  Added post 1.2		
+		
+
+Member mappings are used to map a property to a member of a resource.		
+		")
+@namespace(uri="http://www.nokia.com/sdt/emf/component", prefix="component")
+package component;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@GenModel(documentation="A base schema type for further property type declarations. Not used directly in components.
+			")
+@ExtendedMetaData(name="abstractPropertyType", kind="empty")
+class AbstractPropertyType {
+
+	@GenModel(documentation="The category grouping to be used in the property sheet. 
+			 If this value matches the key of a known group then the localized name is looked up within the Symbian component provider. Otherwise it is treated like a
+			 potentially localized string, i.e. if it is %-prefixed a string is looked up in the properties file.
+			 The special value of \"hidden\" will cause the property to be filtered from the property sheet.
+			")
+	@ExtendedMetaData(kind="attribute", name="category")
+	!unique attr type.String category;
+
+	@GenModel(documentation="A property key to descriptive text for the property to be displayed in the status bar
+			when the property is selected in the property sheet.
+			")
+	@ExtendedMetaData(kind="attribute", name="descriptionKey")
+	!unique attr type.String descriptionKey;
+
+	@GenModel(documentation="The property name to be display in the user interface. Can contain spaces and other characters.
+			This value should be localized.
+			")
+	@ExtendedMetaData(kind="attribute", name="displayName")
+	!unique attr type.String displayName;
+
+	@GenModel(documentation="The fully qualified name of a class implementing com.nokia.sdt.component.property.IPropertyEditorFactory.
+			This allows Java code to provide a label provider, cell editor, and validator for the property.
+			")
+	@ExtendedMetaData(kind="attribute", name="editorClass")
+	!unique attr type.String editorClass;
+
+	@GenModel(documentation="A key to more detailed help for the property.
+			")
+	@ExtendedMetaData(kind="attribute", name="helpKey")
+	!unique attr type.String helpKey;
+
+	@GenModel(documentation="The internal name for the property. It must be unique within the component and its base
+			components. Since it may be used as an identifier in scripts it should be a legal JavaScript identifier.
+			")
+	@ExtendedMetaData(kind="attribute", name="name")
+	!unique attr type.String[1] name;
+
+	@GenModel(documentation="If true the property will be read-only in the property sheet.
+			")
+	@ExtendedMetaData(kind="attribute", name="readOnly")
+	!unique unsettable attr type.Boolean readOnly = "false";
+
+	@GenModel(documentation="If false the reset button will be disabled, inhibiting the user from reverting to the default value
+			")
+	@ExtendedMetaData(kind="attribute", name="resettable")
+	!unique unsettable attr type.Boolean resettable = "true";
+}
+
+@GenModel(documentation="A concrete property type that is a dynamic array of property values. All values
+			are of the same type, which can be either a simple or compound property type.
+			")
+@ExtendedMetaData(name="arrayPropertyType", kind="empty")
+class ArrayPropertyType extends AbstractPropertyType {
+
+	@GenModel(documentation="The element type. It must be either a propertyDataType value, such as \"integer\" 
+					or \"localizedString\", or the fully qualified name of a compound property type.
+					")
+	@ExtendedMetaData(kind="attribute", name="type")
+	!unique attr type.String[1] type;
+}
+
+@ExtendedMetaData(name="attributes_._type", kind="elementOnly")
+class AttributesType {
+
+	@ExtendedMetaData(kind="element", name="attribute", namespace="##targetNamespace")
+	!resolve val AttributeType[+] attribute;
+}
+
+@ExtendedMetaData(name="attribute_._type", kind="simple")
+class AttributeType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	!unique attr type.String value;
+
+	@GenModel(documentation="
+						")
+	@ExtendedMetaData(kind="attribute", name="key")
+	!unique attr type.String[1] key;
+}
+
+@ExtendedMetaData(name="choice_._type", kind="elementOnly")
+class ChoiceType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="group", name="twoWayMapping:group", namespace="##targetNamespace", group="#group:0")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] twoWayMappingGroup;
+
+	@ExtendedMetaData(kind="element", name="twoWayMapping", namespace="##targetNamespace", group="twoWayMapping:group")
+	readonly volatile transient derived !resolve val TwoWayMappingType[*] twoWayMapping;
+
+	@GenModel(documentation="
+		Map an instance to a RESOURCE.
+		")
+	@ExtendedMetaData(kind="element", name="mapResource", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapResourceType[*] mapResource;
+
+	@GenModel(documentation="
+		This element encapsulates choice elements which allow conditional
+		source mapping.  One choice must match or an error results (you can
+		use an empty choice to match the default case if necessary).  Only
+		the first matching choice is considered.
+			<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+				Only use one attribute (property, attribute, propertyExists, isComponentInstanceOf)
+				 for the select statement.
+			</p>
+		")
+	@ExtendedMetaData(kind="element", name="select", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SelectType[*] select;
+
+	@GenModel(documentation="
+					The value to match.  If unspecified, the choice always matches.
+					")
+	@ExtendedMetaData(kind="attribute", name="value")
+	!unique attr type.String value;
+}
+
+@ExtendedMetaData(name="code_._type", kind="empty")
+class CodeType {
+
+	@GenModel(documentation="
+				Class in plugin.
+				")
+	@ExtendedMetaData(kind="attribute", name="class")
+	!unique attr type.String[1] ~class;
+
+	@GenModel(documentation="
+				Plugin id
+				")
+	@ExtendedMetaData(kind="attribute", name="plugin")
+	!unique attr type.String plugin;
+}
+
+@ExtendedMetaData(name="componentDefinition_._type", kind="elementOnly")
+class ComponentDefinitionType {
+
+	@GenModel(documentation="
+			Declares a compound type that may be referenced from one or more
+			compound property declarations in this or other component documents. All compound property declarations are in a global 
+			namespace and must be declared as global elements.
+		")
+	@ExtendedMetaData(kind="element", name="compoundPropertyDeclaration", namespace="##targetNamespace")
+	!resolve val CompoundPropertyDeclarationType[*] compoundPropertyDeclaration;
+
+	@GenModel(documentation="
+			Declares an enumerated type that may be referenced from one or more
+			enumerated property declarations in this or other component documents. All enum property declarations are in a global 
+			namespace and must be declared as global elements.
+		")
+	@ExtendedMetaData(kind="element", name="enumPropertyDeclaration", namespace="##targetNamespace")
+	!resolve val EnumPropertyDeclarationType[*] enumPropertyDeclaration;
+
+	@GenModel(documentation="
+        This is the container element for all the information about a single component.
+        ")
+	@ExtendedMetaData(kind="element", name="component", namespace="##targetNamespace")
+	!resolve val ComponentType component;
+}
+
+@GenModel(documentation="A concrete property type that maintains a reference to a component
+			instance in the same model. The reference is kept by name, and is maintained across renames of the target
+			instance. It is cleared automatically if the target instance is removed.
+			")
+@ExtendedMetaData(name="componentReferencePropertyType", kind="empty")
+class ComponentReferencePropertyType extends AbstractPropertyType {
+
+	@GenModel(documentation="If specified, this must be the fully qualified name of a component type. Values
+					are then constrained to be instances of this type, and the property sheet user interface displays a list of eligible
+					instances.
+					")
+	@ExtendedMetaData(kind="attribute", name="constraint")
+	!unique attr type.String constraint;
+
+	@GenModel(documentation="An optional comma-delimited string containing a list of keys. When
+					present these keys are used to add \"create new xxx\" items to the dropdown menu for the property, in addition to
+					the \"None\" and existing instances populated into the menu. A component using this feature must also provide
+					an ISetValueCommandExtender implementation to handle the creation of these items.
+					Each key is used for two purposes:
+					- As a resource key for the dropdown menu item. The resource string should be the full command, e.g. \"Create new Foo\".
+					- When selected, the key is provided as a parameter to a com.nokia.sdt.component.NewComponentReferenceParameter instance. 
+					This instance is then available from the SetValueCommand passed to ISetValueCommandExtender.getExtendedCommand. 
+					The implementation should retrieve the key, and return a Command object that will create the appropriate new instance 
+					and set the target value to the new instance.
+					")
+	@ExtendedMetaData(kind="attribute", name="creationKeys")
+	!unique attr type.String creationKeys;
+
+	@GenModel(documentation="If specified, the properties of the instance referenced by this property are promoted
+					into this property source, excluding the 'name' property and other properties that already exist in this component.  
+					This property and the referenced component instance's properties will be at the same level.
+					")
+	@ExtendedMetaData(kind="attribute", name="promoteReferenceProperties")
+	!unique unsettable attr type.Boolean promoteReferenceProperties;
+
+	@GenModel(documentation="Enumeration defining the scope for permissable values.
+					")
+	@ExtendedMetaData(kind="attribute", name="scope")
+	!unique unsettable attr ReferenceScopeType[1] scope = "model";
+}
+
+@ExtendedMetaData(name="component_._type", kind="elementOnly")
+class ComponentType {
+
+	@GenModel(documentation="The optional documentation element provides brief description information about the component and a link to more detailed documentation
+				")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val DocumentationType documentation;
+
+	@GenModel(documentation="The optional Symbian element provides SDK compatibility information and information about the related 
+	C++ classes and resource structures. When this element is omitted the component will be considered incompatible
+	with all Symbian SDKs.
+			")
+	@ExtendedMetaData(kind="element", name="symbian", namespace="##targetNamespace")
+	!resolve val SymbianType symbian;
+
+	@GenModel(documentation="This element is specifies images for use by the UI designer. Only those images that apply need to be defined, e.g.
+		if a component never appears in the UI design wizard or palette then it doesn't need those images.
+		")
+	@ExtendedMetaData(kind="element", name="designerImages", namespace="##targetNamespace")
+	!resolve val DesignerImagesType designerImages;
+
+	@GenModel(documentation="
+Attribute elements can hold any static character data that is common to all instances of a component. Attributes are inherited from their base components.
+			")
+	@ExtendedMetaData(kind="element", name="attributes", namespace="##targetNamespace")
+	!resolve val AttributesType attributes;
+
+	@GenModel(documentation="The list of properties defined for this component. Components also inherit the properties of their base
+		components, and can have properties added dynamically, see extensionProperties.
+		")
+	@ExtendedMetaData(kind="element", name="properties", namespace="##targetNamespace")
+	!resolve val PropertiesType properties;
+
+	@GenModel(documentation="Extension properties may be dynamically added, based on the state of an instance of this
+		component, its container, or other objects. There may be more than one set of extension properties defined in a component.
+		See the com.nokia.sdt.datamodel.adapter.IPropertyExtenders interface.
+		")
+	@ExtendedMetaData(kind="element", name="extensionProperties", namespace="##targetNamespace")
+	!resolve val ExtensionPropertiesType[*] extensionProperties;
+
+	@GenModel(documentation="A list of property overrides defined for this component. Components also
+		inherit the property overrides of their base components, with changes applied by the most derived component taking
+		precedence. 
+		
+		Property overrides allow certain characteristics of a property to be modified, such as changing a modifiable property
+		to read-only.
+		")
+	@ExtendedMetaData(kind="element", name="propertyOverrides", namespace="##targetNamespace")
+	!resolve val PropertyOverridesType propertyOverrides;
+
+	@GenModel(documentation="The list of events defined for this component. Components also inherit the events of
+			their base components. Events are named notifications or hooks to which code can be attached. The data here is
+			used to drive the user interface. The details of source code generation are part of the source code generation templates.
+			
+			The set of available events, and default event, may be overriden via code or script. See the 
+			com.nokia.sdt.datamodel.adapter.IComponentEventInfo interface for more information.
+			")
+	@ExtendedMetaData(kind="element", name="events", namespace="##targetNamespace")
+	!resolve val EventsType events;
+
+	@GenModel(documentation="
+		This section controls C/C++ source generation (with the potential to support 
+		other one-way languages).  In a sourceGen element, all the elements in linear 
+		order comprise the component's contributions.  
+		
+		Conditional sourcegen is implemented by using the \"form\" attribute on 
+		templates or templateGroups, or explicitly checking the regex \"form\" in inline code.  
+		
+		Another form of conditional sourcegen is event handling code.  The \"ifEvents\" attribute completely filters out defineLocation/template elements if a given event is not bound to an instance.
+		")
+	@ExtendedMetaData(kind="element", name="sourceGen", namespace="##targetNamespace")
+	!resolve val SourceGenType sourceGen;
+
+	@GenModel(documentation="
+The sourceMapping element defines a particular style of source generation
+which consists of automatic generation of source by structurally
+mapping a component instance to a source definition.  
+			")
+	@ExtendedMetaData(kind="element", name="sourceMapping", namespace="##targetNamespace")
+	!resolve val SourceMappingType sourceMapping;
+
+	@GenModel(documentation="Implementation elements declare code or script implementations of interfaces by name.
+			")
+	@ExtendedMetaData(kind="element", name="implementations", namespace="##targetNamespace")
+	!resolve val ImplementationsType implementations;
+
+	@GenModel(documentation="Specify true to define a component intended to be used as a basis for deriving other components.
+				Abstract components are filtered out of the component palette.
+				")
+	@ExtendedMetaData(kind="attribute", name="abstract")
+	!unique unsettable attr type.Boolean ~abstract;
+
+	@GenModel(documentation="The fully qualifed name of the base component. The version of the base component
+			cannot be specified, it will be whichever is selected via SDK matching.
+				")
+	@ExtendedMetaData(kind="attribute", name="baseComponent")
+	!unique attr type.String baseComponent;
+
+	@GenModel(documentation="Specifies the grouping for the editor's component palette. If this string matches the key
+				of a known group then the localized name is looked up within the Symbian component provider. Otherwise it is treated like a
+				potentially localized string, i.e. if it is %-prefixed a string is looked up in the properties file.
+				")
+	@ExtendedMetaData(kind="attribute", name="category")
+	!unique attr type.String category;
+
+	@GenModel(documentation="A short name displayed in the user interface. These values should be localized.
+				")
+	@ExtendedMetaData(kind="attribute", name="friendlyName")
+	!unique attr type.String[1] friendlyName;
+
+	@GenModel(documentation="The root part of the name used in assigned unique names to component instances. For example,
+			if the root is \"label\" then names will be assigned in sequence \"label1\", \"label2\", and so forth. These values should not be localized.
+				")
+	@ExtendedMetaData(kind="attribute", name="instanceNameRoot")
+	!unique attr type.String instanceNameRoot;
+
+	@GenModel(documentation="A globally unique name for a component. By convention these use dotted names, such as
+				com.example.MyComponent. Different versions of a component, in different files, can share the same qualified name. These values
+				should not be localized.
+				")
+	@ExtendedMetaData(kind="attribute", name="qualifiedName")
+	!unique attr type.String[1] qualifiedName;
+
+	@GenModel(documentation="Identifies the version of the component specified by this document. Uses OSGI style version strings, composed
+			of up to 3 integers and a text qualifier, of the form &lt;major version&gt;.&lt;minor version&gt;.&lt;micro version&gt;.&lt;qualifier&gt;.
+			See http://help.eclipse.org/help31/topic/org.eclipse.platform.doc.isv/reference/osgi/org/osgi/framework/Version.html for further information.
+				")
+	@ExtendedMetaData(kind="attribute", name="version")
+	!unique attr type.String version;
+}
+
+@ExtendedMetaData(name="compoundPropertyDeclaration_._type", kind="elementOnly")
+class CompoundPropertyDeclarationType {
+
+	@GenModel(documentation="Any property type may be used here, i.e. simple, compound, array, reference.
+					")
+	@ExtendedMetaData(kind="group", name="abstractProperty:group", namespace="##targetNamespace")
+	!unique attr ecore.EFeatureMapEntry[*] abstractPropertyGroup;
+
+	@GenModel(documentation="Any property type may be used here, i.e. simple, compound, array, reference.
+					")
+	@ExtendedMetaData(kind="element", name="abstractProperty", namespace="##targetNamespace", group="abstractProperty:group")
+	readonly volatile transient derived !resolve val AbstractPropertyType[*] abstractProperty;
+
+	@GenModel(documentation="
+					This element provides source mapping for the type, for use by
+					map*FromType elements.  Added post 1.2.
+					")
+	@ExtendedMetaData(kind="element", name="sourceTypeMapping", namespace="##targetNamespace")
+	!resolve val SourceTypeMappingType sourceTypeMapping;
+
+	@GenModel(documentation="If specified, this must be the fully qualified name of an implementation of
+				com.nokia.sdt.component.property.ICompoundPropertyValueConverter. It is used to convert back and forth between
+				the editable value and the compound value. The editable value is a single value, display as the parent value in the
+				property sheet and used with cell editors.
+				")
+	@ExtendedMetaData(kind="attribute", name="converterClass")
+	!unique attr type.String converterClass;
+
+	@GenModel(documentation="The property type of the editable value. In addition to editing each
+				child value, the user may be able to edit the property as a whole. For example, an RGB color value may be
+				editable as a string. This value can be a propertyDataType value such as \"integer\" or \"string\", or can be
+				the name of an enumPropertyDeclaration.
+				")
+	@ExtendedMetaData(kind="attribute", name="editableType")
+	!unique unsettable attr type.String editableType = "";
+
+	@GenModel(documentation="The fully qualified name of a class implementing 
+			com.nokia.sdt.component.property.IPropertyEditorFactory.
+			This allows Java code to provide a label provider, cell editor, and validator for the property.
+			Specify a factory class here provides a default for all compound properties of this type. The factory
+			may be overriden by a compound property declaration
+			")
+	@ExtendedMetaData(kind="attribute", name="editorClass")
+	!unique attr type.String editorClass;
+
+	@GenModel(documentation="A globally unique name for the property. By convention this is a dotted name, e.g.
+				com.example.MyPropertyType. This identifier is used in compound property declarations.
+				")
+	@ExtendedMetaData(kind="attribute", name="qualifiedName")
+	!unique attr type.String[1] qualifiedName;
+}
+
+@GenModel(documentation="Concrete type used for structured properties.
+			")
+@ExtendedMetaData(name="compoundPropertyType", kind="empty")
+class CompoundPropertyType extends AbstractPropertyType {
+
+	@GenModel(documentation="An optional default value for the property. The compoundPropertyDeclaration must
+					have a converterType specified for this default value to be used.
+					")
+	@ExtendedMetaData(kind="attribute", name="default")
+	!unique attr type.String default;
+
+	@GenModel(documentation="The fully qualified name of the compound property type declaration. It can be
+					any type accessible from the current or any other component definitions. See compoundPropertyDeclaration for
+					further information.
+					")
+	@ExtendedMetaData(kind="attribute", name="type")
+	!unique attr type.String[1] type;
+}
+
+@ExtendedMetaData(name="ConditionalSourceGen", kind="empty")
+abstract class ConditionalSourceGen {
+
+	@GenModel(documentation="
+			Added post 1.1 to inline.
+
+			A list of tokens used to select a particular kind of source for a parent.
+			The namespace is determined implicitly by what a parent requests.
+			
+			For instance, a parent may have special sourcegen, and pass
+			the form \"SpecialCase\" to its children.  Elements specifying
+			form=\"SpecialCase\" will be selected.  Other parents will not see
+			such elements if they do not specify that form.
+			
+			If the form does not match, the element is not invoked.
+			")
+	@ExtendedMetaData(kind="attribute", name="forms")
+	!unique attr ListOfStrings forms;
+
+	@GenModel(documentation="
+			Added post 1.1 to inline.
+			If defined, a list of events, any of which must be bound for the
+			element to be invoked.
+			")
+	@ExtendedMetaData(kind="attribute", name="ifEvents")
+	!unique attr ListOfStrings ifEvents;
+
+	@GenModel(documentation="
+			Added post 1.1.
+			If defined, a Javascript expression which must evaluate to
+			true (or non-zero) for the element to be invoked.
+			")
+	@ExtendedMetaData(kind="attribute", name="ifExpr")
+	!unique attr type.String ifExpr;
+}
+
+@GenModel(documentation="
+		Base for sourcegen elements which may be conditionally skipped
+		(and which contain text).
+		Such skipping applies to the save-time behavior and not
+		the load-time or validation-time behavior.
+		")
+@ExtendedMetaData(name="ConditionalSourceGenString", kind="simple")
+abstract class ConditionalSourceGenString {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	!unique attr type.String value;
+
+	@GenModel(documentation="
+			Added post 1.1 to inline.
+
+			A list of tokens used to select a particular kind of source for a parent.
+			The namespace is determined implicitly by what a parent requests.
+			
+			For instance, a parent may have special sourcegen, and pass
+			the form \"SpecialCase\" to its children.  Elements specifying
+			form=\"SpecialCase\" will be selected.  Other parents will not see
+			such elements if they do not specify that form.
+			
+			If the form does not match, the element is not invoked.
+			")
+	@ExtendedMetaData(kind="attribute", name="forms")
+	!unique attr ListOfStrings forms;
+
+	@GenModel(documentation="
+			Added post 1.1 to inline.
+			If defined, a list of events, any of which must be bound for the
+			element to be invoked.
+			")
+	@ExtendedMetaData(kind="attribute", name="ifEvents")
+	!unique attr ListOfStrings ifEvents;
+
+	@GenModel(documentation="
+			Added post 1.1.
+			If defined, a Javascript expression which must evaluate to
+			true (or non-zero) for the element to be invoked.
+			")
+	@ExtendedMetaData(kind="attribute", name="ifExpr")
+	!unique attr type.String ifExpr;
+}
+
+@ExtendedMetaData(name="defineLocation_._type", kind="elementOnly")
+class DefineLocationType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+		This defines a contribution.  The text element is template-expanded 
+		with ${ ... } expression escapes and may contain Javascript in &lt;% ... %&gt; sections.
+		")
+	@ExtendedMetaData(kind="element", name="template", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val TemplateType[*] template;
+
+	@GenModel(documentation="
+		Provide Javascript in-line with templates and other sourceGen elements.
+		Be sure to supply a \"forms\" attribute, otherwise the code may execute multiple times
+		during the source generation contribution-gathering phase.
+		")
+	@ExtendedMetaData(kind="element", name="inline", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val InlineType[*] inline;
+
+	@GenModel(documentation="
+		Define a reference to an interface implemented in Javascript.
+		")
+	@ExtendedMetaData(kind="element", name="script", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ScriptType[*] script;
+
+	@GenModel(documentation="
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		Added post 1.1.
+		Expands a given macro into the sourceGen of the caller.  
+		This has the same effect as inserting the same templates and inlines 
+		from the macro's definition at the point of call.  
+		Variable references from those templates and inlines
+		are substituted with the values provided in attributes 
+		(e.g. variableName=\"value\") or expandArgument child elements.  
+		The latter may be preferred for cases where code is substituted,
+		so the formatting may be retained.
+		</p>
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		As a special case, variable references may have modifiers to
+		modify the formatting of a variable when it is expanded.  
+		Modifiers are appended
+		to the variable name as in: $(varName::modifier).  
+		</p>
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		Currently supported modifiers are all for tweaking canonical
+		function argument lists, which match the format of 
+		declaration, with spaces, argument names, default values, etc:
+		</p>
+		<ul xmlns=\"http://www.nokia.com/sdt/emf/component\">
+			<li>as-function-declaration-args: identity
+			</li>
+			<li>as-function-definition-args: removes default argument values
+			</li>
+			<li>as-function-location-args: removes argument names, default arguments, and spaces
+			</li>
+		</ul>
+		")
+	@ExtendedMetaData(kind="element", name="expandMacro", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ExpandMacroType[*] expandMacro;
+
+	@GenModel(documentation="
+				If defined, the location id this location lives inside.  (E.g. a class inside a file,
+				an enum declaration inside a class, etc.)
+				")
+	@ExtendedMetaData(kind="attribute", name="baseLocation")
+	!unique attr type.String baseLocation;
+
+	@GenModel(documentation="
+				For a top-level location, where baseLocation is null, this is a
+				template-expanded reference to the project-relative directory to
+				use.  Predefined variables ${src}, ${inc}, ${resource}, ${build}
+				are provided.
+				")
+	@ExtendedMetaData(kind="attribute", name="dir")
+	!unique attr type.String dir;
+
+	@GenModel(documentation="
+				The source domain which controls how locations are interpreted and instantiated.  
+				Only \"cpp\" is supported currently.
+				")
+	@ExtendedMetaData(kind="attribute", name="domain")
+	!unique attr type.String domain;
+
+	@GenModel(documentation="
+				For a top-level location, where baseLocation is null, this is a
+				template-expanded filename relative to the directory specified by \"dir\".
+				")
+	@ExtendedMetaData(kind="attribute", name="file")
+	!unique attr type.String file;
+
+	@GenModel(documentation="
+				Defines a filter on contributions added to the location.
+				Available filters:
+				* unique-includes (can be applied anywhere, but scans files)
+				* unique-prototypes (can be applied in \"class()\" or children, but scans the class)
+				* unique-bases (can be applied to \"bases()\" or children, but scans the base class list)
+				")
+	@ExtendedMetaData(kind="attribute", name="filter")
+	!unique unsettable attr type.String filter = "default";
+
+	@GenModel(documentation="
+				The location identifier.  This must be unique in a component.  A derived component
+				may redefine a location.
+				")
+	@ExtendedMetaData(kind="attribute", name="id")
+	!unique attr type.String[1] ~id;
+
+	@GenModel(documentation="
+				If defined, a list of events, any of which must be bound for the
+				location to be declared.  Otherwise, its id is not available and 
+				the location is undefined.
+				")
+	@ExtendedMetaData(kind="attribute", name="ifEvents")
+	!unique attr ListOfStrings ifEvents;
+
+	@GenModel(documentation="
+				Note: a string for macro use only; must resolve to \"true\" or \"false\".
+				When \"ifEvents\" is non-empty, this flag tells the designer which particular
+				function is the user-editable event handler.  So this usually is applied
+				to a function() location.
+				")
+	@ExtendedMetaData(kind="attribute", name="isEventHandler")
+	!unique attr type.String isEventHandler;
+
+	@GenModel(documentation="
+				This describes the location relative to its base (use \"\" for a
+				top-level file location).  
+				
+A location segment in the cpp domain is a string
+representing a node in a C/C++ parse tree.  Each takes the syntax “&lt;name&gt;
+‘(‘ &lt;arguments…&gt; ‘)’�?.  Certain nodes may only appear within certain
+others.  This list defines top-level nodes:
+
+class(&lt;name&gt;): 
+reference the class declaration for the class ‘name’, which may include namespaces (e.g.
+“class(MyClass)�? or “class(${className})�?)
+
+function(&lt;name&gt;(&lt;arguments…)):
+reference a function with the given signature.  ‘name’ may include namespaces
+or represent a destructor.  ‘arguments’ is a comma-separated list of types. 
+This list of arguments is currently not parsed and only the number of
+arguments matters.  The arguments list may end in ellipsis (“…�?) to indicate
+that any zero or more arguments are matched.  Again, the &lt;template&gt;
+inside a &lt;defineLocation&gt; really defines the function.  (E.g.
+“function(main(int,char**))�? or “function(${className}::method(void*)�?.)
+
+region(&lt;name&gt;): 
+a region defines a commented block of text with no other syntactical clues.  The
+block comments and the name are used to identify the block.  Thus, names should
+be unique across a component.  (E.g. “region(Generated Includes)�?.)
+
+enum(&lt;name&gt;): 
+a enum declaration with the given name.  Name must be non-empty (locations are
+used to look up source, so anonymous enums cannot be unambiguously
+identified).  (E.g. “enum(T${className}Ids)�?.)
+
+namespace(&lt;name&gt;):
+a namespace declaration with the given name, which may contain colons.  (E.g.
+“namespace(std::tr1)�?)
+
+to-file(): 
+resolve to the current file of a location, i.e. get back to the root location. 
+
+Inside a class(), namespace() is not allowed, and this
+additional segment is allowed:
+
+bases(): 
+references the base-class-list within a class declaration.  If the class’ defining text
+already includes a base, then the defining text for the bases() location may be
+omitted.  If a class’ defining text does not include a base, the bases()
+location must include the leading colon in its defining text.  Otherwise,
+contributions are individual class references with leading commas.
+
+In a function(), only class(), region(), enum(), and to-file() are allowed.
+
+In an enum(), bases() or region(), only region() and to-file() are allowed.
+
+				
+				")
+	@ExtendedMetaData(kind="attribute", name="location")
+	!unique attr type.String[1] location;
+
+	@GenModel(documentation="
+				Note: a string for macro use only; must resolve to \"true\" or \"false\".
+				If true, the location is marked generated in source and will be
+				regenerated from scratch on every save.  Otherwise, the location
+				is generated only when missing.
+				")
+	@ExtendedMetaData(kind="attribute", name="owned")
+	!unique unsettable attr type.String owned = "true";
+
+	@GenModel(documentation="
+				Added post 1.1.  
+				Note: a string for macro use only; must resolve to \"true\" or \"false\".
+				If true, a template for this location is automatically added when this location is defined.
+				Otherwise, the location is a placeholder and is not \"realized\" in actual source unless a template references it.
+				")
+	@ExtendedMetaData(kind="attribute", name="realize")
+	!unique unsettable attr type.String realize = "false";
+}
+
+@ExtendedMetaData(name="defineMacro_._type", kind="elementOnly")
+class DefineMacroType {
+
+	@GenModel(documentation="
+		Added post 1.1.  
+		This element specifies that a list of arguments (name, type, defaults,
+		optional flags) will be imported from another macro. 
+		If this element is omitted, then all the arguments from the macro
+		are imported.  
+		")
+	@ExtendedMetaData(kind="element", name="importArguments", namespace="##targetNamespace")
+	!resolve val ImportArgumentsType[*] importArguments;
+
+	@GenModel(documentation="
+		Added post 1.1.
+		Defines an argument for use with the macro.
+		The default value may be specified in the 'default' attribute or in the text of the element.
+		The text supercedes the attribute.  
+		")
+	@ExtendedMetaData(kind="element", name="macroArgument", namespace="##targetNamespace")
+	!resolve val MacroArgumentType[*] macroArgument;
+
+	@ExtendedMetaData(kind="group", name="group:2")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+		This defines a contribution.  The text element is template-expanded 
+		with ${ ... } expression escapes and may contain Javascript in &lt;% ... %&gt; sections.
+		")
+	@ExtendedMetaData(kind="element", name="template", namespace="##targetNamespace", group="#group:2")
+	volatile transient derived !resolve val TemplateType[*] template;
+
+	@GenModel(documentation="
+		Provide Javascript in-line with templates and other sourceGen elements.
+		Be sure to supply a \"forms\" attribute, otherwise the code may execute multiple times
+		during the source generation contribution-gathering phase.
+		")
+	@ExtendedMetaData(kind="element", name="inline", namespace="##targetNamespace", group="#group:2")
+	volatile transient derived !resolve val InlineType[*] inline;
+
+	@GenModel(documentation="
+		This element defines a location in source, such as a function in the main 
+		file or a region of text in a class declaration.  
+		This is a slight misnomer as this element does not by its presence realize
+		the location.  Only when a contribution references
+		location id (or post 1.1: when realize=\"true\" is used)
+		will the location be added to source.
+		")
+	@ExtendedMetaData(kind="element", name="defineLocation", namespace="##targetNamespace", group="#group:2")
+	volatile transient derived !resolve val DefineLocationType[*] defineLocation;
+
+	@GenModel(documentation="
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		Added post 1.1.
+		Expands a given macro into the sourceGen of the caller.  
+		This has the same effect as inserting the same templates and inlines 
+		from the macro's definition at the point of call.  
+		Variable references from those templates and inlines
+		are substituted with the values provided in attributes 
+		(e.g. variableName=\"value\") or expandArgument child elements.  
+		The latter may be preferred for cases where code is substituted,
+		so the formatting may be retained.
+		</p>
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		As a special case, variable references may have modifiers to
+		modify the formatting of a variable when it is expanded.  
+		Modifiers are appended
+		to the variable name as in: $(varName::modifier).  
+		</p>
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		Currently supported modifiers are all for tweaking canonical
+		function argument lists, which match the format of 
+		declaration, with spaces, argument names, default values, etc:
+		</p>
+		<ul xmlns=\"http://www.nokia.com/sdt/emf/component\">
+			<li>as-function-declaration-args: identity
+			</li>
+			<li>as-function-definition-args: removes default argument values
+			</li>
+			<li>as-function-location-args: removes argument names, default arguments, and spaces
+			</li>
+		</ul>
+		")
+	@ExtendedMetaData(kind="element", name="expandMacro", namespace="##targetNamespace", group="#group:2")
+	volatile transient derived !resolve val ExpandMacroType[*] expandMacro;
+
+	@GenModel(documentation="
+				Help/usage text for a documentation generating tool.
+				")
+	@ExtendedMetaData(kind="attribute", name="help")
+	!unique attr type.String help;
+
+	@GenModel(documentation="
+				Unique id for the macro within a component.  
+				Ids may be shared for different
+				forms.  Derived components inherit macros automatically
+				but may redefine a macro with the same id.
+				")
+	@ExtendedMetaData(kind="attribute", name="id")
+	!unique attr type.String ~id;
+}
+
+@ExtendedMetaData(name="designerImages_._type", kind="empty")
+class DesignerImagesType {
+
+	@GenModel(documentation="
+				")
+	@ExtendedMetaData(kind="attribute", name="largeIconFile")
+	!unique attr type.String largeIconFile;
+
+	@GenModel(documentation="
+				")
+	@ExtendedMetaData(kind="attribute", name="layoutImageFile")
+	!unique attr type.String layoutImageFile;
+
+	@GenModel(documentation="A relative path to an Eclipse-supported image type, such as PNG, GIF, or BMP. This image is displayed in the outline.
+				")
+	@ExtendedMetaData(kind="attribute", name="smallIconFile")
+	!unique attr type.String smallIconFile;
+
+	@GenModel(documentation="A relative path to an Eclipse-supported image type, such as PNG, GIF, or BMP. This image is displayed in UI designer's graphical
+				layout area if the component does not provide rendering code.
+				")
+	@ExtendedMetaData(kind="attribute", name="thumbnailFile")
+	!unique attr type.String thumbnailFile;
+}
+
+@ExtendedMetaData(name="documentation_._type", kind="elementOnly")
+class DocumentationType {
+
+	@GenModel(documentation="Brief description of the component, shown in a tooltip. This value should be localized.
+					")
+	@ExtendedMetaData(kind="element", name="information", namespace="##targetNamespace")
+	!unique attr type.String[1] information;
+
+	@GenModel(documentation="A link to help information for this component.
+					")
+	@ExtendedMetaData(kind="element", name="helpTopic", namespace="##targetNamespace")
+	!unique attr type.String[1] helpTopic;
+
+	@GenModel(documentation="Text displayed in the UI design wizard. Applies only to containers and top-level content. This
+					value should be localized.
+					")
+	@ExtendedMetaData(kind="element", name="wizardDescription", namespace="##targetNamespace")
+	!unique attr type.String[1] wizardDescription;
+}
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@ExtendedMetaData(kind="element", name="abstractProperty", namespace="##targetNamespace")
+	readonly volatile transient derived !resolve val AbstractPropertyType[0..?] abstractProperty;
+
+	@ExtendedMetaData(kind="element", name="arrayProperty", namespace="##targetNamespace", affiliation="abstractProperty")
+	volatile transient derived !resolve val ArrayPropertyType[0..?] arrayProperty;
+
+	@ExtendedMetaData(kind="element", name="attribute", namespace="##targetNamespace")
+	volatile transient derived !resolve val AttributeType[0..?] attribute;
+
+	@GenModel(documentation="
+Attribute elements can hold any static character data that is common to all instances of a component. Attributes are inherited from their base components.
+			")
+	@ExtendedMetaData(kind="element", name="attributes", namespace="##targetNamespace")
+	volatile transient derived !resolve val AttributesType[0..?] attributes;
+
+	@GenModel(documentation="
+		This defines a decision in the select element.  If the \"value\" attribute
+		matches the value obtained in the select element, the choice is matched
+		and its mapping elements instantiated.
+		")
+	@ExtendedMetaData(kind="element", name="choice", namespace="##targetNamespace")
+	volatile transient derived !resolve val ChoiceType[0..?] choice;
+
+	@GenModel(documentation="
+		Define a reference to an interface implemented in Java.
+		")
+	@ExtendedMetaData(kind="element", name="code", namespace="##targetNamespace")
+	volatile transient derived !resolve val CodeType[0..?] code;
+
+	@GenModel(documentation="
+        This is the container element for all the information about a single component.
+        ")
+	@ExtendedMetaData(kind="element", name="component", namespace="##targetNamespace")
+	volatile transient derived !resolve val ComponentType[0..?] component;
+
+	@GenModel(documentation="componentDefinition must be the root element of a component definition document.
+			
+			It includes zero or more compound property declarations, zero or more enum declarations and zero or one
+			component declarations.
+			
+			Displayable strings can either be included literally within the XML or referenced in the 
+			component.properties file by prefixing the string with %. For example, \"%foo\" references the 
+			value of the \"foo\" property in component.properties. To obtain the string \"%foo\" 
+			use a double %, e.g. \"%%foo\".
+			")
+	@ExtendedMetaData(kind="element", name="componentDefinition", namespace="##targetNamespace")
+	volatile transient derived !resolve val ComponentDefinitionType[0..?] componentDefinition;
+
+	@ExtendedMetaData(kind="element", name="componentReferenceProperty", namespace="##targetNamespace", affiliation="abstractProperty")
+	volatile transient derived !resolve val ComponentReferencePropertyType[0..?] componentReferenceProperty;
+
+	@ExtendedMetaData(kind="element", name="compoundProperty", namespace="##targetNamespace", affiliation="abstractProperty")
+	volatile transient derived !resolve val CompoundPropertyType[0..?] compoundProperty;
+
+	@GenModel(documentation="
+			Declares a compound type that may be referenced from one or more
+			compound property declarations in this or other component documents. All compound property declarations are in a global 
+			namespace and must be declared as global elements.
+		")
+	@ExtendedMetaData(kind="element", name="compoundPropertyDeclaration", namespace="##targetNamespace")
+	volatile transient derived !resolve val CompoundPropertyDeclarationType[0..?] compoundPropertyDeclaration;
+
+	@GenModel(documentation="
+		This element defines a location in source, such as a function in the main 
+		file or a region of text in a class declaration.  
+		This is a slight misnomer as this element does not by its presence realize
+		the location.  Only when a contribution references
+		location id (or post 1.1: when realize=\"true\" is used)
+		will the location be added to source.
+		")
+	@ExtendedMetaData(kind="element", name="defineLocation", namespace="##targetNamespace")
+	volatile transient derived !resolve val DefineLocationType[0..?] defineLocation;
+
+	@GenModel(documentation="
+		Added post 1.1.  
+		This element defines a macro consisting of a set of templates 
+		and inlines which may be variable-substituted.
+			
+		If a given defineMacro imports multiple arguments
+		of the same name, then they must be explicitly redefined,
+		to resolve any ambiguities about the default value.  
+		")
+	@ExtendedMetaData(kind="element", name="defineMacro", namespace="##targetNamespace")
+	volatile transient derived !resolve val DefineMacroType[0..?] defineMacro;
+
+	@GenModel(documentation="This element is specifies images for use by the UI designer. Only those images that apply need to be defined, e.g.
+		if a component never appears in the UI design wizard or palette then it doesn't need those images.
+		")
+	@ExtendedMetaData(kind="element", name="designerImages", namespace="##targetNamespace")
+	volatile transient derived !resolve val DesignerImagesType[0..?] designerImages;
+
+	@GenModel(documentation="The optional documentation element provides brief description information about the component and a link to more detailed documentation
+				")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	volatile transient derived !resolve val DocumentationType[0..?] documentation;
+
+	@ExtendedMetaData(kind="element", name="enumProperty", namespace="##targetNamespace", affiliation="abstractProperty")
+	volatile transient derived !resolve val EnumPropertyType[0..?] enumProperty;
+
+	@GenModel(documentation="
+			Declares an enumerated type that may be referenced from one or more
+			enumerated property declarations in this or other component documents. All enum property declarations are in a global 
+			namespace and must be declared as global elements.
+		")
+	@ExtendedMetaData(kind="element", name="enumPropertyDeclaration", namespace="##targetNamespace")
+	volatile transient derived !resolve val EnumPropertyDeclarationType[0..?] enumPropertyDeclaration;
+
+	@GenModel(documentation="The definition of a single event.
+		")
+	@ExtendedMetaData(kind="element", name="event", namespace="##targetNamespace")
+	volatile transient derived !resolve val EventType[0..?] event;
+
+	@GenModel(documentation="The list of events defined for this component. Components also inherit the events of
+			their base components. Events are named notifications or hooks to which code can be attached. The data here is
+			used to drive the user interface. The details of source code generation are part of the source code generation templates.
+			
+			The set of available events, and default event, may be overriden via code or script. See the 
+			com.nokia.sdt.datamodel.adapter.IComponentEventInfo interface for more information.
+			")
+	@ExtendedMetaData(kind="element", name="events", namespace="##targetNamespace")
+	volatile transient derived !resolve val EventsType[0..?] events;
+
+	@GenModel(documentation="
+		Added post 1.1.  
+		Provides multiline text content for an argument.
+		This is semantically identical to setting an attribute of the same
+		name=\"...\" value in the expandMacro element, with any standalone 
+		leading whitespace and standalone trailing whitespace removed
+		(as with &lt;template&gt;).
+		")
+	@ExtendedMetaData(kind="element", name="expandArgument", namespace="##targetNamespace")
+	volatile transient derived !resolve val ExpandArgumentType[0..?] expandArgument;
+
+	@GenModel(documentation="
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		Added post 1.1.
+		Expands a given macro into the sourceGen of the caller.  
+		This has the same effect as inserting the same templates and inlines 
+		from the macro's definition at the point of call.  
+		Variable references from those templates and inlines
+		are substituted with the values provided in attributes 
+		(e.g. variableName=\"value\") or expandArgument child elements.  
+		The latter may be preferred for cases where code is substituted,
+		so the formatting may be retained.
+		</p>
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		As a special case, variable references may have modifiers to
+		modify the formatting of a variable when it is expanded.  
+		Modifiers are appended
+		to the variable name as in: $(varName::modifier).  
+		</p>
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		Currently supported modifiers are all for tweaking canonical
+		function argument lists, which match the format of 
+		declaration, with spaces, argument names, default values, etc:
+		</p>
+		<ul xmlns=\"http://www.nokia.com/sdt/emf/component\">
+			<li>as-function-declaration-args: identity
+			</li>
+			<li>as-function-definition-args: removes default argument values
+			</li>
+			<li>as-function-location-args: removes argument names, default arguments, and spaces
+			</li>
+		</ul>
+		")
+	@ExtendedMetaData(kind="element", name="expandMacro", namespace="##targetNamespace")
+	volatile transient derived !resolve val ExpandMacroType[0..?] expandMacro;
+
+	@GenModel(documentation="Extension properties may be dynamically added, based on the state of an instance of this
+		component, its container, or other objects. There may be more than one set of extension properties defined in a component.
+		See the com.nokia.sdt.datamodel.adapter.IPropertyExtenders interface.
+		")
+	@ExtendedMetaData(kind="element", name="extensionProperties", namespace="##targetNamespace")
+	volatile transient derived !resolve val ExtensionPropertiesType[0..?] extensionProperties;
+
+	@ExtendedMetaData(kind="element", name="implementation", namespace="##targetNamespace")
+	volatile transient derived !resolve val ImplementationType[0..?] implementation;
+
+	@GenModel(documentation="Implementation elements declare code or script implementations of interfaces by name.
+			")
+	@ExtendedMetaData(kind="element", name="implementations", namespace="##targetNamespace")
+	volatile transient derived !resolve val ImplementationsType[0..?] implementations;
+
+	@GenModel(documentation="
+		Added post 1.1.  
+		This element specifies that a list of arguments (name, type, defaults,
+		optional flags) will be imported from another macro. 
+		If this element is omitted, then all the arguments from the macro
+		are imported.  
+		")
+	@ExtendedMetaData(kind="element", name="importArguments", namespace="##targetNamespace")
+	volatile transient derived !resolve val ImportArgumentsType[0..?] importArguments;
+
+	@GenModel(documentation="
+		Provide Javascript in-line with templates and other sourceGen elements.
+		Be sure to supply a \"forms\" attribute, otherwise the code may execute multiple times
+		during the source generation contribution-gathering phase.
+		")
+	@ExtendedMetaData(kind="element", name="inline", namespace="##targetNamespace")
+	volatile transient derived !resolve val InlineType[0..?] inline;
+
+	@GenModel(documentation="
+		Added post 1.1.
+		Defines an argument for use with the macro.
+		The default value may be specified in the 'default' attribute or in the text of the element.
+		The text supercedes the attribute.  
+		")
+	@ExtendedMetaData(kind="element", name="macroArgument", namespace="##targetNamespace")
+	volatile transient derived !resolve val MacroArgumentType[0..?] macroArgument;
+
+	@GenModel(documentation="
+		Map a property or child list to an array in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapArrayMember", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapArrayMemberType[0..?] mapArrayMember;
+
+	@ExtendedMetaData(kind="element", name="twoWayMapping", namespace="##targetNamespace")
+	readonly volatile transient derived !resolve val TwoWayMappingType[0..?] twoWayMapping;
+
+	@GenModel(documentation="
+		Map a property or child list to an array in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapArrayType", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapArrayTypeType[0..?] mapArrayType;
+
+	@GenModel(documentation="
+		Map a set of boolean properties to an expression in an array element.
+		")
+	@ExtendedMetaData(kind="element", name="mapBitmaskElement", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapBitmaskElementType[0..?] mapBitmaskElement;
+
+	@GenModel(documentation="
+		Map a set of boolean properties to a bitmask expression in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapBitmaskMember", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapBitmaskMemberType[0..?] mapBitmaskMember;
+
+	@GenModel(documentation="
+		Map a set of boolean properties to a bitmask expression in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapBitmaskType", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapBitmaskTypeType[0..?] mapBitmaskType;
+
+	@GenModel(documentation="
+		Map a set of properties to a subexpression of the bitmask expression.  If all the given
+		properties are \"true\", the given value is OR'ed into the target expression.
+		")
+	@ExtendedMetaData(kind="element", name="mapBitmaskValue", namespace="##targetNamespace")
+	volatile transient derived !resolve val MapBitmaskValueType[0..?] mapBitmaskValue;
+
+	@GenModel(documentation="
+		Map RSS from the type declaration attached to the current element.
+		You may need to use &lt;mapProperty&gt; to descend into a child of the current
+		element for this to work.
+		")
+	@ExtendedMetaData(kind="element", name="mapElementFromType", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapElementFromTypeType[0..?] mapElementFromType;
+
+	@GenModel(documentation="
+		This defines the mapping of one particular property value to one
+		particular RSS value.
+		")
+	@ExtendedMetaData(kind="element", name="mapEnum", namespace="##targetNamespace")
+	volatile transient derived !resolve val MapEnumType[0..?] mapEnum;
+
+	@GenModel(documentation="
+		Map an enumerator to an array element.
+		")
+	@ExtendedMetaData(kind="element", name="mapEnumElement", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapEnumElementType[0..?] mapEnumElement;
+
+	@GenModel(documentation="
+		Map an enumerator to RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapEnumMember", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapEnumMemberType[0..?] mapEnumMember;
+
+	@GenModel(documentation="
+		Map an enumerator to RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapEnumType", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapEnumTypeType[0..?] mapEnumType;
+
+	@GenModel(documentation="
+		Map a fixed value to an array element.
+		")
+	@ExtendedMetaData(kind="element", name="mapFixedElement", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapFixedElementType[0..?] mapFixedElement;
+
+	@GenModel(documentation="
+		Map a fixed value to an RSS member.
+		")
+	@ExtendedMetaData(kind="element", name="mapFixedMember", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapFixedMemberType[0..?] mapFixedMember;
+
+	@GenModel(documentation="
+		Map a fixed value.
+		")
+	@ExtendedMetaData(kind="element", name="mapFixedType", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapFixedTypeType[0..?] mapFixedType;
+
+	@GenModel(documentation="
+		Map a simple value to a literal (identifier) in an array element.
+		")
+	@ExtendedMetaData(kind="element", name="mapIdentifierElement", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapIdentifierElementType[0..?] mapIdentifierElement;
+
+	@GenModel(documentation="
+		Map a simple property to a literal (identifier) in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapIdentifierMember", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapIdentifierMemberType[0..?] mapIdentifierMember;
+
+	@GenModel(documentation="
+		Map a simple property to a literal (identifier) in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapIdentifierType", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapIdentifierTypeType[0..?] mapIdentifierType;
+
+	@GenModel(documentation="
+		Map an instance's resources to an array element.
+		")
+	@ExtendedMetaData(kind="element", name="mapInstanceElement", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapInstanceElementType[0..?] mapInstanceElement;
+
+	@GenModel(documentation="
+		Map resources for an instance.
+		")
+	@ExtendedMetaData(kind="element", name="mapInstanceMember", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapInstanceMemberType[0..?] mapInstanceMember;
+
+	@GenModel(documentation="
+		Map resources for an instance.
+		")
+	@ExtendedMetaData(kind="element", name="mapInstanceType", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapInstanceTypeType[0..?] mapInstanceType;
+
+	@GenModel(documentation="
+		Delve into a property path without generating any resources.
+		")
+	@ExtendedMetaData(kind="element", name="mapIntoProperty", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapIntoPropertyType[0..?] mapIntoProperty;
+
+	@GenModel(documentation="
+		Map RSS from the type declaration attached to the given property.
+		")
+	@ExtendedMetaData(kind="element", name="mapMemberFromType", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapMemberFromTypeType[0..?] mapMemberFromType;
+
+	@GenModel(documentation="
+		Map a reference property to an array element.
+		")
+	@ExtendedMetaData(kind="element", name="mapReferenceElement", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapReferenceElementType[0..?] mapReferenceElement;
+
+	@GenModel(documentation="
+		Map a reference property to resources the instance generates.
+		")
+	@ExtendedMetaData(kind="element", name="mapReferenceMember", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapReferenceMemberType[0..?] mapReferenceMember;
+
+	@GenModel(documentation="
+		Map a reference property to resources the instance generates.
+		")
+	@ExtendedMetaData(kind="element", name="mapReferenceType", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapReferenceTypeType[0..?] mapReferenceType;
+
+	@GenModel(documentation="
+		Map an instance to a RESOURCE.
+		")
+	@ExtendedMetaData(kind="element", name="mapResource", namespace="##targetNamespace")
+	volatile transient derived !resolve val MapResourceType[0..?] mapResource;
+
+	@GenModel(documentation="
+		Map a compound property or instance to resources in an array element.
+		")
+	@ExtendedMetaData(kind="element", name="mapResourceElement", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapResourceElementType[0..?] mapResourceElement;
+
+	@GenModel(documentation="
+		Map a property to a RESOURCE expression or statement.
+		")
+	@ExtendedMetaData(kind="element", name="mapResourceMember", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapResourceMemberType[0..?] mapResourceMember;
+
+	@GenModel(documentation="
+		Map a property to a RESOURCE expression or statement.
+		")
+	@ExtendedMetaData(kind="element", name="mapResourceType", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapResourceTypeType[0..?] mapResourceType;
+
+	@GenModel(documentation="
+		Map a simple value to an array element.
+		")
+	@ExtendedMetaData(kind="element", name="mapSimpleElement", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapSimpleElementType[0..?] mapSimpleElement;
+
+	@GenModel(documentation="
+		Map a simple value to a member.
+		")
+	@ExtendedMetaData(kind="element", name="mapSimpleMember", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapSimpleMemberType[0..?] mapSimpleMember;
+
+	@GenModel(documentation="
+		Map a simple value.
+		")
+	@ExtendedMetaData(kind="element", name="mapSimpleType", namespace="##targetNamespace", affiliation="twoWayMapping")
+	volatile transient derived !resolve val MapSimpleTypeType[0..?] mapSimpleType;
+
+	@GenModel(documentation="The list of properties defined for this component. Components also inherit the properties of their base
+		components, and can have properties added dynamically, see extensionProperties.
+		")
+	@ExtendedMetaData(kind="element", name="properties", namespace="##targetNamespace")
+	volatile transient derived !resolve val PropertiesType[0..?] properties;
+
+	@ExtendedMetaData(kind="element", name="property", namespace="##targetNamespace", affiliation="abstractProperty")
+	volatile transient derived !resolve val SimplePropertyType[0..?] property;
+
+	@GenModel(documentation="A list of property overrides defined for this component. Components also
+		inherit the property overrides of their base components, with changes applied by the most derived component taking
+		precedence. 
+		
+		Property overrides allow certain characteristics of a property to be modified, such as changing a modifiable property
+		to read-only.
+		")
+	@ExtendedMetaData(kind="element", name="propertyOverrides", namespace="##targetNamespace")
+	volatile transient derived !resolve val PropertyOverridesType[0..?] propertyOverrides;
+
+	@GenModel(documentation="
+		Define a reference to an interface implemented in Javascript.
+		")
+	@ExtendedMetaData(kind="element", name="script", namespace="##targetNamespace")
+	volatile transient derived !resolve val ScriptType[0..?] script;
+
+	@GenModel(documentation="
+		This element encapsulates choice elements which allow conditional
+		source mapping.  One choice must match or an error results (you can
+		use an empty choice to match the default case if necessary).  Only
+		the first matching choice is considered.
+			<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+				Only use one attribute (property, attribute, propertyExists, isComponentInstanceOf)
+				 for the select statement.
+			</p>
+		")
+	@ExtendedMetaData(kind="element", name="select", namespace="##targetNamespace")
+	volatile transient derived !resolve val SelectType[0..?] select;
+
+	@GenModel(documentation="
+		This section controls C/C++ source generation (with the potential to support 
+		other one-way languages).  In a sourceGen element, all the elements in linear 
+		order comprise the component's contributions.  
+		
+		Conditional sourcegen is implemented by using the \"form\" attribute on 
+		templates or templateGroups, or explicitly checking the regex \"form\" in inline code.  
+		
+		Another form of conditional sourcegen is event handling code.  The \"ifEvents\" attribute completely filters out defineLocation/template elements if a given event is not bound to an instance.
+		")
+	@ExtendedMetaData(kind="element", name="sourceGen", namespace="##targetNamespace")
+	volatile transient derived !resolve val SourceGenType[0..?] sourceGen;
+
+	@GenModel(documentation="
+The sourceMapping element defines a particular style of source generation
+which consists of automatic generation of source by structurally
+mapping a component instance to a source definition.  
+			")
+	@ExtendedMetaData(kind="element", name="sourceMapping", namespace="##targetNamespace")
+	volatile transient derived !resolve val SourceMappingType[0..?] sourceMapping;
+
+	@GenModel(documentation="
+The sourceTypeMapping element mirrors sourceMapping but provides stored source
+mapping data for use by compound or enum types.  
+			")
+	@ExtendedMetaData(kind="element", name="sourceTypeMapping", namespace="##targetNamespace")
+	volatile transient derived !resolve val SourceTypeMappingType[0..?] sourceTypeMapping;
+
+	@GenModel(documentation="The optional Symbian element provides SDK compatibility information and information about the related 
+	C++ classes and resource structures. When this element is omitted the component will be considered incompatible
+	with all Symbian SDKs.
+			")
+	@ExtendedMetaData(kind="element", name="symbian", namespace="##targetNamespace")
+	volatile transient derived !resolve val SymbianType[0..?] symbian;
+
+	@GenModel(documentation="
+		This defines a contribution.  The text element is template-expanded 
+		with ${ ... } expression escapes and may contain Javascript in &lt;% ... %&gt; sections.
+		")
+	@ExtendedMetaData(kind="element", name="template", namespace="##targetNamespace")
+	volatile transient derived !resolve val TemplateType[0..?] template;
+
+	@GenModel(documentation="
+		A logical grouping of templates and locations.  Attributes
+		present on the group are automatically applied to children.
+		Groups may not be nested.
+		")
+	@ExtendedMetaData(kind="element", name="templateGroup", namespace="##targetNamespace")
+	volatile transient derived !resolve val TemplateGroupType[0..?] templateGroup;
+
+	@GenModel(documentation="
+		In a derived component, selects a template from the base by id.
+		")
+	@ExtendedMetaData(kind="element", name="useTemplate", namespace="##targetNamespace")
+	volatile transient derived !resolve val UseTemplateType[0..?] useTemplate;
+
+	@GenModel(documentation="
+		In a derived component, selects a template group from the base by id.
+		If no subelements are specified, all the named templates (those with ids)
+		are inherited.  No templates without ids are inherited.
+		
+		If subelements are specified, these describe the specific templates
+		to inherit from the group.  The id \"*\" may be used to bring in all
+		named templates.
+		")
+	@ExtendedMetaData(kind="element", name="useTemplateGroup", namespace="##targetNamespace")
+	volatile transient derived !resolve val UseTemplateGroupType[0..?] useTemplateGroup;
+}
+
+@ExtendedMetaData(name="enumElement_._type", kind="empty")
+class EnumElementType {
+
+	@GenModel(documentation="The displayable value, which should be localized.
+							")
+	@ExtendedMetaData(kind="attribute", name="displayValue")
+	!unique attr type.AnySimpleType displayValue;
+
+	@GenModel(documentation="The internal value, which is not localizable.
+							")
+	@ExtendedMetaData(kind="attribute", name="value")
+	!unique attr type.AnySimpleType[1] value;
+}
+
+@ExtendedMetaData(name="enumPropertyDeclaration_._type", kind="elementOnly")
+class EnumPropertyDeclarationType {
+
+	@GenModel(documentation="This sequence is the list of values comprising the enumerated type. Each
+						value consists of an internal string value and a displayable string value.
+						")
+	@ExtendedMetaData(kind="element", name="enumElement", namespace="##targetNamespace")
+	!resolve val EnumElementType[+] enumElement;
+
+	@GenModel(documentation="
+					This element provides source mapping for the type, for use by
+					map*FromType elements.  Added post 1.2
+					")
+	@ExtendedMetaData(kind="element", name="sourceTypeMapping", namespace="##targetNamespace")
+	!resolve val SourceTypeMappingType sourceTypeMapping;
+
+	@GenModel(documentation="A default internal value for the enumeration. It can be overriden in property declarations.
+				")
+	@ExtendedMetaData(kind="attribute", name="defaultValue")
+	!unique attr type.String defaultValue;
+
+	@GenModel(documentation="The globally unique name for this type. By convention this is a dotted name, e.g. com.example.MyEnumType.
+				This value is used in enumPropertyDeclaration.
+				")
+	@ExtendedMetaData(kind="attribute", name="qualifiedName")
+	!unique attr type.String[1] qualifiedName;
+}
+
+@GenModel(documentation="Concrete type used for enumerated value properties.
+		")
+@ExtendedMetaData(name="enumPropertyType", kind="empty")
+class EnumPropertyType extends AbstractPropertyType {
+
+	@GenModel(documentation="The default enumerated value, in case it needs to be different from 
+					the default declared in the enumeratedPropertyDeclaration.
+					")
+	@ExtendedMetaData(kind="attribute", name="default")
+	!unique attr type.String default;
+
+	@GenModel(documentation="Optional extension of the simple values with the enums provided by an enimPropertyDeclaration.
+					If the value of the property matches any in an enumProperty's 'value' attribute, the 'displayValue' will be shown
+					as the current value in the property sheet.  Additionally, the editor for the value (if not overridden with
+					a custom editorClass) will be a combo that allows typing in the literal value or selecting one of the
+					union of base and extended enums.
+					<p xmlns=\"http://www.nokia.com/sdt/emf/component\"> 
+					The extending enum may provide 'value' elements which are different from the base enum (even integers, say),
+					if appropriate.  These values are exposed to script, source mapping, and source gen, so ensure that all
+					those clients are prepared to deal with the extra values.
+					</p>
+					")
+	@ExtendedMetaData(kind="attribute", name="extendWithEnum")
+	!unique attr type.String extendWithEnum;
+
+	@GenModel(documentation="The fully qualifed name of the enumerated property type. See
+					enumPropertyDeclaration.
+					")
+	@ExtendedMetaData(kind="attribute", name="type")
+	!unique attr type.String[1] type;
+}
+
+@ExtendedMetaData(name="events_._type", kind="elementOnly")
+class EventsType {
+
+	@GenModel(documentation="The definition of a single event.
+		")
+	@ExtendedMetaData(kind="element", name="event", namespace="##targetNamespace")
+	!resolve val EventType[*] event;
+
+	@GenModel(documentation="If defined, the default event will be identified in a component instance's context
+				menu. In the case of inheritance the most derived definition of the default event is used.
+				")
+	@ExtendedMetaData(kind="attribute", name="defaultEventName")
+	!unique attr type.String defaultEventName;
+}
+
+@ExtendedMetaData(name="event_._type", kind="empty")
+class EventType {
+
+	@GenModel(documentation="Categories are used for grouping events in the Events view. As with property categories,
+				this can be a key to a category localized by the component provider, or it can be a pre-localized or literal string.
+				")
+	@ExtendedMetaData(kind="attribute", name="category")
+	!unique attr type.String category;
+
+	@GenModel(documentation="A key for descriptive information about the event.
+				")
+	@ExtendedMetaData(kind="attribute", name="descriptionKey")
+	!unique attr type.String descriptionKey;
+
+	@GenModel(documentation="This displayable name for the event. This value should be localized.
+				")
+	@ExtendedMetaData(kind="attribute", name="displayName")
+	!unique attr type.String displayName;
+
+	@GenModel(documentation="This is a grouping, separate from categories, used in event filtering. Events
+				may only make sense for specific containers. The interface com.nokia.sdt.datamodel.adapter.IComponentEventInfo is
+				used to filter applicable events from the complete set of declared events. When deriving from an existing base
+				component it is not generally necessary to implement this interface. Instead, just use the groups defined by
+				the base component in your own events. For example to make events visible in a CCoeControl container, The CCoeControlBase
+				component uses the filter group \"Control\". 
+				")
+	@ExtendedMetaData(kind="attribute", name="group")
+	!unique attr type.String group;
+
+	@GenModel(documentation="A template which is expanded to the proposed default name for the
+				event handler function. An example of such a template is \"Handle{title(name)}StateChangedL\".
+				The {} marks template variables. A variable may contain a simple property value, but generally only the 'name' property
+				should be used. The pseudo-functions \"lower\", \"upper\", and \"title\" may be used to transform the property value.
+				")
+	@ExtendedMetaData(kind="attribute", name="handlerNameTemplate")
+	!unique attr type.String[1] handlerNameTemplate;
+
+	@GenModel(documentation="A help topic for online help for the event.
+				")
+	@ExtendedMetaData(kind="attribute", name="helpKey")
+	!unique attr type.String helpKey;
+
+	@GenModel(documentation="The internal name for the event. This does not need to be a dotted name, but it must
+				be unique within the component and its base components.
+				")
+	@ExtendedMetaData(kind="attribute", name="name")
+	!unique attr type.String[1] name;
+}
+
+@ExtendedMetaData(name="expandArgument_._type", kind="simple")
+class ExpandArgumentType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	!unique attr type.String value;
+
+	@GenModel(documentation="
+						Help/usage text for a documentation generating tool.
+						")
+	@ExtendedMetaData(kind="attribute", name="help")
+	!unique attr type.String help;
+
+	@GenModel(documentation="
+						The variable to define (matching the id from macroArgument).
+						")
+	@ExtendedMetaData(kind="attribute", name="name")
+	!unique attr type.String[1] name;
+}
+
+@ExtendedMetaData(name="expandMacro_._type", kind="elementOnly")
+class ExpandMacroType extends ConditionalSourceGen {
+
+	@GenModel(documentation="
+		Added post 1.1.  
+		Provides multiline text content for an argument.
+		This is semantically identical to setting an attribute of the same
+		name=\"...\" value in the expandMacro element, with any standalone 
+		leading whitespace and standalone trailing whitespace removed
+		(as with &lt;template&gt;).
+		")
+	@ExtendedMetaData(kind="element", name="expandArgument", namespace="##targetNamespace")
+	!resolve val ExpandArgumentType[*] expandArgument;
+
+	@GenModel(documentation="
+						This is primarily used when passArguments is not specified.
+						It specifies which arguments not to pass to the invoked macro,
+						which become undefined in the expansion of that macro.
+						This is useful when this macro takes over the work of one or more
+						arguments from the invoked macro. 
+						")
+	@ExtendedMetaData(kind="attribute", name="dontPassArguments")
+	!unique attr ListOfStrings dontPassArguments;
+
+	@GenModel(documentation="
+						Help/usage text for a documentation generating tool.
+						")
+	@ExtendedMetaData(kind="attribute", name="help")
+	!unique attr type.String help;
+
+	@GenModel(documentation="
+						The macro to invoke (matching the id from defineMacro).
+						")
+	@ExtendedMetaData(kind="attribute", name="name")
+	!unique attr type.String[1] name;
+
+	@GenModel(documentation="
+						A list of arguments defined in the current calling macro to
+						pass unchanged to the called macro, excluding any arguments
+						that are not defined in the current call.
+						
+						This attribute is only valid in expandMacro called from
+						a defineMacro.  
+						
+						Passing arguments is different from adding attributes
+						argName=\"$(argName)\" because it avoids defining otherwise 
+						undefined arguments.  (A missing optional argument is null,
+						not the empty string.  The '::is-defined' modifier can be
+						used to check this.)
+						
+						Elements in the list of strings are names of arguments, or
+						renames of the form targetArgumentName=hostArgumentName which
+						passes hostArgumentName from the hosting macro with the name
+						targetArgumentName (again, only if the argument is actually
+						defined in the call).
+							
+						If this argument is not specified, all the arguments in the
+						invoked macro are passed (zero or more may have defaults which
+						are overridden in this macro). 
+						")
+	@ExtendedMetaData(kind="attribute", name="passArguments")
+	!unique attr ListOfStrings passArguments;
+
+	@GenModel(documentation="
+						Any attribute matching the variables used in the given named macro may appear here.
+						")
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##any", name=":8", processing="lax")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="extensionProperties_._type", kind="elementOnly")
+class ExtensionPropertiesType {
+
+	@ExtendedMetaData(kind="group", name="abstractProperty:group", namespace="##targetNamespace")
+	!unique attr ecore.EFeatureMapEntry[*] abstractPropertyGroup;
+
+	@ExtendedMetaData(kind="element", name="abstractProperty", namespace="##targetNamespace", group="abstractProperty:group")
+	readonly volatile transient derived !resolve val AbstractPropertyType[*] abstractProperty;
+
+	@GenModel(documentation="The unique name of this extension property set. Used to select properties
+				to add at runtime.
+				")
+	@ExtendedMetaData(kind="attribute", name="name")
+	!unique attr type.String[1] name;
+}
+
+@ExtendedMetaData(name="implementations_._type", kind="elementOnly")
+class ImplementationsType {
+
+	@ExtendedMetaData(kind="element", name="implementation", namespace="##targetNamespace")
+	!resolve val ImplementationType[+] implementation;
+}
+
+@ExtendedMetaData(name="implementation_._type", kind="elementOnly")
+class ImplementationType {
+
+	@ExtendedMetaData(kind="element", name="interface", namespace="##targetNamespace")
+	!resolve val InterfaceType[+] ~interface;
+
+	@GenModel(documentation="
+		Define a reference to an interface implemented in Java.
+		")
+	@ExtendedMetaData(kind="element", name="code", namespace="##targetNamespace")
+	!resolve val CodeType code;
+
+	@GenModel(documentation="
+		Define a reference to an interface implemented in Javascript.
+		")
+	@ExtendedMetaData(kind="element", name="script", namespace="##targetNamespace")
+	!resolve val ScriptType script;
+}
+
+@ExtendedMetaData(name="importArguments_._type", kind="empty")
+class ImportArgumentsType {
+
+	@GenModel(documentation="
+				The list of argument names to import.  This is mutually exclusive with 'exceptArguments'.
+				")
+	@ExtendedMetaData(kind="attribute", name="arguments")
+	!unique attr ListOfStrings[1] arguments;
+
+	@GenModel(documentation="
+				The list of argument names NOT to import.  All the arguments are imported
+				except these.  This is mutually exclusive with 'arguments'.
+				")
+	@ExtendedMetaData(kind="attribute", name="exceptArguments")
+	!unique attr ListOfStrings[1] exceptArguments;
+
+	@GenModel(documentation="
+				Help/usage text for a documentation generating tool.
+				")
+	@ExtendedMetaData(kind="attribute", name="help")
+	!unique attr type.String help;
+
+	@GenModel(documentation="
+				The macro whose arguments to import.
+				")
+	@ExtendedMetaData(kind="attribute", name="macroName")
+	!unique attr type.String[1] macroName;
+}
+
+@ExtendedMetaData(name="inline_._type", kind="simple")
+class InlineType extends ConditionalSourceGenString {
+
+	@GenModel(documentation="
+						Added post 1.1: the identifier for the inline section,
+						which makes it inheritable.  Inline sections are inherited as templates,
+						accessible with \"useTemplate\" of the same id.
+						If unspecified, a default id is assigned.  Use a blank id to avoid inheriting.
+						")
+	@ExtendedMetaData(kind="attribute", name="id")
+	!unique attr type.String ~id;
+
+	@GenModel(documentation="
+						Tells where the inline code appears.  By default, it appears
+						in the primary function into which templates are generated, thus is
+						executed in line with them.  
+						
+						Specifying \"file\" or \"prototype\" means the content is intended to modify the 
+						Javascript prototype, thus it is placed at the top level of the file.  
+						${jsObject}.prototype may be used to access the prototype.
+						
+						Note: include() and includeFrom() calls should be placed in the prototype scope,
+						or their contents will not be visible to derived components.
+
+						Added post 1.1: \"file\" is a synonym for \"prototype\".
+						")
+	@ExtendedMetaData(kind="attribute", name="scope")
+	!unique unsettable attr type.String scope = "function";
+}
+
+@ExtendedMetaData(name="interface_._type", kind="empty")
+class InterfaceType {
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	!unique attr type.String[1] ~id;
+}
+
+@ExtendedMetaData(name="listOfStrings", itemType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype ListOfStrings : java.util.List;
+
+@ExtendedMetaData(name="macroArgument_._type", kind="simple")
+class MacroArgumentType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	!unique attr type.String value;
+
+	@GenModel(documentation="
+						The default value of the argument if unspecified.  Alternately, the
+						text of this element may be supplied as the default, if formatting
+						or newlines are used.
+						")
+	@ExtendedMetaData(kind="attribute", name="default")
+	!unique attr type.String default;
+
+	@GenModel(documentation="
+						Help/usage text for a documentation generating tool.
+						")
+	@ExtendedMetaData(kind="attribute", name="help")
+	!unique attr type.String help;
+
+	@GenModel(documentation="
+						The name of the argument.  This must be a legal Javascript identifier
+						and unique within the macro.
+						")
+	@ExtendedMetaData(kind="attribute", name="name")
+	!unique attr type.String[1] name;
+
+	@GenModel(documentation="
+						Tells whether the argument may be omitted from an expandMacro use.
+						If true, and no default is provided, the variable's value is null.
+						")
+	@ExtendedMetaData(kind="attribute", name="optional")
+	!unique unsettable attr type.Boolean optional;
+}
+
+@ExtendedMetaData(name="mapArrayMember_._type", kind="elementOnly")
+class MapArrayMemberType extends MappingArrayType {
+
+	@GenModel(documentation="
+				The struct member.
+				")
+	@ExtendedMetaData(kind="attribute", name="member")
+	!unique attr type.String[1] member;
+
+	@GenModel(documentation="
+						The property path providing the value.
+						")
+	@ExtendedMetaData(kind="attribute", name="property")
+	!unique attr type.String[1] property;
+
+	@GenModel(documentation="
+				If true, do not emit the member initializer if the property matches the default
+				specified in the STRUCT.  If may be useful to set this to false if the
+				default changes between SDK releases (to avoid branching components).
+				")
+	@ExtendedMetaData(kind="attribute", name="suppressDefault")
+	!unique unsettable attr type.Boolean suppressDefault = "true";
+}
+
+@ExtendedMetaData(name="mapArrayType_._type", kind="elementOnly")
+class MapArrayTypeType extends MappingArrayType {
+
+	@GenModel(documentation="
+						Identifies the id for this particular kind of type mapping.
+						")
+	@ExtendedMetaData(kind="attribute", name="typeId")
+	!unique attr type.String typeId;
+}
+
+@ExtendedMetaData(name="mapBitmaskElement_._type", kind="elementOnly")
+class MapBitmaskElementType extends MappingBitmaskType {
+}
+
+@ExtendedMetaData(name="mapBitmaskMember_._type", kind="elementOnly")
+class MapBitmaskMemberType extends MappingBitmaskType {
+
+	@GenModel(documentation="
+				The struct member.
+				")
+	@ExtendedMetaData(kind="attribute", name="member")
+	!unique attr type.String[1] member;
+
+	@GenModel(documentation="
+						The property path providing the value.
+						")
+	@ExtendedMetaData(kind="attribute", name="property")
+	!unique attr type.String[1] property;
+
+	@GenModel(documentation="
+				If true, do not emit the member initializer if the property matches the default
+				specified in the STRUCT.  If may be useful to set this to false if the
+				default changes between SDK releases (to avoid branching components).
+				")
+	@ExtendedMetaData(kind="attribute", name="suppressDefault")
+	!unique unsettable attr type.Boolean suppressDefault = "true";
+}
+
+@ExtendedMetaData(name="mapBitmaskType_._type", kind="elementOnly")
+class MapBitmaskTypeType extends MappingBitmaskType {
+
+	@GenModel(documentation="
+						Identifies the id for this particular kind of type mapping.
+						")
+	@ExtendedMetaData(kind="attribute", name="typeId")
+	!unique attr type.String typeId;
+}
+
+@ExtendedMetaData(name="mapBitmaskValue_._type", kind="empty")
+class MapBitmaskValueType {
+
+	@GenModel(documentation="
+					List of properties to consider.  May be property paths.
+					")
+	@ExtendedMetaData(kind="attribute", name="properties")
+	!unique attr ListOfStrings[1] properties;
+
+	@GenModel(documentation="
+					Value to OR into the target expression.
+					")
+	@ExtendedMetaData(kind="attribute", name="value")
+	!unique attr type.String[1] value;
+}
+
+@ExtendedMetaData(name="mapElementFromType_._type", kind="empty")
+class MapElementFromTypeType extends TwoWayMappingType {
+
+	@GenModel(documentation="
+					This attribute tells which of a set of type mappings to use
+					from the given type (as named in the id=\"...\" attributes on
+					the mapXXXType children of sourceTypeMapping).   
+						")
+	@ExtendedMetaData(kind="attribute", name="typeId")
+	!unique attr type.String typeId;
+}
+
+@ExtendedMetaData(name="mapEnumElement_._type", kind="elementOnly")
+class MapEnumElementType extends MappingEnumType {
+}
+
+@ExtendedMetaData(name="mapEnumMember_._type", kind="elementOnly")
+class MapEnumMemberType extends MappingEnumType {
+
+	@GenModel(documentation="
+				The struct member.
+				")
+	@ExtendedMetaData(kind="attribute", name="member")
+	!unique attr type.String[1] member;
+
+	@GenModel(documentation="
+						The property path providing the value.
+						")
+	@ExtendedMetaData(kind="attribute", name="property")
+	!unique attr type.String[1] property;
+
+	@GenModel(documentation="
+				If true, do not emit the member initializer if the property matches the default
+				specified in the STRUCT.  If may be useful to set this to false if the
+				default changes between SDK releases (to avoid branching components).
+				")
+	@ExtendedMetaData(kind="attribute", name="suppressDefault")
+	!unique unsettable attr type.Boolean suppressDefault = "true";
+}
+
+@ExtendedMetaData(name="mapEnum_._type", kind="empty")
+class MapEnumType {
+
+	@GenModel(documentation="
+					The RSS enumerator.
+					")
+	@ExtendedMetaData(kind="attribute", name="enumerator")
+	!unique attr type.String[1] enumerator;
+
+	@GenModel(documentation="
+					The property value.
+					")
+	@ExtendedMetaData(kind="attribute", name="value")
+	!unique attr type.String[1] value;
+}
+
+@ExtendedMetaData(name="mapEnumType_._type", kind="elementOnly")
+class MapEnumTypeType extends MappingEnumType {
+
+	@GenModel(documentation="
+						Identifies the id for this particular kind of type mapping.
+						")
+	@ExtendedMetaData(kind="attribute", name="typeId")
+	!unique attr type.String typeId;
+}
+
+@ExtendedMetaData(name="mapFixedElement_._type", kind="empty")
+class MapFixedElementType extends MappingFixedType {
+}
+
+@ExtendedMetaData(name="mapFixedMember_._type", kind="empty")
+class MapFixedMemberType extends MappingFixedType {
+
+	@GenModel(documentation="
+				The struct member.
+				")
+	@ExtendedMetaData(kind="attribute", name="member")
+	!unique attr type.String[1] member;
+
+	@GenModel(documentation="
+				If true, do not emit the member initializer if the property matches the default
+				specified in the STRUCT.  If may be useful to set this to false if the
+				default changes between SDK releases (to avoid branching components).
+				")
+	@ExtendedMetaData(kind="attribute", name="suppressDefault")
+	!unique unsettable attr type.Boolean suppressDefault = "true";
+}
+
+@ExtendedMetaData(name="mapFixedType_._type", kind="empty")
+class MapFixedTypeType extends MappingFixedType {
+
+	@GenModel(documentation="
+						Identifies the id for this particular kind of type mapping.
+						")
+	@ExtendedMetaData(kind="attribute", name="typeId")
+	!unique attr type.String typeId;
+}
+
+@ExtendedMetaData(name="mapIdentifierElement_._type", kind="empty")
+class MapIdentifierElementType extends MappingIdentifierType {
+}
+
+@ExtendedMetaData(name="mapIdentifierMember_._type", kind="empty")
+class MapIdentifierMemberType extends MappingIdentifierType {
+
+	@GenModel(documentation="
+				The struct member.
+				")
+	@ExtendedMetaData(kind="attribute", name="member")
+	!unique attr type.String[1] member;
+
+	@GenModel(documentation="
+						The property path providing the value.
+						")
+	@ExtendedMetaData(kind="attribute", name="property")
+	!unique attr type.String[1] property;
+
+	@GenModel(documentation="
+				If true, do not emit the member initializer if the property matches the default
+				specified in the STRUCT.  If may be useful to set this to false if the
+				default changes between SDK releases (to avoid branching components).
+				")
+	@ExtendedMetaData(kind="attribute", name="suppressDefault")
+	!unique unsettable attr type.Boolean suppressDefault = "true";
+}
+
+@ExtendedMetaData(name="mapIdentifierType_._type", kind="empty")
+class MapIdentifierTypeType extends MappingIdentifierType {
+
+	@GenModel(documentation="
+						Identifies the id for this particular kind of type mapping.
+						")
+	@ExtendedMetaData(kind="attribute", name="typeId")
+	!unique attr type.String typeId;
+}
+
+@ExtendedMetaData(name="mapInstanceElement_._type", kind="empty")
+class MapInstanceElementType extends MappingInstanceType {
+}
+
+@ExtendedMetaData(name="mapInstanceMember_._type", kind="empty")
+class MapInstanceMemberType extends MappingInstanceType {
+
+	@GenModel(documentation="
+				The struct member.
+				")
+	@ExtendedMetaData(kind="attribute", name="member")
+	!unique attr type.String[1] member;
+
+	@GenModel(documentation="
+						The property path providing the value.
+						")
+	@ExtendedMetaData(kind="attribute", name="property")
+	!unique attr type.String[1] property;
+
+	@GenModel(documentation="
+				If true, do not emit the member initializer if the property matches the default
+				specified in the STRUCT.  If may be useful to set this to false if the
+				default changes between SDK releases (to avoid branching components).
+				")
+	@ExtendedMetaData(kind="attribute", name="suppressDefault")
+	!unique unsettable attr type.Boolean suppressDefault = "true";
+}
+
+@ExtendedMetaData(name="mapInstanceType_._type", kind="empty")
+class MapInstanceTypeType extends MappingInstanceType {
+
+	@GenModel(documentation="
+						Identifies the id for this particular kind of type mapping.
+						")
+	@ExtendedMetaData(kind="attribute", name="typeId")
+	!unique attr type.String typeId;
+}
+
+@ExtendedMetaData(name="mapIntoProperty_._type", kind="elementOnly")
+class MapIntoPropertyType extends TwoWayMappingType {
+
+	@ExtendedMetaData(kind="group", name="twoWayMapping:group", namespace="##targetNamespace")
+	!unique attr ecore.EFeatureMapEntry[1] twoWayMappingGroup;
+
+	@ExtendedMetaData(kind="element", name="twoWayMapping", namespace="##targetNamespace", group="twoWayMapping:group")
+	readonly volatile transient derived !resolve val TwoWayMappingType[1] twoWayMapping;
+
+	@GenModel(documentation="
+						The property path providing the value.
+						")
+	@ExtendedMetaData(kind="attribute", name="property")
+	!unique attr type.String[1] property;
+}
+
+@ExtendedMetaData(name="mapMemberFromType_._type", kind="empty")
+class MapMemberFromTypeType extends TwoWayMappingType {
+
+	@GenModel(documentation="
+				The struct member.
+				")
+	@ExtendedMetaData(kind="attribute", name="member")
+	!unique attr type.String[1] member;
+
+	@GenModel(documentation="
+						The property path providing the value.
+						")
+	@ExtendedMetaData(kind="attribute", name="property")
+	!unique attr type.String[1] property;
+
+	@GenModel(documentation="
+				If true, do not emit the member initializer if the property matches the default
+				specified in the STRUCT.  If may be useful to set this to false if the
+				default changes between SDK releases (to avoid branching components).
+				")
+	@ExtendedMetaData(kind="attribute", name="suppressDefault")
+	!unique unsettable attr type.Boolean suppressDefault = "true";
+
+	@GenModel(documentation="
+					This attribute tells which of a set of type mappings to use
+					from the given type (as named in the id=\"...\" attributes on
+					the mapXXXType children of sourceTypeMapping).   
+						")
+	@ExtendedMetaData(kind="attribute", name="typeId")
+	!unique attr type.String typeId;
+}
+
+@GenModel(documentation="
+		Base for mapping arrays from sequence properties or component instance children.
+		")
+@ExtendedMetaData(name="mappingArrayType", kind="elementOnly")
+class MappingArrayType extends TwoWayMappingType {
+
+	@GenModel(documentation="
+								This is restricted to mapXXXElement, mapElementFromType, or mapIntoProperty, but we can't represent this in XSD.
+								")
+	@ExtendedMetaData(kind="group", name="twoWayMapping:group", namespace="##targetNamespace")
+	!unique attr ecore.EFeatureMapEntry twoWayMappingGroup;
+
+	@GenModel(documentation="
+								This is restricted to mapXXXElement, mapElementFromType, or mapIntoProperty, but we can't represent this in XSD.
+								")
+	@ExtendedMetaData(kind="element", name="twoWayMapping", namespace="##targetNamespace", group="twoWayMapping:group")
+	readonly volatile transient derived !resolve val TwoWayMappingType twoWayMapping;
+
+	@GenModel(documentation="
+		This element encapsulates choice elements which allow conditional
+		source mapping.  One choice must match or an error results (you can
+		use an empty choice to match the default case if necessary).  Only
+		the first matching choice is considered.
+			<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+				Only use one attribute (property, attribute, propertyExists, isComponentInstanceOf)
+				 for the select statement.
+			</p>
+		")
+	@ExtendedMetaData(kind="element", name="select", namespace="##targetNamespace")
+	!resolve val SelectType select;
+}
+
+@GenModel(documentation="
+		Base for mapping sets of boolean properties to a single bitmask expression in RSS.
+		
+		When mapping this element, a working set of the includedProperties is created.
+		Each mapBitmaskValue element is considered in turn, and if all the properties
+		it references are present in the working set and have the value \"true\", 
+		the matching value is OR'ed into the target expression, and those properties removed from the working set.
+		Once the working set is empty, the mapping is complete.  If all mapBitmaskValues are
+		exhausted but the working set is non-empty, this is a component error.
+		")
+@ExtendedMetaData(name="mappingBitmaskType", kind="elementOnly")
+class MappingBitmaskType extends TwoWayMappingType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+		Map a set of properties to a subexpression of the bitmask expression.  If all the given
+		properties are \"true\", the given value is OR'ed into the target expression.
+		")
+	@ExtendedMetaData(kind="element", name="mapBitmaskValue", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapBitmaskValueType[*] mapBitmaskValue;
+
+	@GenModel(documentation="
+					The list of properties included in the set.  If undefined, all the
+					sibling properties (within a component or compound property) are included.
+					Every included property must be referenced in a mapBitmaskValue element,
+					or else the mapping is considered invalid, and an error reported.
+					")
+	@ExtendedMetaData(kind="attribute", name="includedProperties")
+	!unique attr ListOfStrings includedProperties;
+}
+
+@GenModel(documentation="
+		Base for mapping enumerator properties.
+		If any mapEnum elements specified, they completely define the list of mappings 
+		of internal enumerator values  to external RSS values.  Otherwise, internal 
+		values are directly emitted as RSS values.
+		")
+@ExtendedMetaData(name="mappingEnumType", kind="elementOnly")
+class MappingEnumType extends TwoWayMappingType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+		This defines the mapping of one particular property value to one
+		particular RSS value.
+		")
+	@ExtendedMetaData(kind="element", name="mapEnum", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapEnumType[*] mapEnum;
+
+	@GenModel(documentation="
+					Unused.
+					")
+	@ExtendedMetaData(kind="attribute", name="enumeration")
+	!unique attr type.String enumeration;
+
+	@GenModel(documentation="
+					List of header files that must be included to provide the RSS enumerator symbols.
+					")
+	@ExtendedMetaData(kind="attribute", name="headers")
+	!unique attr ListOfStrings headers;
+
+	@GenModel(documentation="
+					If defined, mapped RSS values may be generated by an algorithm based on
+					the current instance and property.  See the com.nokia.sdt.sourceGen.nameAlgorithm
+					extension point for details.
+					")
+	@ExtendedMetaData(kind="attribute", name="nameAlgorithm")
+	!unique attr type.String nameAlgorithm;
+
+	@GenModel(documentation="
+					When nameAlgorithm is defined, specifies that some or all mapped values
+					are generated by the name algorithm.  If the value is \"*\", every value goes
+					through the name algorithm and gets an enumerator in an *.hrh file.
+					Otherwise, only properties matching the value are generated.
+					")
+	@ExtendedMetaData(kind="attribute", name="uniqueValue")
+	!unique attr type.String uniqueValue;
+
+	@GenModel(documentation="
+					If true, ensure that mapped enumerators are declared in the RSS context,
+					emitting warnings if not.  Set this to false if mapping #defines or
+					expressions.
+					")
+	@ExtendedMetaData(kind="attribute", name="validate")
+	!unique unsettable attr type.Boolean validate = "true";
+}
+
+@GenModel(documentation="
+		Base for mapping a fixed value to RSS.
+		")
+@ExtendedMetaData(name="mappingFixedType", kind="empty")
+class MappingFixedType extends TwoWayMappingType {
+
+	@GenModel(documentation="
+					The literal string to emit into RSS.
+					")
+	@ExtendedMetaData(kind="attribute", name="value")
+	!unique attr type.String[1] value;
+}
+
+@GenModel(documentation="
+		Base for mapping property values to RSS identifiers (rather than
+		strings, for instance, as mappingSimpleType would do).
+		")
+@ExtendedMetaData(name="mappingIdentifierType", kind="empty")
+class MappingIdentifierType extends TwoWayMappingType {
+}
+
+@GenModel(documentation="
+		Base for mapping resources generated by component instances.
+		Either a reference to the resource is emitted (for LLINK targets)
+		or the resource expression is emitted (for STRUCT targets).
+		")
+@ExtendedMetaData(name="mappingInstanceType", kind="empty")
+class MappingInstanceType extends TwoWayMappingType {
+
+	@GenModel(documentation="
+					If specified, which particular resource to match.
+					")
+	@ExtendedMetaData(kind="attribute", name="rsrcId")
+	!unique attr type.String rsrcId;
+}
+
+@GenModel(documentation="
+		Base for mapping references to resources generated by component instances.
+		")
+@ExtendedMetaData(name="mappingReferenceType", kind="empty")
+class MappingReferenceType extends TwoWayMappingType {
+
+	@GenModel(documentation="
+					If defined, tells which particular generated resource to reference.
+					")
+	@ExtendedMetaData(kind="attribute", name="rsrcId")
+	!unique attr type.String rsrcId;
+}
+
+@GenModel(documentation="
+		Base for mapping resources in RSS.
+		")
+@ExtendedMetaData(name="mappingResourceType", kind="elementOnly")
+class MappingResourceType extends TwoWayMappingType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+		Map a simple value to a member.
+		")
+	@ExtendedMetaData(kind="element", name="mapSimpleMember", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapSimpleMemberType[*] mapSimpleMember;
+
+	@GenModel(documentation="
+		Map resources for an instance.
+		")
+	@ExtendedMetaData(kind="element", name="mapInstanceMember", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapInstanceMemberType[*] mapInstanceMember;
+
+	@GenModel(documentation="
+		Map a reference property to resources the instance generates.
+		")
+	@ExtendedMetaData(kind="element", name="mapReferenceMember", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapReferenceMemberType[*] mapReferenceMember;
+
+	@GenModel(documentation="
+		Map a fixed value to an RSS member.
+		")
+	@ExtendedMetaData(kind="element", name="mapFixedMember", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapFixedMemberType[*] mapFixedMember;
+
+	@GenModel(documentation="
+		Map an enumerator to RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapEnumMember", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapEnumMemberType[*] mapEnumMember;
+
+	@GenModel(documentation="
+		Map a simple property to a literal (identifier) in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapIdentifierMember", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapIdentifierMemberType[*] mapIdentifierMember;
+
+	@GenModel(documentation="
+		Map a property or child list to an array in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapArrayMember", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapArrayMemberType[*] mapArrayMember;
+
+	@GenModel(documentation="
+		Map a property to a RESOURCE expression or statement.
+		")
+	@ExtendedMetaData(kind="element", name="mapResourceMember", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapResourceMemberType[*] mapResourceMember;
+
+	@GenModel(documentation="
+		Map a set of boolean properties to a bitmask expression in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapBitmaskMember", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapBitmaskMemberType[*] mapBitmaskMember;
+
+	@GenModel(documentation="
+		Map RSS from the type declaration attached to the given property.
+		")
+	@ExtendedMetaData(kind="element", name="mapMemberFromType", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapMemberFromTypeType[*] mapMemberFromType;
+
+	@GenModel(documentation="
+		Delve into a property path without generating any resources.
+		")
+	@ExtendedMetaData(kind="element", name="mapIntoProperty", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapIntoPropertyType[*] mapIntoProperty;
+
+	@GenModel(documentation="
+		This element encapsulates choice elements which allow conditional
+		source mapping.  One choice must match or an error results (you can
+		use an empty choice to match the default case if necessary).  Only
+		the first matching choice is considered.
+			<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+				Only use one attribute (property, attribute, propertyExists, isComponentInstanceOf)
+				 for the select statement.
+			</p>
+		")
+	@ExtendedMetaData(kind="element", name="select", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SelectType[*] select;
+
+	@GenModel(documentation="
+					The list of headers required to declare the STRUCT.
+					")
+	@ExtendedMetaData(kind="attribute", name="headers")
+	!unique attr ListOfStrings headers;
+
+	@GenModel(documentation="
+					The unique identifier for this resource within a component.
+					
+					Every mapResourceXXX must have an identifier, either implicitly
+					or explicitly defined.
+					
+					If unspecified, an identifier is automatically generated for
+					mapResourceMember or mapResourceElement elements.  Otherwise,
+					missing identifiers are reported at errors at source mapping time.
+					")
+	@ExtendedMetaData(kind="attribute", name="id")
+	!unique attr type.String ~id;
+
+	@GenModel(documentation="
+					The RSS STRUCT name to generate.
+					")
+	@ExtendedMetaData(kind="attribute", name="struct")
+	!unique attr type.String struct;
+}
+
+@GenModel(documentation="
+		Base for mapping simple types (integers, floats, strings, booleans).
+		")
+@ExtendedMetaData(name="mappingSimpleType", kind="empty")
+class MappingSimpleType extends TwoWayMappingType {
+}
+
+@ExtendedMetaData(name="mapReferenceElement_._type", kind="empty")
+class MapReferenceElementType extends MappingReferenceType {
+}
+
+@ExtendedMetaData(name="mapReferenceMember_._type", kind="empty")
+class MapReferenceMemberType extends MappingReferenceType {
+
+	@GenModel(documentation="
+				The struct member.
+				")
+	@ExtendedMetaData(kind="attribute", name="member")
+	!unique attr type.String[1] member;
+
+	@GenModel(documentation="
+						The property path providing the value.
+						")
+	@ExtendedMetaData(kind="attribute", name="property")
+	!unique attr type.String[1] property;
+
+	@GenModel(documentation="
+				If true, do not emit the member initializer if the property matches the default
+				specified in the STRUCT.  If may be useful to set this to false if the
+				default changes between SDK releases (to avoid branching components).
+				")
+	@ExtendedMetaData(kind="attribute", name="suppressDefault")
+	!unique unsettable attr type.Boolean suppressDefault = "true";
+}
+
+@ExtendedMetaData(name="mapReferenceType_._type", kind="empty")
+class MapReferenceTypeType extends MappingReferenceType {
+
+	@GenModel(documentation="
+						Identifies the id for this particular kind of type mapping.
+						")
+	@ExtendedMetaData(kind="attribute", name="typeId")
+	!unique attr type.String typeId;
+}
+
+@ExtendedMetaData(name="mapResourceElement_._type", kind="elementOnly")
+class MapResourceElementType extends MappingResourceType {
+
+	@GenModel(documentation="
+					This attribute provides a means to distinguish resource
+					elements that come from different instances.  
+					
+					It tells which resource member to use as a key, so that the 
+					array mapper can match up elements to instances when importing,
+					to allow unknown items to be inserted (or for known items to 
+					be reordered, ideally).
+					
+					If not set, the array is assumed to contain entries whose
+					positions uniquely identify them (as is the case with
+					arrays of integers, references, etc.).
+						")
+	@ExtendedMetaData(kind="attribute", name="instanceIdentifyingMember")
+	!unique attr type.String instanceIdentifyingMember;
+}
+
+@ExtendedMetaData(name="mapResourceMember_._type", kind="elementOnly")
+class MapResourceMemberType extends MappingResourceType {
+
+	@GenModel(documentation="
+				The struct member.
+				")
+	@ExtendedMetaData(kind="attribute", name="member")
+	!unique attr type.String[1] member;
+
+	@GenModel(documentation="
+						The property path providing the value.
+						")
+	@ExtendedMetaData(kind="attribute", name="property")
+	!unique attr type.String[1] property;
+
+	@GenModel(documentation="
+				If true, do not emit the member initializer if the property matches the default
+				specified in the STRUCT.  If may be useful to set this to false if the
+				default changes between SDK releases (to avoid branching components).
+				")
+	@ExtendedMetaData(kind="attribute", name="suppressDefault")
+	!unique unsettable attr type.Boolean suppressDefault = "true";
+}
+
+@ExtendedMetaData(name="mapResource_._type", kind="elementOnly")
+class MapResourceType extends MappingResourceType {
+
+	@GenModel(documentation="
+						Force the base name of the resource.  If unspecified, resources are
+						named after the instance and member or element being mapped.
+						")
+	@ExtendedMetaData(kind="attribute", name="baseName")
+	!unique attr type.String baseName;
+
+	@GenModel(documentation="
+						Force the RSS filename (but not directory).  This is used to redirect
+						resources to a top-level RSS file.
+						")
+	@ExtendedMetaData(kind="attribute", name="rssFile")
+	!unique attr type.String rssFile;
+
+	@GenModel(documentation="
+						This tells whether the resource must be emitted as a standalone resource statement (always),
+						regardless of whether it is also generated as a resource expression, or whether it
+						will never be emitted unless referenced by another resource (never).  The default behavior
+						is to emit it if not generated as an expression.
+						")
+	@ExtendedMetaData(kind="attribute", name="standalone")
+	!unique unsettable attr StandaloneType standalone = "default";
+
+	@GenModel(documentation="
+						This tells whether to emit the resource without a name
+						")
+	@ExtendedMetaData(kind="attribute", name="unnamed")
+	!unique unsettable attr type.Boolean unnamed = "false";
+}
+
+@ExtendedMetaData(name="mapResourceType_._type", kind="elementOnly")
+class MapResourceTypeType extends MappingResourceType {
+
+	@GenModel(documentation="
+						Identifies the id for this particular kind of type mapping.
+						")
+	@ExtendedMetaData(kind="attribute", name="typeId")
+	!unique attr type.String typeId;
+}
+
+@ExtendedMetaData(name="mapSimpleElement_._type", kind="empty")
+class MapSimpleElementType extends MappingSimpleType {
+}
+
+@ExtendedMetaData(name="mapSimpleMember_._type", kind="empty")
+class MapSimpleMemberType extends MappingSimpleType {
+
+	@GenModel(documentation="
+				The struct member.
+				")
+	@ExtendedMetaData(kind="attribute", name="member")
+	!unique attr type.String[1] member;
+
+	@GenModel(documentation="
+						The property path providing the value.
+						")
+	@ExtendedMetaData(kind="attribute", name="property")
+	!unique attr type.String[1] property;
+
+	@GenModel(documentation="
+				If true, do not emit the member initializer if the property matches the default
+				specified in the STRUCT.  If may be useful to set this to false if the
+				default changes between SDK releases (to avoid branching components).
+				")
+	@ExtendedMetaData(kind="attribute", name="suppressDefault")
+	!unique unsettable attr type.Boolean suppressDefault = "true";
+}
+
+@ExtendedMetaData(name="mapSimpleType_._type", kind="empty")
+class MapSimpleTypeType extends MappingSimpleType {
+
+	@GenModel(documentation="
+						Identifies the id for this particular kind of type mapping.
+						")
+	@ExtendedMetaData(kind="attribute", name="typeId")
+	!unique attr type.String typeId;
+}
+
+@ExtendedMetaData(name="properties_._type", kind="elementOnly")
+class PropertiesType {
+
+	@ExtendedMetaData(kind="group", name="abstractProperty:group", namespace="##targetNamespace")
+	!unique attr ecore.EFeatureMapEntry[*] abstractPropertyGroup;
+
+	@ExtendedMetaData(kind="element", name="abstractProperty", namespace="##targetNamespace", group="abstractProperty:group")
+	readonly volatile transient derived !resolve val AbstractPropertyType[*] abstractProperty;
+}
+
+@GenModel(documentation="Simple, predefined property types.
+		")
+@ExtendedMetaData(name="propertyDataType")
+enum PropertyDataType {
+
+	@GenModel(documentation="The empty type. Do not use for real properties.
+				")
+	~void = 0;
+
+	@GenModel(documentation="
+				")
+	boolean = 1;
+
+	@GenModel(documentation="Four byte integer properties. Ranges may be constrained on property declarations.
+				")
+	integer = 2;
+
+	@GenModel(documentation="Floating point values. Ranges may be constrained on property declarations.
+				")
+	float = 3;
+
+	@GenModel(documentation="Non-localized string literals
+				")
+	string = 4;
+
+	@GenModel(documentation="Localized string literals. Users may enter different values for each language.
+				")
+	localizedString = 5;
+
+	@GenModel(documentation="Unique, non-localized string. Values are forced to be unique across the data model.
+				")
+	uniqueName = 6;
+}
+
+@ExtendedMetaData(name="propertyDataType:Object", baseType="propertyDataType")
+datatype PropertyDataTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="propertyOverrides_._type", kind="elementOnly")
+class PropertyOverridesType {
+
+	@ExtendedMetaData(kind="element", name="propertyOverride", namespace="##targetNamespace")
+	!resolve val PropertyOverrideType[*] propertyOverride;
+}
+
+@ExtendedMetaData(name="propertyOverride_._type", kind="empty")
+class PropertyOverrideType {
+
+	@GenModel(documentation="Override of the property category. See the description
+							in &lt;abstractPropertyType&gt;
+							")
+	@ExtendedMetaData(kind="attribute", name="category")
+	!unique attr type.String category;
+
+	@GenModel(documentation="Override of the default value. Default values can only
+							be overriden on properties supporting default values, i.e simple properties, enums, and compound 
+							properties. See the description in &lt;abstractPropertyType&gt; for more information.
+							")
+	@ExtendedMetaData(kind="attribute", name="default")
+	!unique attr type.String default;
+
+	@GenModel(documentation="The internal name for the property being overriden. It is legal for
+							this to reference a name that does not exist. This allows overrides of extension properties, which are
+							only conditionaly defined.
+							")
+	@ExtendedMetaData(kind="attribute", name="name")
+	!unique attr type.String[1] name;
+
+	@GenModel(documentation="Override of the readOnly state. See the description
+							in &lt;abstractPropertyType&gt;
+							")
+	@ExtendedMetaData(kind="attribute", name="readOnly")
+	!unique unsettable attr type.Boolean readOnly;
+}
+
+@GenModel(documentation="Enumeration used for scoping references within the model
+		")
+@ExtendedMetaData(name="referenceScopeType")
+enum ReferenceScopeType {
+
+	@GenModel(documentation="Property can reference any valid instance in the model
+				")
+	model = 0;
+
+	@GenModel(documentation="Property can reference any children of the referencing instance
+				")
+	children = 1;
+
+	@GenModel(documentation="Property can reference any siblings or children of the referencing instance
+				")
+	siblings = 2;
+}
+
+@ExtendedMetaData(name="referenceScopeType:Object", baseType="referenceScopeType")
+datatype ReferenceScopeTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="script_._type", kind="empty")
+class ScriptType {
+
+	@ExtendedMetaData(kind="attribute", name="file")
+	!unique attr type.String[1] file;
+
+	@ExtendedMetaData(kind="attribute", name="prototype")
+	!unique attr type.String[1] prototype;
+}
+
+@ExtendedMetaData(name="select_._type", kind="elementOnly")
+class SelectType {
+
+	@GenModel(documentation="
+		This defines a decision in the select element.  If the \"value\" attribute
+		matches the value obtained in the select element, the choice is matched
+		and its mapping elements instantiated.
+		")
+	@ExtendedMetaData(kind="element", name="choice", namespace="##targetNamespace")
+	!resolve val ChoiceType[*] choice;
+
+	@GenModel(documentation="
+					Specifies the attribute value to test.  Results in blank (\"\") or the value of the attribute to test.
+					")
+	@ExtendedMetaData(kind="attribute", name="attribute")
+	!unique attr type.String attribute;
+
+	@GenModel(documentation="
+					Specifies the property path to test for existence, e.g., whether the
+						property may be set or queried.  This is independent of whether the
+						property is actually set.  The attribute takes a property path (e.g. \"flag\", \"[parent].flag\", ...)
+					Results in a 'true' or 'false' value to test. 
+					")
+	@ExtendedMetaData(kind="attribute", name="isComponentInstanceOf")
+	!unique attr type.String isComponentInstanceOf;
+
+	@GenModel(documentation="
+					Specifies the property path to test.  (E.g. \"flag\", \"[parent].flag\", ...)
+						Results in an error if the property does not exist, else the string version of the property to test.
+					")
+	@ExtendedMetaData(kind="attribute", name="property")
+	!unique attr type.String property;
+
+	@GenModel(documentation="
+					Specifies the property path to test for existence.  (E.g. \"flag\", \"[parent].flag\", ...)
+						Results in a 'true' or 'false' value to test. 
+					")
+	@ExtendedMetaData(kind="attribute", name="propertyExists")
+	!unique attr type.String propertyExists;
+}
+
+@GenModel(documentation="Concrete type used for basic properties.
+			")
+@ExtendedMetaData(name="simplePropertyType", kind="empty")
+class SimplePropertyType extends AbstractPropertyType {
+
+	@GenModel(documentation="A default value for the property. Must be a string convertible to the
+					particular property type.
+					")
+	@ExtendedMetaData(kind="attribute", name="default")
+	!unique attr type.String default;
+
+	@GenModel(documentation="Optional extension of the enum with the enums provided by an enimPropertyDeclaration.
+					If the value of the property matches any in an extension enumProperty's 'value' attribute, the 'displayValue' will be shown
+					as the current value in the property sheet.  Additionally, the editor for the value (if not overridden with
+					a custom editorClass) will be a combo that allows typing in the literal value or selecting one of 
+					the extended enums.
+					<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+					The 'value' of each of the extending enums must match the type being extended, or else the attempt to set the value
+					to that enum will fail.  Note that this means that it is useless to extend booleans (since all extensions
+					must map to 'true' or 'false'). 							
+					</p>
+					")
+	@ExtendedMetaData(kind="attribute", name="extendWithEnum")
+	!unique attr type.String extendWithEnum;
+
+	@GenModel(documentation="Optional maximum value constraint. Applies only to integers and floats.
+					")
+	@ExtendedMetaData(kind="attribute", name="maxValue")
+	!unique attr type.String maxValue;
+
+	@GenModel(documentation="Optional minimum value constraint. Applies only to integers and floats.
+					")
+	@ExtendedMetaData(kind="attribute", name="minValue")
+	!unique attr type.String minValue;
+
+	@GenModel(documentation="Selects the data type of the property.
+					")
+	@ExtendedMetaData(kind="attribute", name="type")
+	!unique unsettable attr PropertyDataType[1] type = "void";
+}
+
+@ExtendedMetaData(name="sourceGen_._type", kind="elementOnly")
+class SourceGenType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+		This element defines a location in source, such as a function in the main 
+		file or a region of text in a class declaration.  
+		This is a slight misnomer as this element does not by its presence realize
+		the location.  Only when a contribution references
+		location id (or post 1.1: when realize=\"true\" is used)
+		will the location be added to source.
+		")
+	@ExtendedMetaData(kind="element", name="defineLocation", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DefineLocationType[*] defineLocation;
+
+	@GenModel(documentation="
+		This defines a contribution.  The text element is template-expanded 
+		with ${ ... } expression escapes and may contain Javascript in &lt;% ... %&gt; sections.
+		")
+	@ExtendedMetaData(kind="element", name="template", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val TemplateType[*] template;
+
+	@GenModel(documentation="
+		A logical grouping of templates and locations.  Attributes
+		present on the group are automatically applied to children.
+		Groups may not be nested.
+		")
+	@ExtendedMetaData(kind="element", name="templateGroup", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val TemplateGroupType[*] templateGroup;
+
+	@GenModel(documentation="
+		In a derived component, selects a template from the base by id.
+		")
+	@ExtendedMetaData(kind="element", name="useTemplate", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val UseTemplateType[*] useTemplate;
+
+	@GenModel(documentation="
+		In a derived component, selects a template group from the base by id.
+		If no subelements are specified, all the named templates (those with ids)
+		are inherited.  No templates without ids are inherited.
+		
+		If subelements are specified, these describe the specific templates
+		to inherit from the group.  The id \"*\" may be used to bring in all
+		named templates.
+		")
+	@ExtendedMetaData(kind="element", name="useTemplateGroup", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val UseTemplateGroupType[*] useTemplateGroup;
+
+	@GenModel(documentation="
+		Provide Javascript in-line with templates and other sourceGen elements.
+		Be sure to supply a \"forms\" attribute, otherwise the code may execute multiple times
+		during the source generation contribution-gathering phase.
+		")
+	@ExtendedMetaData(kind="element", name="inline", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val InlineType[*] inline;
+
+	@GenModel(documentation="
+		Define a reference to an interface implemented in Javascript.
+		")
+	@ExtendedMetaData(kind="element", name="script", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ScriptType[*] script;
+
+	@GenModel(documentation="
+		Added post 1.1.  
+		This element defines a macro consisting of a set of templates 
+		and inlines which may be variable-substituted.
+			
+		If a given defineMacro imports multiple arguments
+		of the same name, then they must be explicitly redefined,
+		to resolve any ambiguities about the default value.  
+		")
+	@ExtendedMetaData(kind="element", name="defineMacro", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DefineMacroType[*] defineMacro;
+
+	@GenModel(documentation="
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		Added post 1.1.
+		Expands a given macro into the sourceGen of the caller.  
+		This has the same effect as inserting the same templates and inlines 
+		from the macro's definition at the point of call.  
+		Variable references from those templates and inlines
+		are substituted with the values provided in attributes 
+		(e.g. variableName=\"value\") or expandArgument child elements.  
+		The latter may be preferred for cases where code is substituted,
+		so the formatting may be retained.
+		</p>
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		As a special case, variable references may have modifiers to
+		modify the formatting of a variable when it is expanded.  
+		Modifiers are appended
+		to the variable name as in: $(varName::modifier).  
+		</p>
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		Currently supported modifiers are all for tweaking canonical
+		function argument lists, which match the format of 
+		declaration, with spaces, argument names, default values, etc:
+		</p>
+		<ul xmlns=\"http://www.nokia.com/sdt/emf/component\">
+			<li>as-function-declaration-args: identity
+			</li>
+			<li>as-function-definition-args: removes default argument values
+			</li>
+			<li>as-function-location-args: removes argument names, default arguments, and spaces
+			</li>
+		</ul>
+		")
+	@ExtendedMetaData(kind="element", name="expandMacro", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ExpandMacroType[*] expandMacro;
+
+	@ExtendedMetaData(kind="attribute", name="debug")
+	!unique unsettable attr type.Boolean debug = "false";
+
+	@ExtendedMetaData(kind="attribute", name="forms")
+	!unique attr type.String forms;
+}
+
+@ExtendedMetaData(name="sourceMapping_._type", kind="elementOnly")
+class SourceMappingType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+		Map an instance to a RESOURCE.
+		")
+	@ExtendedMetaData(kind="element", name="mapResource", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapResourceType[*] mapResource;
+
+	@GenModel(documentation="
+		This element encapsulates choice elements which allow conditional
+		source mapping.  One choice must match or an error results (you can
+		use an empty choice to match the default case if necessary).  Only
+		the first matching choice is considered.
+			<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+				Only use one attribute (property, attribute, propertyExists, isComponentInstanceOf)
+				 for the select statement.
+			</p>
+		")
+	@ExtendedMetaData(kind="element", name="select", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SelectType[*] select;
+}
+
+@ExtendedMetaData(name="sourceTypeMapping_._type", kind="elementOnly")
+class SourceTypeMappingType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+		Map a property to a RESOURCE expression or statement.
+		")
+	@ExtendedMetaData(kind="element", name="mapResourceType", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapResourceTypeType[*] mapResourceType;
+
+	@GenModel(documentation="
+		Map an enumerator to RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapEnumType", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapEnumTypeType[*] mapEnumType;
+
+	@GenModel(documentation="
+		Map a simple value.
+		")
+	@ExtendedMetaData(kind="element", name="mapSimpleType", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapSimpleTypeType[*] mapSimpleType;
+
+	@GenModel(documentation="
+		Map a fixed value.
+		")
+	@ExtendedMetaData(kind="element", name="mapFixedType", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapFixedTypeType[*] mapFixedType;
+
+	@GenModel(documentation="
+		Map a set of boolean properties to a bitmask expression in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapBitmaskType", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapBitmaskTypeType[*] mapBitmaskType;
+
+	@GenModel(documentation="
+		Map a simple property to a literal (identifier) in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapIdentifierType", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapIdentifierTypeType[*] mapIdentifierType;
+
+	@GenModel(documentation="
+		Map a reference property to resources the instance generates.
+		")
+	@ExtendedMetaData(kind="element", name="mapReferenceType", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapReferenceTypeType[*] mapReferenceType;
+
+	@GenModel(documentation="
+		Map a property or child list to an array in RSS.
+		")
+	@ExtendedMetaData(kind="element", name="mapArrayType", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MapArrayTypeType[*] mapArrayType;
+
+	@GenModel(documentation="
+		This element encapsulates choice elements which allow conditional
+		source mapping.  One choice must match or an error results (you can
+		use an empty choice to match the default case if necessary).  Only
+		the first matching choice is considered.
+			<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+				Only use one attribute (property, attribute, propertyExists, isComponentInstanceOf)
+				 for the select statement.
+			</p>
+		")
+	@ExtendedMetaData(kind="element", name="select", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SelectType[*] select;
+}
+
+@GenModel(documentation="
+		The selector for controlling standalone resource mapping.
+		")
+@ExtendedMetaData(name="standaloneType")
+enum StandaloneType {
+
+	@GenModel(documentation="
+				Deprecated value corresponding to \"default\".
+				")
+	~false = 0;
+
+	@GenModel(documentation="
+				Depecated value corresponding to \"always\".
+				")
+	~true = 1;
+
+	@GenModel(documentation="
+				Never emit the resource by itself.  Only emit it if another resource
+				references it.  By using this, a component may generate two forms of
+				resource (with different resource ids) and let a container or reference
+				select which resource it wants, without also generating the unused variant.
+				")
+	never = 2;
+
+	@GenModel(documentation="
+				Emit the resource by itself if it is not generated as an expression or
+				by a LINK or LLINK.
+				")
+	default = 3;
+
+	@GenModel(documentation="
+				Always emit the resource by itself, even if already generated as an expression.
+				")
+	always = 4;
+}
+
+@ExtendedMetaData(name="standaloneType:Object", baseType="standaloneType")
+datatype StandaloneTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="symbian_._type", kind="empty")
+class SymbianType {
+
+	@GenModel(documentation="A link to help information for this C++ class
+				")
+	@ExtendedMetaData(kind="attribute", name="classHelpTopic")
+	!unique attr type.String classHelpTopic;
+
+	@GenModel(documentation="The C++ class name corresponding to this component, if any. Not used for source code generation,
+				but is displayed in the component palette.
+				")
+	@ExtendedMetaData(kind="attribute", name="className")
+	!unique attr type.String className;
+
+	@GenModel(documentation="A version number indicating the maximum SDK version with which the component is
+				compatible. For example, if the value is 2.8 the component will be selected for use with a 2.8 SDK but not 3.0.
+				Uses OSGI style version strings, composed of up to 3 integers and a text qualifier, of the form &lt;major version&gt;.&lt;minor version&gt;.&lt;micro version&gt;.&lt;qualifier&gt;.
+			    See http://help.eclipse.org/help31/topic/org.eclipse.platform.doc.isv/reference/osgi/org/osgi/framework/Version.html for further information.
+			")
+	@ExtendedMetaData(kind="attribute", name="maxSDKVersion")
+	!unique attr type.String maxSDKVersion;
+
+	@GenModel(documentation="A version number indicating the lowest SDK version with which the component is
+				compatible. For example, if the value is 2.8 the component will be selected for use with a 2.8 SDK but not 2.6.
+				Uses OSGI style version strings, composed of up to 3 integers and a text qualifier, of the form &lt;major version&gt;.&lt;minor version&gt;.&lt;micro version&gt;.&lt;qualifier&gt;.
+			    See http://help.eclipse.org/help31/topic/org.eclipse.platform.doc.isv/reference/osgi/org/osgi/framework/Version.html for further information.
+				")
+	@ExtendedMetaData(kind="attribute", name="minSDKVersion")
+	!unique attr type.String[1] minSDKVersion;
+
+	@GenModel(documentation="A link to help information for the resource
+				")
+	@ExtendedMetaData(kind="attribute", name="resourceHelpTopic")
+	!unique attr type.String resourceHelpTopic;
+
+	@GenModel(documentation="The Symbian RSS resource type for this component, if any
+				")
+	@ExtendedMetaData(kind="attribute", name="resourceType")
+	!unique attr type.String resourceType;
+
+	@GenModel(documentation="This value identifies the Symbian OS variant with which the component is compatible.
+				Currently the only supported value is \"com.nokia.serie60\".
+				")
+	@ExtendedMetaData(kind="attribute", name="sdkName")
+	!unique attr type.AnySimpleType[1] sdkName;
+}
+
+@ExtendedMetaData(name="templateGroup_._type", kind="elementOnly")
+class TemplateGroupType extends ConditionalSourceGen {
+
+	@ExtendedMetaData(kind="group", name="group:3")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+		This element defines a location in source, such as a function in the main 
+		file or a region of text in a class declaration.  
+		This is a slight misnomer as this element does not by its presence realize
+		the location.  Only when a contribution references
+		location id (or post 1.1: when realize=\"true\" is used)
+		will the location be added to source.
+		")
+	@ExtendedMetaData(kind="element", name="defineLocation", namespace="##targetNamespace", group="#group:3")
+	volatile transient derived !resolve val DefineLocationType[*] defineLocation;
+
+	@GenModel(documentation="
+		This defines a contribution.  The text element is template-expanded 
+		with ${ ... } expression escapes and may contain Javascript in &lt;% ... %&gt; sections.
+		")
+	@ExtendedMetaData(kind="element", name="template", namespace="##targetNamespace", group="#group:3")
+	volatile transient derived !resolve val TemplateType[*] template;
+
+	@GenModel(documentation="
+		Provide Javascript in-line with templates and other sourceGen elements.
+		Be sure to supply a \"forms\" attribute, otherwise the code may execute multiple times
+		during the source generation contribution-gathering phase.
+		")
+	@ExtendedMetaData(kind="element", name="inline", namespace="##targetNamespace", group="#group:3")
+	volatile transient derived !resolve val InlineType[*] inline;
+
+	@GenModel(documentation="
+		In a derived component, selects a template from the base by id.
+		")
+	@ExtendedMetaData(kind="element", name="useTemplate", namespace="##targetNamespace", group="#group:3")
+	volatile transient derived !resolve val UseTemplateType[*] useTemplate;
+
+	@GenModel(documentation="
+		In a derived component, selects a template group from the base by id.
+		If no subelements are specified, all the named templates (those with ids)
+		are inherited.  No templates without ids are inherited.
+		
+		If subelements are specified, these describe the specific templates
+		to inherit from the group.  The id \"*\" may be used to bring in all
+		named templates.
+		")
+	@ExtendedMetaData(kind="element", name="useTemplateGroup", namespace="##targetNamespace", group="#group:3")
+	volatile transient derived !resolve val UseTemplateGroupType[*] useTemplateGroup;
+
+	@GenModel(documentation="
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		Added post 1.1.
+		Expands a given macro into the sourceGen of the caller.  
+		This has the same effect as inserting the same templates and inlines 
+		from the macro's definition at the point of call.  
+		Variable references from those templates and inlines
+		are substituted with the values provided in attributes 
+		(e.g. variableName=\"value\") or expandArgument child elements.  
+		The latter may be preferred for cases where code is substituted,
+		so the formatting may be retained.
+		</p>
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		As a special case, variable references may have modifiers to
+		modify the formatting of a variable when it is expanded.  
+		Modifiers are appended
+		to the variable name as in: $(varName::modifier).  
+		</p>
+		<p xmlns=\"http://www.nokia.com/sdt/emf/component\">
+		Currently supported modifiers are all for tweaking canonical
+		function argument lists, which match the format of 
+		declaration, with spaces, argument names, default values, etc:
+		</p>
+		<ul xmlns=\"http://www.nokia.com/sdt/emf/component\">
+			<li>as-function-declaration-args: identity
+			</li>
+			<li>as-function-definition-args: removes default argument values
+			</li>
+			<li>as-function-location-args: removes argument names, default arguments, and spaces
+			</li>
+		</ul>
+		")
+	@ExtendedMetaData(kind="element", name="expandMacro", namespace="##targetNamespace", group="#group:3")
+	volatile transient derived !resolve val ExpandMacroType[*] expandMacro;
+
+	@ExtendedMetaData(kind="attribute", name="form")
+	!unique attr type.String form;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	!unique attr type.String ~id;
+
+	@ExtendedMetaData(kind="attribute", name="location")
+	!unique attr type.String location;
+
+	@ExtendedMetaData(kind="attribute", name="mode")
+	!unique attr type.String mode;
+
+	@ExtendedMetaData(kind="attribute", name="phase")
+	!unique attr type.String phase;
+}
+
+@ExtendedMetaData(name="template_._type", kind="simple")
+class TemplateType extends ConditionalSourceGenString {
+
+	@GenModel(documentation="
+						A token used to select a particular kind of source for a parent.
+						The namespace is determined implicitly by what a parent requests.
+						
+						For instance, a parent may have special sourcegen, and pass
+						the form \"SpecialCase\" to its children.  Templates specifying
+						form=\"SpecialCase\" will be selected.  Other parents will not see
+						such templates if they do not specify that form.
+						
+						If the form does not match, the template is not instantiated.
+						")
+	@ExtendedMetaData(kind="attribute", name="form")
+	!unique attr type.String form;
+
+	@GenModel(documentation="
+						Unique id for the template within a component or
+						within a templateGroup.  Ids may be shared for different
+						forms.  Derived components may redefine ids or inherit
+						templates by id.
+						Added post 1.1: if the id is unspecified in a templateGroup, 
+						a default id is assigned.  To avoid inheriting, supply an empty id.
+						")
+	@ExtendedMetaData(kind="attribute", name="id")
+	!unique attr type.String ~id;
+
+	@GenModel(documentation="
+						The location id the contribution goes to.  May not be specified when \"phase\" is set.
+						")
+	@ExtendedMetaData(kind="attribute", name="location")
+	!unique attr type.String location;
+
+	@GenModel(documentation="
+						Unused currently.
+						")
+	@ExtendedMetaData(kind="attribute", name="mode")
+	!unique attr type.String mode;
+
+	@GenModel(documentation="
+						The phase the contribution goes to.  A parent component must realize the
+						phase into an actual location id.
+						")
+	@ExtendedMetaData(kind="attribute", name="phase")
+	!unique attr type.String phase;
+}
+
+@GenModel(documentation="
+		Base for two-way mappings.
+		")
+@ExtendedMetaData(name="twoWayMappingType", kind="empty")
+class TwoWayMappingType {
+}
+
+@ExtendedMetaData(name="useTemplateGroup_._type", kind="elementOnly")
+class UseTemplateGroupType {
+
+	@GenModel(documentation="
+		In a derived component, selects a template from the base by id.
+		")
+	@ExtendedMetaData(kind="element", name="useTemplate", namespace="##targetNamespace")
+	!resolve val UseTemplateType[*] useTemplate;
+
+	@ExtendedMetaData(kind="attribute", name="ids")
+	!unique attr type.String[1] ids;
+}
+
+@ExtendedMetaData(name="useTemplate_._type", kind="empty")
+class UseTemplateType {
+
+	@ExtendedMetaData(kind="attribute", name="ids")
+	!unique attr type.String[1] ids;
+}
+

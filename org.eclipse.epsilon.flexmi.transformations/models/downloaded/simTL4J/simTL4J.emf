@@ -1,0 +1,2824 @@
+@namespace(uri="http://www.emftext.org/simTL4J", prefix="simTL4J")
+package simTL4J;
+
+@namespace(uri="http://www.emftext.org/simTL4J/annotations", prefix="annotations")
+package annotations {
+	abstract class Annotable extends commons.Commentable {
+		val AnnotationInstance[*] annotations;
+	}
+
+	class AnnotationInstance extends references.Reference, modifiers.AnnotationInstanceOrModifier, commons.NamespaceAwareElement {
+		ref classifiers.Classifier[1] annotation;
+		val AnnotationParameter parameter;
+	}
+
+	abstract class AnnotationParameter extends commons.Commentable {
+	}
+
+	class SingleAnnotationParameter extends AnnotationParameter {
+		val AnnotationValue[1] value;
+	}
+
+	class AnnotationParameterList extends AnnotationParameter {
+		val AnnotationAttributeSetting[*] settings;
+	}
+
+	class AnnotationAttributeSetting extends commons.Commentable {
+		ref members.InterfaceMethod[1] attribute;
+		val AnnotationValue[1] value;
+	}
+
+	abstract class AnnotationValue extends commons.Commentable {
+	}
+
+	class AnnotationAttribute extends members.InterfaceMethod {
+		val expressions.Expression defaultValue;
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/arrays", prefix="arrays")
+package arrays {
+	abstract class ArrayTypeable extends commons.Commentable {
+		op long getArrayDimension();
+		val ArrayDimension[*] arrayDimensionsBefore;
+		val ArrayDimension[*] arrayDimensionsAfter;
+	}
+
+	class ArrayDimension extends commons.Commentable {
+	}
+
+	class ArrayInitializer extends ArrayInitializationValue, annotations.AnnotationValue {
+		val ArrayInitializationValue[*] initialValues;
+	}
+
+	abstract class ArrayInitializationValue extends commons.Commentable {
+	}
+
+	class ArrayInstantiationBySize extends expressions.Expression, types.TypedElement, ArrayTypeable, references.Reference {
+		val expressions.Expression[*] sizes;
+	}
+
+	class ArrayInstantiationByValues extends expressions.Expression, types.TypedElement, ArrayTypeable, references.Reference {
+		val ArrayInitializer arrayInitializer;
+	}
+
+	class ArraySelector extends commons.Commentable {
+		val expressions.Expression position;
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/classifiers", prefix="classifiers")
+package classifiers {
+	abstract class Classifier extends types.Type, references.ReferenceableElement {
+
+		@GenModel(body="//method has to be specified in subclasses
+throw new java.lang.UnsupportedOperationException ( ) ; 
+", documentation="")
+		op ConcreteClassifier[*] getAllSuperClassifiers();
+	}
+
+	abstract class ConcreteClassifier extends Classifier, generics.TypeParametrizable, members.MemberContainer, members.Member, statements.Statement, modifiers.AnnotableAndModifiable {
+
+		@GenModel(body="if ( this .eIsProxy ( ) ) { 
+	java.lang.String uriString = ( ( org.eclipse.emf.ecore.InternalEObject ) this ) .eProxyURI ( ) .trimFragment ( ) .toString ( ) ; 
+	java.lang.String fullName = uriString .substring ( sg.edu.nus.comp.simTL.language.java.simTL4J.JavaUniquePathConstructor .JAVA_CLASSIFIER_PATHMAP .length ( ) , uriString .length ( ) - \".java\" .length ( ) ) + \"$\" ; 
+	return getConcreteClassifiers ( fullName , \"*\" ) ; 
+} else { 
+	java.lang.String suffix = \"\" ; 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier containingClass = this ; 
+	while ( containingClass .eContainer ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) { 
+		containingClass = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) containingClass .eContainer ( ) ; 
+		suffix = containingClass .getName ( ) + sg.edu.nus.comp.simTL.language.java.simTL4J.JavaUniquePathConstructor .CLASSIFIER_SEPARATOR + suffix ; 
+	} 
+	if ( containingClass .eContainer ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.containers.CompilationUnit ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.containers.CompilationUnit compilationUnit = ( sg.edu.nus.comp.simTL.language.java.simTL4J.containers.CompilationUnit ) containingClass .eContainer ( ) ; 
+		java.lang.String fullName = compilationUnit .getNamespacesAsString ( ) + suffix + getName ( ) + sg.edu.nus.comp.simTL.language.java.simTL4J.JavaUniquePathConstructor .CLASSIFIER_SEPARATOR ; 
+		return getConcreteClassifiers ( fullName , \"*\" ) ; 
+	} 
+} 
+//for classes declared locally inside methods that are not registered in the class path
+org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > result = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+//can not call ClassifierUtil.getAllMembers, because it will try to call this method!
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member member : getMembers ( ) ) { 
+	if ( member instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) { 
+		result .add ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) member ) ; 
+	} 
+} 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier superClassifier : getAllSuperClassifiers ( ) ) { 
+	for ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member member : superClassifier .getMembers ( ) ) { 
+		if ( member instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) { 
+			result .add ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) member ) ; 
+		} 
+	} 
+} 
+return result ; 
+", documentation="")
+		op ConcreteClassifier[*] getInnerClassifiers();
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > innerClassifierList = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+innerClassifierList .addAll ( getInnerClassifiers ( ) ) ; 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier superClassifier : getAllSuperClassifiers ( ) ) { 
+	org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > superInnerList = superClassifier .getInnerClassifiers ( ) ; 
+	for ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier superInner : superInnerList ) { 
+		if ( superInner .eIsProxy ( ) ) { 
+			superInner = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) org.eclipse.emf.ecore.util.EcoreUtil .resolve ( superInner , this ) ; 
+		} 
+		if ( ! superInner .eIsProxy ( ) && ! superInner .isHidden ( this ) ) { 
+			innerClassifierList .add ( superInner ) ; 
+		} 
+	} 
+} 
+return innerClassifierList ; 
+", documentation="")
+		op ConcreteClassifier[*] getAllInnerClassifiers();
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference > typeReferenceList = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference > ( ) ; 
+if ( this == null ) { 
+	return typeReferenceList ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class javaClass = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) this ; 
+	if ( javaClass .getExtends ( ) != null ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference classifierReference = javaClass .getExtends ( ) .getPureClassifierReference ( ) ; 
+		typeReferenceList .add ( classifierReference ) ; 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier target = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) classifierReference .getTarget ( ) ; 
+		if ( ! target .equals ( getObjectClass ( ) ) ) { 
+			typeReferenceList .addAll ( target .getSuperTypeReferences ( ) ) ; 
+		} 
+	} 
+	for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference interfaceReference : javaClass .getImplements ( ) ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference classifierReference = interfaceReference .getPureClassifierReference ( ) ; 
+		typeReferenceList .add ( classifierReference ) ; 
+		typeReferenceList .addAll ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) classifierReference .getTarget ( ) ) .getSuperTypeReferences ( ) ) ; 
+	} 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface javaInterface = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) this ; 
+	for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference interfaceReference : javaInterface .getExtends ( ) ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference classifierReference = interfaceReference .getPureClassifierReference ( ) ; 
+		typeReferenceList .add ( classifierReference ) ; 
+		typeReferenceList .addAll ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) classifierReference .getTarget ( ) ) .getSuperTypeReferences ( ) ) ; 
+	} 
+} 
+return typeReferenceList ; 
+", documentation="")
+		op types.ClassifierReference[*] getSuperTypeReferences();
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member > memberList = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member > ( ) ; 
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier concreteClassifier = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) this ; 
+memberList .addAll ( concreteClassifier .getMembers ( ) ) ; 
+memberList .addAll ( concreteClassifier .getDefaultMembers ( ) ) ; 
+//because inner classes are found in separate class files
+memberList .addAll ( concreteClassifier .getAllInnerClassifiers ( ) ) ; 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier superClassifier : getAllSuperClassifiers ( ) ) { 
+	for ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member member : superClassifier .getMembers ( ) ) { 
+		if ( member instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.AnnotableAndModifiable ) { 
+			sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.AnnotableAndModifiable modifiable = ( sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.AnnotableAndModifiable ) member ; 
+			if ( ! modifiable .isHidden ( context ) ) { 
+				memberList .add ( member ) ; 
+			} 
+		} else { 
+			memberList .add ( member ) ; 
+		} 
+	} 
+	memberList .addAll ( superClassifier .getDefaultMembers ( ) ) ; 
+} 
+return memberList ; 
+", documentation="
+ Returns all members of the given classifier including inner classes and 
+ all members of super types (extended classes and implemented interfaces).
+ 
+ @param context to check protected visibility
+ @return member list
+")
+		op members.Member[*] getAllMembers(commons.Commentable context);
+		transient attr String fullName;
+	}
+
+	abstract class Implementor extends commons.Commentable {
+		val types.TypeReference[*] implements;
+	}
+
+	class Class extends ConcreteClassifier, Implementor {
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > result = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+//collects all superclasses first
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class superClass = this ; 
+while ( superClass != null && ! superClass .eIsProxy ( ) && ! superClass .equals ( getObjectClass ( ) ) ) { 
+	superClass = superClass .getSuperClass ( ) ; 
+	if ( superClass != null ) { 
+		result .add ( superClass ) ; 
+	} 
+} 
+//collect all implemented interfaces
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference typeArg : this .getImplements ( ) ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier superInterface = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) typeArg .getTarget ( ) ; 
+	if ( superInterface != null ) { 
+		result .add ( superInterface ) ; 
+		if ( superInterface instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) { 
+			result .addAll ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) superInterface ) .getAllSuperClassifiers ( ) ) ; 
+		} 
+	} 
+} 
+//collect all implemented interfaces of super classes
+superClass = this .getSuperClass ( ) ; 
+if ( superClass != null && ! superClass .eIsProxy ( ) && ! superClass .equals ( getObjectClass ( ) ) ) { 
+	result .addAll ( superClass .getAllSuperClassifiers ( ) ) ; 
+} 
+return result ; 
+", documentation="
+ Recursively collects all super types (extended classes and implemented interfaces)
+ of the given class.
+ 
+ @param classifierList the list for the result
+")
+		op ConcreteClassifier[*] getAllSuperClassifiers();
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference superClassReference = this .getExtends ( ) ; 
+if ( superClassReference == null ) { 
+	superClassReference = this .getDefaultExtends ( ) ; 
+} 
+if ( superClassReference == null ) { 
+	return null ; 
+} 
+sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type result = superClassReference .getTarget ( ) ; 
+if ( result instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) { 
+	return ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) result ; 
+} 
+return null ; 
+", documentation="
+ @param this
+ @return the direct super class
+")
+		op Class getSuperClass();
+
+		@GenModel(body="if ( getLibClass ( \"Boolean\" ) .equals ( this ) ) { 
+	return sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypesFactory.eINSTANCE.createBoolean(); 
+} 
+if ( getLibClass ( \"Byte\" ) .equals ( this ) ) { 
+	return sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypesFactory.eINSTANCE.createByte(); 
+} 
+if ( getLibClass ( \"Character\" ) .equals ( this ) ) { 
+	return sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypesFactory.eINSTANCE.createChar(); 
+} 
+if ( getLibClass ( \"Float\" ) .equals ( this ) ) { 
+	return sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypesFactory.eINSTANCE.createFloat(); 
+} 
+if ( getLibClass ( \"Double\" ) .equals ( this ) ) { 
+	return sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypesFactory.eINSTANCE.createDouble(); 
+} 
+if ( getLibClass ( \"Integer\" ) .equals ( this ) ) { 
+	return sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypesFactory.eINSTANCE.createInt(); 
+} 
+if ( getLibClass ( \"Long\" ) .equals ( this ) ) { 
+	return sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypesFactory.eINSTANCE.createLong(); 
+} 
+if ( getLibClass ( \"Short\" ) .equals ( this ) ) { 
+	return sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypesFactory.eINSTANCE.createShort(); 
+} 
+if ( getLibClass ( \"Void\" ) .equals ( this ) ) { 
+	return sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypesFactory.eINSTANCE.createVoid(); 
+} 
+return null ; 
+", documentation="
+ @param this
+ @return primitive type, if the class can be wrapped
+")
+		op types.PrimitiveType unWrapPrimitiveType();
+		val types.TypeReference ~extends;
+		transient val types.TypeReference defaultExtends;
+	}
+
+	class Interface extends ConcreteClassifier {
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > result = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference typeArg : this .getExtends ( ) ) { 
+	//use ConcreteClassifier instead of Interface because java.lang.Object can also act as implemented interface
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier superInterface = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) typeArg .getTarget ( ) ; 
+	if ( superInterface != null ) { 
+		result .add ( superInterface ) ; 
+		if ( superInterface instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) { 
+			result .addAll ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) superInterface ) .getAllSuperClassifiers ( ) ) ; 
+		} 
+	} 
+} 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference typeArg : this .getDefaultExtends ( ) ) { 
+	//use ConcreteClassifier instead of Interface because java.lang.Object can also act as implemented interface
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier superInterface = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) typeArg .getTarget ( ) ; 
+	if ( superInterface != null ) { 
+		result .add ( superInterface ) ; 
+		if ( superInterface instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) { 
+			result .addAll ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) superInterface ) .getAllSuperClassifiers ( ) ) ; 
+		} 
+	} 
+} 
+return result ; 
+", documentation="
+ @return all interfaces extended by this interface. The type is 
+ ConcreteClassifier, because java.lang.Object is also extended although
+ it is a Class.
+")
+		op ConcreteClassifier[*] getAllSuperClassifiers();
+		val types.TypeReference[*] ~extends;
+		transient val types.TypeReference[*] defaultExtends;
+	}
+
+	class Enumeration extends ConcreteClassifier, Implementor {
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > result = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+//enumerations inherit from java.lang.Enum
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class enumClass = getLibClass ( \"Enum\" ) ; 
+result .add ( enumClass ) ; 
+result .addAll ( enumClass .getAllSuperClassifiers ( ) ) ; 
+//collect all implemented interfaces
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference typeArg : this .getImplements ( ) ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier superInterface = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) typeArg .getTarget ( ) ; 
+	if ( superInterface != null ) { 
+		result .add ( superInterface ) ; 
+		if ( superInterface instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) { 
+			result .addAll ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) superInterface ) .getAllSuperClassifiers ( ) ) ; 
+		} 
+	} 
+} 
+return result ; 
+", documentation="
+ @return all interfaces extended by this enumeration.
+")
+		op ConcreteClassifier[*] getAllSuperClassifiers();
+		val members.EnumConstant[*] constants;
+	}
+
+	class Annotation extends ConcreteClassifier {
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > result = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+result .add ( getAnnotationInterface ( ) ) ; 
+return result ; 
+", documentation="
+ @return <code>java.lang.annotation.Annotation</code> 
+")
+		op ConcreteClassifier[*] getAllSuperClassifiers();
+	}
+
+	class AnonymousClass extends types.Type, members.MemberContainer {
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > superClassifierList = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier superClassifier = getSuperClassifier ( ) ; 
+if ( superClassifier != null ) { 
+	superClassifierList .add ( superClassifier ) ; 
+	superClassifierList .addAll ( superClassifier .getAllSuperClassifiers ( ) ) ; 
+} else { 
+	superClassifierList .add ( getObjectClass ( ) ) ; 
+} 
+return superClassifierList ; 
+", documentation="
+ @return a view on all super classifiers
+")
+		op ConcreteClassifier[*] getAllSuperClassifiers();
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.instantiations.NewConstructorCall ncCall = null ; 
+if ( this .eContainer ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.instantiations.NewConstructorCall ) { 
+	ncCall = ( sg.edu.nus.comp.simTL.language.java.simTL4J.instantiations.NewConstructorCall ) this .eContainer ( ) ; 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier superClassifier = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) ncCall .getTypeReference ( ) .getTarget ( ) ; 
+	return superClassifier ; 
+} else if ( this .eContainer ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.members.EnumConstant ) { 
+	if ( this .eContainer ( ) .eContainer ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Enumeration ) { 
+		return ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Enumeration ) this .eContainer ( ) .eContainer ( ) ; 
+	} 
+} 
+return null ; 
+", documentation="
+ @return the direct super classifier
+")
+		op ConcreteClassifier getSuperClassifier();
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member > memberList = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member > ( ) ; 
+memberList .addAll ( this .getMembers ( ) ) ; 
+memberList .addAll ( this .getDefaultMembers ( ) ) ; 
+sg.edu.nus.comp.simTL.language.java.simTL4J.instantiations.NewConstructorCall ncCall = null ; 
+if ( this .eContainer ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.instantiations.NewConstructorCall ) { 
+	ncCall = ( sg.edu.nus.comp.simTL.language.java.simTL4J.instantiations.NewConstructorCall ) this .eContainer ( ) ; 
+	; 
+} 
+if ( ncCall == null ) { 
+	return memberList ; 
+} else { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier classifier = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) ncCall .getTypeReference ( ) .getTarget ( ) ; 
+	if ( classifier != null ) { 
+		org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member > superMemberList = classifier .getAllMembers ( context ) ; 
+		for ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member superMember : superMemberList ) { 
+			//exclude private members
+if ( superMember instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.AnnotableAndModifiable ) { 
+				if ( superMember .eIsProxy ( ) ) { 
+					superMember = ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member ) org.eclipse.emf.ecore.util.EcoreUtil .resolve ( superMember , this ) ; 
+				} 
+				sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.AnnotableAndModifiable modifiable = ( sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.AnnotableAndModifiable ) superMember ; 
+				if ( ! modifiable .isHidden ( context ) ) { 
+					memberList .add ( superMember ) ; 
+				} 
+			} else { 
+				memberList .add ( superMember ) ; 
+			} 
+		} 
+	} 
+	return memberList ; 
+} 
+", documentation="
+ @param context to check protected visibility
+ @return a view on all members including super classifiers' members
+")
+		op members.Member[*] getAllMembers(commons.Commentable context);
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/commons", prefix="commons")
+package commons {
+	abstract class Commentable {
+
+		@GenModel(body="return ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) sg.edu.nus.comp.simTL.language.java.simTL4J.JavaClasspath .get ( this ) .getClassifier ( name ) ; 
+", documentation="")
+		op classifiers.ConcreteClassifier getConcreteClassifier(String name);
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > result = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+for ( org.eclipse.emf.ecore.EObject classifier : sg.edu.nus.comp.simTL.language.java.simTL4J.JavaClasspath .get ( this ) .getClassifiers ( packageName , classifierQuery ) ) { 
+	result .add ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) classifier ) ; 
+} 
+return result ; 
+", documentation="")
+		op classifiers.ConcreteClassifier[*] getConcreteClassifiers(String packageName, String classifierQuery);
+
+		@GenModel(body="if ( this .eResource ( ) == null ) { 
+	throw new java.lang.IllegalArgumentException ( \"object context element must have a resource\" ) ; 
+} 
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class classClass = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) getConcreteClassifier ( \"java.lang.\" + name ) ; 
+classClass = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) org.eclipse.emf.ecore.util.EcoreUtil .resolve ( classClass , this ) ; 
+return classClass ; 
+", documentation="
+ Finds the <code>sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class</code>
+ representing the class with the given name located in <code>java.lang</code>.
+ 
+ @param name name of the Class
+ @return the Class
+")
+		op classifiers.Class getLibClass(String name);
+
+		@GenModel(body="if ( this .eResource ( ) == null ) { 
+	throw new java.lang.IllegalArgumentException ( \"object context element  must have a resource\" ) ; 
+} 
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier classClass = getConcreteClassifier ( \"java.lang.\" + name ) ; 
+return ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) org.eclipse.emf.ecore.util.EcoreUtil .resolve ( classClass , this ) ; 
+", documentation="
+ Finds the <code>sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface</code>
+ representing the interface with the given name located in <code>java.lang</code>.
+ 
+ @param name name of the Interface
+ @return the Class
+")
+		op classifiers.Interface getLibInterface(String name);
+
+		@GenModel(body="return getLibClass ( \"Class\" ) ; 
+", documentation="
+ Finds the <code>sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class</code>
+ representing <code>java.lang.Class</code>.
+ 
+ @return the Class
+")
+		op classifiers.Class getClassClass();
+
+		@GenModel(body="return getLibClass ( \"Object\" ) ; 
+", documentation="
+ Finds the <code>sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class</code>
+ representing <code>java.lang.Object</code>.
+ 
+ @return the Class
+")
+		op classifiers.Class getObjectClass();
+
+		@GenModel(body="return getLibClass ( \"String\" ) ; 
+", documentation="
+ Finds the <code>sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class</code>
+ representing <code>java.lang.String</code>.
+ 
+ @return the Class
+")
+		op classifiers.Class getStringClass();
+
+		@GenModel(body="if ( this .eResource ( ) == null ) { 
+	throw new java.lang.IllegalArgumentException ( \"object context element must have a resource\" ) ; 
+} 
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface annotationClass = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) org.eclipse.emf.ecore.util.EcoreUtil .resolve ( getConcreteClassifier ( \"java.lang.annotation.Annotation\" ) , this ) ; 
+return annotationClass ; 
+", documentation="
+ Finds the <code>sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface</code>
+ representing <code>java.lang.annotation.Annotation</code>.
+ 
+ @return the Class
+")
+		op classifiers.Interface getAnnotationInterface();
+
+		@GenModel(body="org.eclipse.emf.ecore.EObject value = this ; 
+while ( ! ( value instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.annotations.AnnotationInstance ) && value != null ) { 
+	value = value .eContainer ( ) ; 
+} 
+return ( sg.edu.nus.comp.simTL.language.java.simTL4J.annotations.AnnotationInstance ) value ; 
+", documentation="
+ Finds the containing annotation instance for the given element.
+ 
+ @param value
+ @return containing annotation instance
+")
+		op annotations.AnnotationInstance getContainingAnnotationInstance();
+
+		@GenModel(body="org.eclipse.emf.ecore.EObject value = this ; 
+while ( //do not jump over other classifiers 
+! ( value instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.AnonymousClass ) && ! ( value instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) && value != null ) { 
+	value = value .eContainer ( ) ; 
+} 
+if ( ! ( value instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.AnonymousClass ) ) { 
+	return null ; 
+} 
+return ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.AnonymousClass ) value ; 
+", documentation="
+ Finds the containing anonymous class for the given element.
+ 
+ @param value
+ @return containing anonymous class 
+")
+		op classifiers.AnonymousClass getContainingAnonymousClass();
+
+		@GenModel(body="org.eclipse.emf.ecore.EObject value = this ; 
+while ( ! ( value instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) && value != null ) { 
+	value = value .eContainer ( ) ; 
+} 
+return ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) value ; 
+", documentation="
+ Finds the containing classifier for the given element.
+ 
+ @param value
+ @return containing classifier
+")
+		op classifiers.ConcreteClassifier getContainingConcreteClassifier();
+
+		@GenModel(body="org.eclipse.emf.ecore.EObject value = this ; 
+while ( ! ( value instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.containers.CompilationUnit ) && value != null ) { 
+	value = value .eContainer ( ) ; 
+} 
+return ( sg.edu.nus.comp.simTL.language.java.simTL4J.containers.CompilationUnit ) value ; 
+", documentation="
+ Finds the containing compilation unit for the given element.
+ 
+ @param value
+ @return containing compilation unit
+")
+		op containers.CompilationUnit getContainingCompilationUnit();
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.containers.CompilationUnit cu = getContainingCompilationUnit ( ) ; 
+if ( cu == null ) { 
+	return null ; 
+} 
+int idx = cu .getNamespaces ( ) .size ( ) ; 
+if ( cu .getName ( ) != null ) { 
+	char [] fullName = cu .getName ( ) .toCharArray ( ) ; 
+	for ( int i = 0 ; i < fullName .length ; i ++ ) { 
+		if ( fullName [ i ] == '$' ) { 
+			idx -- ; 
+		} 
+	} 
+} 
+return new org.eclipse.emf.common.util.BasicEList < java.lang.String > ( cu .getNamespaces ( ) .subList ( 0 , idx ) ) ; 
+", documentation="")
+		op String[*] getContainingPackageName();
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier classifier = getContainingConcreteClassifier ( ) ; 
+if ( classifier == null ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.containers.CompilationUnit cu = getContainingCompilationUnit ( ) ; 
+	//maybe the outer classifier is in an extra cu
+classifier = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) org.eclipse.emf.ecore.util.EcoreUtil .resolve ( getConcreteClassifier ( cu .getNamespacesAsString ( ) ) , this ) ; 
+	if ( classifier .eIsProxy ( ) ) { 
+		classifier = null ; 
+	} 
+} 
+return classifier ; 
+", documentation="
+ Finds the classifier that is the parent of this element. If 
+ this element is an inner classifier the parent classifier does
+ not necessarily contain this element, since it can reside in 
+ a different compilation unit when stored in byte code.
+ 
+ @param value
+ @return containing classifier
+")
+		op classifiers.ConcreteClassifier getParentConcreteClassifier();
+		!unique attr String[*] comments;
+	}
+
+	abstract class NamedElement extends Commentable {
+		attr String name;
+
+		@xframes
+		val simTL.TPlaceholder name_PH;
+	}
+
+	abstract class NamespaceAwareElement extends Commentable {
+
+		@GenModel(body="java.lang.String containerName = \"\" ; 
+for ( java.util.Iterator < java.lang.String > it = getNamespaces ( ) .iterator ( ) ; it .hasNext ( ) ; ) { 
+	java.lang.String namespaceFragment = it .next ( ) ; 
+	//does it point at a classifier or a package as container?
+java.lang.String assumedPackageName = containerName + namespaceFragment + sg.edu.nus.comp.simTL.language.java.simTL4J.JavaUniquePathConstructor .PACKAGE_SEPARATOR ; 
+	java.lang.String assumedClassifierName = containerName + namespaceFragment + sg.edu.nus.comp.simTL.language.java.simTL4J.JavaUniquePathConstructor .CLASSIFIER_SEPARATOR ; 
+	if ( it .hasNext ( ) ) { 
+		if ( sg.edu.nus.comp.simTL.language.java.simTL4J.JavaClasspath .get ( this ) .existsPackage ( assumedClassifierName ) ) { 
+			containerName = assumedClassifierName ; 
+		} else { 
+			//assume package
+containerName = assumedPackageName ; 
+		} 
+	} else { 
+		if ( sg.edu.nus.comp.simTL.language.java.simTL4J.JavaClasspath .get ( this ) .existsPackage ( assumedPackageName ) ) { 
+			//a package is always available as key
+containerName = assumedPackageName ; 
+		} else { 
+			//assume classifier that is not key, but value in the map
+containerName = assumedClassifierName ; 
+		} 
+	} 
+} 
+return containerName ; 
+", documentation="
+ Converts the namespaces array of the given namespace aware element into
+ a String representation using package (.) and class ($) delimiters. The method
+ uses the classpath to determine for each element of the namespace if it 
+ identifies a package or a class.
+ 
+ @param naElement
+ @return single string representation of namespace
+")
+		op String getNamespacesAsString();
+
+		@GenModel(body="java.lang.String fullQualifiedName = getNamespacesAsString ( ) ; 
+if ( fullQualifiedName == null || fullQualifiedName .endsWith ( sg.edu.nus.comp.simTL.language.java.simTL4J.JavaUniquePathConstructor .PACKAGE_SEPARATOR ) ) { 
+	return null ; 
+} 
+//cut the trailing separator
+fullQualifiedName = fullQualifiedName .substring ( 0 , fullQualifiedName .length ( ) - 1 ) ; 
+return ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) org.eclipse.emf.ecore.util.EcoreUtil .resolve ( getConcreteClassifier ( fullQualifiedName ) , this ) ; 
+", documentation="
+ Assuming the namespace
+ identifies a classifier, that classifier is returned.
+ 
+ @return classifier at namespace
+")
+		op classifiers.ConcreteClassifier getClassifierAtNamespaces();
+		!unique attr String[*] namespaces;
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/containers", prefix="containers")
+package containers {
+	abstract class JavaRoot extends commons.NamedElement, commons.NamespaceAwareElement, imports.ImportingElement {
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > defaultImportList = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+java.lang.String packageName = getNamespacesAsString ( ) ; 
+defaultImportList .addAll ( getConcreteClassifiers ( packageName , \"*\" ) ) ; 
+return defaultImportList ; 
+", documentation="
+ @return all classes in the same package imports
+")
+		op classifiers.ConcreteClassifier[*] getClassifiersInSamePackage();
+	}
+
+	class CompilationUnit extends JavaRoot {
+
+		@GenModel(body="if ( name == null ) { 
+	return null ; 
+} 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier candidate : getClassifiers ( ) ) { 
+	if ( name .equals ( candidate .getName ( ) ) ) { 
+		return candidate ; 
+	} 
+} 
+return null ; 
+", documentation="
+ @param name name of the contained Classifier
+ @return the Classifier
+")
+		op classifiers.ConcreteClassifier getContainedClassifier(String name);
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > defaultImportList = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+java.lang.String packageName = getNamespacesAsString ( ) ; 
+//locally defined in this container
+defaultImportList .addAll ( getClassifiers ( ) ) ; 
+defaultImportList .addAll ( getConcreteClassifiers ( packageName , \"*\" ) ) ; 
+return defaultImportList ; 
+", documentation="
+ @return all classes in the same package imports
+")
+		op classifiers.ConcreteClassifier[*] getClassifiersInSamePackage();
+		val classifiers.ConcreteClassifier[*] classifiers;
+	}
+
+	class Package extends JavaRoot, annotations.Annotable, references.ReferenceableElement {
+		val CompilationUnit[*] compilationUnits;
+		val Package[*] subpackages;
+	}
+
+	class EmptyModel extends JavaRoot {
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/expressions", prefix="expressions")
+package expressions {
+	class ExpressionList extends statements.ForLoopInitializer {
+		val Expression[*] expressions;
+	}
+
+	abstract class Expression extends arrays.ArrayInitializationValue, annotations.AnnotationValue {
+
+		@GenModel(body="return getOneType ( false ) ; 
+", documentation="
+ Returns the type of the expression considering all concrete
+ subtypes of Expression.
+ 
+ @return type of expression
+")
+		op types.Type getType();
+
+		@GenModel(body="return getOneType ( true ) ; 
+", documentation="")
+		op types.Type getAlternativeType();
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class stringClass = getStringClass ( ) ; 
+sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type type = null ; 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference reference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) this ; 
+	//navigate down references
+while ( reference .getNext ( ) != null ) { 
+		reference = reference .getNext ( ) ; 
+	} 
+	type = reference .getReferencedType ( ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.Literal ) { 
+	type = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.literals.Literal ) this ) .getType ( ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.CastExpression ) { 
+	type = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.CastExpression ) this ) .getTypeReference ( ) .getTarget ( ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.AssignmentExpression ) { 
+	type = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.AssignmentExpression ) this ) .getChild ( ) .getOneType ( alternative ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ConditionalExpression && ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ConditionalExpression ) this ) .getExpressionIf ( ) != null ) { 
+	if ( alternative ) { 
+		type = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ConditionalExpression ) this ) .getExpressionElse ( ) .getOneType ( alternative ) ; 
+	} else { 
+		type = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ConditionalExpression ) this ) .getExpressionIf ( ) .getOneType ( alternative ) ; 
+	} 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.EqualityExpression || this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.RelationExpression || this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ConditionalOrExpression || this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ConditionalAndExpression || this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.InstanceOfExpression ) { 
+	type = getLibClass ( \"Boolean\" ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.AdditiveExpression || this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.MultiplicativeExpression || this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.InclusiveOrExpression || this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ExclusiveOrExpression || this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.AndExpression || this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ShiftExpression ) { 
+	if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.AdditiveExpression ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.AdditiveExpression additiveExpression = ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.AdditiveExpression ) this ; 
+		for ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.Expression subExp : additiveExpression .getChildren ( ) ) { 
+			if ( stringClass .equals ( subExp .getOneType ( alternative ) ) ) { 
+				//special case: string concatenation
+return stringClass ; 
+			} 
+		} 
+	} 
+	@ SuppressWarnings ( \"unchecked\" ) sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.Expression subExp = ( ( org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.Expression > ) this .eGet ( this .eClass ( ) .getEStructuralFeature ( \"children\" ) ) ) .get ( 0 ) ; 
+	return subExp .getOneType ( alternative ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.UnaryExpression ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.Expression subExp = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.UnaryExpression ) this ) .getChild ( ) ; 
+	return subExp .getOneType ( alternative ) ; 
+} else for ( org.eclipse.emf.common.util.TreeIterator < org.eclipse.emf.ecore.EObject > i = this .eAllContents ( ) ; i .hasNext ( ) ; ) { 
+	org.eclipse.emf.ecore.EObject next = i .next ( ) ; 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type nextType = null ; 
+	if ( next instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.PrimaryExpression ) { 
+		if ( next instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) { 
+			sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ref = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) next ; 
+			//navigate down references
+while ( ref .getNext ( ) != null ) { 
+				ref = ref .getNext ( ) ; 
+			} 
+			next = ref ; 
+		} 
+		if ( next instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.Literal ) { 
+			nextType = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.literals.Literal ) next ) .getType ( ) ; 
+		} else if ( next instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.CastExpression ) { 
+			nextType = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.CastExpression ) next ) .getTypeReference ( ) .getTarget ( ) ; 
+		} else { 
+			nextType = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) next ) .getReferencedType ( ) ; 
+		} 
+		i .prune ( ) ; 
+	} 
+	if ( nextType != null ) { 
+		type = nextType ; 
+		//in the special case that this is an expression with
+//some string included, everything is converted to string
+if ( stringClass .equals ( type ) ) { 
+			break ; 
+		} 
+	} 
+} 
+//type can be null in cases of unresolved/unresolvable proxies
+return type ; 
+", documentation="")
+		op types.Type getOneType(boolean alternative);
+
+		@GenModel(body="long size = 0 ; 
+sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayTypeable arrayType = null ; 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.NestedExpression && ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.NestedExpression ) this ) .getNext ( ) == null ) { 
+	return ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.NestedExpression ) this ) .getExpression ( ) .getArrayDimension ( ) - ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.NestedExpression ) this ) .getArraySelectors ( ) .size ( ) ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ConditionalExpression && ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ConditionalExpression ) this ) .getExpressionIf ( ) != null ) { 
+	return ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ConditionalExpression ) this ) .getExpressionIf ( ) .getArrayDimension ( ) ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.AssignmentExpression ) { 
+	return ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.AssignmentExpression ) this ) .getValue ( ) .getArrayDimension ( ) ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.InstanceOfExpression ) { 
+	return 0 ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference reference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) this ; 
+	while ( reference .getNext ( ) != null ) { 
+		reference = reference .getNext ( ) ; 
+	} 
+	//an array clone? -> dimension defined by cloned array
+if ( reference instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference && reference .getPrevious ( ) != null ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.references.ReferenceableElement target = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) reference ) .getTarget ( ) ; 
+		if ( target instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.members.Method ) { 
+			if ( \"clone\" .equals ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Method ) target ) .getName ( ) ) ) { 
+				reference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) reference .eContainer ( ) ; 
+			} 
+		} 
+	} 
+	if ( reference instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference elementReference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) reference ; 
+		if ( elementReference .getTarget ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayTypeable ) { 
+			arrayType = ( sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayTypeable ) elementReference .getTarget ( ) ; 
+		} 
+		if ( elementReference .getTarget ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.variables.AdditionalLocalVariable ) { 
+			sg.edu.nus.comp.simTL.language.java.simTL4J.variables.AdditionalLocalVariable additionalLocalVariable = ( sg.edu.nus.comp.simTL.language.java.simTL4J.variables.AdditionalLocalVariable ) elementReference .getTarget ( ) ; 
+			arrayType = ( sg.edu.nus.comp.simTL.language.java.simTL4J.variables.LocalVariable ) additionalLocalVariable .eContainer ( ) ; 
+			size += additionalLocalVariable .getArrayDimensionsAfter ( ) .size ( ) ; 
+			size -= arrayType .getArrayDimensionsAfter ( ) .size ( ) ; 
+		} 
+		if ( elementReference .getTarget ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.members.AdditionalField ) { 
+			sg.edu.nus.comp.simTL.language.java.simTL4J.members.AdditionalField additionalField = ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.AdditionalField ) elementReference .getTarget ( ) ; 
+			arrayType = ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Field ) additionalField .eContainer ( ) ; 
+			size += additionalField .getArrayDimensionsAfter ( ) .size ( ) ; 
+			size -= arrayType .getArrayDimensionsAfter ( ) .size ( ) ; 
+		} 
+	} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayTypeable ) { 
+		size += ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayTypeable ) this ) .getArrayDimensionsBefore ( ) .size ( ) + ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayTypeable ) this ) .getArrayDimensionsAfter ( ) .size ( ) ; 
+		if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.VariableLengthParameter ) { 
+			size ++ ; 
+		} 
+	} 
+	size -= reference .getArraySelectors ( ) .size ( ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayTypeable ) { 
+	size += ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayTypeable ) this ) .getArrayDimensionsBefore ( ) .size ( ) + ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayTypeable ) this ) .getArrayDimensionsAfter ( ) .size ( ) ; 
+	if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.VariableLengthParameter ) { 
+		size ++ ; 
+	} 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayInstantiationBySize ) { 
+	size += ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayInstantiationBySize ) this ) .getSizes ( ) .size ( ) ; 
+} 
+if ( arrayType != null ) { 
+	size += arrayType .getArrayDimension ( ) ; 
+} 
+return size ; 
+", documentation="")
+		op long getArrayDimension();
+	}
+
+	class AssignmentExpression extends Expression {
+		val AssignmentExpressionChild[1] child;
+		val operators.AssignmentOperator[1] assignmentOperator;
+		val Expression[1] value;
+	}
+
+	abstract class AssignmentExpressionChild extends Expression {
+	}
+
+	class ConditionalExpression extends AssignmentExpressionChild {
+		val ConditionalExpressionChild child;
+		val Expression[1] expressionIf;
+		val AssignmentExpressionChild[1] expressionElse;
+	}
+
+	abstract class ConditionalExpressionChild extends AssignmentExpressionChild {
+	}
+
+	class ConditionalOrExpression extends ConditionalExpressionChild {
+		val ConditionalOrExpressionChild[+] children;
+	}
+
+	abstract class ConditionalOrExpressionChild extends ConditionalExpressionChild {
+	}
+
+	class ConditionalAndExpression extends ConditionalOrExpressionChild {
+		val ConditionalAndExpressionChild[+] children;
+	}
+
+	abstract class ConditionalAndExpressionChild extends ConditionalOrExpressionChild {
+	}
+
+	class InclusiveOrExpression extends ConditionalAndExpressionChild {
+		val InclusiveOrExpressionChild[+] children;
+	}
+
+	abstract class InclusiveOrExpressionChild extends ConditionalAndExpressionChild {
+	}
+
+	class ExclusiveOrExpression extends InclusiveOrExpressionChild {
+		val ExclusiveOrExpressionChild[+] children;
+	}
+
+	abstract class ExclusiveOrExpressionChild extends InclusiveOrExpressionChild {
+	}
+
+	class AndExpression extends ExclusiveOrExpressionChild {
+		val AndExpressionChild[+] children;
+	}
+
+	abstract class AndExpressionChild extends ExclusiveOrExpressionChild {
+	}
+
+	class EqualityExpression extends AndExpressionChild {
+		val operators.EqualityOperator[+] equalityOperators;
+		val EqualityExpressionChild[+] children;
+	}
+
+	abstract class EqualityExpressionChild extends AndExpressionChild {
+	}
+
+	class InstanceOfExpression extends arrays.ArrayTypeable, types.TypedElement, EqualityExpressionChild {
+		val InstanceOfExpressionChild[1] child;
+	}
+
+	abstract class InstanceOfExpressionChild extends EqualityExpressionChild {
+	}
+
+	class RelationExpression extends InstanceOfExpressionChild {
+		val RelationExpressionChild[+] children;
+		val operators.RelationOperator[+] relationOperators;
+	}
+
+	abstract class RelationExpressionChild extends InstanceOfExpressionChild {
+	}
+
+	class ShiftExpression extends RelationExpressionChild {
+		val ShiftExpressionChild[+] children;
+		val operators.ShiftOperator[+] shiftOperators;
+	}
+
+	abstract class ShiftExpressionChild extends RelationExpressionChild {
+	}
+
+	class AdditiveExpression extends ShiftExpressionChild {
+		val AdditiveExpressionChild[+] children;
+		val operators.AdditiveOperator[+] additiveOperators;
+	}
+
+	abstract class AdditiveExpressionChild extends ShiftExpressionChild {
+	}
+
+	class MultiplicativeExpression extends AdditiveExpressionChild {
+		val MultiplicativeExpressionChild[+] children;
+		val operators.MultiplicativeOperator[+] multiplicativeOperators;
+	}
+
+	abstract class MultiplicativeExpressionChild extends AdditiveExpressionChild {
+	}
+
+	class UnaryExpression extends MultiplicativeExpressionChild {
+		val operators.UnaryOperator[+] operators;
+		val UnaryExpressionChild[1] child;
+	}
+
+	abstract class UnaryExpressionChild extends MultiplicativeExpressionChild {
+	}
+
+	abstract class UnaryModificationExpression extends UnaryExpressionChild {
+		val UnaryModificationExpressionChild[1] child;
+		val operators.UnaryModificationOperator[1] operator;
+	}
+
+	class PrefixUnaryModificationExpression extends UnaryModificationExpression {
+	}
+
+	class SuffixUnaryModificationExpression extends UnaryModificationExpression {
+	}
+
+	abstract class UnaryModificationExpressionChild extends UnaryExpressionChild {
+	}
+
+	class CastExpression extends types.TypedElement, arrays.ArrayTypeable, UnaryModificationExpressionChild {
+		val MultiplicativeExpressionChild[1] child;
+	}
+
+	abstract class PrimaryExpression extends UnaryModificationExpressionChild {
+	}
+
+	class NestedExpression extends references.Reference {
+		val Expression[1] expression;
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/generics", prefix="generics")
+package generics {
+	abstract class TypeArgument extends arrays.ArrayTypeable {
+	}
+
+	abstract class TypeArgumentable extends commons.Commentable {
+		val TypeArgument[*] typeArguments;
+	}
+
+	abstract class CallTypeArgumentable extends commons.Commentable {
+		val TypeArgument[*] callTypeArguments;
+	}
+
+	abstract class TypeParametrizable extends commons.Commentable {
+		val TypeParameter[*] typeParameters;
+	}
+
+	class ExtendsTypeArgument extends TypeArgument {
+		val types.TypeReference[+] extendTypes;
+	}
+
+	class QualifiedTypeArgument extends TypeArgument, types.TypedElement {
+	}
+
+	class SuperTypeArgument extends TypeArgument {
+		val types.TypeReference[1] superType;
+	}
+
+	class TypeParameter extends classifiers.Classifier {
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > result = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference typeRef : getExtendTypes ( ) ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type type = typeRef .getTarget ( ) ; 
+	if ( type instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) { 
+		result .add ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) type ) ; 
+	} 
+	if ( type instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier ) { 
+		result .addAll ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier ) type ) .getAllSuperClassifiers ( ) ) ; 
+	} 
+} 
+return result ; 
+", documentation="
+ @return all type restrictions
+")
+		op classifiers.ConcreteClassifier[*] getAllSuperClassifiers();
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member > memberList = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member > ( ) ; 
+sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > possiblyVisibleSuperClassifier = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > ( ) ; 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference typeReference : ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParameter ) this ) .getExtendTypes ( ) ) { 
+	possiblyVisibleSuperClassifier .add ( typeReference .getTarget ( ) ) ; 
+} 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier superClassifier : getAllSuperClassifiers ( ) ) { 
+	for ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member member : superClassifier .getMembers ( ) ) { 
+		if ( member instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.AnnotableAndModifiable ) { 
+			sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.AnnotableAndModifiable modifiable = ( sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.AnnotableAndModifiable ) member ; 
+			if ( ! modifiable .isHidden ( context ) ) { 
+				memberList .add ( member ) ; 
+			} else if ( possiblyVisibleSuperClassifier .contains ( superClassifier ) ) { 
+				memberList .add ( member ) ; 
+			} 
+		} else { 
+			memberList .add ( member ) ; 
+		} 
+	} 
+	memberList .addAll ( superClassifier .getDefaultMembers ( ) ) ; 
+} 
+return memberList ; 
+", documentation="
+ Returns all members of the given classifier including inner classes and 
+ all members of super types (extended classes and implemented interfaces).
+ 
+ @param context to check protected visibility
+ @return member list
+")
+		op members.Member[*] getAllMembers(commons.Commentable context);
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > resultList = new org.eclipse.emf.common.util.BasicEList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > ( ) ; 
+sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParametrizable typeParameterDeclarator = ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParametrizable ) this .eContainer ( ) ; 
+sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference parentReference = null ; 
+org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > prevTypeList = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > ( ) ; 
+if ( reference != null && reference .getPrevious ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.NestedExpression ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.NestedExpression nestedExpression = ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.NestedExpression ) reference .getPrevious ( ) ; 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.Expression expression = null ; 
+	if ( nestedExpression .getExpression ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) { 
+		expression = nestedExpression .getExpression ( ) ; 
+	} else if ( nestedExpression .getExpression ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ConditionalExpression ) { 
+		expression = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ConditionalExpression ) nestedExpression .getExpression ( ) ) .getExpressionIf ( ) ; 
+	} 
+	if ( expression instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference expressionReference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) expression ; 
+		//navigate down references
+while ( expressionReference .getNext ( ) != null ) { 
+			expressionReference = expressionReference .getNext ( ) ; 
+		} 
+		parentReference = expressionReference ; 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type prevType = nestedExpression .getExpression ( ) .getType ( ) ; 
+		if ( prevType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ) { 
+			for ( org.eclipse.emf.ecore.EObject aType : ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ) prevType ) .getSuperTypes ( ) ) { 
+				prevTypeList .add ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type ) aType ) ; 
+			} 
+		} else { 
+			prevTypeList .add ( prevType ) ; 
+		} 
+	} else if ( nestedExpression .getExpression ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.CastExpression ) { 
+		prevTypeList .add ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.CastExpression ) nestedExpression .getExpression ( ) ) .getTypeReference ( ) .getTarget ( ) ) ; 
+	} 
+} else if ( reference != null && reference .getPrevious ( ) != null ) { 
+	parentReference = reference .getPrevious ( ) ; 
+	while ( parentReference instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.SelfReference ) { 
+		if ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.SelfReference ) parentReference ) .getSelf ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.Super ) { 
+			if ( parentReference .eContainer ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) { 
+				parentReference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) parentReference .eContainer ( ) ; 
+			} else { 
+				sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier containingClassifier = reference .getContainingConcreteClassifier ( ) ; 
+				if ( containingClassifier != null ) { 
+					prevTypeList .add ( containingClassifier ) ; 
+				} 
+				parentReference = null ; 
+			} 
+		} else { 
+			break ; 
+		} 
+	} 
+	if ( parentReference != null ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type prevType = parentReference .getReferencedType ( ) ; 
+		if ( prevType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ) { 
+			for ( org.eclipse.emf.ecore.EObject aType : ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ) prevType ) .getSuperTypes ( ) ) { 
+				prevTypeList .add ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type ) aType ) ; 
+			} 
+		} else { 
+			prevTypeList .add ( prevType ) ; 
+		} 
+	} 
+} else if ( reference != null ) { 
+	//prev type is on of the containing classes which can still bind by inheritance
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier containingClassifier = reference .getContainingConcreteClassifier ( ) ; 
+	while ( containingClassifier != null ) { 
+		prevTypeList .add ( containingClassifier ) ; 
+		containingClassifier = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.commons.Commentable ) containingClassifier .eContainer ( ) ) .getContainingConcreteClassifier ( ) ; 
+	} 
+} 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type prevType : prevTypeList ) { 
+	int typeParameterIndex = - 1 ; 
+	if ( typeParameterDeclarator instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) { 
+		typeParameterIndex = typeParameterDeclarator .getTypeParameters ( ) .indexOf ( this ) ; 
+		if ( reference != null ) { 
+			sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference classifierReference = null ; 
+			if ( parentReference instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) { 
+				sg.edu.nus.comp.simTL.language.java.simTL4J.references.ReferenceableElement prevReferenced = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) parentReference ) .getTarget ( ) ; 
+				if ( prevReferenced instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) { 
+					sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference prevTypeReference = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) prevReferenced ) .getTypeReference ( ) ; 
+					if ( prevTypeReference != null ) { 
+						classifierReference = prevTypeReference .getPureClassifierReference ( ) ; 
+					} 
+				} 
+			} 
+			if ( parentReference instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) { 
+				//e.g. New Constructor Call
+sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference prevParentReference = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) parentReference ) .getTypeReference ( ) ; 
+				if ( prevParentReference != null ) { 
+					classifierReference = prevParentReference .getPureClassifierReference ( ) ; 
+				} 
+			} 
+			if ( prevType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) { 
+				//bound through inheritance?
+int idx = 0 ; 
+				for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference superClassifierReference : ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) prevType ) .getSuperTypeReferences ( ) ) { 
+					if ( typeParameterIndex < superClassifierReference .getTypeArguments ( ) .size ( ) ) { 
+						//is this an argument for the correct class?
+if ( typeParameterDeclarator .equals ( superClassifierReference .getTarget ( ) ) || ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier ) superClassifierReference .getTarget ( ) ) .getAllSuperClassifiers ( ) .contains ( typeParameterDeclarator ) ) { 
+							sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeArgument arg = superClassifierReference .getTypeArguments ( ) .get ( typeParameterIndex ) ; 
+							if ( arg instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) { 
+								resultList .add ( idx , ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) arg ) .getTypeReference ( ) .getTarget ( ) ) ; 
+								idx ++ ; 
+							} 
+						} 
+					} 
+				} 
+				org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeArgument > typeArgumentList ; 
+				sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalTypeArgumentHolder ttah = null ; 
+				for ( org.eclipse.emf.common.notify.Adapter adapter : prevType .eAdapters ( ) ) { 
+					if ( adapter instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalTypeArgumentHolder ) { 
+						ttah = ( sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalTypeArgumentHolder ) adapter ; 
+						prevType .eAdapters ( ) .remove ( ttah ) ; 
+						break ; 
+					} 
+				} 
+				if ( ttah != null ) { 
+					typeArgumentList = ttah .getTypeArguments ( ) ; 
+				} else if ( classifierReference != null ) { 
+					typeArgumentList = classifierReference .getTypeArguments ( ) ; 
+				} else { 
+					typeArgumentList = org.eclipse.emf.common.util.ECollections .emptyEList ( ) ; 
+				} 
+				if ( typeParameterIndex < typeArgumentList .size ( ) ) { 
+					sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeArgument arg = typeArgumentList .get ( typeParameterIndex ) ; 
+					if ( arg instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) { 
+						sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference theTypeRef = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) arg ) .getTypeReference ( ) .getPureClassifierReference ( ) ; 
+						if ( theTypeRef != null ) { 
+							sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type theType = theTypeRef .getBoundTarget ( parentReference ) ; 
+							if ( theType != null ) { 
+								if ( ! theTypeRef .getTypeArguments ( ) .isEmpty ( ) ) { 
+									ttah = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalTypeArgumentHolder ( ) ; 
+									ttah .getTypeArguments ( ) .addAll ( theTypeRef .getTypeArguments ( ) ) ; 
+									theType .eAdapters ( ) .add ( ttah ) ; 
+								} 
+								resultList .add ( 0 , theType ) ; 
+							} 
+						} 
+					} 
+					if ( arg instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.ExtendsTypeArgument ) { 
+						for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference extendedType : ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.ExtendsTypeArgument ) arg ) .getExtendTypes ( ) ) { 
+							resultList .add ( 0 , extendedType .getBoundTarget ( parentReference ) ) ; 
+						} 
+					} 
+				} 
+			} else if ( prevType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParameter ) { 
+				//the prev. type parameter, although unbound, may contain type restrictions through extends 
+resultList .add ( prevType ) ; 
+				for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference extendedRef : ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParameter ) prevType ) .getExtendTypes ( ) ) { 
+					sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier extended = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) extendedRef .getTarget ( ) ; 
+					int idx = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParametrizable ) prevType .eContainer ( ) ) .getTypeParameters ( ) .indexOf ( prevType ) ; 
+					if ( extended .getTypeParameters ( ) .size ( ) > idx ) { 
+						//also add more precise bindings from extensions
+resultList .add ( extended .getTypeParameters ( ) .get ( idx ) ) ; 
+					} 
+				} 
+			} 
+		} 
+		if ( reference != null && reference .eContainer ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.ReflectiveClassReference ) { 
+			if ( reference .eContainer ( ) .eContainer ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) { 
+				//the \".class\" instantiation implicitly binds the T parameter of java.lang.Class to the class itself
+resultList .add ( 0 , ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) reference .eContainer ( ) .eContainer ( ) ) .getReferencedType ( ) ) ; 
+			} 
+		} 
+	} 
+} 
+if ( typeParameterDeclarator instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.members.Method ) { 
+	if ( reference instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.MethodCall ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.members.Method method = ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Method ) typeParameterDeclarator ; 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.references.MethodCall methodCall = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.MethodCall ) reference ; 
+		if ( method .getTypeParameters ( ) .size ( ) == methodCall .getCallTypeArguments ( ) .size ( ) ) { 
+			sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeArgument typeArgument = methodCall .getCallTypeArguments ( ) .get ( method .getTypeParameters ( ) .indexOf ( this ) ) ; 
+			if ( typeArgument instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) { 
+				resultList .add ( 0 , ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) typeArgument ) .getTypeReference ( ) .getBoundTarget ( parentReference ) ) ; 
+			} 
+		} 
+		//class type parameter
+int idx = method .getParameters ( ) .indexOf ( typeReference .eContainer ( ) ) ; 
+		//method type parameter
+if ( idx == - 1 ) { 
+			for ( sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.Parameter parameter : method .getParameters ( ) ) { 
+				for ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeArgument typeArgument : parameter .getTypeArguments ( ) ) { 
+					if ( typeArgument instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) { 
+						if ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) typeArgument ) .getTypeReference ( ) .getTarget ( ) .equals ( this ) ) { 
+							idx = method .getParameters ( ) .indexOf ( parameter ) ; 
+						} 
+					} 
+				} 
+				sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference paramTypeReference = parameter .getTypeReference ( ) .getPureClassifierReference ( ) ; 
+				if ( paramTypeReference != null ) { 
+					for ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeArgument typeArgument : paramTypeReference .getTypeArguments ( ) ) { 
+						if ( typeArgument instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) { 
+							if ( this .equals ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) typeArgument ) .getTypeReference ( ) .getTarget ( ) ) ) { 
+								idx = method .getParameters ( ) .indexOf ( parameter ) ; 
+							} 
+						} 
+					} 
+				} 
+			} 
+		} 
+		if ( idx < methodCall .getArguments ( ) .size ( ) && idx >= 0 ) { 
+			sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.Expression argument = methodCall .getArguments ( ) .get ( idx ) ; 
+			sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.Parameter parameter = method .getParameters ( ) .get ( idx ) ; 
+			sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference parameterType = parameter .getTypeReference ( ) .getPureClassifierReference ( ) ; 
+			if ( argument instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.instantiations.NewConstructorCall ) { 
+				sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference argumentType = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.instantiations.NewConstructorCall ) argument ) .getTypeReference ( ) .getPureClassifierReference ( ) ; 
+				if ( argumentType != null && parameterType .getTypeArguments ( ) .size ( ) == argumentType .getTypeArguments ( ) .size ( ) ) { 
+					for ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeArgument typeArgument : parameterType .getTypeArguments ( ) ) { 
+						if ( typeArgument instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) { 
+							if ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) typeArgument ) .getTypeReference ( ) .getTarget ( ) .equals ( this ) ) { 
+								resultList .add ( 0 , ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) argumentType .getTypeArguments ( ) .get ( parameterType .getTypeArguments ( ) .indexOf ( typeArgument ) ) ) .getTypeReference ( ) .getTarget ( ) ) ; 
+							} 
+						} 
+					} 
+				} 
+				if ( argumentType != null && parameterType .getTarget ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParameter ) { 
+					resultList .add ( 0 , argumentType .getTarget ( ) ) ; 
+				} 
+			} else if ( parameterType != null && argument instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) { 
+				sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference argReference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) argument ; 
+				while ( argReference .getNext ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference && ! ( argReference .getNext ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.ReflectiveClassReference ) ) { 
+					argReference = argReference .getNext ( ) ; 
+				} 
+				if ( argReference instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) { 
+					sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference elementReference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) argReference ; 
+					while ( elementReference .getNext ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) { 
+						elementReference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) elementReference .getNext ( ) ; 
+					} 
+					if ( elementReference .getTarget ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) { 
+						sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference argumentType = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) elementReference .getTarget ( ) ) .getTypeReference ( ) .getPureClassifierReference ( ) ; 
+						if ( argumentType != null && parameterType .getTypeArguments ( ) .size ( ) == argumentType .getTypeArguments ( ) .size ( ) ) { 
+							for ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeArgument typeArgument : parameterType .getTypeArguments ( ) ) { 
+								if ( typeArgument instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) { 
+									if ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) typeArgument ) .getTypeReference ( ) .getTarget ( ) .equals ( this ) ) { 
+										int idx2 = parameterType .getTypeArguments ( ) .indexOf ( typeArgument ) ; 
+										if ( argumentType .getTypeArguments ( ) .get ( idx2 ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) { 
+											resultList .add ( 0 , ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) argumentType .getTypeArguments ( ) .get ( idx2 ) ) .getTypeReference ( ) .getTarget ( ) ) ; 
+										} else if ( argumentType .getTypeArguments ( ) .get ( idx2 ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.ExtendsTypeArgument ) { 
+											for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference extendedType : ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.ExtendsTypeArgument ) argumentType .getTypeArguments ( ) .get ( idx2 ) ) .getExtendTypes ( ) ) { 
+												resultList .add ( 0 , extendedType .getTarget ( ) ) ; 
+											} 
+										} 
+									} 
+								} 
+							} 
+						} 
+						if ( argumentType != null && parameterType .getTarget ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParameter ) { 
+							resultList .add ( 0 , argumentType .getTarget ( ) ) ; 
+						} 
+					} 
+					if ( elementReference .getNext ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.ReflectiveClassReference ) { 
+						if ( parameterType .getTypeArguments ( ) .size ( ) == 1 ) { 
+							for ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeArgument typeArgument : parameterType .getTypeArguments ( ) ) { 
+								if ( typeArgument instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) { 
+									if ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.QualifiedTypeArgument ) typeArgument ) .getTypeReference ( ) .getTarget ( ) .equals ( this ) ) { 
+										resultList .add ( 0 , elementReference .getReferencedType ( ) ) ; 
+									} 
+								} 
+							} 
+						} 
+					} 
+				} else { 
+					if ( parameterType .getTarget ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParameter ) { 
+						while ( argReference .getNext ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) { 
+							argReference = argReference .getNext ( ) ; 
+						} 
+						resultList .add ( 0 , ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) argReference ) .getReferencedType ( ) ) ; 
+					} 
+				} 
+			} 
+		} 
+		//return type
+if ( method .equals ( typeReference .eContainer ( ) ) ) { 
+			//bound by the type of a method argument?
+org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier > allSuperTypes = null ; 
+			for ( sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.Parameter parameter : method .getParameters ( ) ) { 
+				if ( this .equals ( parameter .getTypeReference ( ) .getTarget ( ) ) ) { 
+					idx = method .getParameters ( ) .indexOf ( parameter ) ; 
+					sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier argumentType = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier ) methodCall .getArguments ( ) .get ( idx ) .getType ( ) ; 
+					if ( allSuperTypes == null ) { 
+						allSuperTypes = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier > ( ) ; 
+						allSuperTypes .add ( argumentType ) ; 
+						allSuperTypes .addAll ( argumentType .getAllSuperClassifiers ( ) ) ; 
+					} else { 
+						allSuperTypes .add ( argumentType ) ; 
+						org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier > allOtherSuperTypes = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier > ( ) ; 
+						allOtherSuperTypes .add ( argumentType ) ; 
+						allOtherSuperTypes .addAll ( argumentType .getAllSuperClassifiers ( ) ) ; 
+						org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier > temp = allSuperTypes ; 
+						allSuperTypes = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier > ( ) ; 
+						for ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier st : allOtherSuperTypes ) { 
+							if ( temp .contains ( st ) ) { 
+								allSuperTypes .add ( st ) ; 
+							} 
+						} 
+					} 
+				} 
+			} 
+			//all types given by all bindings
+if ( allSuperTypes != null ) { 
+				resultList .addAll ( allSuperTypes ) ; 
+			} 
+		} 
+	} 
+} 
+//remove nulls
+for ( java.util.Iterator < ? > it = resultList .iterator ( ) ; it .hasNext ( ) ; ) { 
+	if ( it .next ( ) == null ) { 
+		it .remove ( ) ; 
+	} 
+} 
+if ( resultList .isEmpty ( ) || ( resultList .size ( ) == 1 && resultList .get ( 0 ) .equals ( this ) ) ) { 
+	return this ; 
+} else { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier temp = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ( this ) ; 
+	for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type aResult : resultList ) { 
+		if ( aResult instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) { 
+			aResult = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) aResult ) .wrapPrimitiveType ( ) ; 
+		} 
+		if ( aResult instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ) { 
+			//flatten
+temp .getSuperTypes ( ) .addAll ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ) aResult ) .getSuperTypes ( ) ) ; 
+		} else { 
+			temp .getSuperTypes ( ) .add ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier ) aResult ) ; 
+		} 
+	} 
+	temp .getSuperTypes ( ) .add ( this ) ; 
+	return temp ; 
+} 
+", documentation="
+ Returns the type bound to the given parameter in the context
+ of the given reference.
+ 
+ @param typeReference
+ @param reference
+ @return bound type or parameter if not bound
+")
+		op types.Type getBoundType(types.TypeReference typeReference, references.Reference reference);
+		val types.TypeReference[*] extendTypes;
+	}
+
+	class UnknownTypeArgument extends TypeArgument {
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/imports", prefix="imports")
+package imports {
+	abstract class Import extends commons.NamespaceAwareElement {
+
+		@GenModel(body="java.lang.String containerName = getNamespacesAsString ( ) ; 
+if ( containerName == null ) { 
+	return null ; 
+} 
+java.lang.String fullQualifiedName = containerName + name ; 
+return getConcreteClassifier ( fullQualifiedName ) ; 
+", documentation="
+ Returns the classifier with the given name 
+ located in the namespace defined by the import.
+ 
+ @param name the name of the classifier
+ @return imported classifier (proxy)
+")
+		op classifiers.ConcreteClassifier getImportedClassifier(String name);
+
+		@GenModel(body="java.lang.String containerName = getNamespacesAsString ( ) ; 
+if ( containerName == null ) { 
+	return org.eclipse.emf.common.util.ECollections .emptyEList ( ) ; 
+} 
+return getConcreteClassifiers ( containerName , \"*\" ) ; 
+", documentation="
+ Returns a list of imported classifiers assuming the import's namespace
+ identifies a package.
+ 
+ @param _this 
+ @return imported classifier (proxy)
+")
+		op classifiers.ConcreteClassifier[*] getImportedClassifiers();
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier concreteClassifier = getClassifierAtNamespaces ( ) ; 
+if ( concreteClassifier == null || concreteClassifier .eIsProxy ( ) ) { 
+	return org.eclipse.emf.common.util.ECollections .emptyEList ( ) ; 
+} 
+org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.commons.NamedElement > result = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.commons.NamedElement > ( ) ; 
+result .addAll ( concreteClassifier .getAllMembers ( this ) ) ; 
+if ( concreteClassifier instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Enumeration ) { 
+	result .addAll ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Enumeration ) concreteClassifier ) .getConstants ( ) ) ; 
+} 
+return result ; 
+", documentation="
+ Returns all imported members assuming the import's namespace
+ identifies a classifier.
+ 
+ @param _this 
+ @return list of imported classifiers (proxies)
+")
+		op commons.NamedElement[*] getImportedMembers();
+	}
+
+	abstract class ImportingElement extends commons.Commentable {
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > result = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier > ( ) ; 
+for ( org.eclipse.emf.ecore.EObject classifier : sg.edu.nus.comp.simTL.language.java.simTL4J.JavaClasspath .get ( this ) .getDefaultImports ( ) ) { 
+	result .add ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) classifier ) ; 
+} 
+return result ; 
+", documentation="")
+		op classifiers.ConcreteClassifier[*] getDefaultImports();
+		val Import[*] imports;
+	}
+
+	abstract class StaticImport extends Import {
+		val modifiers.Static[1] static;
+	}
+
+	class ClassifierImport extends Import {
+		ref classifiers.ConcreteClassifier[1] classifier;
+	}
+
+	class PackageImport extends Import {
+	}
+
+	class StaticClassifierImport extends StaticImport {
+	}
+
+	class StaticMemberImport extends StaticImport {
+		ref references.ReferenceableElement[+] staticMembers;
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/instantiations", prefix="instantiations")
+package instantiations {
+	abstract class Initializable extends commons.Commentable {
+		val expressions.Expression initialValue;
+	}
+
+	abstract class Instantiation extends types.TypedElement, references.Reference, references.Argumentable, generics.TypeArgumentable {
+	}
+
+	class NewConstructorCall extends Instantiation, generics.CallTypeArgumentable {
+		val classifiers.AnonymousClass anonymousClass;
+	}
+
+	class ExplicitConstructorCall extends Instantiation {
+		val literals.Self callTarget;
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/literals", prefix="literals")
+package literals {
+	abstract class Literal extends expressions.PrimaryExpression {
+
+		@GenModel(body="//Overrides implementation in Expression
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class javaClass = null ; 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.NullLiteral ) { 
+	javaClass = getLibClass ( \"Void\" ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.BooleanLiteral ) { 
+	javaClass = getLibClass ( \"Boolean\" ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.DoubleLiteral ) { 
+	javaClass = getLibClass ( \"Double\" ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.FloatLiteral ) { 
+	javaClass = getLibClass ( \"Float\" ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.IntegerLiteral ) { 
+	javaClass = getLibClass ( \"Integer\" ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.LongLiteral ) { 
+	javaClass = getLibClass ( \"Long\" ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.CharacterLiteral ) { 
+	javaClass = getLibClass ( \"Character\" ) ; 
+} 
+return javaClass ; 
+", documentation="
+ @return type of the literal
+")
+		op types.Type getOneType(boolean alternative);
+	}
+
+	abstract class Self extends commons.Commentable {
+	}
+
+	class BooleanLiteral extends Literal {
+		attr boolean[1] value;
+	}
+
+	class CharacterLiteral extends Literal {
+		attr char[1] value;
+	}
+
+	abstract class FloatLiteral extends Literal {
+	}
+
+	class DecimalFloatLiteral extends FloatLiteral {
+		attr float[1] decimalValue;
+	}
+
+	class HexFloatLiteral extends FloatLiteral {
+		attr float[1] hexValue;
+	}
+
+	abstract class DoubleLiteral extends Literal {
+	}
+
+	class DecimalDoubleLiteral extends DoubleLiteral {
+		attr double[1] decimalValue;
+	}
+
+	class HexDoubleLiteral extends DoubleLiteral {
+		attr double[1] hexValue;
+	}
+
+	abstract class IntegerLiteral extends Literal {
+	}
+
+	class DecimalIntegerLiteral extends IntegerLiteral {
+		attr EBigInteger[1] decimalValue;
+	}
+
+	class HexIntegerLiteral extends IntegerLiteral {
+		attr EBigInteger[1] hexValue;
+	}
+
+	class OctalIntegerLiteral extends IntegerLiteral {
+		attr EBigInteger[1] octalValue;
+	}
+
+	abstract class LongLiteral extends Literal {
+	}
+
+	class DecimalLongLiteral extends LongLiteral {
+		attr EBigInteger[1] decimalValue;
+	}
+
+	class HexLongLiteral extends LongLiteral {
+		attr EBigInteger[1] hexValue;
+	}
+
+	class OctalLongLiteral extends LongLiteral {
+		attr EBigInteger[1] octalValue;
+	}
+
+	class NullLiteral extends Literal {
+	}
+
+	class Super extends Self {
+	}
+
+	class This extends Self {
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/members", prefix="members")
+package members {
+	abstract class ExceptionThrower extends commons.Commentable {
+		val types.NamespaceClassifierReference[*] exceptions;
+	}
+
+	abstract class Member extends commons.NamedElement {
+	}
+
+	abstract class MemberContainer extends commons.Commentable {
+
+		@GenModel(body="for ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member member : getMembers ( ) ) { 
+	if ( member instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier && name .equals ( member .getName ( ) ) ) { 
+		return ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) member ; 
+	} 
+} 
+return null ; 
+", documentation="
+ @param name
+ @return classifier with the given name defined in this member container
+")
+		op classifiers.ConcreteClassifier getContainedClassifier(String name);
+
+		@GenModel(body="for ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member member : getMembers ( ) ) { 
+	if ( member instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.members.Field && name .equals ( member .getName ( ) ) ) { 
+		return ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Field ) member ; 
+	} 
+} 
+return null ; 
+", documentation="
+ @param name
+ @return field with the given name defined in this member container
+")
+		op Field getContainedField(String name);
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.members.Method found = null ; 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Member member : getMembers ( ) ) { 
+	if ( member instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.members.Method && name .equals ( member .getName ( ) ) ) { 
+		if ( found != null ) { 
+			return null ; 
+		} else { 
+			found = ( sg.edu.nus.comp.simTL.language.java.simTL4J.members.Method ) member ; 
+		} 
+	} 
+} 
+return found ; 
+", documentation="
+ @param name
+ @return method with the given name defined in this member container;
+         null, if there is no such method 
+         or if there are multiple methods with the same name
+")
+		op Method getContainedMethod(String name);
+		val Member[*] members;
+		transient val Member[*] defaultMembers;
+	}
+
+	class AdditionalField extends references.ReferenceableElement, arrays.ArrayTypeable, instantiations.Initializable {
+
+		@GenModel(body="long size = this .getArrayDimensionsBefore ( ) .size ( ) + this .getArrayDimensionsAfter ( ) .size ( ) ; 
+return size ; 
+", documentation="")
+		op long getArrayDimension();
+	}
+
+	class Constructor extends Member, statements.StatementListContainer, parameters.Parametrizable, generics.TypeParametrizable, ExceptionThrower, modifiers.AnnotableAndModifiable {
+	}
+
+	class EmptyMember extends Member {
+	}
+
+	class Field extends Member, instantiations.Initializable, variables.Variable, references.ReferenceableElement, modifiers.AnnotableAndModifiable {
+		val AdditionalField[*] additionalFields;
+	}
+
+	abstract class Method extends Member, types.TypedElement, arrays.ArrayTypeable, generics.TypeParametrizable, parameters.Parametrizable, references.ReferenceableElement, ExceptionThrower, modifiers.AnnotableAndModifiable {
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > argumentTypeList = methodCall .getArgumentTypes ( ) ; 
+org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.Parameter > parameterList = new org.eclipse.emf.common.util.BasicEList < sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.Parameter > ( this .getParameters ( ) ) ; 
+org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > parameterTypeList = new org.eclipse.emf.common.util.BasicEList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > ( ) ; 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.Parameter parameter : parameterList ) { 
+	//determine types before messing with the parameters
+parameterTypeList .add ( parameter .getTypeReference ( ) .getBoundTarget ( methodCall ) ) ; 
+} 
+if ( ! parameterList .isEmpty ( ) ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.Parameter lastParameter = parameterList .get ( parameterList .size ( ) - 1 ) ; 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type lastParameterType = parameterTypeList .get ( parameterTypeList .size ( ) - 1 ) ; 
+	; 
+	if ( lastParameter instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.VariableLengthParameter ) { 
+		//in case of variable length add/remove some parameters
+while ( parameterList .size ( ) < argumentTypeList .size ( ) ) { 
+			if ( needsPerfectMatch ) return false ; 
+			parameterList .add ( lastParameter ) ; 
+			parameterTypeList .add ( lastParameterType ) ; 
+		} 
+		if ( parameterList .size ( ) > argumentTypeList .size ( ) ) { 
+			if ( needsPerfectMatch ) return false ; 
+			parameterList .remove ( lastParameter ) ; 
+			parameterTypeList .remove ( parameterTypeList .size ( ) - 1 ) ; 
+		} 
+	} 
+} 
+if ( parameterList .size ( ) == argumentTypeList .size ( ) ) { 
+	boolean parametersMatch = true ; 
+	for ( int i = 0 ; i < argumentTypeList .size ( ) ; i ++ ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.Parameter parameter = parameterList .get ( i ) ; 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.Expression argument = methodCall .getArguments ( ) .get ( i ) ; 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type parameterType = parameterTypeList .get ( i ) ; 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type argumentType = argumentTypeList .get ( i ) ; 
+		if ( argumentType == null || parameterType == null ) { 
+			return false ; 
+		} 
+		if ( parameterType != null && argumentType != null ) { 
+			if ( ! parameterType .eIsProxy ( ) || ! argumentType .eIsProxy ( ) ) { 
+				if ( needsPerfectMatch ) { 
+					parametersMatch = parametersMatch && argumentType .equalsType ( argument .getArrayDimension ( ) , parameterType , parameter .getArrayDimension ( ) ) ; 
+				} else { 
+					parametersMatch = parametersMatch && argumentType .isSuperType ( argument .getArrayDimension ( ) , parameterType , parameter ) ; 
+				} 
+			} else { 
+				return false ; 
+			} 
+		} else { 
+			return false ; 
+		} 
+	} 
+	return parametersMatch ; 
+} 
+return false ; 
+", documentation="")
+		op boolean isMethodForCall(references.MethodCall methodCall, boolean needsPerfectMatch);
+
+		@GenModel(body="return isMethodForCall ( methodCall , false ) ; 
+", documentation="
+ Decides if the given method matches the given call. 
+ 
+ @param methodCall
+ @return
+")
+		op boolean isSomeMethodForCall(references.MethodCall methodCall);
+
+		@GenModel(body="if ( ! isMethodForCall ( methodCall , false ) ) { 
+	return false ; 
+} 
+if ( otherMethod .isMethodForCall ( methodCall , true ) ) { 
+	//the other already matches perfectly; I am not better
+return false ; 
+} 
+if ( ! otherMethod .isMethodForCall ( methodCall , false ) ) { 
+	//I match, but the other does not
+return true ; 
+} 
+//we both match, I am only better if I match perfectly <- 
+//TODO #763: this is not enough: we need to check for \"nearest subtype\" here
+return isMethodForCall ( methodCall , true ) ; 
+", documentation="
+ Only returns true if the given Method is a better match for the given calls than the
+ otherMethod given.
+ 
+ @param otherMethod
+ @param methodCall
+ @return
+")
+		op boolean isBetterMethodForCall(Method otherMethod, references.MethodCall methodCall);
+
+		@GenModel(body="long size = this .getArrayDimensionsBefore ( ) .size ( ) + this .getArrayDimensionsAfter ( ) .size ( ) ; 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.VariableLengthParameter ) { 
+	size ++ ; 
+} 
+return size ; 
+", documentation="")
+		op long getArrayDimension();
+	}
+
+	class InterfaceMethod extends Method {
+	}
+
+	class ClassMethod extends Method, statements.StatementListContainer {
+	}
+
+	class EnumConstant extends references.ReferenceableElement, references.Argumentable, annotations.Annotable {
+		val classifiers.AnonymousClass anonymousClass;
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/modifiers", prefix="modifiers")
+package modifiers {
+	abstract class Modifier extends AnnotationInstanceOrModifier {
+	}
+
+	abstract class AnnotationInstanceOrModifier extends commons.Commentable {
+	}
+
+	abstract class AnnotableAndModifiable extends commons.Commentable {
+
+		@GenModel(body="//all members of an interface are public by default
+if ( this .eContainer ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) { 
+	return false ; 
+} 
+if ( context .eIsProxy ( ) ) { 
+	context = ( sg.edu.nus.comp.simTL.language.java.simTL4J.commons.Commentable ) org.eclipse.emf.ecore.util.EcoreUtil .resolve ( context , this ) ; 
+} 
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier contextClassifier = context .getContainingConcreteClassifier ( ) ; 
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier myClassifier = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.commons.Commentable ) eContainer ( ) ) .getParentConcreteClassifier ( ) ; 
+//special case: self reference to outer instance
+if ( context instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) { 
+	if ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) context ) .getPrevious ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.SelfReference ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.references.SelfReference selfReference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.SelfReference ) ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) context ) .getPrevious ( ) ; 
+		if ( selfReference .getSelf ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.Self ) { 
+			if ( selfReference .getPrevious ( ) != null ) { 
+				sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type type = selfReference .getPrevious ( ) .getReferencedType ( ) ; 
+				if ( type instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) { 
+					contextClassifier = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) type ; 
+				} 
+			} 
+		} 
+	} 
+} 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.AnnotationInstanceOrModifier modifier : this .getAnnotationsAndModifiers ( ) ) { 
+	if ( modifier instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.Private ) { 
+		if ( myClassifier .equalsType ( 0 , contextClassifier , 0 ) ) { 
+			return false ; 
+		} 
+		return true ; 
+	} 
+	if ( modifier instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.Public ) { 
+		return false ; 
+	} 
+	if ( modifier instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.Protected ) { 
+		//package visibility
+if ( getContainingPackageName ( ) != null && getContainingPackageName ( ) .equals ( context .getContainingPackageName ( ) ) ) { 
+			return false ; 
+		} 
+		//try outer classifiers as well 
+while ( contextClassifier instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier ) { 
+			if ( contextClassifier .isSuperType ( 0 , myClassifier , null ) ) { 
+				return false ; 
+			} 
+			contextClassifier = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.commons.Commentable ) contextClassifier .eContainer ( ) ) .getParentConcreteClassifier ( ) ; 
+			if ( contextClassifier != null && ! contextClassifier .eIsProxy ( ) && contextClassifier .isSuperType ( 0 , myClassifier , null ) ) { 
+				return false ; 
+			} 
+		} 
+		//visibility through anonymous subclass
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.AnonymousClass anonymousClass = context .getContainingAnonymousClass ( ) ; 
+		while ( anonymousClass != null ) { 
+			contextClassifier = anonymousClass .getSuperClassifier ( ) ; 
+			if ( contextClassifier == null ) { 
+				return true ; 
+			} 
+			if ( contextClassifier .isSuperType ( 0 , myClassifier , null ) ) { 
+				return false ; 
+			} 
+			anonymousClass = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.commons.Commentable ) anonymousClass .eContainer ( ) ) .getContainingAnonymousClass ( ) ; 
+		} 
+		return true ; 
+	} 
+} 
+//package visibility?
+if ( getContainingPackageName ( ) != null && getContainingPackageName ( ) .equals ( context .getContainingPackageName ( ) ) ) { 
+	return false ; 
+} 
+return true ; 
+", documentation="")
+		op boolean isHidden(commons.Commentable context);
+
+		@GenModel(body="//all members of an interface as static by default
+if ( this .eContainer ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface ) { 
+	return true ; 
+} 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.AnnotationInstanceOrModifier modifier : this .getAnnotationsAndModifiers ( ) ) { 
+	if ( modifier instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.Static ) { 
+		return true ; 
+	} 
+} 
+return false ; 
+", documentation="")
+		op boolean isStatic();
+		val AnnotationInstanceOrModifier[*] annotationsAndModifiers;
+	}
+
+	abstract class Modifiable extends commons.Commentable {
+		val Modifier[*] modifiers;
+	}
+
+	class Abstract extends Modifier {
+	}
+
+	class Final extends Modifier {
+	}
+
+	class Native extends Modifier {
+	}
+
+	class Protected extends Modifier {
+	}
+
+	class Public extends Modifier {
+	}
+
+	class Private extends Modifier {
+	}
+
+	class Static extends Modifier {
+	}
+
+	class Strictfp extends Modifier {
+	}
+
+	class Synchronized extends Modifier {
+	}
+
+	class Transient extends Modifier {
+	}
+
+	class Volatile extends Modifier {
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/operators", prefix="operators")
+package operators {
+	abstract class Operator extends commons.Commentable {
+	}
+
+	abstract class AdditiveOperator extends Operator {
+	}
+
+	abstract class AssignmentOperator extends Operator {
+	}
+
+	abstract class EqualityOperator extends Operator {
+	}
+
+	abstract class MultiplicativeOperator extends Operator {
+	}
+
+	abstract class RelationOperator extends Operator {
+	}
+
+	abstract class ShiftOperator extends Operator {
+	}
+
+	abstract class UnaryOperator extends Operator {
+	}
+
+	abstract class UnaryModificationOperator extends Operator {
+	}
+
+	class Assignment extends AssignmentOperator {
+	}
+
+	class AssignmentAnd extends AssignmentOperator {
+	}
+
+	class AssignmentDivision extends AssignmentOperator {
+	}
+
+	class AssignmentExclusiveOr extends AssignmentOperator {
+	}
+
+	class AssignmentMinus extends AssignmentOperator {
+	}
+
+	class AssignmentModulo extends AssignmentOperator {
+	}
+
+	class AssignmentMultiplication extends AssignmentOperator {
+	}
+
+	class AssignmentLeftShift extends AssignmentOperator {
+	}
+
+	class AssignmentOr extends AssignmentOperator {
+	}
+
+	class AssignmentPlus extends AssignmentOperator {
+	}
+
+	class AssignmentRightShift extends AssignmentOperator {
+	}
+
+	class AssignmentUnsignedRightShift extends AssignmentOperator {
+	}
+
+	class Equal extends EqualityOperator {
+	}
+
+	class NotEqual extends EqualityOperator {
+	}
+
+	class GreaterThan extends RelationOperator {
+	}
+
+	class GreaterThanOrEqual extends RelationOperator {
+	}
+
+	class LessThan extends RelationOperator {
+	}
+
+	class LessThanOrEqual extends RelationOperator {
+	}
+
+	class Addition extends AdditiveOperator, UnaryOperator {
+	}
+
+	class Subtraction extends AdditiveOperator, UnaryOperator {
+	}
+
+	class Division extends MultiplicativeOperator {
+	}
+
+	class Multiplication extends MultiplicativeOperator {
+	}
+
+	class Remainder extends MultiplicativeOperator {
+	}
+
+	class Complement extends UnaryOperator {
+	}
+
+	class MinusMinus extends UnaryModificationOperator {
+	}
+
+	class Negate extends UnaryOperator {
+	}
+
+	class PlusPlus extends UnaryModificationOperator {
+	}
+
+	class LeftShift extends ShiftOperator {
+	}
+
+	class RightShift extends ShiftOperator {
+	}
+
+	class UnsignedRightShift extends ShiftOperator {
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/parameters", prefix="parameters")
+package parameters {
+	abstract class Parameter extends variables.Variable, modifiers.AnnotableAndModifiable {
+	}
+
+	abstract class Parametrizable extends commons.Commentable {
+		val Parameter[*] parameters;
+	}
+
+	class OrdinaryParameter extends Parameter {
+	}
+
+	class VariableLengthParameter extends Parameter {
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/references", prefix="references")
+package references {
+	abstract class Reference extends expressions.PrimaryExpression, generics.TypeArgumentable {
+
+		@GenModel(body="if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.Literal ) { 
+	return ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.literals.Literal ) this ) .getType ( ) ; 
+} 
+sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type type = null ; 
+//referenced element point to a type
+//element points to this or super
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference typeRef = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) this ) .getTypeReference ( ) ; 
+	type = typeRef .getBoundTarget ( this ) ; 
+} else //element points to the object's class object
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.SelfReference ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type thisClass = null ; 
+	if ( this .getPrevious ( ) != null ) { 
+		thisClass = this .getPrevious ( ) .getReferencedType ( ) ; 
+	} else { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.AnonymousClass anonymousContainer = getContainingAnonymousClass ( ) ; 
+		if ( anonymousContainer != null ) { 
+			thisClass = anonymousContainer ; 
+		} else { 
+			thisClass = getContainingConcreteClassifier ( ) ; 
+		} 
+	} 
+	//find super class if \"self\" is \"super\"
+if ( ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.SelfReference ) this ) .getSelf ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.literals.Super ) { 
+		if ( thisClass instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) { 
+			return ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) thisClass ) .getSuperClass ( ) ; 
+		} 
+		if ( thisClass instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.AnonymousClass ) { 
+			return ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.AnonymousClass ) thisClass ) .getSuperClassifier ( ) ; 
+		} 
+	} 
+	return thisClass ; 
+} else //referenced element points to an element with a type
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.ReflectiveClassReference ) { 
+	return getClassClass ( ) ; 
+} else //Strings may also appear as reference
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.references.ReferenceableElement target = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.ReferenceableElement ) ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) this ) .getTarget ( ) ; 
+	if ( target .eIsProxy ( ) ) { 
+		type = null ; 
+	} 
+	//Navigate through AdditionalLocalVariable or Field
+if ( target instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.variables.AdditionalLocalVariable ) { 
+		target = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.ReferenceableElement ) target .eContainer ( ) ; 
+	} 
+	if ( target instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.members.AdditionalField ) { 
+		target = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.ReferenceableElement ) target .eContainer ( ) ; 
+	} 
+	if ( target instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypeReference typeRef = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) target ) .getTypeReference ( ) ; 
+		if ( typeRef != null ) { 
+			type = typeRef .getBoundTarget ( this ) ; 
+		} 
+	} else /*e.g. Annotation*/if ( target instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type ) { 
+		return ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type ) target ; 
+	} else if ( target instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.members.EnumConstant ) { 
+		type = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Enumeration ) target .eContainer ( ) ; 
+	} 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.StringReference ) { 
+	return getStringClass ( ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.NestedExpression ) { 
+	type = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.NestedExpression ) this ) .getExpression ( ) .getType ( ) ; 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.PrimitiveTypeReference ) { 
+	type = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.PrimitiveTypeReference ) this ) .getPrimitiveType ( ) ; 
+} else { 
+	assert ( false ) ; 
+} 
+return type ; 
+", documentation="
+ Determines the <code>Type</code> of the reference. That is,
+ either the type to which the reference points directly, or the
+ type of the element to which the reference points.
+ 
+ @return the determined type
+")
+		op types.Type getReferencedType();
+
+		@GenModel(body="if ( eContainer() instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.Reference ) { 
+			 Reference container = (Reference) eContainer( ) ; 
+			  if (this.equals(container.getNext())) {
+				 return container;
+			 }
+}
+return null;", documentation="")
+		op Reference getPrevious();
+		val Reference next;
+		val arrays.ArraySelector[*] arraySelectors;
+	}
+
+	abstract class Argumentable extends commons.Commentable {
+
+		@GenModel(body="org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > resultList = new org.eclipse.emf.common.util.BasicEList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > ( ) ; 
+for ( sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.Expression exp : getArguments ( ) ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type type = exp .getType ( ) ; 
+	resultList .add ( type ) ; 
+} 
+return resultList ; 
+", documentation="
+ @return list of types of my arguments
+")
+		op types.Type[*] getArgumentTypes();
+		val expressions.Expression[*] arguments;
+	}
+
+	abstract class ReferenceableElement extends commons.NamedElement {
+	}
+
+	abstract class ElementReference extends Reference {
+		ref ReferenceableElement target;
+	}
+
+	class IdentifierReference extends ElementReference {
+	}
+
+	class MethodCall extends ElementReference, Argumentable, generics.CallTypeArgumentable {
+	}
+
+	class ReflectiveClassReference extends Reference {
+	}
+
+	class PrimitiveTypeReference extends Reference {
+		val types.PrimitiveType[1] primitiveType;
+	}
+
+	class StringReference extends Reference {
+		attr String value;
+	}
+
+	class SelfReference extends Reference {
+		val literals.Self self;
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/statements", prefix="statements")
+package statements {
+	abstract class StatementContainer extends commons.Commentable {
+		val Statement[1] statement;
+	}
+
+	abstract class StatementListContainer extends commons.Commentable {
+		val Statement[*] statements;
+	}
+
+	abstract class Conditional extends commons.Commentable {
+		val expressions.Expression[1] condition;
+	}
+
+	abstract class ForLoopInitializer extends commons.Commentable {
+	}
+
+	abstract class Statement extends commons.Commentable {
+	}
+
+	abstract class SwitchCase extends StatementListContainer {
+	}
+
+	class Assert extends Statement, Conditional {
+		val expressions.Expression errorMessage;
+	}
+
+	class Break extends Jump {
+	}
+
+	class Block extends members.Member, Statement, StatementListContainer, modifiers.Modifiable {
+	}
+
+	class CatchBlock extends StatementListContainer {
+		val parameters.OrdinaryParameter[1] parameter;
+	}
+
+	class Condition extends Statement, StatementContainer, Conditional {
+		val Statement elseStatement;
+	}
+
+	class Continue extends Jump {
+	}
+
+	class DefaultSwitchCase extends SwitchCase {
+	}
+
+	class DoWhileLoop extends WhileLoop {
+	}
+
+	class EmptyStatement extends Statement {
+	}
+
+	class ExpressionStatement extends Statement {
+		val expressions.Expression[1] expression;
+	}
+
+	class ForLoop extends Statement, StatementContainer, Conditional {
+		val ForLoopInitializer init;
+		val expressions.Expression[*] updates;
+	}
+
+	class ForEachLoop extends Statement, StatementContainer {
+		val parameters.OrdinaryParameter next;
+		val expressions.Expression collection;
+	}
+
+	abstract class Jump extends Statement {
+		ref JumpLabel target;
+	}
+
+	class JumpLabel extends Statement, StatementContainer, commons.NamedElement {
+	}
+
+	class LocalVariableStatement extends Statement {
+		val variables.LocalVariable variable;
+	}
+
+	class NormalSwitchCase extends SwitchCase, Conditional {
+	}
+
+	class Return extends Statement {
+		val expressions.Expression returnValue;
+	}
+
+	class Switch extends Statement {
+		val SwitchCase[*] cases;
+		val expressions.Expression variable;
+	}
+
+	class SynchronizedBlock extends Statement, StatementListContainer {
+		val expressions.Expression lockProvider;
+	}
+
+	class Throw extends Statement {
+		val expressions.Expression[1] throwable;
+	}
+
+	class TryBlock extends Statement, StatementListContainer {
+		val CatchBlock[*] catcheBlocks;
+		val Block finallyBlock;
+	}
+
+	class WhileLoop extends Statement, StatementContainer {
+		val expressions.Expression[1] condition;
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/types", prefix="types")
+package types {
+	abstract class Type extends commons.Commentable {
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type _this = this ; 
+//do comparison on the classifier level
+if ( _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) { 
+	_this = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) _this ) .wrapPrimitiveType ( ) ; 
+} 
+if ( otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) { 
+	otherType = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) otherType ) .wrapPrimitiveType ( ) ; 
+} 
+if ( arrayDimension == otherArrayDimension && otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier && _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Classifier && ( otherType .equals ( _this ) ) ) { 
+	return true ; 
+} 
+return false ; 
+", documentation="
+ @param arrayDimension
+ @param otherType
+ @param otherArrayDimension
+ @return if both type are equal
+")
+		op boolean equalsType(long arrayDimension, Type otherType, long otherArrayDimension);
+
+		@GenModel(body="if ( otherType == null ) { 
+	return false ; 
+} 
+sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type _this = this ; 
+if ( _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier || otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ) { 
+	org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > _thisTypeList = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > ( ) ; 
+	org.eclipse.emf.common.util.EList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > otherTypeList = new sg.edu.nus.comp.simTL.language.java.simTL4J.util.UniqueEList < sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type > ( ) ; 
+	if ( _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ) { 
+		for ( org.eclipse.emf.ecore.EObject aType : ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ) _this ) .getSuperTypes ( ) ) { 
+			_thisTypeList .add ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type ) aType ) ; 
+		} 
+	} else { 
+		_thisTypeList .add ( _this ) ; 
+	} 
+	if ( otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ) { 
+		for ( org.eclipse.emf.ecore.EObject aType : ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.util.TemporalCompositeClassifier ) otherType ) .getSuperTypes ( ) ) { 
+			otherTypeList .add ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type ) aType ) ; 
+		} 
+	} else { 
+		otherTypeList .add ( _this ) ; 
+	} 
+	for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type one_thisType : _thisTypeList ) { 
+		for ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type oneOtherType : otherTypeList ) { 
+			boolean result = one_thisType .isSuperType ( arrayDimension , oneOtherType , otherArrayType ) ; 
+			if ( result ) { 
+				return true ; 
+			} 
+		} 
+	} 
+	return false ; 
+} 
+//if I am a void, I am of every type
+if ( _this .equals ( getLibClass ( \"Void\" ) ) ) { 
+	return true ; 
+} 
+//if the other is Object I am a subtype in any case (also array dimensions do not matter)
+if ( otherType .equals ( getObjectClass ( ) ) ) { 
+	return true ; 
+} 
+//String, primitives, and arrays are serializable
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier serializableClass = ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) org.eclipse.emf.ecore.util.EcoreUtil .resolve ( getConcreteClassifier ( \"java.io.Serializable\" ) , _this ) ; 
+if ( otherType .equals ( serializableClass ) ) { 
+	if ( _this .equals ( serializableClass ) ) { 
+		return true ; 
+	} else if ( _this .equals ( getStringClass ( ) ) ) { 
+		return true ; 
+	} else if ( _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) { 
+		return true ; 
+	} else if ( arrayDimension > 0 ) { 
+		//all arrays are serializable
+return true ; 
+	} 
+} 
+//if one of us is a parameter to the best of my knowledge, we might match
+if ( _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParameter ) { 
+	return true ; 
+} 
+if ( otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParameter ) { 
+	return true ; 
+} 
+//if array dimensions do not match, I am no subtype
+boolean isTypeParameter = false ; 
+if ( otherArrayType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type type = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypedElement ) otherArrayType ) .getTypeReference ( ) .getTarget ( ) ; 
+	isTypeParameter = type instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParameter ; 
+} 
+boolean isVariableLengthParameter = otherArrayType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.VariableLengthParameter ; 
+long otherArrayDim = 0 ; 
+if ( otherArrayType != null ) { 
+	otherArrayDim = otherArrayType .getArrayDimension ( ) ; 
+} 
+if ( isTypeParameter && isVariableLengthParameter ) { 
+	if ( arrayDimension != otherArrayDim && arrayDimension != otherArrayDim - 1 && arrayDimension < otherArrayDim ) { 
+		return false ; 
+	} 
+} else if ( isTypeParameter ) { 
+	if ( arrayDimension < otherArrayDim ) { 
+		return false ; 
+	} 
+} else if ( isVariableLengthParameter ) { 
+	if ( arrayDimension != otherArrayDim && arrayDimension != otherArrayDim - 1 ) { 
+		return false ; 
+	} 
+} else { 
+	if ( arrayDimension != otherArrayDim ) { 
+		return false ; 
+	} 
+} 
+//annotations
+if ( _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Annotation && ( otherType .equals ( getAnnotationInterface ( ) ) || ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) _this ) .getAllSuperClassifiers ( ) .contains ( getAnnotationInterface ( ) ) ) ) { 
+	return true ; 
+} 
+//do comparison on the classifier level
+if ( _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) { 
+	_this = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) _this ) .wrapPrimitiveType ( ) ; 
+} 
+if ( otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) { 
+	otherType = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) otherType ) .wrapPrimitiveType ( ) ; 
+} 
+//compare in type hierarchy
+if ( otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier && _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier && ( otherType .equals ( _this ) || ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) _this ) .getAllSuperClassifiers ( ) .contains ( otherType ) ) ) { 
+	return true ; 
+} 
+if ( otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier && _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.AnonymousClass && ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.AnonymousClass ) _this ) .getAllSuperClassifiers ( ) .contains ( otherType ) ) { 
+	return true ; 
+} 
+//everything can be implicitly casted to CharSequence, so I match when the other type is a CharSequence
+sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Interface charSequenceClass = getLibInterface ( \"CharSequence\" ) ; 
+if ( otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) { 
+	if ( otherType .equals ( charSequenceClass ) || ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ConcreteClassifier ) otherType ) .getAllSuperClassifiers ( ) .contains ( charSequenceClass ) ) { 
+		return true ; 
+	} 
+} 
+//there are some specifics for primitive types not reflected in the type hierarchy
+if ( otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType primitiveType = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) otherType ) .unWrapPrimitiveType ( ) ; 
+	if ( primitiveType == null ) { 
+		return false ; 
+	} 
+	otherType = primitiveType ; 
+} 
+if ( _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType primitiveType = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class ) _this ) .unWrapPrimitiveType ( ) ; 
+	if ( primitiveType == null ) { 
+		return false ; 
+	} 
+	_this = primitiveType ; 
+} 
+if ( _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Boolean ) { 
+	if ( otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Boolean ) { 
+		return true ; 
+	} else { 
+		return false ; 
+	} 
+} 
+if ( _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Byte || _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Int || _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Short || _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Long || _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Char ) { 
+	if ( otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Byte || otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Int || otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Short || otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Long || otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Char || otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Float || otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Double ) { 
+		return true ; 
+	} else { 
+		return false ; 
+	} 
+} 
+if ( _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Float || _this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Double ) { 
+	if ( otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Float || otherType instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Double ) { 
+		return true ; 
+	} else { 
+		return false ; 
+	} 
+} 
+return false ; 
+", documentation="
+ @param arrayDimension
+ @param otherType
+ @param otherArrayType
+ @return if the other type is equal to me or a super type of me
+")
+		op boolean isSuperType(long arrayDimension, Type otherType, arrays.ArrayTypeable otherArrayType);
+
+		@GenModel(body="//method has to be specified in subclasses
+throw new java.lang.UnsupportedOperationException ( ) ; 
+", documentation="")
+		op members.Member[*] getAllMembers(commons.Commentable context);
+	}
+
+	abstract class TypedElement extends commons.Commentable {
+		val TypeReference typeReference;
+	}
+
+	abstract class TypeReference extends commons.Commentable {
+
+		@GenModel(body="return getBoundTarget ( null ) ; 
+", documentation="
+ Returns the type referenced by this <code>TypeReference</code>
+ considering all concrete subclasses of <code>TypeReference</code> used
+ by the Java metamodel. 
+ 
+ @param _this 
+ @return the type
+")
+		op Type getTarget();
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.types.Type type = null ; 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference || this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.NamespaceClassifierReference ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference classifierRef = getPureClassifierReference ( ) ; 
+	if ( classifierRef != null ) { 
+		type = classifierRef .getTarget ( ) ; 
+	} 
+	if ( reference instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.MethodCall ) { 
+		sg.edu.nus.comp.simTL.language.java.simTL4J.references.MethodCall potentialCloneCall = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.MethodCall ) reference ; 
+		//clone returns the type of the cloned in the case of arrays
+if ( \"clone\" .equals ( potentialCloneCall .getTarget ( ) .getName ( ) ) ) { 
+			if ( potentialCloneCall .getPrevious ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) { 
+				sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference prevRef = ( sg.edu.nus.comp.simTL.language.java.simTL4J.references.ElementReference ) potentialCloneCall .getPrevious ( ) ; 
+				if ( prevRef .getTarget ( ) instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayTypeable && ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArrayTypeable ) prevRef .getTarget ( ) ) .getArrayDimension ( ) > 0 ) { 
+					type = prevRef .getReferencedType ( ) ; 
+				} 
+			} 
+		} 
+	} 
+} else if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) { 
+	return ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.PrimitiveType ) this ; 
+} 
+//resolve parameter to real type
+if ( type instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParameter ) { 
+	type = ( ( sg.edu.nus.comp.simTL.language.java.simTL4J.generics.TypeParameter ) type ) .getBoundType ( this , reference ) ; 
+} 
+if ( type != null && type .eIsProxy ( ) ) { 
+	//this may happen, when e.g. a super type is resolved. It is ok.
+return null ; 
+} 
+return type ; 
+", documentation="
+ Returns the type referenced by this <code>TypeReference</code>
+ considering all concrete subclasses of <code>TypeReference</code> used
+ by the Java metamodel. If type parameters are bound in the given reference,
+ the bound type will be returned instead of the parameter.
+ 
+ @return the type
+")
+		op Type getBoundTarget(references.Reference reference);
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference classifierReference = null ; 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference ) { 
+	classifierReference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.ClassifierReference ) this ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.NamespaceClassifierReference ) { 
+	sg.edu.nus.comp.simTL.language.java.simTL4J.types.NamespaceClassifierReference nsClassifierReference = ( sg.edu.nus.comp.simTL.language.java.simTL4J.types.NamespaceClassifierReference ) this ; 
+	if ( ! nsClassifierReference .getClassifierReferences ( ) .isEmpty ( ) ) { 
+		int lastIndex = nsClassifierReference .getClassifierReferences ( ) .size ( ) - 1 ; 
+		classifierReference = nsClassifierReference .getClassifierReferences ( ) .get ( lastIndex ) ; 
+	} 
+} 
+return classifierReference ; 
+", documentation="
+ Extracts the (possibly nested) classifier reference (if any) 
+ from this type references.
+ 
+ @return
+")
+		op ClassifierReference getPureClassifierReference();
+	}
+
+	class ClassifierReference extends TypeReference, generics.TypeArgumentable {
+		ref classifiers.Classifier[1] target;
+	}
+
+	class NamespaceClassifierReference extends TypeReference, commons.NamespaceAwareElement {
+		val ClassifierReference[+] classifierReferences;
+	}
+
+	abstract class PrimitiveType extends Type, TypeReference {
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class javaClass = wrapPrimitiveType ( ) ; 
+return javaClass .getAllMembers ( context ) ; 
+", documentation="
+ @param context to check protected visibility
+ @return all members (including super type members)
+")
+		op members.Member[*] getAllMembers(commons.Commentable context);
+
+		@GenModel(body="sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.Class javaClass = null ; 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Boolean ) { 
+	javaClass = getLibClass ( \"Boolean\" ) ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Byte ) { 
+	javaClass = getLibClass ( \"Byte\" ) ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Char ) { 
+	javaClass = getLibClass ( \"Character\" ) ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Double ) { 
+	javaClass = getLibClass ( \"Double\" ) ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Float ) { 
+	javaClass = getLibClass ( \"Float\" ) ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Int ) { 
+	javaClass = getLibClass ( \"Integer\" ) ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Long ) { 
+	javaClass = getLibClass ( \"Long\" ) ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Short ) { 
+	javaClass = getLibClass ( \"Short\" ) ; 
+} 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.types.Void ) { 
+	javaClass = getLibClass ( \"Void\" ) ; 
+} 
+return javaClass ; 
+", documentation="
+ @return primitive type as a class representation
+")
+		op classifiers.Class wrapPrimitiveType();
+	}
+
+	class Boolean extends PrimitiveType {
+	}
+
+	class Byte extends PrimitiveType {
+	}
+
+	class Char extends PrimitiveType {
+	}
+
+	class Double extends PrimitiveType {
+	}
+
+	class Float extends PrimitiveType {
+	}
+
+	class Int extends PrimitiveType {
+	}
+
+	class Long extends PrimitiveType {
+	}
+
+	class Short extends PrimitiveType {
+	}
+
+	class Void extends PrimitiveType {
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/variables", prefix="variables")
+package variables {
+	abstract class Variable extends commons.NamedElement, types.TypedElement, arrays.ArrayTypeable, references.ReferenceableElement, generics.TypeArgumentable {
+
+		@GenModel(body="long size = this .getArrayDimensionsBefore ( ) .size ( ) + this .getArrayDimensionsAfter ( ) .size ( ) ; 
+if ( this instanceof sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.VariableLengthParameter ) { 
+	size ++ ; 
+} 
+return size ; 
+", documentation="")
+		op long getArrayDimension();
+	}
+
+	class LocalVariable extends Variable, instantiations.Initializable, statements.ForLoopInitializer, modifiers.AnnotableAndModifiable {
+		val AdditionalLocalVariable[*] additionalLocalVariables;
+	}
+
+	class AdditionalLocalVariable extends references.ReferenceableElement, arrays.ArrayTypeable, instantiations.Initializable {
+
+		@GenModel(body="long size = this .getArrayDimensionsBefore ( ) .size ( ) + this .getArrayDimensionsAfter ( ) .size ( ) ; 
+return size ; 
+", documentation="")
+		op long getArrayDimension();
+	}
+
+}
+
+@namespace(uri="http://www.emftext.org/simTL4J/simTL", prefix="simTL")
+package simTL {
+	@template_class
+	@template_if
+	abstract class TIf {
+		val TAbstractMethodStatement[1] condition;
+	}
+
+	@template_class
+	@template_forLoop
+	abstract class TFor {
+		val TForVariable[1] count;
+	}
+
+	@template_class
+	class TForVariable {
+		attr String[1] name;
+		val TAbstractMethodStatement[1] setToBeIterated;
+	}
+
+	@template_class(objectLanguage="http://www.emftext.org/java/", objectLanguageFactory="org.emftext.language.java.resource.java.mopp.JavaResourceFactory", objectLanguageExtension="java")
+	class Template {
+		val TemplateHeader templateHeader;
+		val containers.JavaRoot[1] ~class;
+	}
+
+	@template_class
+	class TemplateHeader {
+		val TModelImport[*] modelImports;
+	}
+
+	@template_class
+	class TModelImport {
+		attr String[1] name;
+		attr String[1] uri = "";
+	}
+
+	@template_class
+	class TMethodCall {
+		attr String[1] methodName;
+		attr String[*] params;
+	}
+
+	@template_class
+	class TAbstractMethodStatement {
+	}
+
+	@template_class
+	class TFor_MemberContainer extends TFor, members.MemberContainer, members.Member {
+	}
+
+	@template_class
+	class TFor_StatementListContainer extends TFor, statements.StatementListContainer, statements.Statement {
+	}
+
+	@template_class
+	class TIf_MemberContainer extends TIf, members.MemberContainer, members.Member {
+	}
+
+	@template_class
+	class TIf_StatementListContainer extends TIf, statements.StatementListContainer, statements.Statement {
+	}
+
+	@template_class
+	@template_PH
+	class TPlaceholder {
+		val TAbstractMethodStatement[1] methodStatement;
+	}
+
+	@template_class
+	class TPlaceholder_PrimaryExpression extends TPlaceholder, expressions.PrimaryExpression {
+	}
+
+	@template_class
+	abstract class TUnaryOperator extends TAbstractMethodStatement {
+		val TAbstractMethodStatement[1] methodStatement;
+	}
+
+	@template_class
+	class TUnaryOperatorNOT extends TUnaryOperator {
+	}
+
+	@template_class
+	class TMethodStatementImpl extends TAbstractMethodStatement {
+		attr String[1] caller;
+		val TMethodCall[+] callee;
+	}
+
+}
+

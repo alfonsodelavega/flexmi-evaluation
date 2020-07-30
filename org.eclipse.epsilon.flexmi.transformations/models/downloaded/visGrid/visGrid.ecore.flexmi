@@ -1,0 +1,1902 @@
+<?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<?import http://www.eclipse.org/emf/2002/Ecore?>
+<package name="visGrid" nsURI="http://tcd.ie" nsPrefix="ie.tcd.gmf.visGrid">
+	<class name="Climate">
+		<attr name="city" defaultValueLiteral="" type="//EString"/>
+		<attr name="tmyfile" defaultValueLiteral="" type="//EString"/>
+		<attr name="temperature" defaultValueLiteral="" type="//EString"/>
+		<attr name="humidity" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_flux" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_direct" defaultValueLiteral="" type="//EString"/>
+		<attr name="wind_speed" defaultValueLiteral="" type="//EString"/>
+		<attr name="wind_dir" defaultValueLiteral="" type="//EString"/>
+		<attr name="wind_gust" defaultValueLiteral="" type="//EString"/>
+		<attr name="record__low" defaultValueLiteral="" type="//EString"/>
+		<attr name="record__low_day" defaultValueLiteral="" type="//EString"/>
+		<attr name="record__high" defaultValueLiteral="" type="//EString"/>
+		<attr name="record__high_day" defaultValueLiteral="" type="//EString"/>
+		<attr name="record__solar" defaultValueLiteral="" type="//EString"/>
+		<attr name="rainfall" defaultValueLiteral="" type="//EString"/>
+		<attr name="snowdepth" defaultValueLiteral="" type="//EString"/>
+		<attr name="interpolate" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_horiz" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_north" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_northeast" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_east" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_southeast" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_south" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_southwest" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_west" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_northwest" defaultValueLiteral="" type="//EString"/>
+		<attr name="solar_raw" defaultValueLiteral="" type="//EString"/>
+		<attr name="reader" defaultValueLiteral="" type="//EString"/>
+	</class>
+	<class name="Csv_reader">
+		<attr name="index" type="//EString"/>
+		<attr name="city_name" type="//EString"/>
+		<attr name="state_name" type="//EString"/>
+		<attr name="lat_deg" type="//EString"/>
+		<attr name="lat_min" type="//EString"/>
+		<attr name="long_deg" type="//EString"/>
+		<attr name="long_min" type="//EString"/>
+		<attr name="low_temp" type="//EString"/>
+		<attr name="high_temp" type="//EString"/>
+		<attr name="peak_solar" type="//EString"/>
+		<attr name="status" type="//EString"/>
+		<attr name="timefmt" type="//EString"/>
+		<attr name="timezone" type="//EString"/>
+		<attr name="columns" type="//EString"/>
+		<attr name="filename" type="//EString"/>
+	</class>
+	<class name="Diesel_dg">
+		<attr name="Gen_mode" type="//EString"/>
+		<attr name="Gen_status" type="//EString"/>
+		<attr name="Rated_kVA" type="//EString"/>
+		<attr name="Rated_kV" type="//EString"/>
+		<attr name="Rs" type="//EString"/>
+		<attr name="Xs" type="//EString"/>
+		<attr name="Rg" type="//EString"/>
+		<attr name="Xg" type="//EString"/>
+		<attr name="voltage_A" type="//EString"/>
+		<attr name="voltage_B" type="//EString"/>
+		<attr name="voltage_C" type="//EString"/>
+		<attr name="current_A" type="//EString"/>
+		<attr name="current_B" type="//EString"/>
+		<attr name="current_C" type="//EString"/>
+		<attr name="EfA" type="//EString"/>
+		<attr name="EfB" type="//EString"/>
+		<attr name="EfC" type="//EString"/>
+		<attr name="power_A" type="//EString"/>
+		<attr name="power_B" type="//EString"/>
+		<attr name="power_C" type="//EString"/>
+		<attr name="power_A_sch" type="//EString"/>
+		<attr name="power_B_sch" type="//EString"/>
+		<attr name="power_C_sch" type="//EString"/>
+		<attr name="EfA_sch" type="//EString"/>
+		<attr name="EfB_sch" type="//EString"/>
+		<attr name="EfC_sch" type="//EString"/>
+		<attr name="SlackBus" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+	</class>
+	<class name="Energy_storage">
+		<attr name="generator_mode" type="//EString"/>
+		<attr name="generator_status" type="//EString"/>
+		<attr name="power_type" type="//EString"/>
+		<attr name="Rinternal" type="//EString"/>
+		<attr name="V_Max" type="//EString"/>
+		<attr name="I_Max" type="//EString"/>
+		<attr name="E_Max" type="//EString"/>
+		<attr name="Energy" type="//EString"/>
+		<attr name="efficiency" type="//EString"/>
+		<attr name="Rated_kVA" type="//EString"/>
+		<attr name="V_Out" type="//EString"/>
+		<attr name="I_Out" type="//EString"/>
+		<attr name="VA_Out" type="//EString"/>
+		<attr name="V_In" type="//EString"/>
+		<attr name="I_In" type="//EString"/>
+		<attr name="V_Internal" type="//EString"/>
+		<attr name="I_Internal" type="//EString"/>
+		<attr name="I_Prev" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+	</class>
+	<class name="Inverter">
+		<attr name="inverter_type" type="//EString"/>
+		<attr name="generator_status" type="//EString"/>
+		<attr name="generator_mode" type="//EString"/>
+		<attr name="V_In" type="//EString"/>
+		<attr name="I_In" type="//EString"/>
+		<attr name="VA_In" type="//EString"/>
+		<attr name="Vdc" type="//EString"/>
+		<attr name="phaseA_V_Out" type="//EString"/>
+		<attr name="phaseB_V_Out" type="//EString"/>
+		<attr name="phaseC_V_Out" type="//EString"/>
+		<attr name="phaseA_I_Out" type="//EString"/>
+		<attr name="phaseB_I_Out" type="//EString"/>
+		<attr name="phaseC_I_Out" type="//EString"/>
+		<attr name="power_A" type="//EString"/>
+		<attr name="power_B" type="//EString"/>
+		<attr name="power_C" type="//EString"/>
+		<attr name="P_Out" type="//EString"/>
+		<attr name="Q_Out" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+	</class>
+	<class name="Dc_dc_converter">
+		<attr name="dc_dc_converter_type" type="//EString"/>
+		<attr name="generator_mode" type="//EString"/>
+		<attr name="V_Out" type="//EString"/>
+		<attr name="I_Out" type="//EString"/>
+		<attr name="Vdc" type="//EString"/>
+		<attr name="VA_Out" type="//EString"/>
+		<attr name="P_Out" type="//EString"/>
+		<attr name="Q_Out" type="//EString"/>
+		<attr name="service_ratio" type="//EString"/>
+		<attr name="V_In" type="//EString"/>
+		<attr name="I_In" type="//EString"/>
+		<attr name="VA_In" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+	</class>
+	<class name="Auction">
+		<attr name="type" type="//EString"/>
+		<attr name="unit" type="//EString"/>
+		<attr name="period" type="//EString"/>
+		<attr name="latency" type="//EString"/>
+		<attr name="market_id" type="//EString"/>
+		<attr name="last__Q" type="//EString"/>
+		<attr name="last__P" type="//EString"/>
+		<attr name="next__Q" type="//EString"/>
+		<attr name="next__P" type="//EString"/>
+		<attr name="avg24" type="//EString"/>
+		<attr name="std24" type="//EString"/>
+		<attr name="avg72" type="//EString"/>
+		<attr name="std72" type="//EString"/>
+		<attr name="avg168" type="//EString"/>
+		<attr name="std168" type="//EString"/>
+		<attr name="network" type="//EString"/>
+		<attr name="verbose" type="//EString"/>
+	</class>
+	<class name="Controller">
+		<attr name="simple_mode" type="//EString"/>
+		<attr name="bid_mode" type="//EString"/>
+		<attr name="ramp_low" type="//EString"/>
+		<attr name="ramp_high" type="//EString"/>
+		<attr name="Tmin" type="//EString"/>
+		<attr name="Tmax" type="//EString"/>
+		<attr name="target" type="//EString"/>
+		<attr name="setpoint" type="//EString"/>
+		<attr name="demand" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="total" type="//EString"/>
+		<attr name="market" type="//EString"/>
+		<attr name="bid_price" type="//EString"/>
+		<attr name="bid_quant" type="//EString"/>
+		<attr name="set_temp" type="//EString"/>
+		<attr name="base_setpoint" type="//EString"/>
+	</class>
+	<class name="Controller2">
+		<attr name="input_state" type="//EString"/>
+		<attr name="input_setpoint" type="//EString"/>
+		<attr name="input_chained" type="//EString"/>
+		<attr name="observation" type="//EString"/>
+		<attr name="mean_observation" type="//EString"/>
+		<attr name="stdev_observation" type="//EString"/>
+		<attr name="expectation" type="//EString"/>
+		<attr name="setpoint" type="//EString"/>
+		<attr name="sensitivity" type="//EString"/>
+		<attr name="period" type="//EString"/>
+		<attr name="expectation_prop" type="//EString"/>
+		<attr name="expectation_obj" type="//EString"/>
+		<attr name="setpoint_prop" type="//EString"/>
+		<attr name="state_prop" type="//EString"/>
+		<attr name="observation_obj" type="//EString"/>
+		<attr name="observation_prop" type="//EString"/>
+		<attr name="mean_observation_prop" type="//EString"/>
+		<attr name="stdev_observation_prop" type="//EString"/>
+		<attr name="cycle_length" type="//EString"/>
+		<attr name="base_setpoint" type="//EString"/>
+		<attr name="ramp_high" type="//EString"/>
+		<attr name="ramp_low" type="//EString"/>
+		<attr name="range_high" type="//EString"/>
+		<attr name="range_low" type="//EString"/>
+		<attr name="prob_off" type="//EString"/>
+		<attr name="output_state" type="//EString"/>
+		<attr name="output_setpoint" type="//EString"/>
+		<attr name="control_mode" type="//EString"/>
+	</class>
+	<class name="Capbank">
+		<attr name="KVARrated" type="//EString"/>
+		<attr name="Vrated" type="//EString"/>
+		<attr name="state" type="//EString"/>
+		<attr name="CTlink" type="//EString"/>
+		<attr name="PTnode" type="//EString"/>
+		<attr name="VARopen" type="//EString"/>
+		<attr name="VARclose" type="//EString"/>
+		<attr name="Vopen" type="//EString"/>
+		<attr name="Vclose" type="//EString"/>
+	</class>
+	<class name="Comm">
+		<attr name="latency" type="//EString"/>
+		<attr name="reliability" type="//EString"/>
+		<attr name="bitrate" type="//EString"/>
+		<attr name="timeout" type="//EString"/>
+	</class>
+	<class name="Capacitor">
+		<attr name="pt_phase" type="//EString"/>
+		<attr name="phases_connected" type="//EString"/>
+		<attr name="switchA" type="//EString"/>
+		<attr name="switchB" type="//EString"/>
+		<attr name="switchC" type="//EString"/>
+		<attr name="control" type="//EString"/>
+		<attr name="voltage_set_high" type="//EString"/>
+		<attr name="voltage_set_low" type="//EString"/>
+		<attr name="VAr_set_high" type="//EString"/>
+		<attr name="VAr_set_low" type="//EString"/>
+		<attr name="current_set_low" type="//EString"/>
+		<attr name="current_set_high" type="//EString"/>
+		<attr name="capacitor_A" type="//EString"/>
+		<attr name="capacitor_B" type="//EString"/>
+		<attr name="capacitor_C" type="//EString"/>
+		<attr name="cap_nominal_voltage" type="//EString"/>
+		<attr name="time_delay" type="//EString"/>
+		<attr name="dwell_time" type="//EString"/>
+		<attr name="lockout_time" type="//EString"/>
+		<attr name="remote_sense" type="//EString"/>
+		<attr name="remote_sense_B" type="//EString"/>
+		<attr name="control_level" type="//EString"/>
+		<attr name="bustype" type="//EString"/>
+		<attr name="busflags" type="//EString"/>
+		<attr name="reference_bus" type="//EString"/>
+		<attr name="maximum_voltage_error" type="//EString"/>
+		<attr name="voltage_A" type="//EString"/>
+		<attr name="voltage_B" type="//EString"/>
+		<attr name="voltage_C" type="//EString"/>
+		<attr name="voltage_AB" type="//EString"/>
+		<attr name="voltage_BC" type="//EString"/>
+		<attr name="voltage_CA" type="//EString"/>
+		<attr name="current_A" type="//EString"/>
+		<attr name="current_B" type="//EString"/>
+		<attr name="current_C" type="//EString"/>
+		<attr name="power_A" type="//EString"/>
+		<attr name="power_B" type="//EString"/>
+		<attr name="power_C" type="//EString"/>
+		<attr name="shunt_A" type="//EString"/>
+		<attr name="shunt_B" type="//EString"/>
+		<attr name="shunt_C" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Line">
+		<attr name="configuration" type="//EString"/>
+		<attr name="length" type="//EString"/>
+		<attr name="status" type="//EString"/>
+		<attr name="from" type="//EString"/>
+		<attr name="to" type="//EString"/>
+		<attr name="power_in" type="//EString"/>
+		<attr name="power_out" type="//EString"/>
+		<attr name="power_losses" type="//EString"/>
+		<attr name="power_in_A" type="//EString"/>
+		<attr name="power_in_B" type="//EString"/>
+		<attr name="power_in_C" type="//EString"/>
+		<attr name="power_out_A" type="//EString"/>
+		<attr name="power_out_B" type="//EString"/>
+		<attr name="power_out_C" type="//EString"/>
+		<attr name="power_losses_A" type="//EString"/>
+		<attr name="power_losses_B" type="//EString"/>
+		<attr name="power_losses_C" type="//EString"/>
+		<attr name="flow_direction" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Line_spacing">
+		<attr name="distance_AB" type="//EString"/>
+		<attr name="distance_BC" type="//EString"/>
+		<attr name="distance_AC" type="//EString"/>
+		<attr name="distance_AN" type="//EString"/>
+		<attr name="distance_BN" type="//EString"/>
+		<attr name="distance_CN" type="//EString"/>
+	</class>
+	<class name="Overhead_line">
+		<attr name="configuration" type="//EString"/>
+		<attr name="length" type="//EString"/>
+		<attr name="status" type="//EString"/>
+		<attr name="from" type="//EString"/>
+		<attr name="to" type="//EString"/>
+		<attr name="power_in" type="//EString"/>
+		<attr name="power_out" type="//EString"/>
+		<attr name="power_losses" type="//EString"/>
+		<attr name="power_in_A" type="//EString"/>
+		<attr name="power_in_B" type="//EString"/>
+		<attr name="power_in_C" type="//EString"/>
+		<attr name="power_out_A" type="//EString"/>
+		<attr name="power_out_B" type="//EString"/>
+		<attr name="power_out_C" type="//EString"/>
+		<attr name="power_losses_A" type="//EString"/>
+		<attr name="power_losses_B" type="//EString"/>
+		<attr name="power_losses_C" type="//EString"/>
+		<attr name="flow_direction" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Underground_line">
+		<attr name="configuration" type="//EString"/>
+		<attr name="length" type="//EString"/>
+		<attr name="status" type="//EString"/>
+		<attr name="from" type="//EString"/>
+		<attr name="to" type="//EString"/>
+		<attr name="power_in" type="//EString"/>
+		<attr name="power_out" type="//EString"/>
+		<attr name="power_losses" type="//EString"/>
+		<attr name="power_in_A" type="//EString"/>
+		<attr name="power_in_B" type="//EString"/>
+		<attr name="power_in_C" type="//EString"/>
+		<attr name="power_out_A" type="//EString"/>
+		<attr name="power_out_B" type="//EString"/>
+		<attr name="power_out_C" type="//EString"/>
+		<attr name="power_losses_A" type="//EString"/>
+		<attr name="power_losses_B" type="//EString"/>
+		<attr name="power_losses_C" type="//EString"/>
+		<attr name="flow_direction" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Overhead_line_conductor">
+		<attr name="geometric_mean_radius" type="//EString"/>
+		<attr name="resistance" type="//EString"/>
+		<attr name="rating__summer__continuous" type="//EString"/>
+		<attr name="rating__summer__emergency" type="//EString"/>
+		<attr name="rating__winter__continuous" type="//EString"/>
+		<attr name="rating__winter__emergency" type="//EString"/>
+	</class>
+	<class name="Underground_line_conductor">
+		<attr name="outer_diameter" type="//EString"/>
+		<attr name="conductor_gmr" type="//EString"/>
+		<attr name="conductor_diameter" type="//EString"/>
+		<attr name="conductor_resistance" type="//EString"/>
+		<attr name="neutral_gmr" type="//EString"/>
+		<attr name="neutral_diameter" type="//EString"/>
+		<attr name="neutral_resistance" type="//EString"/>
+		<attr name="neutral_strands" type="//EString"/>
+		<attr name="shield_gmr" type="//EString"/>
+		<attr name="shield_resistance" type="//EString"/>
+		<attr name="rating__summer__continuous" type="//EString"/>
+		<attr name="rating__summer__emergency" type="//EString"/>
+		<attr name="rating__winter__continuous" type="//EString"/>
+		<attr name="rating__winter__emergency" type="//EString"/>
+	</class>
+	<class name="Line_configuration">
+		<attr name="conductor_A" type="//EString"/>
+		<attr name="conductor_B" type="//EString"/>
+		<attr name="conductor_C" type="//EString"/>
+		<attr name="conductor_N" type="//EString"/>
+		<attr name="spacing" type="//EString"/>
+	</class>
+	<class name="Transformer_configuration">
+		<attr name="connect_type" type="//EString"/>
+		<attr name="install_type" type="//EString"/>
+		<attr name="primary_voltage" type="//EString"/>
+		<attr name="secondary_voltage" type="//EString"/>
+		<attr name="power_rating" type="//EString"/>
+		<attr name="powerA_rating" type="//EString"/>
+		<attr name="powerB_rating" type="//EString"/>
+		<attr name="powerC_rating" type="//EString"/>
+		<attr name="resistance" type="//EString"/>
+		<attr name="reactance" type="//EString"/>
+		<attr name="impedance" type="//EString"/>
+		<attr name="resistance1" type="//EString"/>
+		<attr name="reactance1" type="//EString"/>
+		<attr name="impedance1" type="//EString"/>
+		<attr name="resistance2" type="//EString"/>
+		<attr name="reactance2" type="//EString"/>
+		<attr name="impedance2" type="//EString"/>
+		<attr name="shunt_resistance" type="//EString"/>
+		<attr name="shunt_reactance" type="//EString"/>
+		<attr name="shunt_impedance" type="//EString"/>
+	</class>
+	<class name="Load">
+		<attr name="load_class" type="//EString"/>
+		<attr name="constant_power_A" type="//EString"/>
+		<attr name="constant_power_B" type="//EString"/>
+		<attr name="constant_power_C" type="//EString"/>
+		<attr name="constant_power_A_real" type="//EString"/>
+		<attr name="constant_power_B_real" type="//EString"/>
+		<attr name="constant_power_C_real" type="//EString"/>
+		<attr name="constant_power_A_reac" type="//EString"/>
+		<attr name="constant_power_B_reac" type="//EString"/>
+		<attr name="constant_power_C_reac" type="//EString"/>
+		<attr name="constant_current_A" type="//EString"/>
+		<attr name="constant_current_B" type="//EString"/>
+		<attr name="constant_current_C" type="//EString"/>
+		<attr name="constant_current_A_real" type="//EString"/>
+		<attr name="constant_current_B_real" type="//EString"/>
+		<attr name="constant_current_C_real" type="//EString"/>
+		<attr name="constant_current_A_reac" type="//EString"/>
+		<attr name="constant_current_B_reac" type="//EString"/>
+		<attr name="constant_current_C_reac" type="//EString"/>
+		<attr name="constant_impedance_A" type="//EString"/>
+		<attr name="constant_impedance_B" type="//EString"/>
+		<attr name="constant_impedance_C" type="//EString"/>
+		<attr name="constant_impedance_A_real" type="//EString"/>
+		<attr name="constant_impedance_B_real" type="//EString"/>
+		<attr name="constant_impedance_C_real" type="//EString"/>
+		<attr name="constant_impedance_A_reac" type="//EString"/>
+		<attr name="constant_impedance_B_reac" type="//EString"/>
+		<attr name="constant_impedance_C_reac" type="//EString"/>
+		<attr name="measured_voltage_A" type="//EString"/>
+		<attr name="measured_voltage_B" type="//EString"/>
+		<attr name="measured_voltage_C" type="//EString"/>
+		<attr name="measured_voltage_AB" type="//EString"/>
+		<attr name="measured_voltage_BC" type="//EString"/>
+		<attr name="measured_voltage_CA" type="//EString"/>
+		<attr name="bustype" type="//EString"/>
+		<attr name="busflags" type="//EString"/>
+		<attr name="reference_bus" type="//EString"/>
+		<attr name="maximum_voltage_error" type="//EString"/>
+		<attr name="voltage_A" type="//EString"/>
+		<attr name="voltage_B" type="//EString"/>
+		<attr name="voltage_C" type="//EString"/>
+		<attr name="voltage_AB" type="//EString"/>
+		<attr name="voltage_BC" type="//EString"/>
+		<attr name="voltage_CA" type="//EString"/>
+		<attr name="current_A" type="//EString"/>
+		<attr name="current_B" type="//EString"/>
+		<attr name="current_C" type="//EString"/>
+		<attr name="power_A" type="//EString"/>
+		<attr name="power_B" type="//EString"/>
+		<attr name="power_C" type="//EString"/>
+		<attr name="shunt_A" type="//EString"/>
+		<attr name="shunt_B" type="//EString"/>
+		<attr name="shunt_C" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Regulator_configuration">
+		<attr name="connect_type" type="//EString"/>
+		<attr name="band_center" type="//EString"/>
+		<attr name="band_width" type="//EString"/>
+		<attr name="time_delay" type="//EString"/>
+		<attr name="dwell_time" type="//EString"/>
+		<attr name="raise_taps" type="//EString"/>
+		<attr name="lower_taps" type="//EString"/>
+		<attr name="current_transducer_ratio" type="//EString"/>
+		<attr name="power_transducer_ratio" type="//EString"/>
+		<attr name="compensator_r_setting_A" type="//EString"/>
+		<attr name="compensator_r_setting_B" type="//EString"/>
+		<attr name="compensator_r_setting_C" type="//EString"/>
+		<attr name="compensator_x_setting_A" type="//EString"/>
+		<attr name="compensator_x_setting_B" type="//EString"/>
+		<attr name="compensator_x_setting_C" type="//EString"/>
+		<attr name="CT_phase" type="//EString"/>
+		<attr name="PT_phase" type="//EString"/>
+		<attr name="regulation" type="//EString"/>
+		<attr name="control_level" type="//EString"/>
+		<attr name="Control" type="//EString"/>
+		<attr name="Type" type="//EString"/>
+		<attr name="tap_pos_A" type="//EString"/>
+		<attr name="tap_pos_B" type="//EString"/>
+		<attr name="tap_pos_C" type="//EString"/>
+	</class>
+	<class name="Triplex_node">
+		<attr name="bustype" type="//EString"/>
+		<attr name="busflags" type="//EString"/>
+		<attr name="reference_bus" type="//EString"/>
+		<attr name="maximum_voltage_error" type="//EString"/>
+		<attr name="voltage_1" type="//EString"/>
+		<attr name="voltage_2" type="//EString"/>
+		<attr name="voltage_N" type="//EString"/>
+		<attr name="voltage_12" type="//EString"/>
+		<attr name="voltage_1N" type="//EString"/>
+		<attr name="voltage_2N" type="//EString"/>
+		<attr name="current_1" type="//EString"/>
+		<attr name="current_2" type="//EString"/>
+		<attr name="current_N" type="//EString"/>
+		<attr name="current_1_real" type="//EString"/>
+		<attr name="current_2_real" type="//EString"/>
+		<attr name="current_N_real" type="//EString"/>
+		<attr name="current_1_reac" type="//EString"/>
+		<attr name="current_2_reac" type="//EString"/>
+		<attr name="current_N_reac" type="//EString"/>
+		<attr name="current_12" type="//EString"/>
+		<attr name="current_12_real" type="//EString"/>
+		<attr name="current_12_reac" type="//EString"/>
+		<attr name="residential_nominal_current_1" type="//EString"/>
+		<attr name="residential_nominal_current_2" type="//EString"/>
+		<attr name="residential_nominal_current_12" type="//EString"/>
+		<attr name="residential_nominal_current_1_real" type="//EString"/>
+		<attr name="residential_nominal_current_1_imag" type="//EString"/>
+		<attr name="residential_nominal_current_2_real" type="//EString"/>
+		<attr name="residential_nominal_current_2_imag" type="//EString"/>
+		<attr name="residential_nominal_current_12_real" type="//EString"/>
+		<attr name="residential_nominal_current_12_imag" type="//EString"/>
+		<attr name="power_1" type="//EString"/>
+		<attr name="power_2" type="//EString"/>
+		<attr name="power_12" type="//EString"/>
+		<attr name="power_1_real" type="//EString"/>
+		<attr name="power_2_real" type="//EString"/>
+		<attr name="power_12_real" type="//EString"/>
+		<attr name="power_1_reac" type="//EString"/>
+		<attr name="power_2_reac" type="//EString"/>
+		<attr name="power_12_reac" type="//EString"/>
+		<attr name="shunt_1" type="//EString"/>
+		<attr name="shunt_2" type="//EString"/>
+		<attr name="shunt_12" type="//EString"/>
+		<attr name="impedance_1" type="//EString"/>
+		<attr name="impedance_2" type="//EString"/>
+		<attr name="impedance_12" type="//EString"/>
+		<attr name="impedance_1_real" type="//EString"/>
+		<attr name="impedance_2_real" type="//EString"/>
+		<attr name="impedance_12_real" type="//EString"/>
+		<attr name="impedance_1_reac" type="//EString"/>
+		<attr name="impedance_2_reac" type="//EString"/>
+		<attr name="impedance_12_reac" type="//EString"/>
+		<attr name="house_present" type="//EString"/>
+		<attr name="NR_mode" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Triplex_meter">
+		<attr name="measured_real_energy" type="//EString"/>
+		<attr name="measured_reactive_energy" type="//EString"/>
+		<attr name="measured_power" type="//EString"/>
+		<attr name="indiv_measured_power_1" type="//EString"/>
+		<attr name="indiv_measured_power_2" type="//EString"/>
+		<attr name="indiv_measured_power_N" type="//EString"/>
+		<attr name="measured_demand" type="//EString"/>
+		<attr name="measured_real_power" type="//EString"/>
+		<attr name="measured_reactive_power" type="//EString"/>
+		<attr name="measured_voltage_1" type="//EString"/>
+		<attr name="measured_voltage_2" type="//EString"/>
+		<attr name="measured_voltage_N" type="//EString"/>
+		<attr name="measured_current_1" type="//EString"/>
+		<attr name="measured_current_2" type="//EString"/>
+		<attr name="measured_current_N" type="//EString"/>
+		<attr name="monthly_bill" type="//EString"/>
+		<attr name="previous_monthly_bill" type="//EString"/>
+		<attr name="previous_monthly_energy" type="//EString"/>
+		<attr name="monthly_fee" type="//EString"/>
+		<attr name="monthly_energy" type="//EString"/>
+		<attr name="bill_mode" type="//EString"/>
+		<attr name="power_market" type="//EString"/>
+		<attr name="bill_day" type="//EString"/>
+		<attr name="price" type="//EString"/>
+		<attr name="first_tier_price" type="//EString"/>
+		<attr name="first_tier_energy" type="//EString"/>
+		<attr name="second_tier_price" type="//EString"/>
+		<attr name="second_tier_energy" type="//EString"/>
+		<attr name="third_tier_price" type="//EString"/>
+		<attr name="third_tier_energy" type="//EString"/>
+		<attr name="bustype" type="//EString"/>
+		<attr name="busflags" type="//EString"/>
+		<attr name="reference_bus" type="//EString"/>
+		<attr name="maximum_voltage_error" type="//EString"/>
+		<attr name="voltage_1" type="//EString"/>
+		<attr name="voltage_2" type="//EString"/>
+		<attr name="voltage_N" type="//EString"/>
+		<attr name="voltage_12" type="//EString"/>
+		<attr name="voltage_1N" type="//EString"/>
+		<attr name="voltage_2N" type="//EString"/>
+		<attr name="current_1" type="//EString"/>
+		<attr name="current_2" type="//EString"/>
+		<attr name="current_N" type="//EString"/>
+		<attr name="current_1_real" type="//EString"/>
+		<attr name="current_2_real" type="//EString"/>
+		<attr name="current_N_real" type="//EString"/>
+		<attr name="current_1_reac" type="//EString"/>
+		<attr name="current_2_reac" type="//EString"/>
+		<attr name="current_N_reac" type="//EString"/>
+		<attr name="current_12" type="//EString"/>
+		<attr name="current_12_real" type="//EString"/>
+		<attr name="current_12_reac" type="//EString"/>
+		<attr name="residential_nominal_current_1" type="//EString"/>
+		<attr name="residential_nominal_current_2" type="//EString"/>
+		<attr name="residential_nominal_current_12" type="//EString"/>
+		<attr name="residential_nominal_current_1_real" type="//EString"/>
+		<attr name="residential_nominal_current_1_imag" type="//EString"/>
+		<attr name="residential_nominal_current_2_real" type="//EString"/>
+		<attr name="residential_nominal_current_2_imag" type="//EString"/>
+		<attr name="residential_nominal_current_12_real" type="//EString"/>
+		<attr name="residential_nominal_current_12_imag" type="//EString"/>
+		<attr name="power_1" type="//EString"/>
+		<attr name="power_2" type="//EString"/>
+		<attr name="power_12" type="//EString"/>
+		<attr name="power_1_real" type="//EString"/>
+		<attr name="power_2_real" type="//EString"/>
+		<attr name="power_12_real" type="//EString"/>
+		<attr name="power_1_reac" type="//EString"/>
+		<attr name="power_2_reac" type="//EString"/>
+		<attr name="power_12_reac" type="//EString"/>
+		<attr name="shunt_1" type="//EString"/>
+		<attr name="shunt_2" type="//EString"/>
+		<attr name="shunt_12" type="//EString"/>
+		<attr name="impedance_1" type="//EString"/>
+		<attr name="impedance_2" type="//EString"/>
+		<attr name="impedance_12" type="//EString"/>
+		<attr name="impedance_1_real" type="//EString"/>
+		<attr name="impedance_2_real" type="//EString"/>
+		<attr name="impedance_12_real" type="//EString"/>
+		<attr name="impedance_1_reac" type="//EString"/>
+		<attr name="impedance_2_reac" type="//EString"/>
+		<attr name="impedance_12_reac" type="//EString"/>
+		<attr name="house_present" type="//EString"/>
+		<attr name="NR_mode" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Triplex_line">
+		<attr name="configuration" type="//EString"/>
+		<attr name="length" type="//EString"/>
+		<attr name="status" type="//EString"/>
+		<attr name="from" type="//EString"/>
+		<attr name="to" type="//EString"/>
+		<attr name="power_in" type="//EString"/>
+		<attr name="power_out" type="//EString"/>
+		<attr name="power_losses" type="//EString"/>
+		<attr name="power_in_A" type="//EString"/>
+		<attr name="power_in_B" type="//EString"/>
+		<attr name="power_in_C" type="//EString"/>
+		<attr name="power_out_A" type="//EString"/>
+		<attr name="power_out_B" type="//EString"/>
+		<attr name="power_out_C" type="//EString"/>
+		<attr name="power_losses_A" type="//EString"/>
+		<attr name="power_losses_B" type="//EString"/>
+		<attr name="power_losses_C" type="//EString"/>
+		<attr name="flow_direction" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Triplex_line_configuration">
+		<attr name="conductor_1" type="//EString"/>
+		<attr name="conductor_2" type="//EString"/>
+		<attr name="conductor_N" type="//EString"/>
+		<attr name="insulation_thickness" type="//EString"/>
+		<attr name="diameter" type="//EString"/>
+		<attr name="spacing" type="//EString"/>
+	</class>
+	<class name="Triplex_line_conductor">
+		<attr name="resistance" type="//EString"/>
+		<attr name="geometric_mean_radius" type="//EString"/>
+		<attr name="rating__summer__continuous" type="//EString"/>
+		<attr name="rating__summer__emergency" type="//EString"/>
+		<attr name="rating__winter__continuous" type="//EString"/>
+		<attr name="rating__winter__emergency" type="//EString"/>
+	</class>
+	<class name="Switch">
+		<attr name="status" type="//EString"/>
+		<attr name="from" type="//EString"/>
+		<attr name="to" type="//EString"/>
+		<attr name="power_in" type="//EString"/>
+		<attr name="power_out" type="//EString"/>
+		<attr name="power_losses" type="//EString"/>
+		<attr name="power_in_A" type="//EString"/>
+		<attr name="power_in_B" type="//EString"/>
+		<attr name="power_in_C" type="//EString"/>
+		<attr name="power_out_A" type="//EString"/>
+		<attr name="power_out_B" type="//EString"/>
+		<attr name="power_out_C" type="//EString"/>
+		<attr name="power_losses_A" type="//EString"/>
+		<attr name="power_losses_B" type="//EString"/>
+		<attr name="power_losses_C" type="//EString"/>
+		<attr name="flow_direction" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Substation">
+		<attr name="distribution_energy" type="//EString"/>
+		<attr name="distribution_power" type="//EString"/>
+		<attr name="distribution_demand" type="//EString"/>
+		<attr name="distribution_voltage_A" type="//EString"/>
+		<attr name="distribution_voltage_B" type="//EString"/>
+		<attr name="distribution_voltage_C" type="//EString"/>
+		<attr name="distribution_current_A" type="//EString"/>
+		<attr name="distribution_current_B" type="//EString"/>
+		<attr name="distribution_current_C" type="//EString"/>
+		<attr name="Network_Node_Base_Power" type="//EString"/>
+		<attr name="Network_Node_Base_Voltage" type="//EString"/>
+		<attr name="bustype" type="//EString"/>
+		<attr name="busflags" type="//EString"/>
+		<attr name="reference_bus" type="//EString"/>
+		<attr name="maximum_voltage_error" type="//EString"/>
+		<attr name="voltage_A" type="//EString"/>
+		<attr name="voltage_B" type="//EString"/>
+		<attr name="voltage_C" type="//EString"/>
+		<attr name="voltage_AB" type="//EString"/>
+		<attr name="voltage_BC" type="//EString"/>
+		<attr name="voltage_CA" type="//EString"/>
+		<attr name="current_A" type="//EString"/>
+		<attr name="current_B" type="//EString"/>
+		<attr name="current_C" type="//EString"/>
+		<attr name="power_A" type="//EString"/>
+		<attr name="power_B" type="//EString"/>
+		<attr name="power_C" type="//EString"/>
+		<attr name="shunt_A" type="//EString"/>
+		<attr name="shunt_B" type="//EString"/>
+		<attr name="shunt_C" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Pqload">
+		<attr name="weather" type="//EString"/>
+		<attr name="T_nominal" type="//EString"/>
+		<attr name="Zp_T" type="//EString"/>
+		<attr name="Zp_H" type="//EString"/>
+		<attr name="Zp_S" type="//EString"/>
+		<attr name="Zp_W" type="//EString"/>
+		<attr name="Zp_R" type="//EString"/>
+		<attr name="Zp" type="//EString"/>
+		<attr name="Zq_T" type="//EString"/>
+		<attr name="Zq_H" type="//EString"/>
+		<attr name="Zq_S" type="//EString"/>
+		<attr name="Zq_W" type="//EString"/>
+		<attr name="Zq_R" type="//EString"/>
+		<attr name="Zq" type="//EString"/>
+		<attr name="Im_T" type="//EString"/>
+		<attr name="Im_H" type="//EString"/>
+		<attr name="Im_S" type="//EString"/>
+		<attr name="Im_W" type="//EString"/>
+		<attr name="Im_R" type="//EString"/>
+		<attr name="Im" type="//EString"/>
+		<attr name="Ia_T" type="//EString"/>
+		<attr name="Ia_H" type="//EString"/>
+		<attr name="Ia_S" type="//EString"/>
+		<attr name="Ia_W" type="//EString"/>
+		<attr name="Ia_R" type="//EString"/>
+		<attr name="Ia" type="//EString"/>
+		<attr name="Pp_T" type="//EString"/>
+		<attr name="Pp_H" type="//EString"/>
+		<attr name="Pp_S" type="//EString"/>
+		<attr name="Pp_W" type="//EString"/>
+		<attr name="Pp_R" type="//EString"/>
+		<attr name="Pp" type="//EString"/>
+		<attr name="Pq_T" type="//EString"/>
+		<attr name="Pq_H" type="//EString"/>
+		<attr name="Pq_S" type="//EString"/>
+		<attr name="Pq_W" type="//EString"/>
+		<attr name="Pq_R" type="//EString"/>
+		<attr name="Pq" type="//EString"/>
+		<attr name="input_temp" type="//EString"/>
+		<attr name="input_humid" type="//EString"/>
+		<attr name="input_solar" type="//EString"/>
+		<attr name="input_wind" type="//EString"/>
+		<attr name="input_rain" type="//EString"/>
+		<attr name="output_imped_p" type="//EString"/>
+		<attr name="output_imped_q" type="//EString"/>
+		<attr name="output_current_m" type="//EString"/>
+		<attr name="output_current_a" type="//EString"/>
+		<attr name="output_power_p" type="//EString"/>
+		<attr name="output_power_q" type="//EString"/>
+		<attr name="output_impedance" type="//EString"/>
+		<attr name="output_current" type="//EString"/>
+		<attr name="output_power" type="//EString"/>
+		<attr name="load_class" type="//EString"/>
+		<attr name="constant_power_A" type="//EString"/>
+		<attr name="constant_power_B" type="//EString"/>
+		<attr name="constant_power_C" type="//EString"/>
+		<attr name="constant_power_A_real" type="//EString"/>
+		<attr name="constant_power_B_real" type="//EString"/>
+		<attr name="constant_power_C_real" type="//EString"/>
+		<attr name="constant_power_A_reac" type="//EString"/>
+		<attr name="constant_power_B_reac" type="//EString"/>
+		<attr name="constant_power_C_reac" type="//EString"/>
+		<attr name="constant_current_A" type="//EString"/>
+		<attr name="constant_current_B" type="//EString"/>
+		<attr name="constant_current_C" type="//EString"/>
+		<attr name="constant_current_A_real" type="//EString"/>
+		<attr name="constant_current_B_real" type="//EString"/>
+		<attr name="constant_current_C_real" type="//EString"/>
+		<attr name="constant_current_A_reac" type="//EString"/>
+		<attr name="constant_current_B_reac" type="//EString"/>
+		<attr name="constant_current_C_reac" type="//EString"/>
+		<attr name="constant_impedance_A" type="//EString"/>
+		<attr name="constant_impedance_B" type="//EString"/>
+		<attr name="constant_impedance_C" type="//EString"/>
+		<attr name="constant_impedance_A_real" type="//EString"/>
+		<attr name="constant_impedance_B_real" type="//EString"/>
+		<attr name="constant_impedance_C_real" type="//EString"/>
+		<attr name="constant_impedance_A_reac" type="//EString"/>
+		<attr name="constant_impedance_B_reac" type="//EString"/>
+		<attr name="constant_impedance_C_reac" type="//EString"/>
+		<attr name="measured_voltage_A" type="//EString"/>
+		<attr name="measured_voltage_B" type="//EString"/>
+		<attr name="measured_voltage_C" type="//EString"/>
+		<attr name="measured_voltage_AB" type="//EString"/>
+		<attr name="measured_voltage_BC" type="//EString"/>
+		<attr name="measured_voltage_CA" type="//EString"/>
+		<attr name="bustype" type="//EString"/>
+		<attr name="busflags" type="//EString"/>
+		<attr name="reference_bus" type="//EString"/>
+		<attr name="maximum_voltage_error" type="//EString"/>
+		<attr name="voltage_A" type="//EString"/>
+		<attr name="voltage_B" type="//EString"/>
+		<attr name="voltage_C" type="//EString"/>
+		<attr name="voltage_AB" type="//EString"/>
+		<attr name="voltage_BC" type="//EString"/>
+		<attr name="voltage_CA" type="//EString"/>
+		<attr name="current_A" type="//EString"/>
+		<attr name="current_B" type="//EString"/>
+		<attr name="current_C" type="//EString"/>
+		<attr name="power_A" type="//EString"/>
+		<attr name="power_B" type="//EString"/>
+		<attr name="power_C" type="//EString"/>
+		<attr name="shunt_A" type="//EString"/>
+		<attr name="shunt_B" type="//EString"/>
+		<attr name="shunt_C" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Voltdump">
+		<attr name="group" type="//EString"/>
+		<attr name="runtime" type="//EString"/>
+		<attr name="filename" type="//EString"/>
+		<attr name="runcount" type="//EString"/>
+	</class>
+	<class name="Series_reactor">
+		<attr name="phase_A_impedance" type="//EString"/>
+		<attr name="phase_A_resistance" type="//EString"/>
+		<attr name="phase_A_reactance" type="//EString"/>
+		<attr name="phase_B_impedance" type="//EString"/>
+		<attr name="phase_B_resistance" type="//EString"/>
+		<attr name="phase_B_reactance" type="//EString"/>
+		<attr name="phase_C_impedance" type="//EString"/>
+		<attr name="phase_C_resistance" type="//EString"/>
+		<attr name="phase_C_reactance" type="//EString"/>
+		<attr name="rated_current_limit" type="//EString"/>
+		<attr name="status" type="//EString"/>
+		<attr name="from" type="//EString"/>
+		<attr name="to" type="//EString"/>
+		<attr name="power_in" type="//EString"/>
+		<attr name="power_out" type="//EString"/>
+		<attr name="power_losses" type="//EString"/>
+		<attr name="power_in_A" type="//EString"/>
+		<attr name="power_in_B" type="//EString"/>
+		<attr name="power_in_C" type="//EString"/>
+		<attr name="power_out_A" type="//EString"/>
+		<attr name="power_out_B" type="//EString"/>
+		<attr name="power_out_C" type="//EString"/>
+		<attr name="power_losses_A" type="//EString"/>
+		<attr name="power_losses_B" type="//EString"/>
+		<attr name="power_losses_C" type="//EString"/>
+		<attr name="flow_direction" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Restoration">
+		<attr name="configuration_file" type="//EString"/>
+		<attr name="reconfig_attempts" type="//EString"/>
+		<attr name="reconfig_iteration_limit" type="//EString"/>
+	</class>
+	<class name="Frequency_gen">
+		<attr name="Frequency_Mode" type="//EString"/>
+		<attr name="Frequency" type="//EString"/>
+		<attr name="FreqChange" type="//EString"/>
+		<attr name="Deadband" type="//EString"/>
+		<attr name="Tolerance" type="//EString"/>
+		<attr name="M" type="//EString"/>
+		<attr name="D" type="//EString"/>
+		<attr name="Rated_power" type="//EString"/>
+		<attr name="Gen_power" type="//EString"/>
+		<attr name="Load_power" type="//EString"/>
+		<attr name="Gov_delay" type="//EString"/>
+		<attr name="Ramp_rate" type="//EString"/>
+		<attr name="Low_Freq_OI" type="//EString"/>
+		<attr name="High_Freq_OI" type="//EString"/>
+		<attr name="avg24" type="//EString"/>
+		<attr name="std24" type="//EString"/>
+		<attr name="avg168" type="//EString"/>
+		<attr name="std168" type="//EString"/>
+		<attr name="Num_Resp_Eqs" type="//EString"/>
+	</class>
+	<class name="Volt_var_control">
+		<attr name="qualification_time" type="//EString"/>
+	</class>
+	<class name="Fault_check"/>
+	<class name="Motor">
+		<attr name="bustype" type="//EString"/>
+		<attr name="busflags" type="//EString"/>
+		<attr name="reference_bus" type="//EString"/>
+		<attr name="maximum_voltage_error" type="//EString"/>
+		<attr name="voltage_A" type="//EString"/>
+		<attr name="voltage_B" type="//EString"/>
+		<attr name="voltage_C" type="//EString"/>
+		<attr name="voltage_AB" type="//EString"/>
+		<attr name="voltage_BC" type="//EString"/>
+		<attr name="voltage_CA" type="//EString"/>
+		<attr name="current_A" type="//EString"/>
+		<attr name="current_B" type="//EString"/>
+		<attr name="current_C" type="//EString"/>
+		<attr name="power_A" type="//EString"/>
+		<attr name="power_B" type="//EString"/>
+		<attr name="power_C" type="//EString"/>
+		<attr name="shunt_A" type="//EString"/>
+		<attr name="shunt_B" type="//EString"/>
+		<attr name="shunt_C" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Billdump">
+		<attr name="group" type="//EString"/>
+		<attr name="runtime" type="//EString"/>
+		<attr name="filename" type="//EString"/>
+		<attr name="runcount" type="//EString"/>
+	</class>
+	<class name="Residential_enduse">
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="House_a">
+		<attr name="floor_area" type="//EString"/>
+		<attr name="gross_wall_area" type="//EString"/>
+		<attr name="ceiling_height" type="//EString"/>
+		<attr name="aspect_ratio" type="//EString"/>
+		<attr name="envelope_UA" type="//EString"/>
+		<attr name="window_wall_ratio" type="//EString"/>
+		<attr name="glazing_shgc" type="//EString"/>
+		<attr name="airchange_per_hour" type="//EString"/>
+		<attr name="solar_gain" type="//EString"/>
+		<attr name="heat_cool_gain" type="//EString"/>
+		<attr name="thermostat_deadband" type="//EString"/>
+		<attr name="heating_setpoint" type="//EString"/>
+		<attr name="cooling_setpoint" type="//EString"/>
+		<attr name="design_heating_capacity" type="//EString"/>
+		<attr name="design_cooling_capacity" type="//EString"/>
+		<attr name="heating_COP" type="//EString"/>
+		<attr name="cooling_COP" type="//EString"/>
+		<attr name="COP_coeff" type="//EString"/>
+		<attr name="air_temperature" type="//EString"/>
+		<attr name="outside_temp" type="//EString"/>
+		<attr name="mass_temperature" type="//EString"/>
+		<attr name="mass_heat_coeff" type="//EString"/>
+		<attr name="outdoor_temperature" type="//EString"/>
+		<attr name="house_thermal_mass" type="//EString"/>
+		<attr name="heat_mode" type="//EString"/>
+		<attr name="hc_mode" type="//EString"/>
+		<attr name="houseload" type="//EString"/>
+		<attr name="houseload__energy" type="//EString"/>
+		<attr name="houseload__power" type="//EString"/>
+		<attr name="houseload__peak_demand" type="//EString"/>
+		<attr name="houseload__heatgain" type="//EString"/>
+		<attr name="houseload__heatgain_fraction" type="//EString"/>
+		<attr name="houseload__current_fraction" type="//EString"/>
+		<attr name="houseload__impedance_fraction" type="//EString"/>
+		<attr name="houseload__power_fraction" type="//EString"/>
+		<attr name="houseload__power_factor" type="//EString"/>
+		<attr name="houseload__constant_power" type="//EString"/>
+		<attr name="houseload__constant_current" type="//EString"/>
+		<attr name="houseload__constant_admittance" type="//EString"/>
+		<attr name="houseload__voltage_factor" type="//EString"/>
+		<attr name="houseload__configuration" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="House">
+		<attr name="weather" type="//EString"/>
+		<attr name="floor_area" type="//EString"/>
+		<attr name="gross_wall_area" type="//EString"/>
+		<attr name="ceiling_height" type="//EString"/>
+		<attr name="aspect_ratio" type="//EString"/>
+		<attr name="envelope_UA" type="//EString"/>
+		<attr name="window_wall_ratio" type="//EString"/>
+		<attr name="number_of_doors" type="//EString"/>
+		<attr name="exterior_wall_fraction" type="//EString"/>
+		<attr name="interior_exterior_wall_ratio" type="//EString"/>
+		<attr name="exterior_ceiling_fraction" type="//EString"/>
+		<attr name="exterior_floor_fraction" type="//EString"/>
+		<attr name="window_shading" type="//EString"/>
+		<attr name="window_exterior_transmission_coefficient" type="//EString"/>
+		<attr name="solar_heatgain_factor" type="//EString"/>
+		<attr name="airchange_per_hour" type="//EString"/>
+		<attr name="airchange_UA" type="//EString"/>
+		<attr name="internal_gain" type="//EString"/>
+		<attr name="solar_gain" type="//EString"/>
+		<attr name="heat_cool_gain" type="//EString"/>
+		<attr name="thermostat_deadband" type="//EString"/>
+		<attr name="thermostat_cycle_time" type="//EString"/>
+		<attr name="thermostat_last_cycle_time" type="//EString"/>
+		<attr name="heating_setpoint" type="//EString"/>
+		<attr name="cooling_setpoint" type="//EString"/>
+		<attr name="design_heating_setpoint" type="//EString"/>
+		<attr name="design_cooling_setpoint" type="//EString"/>
+		<attr name="design_heating_capacity" type="//EString"/>
+		<attr name="design_cooling_capacity" type="//EString"/>
+		<attr name="adj_heating_cap" type="//EString"/>
+		<attr name="sys_rated_cap" type="//EString"/>
+		<attr name="cooling_design_temperature" type="//EString"/>
+		<attr name="heating_design_temperature" type="//EString"/>
+		<attr name="design_peak_solar" type="//EString"/>
+		<attr name="design_internal_gains" type="//EString"/>
+		<attr name="air_heat_fraction" type="//EString"/>
+		<attr name="auxiliary_heat_capacity" type="//EString"/>
+		<attr name="aux_heat_deadband" type="//EString"/>
+		<attr name="aux_heat_temperature_lockout" type="//EString"/>
+		<attr name="aux_heat_time_delay" type="//EString"/>
+		<attr name="cooling_supply_air_temp" type="//EString"/>
+		<attr name="heating_supply_air_temp" type="//EString"/>
+		<attr name="duct_pressure_drop" type="//EString"/>
+		<attr name="fan_design_power" type="//EString"/>
+		<attr name="fan_low_power_fraction" type="//EString"/>
+		<attr name="fan_power" type="//EString"/>
+		<attr name="fan_design_airflow" type="//EString"/>
+		<attr name="fan_impedance_fraction" type="//EString"/>
+		<attr name="fan_power_fraction" type="//EString"/>
+		<attr name="fan_current_fraction" type="//EString"/>
+		<attr name="fan_power_factor" type="//EString"/>
+		<attr name="heating_demand" type="//EString"/>
+		<attr name="cooling_demand" type="//EString"/>
+		<attr name="heating_COP" type="//EString"/>
+		<attr name="cooling_COP" type="//EString"/>
+		<attr name="adj_heating_cop" type="//EString"/>
+		<attr name="air_temperature" type="//EString"/>
+		<attr name="outdoor_temperature" type="//EString"/>
+		<attr name="mass_heat_capacity" type="//EString"/>
+		<attr name="mass_heat_coeff" type="//EString"/>
+		<attr name="mass_temperature" type="//EString"/>
+		<attr name="air_volume" type="//EString"/>
+		<attr name="air_mass" type="//EString"/>
+		<attr name="air_heat_capacity" type="//EString"/>
+		<attr name="latent_load_fraction" type="//EString"/>
+		<attr name="total_thermal_mass_per_floor_area" type="//EString"/>
+		<attr name="interior_surface_heat_transfer_coeff" type="//EString"/>
+		<attr name="number_of_stories" type="//EString"/>
+		<attr name="system_type" type="//EString"/>
+		<attr name="auxiliary_strategy" type="//EString"/>
+		<attr name="system_mode" type="//EString"/>
+		<attr name="heating_system_type" type="//EString"/>
+		<attr name="cooling_system_type" type="//EString"/>
+		<attr name="auxiliary_system_type" type="//EString"/>
+		<attr name="fan_type" type="//EString"/>
+		<attr name="thermal_integrity_level" type="//EString"/>
+		<attr name="glass_type" type="//EString"/>
+		<attr name="window_frame" type="//EString"/>
+		<attr name="glazing_treatment" type="//EString"/>
+		<attr name="glazing_layers" type="//EString"/>
+		<attr name="motor_model" type="//EString"/>
+		<attr name="motor_efficiency" type="//EString"/>
+		<attr name="hvac_motor_efficiency" type="//EString"/>
+		<attr name="hvac_motor_loss_power_factor" type="//EString"/>
+		<attr name="Rroof" type="//EString"/>
+		<attr name="Rwall" type="//EString"/>
+		<attr name="Rfloor" type="//EString"/>
+		<attr name="Rwindows" type="//EString"/>
+		<attr name="Rdoors" type="//EString"/>
+		<attr name="hvac_breaker_rating" type="//EString"/>
+		<attr name="hvac_power_factor" type="//EString"/>
+		<attr name="hvac_load" type="//EString"/>
+		<attr name="panel" type="//EString"/>
+		<attr name="panel__energy" type="//EString"/>
+		<attr name="panel__power" type="//EString"/>
+		<attr name="panel__peak_demand" type="//EString"/>
+		<attr name="panel__heatgain" type="//EString"/>
+		<attr name="panel__heatgain_fraction" type="//EString"/>
+		<attr name="panel__current_fraction" type="//EString"/>
+		<attr name="panel__impedance_fraction" type="//EString"/>
+		<attr name="panel__power_fraction" type="//EString"/>
+		<attr name="panel__power_factor" type="//EString"/>
+		<attr name="panel__constant_power" type="//EString"/>
+		<attr name="panel__constant_current" type="//EString"/>
+		<attr name="panel__constant_admittance" type="//EString"/>
+		<attr name="panel__voltage_factor" type="//EString"/>
+		<attr name="panel__configuration" type="//EString"/>
+		<attr name="design_internal_gain_density" type="//EString"/>
+		<attr name="a" type="//EString"/>
+		<attr name="b" type="//EString"/>
+		<attr name="c" type="//EString"/>
+		<attr name="d" type="//EString"/>
+		<attr name="c1" type="//EString"/>
+		<attr name="c2" type="//EString"/>
+		<attr name="A3" type="//EString"/>
+		<attr name="A4" type="//EString"/>
+		<attr name="k1" type="//EString"/>
+		<attr name="k2" type="//EString"/>
+		<attr name="r1" type="//EString"/>
+		<attr name="r2" type="//EString"/>
+		<attr name="Teq" type="//EString"/>
+		<attr name="Tevent" type="//EString"/>
+		<attr name="Qi" type="//EString"/>
+		<attr name="Qa" type="//EString"/>
+		<attr name="Qm" type="//EString"/>
+		<attr name="Qh" type="//EString"/>
+		<attr name="dTair" type="//EString"/>
+		<attr name="sol_inc" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Waterheater">
+		<attr name="tank_volume" type="//EString"/>
+		<attr name="tank_UA" type="//EString"/>
+		<attr name="tank_diameter" type="//EString"/>
+		<attr name="water_demand" type="//EString"/>
+		<attr name="heating_element_capacity" type="//EString"/>
+		<attr name="inlet_water_temperature" type="//EString"/>
+		<attr name="heat_mode" type="//EString"/>
+		<attr name="location" type="//EString"/>
+		<attr name="tank_setpoint" type="//EString"/>
+		<attr name="thermostat_deadband" type="//EString"/>
+		<attr name="temperature" type="//EString"/>
+		<attr name="height" type="//EString"/>
+		<attr name="demand" type="//EString"/>
+		<attr name="actual_load" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Lights">
+		<attr name="type" type="//EString"/>
+		<attr name="placement" type="//EString"/>
+		<attr name="installed_power" type="//EString"/>
+		<attr name="power_density" type="//EString"/>
+		<attr name="curtailment" type="//EString"/>
+		<attr name="demand" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Refrigerator">
+		<attr name="size" type="//EString"/>
+		<attr name="rated_capacity" type="//EString"/>
+		<attr name="temperature" type="//EString"/>
+		<attr name="setpoint" type="//EString"/>
+		<attr name="deadband" type="//EString"/>
+		<attr name="next_time" type="//EString"/>
+		<attr name="output" type="//EString"/>
+		<attr name="event_temp" type="//EString"/>
+		<attr name="UA" type="//EString"/>
+		<attr name="state" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Clotheswasher">
+		<attr name="motor_power" type="//EString"/>
+		<attr name="circuit_split" type="//EString"/>
+		<attr name="queue" type="//EString"/>
+		<attr name="demand" type="//EString"/>
+		<attr name="energy_meter" type="//EString"/>
+		<attr name="stall_voltage" type="//EString"/>
+		<attr name="start_voltage" type="//EString"/>
+		<attr name="stall_impedance" type="//EString"/>
+		<attr name="trip_delay" type="//EString"/>
+		<attr name="reset_delay" type="//EString"/>
+		<attr name="state" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Dishwasher">
+		<attr name="installed_power" type="//EString"/>
+		<attr name="demand" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Occupantload">
+		<attr name="number_of_occupants" type="//EString"/>
+		<attr name="occupancy_fraction" type="//EString"/>
+		<attr name="heatgain_per_person" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Plugload">
+		<attr name="circuit_split" type="//EString"/>
+		<attr name="demand" type="//EString"/>
+		<attr name="installed_power" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Microwave">
+		<attr name="installed_power" type="//EString"/>
+		<attr name="standby_power" type="//EString"/>
+		<attr name="circuit_split" type="//EString"/>
+		<attr name="state" type="//EString"/>
+		<attr name="cycle_length" type="//EString"/>
+		<attr name="runtime" type="//EString"/>
+		<attr name="state_time" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Range">
+		<attr name="installed_power" type="//EString"/>
+		<attr name="circuit_split" type="//EString"/>
+		<attr name="demand" type="//EString"/>
+		<attr name="energy_meter" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Freezer">
+		<attr name="size" type="//EString"/>
+		<attr name="rated_capacity" type="//EString"/>
+		<attr name="temperature" type="//EString"/>
+		<attr name="setpoint" type="//EString"/>
+		<attr name="deadband" type="//EString"/>
+		<attr name="next_time" type="//EString"/>
+		<attr name="output" type="//EString"/>
+		<attr name="event_temp" type="//EString"/>
+		<attr name="UA" type="//EString"/>
+		<attr name="state" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Dryer">
+		<attr name="motor_power" type="//EString"/>
+		<attr name="coil_power" type="//EString"/>
+		<attr name="circuit_split" type="//EString"/>
+		<attr name="demand" type="//EString"/>
+		<attr name="queue" type="//EString"/>
+		<attr name="stall_voltage" type="//EString"/>
+		<attr name="start_voltage" type="//EString"/>
+		<attr name="stall_impedance" type="//EString"/>
+		<attr name="trip_delay" type="//EString"/>
+		<attr name="reset_delay" type="//EString"/>
+		<attr name="state" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Evcharger">
+		<attr name="charger_type" type="//EString"/>
+		<attr name="vehicle_type" type="//EString"/>
+		<attr name="state" type="//EString"/>
+		<attr name="p_go_home" type="//EString"/>
+		<attr name="p_go_work" type="//EString"/>
+		<attr name="work_dist" type="//EString"/>
+		<attr name="capacity" type="//EString"/>
+		<attr name="charge" type="//EString"/>
+		<attr name="charge_at_work" type="//EString"/>
+		<attr name="charge_throttle" type="//EString"/>
+		<attr name="demand_profile" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="ZIPload">
+		<attr name="heat_fraction" type="//EString"/>
+		<attr name="base_power" type="//EString"/>
+		<attr name="power_pf" type="//EString"/>
+		<attr name="current_pf" type="//EString"/>
+		<attr name="impedance_pf" type="//EString"/>
+		<attr name="is_240" type="//EString"/>
+		<attr name="breaker_val" type="//EString"/>
+		<attr name="shape" type="//EString"/>
+		<attr name="load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="peak_demand" type="//EString"/>
+		<attr name="heatgain" type="//EString"/>
+		<attr name="heatgain_fraction" type="//EString"/>
+		<attr name="current_fraction" type="//EString"/>
+		<attr name="impedance_fraction" type="//EString"/>
+		<attr name="power_fraction" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="constant_power" type="//EString"/>
+		<attr name="constant_current" type="//EString"/>
+		<attr name="constant_admittance" type="//EString"/>
+		<attr name="voltage_factor" type="//EString"/>
+		<attr name="configuration" type="//EString"/>
+		<attr name="override" type="//EString"/>
+	</class>
+	<class name="Player">
+		<attr name="property" type="//EString"/>
+		<attr name="file" type="//EString"/>
+		<attr name="filetype" type="//EString"/>
+		<attr name="loop" type="//EString"/>
+	</class>
+	<class name="Shaper">
+		<attr name="file" type="//EString"/>
+		<attr name="filetype" type="//EString"/>
+		<attr name="group" type="//EString"/>
+		<attr name="property" type="//EString"/>
+		<attr name="magnitude" type="//EString"/>
+		<attr name="events" type="//EString"/>
+	</class>
+	<class name="Recorder">
+		<attr name="property" type="//EString"/>
+		<attr name="trigger" type="//EString"/>
+		<attr name="file" type="//EString"/>
+		<attr name="limit" type="//EString"/>
+		<attr name="plotcommands" type="//EString"/>
+		<attr name="xdata" type="//EString"/>
+		<attr name="columns" type="//EString"/>
+		<attr name="interval" type="//EString"/>
+		<attr name="output" type="//EString"/>
+	</class>
+	<class name="Collector">
+		<attr name="property" type="//EString"/>
+		<attr name="trigger" type="//EString"/>
+		<attr name="file" type="//EString"/>
+		<attr name="limit" type="//EString"/>
+		<attr name="group" type="//EString"/>
+		<attr name="interval" type="//EString"/>
+	</class>
+	<class name="Histogram">
+		<attr name="filename" type="//EString"/>
+		<attr name="group" type="//EString"/>
+		<attr name="bins" type="//EString"/>
+		<attr name="property" type="//EString"/>
+		<attr name="min" type="//EString"/>
+		<attr name="max" type="//EString"/>
+		<attr name="samplerate" type="//EString"/>
+		<attr name="countrate" type="//EString"/>
+		<attr name="bin_count" type="//EString"/>
+		<attr name="limit" type="//EString"/>
+	</class>
+	<class name="Weather">
+		<attr name="temperature" type="//EString"/>
+		<attr name="humidity" type="//EString"/>
+		<attr name="solar_dir" type="//EString"/>
+		<attr name="solar_diff" type="//EString"/>
+		<attr name="wind_speed" type="//EString"/>
+		<attr name="rainfall" type="//EString"/>
+		<attr name="snowdepth" type="//EString"/>
+		<attr name="month" type="//EString"/>
+		<attr name="day" type="//EString"/>
+		<attr name="hour" type="//EString"/>
+		<attr name="minute" type="//EString"/>
+		<attr name="second" type="//EString"/>
+	</class>
+	<class name="Office">
+		<attr name="floor_area" type="//EString"/>
+		<attr name="floor_height" type="//EString"/>
+		<attr name="exterior_ua" type="//EString"/>
+		<attr name="interior_ua" type="//EString"/>
+		<attr name="interior_mass" type="//EString"/>
+		<attr name="glazing" type="//EString"/>
+		<attr name="glazing__north" type="//EString"/>
+		<attr name="glazing__northeast" type="//EString"/>
+		<attr name="glazing__east" type="//EString"/>
+		<attr name="glazing__southeast" type="//EString"/>
+		<attr name="glazing__south" type="//EString"/>
+		<attr name="glazing__southwest" type="//EString"/>
+		<attr name="glazing__west" type="//EString"/>
+		<attr name="glazing__northwest" type="//EString"/>
+		<attr name="glazing__horizontal" type="//EString"/>
+		<attr name="glazing__coefficient" type="//EString"/>
+		<attr name="occupancy" type="//EString"/>
+		<attr name="occupants" type="//EString"/>
+		<attr name="schedule" type="//EString"/>
+		<attr name="air_temperature" type="//EString"/>
+		<attr name="mass_temperature" type="//EString"/>
+		<attr name="temperature_change" type="//EString"/>
+		<attr name="outdoor_temperature" type="//EString"/>
+		<attr name="Qh" type="//EString"/>
+		<attr name="Qs" type="//EString"/>
+		<attr name="Qi" type="//EString"/>
+		<attr name="Qz" type="//EString"/>
+		<attr name="hvac_mode" type="//EString"/>
+		<attr name="hvac__cooling__balance_temperature" type="//EString"/>
+		<attr name="hvac__cooling__capacity" type="//EString"/>
+		<attr name="hvac__cooling__capacity_perF" type="//EString"/>
+		<attr name="hvac__cooling__design_temperature" type="//EString"/>
+		<attr name="hvac__cooling__efficiency" type="//EString"/>
+		<attr name="hvac__cooling__cop" type="//EString"/>
+		<attr name="hvac__heating__balance_temperature" type="//EString"/>
+		<attr name="hvac__heating__capacity" type="//EString"/>
+		<attr name="hvac__heating__capacity_perF" type="//EString"/>
+		<attr name="hvac__heating__design_temperature" type="//EString"/>
+		<attr name="hvac__heating__efficiency" type="//EString"/>
+		<attr name="hvac__heating__cop" type="//EString"/>
+		<attr name="lights__capacity" type="//EString"/>
+		<attr name="lights__fraction" type="//EString"/>
+		<attr name="plugs__capacity" type="//EString"/>
+		<attr name="plugs__fraction" type="//EString"/>
+		<attr name="demand" type="//EString"/>
+		<attr name="total_load" type="//EString"/>
+		<attr name="energy" type="//EString"/>
+		<attr name="power_factor" type="//EString"/>
+		<attr name="power" type="//EString"/>
+		<attr name="current" type="//EString"/>
+		<attr name="admittance" type="//EString"/>
+		<attr name="hvac__demand" type="//EString"/>
+		<attr name="hvac__load" type="//EString"/>
+		<attr name="hvac__energy" type="//EString"/>
+		<attr name="hvac__power_factor" type="//EString"/>
+		<attr name="lights__demand" type="//EString"/>
+		<attr name="lights__load" type="//EString"/>
+		<attr name="lights__energy" type="//EString"/>
+		<attr name="lights__power_factor" type="//EString"/>
+		<attr name="lights__heatgain_fraction" type="//EString"/>
+		<attr name="lights__heatgain" type="//EString"/>
+		<attr name="plugs__demand" type="//EString"/>
+		<attr name="plugs__load" type="//EString"/>
+		<attr name="plugs__energy" type="//EString"/>
+		<attr name="plugs__power_factor" type="//EString"/>
+		<attr name="plugs__heatgain_fraction" type="//EString"/>
+		<attr name="plugs__heatgain" type="//EString"/>
+		<attr name="cooling_setpoint" type="//EString"/>
+		<attr name="heating_setpoint" type="//EString"/>
+		<attr name="thermostat_deadband" type="//EString"/>
+		<attr name="control__ventilation_fraction" type="//EString"/>
+		<attr name="control__lighting_fraction" type="//EString"/>
+		<attr name="ACH" type="//EString"/>
+	</class>
+	<class name="Multizone">
+		<attr name="from" type="//EString"/>
+		<attr name="to" type="//EString"/>
+		<attr name="ua" type="//EString"/>
+	</class>
+	<class name="Windturb_dg">
+		<attr name="Gen_status" type="//EString"/>
+		<attr name="Gen_type" type="//EString"/>
+		<attr name="Gen_mode" type="//EString"/>
+		<attr name="Turbine_Model" type="//EString"/>
+		<attr name="Rated_VA" type="//EString"/>
+		<attr name="Rated_V" type="//EString"/>
+		<attr name="Pconv" type="//EString"/>
+		<attr name="WSadj" type="//EString"/>
+		<attr name="Wind_Speed" type="//EString"/>
+		<attr name="pf" type="//EString"/>
+		<attr name="GenElecEff" type="//EString"/>
+		<attr name="TotalRealPow" type="//EString"/>
+		<attr name="TotalReacPow" type="//EString"/>
+		<attr name="voltage_A" type="//EString"/>
+		<attr name="voltage_B" type="//EString"/>
+		<attr name="voltage_C" type="//EString"/>
+		<attr name="current_A" type="//EString"/>
+		<attr name="current_B" type="//EString"/>
+		<attr name="current_C" type="//EString"/>
+		<attr name="EfA" type="//EString"/>
+		<attr name="EfB" type="//EString"/>
+		<attr name="EfC" type="//EString"/>
+		<attr name="Vrotor_A" type="//EString"/>
+		<attr name="Vrotor_B" type="//EString"/>
+		<attr name="Vrotor_C" type="//EString"/>
+		<attr name="Irotor_A" type="//EString"/>
+		<attr name="Irotor_B" type="//EString"/>
+		<attr name="Irotor_C" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+	</class>
+	<class name="Power_electronics">
+		<attr name="generator_mode" type="//EString"/>
+		<attr name="generator_status" type="//EString"/>
+		<attr name="converter_type" type="//EString"/>
+		<attr name="switch_type" type="//EString"/>
+		<attr name="filter_type" type="//EString"/>
+		<attr name="filter_implementation" type="//EString"/>
+		<attr name="filter_frequency" type="//EString"/>
+		<attr name="power_type" type="//EString"/>
+		<attr name="Rated_kW" type="//EString"/>
+		<attr name="Max_P" type="//EString"/>
+		<attr name="Min_P" type="//EString"/>
+		<attr name="Rated_kVA" type="//EString"/>
+		<attr name="Rated_kV" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+	</class>
+	<class name="Rectifier">
+		<attr name="rectifier_type" type="//EString"/>
+		<attr name="generator_mode" type="//EString"/>
+		<attr name="V_Out" type="//EString"/>
+		<attr name="I_Out" type="//EString"/>
+		<attr name="VA_Out" type="//EString"/>
+		<attr name="P_Out" type="//EString"/>
+		<attr name="Q_Out" type="//EString"/>
+		<attr name="Vdc" type="//EString"/>
+		<attr name="phaseA_V_In" type="//EString"/>
+		<attr name="phaseB_V_In" type="//EString"/>
+		<attr name="phaseC_V_In" type="//EString"/>
+		<attr name="phaseA_I_In" type="//EString"/>
+		<attr name="phaseB_I_In" type="//EString"/>
+		<attr name="phaseC_I_In" type="//EString"/>
+		<attr name="power_A_In" type="//EString"/>
+		<attr name="power_B_In" type="//EString"/>
+		<attr name="power_C_In" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+	</class>
+	<class name="Microturbine">
+		<attr name="generator_mode" type="//EString"/>
+		<attr name="generator_status" type="//EString"/>
+		<attr name="power_type" type="//EString"/>
+		<attr name="Rinternal" type="//EString"/>
+		<attr name="Rload" type="//EString"/>
+		<attr name="V_Max" type="//EString"/>
+		<attr name="I_Max" type="//EString"/>
+		<attr name="frequency" type="//EString"/>
+		<attr name="Max_Frequency" type="//EString"/>
+		<attr name="Min_Frequency" type="//EString"/>
+		<attr name="Fuel_Used" type="//EString"/>
+		<attr name="Heat_Out" type="//EString"/>
+		<attr name="KV" type="//EString"/>
+		<attr name="Power_Angle" type="//EString"/>
+		<attr name="Max_P" type="//EString"/>
+		<attr name="Min_P" type="//EString"/>
+		<attr name="phaseA_V_Out" type="//EString"/>
+		<attr name="phaseB_V_Out" type="//EString"/>
+		<attr name="phaseC_V_Out" type="//EString"/>
+		<attr name="phaseA_I_Out" type="//EString"/>
+		<attr name="phaseB_I_Out" type="//EString"/>
+		<attr name="phaseC_I_Out" type="//EString"/>
+		<attr name="power_A_Out" type="//EString"/>
+		<attr name="power_B_Out" type="//EString"/>
+		<attr name="power_C_Out" type="//EString"/>
+		<attr name="VA_Out" type="//EString"/>
+		<attr name="pf_Out" type="//EString"/>
+		<attr name="E_A_Internal" type="//EString"/>
+		<attr name="E_B_Internal" type="//EString"/>
+		<attr name="E_C_Internal" type="//EString"/>
+		<attr name="efficiency" type="//EString"/>
+		<attr name="Rated_kVA" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+	</class>
+	<class name="Battery">
+		<attr name="generator_mode" type="//EString"/>
+		<attr name="generator_status" type="//EString"/>
+		<attr name="rfb_size" type="//EString"/>
+		<attr name="power_type" type="//EString"/>
+		<attr name="power_set_high" type="//EString"/>
+		<attr name="power_set_low" type="//EString"/>
+		<attr name="Rinternal" type="//EString"/>
+		<attr name="V_Max" type="//EString"/>
+		<attr name="I_Max" type="//EString"/>
+		<attr name="E_Max" type="//EString"/>
+		<attr name="Energy" type="//EString"/>
+		<attr name="efficiency" type="//EString"/>
+		<attr name="base_efficiency" type="//EString"/>
+		<attr name="Rated_kVA" type="//EString"/>
+		<attr name="V_Out" type="//EString"/>
+		<attr name="I_Out" type="//EString"/>
+		<attr name="VA_Out" type="//EString"/>
+		<attr name="V_In" type="//EString"/>
+		<attr name="I_In" type="//EString"/>
+		<attr name="V_Internal" type="//EString"/>
+		<attr name="I_Internal" type="//EString"/>
+		<attr name="I_Prev" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+	</class>
+	<class name="Solar">
+		<attr name="generator_mode" type="//EString"/>
+		<attr name="generator_status" type="//EString"/>
+		<attr name="panel_type" type="//EString"/>
+		<attr name="power_type" type="//EString"/>
+		<attr name="noct" type="//EString"/>
+		<attr name="Tcell" type="//EString"/>
+		<attr name="Tambient" type="//EString"/>
+		<attr name="Insolation" type="//EString"/>
+		<attr name="Rinternal" type="//EString"/>
+		<attr name="Rated_Insolation" type="//EString"/>
+		<attr name="V_Max" type="//EString"/>
+		<attr name="Voc_Max" type="//EString"/>
+		<attr name="Voc" type="//EString"/>
+		<attr name="efficiency" type="//EString"/>
+		<attr name="area" type="//EString"/>
+		<attr name="Rated_kVA" type="//EString"/>
+		<attr name="V_Out" type="//EString"/>
+		<attr name="I_Out" type="//EString"/>
+		<attr name="VA_Out" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+	</class>
+	<class name="Stubauction">
+		<attr name="unit" type="//EString"/>
+		<attr name="period" type="//EString"/>
+		<attr name="last__P" type="//EString"/>
+		<attr name="next__P" type="//EString"/>
+		<attr name="avg24" type="//EString"/>
+		<attr name="std24" type="//EString"/>
+		<attr name="avg72" type="//EString"/>
+		<attr name="std72" type="//EString"/>
+		<attr name="avg168" type="//EString"/>
+		<attr name="std168" type="//EString"/>
+		<attr name="verbose" type="//EString"/>
+	</class>
+	<class name="Link">
+		<attr name="Y" type="//EString"/>
+		<attr name="I" type="//EString"/>
+		<attr name="B" type="//EString"/>
+		<attr name="from" type="//EString"/>
+		<attr name="to" type="//EString"/>
+	</class>
+	<class name="Fuse">
+		<attr name="TimeConstant" type="//EString"/>
+		<attr name="SetCurrent" type="//EString"/>
+		<attr name="SetBase" type="//EString"/>
+		<attr name="SetScale" type="//EString"/>
+		<attr name="SetCurve" type="//EString"/>
+		<attr name="TresetAvg" type="//EString"/>
+		<attr name="TresetStd" type="//EString"/>
+		<attr name="State" type="//EString"/>
+	</class>
+	<class name="Relay">
+		<attr name="Curve" type="//EString"/>
+		<attr name="TimeDial" type="//EString"/>
+		<attr name="SetCurrent" type="//EString"/>
+		<attr name="State" type="//EString"/>
+	</class>
+	<class name="Regulator">
+		<attr name="Type" type="//EString"/>
+		<attr name="Vmax" type="//EString"/>
+		<attr name="Vmin" type="//EString"/>
+		<attr name="Vstep" type="//EString"/>
+		<attr name="CTlink" type="//EString"/>
+		<attr name="PTbus" type="//EString"/>
+		<attr name="TimeDelay" type="//EString"/>
+	</class>
+	<class name="Transformer">
+		<attr name="Type" type="//EString"/>
+		<attr name="Sbase" type="//EString"/>
+		<attr name="Vbase" type="//EString"/>
+		<attr name="Zpu" type="//EString"/>
+		<attr name="Vprimary" type="//EString"/>
+		<attr name="Vsecondary" type="//EString"/>
+	</class>
+	<class name="Meter">
+		<attr name="type" type="//EString"/>
+		<attr name="demand" type="//EString"/>
+		<attr name="meter" type="//EString"/>
+		<attr name="line1_current" type="//EString"/>
+		<attr name="line2_current" type="//EString"/>
+		<attr name="line3_current" type="//EString"/>
+		<attr name="line1_admittance" type="//EString"/>
+		<attr name="line2_admittance" type="//EString"/>
+		<attr name="line3_admittance" type="//EString"/>
+		<attr name="line1_power" type="//EString"/>
+		<attr name="line2_power" type="//EString"/>
+		<attr name="line3_power" type="//EString"/>
+		<attr name="line1_volts" type="//EString"/>
+		<attr name="line2_volts" type="//EString"/>
+		<attr name="line3_volts" type="//EString"/>
+	</class>
+	<class name="Generator">
+		<attr name="Pdesired_MW" type="//EString"/>
+		<attr name="Qdesired_MVAR" type="//EString"/>
+		<attr name="Qcontrolled" type="//EString"/>
+		<attr name="Pmax_MW" type="//EString"/>
+		<attr name="Qmin_MVAR" type="//EString"/>
+		<attr name="Qmax_MVAR" type="//EString"/>
+		<attr name="QVa" type="//EString"/>
+		<attr name="QVb" type="//EString"/>
+		<attr name="QVc" type="//EString"/>
+		<attr name="state" type="//EString"/>
+	</class>
+	<class name="Plc">
+		<attr name="source" type="//EString"/>
+		<attr name="network" type="//EString"/>
+	</class>
+	<class name="Node">
+		<attr name="bustype" type="//EString"/>
+		<attr name="busflags" type="//EString"/>
+		<attr name="reference_bus" type="//EString"/>
+		<attr name="maximum_voltage_error" type="//EString"/>
+		<attr name="voltage_A" type="//EString"/>
+		<attr name="voltage_B" type="//EString"/>
+		<attr name="voltage_C" type="//EString"/>
+		<attr name="voltage_AB" type="//EString"/>
+		<attr name="voltage_BC" type="//EString"/>
+		<attr name="voltage_CA" type="//EString"/>
+		<attr name="current_A" type="//EString"/>
+		<attr name="current_B" type="//EString"/>
+		<attr name="current_C" type="//EString"/>
+		<attr name="power_A" type="//EString"/>
+		<attr name="power_B" type="//EString"/>
+		<attr name="power_C" type="//EString"/>
+		<attr name="shunt_A" type="//EString"/>
+		<attr name="shunt_B" type="//EString"/>
+		<attr name="shunt_C" type="//EString"/>
+		<attr name="phases" type="//EString"/>
+		<attr name="nominal_voltage" type="//EString"/>
+	</class>
+	<class name="Connection">
+		<ref name="connections" upperBound="-1" type="Connection"/>
+		<attr name="name" type="//EString"/>
+		<ref name="parent" upperBound="-1" type="Connection"/>
+	</class>
+	<class name="Grid">
+		<ref name="connections" upperBound="-1" containment="true" type="Connection"/>
+		<ref name="time" upperBound="-1" containment="true" type="Time"/>
+	</class>
+	<class name="Time">
+		<attr name="SimulatorTime" type="//EString"/>
+		<attr name="Realtime" type="//EString"/>
+	</class>
+</package>

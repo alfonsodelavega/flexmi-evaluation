@@ -1,0 +1,2674 @@
+@namespace(uri="http://www.plcopen.org/xml/tc6_0201", prefix="tc60201")
+package tc60201;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@GenModel(documentation="Defines the different access types to an accessVariable")
+@ExtendedMetaData(name="accessType")
+enum AccessType {
+	readOnly = 0;
+	readWrite = 1;
+}
+
+@ExtendedMetaData(name="accessType:Object", baseType="accessType")
+datatype AccessTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="Declaration of an access variable")
+@ExtendedMetaData(name="accessVariable_._type", kind="elementOnly")
+class AccessVariableType {
+
+	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
+	!resolve val DataType[1] type;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@GenModel(documentation="Name that is visible to the communication partner")
+	@ExtendedMetaData(kind="attribute", name="alias")
+	attr type.String[1] alias;
+
+	@ExtendedMetaData(kind="attribute", name="direction")
+	unsettable attr AccessType direction;
+
+	@GenModel(documentation="Variable name including instance path inside the configuration")
+	@ExtendedMetaData(kind="attribute", name="instancePathAndName")
+	attr type.String[1] instancePathAndName;
+}
+
+@ExtendedMetaData(name="actionBlock_._type", kind="elementOnly")
+class ActionBlockType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="action", namespace="##targetNamespace")
+	!resolve val ActionType[*] action;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@GenModel(documentation="Used to identify the order of execution. Also used to identify one special block if there are several blocks with the same name.")
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="actions_._type", kind="elementOnly")
+class ActionsType {
+
+	@ExtendedMetaData(kind="element", name="action", namespace="##targetNamespace")
+	!resolve val ActionType1[*] action;
+}
+
+@GenModel(documentation="Association of an action with qualifier")
+@ExtendedMetaData(name="action_._type", kind="elementOnly")
+class ActionType {
+
+	@GenModel(documentation="Relative position of the action. Origin is the anchor position of the action block.")
+	@ExtendedMetaData(kind="element", name="relPosition", namespace="##targetNamespace")
+	!resolve val Position[1] relPosition;
+
+	@GenModel(documentation="Name of an action or boolean variable.")
+	@ExtendedMetaData(kind="element", name="reference", namespace="##targetNamespace")
+	!resolve val ReferenceType1 reference;
+
+	@GenModel(documentation="Inline implementation of an action body.")
+	@ExtendedMetaData(kind="element", name="inline", namespace="##targetNamespace")
+	!resolve val Body inline;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="duration")
+	attr type.String duration;
+
+	@GenModel(documentation="Used to identify the order of execution. Also used to identify one special block if there are several blocks with the same name.")
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="indicator")
+	attr type.String indicator;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="qualifier")
+	unsettable attr QualifierType qualifier = "N";
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="action_._1_._type", kind="elementOnly")
+class ActionType1 {
+
+	@ExtendedMetaData(kind="element", name="body", namespace="##targetNamespace")
+	!resolve val Body[1] body;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@GenModel(documentation="Additional userspecific information to the element")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+}
+
+@GenModel(documentation="Application specific data defined in external schemata ")
+@ExtendedMetaData(name="addData", kind="elementOnly")
+class AddData {
+
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	!resolve val DataType1[*] data;
+}
+
+@GenModel(documentation="List of additional data elements used in the document with description")
+@ExtendedMetaData(name="addDataInfo", kind="elementOnly")
+class AddDataInfo {
+
+	@ExtendedMetaData(kind="element", name="info", namespace="##targetNamespace")
+	!resolve val InfoType[*] info;
+}
+
+@ExtendedMetaData(name="array_._type", kind="elementOnly")
+class ArrayType {
+
+	@ExtendedMetaData(kind="element", name="dimension", namespace="##targetNamespace")
+	!resolve val RangeSigned[+] dimension;
+
+	@ExtendedMetaData(kind="element", name="baseType", namespace="##targetNamespace")
+	!resolve val DataType[1] baseType;
+}
+
+@GenModel(documentation="Array value consisting of a list of occurrances - value pairs")
+@ExtendedMetaData(name="arrayValue_._type", kind="elementOnly")
+class ArrayValueType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ValueType1[*] value;
+}
+
+@GenModel(documentation="Describes a graphical object representing a call statement")
+@ExtendedMetaData(name="block_._type", kind="elementOnly")
+class BlockType {
+
+	@GenModel(documentation="Anchor position of the box. Top left corner excluding the instance name.")
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@GenModel(documentation="The list of used input variables (consumers)")
+	@ExtendedMetaData(kind="element", name="inputVariables", namespace="##targetNamespace")
+	!resolve val InputVariablesType[1] inputVariables;
+
+	@GenModel(documentation="The list of used inOut variables")
+	@ExtendedMetaData(kind="element", name="inOutVariables", namespace="##targetNamespace")
+	!resolve val InOutVariablesType[1] inOutVariables;
+
+	@GenModel(documentation="The list of used output variables (producers)")
+	@ExtendedMetaData(kind="element", name="outputVariables", namespace="##targetNamespace")
+	!resolve val OutputVariablesType[1] outputVariables;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@GenModel(documentation="Used to identify the order of execution. Also used to identify one special block if there are several blocks with the same name.")
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="instanceName")
+	attr type.String instanceName;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="typeName")
+	attr type.String[1] typeName;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@GenModel(documentation="Implementation part of a POU, action or transistion")
+@ExtendedMetaData(name="body", kind="elementOnly")
+class Body {
+
+	@ExtendedMetaData(kind="element", name="IL", namespace="##targetNamespace")
+	!resolve val FormattedText iL;
+
+	@ExtendedMetaData(kind="element", name="ST", namespace="##targetNamespace")
+	!resolve val FormattedText sT;
+
+	@ExtendedMetaData(kind="element", name="FBD", namespace="##targetNamespace")
+	!resolve val FBDType1 fBD;
+
+	@ExtendedMetaData(kind="element", name="LD", namespace="##targetNamespace")
+	!resolve val LDType1 lD;
+
+	@ExtendedMetaData(kind="element", name="SFC", namespace="##targetNamespace")
+	!resolve val SFCType1 sFC;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@GenModel(documentation="Additional userspecific information to the element")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="WorksheetName")
+	attr type.String worksheetName;
+}
+
+@GenModel(documentation="Describes a graphical object representing a boolean variable which can be used as l-value and r-value at the same time")
+@ExtendedMetaData(name="coil_._type", kind="elementOnly")
+class CoilType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@GenModel(documentation="The operand is a valid boolean  iec variable e.g. avar[0]")
+	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
+	attr type.String[1] variable;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable attr EdgeModifierType edge = "none";
+
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="storage")
+	unsettable attr StorageModifierType storage = "none";
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="comment_._type", kind="elementOnly")
+class CommentType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="content", namespace="##targetNamespace")
+	!resolve val FormattedText[1] content;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal[1] height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal[1] width;
+}
+
+@ExtendedMetaData(name="condition_._type", kind="elementOnly")
+class ConditionType {
+
+	@ExtendedMetaData(kind="element", name="reference", namespace="##targetNamespace")
+	!resolve val ReferenceType reference;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="inline", namespace="##targetNamespace")
+	!resolve val InlineType inline;
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+}
+
+@ExtendedMetaData(name="configurations_._type", kind="elementOnly")
+class ConfigurationsType {
+
+	@ExtendedMetaData(kind="element", name="configuration", namespace="##targetNamespace")
+	!resolve val ConfigurationType[*] configuration;
+}
+
+@GenModel(documentation="Represents a group of resources and global variables")
+@ExtendedMetaData(name="configuration_._type", kind="elementOnly")
+class ConfigurationType {
+
+	@ExtendedMetaData(kind="element", name="resource", namespace="##targetNamespace")
+	!resolve val ResourceType[*] resource;
+
+	@ExtendedMetaData(kind="element", name="globalVars", namespace="##targetNamespace")
+	!resolve val VarList[*] globalVars;
+
+	@ExtendedMetaData(kind="element", name="accessVars", namespace="##targetNamespace")
+	!resolve val VarListAccess accessVars;
+
+	@ExtendedMetaData(kind="element", name="configVars", namespace="##targetNamespace")
+	!resolve val VarListConfig configVars;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@GenModel(documentation="Additional userspecific information to the element")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+}
+
+@GenModel(documentation="Declaration of an access variable")
+@ExtendedMetaData(name="configVariable_._type", kind="elementOnly")
+class ConfigVariableType {
+
+	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
+	!resolve val DataType[1] type;
+
+	@ExtendedMetaData(kind="element", name="initialValue", namespace="##targetNamespace")
+	!resolve val Value initialValue;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="address")
+	attr type.String address;
+
+	@GenModel(documentation="Variable name including instance path")
+	@ExtendedMetaData(kind="attribute", name="instancePathAndName")
+	attr type.String[1] instancePathAndName;
+}
+
+@GenModel(documentation="Describes a connection between the consumer element (eg. input variable of a function block) and the producer element (eg. output variable of a function block). It may contain a list of positions that describes the path of the connection.")
+@ExtendedMetaData(name="connection", kind="elementOnly")
+class Connection {
+
+	@GenModel(documentation="All positions of the directed connection path. If any positions are given, the list has to contain the first (input pin of the consumer element) as well as the last (output pin of the producer element).")
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[*] position;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@GenModel(documentation="If present:
+	  This attribute denotes the name of the VAR_OUTPUT / VAR_IN_OUTparameter of the pou block that is the start of the connection.
+	  If not present:
+	  If the refLocalId attribute refers to a pou block, the start of the connection is the first output of this block, which is not ENO.
+	  If the refLocalId attribute refers to any other element type, the start of the connection is the elements single native output. ")
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String formalParameter;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@GenModel(documentation="Identifies the element the connection starts from.")
+	@ExtendedMetaData(kind="attribute", name="refLocalId")
+	attr type.UnsignedLong[1] refLocalId;
+}
+
+@GenModel(documentation="Defines a connection point on the consumer side")
+@ExtendedMetaData(name="connectionPointIn", kind="elementOnly")
+class ConnectionPointIn {
+
+	@GenModel(documentation="Relative position of the connection pin. Origin is the anchor position of the block.")
+	@ExtendedMetaData(kind="element", name="relPosition", namespace="##targetNamespace")
+	!resolve val Position relPosition;
+
+	@ExtendedMetaData(kind="element", name="connection", namespace="##targetNamespace")
+	!resolve val Connection[*] connection;
+
+	@GenModel(documentation="The operand is a valid iec variable e.g. avar[0] or an iec expression or multiple token text e.g. a + b (*sum*). An iec 61131-3 parser has to be used to extract variable information.")
+	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
+	attr type.String expression;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+}
+
+@ExtendedMetaData(name="connectionPointIn_._type", kind="elementOnly")
+class ConnectionPointInType extends ConnectionPointIn {
+}
+
+@GenModel(documentation="Defines a connection point on the producer side")
+@ExtendedMetaData(name="connectionPointOut", kind="elementOnly")
+class ConnectionPointOut {
+
+	@GenModel(documentation="Relative position of the connection pin. Origin is the anchor position of the block.")
+	@ExtendedMetaData(kind="element", name="relPosition", namespace="##targetNamespace")
+	!resolve val Position relPosition;
+
+	@GenModel(documentation="The operand is a valid iec variable e.g. avar[0].")
+	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
+	attr type.String expression;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+}
+
+@ExtendedMetaData(name="connectionPointOutAction_._type", kind="elementOnly")
+class ConnectionPointOutActionType extends ConnectionPointOut {
+
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String[1] formalParameter;
+}
+
+@ExtendedMetaData(name="connectionPointOut_._type", kind="elementOnly")
+class ConnectionPointOutType extends ConnectionPointOut {
+
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String[1] formalParameter;
+}
+
+@ExtendedMetaData(name="connectionPointOut_._1_._type", kind="elementOnly")
+class ConnectionPointOutType1 extends ConnectionPointOut {
+
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String[1] formalParameter;
+}
+
+@ExtendedMetaData(name="connectionPointOut_._2_._type", kind="elementOnly")
+class ConnectionPointOutType2 extends ConnectionPointOut {
+
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String[1] formalParameter;
+}
+
+@ExtendedMetaData(name="connectionPointOut_._3_._type", kind="elementOnly")
+class ConnectionPointOutType3 extends ConnectionPointOut {
+
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String[1] formalParameter;
+}
+
+@GenModel(documentation="Describes a graphical object representing a variable, literal or expression used as r-value")
+@ExtendedMetaData(name="connector_._type", kind="elementOnly")
+class ConnectorType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@GenModel(documentation="The operand is a valid iec variable e.g. avar[0]")
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@GenModel(documentation="Describes a graphical object representing a variable which can be used as l-value and r-value at the same time")
+@ExtendedMetaData(name="contact_._type", kind="elementOnly")
+class ContactType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@GenModel(documentation="The operand is a valid boolean iec variable e.g. avar[0]")
+	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
+	attr type.String[1] variable;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable attr EdgeModifierType edge = "none";
+
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="storage")
+	unsettable attr StorageModifierType storage = "none";
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="contentHeader_._type", kind="elementOnly")
+class ContentHeaderType {
+
+	@ExtendedMetaData(kind="element", name="Comment", namespace="##targetNamespace")
+	attr type.String comment;
+
+	@ExtendedMetaData(kind="element", name="coordinateInfo", namespace="##targetNamespace")
+	!resolve val CoordinateInfoType[1] coordinateInfo;
+
+	@ExtendedMetaData(kind="element", name="addDataInfo", namespace="##targetNamespace")
+	!resolve val AddDataInfo addDataInfo;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="attribute", name="author")
+	attr type.String author;
+
+	@GenModel(documentation="Documentation language of the project e.g. \"en-US\"")
+	@ExtendedMetaData(kind="attribute", name="language")
+	attr type.Language language;
+
+	@ExtendedMetaData(kind="attribute", name="modificationDateTime")
+	attr type.DateTime modificationDateTime;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="organization")
+	attr type.String organization;
+
+	@ExtendedMetaData(kind="attribute", name="version")
+	attr type.String version;
+}
+
+@GenModel(documentation="Describes a graphical object representing a variable, literal or expression used as r-value")
+@ExtendedMetaData(name="continuation_._type", kind="elementOnly")
+class ContinuationType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@GenModel(documentation="The operand is a valid iec variable e.g. avar[0]")
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="coordinateInfo_._type", kind="elementOnly")
+class CoordinateInfoType {
+
+	@ExtendedMetaData(kind="element", name="pageSize", namespace="##targetNamespace")
+	!resolve val PageSizeType pageSize;
+
+	@ExtendedMetaData(kind="element", name="fbd", namespace="##targetNamespace")
+	!resolve val FbdType[1] fbd;
+
+	@ExtendedMetaData(kind="element", name="ld", namespace="##targetNamespace")
+	!resolve val LdType[1] ld;
+
+	@ExtendedMetaData(kind="element", name="sfc", namespace="##targetNamespace")
+	!resolve val SfcType[1] sfc;
+}
+
+@GenModel(documentation="A generic data type")
+@ExtendedMetaData(name="dataType", kind="elementOnly")
+class DataType {
+
+	@ExtendedMetaData(kind="element", name="BOOL", namespace="##targetNamespace")
+	!resolve val EObject BOOL;
+
+	@ExtendedMetaData(kind="element", name="BYTE", namespace="##targetNamespace")
+	!resolve val EObject BYTE;
+
+	@ExtendedMetaData(kind="element", name="WORD", namespace="##targetNamespace")
+	!resolve val EObject WORD;
+
+	@ExtendedMetaData(kind="element", name="DWORD", namespace="##targetNamespace")
+	!resolve val EObject DWORD;
+
+	@ExtendedMetaData(kind="element", name="LWORD", namespace="##targetNamespace")
+	!resolve val EObject LWORD;
+
+	@ExtendedMetaData(kind="element", name="SINT", namespace="##targetNamespace")
+	!resolve val EObject SINT;
+
+	@ExtendedMetaData(kind="element", name="INT", namespace="##targetNamespace")
+	!resolve val EObject INT;
+
+	@ExtendedMetaData(kind="element", name="DINT", namespace="##targetNamespace")
+	!resolve val EObject DINT;
+
+	@ExtendedMetaData(kind="element", name="LINT", namespace="##targetNamespace")
+	!resolve val EObject LINT;
+
+	@ExtendedMetaData(kind="element", name="USINT", namespace="##targetNamespace")
+	!resolve val EObject USINT;
+
+	@ExtendedMetaData(kind="element", name="UINT", namespace="##targetNamespace")
+	!resolve val EObject UINT;
+
+	@ExtendedMetaData(kind="element", name="UDINT", namespace="##targetNamespace")
+	!resolve val EObject UDINT;
+
+	@ExtendedMetaData(kind="element", name="ULINT", namespace="##targetNamespace")
+	!resolve val EObject ULINT;
+
+	@ExtendedMetaData(kind="element", name="REAL", namespace="##targetNamespace")
+	!resolve val EObject REAL;
+
+	@ExtendedMetaData(kind="element", name="LREAL", namespace="##targetNamespace")
+	!resolve val EObject LREAL;
+
+	@ExtendedMetaData(kind="element", name="TIME", namespace="##targetNamespace")
+	!resolve val EObject TIME;
+
+	@ExtendedMetaData(kind="element", name="DATE", namespace="##targetNamespace")
+	!resolve val EObject DATE;
+
+	@ExtendedMetaData(kind="element", name="DT", namespace="##targetNamespace")
+	!resolve val EObject DT;
+
+	@ExtendedMetaData(kind="element", name="TOD", namespace="##targetNamespace")
+	!resolve val EObject TOD;
+
+	@ExtendedMetaData(kind="element", name="string", namespace="##targetNamespace")
+	!resolve val StringType string;
+
+	@ExtendedMetaData(kind="element", name="wstring", namespace="##targetNamespace")
+	!resolve val WstringType wstring;
+
+	@ExtendedMetaData(kind="element", name="ANY", namespace="##targetNamespace")
+	!resolve val EObject ANY;
+
+	@ExtendedMetaData(kind="element", name="ANY_DERIVED", namespace="##targetNamespace")
+	!resolve val EObject ANYDERIVED;
+
+	@ExtendedMetaData(kind="element", name="ANY_ELEMENTARY", namespace="##targetNamespace")
+	!resolve val EObject ANYELEMENTARY;
+
+	@ExtendedMetaData(kind="element", name="ANY_MAGNITUDE", namespace="##targetNamespace")
+	!resolve val EObject ANYMAGNITUDE;
+
+	@ExtendedMetaData(kind="element", name="ANY_NUM", namespace="##targetNamespace")
+	!resolve val EObject ANYNUM;
+
+	@ExtendedMetaData(kind="element", name="ANY_REAL", namespace="##targetNamespace")
+	!resolve val EObject ANYREAL;
+
+	@ExtendedMetaData(kind="element", name="ANY_INT", namespace="##targetNamespace")
+	!resolve val EObject ANYINT;
+
+	@ExtendedMetaData(kind="element", name="ANY_BIT", namespace="##targetNamespace")
+	!resolve val EObject ANYBIT;
+
+	@ExtendedMetaData(kind="element", name="ANY_STRING", namespace="##targetNamespace")
+	!resolve val EObject ANYSTRING;
+
+	@ExtendedMetaData(kind="element", name="ANY_DATE", namespace="##targetNamespace")
+	!resolve val EObject ANYDATE;
+
+	@ExtendedMetaData(kind="element", name="array", namespace="##targetNamespace")
+	!resolve val ArrayType array;
+
+	@GenModel(documentation="Reference to a user defined datatype or POU. Variable declarations use this type to declare e.g. function block instances.")
+	@ExtendedMetaData(kind="element", name="derived", namespace="##targetNamespace")
+	!resolve val DerivedType ~derived;
+
+	@ExtendedMetaData(kind="element", name="enum", namespace="##targetNamespace")
+	!resolve val EnumType ~enum;
+
+	@ExtendedMetaData(kind="element", name="struct", namespace="##targetNamespace")
+	!resolve val VarListPlain struct;
+
+	@ExtendedMetaData(kind="element", name="subrangeSigned", namespace="##targetNamespace")
+	!resolve val SubrangeSignedType subrangeSigned;
+
+	@ExtendedMetaData(kind="element", name="subrangeUnsigned", namespace="##targetNamespace")
+	!resolve val SubrangeUnsignedType subrangeUnsigned;
+
+	@ExtendedMetaData(kind="element", name="pointer", namespace="##targetNamespace")
+	!resolve val PointerType pointer;
+}
+
+@ExtendedMetaData(name="data_._type", kind="elementOnly")
+class DataType1 {
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##any", name=":0", processing="lax")
+	attr ecore.EFeatureMapEntry[1] any;
+
+	@GenModel(documentation="Recommended processor handling for unknown data elements.
+Specifies if the processor should try to preserve the additional data element, dismiss the element (e.g. because the data is invalid if not updated correctly) or use the processors default behaviour for unknown data.")
+	@ExtendedMetaData(kind="attribute", name="handleUnknown")
+	unsettable attr HandleUnknownType[1] handleUnknown;
+
+	@GenModel(documentation="Uniquely identifies the additional data element.")
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.AnyURI[1] name;
+}
+
+@ExtendedMetaData(name="dataTypes_._type", kind="elementOnly")
+class DataTypesType {
+
+	@ExtendedMetaData(kind="element", name="dataType", namespace="##targetNamespace")
+	!resolve val DataTypeType[*] dataType;
+}
+
+@ExtendedMetaData(name="dataType_._type", kind="elementOnly")
+class DataTypeType {
+
+	@ExtendedMetaData(kind="element", name="baseType", namespace="##targetNamespace")
+	!resolve val DataType[1] baseType;
+
+	@ExtendedMetaData(kind="element", name="initialValue", namespace="##targetNamespace")
+	!resolve val Value initialValue;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@GenModel(documentation="Additional userspecific information to the element")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+}
+
+@GenModel(documentation="The user defined alias type")
+@ExtendedMetaData(name="derived_._type", kind="elementOnly")
+class DerivedType {
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+}
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@GenModel(documentation="The complete project")
+	@ExtendedMetaData(kind="element", name="project", namespace="##targetNamespace")
+	volatile transient derived !resolve val ProjectType[0..?] project;
+}
+
+@GenModel(documentation="Defines the edge detection behaviour of a variable")
+@ExtendedMetaData(name="edgeModifierType")
+enum EdgeModifierType {
+	none = 0;
+	falling = 1;
+	rising = 2;
+}
+
+@ExtendedMetaData(name="edgeModifierType:Object", baseType="edgeModifierType")
+datatype EdgeModifierTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="enum_._type", kind="elementOnly")
+class EnumType {
+
+	@ExtendedMetaData(kind="element", name="values", namespace="##targetNamespace")
+	!resolve val ValuesType[1] values;
+
+	@ExtendedMetaData(kind="element", name="baseType", namespace="##targetNamespace")
+	!resolve val DataType baseType;
+}
+
+@GenModel(documentation="Describes a graphical object representing a conversion error. Used to keep information which can not be interpreted by the importing system")
+@ExtendedMetaData(name="error_._type", kind="elementOnly")
+class ErrorType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="content", namespace="##targetNamespace")
+	!resolve val FormattedText[1] content;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal[1] height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal[1] width;
+}
+
+@ExtendedMetaData(name="externalVars_._type", kind="elementOnly")
+class ExternalVarsType extends VarList {
+}
+
+@ExtendedMetaData(name="fbd_._type", kind="elementOnly")
+class FbdType {
+
+	@ExtendedMetaData(kind="element", name="scaling", namespace="##targetNamespace")
+	!resolve val ScalingType2[1] scaling;
+}
+
+@ExtendedMetaData(name="FBD_._type", kind="elementOnly")
+class FBDType1 {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="comment", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val CommentType[*] comment;
+
+	@ExtendedMetaData(kind="element", name="error", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ErrorType[*] error;
+
+	@ExtendedMetaData(kind="element", name="connector", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ConnectorType[*] connector;
+
+	@GenModel(documentation="Counterpart of the connector element")
+	@ExtendedMetaData(kind="element", name="continuation", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ContinuationType[*] continuation;
+
+	@ExtendedMetaData(kind="element", name="actionBlock", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ActionBlockType[*] actionBlock;
+
+	@ExtendedMetaData(kind="element", name="vendorElement", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val VendorElementType[*] vendorElement;
+
+	@ExtendedMetaData(kind="element", name="block", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val BlockType[*] block;
+
+	@GenModel(documentation="Expression used as producer")
+	@ExtendedMetaData(kind="element", name="inVariable", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val InVariableType[*] inVariable;
+
+	@GenModel(documentation="Expression used as consumer")
+	@ExtendedMetaData(kind="element", name="outVariable", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val OutVariableType[*] outVariable;
+
+	@GenModel(documentation="Expression used as producer and consumer")
+	@ExtendedMetaData(kind="element", name="inOutVariable", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val InOutVariableType[*] inOutVariable;
+
+	@ExtendedMetaData(kind="element", name="label", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val LabelType[*] label;
+
+	@ExtendedMetaData(kind="element", name="jump", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val JumpType[*] jump;
+
+	@ExtendedMetaData(kind="element", name="return", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ReturnType[*] return;
+}
+
+@ExtendedMetaData(name="fileHeader_._type", kind="empty")
+class FileHeaderType {
+
+	@ExtendedMetaData(kind="attribute", name="companyName")
+	attr type.String[1] companyName;
+
+	@ExtendedMetaData(kind="attribute", name="companyURL")
+	attr type.AnyURI companyURL;
+
+	@ExtendedMetaData(kind="attribute", name="contentDescription")
+	attr type.String contentDescription;
+
+	@ExtendedMetaData(kind="attribute", name="creationDateTime")
+	attr type.DateTime[1] creationDateTime;
+
+	@ExtendedMetaData(kind="attribute", name="productName")
+	attr type.String[1] productName;
+
+	@ExtendedMetaData(kind="attribute", name="productRelease")
+	attr type.String productRelease;
+
+	@ExtendedMetaData(kind="attribute", name="productVersion")
+	attr type.String[1] productVersion;
+}
+
+@GenModel(documentation="Formatted text according to parts of XHTML 1.1")
+@ExtendedMetaData(name="formattedText", kind="elementOnly")
+class FormattedText {
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="http://www.w3.org/1999/xhtml", name=":0", processing="lax")
+	attr ecore.EFeatureMapEntry[1] any;
+}
+
+@ExtendedMetaData(name="globalVars_._type", kind="elementOnly")
+class GlobalVarsType extends VarList {
+}
+
+@ExtendedMetaData(name="handleUnknown_._type")
+enum HandleUnknownType {
+	preserve = 0;
+	discard = 1;
+	implementation = 2;
+}
+
+@ExtendedMetaData(name="handleUnknown_._type:Object", baseType="handleUnknown_._type")
+datatype HandleUnknownTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="info_._type", kind="elementOnly")
+class InfoType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="##targetNamespace")
+	!resolve val FormattedText description;
+
+	@GenModel(documentation="Unique name of the additional data element.")
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.AnyURI[1] name;
+
+	@GenModel(documentation="Vendor responsible for the definition of the additional data element.")
+	@ExtendedMetaData(kind="attribute", name="vendor")
+	attr type.AnyURI[1] vendor;
+
+	@GenModel(documentation="Version of additional data, eg. schema version.")
+	@ExtendedMetaData(kind="attribute", name="version")
+	attr type.Decimal version;
+}
+
+@ExtendedMetaData(name="inline_._type", kind="elementOnly")
+class InlineType extends Body {
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+}
+
+@ExtendedMetaData(name="inOutVariables_._type", kind="elementOnly")
+class InOutVariablesType {
+
+	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
+	!resolve val VariableType3[*] variable;
+}
+
+@ExtendedMetaData(name="inOutVariables_._1_._type", kind="elementOnly")
+class InOutVariablesType1 {
+
+	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
+	!resolve val VariableType5[*] variable;
+}
+
+@GenModel(documentation="Describes a graphical object representing a variable which can be used as l-value and r-value at the same time")
+@ExtendedMetaData(name="inOutVariable_._type", kind="elementOnly")
+class InOutVariableType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@GenModel(documentation="The operand is a valid iec variable e.g. avar[0].")
+	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
+	attr type.String[1] expression;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="edgeIn")
+	unsettable attr EdgeModifierType edgeIn = "none";
+
+	@ExtendedMetaData(kind="attribute", name="edgeOut")
+	unsettable attr EdgeModifierType edgeOut = "none";
+
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="negatedIn")
+	unsettable attr type.Boolean negatedIn = "false";
+
+	@ExtendedMetaData(kind="attribute", name="negatedOut")
+	unsettable attr type.Boolean negatedOut = "false";
+
+	@ExtendedMetaData(kind="attribute", name="storageIn")
+	unsettable attr StorageModifierType storageIn = "none";
+
+	@ExtendedMetaData(kind="attribute", name="storageOut")
+	unsettable attr StorageModifierType storageOut = "none";
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="inOutVars_._type", kind="elementOnly")
+class InOutVarsType extends VarList {
+}
+
+@ExtendedMetaData(name="inputVariables_._type", kind="elementOnly")
+class InputVariablesType {
+
+	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
+	!resolve val VariableType2[*] variable;
+}
+
+@ExtendedMetaData(name="inputVariables_._1_._type", kind="elementOnly")
+class InputVariablesType1 {
+
+	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
+	!resolve val VariableType[*] variable;
+}
+
+@ExtendedMetaData(name="inputVars_._type", kind="elementOnly")
+class InputVarsType extends VarList {
+}
+
+@ExtendedMetaData(name="instances_._type", kind="elementOnly")
+class InstancesType {
+
+	@ExtendedMetaData(kind="element", name="configurations", namespace="##targetNamespace")
+	!resolve val ConfigurationsType[1] configurations;
+}
+
+@ExtendedMetaData(name="interface_._type", kind="elementOnly")
+class InterfaceType {
+
+	@ExtendedMetaData(kind="element", name="returnType", namespace="##targetNamespace")
+	!resolve val DataType returnType;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="localVars", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val LocalVarsType[*] localVars;
+
+	@ExtendedMetaData(kind="element", name="tempVars", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val TempVarsType[*] tempVars;
+
+	@ExtendedMetaData(kind="element", name="inputVars", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val InputVarsType[*] inputVars;
+
+	@ExtendedMetaData(kind="element", name="outputVars", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val OutputVarsType[*] outputVars;
+
+	@ExtendedMetaData(kind="element", name="inOutVars", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val InOutVarsType[*] inOutVars;
+
+	@ExtendedMetaData(kind="element", name="externalVars", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ExternalVarsType[*] externalVars;
+
+	@ExtendedMetaData(kind="element", name="globalVars", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val GlobalVarsType[*] globalVars;
+
+	@ExtendedMetaData(kind="element", name="accessVars", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val VarList[*] accessVars;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@GenModel(documentation="Additional userspecific information to the element")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+}
+
+@GenModel(documentation="Describes a graphical object representing a variable, literal or expression used as r-value")
+@ExtendedMetaData(name="inVariable_._type", kind="elementOnly")
+class InVariableType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@GenModel(documentation="The operand is a valid iec variable e.g. avar[0].")
+	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
+	attr type.String[1] expression;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable attr EdgeModifierType edge = "none";
+
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="storage")
+	unsettable attr StorageModifierType storage = "none";
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="jumpStep_._type", kind="elementOnly")
+class JumpStepType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@GenModel(documentation="Used to identify the order of execution. Also used to identify one special block if there are several blocks with the same name.")
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="targetName")
+	attr type.String[1] targetName;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@GenModel(documentation="Describes a graphical object representing a jump statement")
+@ExtendedMetaData(name="jump_._type", kind="elementOnly")
+class JumpType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="label")
+	attr type.String[1] label;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@GenModel(documentation="Describes a graphical object representing a jump label")
+@ExtendedMetaData(name="label_._type", kind="elementOnly")
+class LabelType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="label")
+	attr type.String[1] label;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="ld_._type", kind="elementOnly")
+class LdType {
+
+	@ExtendedMetaData(kind="element", name="scaling", namespace="##targetNamespace")
+	!resolve val ScalingType1[1] scaling;
+}
+
+@ExtendedMetaData(name="LD_._type", kind="elementOnly")
+class LDType1 {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="comment", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val CommentType[*] comment;
+
+	@ExtendedMetaData(kind="element", name="error", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ErrorType[*] error;
+
+	@ExtendedMetaData(kind="element", name="connector", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ConnectorType[*] connector;
+
+	@GenModel(documentation="Counterpart of the connector element")
+	@ExtendedMetaData(kind="element", name="continuation", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ContinuationType[*] continuation;
+
+	@ExtendedMetaData(kind="element", name="actionBlock", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ActionBlockType[*] actionBlock;
+
+	@ExtendedMetaData(kind="element", name="vendorElement", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val VendorElementType[*] vendorElement;
+
+	@ExtendedMetaData(kind="element", name="block", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val BlockType[*] block;
+
+	@GenModel(documentation="Expression used as producer")
+	@ExtendedMetaData(kind="element", name="inVariable", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val InVariableType[*] inVariable;
+
+	@GenModel(documentation="Expression used as consumer")
+	@ExtendedMetaData(kind="element", name="outVariable", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val OutVariableType[*] outVariable;
+
+	@GenModel(documentation="Expression used as producer and consumer")
+	@ExtendedMetaData(kind="element", name="inOutVariable", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val InOutVariableType[*] inOutVariable;
+
+	@ExtendedMetaData(kind="element", name="label", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val LabelType[*] label;
+
+	@ExtendedMetaData(kind="element", name="jump", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val JumpType[*] jump;
+
+	@ExtendedMetaData(kind="element", name="return", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ReturnType[*] return;
+
+	@ExtendedMetaData(kind="element", name="leftPowerRail", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val LeftPowerRailType[*] leftPowerRail;
+
+	@ExtendedMetaData(kind="element", name="rightPowerRail", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val RightPowerRailType[*] rightPowerRail;
+
+	@ExtendedMetaData(kind="element", name="coil", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val CoilType[*] coil;
+
+	@ExtendedMetaData(kind="element", name="contact", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ContactType[*] contact;
+}
+
+@GenModel(documentation="Describes a graphical object representing a left powerrail")
+@ExtendedMetaData(name="leftPowerRail_._type", kind="elementOnly")
+class LeftPowerRailType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOutType3[*] connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@GenModel(documentation="Used to identify the order of execution. Also used to identify one special block if there are several blocks with the same name.")
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="localVars_._type", kind="elementOnly")
+class LocalVarsType extends VarList {
+}
+
+@ExtendedMetaData(name="macroStep_._type", kind="elementOnly")
+class MacroStepType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="body", namespace="##targetNamespace")
+	!resolve val Body body;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@GenModel(documentation="Used to identify the order of execution. Also used to identify one special block if there are several blocks with the same name.")
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String name;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="outputVariables_._type", kind="elementOnly")
+class OutputVariablesType {
+
+	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
+	!resolve val VariableType4[*] variable;
+}
+
+@ExtendedMetaData(name="outputVariables_._1_._type", kind="elementOnly")
+class OutputVariablesType1 {
+
+	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
+	!resolve val VariableType1[*] variable;
+}
+
+@ExtendedMetaData(name="outputVars_._type", kind="elementOnly")
+class OutputVarsType extends VarList {
+}
+
+@GenModel(documentation="Describes a graphical object representing a variable or expression used as l-value")
+@ExtendedMetaData(name="outVariable_._type", kind="elementOnly")
+class OutVariableType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@GenModel(documentation="The operand is a valid iec variable e.g. avar[0].")
+	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
+	attr type.String[1] expression;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable attr EdgeModifierType edge = "none";
+
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="storage")
+	unsettable attr StorageModifierType storage = "none";
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="pageSize_._type", kind="empty")
+class PageSizeType {
+
+	@ExtendedMetaData(kind="attribute", name="x")
+	attr type.Decimal[1] x;
+
+	@ExtendedMetaData(kind="attribute", name="y")
+	attr type.Decimal[1] y;
+}
+
+@ExtendedMetaData(name="pointer_._type", kind="elementOnly")
+class PointerType {
+
+	@ExtendedMetaData(kind="element", name="baseType", namespace="##targetNamespace")
+	!resolve val DataType[1] baseType;
+}
+
+@GenModel(documentation="Defines a graphical position in X, Y coordinates")
+@ExtendedMetaData(name="position", kind="empty")
+class Position {
+
+	@ExtendedMetaData(kind="attribute", name="x")
+	attr type.Decimal[1] x;
+
+	@ExtendedMetaData(kind="attribute", name="y")
+	attr type.Decimal[1] y;
+}
+
+@GenModel(documentation="Represents a program or function block instance either running with or without a task")
+@ExtendedMetaData(name="pouInstance", kind="elementOnly")
+class PouInstance {
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="typeName")
+	attr type.String[1] typeName;
+}
+
+@ExtendedMetaData(name="pous_._type", kind="elementOnly")
+class PousType {
+
+	@ExtendedMetaData(kind="element", name="pou", namespace="##targetNamespace")
+	!resolve val PouType1[*] pou;
+	attr type.String[1] name;
+}
+
+@GenModel(documentation="Defines the different types of a POU")
+@ExtendedMetaData(name="pouType")
+enum PouType {
+	function = 0;
+	functionBlock = 1;
+	program = 2;
+}
+
+@ExtendedMetaData(name="pou_._type", kind="elementOnly")
+class PouType1 {
+
+	@ExtendedMetaData(kind="element", name="interface", namespace="##targetNamespace")
+	!resolve val InterfaceType ~interface;
+
+	@ExtendedMetaData(kind="element", name="actions", namespace="##targetNamespace")
+	!resolve val ActionsType actions;
+
+	@ExtendedMetaData(kind="element", name="transitions", namespace="##targetNamespace")
+	!resolve val TransitionsType transitions;
+
+	@ExtendedMetaData(kind="element", name="body", namespace="##targetNamespace")
+	!resolve val Body[*] body;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@GenModel(documentation="Additional userspecific information to the element")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="pouType")
+	unsettable attr PouType[1] pouType;
+}
+
+@ExtendedMetaData(name="pouType:Object", baseType="pouType")
+datatype PouTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="priority_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#integer", minInclusive="0", maxInclusive="65535")
+datatype PriorityType : java.math.BigInteger;
+
+@ExtendedMetaData(name="project_._type", kind="elementOnly")
+class ProjectType {
+
+	@ExtendedMetaData(kind="element", name="fileHeader", namespace="##targetNamespace")
+	!resolve val FileHeaderType[1] fileHeader;
+
+	@ExtendedMetaData(kind="element", name="contentHeader", namespace="##targetNamespace")
+	!resolve val ContentHeaderType[1] contentHeader;
+
+	@ExtendedMetaData(kind="element", name="types", namespace="##targetNamespace")
+	!resolve val TypesType[1] types;
+
+	@ExtendedMetaData(kind="element", name="instances", namespace="##targetNamespace")
+	!resolve val InstancesType[1] instances;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@GenModel(documentation="Additional userspecific information to the element")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+	attr type.String[1] projectName;
+}
+
+@ExtendedMetaData(name="qualifier_._type")
+enum QualifierType {
+	P1 = 0;
+	N = 1;
+	P0 = 2;
+	R = 3;
+	S = 4;
+	L = 5;
+	D = 6;
+	P = 7;
+	DS = 8;
+	DL = 9;
+	SD = 10;
+	SL = 11;
+}
+
+@ExtendedMetaData(name="qualifier_._type:Object", baseType="qualifier_._type")
+datatype QualifierTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="Defines a range with signed bounds")
+@ExtendedMetaData(name="rangeSigned", kind="empty")
+class RangeSigned {
+
+	@ExtendedMetaData(kind="attribute", name="lower")
+	attr type.String[1] lower;
+
+	@ExtendedMetaData(kind="attribute", name="upper")
+	attr type.String[1] upper;
+}
+
+@GenModel(documentation="Defines a range with unsigned bounds")
+@ExtendedMetaData(name="rangeUnsigned", kind="empty")
+class RangeUnsigned {
+
+	@ExtendedMetaData(kind="attribute", name="lower")
+	attr type.String[1] lower;
+
+	@ExtendedMetaData(kind="attribute", name="upper")
+	attr type.String[1] upper;
+}
+
+@ExtendedMetaData(name="reference_._type", kind="empty")
+class ReferenceType {
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+}
+
+@ExtendedMetaData(name="reference_._1_._type", kind="empty")
+class ReferenceType1 {
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+}
+
+@GenModel(documentation="Represents a group of programs and tasks and global variables")
+@ExtendedMetaData(name="resource_._type", kind="elementOnly")
+class ResourceType {
+
+	@ExtendedMetaData(kind="element", name="task", namespace="##targetNamespace")
+	!resolve val TaskType[*] task;
+
+	@ExtendedMetaData(kind="element", name="globalVars", namespace="##targetNamespace")
+	!resolve val VarList[*] globalVars;
+
+	@ExtendedMetaData(kind="element", name="pouInstance", namespace="##targetNamespace")
+	!resolve val PouInstance[*] pouInstance;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@GenModel(documentation="Additional userspecific information to the element")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+}
+
+@GenModel(documentation="Describes a graphical object representing areturn statement")
+@ExtendedMetaData(name="return_._type", kind="elementOnly")
+class ReturnType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@GenModel(documentation="Describes a graphical object representing a right powerrail")
+@ExtendedMetaData(name="rightPowerRail_._type", kind="elementOnly")
+class RightPowerRailType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn[*] connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@GenModel(documentation="Used to identify the order of execution. Also used to identify one special block if there are several blocks with the same name.")
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="scaling_._type", kind="empty")
+class ScalingType {
+
+	@ExtendedMetaData(kind="attribute", name="x")
+	attr type.Decimal[1] x;
+
+	@ExtendedMetaData(kind="attribute", name="y")
+	attr type.Decimal[1] y;
+}
+
+@ExtendedMetaData(name="scaling_._1_._type", kind="empty")
+class ScalingType1 {
+
+	@ExtendedMetaData(kind="attribute", name="x")
+	attr type.Decimal[1] x;
+
+	@ExtendedMetaData(kind="attribute", name="y")
+	attr type.Decimal[1] y;
+}
+
+@ExtendedMetaData(name="scaling_._2_._type", kind="empty")
+class ScalingType2 {
+
+	@ExtendedMetaData(kind="attribute", name="x")
+	attr type.Decimal[1] x;
+
+	@ExtendedMetaData(kind="attribute", name="y")
+	attr type.Decimal[1] y;
+}
+
+@ExtendedMetaData(name="selectionConvergence_._type", kind="elementOnly")
+class SelectionConvergenceType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointInType[*] connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="selectionDivergence_._type", kind="elementOnly")
+class SelectionDivergenceType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOutType1[*] connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="sfc_._type", kind="elementOnly")
+class SfcType {
+
+	@ExtendedMetaData(kind="element", name="scaling", namespace="##targetNamespace")
+	!resolve val ScalingType[1] scaling;
+}
+
+@ExtendedMetaData(name="SFC_._type", kind="elementOnly")
+class SFCType1 {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="comment", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val CommentType[*] comment;
+
+	@ExtendedMetaData(kind="element", name="error", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ErrorType[*] error;
+
+	@ExtendedMetaData(kind="element", name="connector", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ConnectorType[*] connector;
+
+	@GenModel(documentation="Counterpart of the connector element")
+	@ExtendedMetaData(kind="element", name="continuation", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ContinuationType[*] continuation;
+
+	@ExtendedMetaData(kind="element", name="actionBlock", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ActionBlockType[*] actionBlock;
+
+	@ExtendedMetaData(kind="element", name="vendorElement", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val VendorElementType[*] vendorElement;
+
+	@ExtendedMetaData(kind="element", name="block", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val BlockType[*] block;
+
+	@GenModel(documentation="Expression used as producer")
+	@ExtendedMetaData(kind="element", name="inVariable", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val InVariableType[*] inVariable;
+
+	@GenModel(documentation="Expression used as consumer")
+	@ExtendedMetaData(kind="element", name="outVariable", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val OutVariableType[*] outVariable;
+
+	@GenModel(documentation="Expression used as producer and consumer")
+	@ExtendedMetaData(kind="element", name="inOutVariable", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val InOutVariableType[*] inOutVariable;
+
+	@ExtendedMetaData(kind="element", name="label", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val LabelType[*] label;
+
+	@ExtendedMetaData(kind="element", name="jump", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val JumpType[*] jump;
+
+	@ExtendedMetaData(kind="element", name="return", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ReturnType[*] return;
+
+	@ExtendedMetaData(kind="element", name="leftPowerRail", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val LeftPowerRailType[*] leftPowerRail;
+
+	@ExtendedMetaData(kind="element", name="rightPowerRail", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val RightPowerRailType[*] rightPowerRail;
+
+	@ExtendedMetaData(kind="element", name="coil", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val CoilType[*] coil;
+
+	@ExtendedMetaData(kind="element", name="contact", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ContactType[*] contact;
+
+	@GenModel(documentation="A single step in a SFC Sequence. Actions are associated with a step by using an actionBlock element with a connection to the step element")
+	@ExtendedMetaData(kind="element", name="step", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val StepType[*] step;
+
+	@ExtendedMetaData(kind="element", name="macroStep", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val MacroStepType[*] macroStep;
+
+	@GenModel(documentation="Jump to a step, macro step or simultaneous divergence. Acts like a step. Predecessor should be a transition.")
+	@ExtendedMetaData(kind="element", name="jumpStep", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val JumpStepType[*] jumpStep;
+
+	@ExtendedMetaData(kind="element", name="transition", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val TransitionType1[*] transition;
+
+	@ExtendedMetaData(kind="element", name="selectionDivergence", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SelectionDivergenceType[*] selectionDivergence;
+
+	@ExtendedMetaData(kind="element", name="selectionConvergence", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SelectionConvergenceType[*] selectionConvergence;
+
+	@ExtendedMetaData(kind="element", name="simultaneousDivergence", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SimultaneousDivergenceType[*] simultaneousDivergence;
+
+	@ExtendedMetaData(kind="element", name="simultaneousConvergence", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val SimultaneousConvergenceType[*] simultaneousConvergence;
+}
+
+@GenModel(documentation="Value that can be represented as a single token string ")
+@ExtendedMetaData(name="simpleValue_._type", kind="empty")
+class SimpleValueType {
+
+	@ExtendedMetaData(kind="attribute", name="value")
+	attr type.String value;
+}
+
+@ExtendedMetaData(name="simultaneousConvergence_._type", kind="elementOnly")
+class SimultaneousConvergenceType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn[*] connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="simultaneousDivergence_._type", kind="elementOnly")
+class SimultaneousDivergenceType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOutType2[*] connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String name;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@GenModel(documentation="Contains actions")
+@ExtendedMetaData(name="step_._type", kind="elementOnly")
+class StepType {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOutType connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOutAction", namespace="##targetNamespace")
+	!resolve val ConnectionPointOutActionType connectionPointOutAction;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@GenModel(documentation="Used to identify the order of execution. Also used to identify one special block if there are several blocks with the same name.")
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="initialStep")
+	unsettable attr type.Boolean initialStep = "false";
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@GenModel(documentation="Defines the storage mode (S/R) behaviour of a variable")
+@ExtendedMetaData(name="storageModifierType")
+enum StorageModifierType {
+	none = 0;
+	set = 1;
+	reset = 2;
+}
+
+@ExtendedMetaData(name="storageModifierType:Object", baseType="storageModifierType")
+datatype StorageModifierTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="The single byte character string type")
+@ExtendedMetaData(name="string_._type", kind="empty")
+class StringType {
+
+	@ExtendedMetaData(kind="attribute", name="length")
+	attr type.String length;
+}
+
+@GenModel(documentation="Struct value consisting of a list of member - value pairs")
+@ExtendedMetaData(name="structValue_._type", kind="elementOnly")
+class StructValueType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ValueType[*] value;
+}
+
+@ExtendedMetaData(name="subrangeSigned_._type", kind="elementOnly")
+class SubrangeSignedType {
+
+	@ExtendedMetaData(kind="element", name="range", namespace="##targetNamespace")
+	!resolve val RangeSigned[1] range;
+
+	@ExtendedMetaData(kind="element", name="baseType", namespace="##targetNamespace")
+	!resolve val DataType[1] baseType;
+}
+
+@ExtendedMetaData(name="subrangeUnsigned_._type", kind="elementOnly")
+class SubrangeUnsignedType {
+
+	@ExtendedMetaData(kind="element", name="range", namespace="##targetNamespace")
+	!resolve val RangeUnsigned[1] range;
+
+	@ExtendedMetaData(kind="element", name="baseType", namespace="##targetNamespace")
+	!resolve val DataType[1] baseType;
+}
+
+@GenModel(documentation="Represents a periodic or triggered task")
+@ExtendedMetaData(name="task_._type", kind="elementOnly")
+class TaskType {
+
+	@ExtendedMetaData(kind="element", name="pouInstance", namespace="##targetNamespace")
+	!resolve val PouInstance[*] pouInstance;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@GenModel(documentation="Additional userspecific information to the element")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@GenModel(documentation="Vendor specific: Either a constant duration as defined in the IEC or variable name.")
+	@ExtendedMetaData(kind="attribute", name="interval")
+	attr type.String interval;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="priority")
+	attr PriorityType[1] priority;
+
+	@ExtendedMetaData(kind="attribute", name="single")
+	attr type.String single;
+}
+
+@ExtendedMetaData(name="tempVars_._type", kind="elementOnly")
+class TempVarsType extends VarList {
+}
+
+@ExtendedMetaData(name="transitions_._type", kind="elementOnly")
+class TransitionsType {
+
+	@ExtendedMetaData(kind="element", name="transition", namespace="##targetNamespace")
+	!resolve val TransitionType[*] transition;
+}
+
+@ExtendedMetaData(name="transition_._type", kind="elementOnly")
+class TransitionType {
+
+	@ExtendedMetaData(kind="element", name="body", namespace="##targetNamespace")
+	!resolve val Body[1] body;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@GenModel(documentation="Additional userspecific information to the element")
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+}
+
+@ExtendedMetaData(name="transition_._1_._type", kind="elementOnly")
+class TransitionType1 {
+
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="condition", namespace="##targetNamespace")
+	!resolve val ConditionType condition;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@GenModel(documentation="Used to identify the order of execution. Also used to identify one special block if there are several blocks with the same name.")
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@GenModel(documentation="The priority of a transition is evaluated, if the transition is connected to a selectionDivergence element.")
+	@ExtendedMetaData(kind="attribute", name="priority")
+	attr type.UnsignedLong priority;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@ExtendedMetaData(name="types_._type", kind="elementOnly")
+class TypesType {
+
+	@ExtendedMetaData(kind="element", name="dataTypes", namespace="##targetNamespace")
+	!resolve val DataTypesType[1] dataTypes;
+
+	@ExtendedMetaData(kind="element", name="pous", namespace="##targetNamespace")
+	!resolve val PousType[1] pous;
+	attr type.String[1] name;
+}
+
+@GenModel(documentation="A generic value")
+@ExtendedMetaData(name="value", kind="elementOnly")
+class Value {
+
+	@ExtendedMetaData(kind="element", name="simpleValue", namespace="##targetNamespace")
+	!resolve val SimpleValueType simpleValue;
+
+	@ExtendedMetaData(kind="element", name="arrayValue", namespace="##targetNamespace")
+	!resolve val ArrayValueType arrayValue;
+
+	@ExtendedMetaData(kind="element", name="structValue", namespace="##targetNamespace")
+	!resolve val StructValueType structValue;
+}
+
+@ExtendedMetaData(name="values_._type", kind="elementOnly")
+class ValuesType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ValueType2[+] value;
+}
+
+@ExtendedMetaData(name="value_._type", kind="elementOnly")
+class ValueType extends Value {
+
+	@ExtendedMetaData(kind="attribute", name="member")
+	attr type.String[1] member;
+}
+
+@ExtendedMetaData(name="value_._1_._type", kind="elementOnly")
+class ValueType1 extends Value {
+
+	@ExtendedMetaData(kind="attribute", name="repetitionValue")
+	unsettable attr type.String repetitionValue = "1";
+}
+
+@GenModel(documentation="An enumeration value used to build up enumeration types")
+@ExtendedMetaData(name="value_._2_._type", kind="empty")
+class ValueType2 {
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="value")
+	attr type.String value;
+}
+
+@GenModel(documentation="Describes an inputVariable of a Function or a FunctionBlock")
+@ExtendedMetaData(name="variable_._type", kind="elementOnly")
+class VariableType {
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn[1] connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable attr EdgeModifierType edge = "none";
+
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String[1] formalParameter;
+
+	@ExtendedMetaData(kind="attribute", name="hidden")
+	unsettable attr type.Boolean hidden = "false";
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="storage")
+	unsettable attr StorageModifierType storage = "none";
+}
+
+@GenModel(documentation="Describes a outputVariable of a Function or a FunctionBlock")
+@ExtendedMetaData(name="variable_._1_._type", kind="elementOnly")
+class VariableType1 {
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable attr EdgeModifierType edge = "none";
+
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String[1] formalParameter;
+
+	@ExtendedMetaData(kind="attribute", name="hidden")
+	unsettable attr type.Boolean hidden = "false";
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="storage")
+	unsettable attr StorageModifierType storage = "none";
+}
+
+@GenModel(documentation="Describes an inputVariable of a Function or a FunctionBlock")
+@ExtendedMetaData(name="variable_._2_._type", kind="elementOnly")
+class VariableType2 {
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn[1] connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable attr EdgeModifierType edge = "none";
+
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String[1] formalParameter;
+
+	@ExtendedMetaData(kind="attribute", name="hidden")
+	unsettable attr type.Boolean hidden = "false";
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="storage")
+	unsettable attr StorageModifierType storage = "none";
+}
+
+@GenModel(documentation="Describes a inOutVariable of a Function or a FunctionBlock")
+@ExtendedMetaData(name="variable_._3_._type", kind="elementOnly")
+class VariableType3 {
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable attr EdgeModifierType edge = "none";
+
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String[1] formalParameter;
+
+	@ExtendedMetaData(kind="attribute", name="hidden")
+	unsettable attr type.Boolean hidden = "false";
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="storage")
+	unsettable attr StorageModifierType storage = "none";
+}
+
+@GenModel(documentation="Describes a outputVariable of a Function or a FunctionBlock")
+@ExtendedMetaData(name="variable_._4_._type", kind="elementOnly")
+class VariableType4 {
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable attr EdgeModifierType edge = "none";
+
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String[1] formalParameter;
+
+	@ExtendedMetaData(kind="attribute", name="hidden")
+	unsettable attr type.Boolean hidden = "false";
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="storage")
+	unsettable attr StorageModifierType storage = "none";
+}
+
+@GenModel(documentation="Describes a inOutVariable of a Function or a FunctionBlock")
+@ExtendedMetaData(name="variable_._5_._type", kind="elementOnly")
+class VariableType5 {
+
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	!resolve val ConnectionPointIn connectionPointIn;
+
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	!resolve val ConnectionPointOut connectionPointOut;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable attr EdgeModifierType edge = "none";
+
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	attr type.String[1] formalParameter;
+
+	@ExtendedMetaData(kind="attribute", name="hidden")
+	unsettable attr type.Boolean hidden = "false";
+
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable attr type.Boolean negated = "false";
+
+	@ExtendedMetaData(kind="attribute", name="storage")
+	unsettable attr StorageModifierType storage = "none";
+}
+
+@GenModel(documentation="Declaration of a variable")
+@ExtendedMetaData(name="variable_._6_._type", kind="elementOnly")
+class VariableType6 {
+
+	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
+	!resolve val DataType[1] type;
+
+	@ExtendedMetaData(kind="element", name="initialValue", namespace="##targetNamespace")
+	!resolve val Value initialValue;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+
+	@ExtendedMetaData(kind="attribute", name="address")
+	attr type.String address;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String[1] name;
+}
+
+@GenModel(documentation="List of variable declarations that share the same memory attributes (CONSTANT, RETAIN, NON_RETAIN, PERSISTENT)")
+@ExtendedMetaData(name="varList", kind="elementOnly")
+class VarList extends VarListPlain {
+
+	@ExtendedMetaData(kind="attribute", name="constant")
+	unsettable attr type.Boolean constant = "false";
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.String name;
+
+	@ExtendedMetaData(kind="attribute", name="nonpersistent")
+	unsettable attr type.Boolean nonpersistent = "false";
+
+	@ExtendedMetaData(kind="attribute", name="nonretain")
+	unsettable attr type.Boolean nonretain = "false";
+
+	@ExtendedMetaData(kind="attribute", name="persistent")
+	unsettable attr type.Boolean persistent = "false";
+
+	@ExtendedMetaData(kind="attribute", name="retain")
+	unsettable attr type.Boolean retain = "false";
+}
+
+@GenModel(documentation="List of access variable declarations")
+@ExtendedMetaData(name="varListAccess", kind="elementOnly")
+class VarListAccess {
+
+	@ExtendedMetaData(kind="element", name="accessVariable", namespace="##targetNamespace")
+	!resolve val AccessVariableType[*] accessVariable;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+}
+
+@GenModel(documentation="List of VAR_CONFIG variables")
+@ExtendedMetaData(name="varListConfig", kind="elementOnly")
+class VarListConfig {
+
+	@ExtendedMetaData(kind="element", name="configVariable", namespace="##targetNamespace")
+	!resolve val ConfigVariableType[*] configVariable;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+}
+
+@GenModel(documentation="List of variable declarations without attributes")
+@ExtendedMetaData(name="varListPlain", kind="elementOnly")
+class VarListPlain {
+
+	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
+	!resolve val VariableType6[*] variable;
+
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData addData;
+
+	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
+	!resolve val FormattedText documentation;
+}
+
+@GenModel(documentation="Describes a graphical object representing a call statement")
+@ExtendedMetaData(name="vendorElement_._type", kind="elementOnly")
+class VendorElementType {
+
+	@GenModel(documentation="Anchor position of the box. Top left corner excluding the instance name.")
+	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
+	!resolve val Position[1] position;
+
+	@GenModel(documentation="An alternative text to be displayed in generic representation of unknown elements.")
+	@ExtendedMetaData(kind="element", name="alternativeText", namespace="##targetNamespace")
+	!resolve val FormattedText[1] alternativeText;
+
+	@GenModel(documentation="The list of used input variables (consumers)")
+	@ExtendedMetaData(kind="element", name="inputVariables", namespace="##targetNamespace")
+	!resolve val InputVariablesType1 inputVariables;
+
+	@GenModel(documentation="The list of used inOut variables")
+	@ExtendedMetaData(kind="element", name="inOutVariables", namespace="##targetNamespace")
+	!resolve val InOutVariablesType1 inOutVariables;
+
+	@GenModel(documentation="The list of used output variables (producers)")
+	@ExtendedMetaData(kind="element", name="outputVariables", namespace="##targetNamespace")
+	!resolve val OutputVariablesType1 outputVariables;
+
+	@GenModel(documentation="Additional, vendor specific data for the element. Also defines the vendor specific meaning of the element.")
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	!resolve val AddData[1] addData;
+
+	@GenModel(documentation="Used to identify the order of execution. Also used to identify one special block if there are several blocks with the same name.")
+	@ExtendedMetaData(kind="attribute", name="executionOrderId")
+	attr type.UnsignedLong executionOrderId;
+
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id attr type.ID globalId;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr type.Decimal height;
+
+	@ExtendedMetaData(kind="attribute", name="localId")
+	attr type.UnsignedLong[1] localId;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr type.Decimal width;
+}
+
+@GenModel(documentation="The wide character (WORD) string type")
+@ExtendedMetaData(name="wstring_._type", kind="empty")
+class WstringType {
+
+	@ExtendedMetaData(kind="attribute", name="length")
+	attr type.String length;
+}
+

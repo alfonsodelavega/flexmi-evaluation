@@ -1,0 +1,1965 @@
+@namespace(uri="http://nemo.inf.ufes.br/ontouml/refontouml", prefix="RefOntoUML")
+package RefOntoUML;
+
+@GenModel(documentation="An integer is a primitive type representing integer values.")
+datatype Integer : int;
+
+@GenModel(documentation="A Boolean type is used for logical expression, consisting of the predefined values true and false.")
+datatype Boolean : boolean;
+
+@GenModel(documentation="A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters.")
+datatype String : java.lang.String;
+
+@GenModel(documentation="An unlimited natural is a primitive type representing unlimited natural values.")
+datatype UnlimitedNatural : int;
+
+@GenModel(documentation="A comment is a textual annotation that can be attached to a set of elements.")
+class Comment extends Element {
+
+	@GenModel(documentation="Specifies a string that is the comment.")
+	@ExtendedMetaData(kind="element")
+	!ordered unsettable attr String body;
+
+	@GenModel(documentation="References the Element(s) being commented.")
+	!ordered ref Element[*] annotatedElement;
+}
+
+@GenModel(documentation="An element is a constituent of a model. As such, it has the capability of owning other elements.")
+abstract class Element extends ecore.EModelElement {
+
+	@GenModel(documentation="An element may not directly or indirectly own itself.
+not self.allOwnedElements()->includes(self)")
+	op boolean not_own_self(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Elements that must be owned must have an owner.
+self.mustBeOwned() implies owner->notEmpty()")
+	op boolean has_owner(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Destroys this element by removing all cross references to/from it and removing it from its containing resource or object.")
+	!ordered op void destroy();
+
+	@GenModel(documentation="Determines whether this element has the specified keyword.")
+	!ordered op Boolean[1] hasKeyword(@GenModel(documentation="The keyword in question.")
+!ordered String[1] keyword);
+
+	@GenModel(documentation="Retrieves the keywords for this element.")
+	!ordered op String[*] getKeywords();
+
+	@GenModel(documentation="Adds the specified keyword to this element.")
+	!ordered op Boolean[1] addKeyword(@GenModel(documentation="The keyword to add.")
+!ordered String[1] keyword);
+
+	@GenModel(documentation="Removes the specified keyword from this element.")
+	!ordered op Boolean[1] removeKeyword(@GenModel(documentation="The keyword to remove.")
+!ordered String[1] keyword);
+
+	@GenModel(documentation="Retrieves the nearest package that owns (either directly or indirectly) this element, or the element itself (if it is a package).")
+	!ordered op Package getNearestPackage();
+
+	@GenModel(documentation="Retrieves the model that owns (either directly or indirectly) this element.")
+	!ordered op Model getModel();
+
+	@GenModel(documentation="Retrieves the stereotype with the specified qualified name that is applicable to this element, or null if no such stereotype is applicable.")
+	!ordered op void getApplicableStereotype(@GenModel(documentation="The qualified name of the applicable stereotype to retrieve.")
+!ordered String[1] qualifiedName);
+
+	@GenModel(documentation="Retrieves the stereotype applications for this element.")
+	!ordered op EObject[*] getStereotypeApplications();
+
+	@GenModel(documentation="Retrieves the stereotype with the specified qualified name that is required for this element, or null if no such stereotype is required.")
+	!ordered op void getRequiredStereotype(@GenModel(documentation="The qualified name of the required stereotype to retrieve.")
+!ordered String[1] qualifiedName);
+
+	@GenModel(documentation="Retrieves the stereotype with the specified qualified name that is applied to this element, or null if no such stereotype is  applied.")
+	!ordered op void getAppliedStereotype(@GenModel(documentation="The qualified name of the applied stereotype to retrieve.")
+!ordered String[1] qualifiedName);
+
+	@GenModel(documentation="Creates an annotation with the specified source and this element as its model element.")
+	!ordered op ecore.EAnnotation[1] createEAnnotation(@GenModel(documentation="The source for the new annotation.")
+!ordered String[1] source);
+
+	@GenModel(documentation="Retrieves the relationships in which this element is involved.")
+	!ordered op Relationship[*] getRelationships();
+
+	@GenModel(documentation="Retrieves the relationships of the specified type in which this element is involved.")
+	!ordered op Relationship[*] getRelationships(@GenModel(documentation="The (meta)type of the relationships to retrieve.")
+!ordered EClass[1] eClass);
+
+	@GenModel(documentation="Retrieves the directed relationships for which this element is a source.")
+	!ordered op DirectedRelationship[*] getSourceDirectedRelationships();
+
+	@GenModel(documentation="Retrieves the directed relationships of the specified type for which this element is a source.")
+	!ordered op DirectedRelationship[*] getSourceDirectedRelationships(@GenModel(documentation="The (meta)type of the directed relationships to retrieve.")
+!ordered EClass[1] eClass);
+
+	@GenModel(documentation="Retrieves the directed relationships for which this element is a target.")
+	!ordered op DirectedRelationship[*] getTargetDirectedRelationships();
+
+	@GenModel(documentation="Retrieves the directed relationships of the specified type for which this element is a target.")
+	!ordered op DirectedRelationship[*] getTargetDirectedRelationships(@GenModel(documentation="The (meta)type of the directed relationships to retrieve.")
+!ordered EClass[1] eClass);
+
+	@GenModel(documentation="The query allOwnedElements() gives all of the direct and indirect owned elements of an element.
+result = ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))")
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="ownedElement->union( ownedElement->collect(e | e.allOwnedElements()) )")
+	!ordered op Element[*] allOwnedElements();
+
+	@GenModel(documentation="The query mustBeOwned() indicates whether elements of this type must have an owner. Subclasses of Element that do not require an owner must override this operation.
+result = true")
+	!ordered op Boolean[1] mustBeOwned();
+
+	@GenModel(documentation="The Elements owned by this element.")
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="Set {}")
+	!ordered readonly volatile transient derived ref Element[*]#owner ownedElement;
+
+	@GenModel(documentation="The Element that owns this element.")
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="null")
+	!ordered readonly volatile transient derived ref Element#ownedElement owner;
+
+	@GenModel(documentation="The Comments owned by this element.")
+	@subsets
+	!ordered val Comment[*] ownedComment;
+}
+
+@GenModel(documentation="A package is used to group elements, and provides a namespace for the grouped elements.
+A package can have one or more profile applications to indicate which profiles have been applied. Because a profile is a package, it is possible to apply a profile not only to packages, but also to profiles.
+Package specializes TemplateableElement and PackageableElement specializes ParameterableElement to specify that a package can be used as a template and a PackageableElement as a template parameter.")
+@duplicates
+class Package extends Namespace, PackageableElement {
+
+	@GenModel(documentation="If an element that is owned by a package has visibility, it is public or private.
+self.ownedElements->forAll(e | e.visibility->notEmpty() implies e.visbility = #public or e.visibility = #private)")
+	op boolean elements_public_or_private(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Creates a(n) (abstract) class with the specified name as an owned type of this package.")
+	!ordered op Class[1] createOwnedClass(@GenModel(documentation="The name for the new class, or null.")
+!ordered String[1] name, @GenModel(documentation="Whether the new class should be abstract.")
+!ordered Boolean[1] isAbstract);
+
+	@GenModel(documentation="Creates a enumeration with the specified name as an owned type of this package.")
+	!ordered op Enumeration[1] createOwnedEnumeration(@GenModel(documentation="The name for the new enumeration, or null.")
+!ordered String[1] name);
+
+	@GenModel(documentation="Creates a primitive type with the specified name as an owned type of this package.")
+	!ordered op PrimitiveType[1] createOwnedPrimitiveType(@GenModel(documentation="The name for the new primitive type, or null.")
+!ordered String[1] name);
+
+	@GenModel(documentation="Creates an interface with the specified name as an owned type of this package.")
+	!ordered op void createOwnedInterface(@GenModel(documentation="The name for the new interface, or null.")
+!ordered String[1] name);
+
+	@GenModel(documentation="Retrieves the profile with the specified qualified name that is applied to this package, or null if no such profile is applied.")
+	!ordered op void getAppliedProfile(@GenModel(documentation="The qualified name of the applied profile to retrieve.")
+!ordered String[1] qualifiedName);
+
+	@GenModel(documentation="Retrieves the profile with the specified qualified name that is applied to this package or any of its nesting packages (if indicated), or null if no such profile is applied.")
+	!ordered op void getAppliedProfile(@GenModel(documentation="The qualified name of the applied profile to retrieve.")
+!ordered String[1] qualifiedName, @GenModel(documentation="Whether to look in nesting packages.")
+!ordered Boolean[1] recurse);
+
+	@GenModel(documentation="Determines whether this package is a model library.")
+	!ordered op Boolean[1] isModelLibrary();
+
+	@GenModel(documentation="The query visibleMembers() defines which members of a Package can be accessed outside it.
+result = member->select( m | self.makesVisible(m))")
+	!ordered op PackageableElement[*] visibleMembers();
+
+	@GenModel(documentation="The query makesVisible() defines whether a Package makes an element visible outside itself. Elements with no visibility and elements with public visibility are made visible.
+self.member->includes(el)
+result = (ownedMember->includes(el)) or
+(elementImport->select(ei|ei.importedElement = #public)->collect(ei|ei.importedElement)->includes(el)) or
+(packageImport->select(pi|pi.visibility = #public)->collect(pi|pi.importedPackage.member->includes(el))->notEmpty())")
+	!ordered op Boolean[1] makesVisible(!ordered NamedElement[1] el);
+
+	@GenModel(documentation="References the packaged elements that are Types.")
+	@subsets
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="Set {}")
+	!ordered volatile transient derived ref Type[*]#~package ownedType;
+
+	@GenModel(documentation="References the PackageMerges that are owned by this Package.")
+	@subsets
+	!ordered val PackageMerge[*]#receivingPackage packageMerge;
+
+	@GenModel(documentation="Specifies the packageable elements that are owned by this Package.")
+	@subsets
+	!ordered val PackageableElement[*] packagedElement;
+
+	@GenModel(documentation="References the packaged elements that are Packages.")
+	@subsets
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="Set {}")
+	!ordered volatile transient derived ref Package[*]#nestingPackage nestedPackage;
+
+	@GenModel(documentation="References the Package that owns this Package.")
+	@subsets
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="null")
+	!ordered volatile transient derived ref Package#nestedPackage nestingPackage;
+}
+
+@GenModel(documentation="A packageable element indicates a named element that may be owned directly by a package.
+Packageable elements are able to serve as a template parameter.")
+@duplicates
+abstract class PackageableElement extends NamedElement {
+}
+
+@GenModel(documentation="A named element is an element in a model that may have a name.
+A named element supports using a string expression to specify its name. This allows names of model elements to involve template parameters. The actual name is evaluated from the string expression only when it is sensible to do so (e.g., when a template is bound).")
+abstract class NamedElement extends Element {
+
+	@GenModel(documentation="If there is no name, or one of the containing namespaces has no name, there is no qualified name.
+(self.name->isEmpty() or self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty())
+  implies self.qualifiedName->isEmpty()")
+	op boolean has_no_qualified_name(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces.
+(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) implies
+  self.qualifiedName = self.allNamespaces()->iterate( ns : Namespace; result: String = self.name | ns.name->union(self.separator())->union(result))")
+	op boolean has_qualified_name(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="If a NamedElement is not owned by a Namespace, it does not have a visibility.
+namespace->isEmpty() implies visibility->isEmpty()")
+	op boolean visibility_needs_ownership(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Creates a dependency between this named element and the specified supplier, owned by this named element's nearest package.")
+	!ordered op Dependency[1] createDependency(@GenModel(documentation="The supplier for the new dependency.")
+!ordered NamedElement[1] supplier);
+
+	@GenModel(documentation="Retrieves a localized label for this named element.")
+	!ordered op String getLabel();
+
+	@GenModel(documentation="Retrieves a label for this named element, localized if indicated.")
+	!ordered op String getLabel(@GenModel(documentation="Whether to localize the label.")
+!ordered Boolean[1] localize);
+
+	@GenModel(documentation="Creates a usage between this named element and the specified supplier, owned by this named element's nearest package.")
+	!ordered op void createUsage(@GenModel(documentation="The supplier for the new usage.")
+!ordered NamedElement[1] supplier);
+
+	@GenModel(documentation="When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces.
+result = if self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()
+then 
+    self.allNamespaces()->iterate( ns : Namespace; result: String = self.name | ns.name->union(self.separator())->union(result))
+else
+    Set{}
+endif", suppressedVisibility="true")
+	!ordered op String[1] getQualifiedName();
+
+	@GenModel(documentation="The query allNamespaces() gives the sequence of namespaces in which the NamedElement is nested, working outwards.
+result = if self.namespace->isEmpty()
+then Sequence{}
+else self.namespace.allNamespaces()->prepend(self.namespace)
+endif")
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="if namespace->isEmpty() then Sequence {} else namespace.allNamespaces()->prepend(namespace) endif")
+	op Namespace[*] allNamespaces();
+
+	@GenModel(documentation="The query isDistinguishableFrom() determines whether two NamedElements may logically co-exist within a Namespace. By default, two named elements are distinguishable if (a) they have unrelated types or (b) they have related types but different names.
+result = if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType)
+then ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()
+else true
+endif")
+	!ordered op Boolean[1] isDistinguishableFrom(!ordered NamedElement[1] n, !ordered Namespace[1] ns);
+
+	@GenModel(documentation="The query separator() gives the string that is used to separate names when constructing a qualified name.
+result = '::'")
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="'::'")
+	!ordered op String[1] separator();
+
+	@GenModel(documentation="The query allOwningPackages() returns all the directly or indirectly owning packages.
+result = self.namespace->select(p | p.oclIsKindOf(Package))->union(p.allOwningPackages())")
+	!ordered op Package[*] allOwningPackages();
+
+	@GenModel(documentation="The name of the NamedElement.")
+	!ordered unsettable attr String name;
+
+	@GenModel(documentation="Determines where the NamedElement appears within different Namespaces within the overall model, and its accessibility.")
+	!ordered unsettable attr VisibilityKind visibility;
+
+	@GenModel(documentation="A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself.")
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="if ( name->isEmpty() or allNamespaces()->select (ns | ns.name->isEmpty())->notEmpty() ) then
+	null	
+else
+	allNamespaces()->iterate( ns : Namespace; all : String =
+	name | ns.name.concat(separator()).concat(all))
+endif")
+	!ordered readonly volatile transient derived attr String qualifiedName;
+
+	@GenModel(documentation="Indicates the dependencies that reference the client.")
+	!ordered ref Dependency[*]#client clientDependency;
+
+	@GenModel(documentation="Specifies the namespace that owns the NamedElement.")
+	@subsets
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="null")
+	!ordered readonly volatile transient derived ref Namespace#ownedMember namespace;
+
+	@GenModel(documentation="The string expression used to define the name of this named element.")
+	@subsets
+	!ordered val StringExpression nameExpression;
+}
+
+@GenModel(documentation="VisibilityKind is an enumeration type that defines literals to determine the visibility of elements in a model.")
+enum VisibilityKind {
+
+	@GenModel(documentation="A public element is visible to all elements that can access the contents of the namespace that owns it.")
+	public = 0;
+
+	@GenModel(documentation="A private element is only visible inside the namespace that owns it.")
+	private = 1;
+
+	@GenModel(documentation="A protected element is visible to elements that have a generalization relationship to the namespace that owns it.")
+	protected = 2;
+
+	@GenModel(documentation="A package element is owned by a namespace that is not a package, and is visible to elements that are in the same package as its owning namespace. Only named elements that are not owned by packages can be marked as having package visibility.  Any element marked as having package visibility is visible to all elements within the nearest enclosing package (given that other owning elements have proper visibility).  Outside the nearest enclosing package, an element marked as having package visibility is not visible.")
+	~package = 3;
+}
+
+@GenModel(documentation="A dependency is a relationship that signifies that a single or a set of model elements requires other model elements for their specification or implementation. This means that the complete semantics of the depending elements is either semantically or structurally dependent on the definition of the supplier element(s).")
+class Dependency extends PackageableElement, DirectedRelationship {
+
+	@GenModel(documentation="The element(s) independent of the client element(s), in the same respect and the same dependency relationship. In some directed dependency relationships (such as Refinement Abstractions), a common convention in the domain of class-based OO software is to put the more abstract element in this role. Despite this convention, users of UML may stipulate a sense of dependency suitable for their domain, which makes a more abstract element dependent on that which is more specific.")
+	@subsets
+	!ordered ref NamedElement[+] supplier;
+
+	@GenModel(documentation="The element(s) dependent on the supplier element(s). In some cases (such as a Trace Abstraction) the assignment of direction (that is, the designation of the client element) is at the discretion of the modeler, and is a stipulation.")
+	@subsets
+	!ordered ref NamedElement[+]#clientDependency client;
+}
+
+@GenModel(documentation="A directed relationship represents a relationship between a collection of source model elements and a collection of target model elements.")
+abstract class DirectedRelationship extends Relationship {
+
+	@GenModel(documentation="Specifies the sources of the DirectedRelationship.")
+	@subsets
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="if self.oclIsKindOf(Generalization) then
+	Set{self.oclAsType(Generalization).specific}
+else
+	null
+endif")
+	!ordered readonly volatile transient derived ref Element[+] source;
+
+	@GenModel(documentation="Specifies the targets of the DirectedRelationship.")
+	@subsets
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="if self.oclIsKindOf(Generalization) then
+	Set{self.oclAsType(Generalization).general}
+else
+	null
+endif")
+	!ordered readonly volatile transient derived ref Element[+] target;
+}
+
+@GenModel(documentation="Relationship is an abstract concept that specifies some kind of relationship between elements.")
+abstract class Relationship extends Element {
+
+	@GenModel(documentation="Specifies the elements related by the Relationship.")
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="if self.oclIsKindOf(DirectedRelationship) then
+	self.oclAsType(DirectedRelationship).source->union(self.oclAsType(DirectedRelationship).target)
+else
+	if self.oclIsKindOf(Association) then
+		self.oclAsType(Association).endType
+	else
+		null
+	endif
+endif")
+	!ordered readonly volatile transient derived ref Element[+] relatedElement;
+}
+
+@GenModel(documentation="A namespace is an element in a model that contains a set of named elements that can be identified by name.")
+abstract class Namespace extends NamedElement {
+
+	@GenModel(documentation="All the members of a Namespace are distinguishable within it.
+membersAreDistinguishable()")
+	op boolean members_distinguishable(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Creates an import of the specified element into this namespace with the specified visibility.")
+	!ordered op ElementImport[1] createElementImport(@GenModel(documentation="The element to import.")
+!ordered PackageableElement[1] element, @GenModel(documentation="The visibility for the new element import.")
+!ordered VisibilityKind[1] visibility);
+
+	@GenModel(documentation="Creates an import of the specified package into this namespace with the specified visibility.")
+	!ordered op PackageImport[1] createPackageImport(@GenModel(documentation="The package to import.")
+!ordered Package[1] package_, @GenModel(documentation="The visibility for the new package import.")
+!ordered VisibilityKind[1] visibility);
+
+	@GenModel(documentation="Retrieves the elements imported by this namespace.")
+	!ordered op PackageableElement[*] getImportedElements();
+
+	@GenModel(documentation="Retrieves the packages imported by this namespace.")
+	!ordered op Package[*] getImportedPackages();
+
+	@GenModel(documentation="The importedMember property is derived from the ElementImports and the PackageImports. References the PackageableElements that are members of this Namespace as a result of either PackageImports or ElementImports.
+result = self.importMembers(self.elementImport.importedElement.asSet()-
+>union(self.packageImport.importedPackage->collect(p | p.visibleMembers())))")
+	!ordered op PackageableElement[*] getImportedMembers();
+
+	@GenModel(documentation="The query getNamesOfMember() takes importing into account. It gives back the set of names that an element would have in an importing namespace, either because it is owned, or if not owned then imported individually, or if not individually then from a package.
+The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. The query takes account of importing. It gives back the set of names that an element would have in an importing namespace, either because it is owned, or if not owned then imported individually, or if not individually then from a package.
+result = if self.ownedMember ->includes(element)
+then Set{}->include(element.name)
+else let elementImports: ElementImport = self.elementImport->select(ei | ei.importedElement = element) in
+  if elementImports->notEmpty()
+  then elementImports->collect(el | el.getName())
+  else self.packageImport->select(pi | pi.importedPackage.visibleMembers()->includes(element))-> collect(pi | pi.importedPackage.getNamesOfMember(element))
+  endif
+endif")
+	!ordered op String[*] getNamesOfMember(!ordered NamedElement[1] element);
+
+	@GenModel(documentation="The Boolean query membersAreDistinguishable() determines whether all of the namespace's members are distinguishable within it.
+result = self.member->forAll( memb |
+self.member->excluding(memb)->forAll(other |
+memb.isDistinguishableFrom(other, self)))")
+	!ordered op Boolean[1] membersAreDistinguishable();
+
+	@GenModel(documentation="The query importMembers() defines which of a set of PackageableElements are actually imported into the namespace. This excludes hidden ones, i.e., those which have names that conflict with names of owned members, and also excludes elements which would have the same name when imported.
+result = self.excludeCollisions(imps)->select(imp | self.ownedMember->forAll(mem |
+mem.imp.isDistinguishableFrom(mem, self)))")
+	!ordered op PackageableElement[*] importMembers(!ordered PackageableElement[*] imps);
+
+	@GenModel(documentation="The query excludeCollisions() excludes from a set of PackageableElements any that would not be distinguishable from each other in this namespace.
+result = imps->reject(imp1 | imps.exists(imp2 | not imp1.isDistinguishableFrom(imp2, self)))")
+	!ordered op PackageableElement[*] excludeCollisions(!ordered PackageableElement[*] imps);
+
+	@GenModel(documentation="References the ElementImports owned by the Namespace.")
+	@subsets
+	!ordered val ElementImport[*]#importingNamespace elementImport;
+
+	@GenModel(documentation="References the PackageImports owned by the Namespace.")
+	@subsets
+	!ordered val PackageImport[*]#importingNamespace packageImport;
+
+	@GenModel(documentation="Specifies a set of Constraints owned by this Namespace.")
+	@subsets
+	!ordered val Constraintx[*]#context ownedRule;
+
+	@GenModel(documentation="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance.")
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="if oclIsKindOf(Association) then
+	oclAsType(Association).memberEnd
+else
+	if oclIsKindOf(Classifier) then
+		oclAsType(Classifier).feature.oclAsType(NamedElement)->union(oclAsType(Classifier).inheritedMember)
+	else
+		Set {}
+	endif
+endif")
+	!ordered readonly volatile transient derived ref NamedElement[*] member;
+
+	@GenModel(documentation="References the PackageableElements that are members of this Namespace as a result of either PackageImports or ElementImports.")
+	@subsets
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="Set {}")
+	!ordered readonly volatile transient derived ref PackageableElement[*] importedMember;
+
+	@GenModel(documentation="A collection of NamedElements owned by the Namespace.")
+	@subsets
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="if oclIsKindOf(Class) then
+	oclAsType(Class).ownedAttribute
+else
+	if oclIsKindOf(DataType) then
+		oclAsType(DataType).ownedAttribute	
+	else
+		if oclIsKindOf(Association) then
+			oclAsType(Association).ownedEnd
+		else
+			Set {}
+		endif
+	endif
+endif
+")
+	!ordered readonly volatile transient derived ref NamedElement[*]#namespace ownedMember;
+}
+
+@GenModel(documentation="An element import identifies an element in another package, and allows the element to be referenced using its name without a qualifier.")
+class ElementImport extends DirectedRelationship {
+
+	@GenModel(documentation="The visibility of an ElementImport is either public or private.
+self.visibility = #public or self.visibility = #private")
+	op boolean visibility_public_or_private(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="An importedElement has either public visibility or no visibility at all.
+self.importedElement.visibility.notEmpty() implies self.importedElement.visibility = #public")
+	op boolean imported_element_is_public(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The query getName() returns the name under which the imported PackageableElement will be known in the importing namespace.
+result = if self.alias->notEmpty() then
+  self.alias
+else
+  self.importedElement.name
+endif")
+	!ordered op String[1] getName();
+
+	@GenModel(documentation="Specifies the visibility of the imported PackageableElement within the importing Package. The default visibility is the same as that of the imported element. If the imported element does not have a visibility, it is possible to add visibility to the element import.")
+	!ordered attr VisibilityKind[1] visibility = "public";
+
+	@GenModel(documentation="Specifies the name that should be added to the namespace of the importing package in lieu of the name of the imported packagable element. The aliased name must not clash with any other member name in the importing package. By default, no alias is used.")
+	!ordered unsettable attr String alias;
+
+	@GenModel(documentation="Specifies the PackageableElement whose name is to be added to a Namespace.")
+	@subsets
+	!ordered ref PackageableElement[1] importedElement;
+
+	@GenModel(documentation="Specifies the Namespace that imports a PackageableElement from another Package.")
+	@subsets
+	!ordered ref Namespace[1]#elementImport importingNamespace;
+}
+
+@GenModel(documentation="A package import is a relationship that allows the use of unqualified names to refer to package members from other namespaces.")
+class PackageImport extends DirectedRelationship {
+
+	@GenModel(documentation="The visibility of a PackageImport is either public or private.
+self.visibility = #public or self.visibility = #private")
+	op boolean public_or_private(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Specifies the visibility of the imported PackageableElements within the importing Namespace, i.e., whether imported elements will in turn be visible to other packages that use that importingPackage as an importedPackage. If the PackageImport is public, the imported elements will be visible outside the package, while if it is private they will not.")
+	!ordered attr VisibilityKind[1] visibility = "public";
+
+	@GenModel(documentation="Specifies the Package whose members are imported into a Namespace.")
+	@subsets
+	!ordered ref Package[1] importedPackage;
+
+	@GenModel(documentation="Specifies the Namespace that imports the members from a Package.")
+	@subsets
+	!ordered ref Namespace[1]#packageImport importingNamespace;
+}
+
+@GenModel(documentation="A constraint is a condition or restriction expressed in natural language text or in a machine readable language for the purpose of declaring some of the semantics of an element.")
+class Constraintx extends PackageableElement {
+
+	@GenModel(documentation="A constraint cannot be applied to itself.
+not constrainedElement->includes(self)")
+	op boolean not_apply_to_self(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The value specification for a constraint must evaluate to a Boolean value.
+self.specification().booleanValue().isOclKindOf(Boolean)")
+	op boolean value_specification_boolean(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The value specification for a constraint must evaluate to a Boolean value.
+true")
+	op boolean boolean_value(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Evaluating the value specification for a constraint must not have side effects.
+true")
+	op boolean no_side_effects(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A constraint cannot be applied to itself.
+not constrainedElement->includes(self)")
+	op boolean not_applied_to_self(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The ordered set of Elements referenced by this Constraint.")
+	ref Element[*] constrainedElement;
+
+	@GenModel(documentation="A condition that must be true when evaluated in order for the constraint to be satisfied.")
+	@subsets
+	!ordered val ValueSpecification[1] specification;
+
+	@GenModel(documentation="Specifies the namespace that owns the NamedElement.")
+	@subsets
+	!ordered ref Namespace#ownedRule context;
+}
+
+@GenModel(documentation="A value specification is the specification of a (possibly empty) set of instances, including both objects and data values.
+ValueSpecification specializes ParameterableElement to specify that a value specification can be exposed as a formal template parameter, and provided as an actual parameter in a binding of a template.")
+@duplicates
+abstract class ValueSpecification extends PackageableElement, TypedElement {
+
+	@GenModel(documentation="The query isComputable() determines whether a value specification can be computed in a model. This operation cannot be fully defined in OCL. A conforming implementation is expected to deliver true for this operation for all value specifications that it can compute, and to compute all of those for which the operation is true. A conforming implementation is expected to be able to compute the value of all literals.
+result = false")
+	!ordered op Boolean[1] isComputable();
+
+	@GenModel(documentation="The query integerValue() gives a single Integer value when one can be computed.
+result = Set{}")
+	!ordered op Integer[1] integerValue();
+
+	@GenModel(documentation="The query booleanValue() gives a single Boolean value when one can be computed.
+result = Set{}")
+	!ordered op Boolean[1] booleanValue();
+
+	@GenModel(documentation="The query stringValue() gives a single String value when one can be computed.
+result = Set{}")
+	!ordered op String[1] stringValue();
+
+	@GenModel(documentation="The query unlimitedValue() gives a single UnlimitedNatural value when one can be computed.
+result = Set{}")
+	!ordered op UnlimitedNatural[1] unlimitedValue();
+
+	@GenModel(documentation="The query isNull() returns true when it can be computed that the value is null.
+result = false")
+	!ordered op Boolean[1] isNull();
+}
+
+@GenModel(documentation="A typed element is a kind of named element that represents an element with a type.
+A typed element has a type.")
+abstract class TypedElement extends NamedElement {
+
+	@GenModel(documentation="This information is derived from the return result for this Operation.
+The type of the TypedElement.")
+	!ordered ref Type type;
+}
+
+@GenModel(documentation="A type is a named element that is used as the type for a typed element. A type can be contained in a package.
+A type constrains the values represented by a typed element.")
+abstract class Type extends PackageableElement {
+
+	@GenModel(documentation="Creates a(n) (binary) association between this type and the specified other type, with the specified navigabilities, aggregations, names, lower bounds, and upper bounds, and owned by this type's nearest package.")
+	!ordered op Association[1] createAssociation(@GenModel(documentation="The navigability for the first end of the new association.")
+!ordered Boolean[1] end1IsNavigable, @GenModel(documentation="The aggregation for the first end of the new association.")
+!ordered AggregationKind[1] end1Aggregation, @GenModel(documentation="The name for the first end of the new association.")
+!ordered String[1] end1Name, @GenModel(documentation="The lower bound for the first end of the new association.")
+!ordered Integer[1] end1Lower, @GenModel(documentation="The upper bound for the first end of the new association.")
+!ordered UnlimitedNatural[1] end1Upper, @GenModel(documentation="The type for the first end of the new association.")
+!ordered Type[1] end1Type, @GenModel(documentation="The navigability for the second end of the new association.")
+!ordered Boolean[1] end2IsNavigable, @GenModel(documentation="The aggregation for the second end of the new association.")
+!ordered AggregationKind[1] end2Aggregation, @GenModel(documentation="The name for the second end of the new association.")
+!ordered String[1] end2Name, @GenModel(documentation="The lower bound for the second end of the new association.")
+!ordered Integer[1] end2Lower, @GenModel(documentation="The upper bound for the second end of the new association.")
+!ordered UnlimitedNatural[1] end2Upper);
+
+	@GenModel(documentation="Retrieves the associations in which this type is involved.")
+	!ordered op Association[*] getAssociations();
+
+	@GenModel(documentation="The query conformsTo() gives true for a type that conforms to another. By default, two types do not conform to each other. This query is intended to be redefined for specific conformance situations.
+result = false")
+	!ordered op Boolean[1] conformsTo(!ordered Type[1] other);
+
+	@GenModel(documentation="Specifies the owning package of this classifier, if any.")
+	@subsets
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="null")
+	!ordered volatile transient derived ref Package#ownedType ~package;
+}
+
+@GenModel(documentation="An association describes a set of tuples whose values refer to typed instances. An instance of an association is called a link.")
+class Association extends Classifier, Relationship {
+
+	@GenModel(documentation="An association specializing another association has the same number of ends as the other association.
+self.parents()->forAll(p | p.memberEnd.size() = self.memberEnd.size())")
+	op boolean specialized_end_number(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="When an association specializes another association, every end of the specific association corresponds to an end of the general association, and the specific end reaches the same type or a subtype of the more general end.
+true")
+	op boolean specialized_end_types(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Only binary associations can be aggregations.
+self.memberEnd->exists(aggregation <> Aggregation::none) implies self.memberEnd->size() = 2")
+	op boolean binary_associations(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Association ends of associations with more than two ends must be owned by the association.
+if memberEnd->size() > 2 then ownedEnd->includesAll(memberEnd)")
+	op boolean association_ends(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Determines whether this association is a binary association, i.e. whether it has exactly two member ends.")
+	!ordered op Boolean[1] isBinary();
+
+	@GenModel(documentation="endType is derived from the types of the member ends.
+result = self.memberEnd->collect(e | e.type)")
+	op Type[*] getEndTypes();
+
+	@GenModel(documentation="The ends that are owned by the association itself.")
+	@subsets
+	val Property[*]#owningAssociation ownedEnd;
+
+	@GenModel(documentation="Each end represents participation of instances of the classifier connected to the end in links of the association.")
+	@subsets
+	ref Property[2..*]#association memberEnd;
+
+	@GenModel(documentation="Specifies whether the association is derived from other model elements such as other associations or constraints.")
+	!ordered attr Boolean[1] isDerived = "false";
+
+	@GenModel(documentation="References the classifiers that are used as types of the ends of the association.")
+	@subsets
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="self.memberEnd->collect(e | e.type)")
+	readonly volatile transient derived ref Type[+] endType;
+
+	@GenModel(documentation="The navigable ends that are owned by the association itself.")
+	@subsets
+	!ordered ref Property[*] navigableOwnedEnd;
+}
+
+@GenModel(documentation="A classifier is a classification of instances - it describes a set of instances that have features in common. A classifier can specify a generalization hierarchy by referencing its general classifiers.
+A classifier has the capability to own collaboration uses. These collaboration uses link a collaboration with the classifier to give a description of the workings of the classifier.
+A classifier has the capability to own use cases. Although the owning classifier typically represents the subject to which the owned use cases apply, this is not necessarily the case. In principle, the same use case can be applied to multiple subjects, as identified by the subject association role of a use case.
+Classifier is defined to be a kind of templateable element so that a classifier can be parameterized. It is also defined to be a kind of parameterable element so that a classifier can be a formal template parameter.")
+@duplicates
+abstract class Classifier extends Namespace, RedefinableElement, Type {
+
+	@GenModel(documentation="Generalization hierarchies must be directed and acyclical. A classifier can not be both a transitively general and transitively specific classifier of the same classifier.
+not self.allParents()->includes(self)")
+	op boolean no_cycles_in_generalization(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Generalization hierarchies must be directed and acyclical. A classifier can not be both a transitively general and transitively specific classifier of the same classifier.
+not self.allParents()->includes(self)")
+	op boolean generalization_hierarchies(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A classifier may only specialize classifiers of a valid type.
+self.parents()->forAll(c | self.maySpecializeType(c))")
+	op boolean specialize_type(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The Classifier that maps to a GeneralizationSet may neither be a specific nor a general Classifier in any of the Generalization relationships defined for that GeneralizationSet. In other words, a power type may not be an instance of itself nor may its instances also be its subclasses.
+true")
+	op boolean maps_to_generalization_set(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Retrieves all the attributes of this classifier, including those inherited from its parents.")
+	!ordered op Property[*] getAllAttributes();
+
+	@GenModel(documentation="The general classifiers are the classifiers referenced by the generalization relationships.
+result = self.parents()")
+	!ordered op Classifier[*] getGenerals();
+
+	@GenModel(documentation="The inheritedMember association is derived by inheriting the inheritable members of the parents.
+result = self.inherit(self.parents()->collect(p | p.inheritableMembers(self))")
+	!ordered op NamedElement[*] getInheritedMembers();
+
+	@GenModel(documentation="The query allFeatures() gives all of the features in the namespace of the classifier. In general, through mechanisms such as inheritance, this will be a larger set than feature.
+result = member->select(oclIsKindOf(Feature))")
+	!ordered op Feature[*] allFeatures();
+
+	@GenModel(documentation="The query parents() gives all of the immediate ancestors of a generalized Classifier.
+result = generalization.general")
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="generalization.general")
+	!ordered op Classifier[*] parents();
+
+	@GenModel(documentation="The query inheritableMembers() gives all of the members of a classifier that may be inherited in one of its descendants, subject to whatever visibility restrictions apply.
+c.allParents()->includes(self)
+result = member->select(m | c.hasVisibilityOf(m))")
+	!ordered op NamedElement[*] inheritableMembers(!ordered Classifier[1] c);
+
+	@GenModel(documentation="The query hasVisibilityOf() determines whether a named element is visible in the classifier. By default all are visible. It is only called when the argument is something owned by a parent.
+self.allParents()->collect(c | c.member)->includes(n)
+result = if (self.inheritedMember->includes(n)) then (n.visibility <> #private) else true")
+	!ordered op Boolean[1] hasVisibilityOf(!ordered NamedElement[1] n);
+
+	@GenModel(documentation="The query conformsTo() gives true for a classifier that defines a type that conforms to another. This is used, for example, in the specification of signature conformance for operations.
+result = (self=other) or (self.allParents()->includes(other))")
+	@redefines
+	!ordered op Boolean[1] conformsTo(!ordered Classifier[1] other);
+
+	@GenModel(documentation="The inherit operation is overridden to exclude redefined properties.
+The query inherit() defines how to inherit a set of elements. Here the operation is defined to inherit them all. It is intended to be redefined in circumstances where inheritance is affected by redefinition.
+result = inhs")
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="inhs")
+	!ordered op NamedElement[*] inherit(!ordered NamedElement[*] inhs);
+
+	@GenModel(documentation="The query maySpecializeType() determines whether this classifier may have a generalization relationship to classifiers of the specified type. By default a classifier may specialize classifiers of the same or a more general type. It is intended to be redefined by classifiers that have different specialization constraints.
+result = self.oclIsKindOf(c.oclType)")
+	!ordered op Boolean[1] maySpecializeType(!ordered Classifier[1] c);
+
+	@GenModel(documentation="The query allParents() gives all of the direct and indirect ancestors of a generalized Classifier.
+result = self.parents()->union(self.parents()->collect(p | p.allParents())")
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="self.parents()->union(self.parents()->collect(p | p.allParents()))")
+	!ordered op Classifier[*] allParents();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="allParents()->including(self)->exists ( x | x.oclIsKindOf (Kind) )")
+	op boolean hasKindAncestor();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="allParents()->including(self)->exists ( x | x.oclIsKindOf (Quantity) )")
+	op boolean hasQuantityAncestor();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="allParents()->including(self)->exists ( x | x.oclIsKindOf (Collective) )")
+	op boolean hasCollectiveAncestor();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="ObjectClass.allInstances()->select ( x | x.allParents()->includes(self) )->forAll ( y | not y.hasQuantityAncestor() and not y.hasCollectiveAncestor() )")
+	op boolean hasKindOffspring();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="ObjectClass.allInstances()->select ( x | x.allParents()->includes(self) )->forAll ( y | not y.hasKindAncestor() and not y.hasCollectiveAncestor() )")
+	op boolean hasQuantityOffspring();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="ObjectClass.allInstances()->select ( x | x.allParents()->includes(self) )->forAll ( y | not y.hasKindAncestor() and not y.hasQuantityAncestor() )")
+	op boolean hasCollectiveOffspring();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="if oclIsKindOf (SortalClass) then
+	hasKindAncestor()
+else
+	if oclIsKindOf (MixinClass) then
+		hasKindOffspring()
+	else
+		false
+	endif
+endif")
+	op boolean hasFunctionalComplexInstances();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="if oclIsKindOf (SortalClass) then
+	hasQuantityAncestor()
+else
+	if oclIsKindOf (MixinClass) then
+		hasQuantityOffspring()
+	else
+		false
+	endif
+endif")
+	op boolean hasQuantityInstances();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="if oclIsKindOf (SortalClass) then
+	hasCollectiveAncestor()
+else
+	if oclIsKindOf (MixinClass) then
+		hasCollectiveOffspring()
+	else
+		false
+	endif
+endif")
+	op boolean hasCollectiveInstances();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="Generalization.allInstances()->select (g | g.general = self.oclAsType(Classifier)).specific")
+	@Comments(children="This is NOT from the UML specification. Gets the immediate children.")
+	!ordered op Classifier[*] children();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="self.children()->union(self.children()->collect(c | c.allChildren()))")
+	@Comments(allChildren="This is NOT from the UML specification. Gets all children.")
+	!ordered op Classifier[*] allChildren();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="GeneralizationSet.allInstances()->select (gs | gs.parent() = self)")
+	@Comments(partitions="This is NOT from the UML specification. Gets all the GeneralizationSets in which this Classifier acts as a parent.")
+	op GeneralizationSet[*] partitions();
+
+	@GenModel(documentation="If true, the Classifier does not provide a complete declaration and can typically not be instantiated. An abstract classifier is intended to be used by other classifiers e.g. as the target of general metarelationships or generalization relationships.
+")
+	!ordered attr Boolean[1] isAbstract = "false";
+
+	@GenModel(documentation="Specifies the Generalization relationships for this Classifier. These Generalizations navigaten to more general classifiers in the generalization hierarchy.")
+	@subsets
+	!ordered val Generalization[*]#specific generalization;
+
+	@GenModel(documentation="Designates the GeneralizationSet of which the associated Classifier is a power type.")
+	!ordered ref GeneralizationSet[*]#powertype powertypeExtent;
+
+	@GenModel(documentation="Note that there may be members of the Classifier that are of the type Feature but are not included in this association, e.g. inherited features.
+Specifies each feature defined in the classifier.")
+	@subsets
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="if oclIsKindOf(Association) then
+	oclAsType(Association).ownedEnd
+else
+	attribute
+endif")
+	!ordered readonly volatile transient derived ref Feature[*]#featuringClassifier feature;
+
+	@GenModel(documentation="Specifies all elements inherited by this classifier from the general classifiers.")
+	@subsets
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="Set {}")
+	!ordered readonly volatile transient derived ref NamedElement[*] inheritedMember;
+
+	@GenModel(documentation="References the Classifiers that are redefined by this Classifier.")
+	@subsets
+	!ordered ref Classifier[*] redefinedClassifier;
+
+	@GenModel(documentation="References the general classifier in the Generalization relationship.
+Specifies the general Classifiers for this Classifier.")
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="parents()")
+	!ordered volatile transient derived ref Classifier[*] general;
+
+	@GenModel(documentation="Refers to all of the Properties that are direct (i.e. not inherited or imported) attributes of the classifier.")
+	@subsets
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="if self.oclIsKindOf(Class) then
+	self.oclAsType(Class).ownedAttribute
+else
+	if self.oclIsKindOf(DataType) then
+		self.oclAsType(DataType).ownedAttribute
+	else
+		Set {}
+	endif
+endif")
+	!ordered readonly volatile transient derived ref Property[*] attribute;
+}
+
+@GenModel(documentation="A redefinable element is an element that, when defined in the context of a classifier, can be redefined more specifically or differently in the context of another classifier that specializes (directly or indirectly) the context classifier.")
+abstract class RedefinableElement extends NamedElement {
+
+	@GenModel(documentation="At least one of the redefinition contexts of the redefining element must be a specialization of at least one of the redefinition contexts for each redefined element.
+self.redefinedElement->forAll(e | self.isRedefinitionContextValid(e))")
+	op boolean redefinition_context_valid(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A redefining element must be consistent with each redefined element.
+self.redefinedElement->forAll(re | re.isConsistentWith(self))")
+	op boolean redefinition_consistent(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The query isConsistentWith() specifies, for any two RedefinableElements in a context in which redefinition is possible, whether redefinition would be logically consistent. By default, this is false; this operation must be overridden for subclasses of RedefinableElement to define the consistency conditions.
+redefinee.isRedefinitionContextValid(self)
+result = false")
+	!ordered op Boolean[1] isConsistentWith(!ordered RedefinableElement[1] redefinee);
+
+	@GenModel(documentation="The query isRedefinitionContextValid() specifies whether the redefinition contexts of this RedefinableElement are properly related to the redefinition contexts of the specified RedefinableElement to allow this element to redefine the other. By default at least one of the redefinition contexts of this element must be a specialization of at least one of the redefinition contexts of the specified element.
+result = redefinitionContext->exists(c | c.allParents()->includes(redefined.redefinitionContext)))")
+	!ordered op Boolean[1] isRedefinitionContextValid(!ordered RedefinableElement[1] redefined);
+
+	@GenModel(documentation="Indicates whether it is possible to further specialize a RedefinableElement. If the value is true, then it is not possible to further specialize the RedefinableElement.")
+	!ordered attr Boolean[1] isLeaf = "false";
+
+	@GenModel(documentation="The redefinable element that is being redefined by this element.")
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="Set {}")
+	!ordered readonly volatile transient derived ref RedefinableElement[*] redefinedElement;
+
+	@GenModel(documentation="References the contexts that this element may be redefined from.")
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="Set {}")
+	!ordered readonly volatile transient derived ref Classifier[*] redefinitionContext;
+}
+
+@GenModel(documentation="A generalization is a taxonomic relationship between a more general classifier and a more specific classifier. Each instance of the specific classifier is also an indirect instance of the general classifier. Thus, the specific classifier inherits the features of the more general classifier.
+A generalization relates a specific classifier to a more general classifier, and is owned by the specific classifier.")
+@Ecore(constraints="GeneralizationConstraint1")
+@"http://www.eclipse.org/ocl/examples/OCL"(GeneralizationConstraint1="(specific.oclIsKindOf(ObjectClass) implies general.oclIsKindOf(ObjectClass)) and (general.oclIsKindOf(ObjectClass) implies specific.oclIsKindOf(ObjectClass))")
+@Comments(GeneralizationConstraint1="An ObjectClass only participates in a Generalization with other ObjectClass")
+class Generalization extends DirectedRelationship {
+
+	@GenModel(documentation="Every Generalization associated with a given GeneralizationSet must have the same general Classifier. That is, all Generalizations for a particular GeneralizationSet must have the same superclass.
+true")
+	op boolean generalization_same_classifier(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Indicates whether the specific classifier can be used wherever the general classifier can be used. If true, the execution traces of the specific classifier will be a superset of the execution traces of the general classifier.")
+	!ordered attr Boolean isSubstitutable = "true";
+
+	@GenModel(documentation="References the general classifier in the Generalization relationship.")
+	@subsets
+	!ordered ref Classifier[1] general;
+
+	@GenModel(documentation="Designates a set in which instances of Generalization is considered members.")
+	!ordered !resolve ref GeneralizationSet[*]#generalization generalizationSet;
+
+	@GenModel(documentation="References the specializing classifier in the Generalization relationship.")
+	@subsets
+	!ordered ref Classifier[1]#generalization specific;
+}
+
+@GenModel(documentation="A generalization set is a packageable element whose instances define collections of subsets of generalization relationships.")
+class GeneralizationSet extends PackageableElement {
+
+	@GenModel(documentation="Every Generalization associated with a particular GeneralizationSet must have the same general Classifier.
+generalization->collect(g | g.general)->asSet()->size() <= 1")
+	op boolean generalization_same_classifier(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The Classifier that maps to a GeneralizationSet may neither be a specific nor a general Classifier in any of the Generalization relationships defined for that GeneralizationSet. In other words, a power type may not be an instance of itself nor may its instances be its subclasses.
+true")
+	op boolean maps_to_generalization_set(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="generalization.general->any(true)")
+	@Comments(parent="This is NOT from the UML specification.")
+	op Classifier parent();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="generalization.specific")
+	@Comments(children="This is NOT from the UML specification.")
+	!ordered op Classifier[+] children();
+
+	@GenModel(documentation="Indicates (via the associated Generalizations) whether or not the set of specific Classifiers are covering for a particular general classifier. When isCovering is true, every instance of a particular general Classifier is also an instance of at least one of its specific Classifiers for the GeneralizationSet. When isCovering is false, there are one or more instances of the particular general Classifier that are not instances of at least one of its specific Classifiers defined for the GeneralizationSet.")
+	!ordered attr Boolean[1] isCovering = "false";
+
+	@GenModel(documentation="Indicates whether or not the set of specific Classifiers in a Generalization relationship have instance in common. If isDisjoint is true, the specific Classifiers for a particular GeneralizationSet have no members in common; that is, their intersection is empty. If isDisjoint is false, the specific Classifiers in a particular GeneralizationSet have one or more members in common; that is, their intersection is not empty. For example, Person could have two Generalization relationships, each with the different specific Classifier: Manager or Staff. This would be disjoint because every instance of Person must either be a Manager or Staff. In contrast, Person could have two Generalization relationships involving two specific (and non-covering) Classifiers: Sales Person and Manager. This GeneralizationSet would not be disjoint because there are instances of Person which can be a Sales Person and a Manager.")
+	!ordered attr Boolean[1] isDisjoint = "false";
+
+	@GenModel(documentation="Designates the Classifier that is defined as the power type for the associated GeneralizationSet.")
+	!ordered ref Classifier#powertypeExtent powertype;
+
+	@GenModel(documentation="Designates the instances of Generalization which are members of a given GeneralizationSet.")
+	!ordered transient !resolve ref Generalization[*]#generalizationSet generalization;
+}
+
+@GenModel(documentation="A feature declares a behavioral or structural characteristic of instances of classifiers.")
+abstract class Feature extends RedefinableElement {
+
+	@GenModel(documentation="Specifies whether this feature characterizes individual instances classified by the classifier (false) or the classifier itself (true).")
+	!ordered attr Boolean[1] isStatic = "false";
+
+	@GenModel(documentation="The Classifiers that have this Feature as a feature.")
+	@union
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="Set {}")
+	!ordered readonly volatile transient derived ref Classifier[*]#feature featuringClassifier;
+}
+
+@GenModel(documentation="An opaque expression is an uninterpreted textual statement that denotes a (possibly empty) set of values when evaluated in a context.
+Provides a mechanism for precisely defining the behavior of an opaque expression. An opaque expression is defined by a behavior restricted to return one result.")
+@duplicates
+class OpaqueExpression extends ValueSpecification {
+
+	@GenModel(documentation="If the language attribute is not empty, then the size of the body and language arrays must be the same.
+language->notEmpty() implies (body->size() = language->size())")
+	op boolean language_body_size(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The behavior may only have return result parameters.
+self.behavior.notEmpty() implies
+  self.behavior.ownedParameters->select(p | p.direction<>#return)->isEmpty()")
+	op boolean only_return_result_parameters(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The behavior must have exactly one return result parameter.
+self.behavior.notEmpty() implies
+  self.behavior.ownedParameter->select(p | p.direction=#return)->size() = 1")
+	op boolean one_return_result_parameter(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(suppressedVisibility="true")
+	!ordered op void getResult();
+
+	@GenModel(documentation="The query value() gives an integer value for an expression intended to produce one.
+self.isIntegral()
+true")
+	!ordered op Integer[1] value();
+
+	@GenModel(documentation="The query isIntegral() tells whether an expression is intended to produce an integer.
+result = false")
+	!ordered op Boolean[1] isIntegral();
+
+	@GenModel(documentation="The query isPositive() tells whether an integer expression has a positive value.
+self.isIntegral()
+result = false")
+	!ordered op Boolean[1] isPositive();
+
+	@GenModel(documentation="The query isNonNegative() tells whether an integer expression has a non-negative value.
+self.isIntegral()
+result = false")
+	!ordered op Boolean[1] isNonNegative();
+
+	@GenModel(documentation="The text of the expression, possibly in multiple languages.")
+	@ExtendedMetaData(kind="element")
+	!unique unsettable attr String[*] body;
+
+	@GenModel(documentation="Specifies the languages in which the expression is stated. The interpretation of the expression body depends on the languages. If the languages are unspecified, they might be implicit from the expression body or the context. Languages are matched to body strings by order.")
+	unsettable attr String[*] language;
+}
+
+@GenModel(documentation="A multiplicity is a definition of an inclusive interval of non-negative integers beginning with a lower bound and ending with a (possibly infinite) upper bound. A multiplicity element embeds this information to specify the allowable cardinalities for an instantiation of this element.")
+@Ecore(constraints="LowerAndUpperBound")
+@"http://www.eclipse.org/ocl/examples/OCL"(LowerAndUpperBound="upperBound()->notEmpty() and lowerBound()->notEmpty() implies upperBound() >= lowerBound() or upperBound() = -1")
+abstract class MultiplicityElement extends Element {
+
+	@GenModel(documentation="The lower bound must be a non-negative integer literal.
+lowerBound()->notEmpty() implies lowerBound() >= 0")
+	op boolean lower_ge_0(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The upper bound must be greater than or equal to the lower bound.
+(upperBound()->notEmpty() and lowerBound()->notEmpty()) implies upperBound() >= lowerBound()")
+	op boolean upper_ge_lower(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="If a non-literal ValueSpecification is used for the lower or upper bound, then evaluating that specification must not have side effects.
+true")
+	op boolean value_specification_no_side_effects(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="If a non-literal ValueSpecification is used for the lower or upper bound, then that specification must be a constant expression.
+true")
+	op boolean value_specification_constant(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(suppressedVisibility="true")
+	!ordered op void setLower(!ordered Integer[1] newLower);
+
+	@GenModel(suppressedVisibility="true")
+	!ordered op void setUpper(!ordered UnlimitedNatural[1] newUpper);
+
+	@GenModel(documentation="The derived lower attribute must equal the lowerBound.
+result = lowerBound()", suppressedVisibility="true")
+	!ordered op Integer[1] getLower();
+
+	@GenModel(documentation="The derived upper attribute must equal the upperBound.
+result = upperBound()", suppressedVisibility="true")
+	!ordered op UnlimitedNatural[1] getUpper();
+
+	@GenModel(documentation="The query isMultivalued() checks whether this multiplicity has an upper bound greater than one.
+upperBound()->notEmpty()
+result = upperBound() > 1")
+	!ordered op Boolean[1] isMultivalued();
+
+	@GenModel(documentation="The query includesCardinality() checks whether the specified cardinality is valid for this multiplicity.
+upperBound()->notEmpty() and lowerBound()->notEmpty()
+result = (lowerBound() <= C) and (upperBound() >= C)")
+	!ordered op Boolean[1] includesCardinality(!ordered Integer[1] C);
+
+	@GenModel(documentation="The query includesMultiplicity() checks whether this multiplicity includes all the cardinalities allowed by the specified multiplicity.
+self.upperBound()->notEmpty() and self.lowerBound()->notEmpty() and M.upperBound()->notEmpty() and M.lowerBound()->notEmpty()
+result = (self.lowerBound() <= M.lowerBound()) and (self.upperBound() >= M.upperBound())")
+	!ordered op Boolean[1] includesMultiplicity(!ordered MultiplicityElement[1] M);
+
+	@GenModel(documentation="The query lowerBound() returns the lower bound of the multiplicity as an integer.
+result = if lowerValue->isEmpty() then 1 else lowerValue.integerValue() endif")
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="if lowerValue->isEmpty() then 1 else lowerValue.oclAsType(LiteralInteger).value endif")
+	!ordered op Integer[1] lowerBound();
+
+	@GenModel(documentation="The query upperBound() returns the upper bound of the multiplicity for a bounded multiplicity as an unlimited natural.
+result = if upperValue->isEmpty() then 1 else upperValue.unlimitedValue() endif")
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="if upperValue->isEmpty() then 1 else upperValue.oclAsType(LiteralUnlimitedNatural).value endif")
+	!ordered op UnlimitedNatural[1] upperBound();
+
+	@GenModel(documentation="The operation compatibleWith takes another multiplicity as input. It checks if one multiplicity is compatible with another.
+result = Integer.allInstances()->forAll(i : Integer | self.includesCardinality(i) implies other.includesCardinality(i))")
+	!ordered op Boolean[1] compatibleWith(!ordered MultiplicityElement[1] other);
+
+	@GenModel(documentation="The operation is determines if the upper and lower bound of the ranges are the ones given.
+result = (lowerbound = self.lowerbound and upperbound = self.upperbound)")
+	!ordered op Boolean[1] is(!ordered Integer[1] lowerbound, !ordered Integer[1] upperbound);
+
+	@GenModel(documentation="For a multivalued multiplicity, this attribute specifies whether the values in an instantiation of this element are sequentially ordered.")
+	!ordered attr Boolean[1] isOrdered = "false";
+
+	@GenModel(documentation="For a multivalued multiplicity, this attributes specifies whether the values in an instantiation of this element are unique.")
+	!ordered attr Boolean[1] isUnique = "true";
+
+	@GenModel(documentation="Specifies the upper bound of the multiplicity interval.")
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="upperBound()")
+	!ordered volatile transient derived attr UnlimitedNatural upper = "1";
+
+	@GenModel(documentation="Specifies the lower bound of the multiplicity interval.")
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="lowerBound()")
+	!ordered volatile transient derived attr Integer lower = "1";
+
+	@GenModel(documentation="The specification of the upper bound for this multiplicity.")
+	@subsets
+	!ordered val ValueSpecification upperValue;
+
+	@GenModel(documentation="The specification of the lower bound for this multiplicity.")
+	@subsets
+	!ordered val ValueSpecification lowerValue;
+}
+
+@GenModel(documentation="A property is a structural feature of a classifier that characterizes instances of the classifier. A property related by ownedAttribute to a classifier (other than an association) represents an attribute and might also represent an association end. It relates an instance of the class to a value or set of values of the type of the attribute. A property related by memberEnd or its specializations to an association represents an end of the association. The type of the property is the type of the end of the association.
+A property represents a set of instances that are owned by a containing classifier instance.
+A property has the capability of being a deployment target in a deployment relationship. This enables modeling the deployment to hierarchical nodes that have properties functioning as internal parts.
+Property represents a declared state of one or more instances in terms of a named relationship to a value or values. When a property is an attribute of a classifier, the value or values are related to the instance of the classifier by being held in slots of the instance. When a property is an association end, the value or values are related to the instance or instances at the other end(s) of the association. The range of valid values represented by the property can be controlled by setting the property's type.
+Property specializes ParameterableElement to specify that a property can be exposed as a formal template parameter, and provided as an actual parameter in a binding of a template.")
+@duplicates
+class Property extends StructuralFeature {
+
+	@GenModel(documentation="A multiplicity of a composite aggregation must not have an upper bound greater than 1.
+A multiplicity on an aggregate end of a composite aggregation must not have an upper bound greater than 1.
+isComposite implies (upperBound()->isEmpty() or upperBound() <= 1)")
+	op boolean multiplicity_of_composite(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Subsetting may only occur when the context of the subsetting property conforms to the context of the subsetted property.
+self.subsettedProperty->notEmpty() implies
+  (self.subsettingContext()->notEmpty() and self.subsettingContext()->forAll (sc |
+    self.subsettedProperty->forAll(sp |
+      sp.subsettingContext()->exists(c | sc.conformsTo(c)))))")
+	op boolean subsetting_context_conforms(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A redefined property must be inherited from a more general classifier containing the redefining property.
+if (redefinedProperty->notEmpty()) then
+  (redefinitionContext->notEmpty() and
+      redefinedProperty->forAll(rp|
+        ((redefinitionContext->collect(fc|
+          fc.allParents()))->asSet())->collect(c| c.allFeatures())->asSet()->includes(rp))")
+	op boolean redefined_property_inherited(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A subsetting property may strengthen the type of the subsetted property, and its upper bound may be less.
+self.subsettedProperty->forAll(sp |
+  self.type.conformsTo(sp.type) and
+    ((self.upperBound()->notEmpty() and sp.upperBound()->notEmpty()) implies
+      self.upperBound()<=sp.upperBound() ))")
+	op boolean subsetting_rules(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Only a navigable property can be marked as readOnly.
+isReadOnly implies isNavigable()")
+	op boolean navigable_readonly(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A derived union is derived.
+isDerivedUnion implies isDerived")
+	op boolean derived_union_is_derived(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A derived union is read only.
+isDerivedUnion implies isReadOnly")
+	op boolean derived_union_is_read_only(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A property may not subset a property with the same name.
+true")
+	op boolean subsetted_property_names(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A Property can be a DeploymentTarget if it is a kind of Node and functions as a part in the internal structure of an encompassing Node.
+true")
+	op boolean deployment_target(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A binding of a property template parameter representing an attribute must be to an attribute.
+(isAttribute(self) and (templateParameterSubstitution->notEmpty())
+  implies (templateParameterSubstitution->forAll(ts | isAttribute(ts.formal)))")
+	op boolean binding_to_attribute(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(suppressedVisibility="true")
+	!ordered op String getDefault();
+
+	@GenModel(suppressedVisibility="true")
+	!ordered op Boolean[1] isSetDefault();
+
+	@GenModel(suppressedVisibility="true")
+	!ordered op void setDefault(!ordered String[1] newDefault);
+
+	@GenModel(suppressedVisibility="true")
+	!ordered op void setIsComposite(!ordered Boolean[1] newIsComposite);
+
+	@GenModel(suppressedVisibility="true")
+	!ordered op void setOpposite(!ordered Property[1] newOpposite);
+
+	@GenModel(suppressedVisibility="true")
+	!ordered op void unsetDefault();
+
+	@GenModel(documentation="Sets the navigability of this property as indicated.")
+	!ordered op void setIsNavigable(@GenModel(documentation="The new navigability.")
+!ordered Boolean[1] isNavigable);
+
+	@GenModel(documentation="Retrieves the other end of the (binary) association in which this property is a member end.")
+	!ordered op Property getOtherEnd();
+
+	@GenModel(documentation="Sets the default value for this property to the specified Boolean value.")
+	!ordered op void setBooleanDefaultValue(@GenModel(documentation="The new default value.")
+!ordered Boolean[1] value);
+
+	@GenModel(documentation="Sets the default value for this property to the specified integer value.")
+	!ordered op void setIntegerDefaultValue(@GenModel(documentation="The new default value.")
+!ordered Integer[1] value);
+
+	@GenModel(documentation="Sets the default value for this property to the specified string value.")
+	!ordered op void setStringDefaultValue(@GenModel(documentation="The new default value.")
+!ordered String[1] value);
+
+	@GenModel(documentation="Sets the default value for this property to the specified unlimited natural value.")
+	!ordered op void setUnlimitedNaturalDefaultValue(@GenModel(documentation="The new default value.")
+!ordered UnlimitedNatural[1] value);
+
+	@GenModel(documentation="Sets the default value for this property to the null value.")
+	!ordered op void setNullDefaultValue();
+
+	@GenModel(documentation="The query isAttribute() is true if the Property is defined as an attribute of some classifier.
+result = Classifier.allInstances->exists(c | c.attribute->includes(p))")
+	!ordered op Boolean[1] isAttribute(!ordered Property[1] p);
+
+	@GenModel(documentation="If this property is owned by a class, associated with a binary association, and the other end of the association is also owned by a class, then opposite gives the other end.
+result = if owningAssociation->isEmpty() and association.memberEnd->size() = 2
+  then
+    let otherEnd = (association.memberEnd - self)->any() in
+      if otherEnd.owningAssociation->isEmpty() then otherEnd else Set{} endif
+    else Set {}
+    endif", suppressedVisibility="true")
+	!ordered op Property[1] getOpposite();
+
+	@GenModel(documentation="The value of isComposite is true only if aggregation is composite.
+result = (self.aggregation = #composite)")
+	!ordered op Boolean[1] isComposite();
+
+	@GenModel(documentation="The query subsettingContext() gives the context for subsetting a property. It consists, in the case of an attribute, of the corresponding classifier, and in the case of an association end, all of the classifiers at the other ends.
+result = if association->notEmpty()
+then association.endType-type
+else if classifier->notEmpty() then Set{classifier} else Set{} endif
+endif")
+	!ordered op Type[*] subsettingContext();
+
+	@GenModel(documentation="The query isNavigable() indicates whether it is possible to navigate across the property.
+result = not classifier->isEmpty() or association.owningAssociation.navigableOwnedEnd->includes(self)")
+	!ordered op Boolean[1] isNavigable();
+
+	@GenModel(documentation="References the Class that owns the Property.")
+	@subsets
+	!ordered readonly transient ref Class#ownedAttribute ~class;
+
+	@GenModel(documentation="The DataType that owns this Property.")
+	@subsets
+	!ordered ref DataType#ownedAttribute ~datatype;
+
+	@GenModel(documentation="If isDerived is true, the value of the attribute is derived from information elsewhere.
+Specifies whether the Property is derived, i.e., whether its value or values can be computed from other information.")
+	!ordered attr Boolean[1] isDerived = "false";
+
+	@GenModel(documentation="Specifies whether the property is derived as the union of all of the properties that are constrained to subset it.")
+	!ordered attr Boolean[1] isDerivedUnion = "false";
+
+	@GenModel(documentation="Specifies a String that represents a value to be used when no argument is supplied for the Property.
+A String that is evaluated to give a default value for the Property when an object of the owning Classifier is instantiated.")
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="null")
+	!ordered transient unsettable derived attr String default;
+
+	@GenModel(documentation="Specifies the kind of aggregation that applies to the Property.")
+	!ordered attr AggregationKind[1] aggregation = "none";
+
+	@GenModel(documentation="If isComposite is true, the object containing the attribute is a container for the object or value contained in the attribute.
+This is a derived value, indicating whether the aggregation of the Property is composite or not.")
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="self.aggregation = AggregationKind::composite")
+	!ordered volatile transient derived attr Boolean[1] isComposite = "false";
+
+	@GenModel(documentation="References the properties that are redefined by this property.")
+	@subsets
+	!ordered ref Property[*] redefinedProperty;
+
+	@GenModel(documentation="References the owning association of this property, if any.")
+	@subsets
+	!ordered ref Association#ownedEnd owningAssociation;
+
+	@GenModel(documentation="A ValueSpecification that is evaluated to give a default value for the Property when an object of the owning Classifier is instantiated.")
+	@subsets
+	!ordered val ValueSpecification defaultValue;
+
+	@GenModel(documentation="In the case where the property is one navigable end of a binary association with both ends navigable, this gives the other end.")
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="if self.association.memberEnd->size() = 2 then
+	let otherEnd : Property  = association.memberEnd->any( x | x <> self) in 
+
+	if self.owningAssociation->isEmpty() then
+		if otherEnd.owningAssociation->isEmpty() then
+			otherEnd
+		else
+			null
+		endif
+	else
+		otherEnd
+	endif
+else
+	null
+endif")
+	!ordered volatile transient derived ref Property opposite;
+
+	@GenModel(documentation="References the properties of which this property is constrained to be a subset.")
+	!ordered ref Property[*] subsettedProperty;
+
+	@GenModel(documentation="References the association of which this property is a member, if any.")
+	!ordered ref Association#memberEnd association;
+}
+
+@GenModel(documentation="A class describes a set of objects that share the same specifications of features, constraints, and semantics.
+A class may be designated as active (i.e., each of its instances having its own thread of control) or passive (i.e., each of its instances executing within the context of some other object). A class may also specify which signals the instances of this class handle.
+A class has the capability to have an internal structure and ports.
+Class has derived association that indicates how it may be extended through one or more stereotypes. Stereotype is the only kind of metaclass that cannot be extended by stereotypes.")
+@duplicates
+@Ecore(constraints="ClassAttributeConstraint1")
+@"http://www.eclipse.org/ocl/examples/OCL"(ClassAttributeConstraint1="ownedAttribute->forAll( x | x.lower >= 1 )")
+@Comments(ClassAttributeConstraint1="The minimum cardinality of every attribute must greater or equal to 1")
+class Class extends Classifier {
+
+	@GenModel(documentation="A passive class may not own receptions.
+not self.isActive implies self.ownedReception.isEmpty()")
+	op boolean passive_class(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Creates an operation with the specified name, parameter names, parameter types, and return type (or null) as an owned operation of this class.")
+	!ordered op void createOwnedOperation(@GenModel(documentation="The name for the new operation, or null.")
+!ordered String name, @GenModel(documentation="The parameter names for the new operation, or null.")
+!ordered String[*] parameterNames, @GenModel(documentation="The parameter types for the new operation, or null.")
+!ordered Type[*] parameterTypes, @GenModel(documentation="The return type for the new operation, or null.")
+!ordered Type returnType);
+
+	@GenModel(documentation="Determines whether this class is a metaclass.")
+	!ordered op Boolean[1] isMetaclass();
+
+	@GenModel(documentation="References all the Classifiers that are defined (nested) within the Class.")
+	@subsets
+	val Classifier[*] nestedClassifier;
+
+	@GenModel(documentation="This gives the superclasses of a class.")
+	@redefines
+	@"http://www.eclipse.org/ocl/examples/OCL"(derive="Set {}")
+	!ordered volatile transient derived ref Class[*] superClass;
+
+	@GenModel(documentation="Determines whether an object specified by this class is active or not. If true, then the owning class is referred to as an active class. If false, then such a class is referred to as a passive class.")
+	!ordered attr Boolean[1] isActive = "false";
+	val Property[*]#~class ownedAttribute;
+}
+
+@GenModel(documentation="A model captures a view of a physical system. It is an abstraction of the physical system, with a certain purpose. This purpose determines what is to be included in the model and what is irrelevant. Thus the model completely describes those aspects of the physical system that are relevant to the purpose of the model, at the appropriate level of detail.")
+class Model extends Package {
+
+	@GenModel(documentation="Determines whether this model is a metamodel.")
+	!ordered op Boolean[1] isMetamodel();
+
+	@GenModel(documentation="The name of the viewpoint that is expressed by a model (This name may refer to a profile definition).")
+	!ordered unsettable attr String viewpoint;
+}
+
+@GenModel(documentation="A data type is a type whose instances are identified only by their value. A data type may contain attributes to support the modeling of structured data types.")
+@duplicates
+@Ecore(constraints="DataTypeAttributeConstraint1")
+@"http://www.eclipse.org/ocl/examples/OCL"(DataTypeAttributeConstraint1="ownedAttribute->forAll( x | x.lower >= 1 )")
+@Comments(DataTypeAttributeConstraint1="The minimum cardinality of every attribute must greater or equal to 1")
+class DataType extends Classifier {
+
+	@GenModel(documentation="Creates an operation with the specified name, parameter names, parameter types, and return type (or null) as an owned operation of this data type.")
+	!ordered op void createOwnedOperation(@GenModel(documentation="The name for the new operation, or null.")
+!ordered String name, @GenModel(documentation="The parameter names for the new operation, or null.")
+!ordered String[*] parameterNames, @GenModel(documentation="The parameter types for the new operation, or null.")
+!ordered Type[*] parameterTypes, @GenModel(documentation="The return type for the new operation, or null.")
+!ordered Type returnType);
+
+	@GenModel(documentation="Creates a property with the specified name, type, lower bound, and upper bound as an owned attribute of this data type.")
+	!ordered op Property[1] createOwnedAttribute(@GenModel(documentation="The name for the new attribute, or null.")
+!ordered String name, @GenModel(documentation="The type for the new attribute, or null.")
+!ordered Type type, @GenModel(documentation="The lower bound for the new attribute.")
+!ordered Integer[1] lower, @GenModel(documentation="The upper bound for the new attribute.")
+!ordered UnlimitedNatural[1] upper);
+
+	@GenModel(documentation="The Attributes owned by the DataType.")
+	@subsets
+	val Property[*]#~datatype ownedAttribute;
+}
+
+@GenModel(documentation="A structural feature is a typed feature of a classifier that specifies the structure of instances of the classifier.
+By specializing multiplicity element, it supports a multiplicity that specifies valid cardinalities for the collection of values associated with an instantiation of the structural feature.")
+abstract class StructuralFeature extends Feature, TypedElement, MultiplicityElement {
+
+	@GenModel(documentation="States whether the feature's value may be modified by a client.")
+	!ordered attr Boolean[1] isReadOnly = "false";
+}
+
+@GenModel(documentation="AggregationKind is an enumeration type that specifies the literals for defining the kind of aggregation of a property.")
+enum AggregationKind {
+
+	@GenModel(documentation="Indicates that the property has no aggregation.")
+	none = 0;
+
+	@GenModel(documentation="Indicates that the property has a shared aggregation.")
+	shared = 1;
+
+	@GenModel(documentation="Indicates that the property is aggregated compositely, i.e., the composite object has responsibility for the existence and storage of the composed objects (parts).")
+	composite = 2;
+}
+
+@GenModel(documentation="An expression that specifies a string value that is derived by concatenating a set of sub string expressions, some of which might be template parameters.")
+@duplicates
+class StringExpression extends Expression {
+
+	@GenModel(documentation="All the operands of a StringExpression must be LiteralStrings
+operand->forAll (op | op.oclIsKindOf (LiteralString))")
+	op boolean operands(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="If a StringExpression has sub-expressions, it cannot have operands and vice versa (this avoids the problem of having to
+define a collating sequence between operands and subexpressions).
+
+if subExpression->notEmpty() then operand->isEmpty() else operand->notEmpty()")
+	op boolean subexpressions(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The StringExpressions that constitute this StringExpression.")
+	@subsets
+	!ordered val StringExpression[*]#owningExpression subExpression;
+
+	@GenModel(documentation="The string expression of which this expression is a substring.")
+	@subsets
+	!ordered ref StringExpression#subExpression owningExpression;
+}
+
+@GenModel(documentation="An expression is a structured tree of symbols that denotes a (possibly empty) set of values when evaluated in a context.
+An expression represents a node in an expression tree, which may be non-terminal or terminal. It defines a symbol, and has a possibly empty sequence of operands which are value specifications.")
+class Expression extends ValueSpecification {
+
+	@GenModel(documentation="The symbol associated with the node in the expression tree.")
+	!ordered unsettable attr String symbol;
+
+	@GenModel(documentation="Specifies a sequence of operands.")
+	@subsets
+	val ValueSpecification[*] operand;
+}
+
+@GenModel(documentation="A package merge defines how the contents of one package are extended by the contents of another package.")
+class PackageMerge extends DirectedRelationship {
+
+	@GenModel(documentation="References the Package that is to be merged with the receiving package of the PackageMerge.")
+	@subsets
+	!ordered ref Package[1] mergedPackage;
+
+	@GenModel(documentation="References the Package that is being extended with the contents of the merged package of the PackageMerge.")
+	@subsets
+	!ordered ref Package[1]#packageMerge receivingPackage;
+}
+
+@GenModel(documentation="An enumeration is a data type whose values are enumerated in the model as enumeration literals.")
+class Enumeration extends DataType {
+
+	@GenModel(documentation="The ordered set of literals for this Enumeration.")
+	@subsets
+	val EnumerationLiteral[*]#enumeration ownedLiteral;
+}
+
+@GenModel(documentation="An enumeration literal is a user-defined data value for an enumeration.")
+class EnumerationLiteral extends InstanceSpecification {
+
+	@GenModel(documentation="The Enumeration that this EnumerationLiteral is a member of.")
+	@subsets
+	!ordered ref Enumeration#ownedLiteral enumeration;
+}
+
+@GenModel(documentation="An instance specification is a model element that represents an instance in a modeled system.
+An instance specification has the capability of being a deployment target in a deployment relationship, in the case that it is an instance of a node. It is also has the capability of being a deployed artifact, if it is an instance of an artifact.")
+class InstanceSpecification extends PackageableElement {
+
+	@GenModel(documentation="The defining feature of each slot is a structural feature (directly or inherited) of a classifier of the instance specification.
+slot->forAll(s | classifier->exists (c | c.allFeatures()->includes (s.definingFeature)))")
+	op boolean defining_feature(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="One structural feature (including the same feature inherited from multiple classifiers) is the defining feature of at most one slot in an instance specification.
+classifier->forAll(c | (c.allFeatures()->forAll(f | slot->select(s | s.definingFeature = f)->size() <= 1)))")
+	op boolean structural_feature(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="An InstanceSpecification can be a DeploymentTarget if it is the instance specification of a Node and functions as a part in the internal structure of an encompassing Node.
+true")
+	op boolean deployment_target(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="An InstanceSpecification can be a DeployedArtifact if it is the instance specification of an Artifact.
+true")
+	op boolean deployment_artifact(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The classifier or classifiers of the represented instance. If multiple classifiers are specified, the instance is classified by all of them.")
+	!ordered ref Classifier[*] classifier;
+
+	@GenModel(documentation="A slot giving the value or values of a structural feature of the instance. An instance specification can have one slot per structural feature of its classifiers, including inherited features. It is not necessary to model a slot for each structural feature, in which case the instance specification is a partial description.")
+	@subsets
+	!ordered val Slot[*]#owningInstance slot;
+
+	@GenModel(documentation="A specification of how to compute, derive, or construct the instance.")
+	@subsets
+	!ordered val ValueSpecification specification;
+}
+
+@GenModel(documentation="A slot specifies that an entity modeled by an instance specification has a value or values for a specific structural feature.")
+class Slot extends Element {
+
+	@GenModel(documentation="The structural feature that specifies the values that may be held by the slot.")
+	!ordered ref StructuralFeature[1] definingFeature;
+
+	@GenModel(documentation="The value or values corresponding to the defining feature for the owning instance specification.")
+	@subsets
+	val ValueSpecification[*] value;
+
+	@GenModel(documentation="The instance specification that owns this slot.")
+	@subsets
+	!ordered ref InstanceSpecification[1]#slot owningInstance;
+}
+
+@GenModel(documentation="A primitive type defines a predefined data type, without any relevant substructure (i.e., it has no parts in the context of UML). A primitive datatype may have an algebra and operations defined outside of UML, for example, mathematically.")
+class PrimitiveType extends DataType {
+}
+
+@GenModel(documentation="A literal specification identifies a literal constant being modeled.")
+abstract class LiteralSpecification extends ValueSpecification {
+}
+
+@GenModel(documentation="A literal integer is a specification of an integer value.")
+@duplicates
+class LiteralInteger extends LiteralSpecification {
+
+	@GenModel(documentation="The specified Integer value.")
+	!ordered attr Integer[1] value = "0";
+}
+
+@GenModel(documentation="A literal string is a specification of a string value.")
+@duplicates
+class LiteralString extends LiteralSpecification {
+
+	@GenModel(documentation="The specified String value.")
+	!ordered unsettable attr String value;
+}
+
+@GenModel(documentation="A literal Boolean is a specification of a Boolean value.")
+@duplicates
+class LiteralBoolean extends LiteralSpecification {
+
+	@GenModel(documentation="The specified Boolean value.")
+	!ordered attr Boolean[1] value = "false";
+}
+
+@GenModel(documentation="A literal null specifies the lack of a value.")
+@duplicates
+class LiteralNull extends LiteralSpecification {
+}
+
+@GenModel(documentation="An instance value is a value specification that identifies an instance.")
+@duplicates
+class InstanceValue extends ValueSpecification {
+
+	@GenModel(documentation="The instance that is the specified value.")
+	!ordered ref InstanceSpecification[1] instance;
+}
+
+@GenModel(documentation="A literal unlimited natural is a specification of an unlimited natural number.")
+@duplicates
+class LiteralUnlimitedNatural extends LiteralSpecification {
+
+	@GenModel(documentation="The specified UnlimitedNatural value.")
+	!ordered attr UnlimitedNatural[1] value = "0";
+}
+
+@Ecore(constraints="SubstanceSortalConstraint2a")
+@"http://www.eclipse.org/ocl/examples/OCL"(SubstanceSortalConstraint2a="allParents()->select( x | x.oclIsKindOf(SubstanceSortal) )->size() <= 1")
+@Comments(SubstanceSortalConstraint2a="Every class must not have more than one Substance Sortal ancestor")
+abstract class ObjectClass extends Class {
+}
+
+abstract class MomentClass extends Class {
+}
+
+@Ecore(constraints="SortalClassConstraint1")
+@"http://www.eclipse.org/ocl/examples/OCL"(SortalClassConstraint1="not isAbstract and not oclIsKindOf(SubstanceSortal) implies allParents()->exists( x | x.oclIsKindOf(SubstanceSortal) )")
+@Comments(SubstanceSortalConstraint1="Every non abstract Sortal must have a Substance Sortal ancestor (or be a Substance Sortal)")
+abstract class SortalClass extends ObjectClass {
+}
+
+@Ecore(constraints="MixinClassConstraint1 MixinClassConstraint2")
+@"http://www.eclipse.org/ocl/examples/OCL"(MixinClassConstraint1="parents()->select( x | x.oclIsKindOf(SortalClass) )->isEmpty()", MixinClassConstraint2="isAbstract")
+@Comments(MixinClassConstraint1="A MixinClass cannot have a Sortal parent (kind, quantity, collective, subkind, phase, role)", MixinClassConstraint2="A MixinClass is always Abstract")
+abstract class MixinClass extends ObjectClass {
+}
+
+@Ecore(constraints="RigidSortalClassConstraint1")
+@"http://www.eclipse.org/ocl/examples/OCL"(RigidSortalClassConstraint1="parents()->select( x | x.oclIsKindOf(AntiRigidSortalClass) or x.oclIsKindOf(RoleMixin) )->isEmpty()")
+@Comments(RigidSortalClassConstraint1="A RigidSortalClass cannot have an Anti-Rigid parent (role, phase, roleMixin)")
+abstract class RigidSortalClass extends SortalClass {
+}
+
+abstract class AntiRigidSortalClass extends SortalClass {
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="if parents()->exists ( oclIsKindOf(RigidSortalClass) ) then
+	parents()->any ( oclIsKindOf(RigidSortalClass) )
+else
+	parents()->select ( oclIsKindOf(AntiRigidSortalClass) ).oclAsType(AntiRigidSortalClass).rigidParent()->any(true)
+endif")
+	@Comments(rigidParent="Returns the more specific rigid parent.")
+	!ordered op RigidSortalClass rigidParent();
+}
+
+@Ecore(constraints="SubstanceSortalConstraint2b")
+@"http://www.eclipse.org/ocl/examples/OCL"(SubstanceSortalConstraint2b="parents()->select( x | x.oclIsKindOf(RigidSortalClass) )->isEmpty()")
+@Comments(SubstanceSortalConstraint2b="A Substance Sortal cannot have a Rigid Sortal parent")
+abstract class SubstanceSortal extends RigidSortalClass {
+}
+
+class SubKind extends RigidSortalClass {
+}
+
+class Kind extends SubstanceSortal {
+}
+
+class Quantity extends SubstanceSortal {
+}
+
+@Ecore(constraints="CollectiveConstraint1")
+@"http://www.eclipse.org/ocl/examples/OCL"(CollectiveConstraint1="isExtensional implies Meronymic.allInstances()->forAll( x | x.whole() = self implies x.isEssential )")
+@Comments(CollectiveConstraint1="All the parts of an extensional Collective are essential")
+class Collective extends SubstanceSortal {
+	attr boolean[1] isExtensional = false;
+}
+
+@Ecore(constraints="PhaseConstraint2")
+@"http://www.eclipse.org/ocl/examples/OCL"(PhaseConstraint2="let
+	gsets : Bag(GeneralizationSet) = generalization.generalizationSet
+in
+	if gsets->size() = 1 then
+		let
+			gs : GeneralizationSet = gsets->any(true)
+		in
+			gs.generalization.specific->forAll( x | x.oclIsKindOf(Phase) ) and gs.generalization->size() > 1 and gs.isDisjoint and gs.isCovering
+	else
+		false
+	endif")
+@Comments(PhaseConstraint2="A Phase of a Substance Sortal must be grouped in exactly one {disjoint, complete} Generalization Set with other Phases")
+class Phase extends AntiRigidSortalClass {
+}
+
+@Ecore(constraints="RoleConstraint2")
+@"http://www.eclipse.org/ocl/examples/OCL"(RoleConstraint2="Mediation.allInstances()->exists( x | allParents()->including(self)->includes(x.mediated()) )")
+@Comments(RoleConstraint2="A Role must be connected (directly or indirectly) to a Mediation")
+class Role extends AntiRigidSortalClass {
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="Mediation.allInstances()->any( m | m.mediated() = self )")
+	!ordered op Mediation mediation();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="if mediation()->notEmpty() then mediation().relator() else null endif")
+	!ordered op Relator relator();
+}
+
+abstract class RigidMixinClass extends MixinClass {
+}
+
+abstract class NonRigidMixinClass extends MixinClass {
+}
+
+@Ecore(constraints="CategoryConstraint1")
+@"http://www.eclipse.org/ocl/examples/OCL"(CategoryConstraint1="parents()->select( x | x.oclIsTypeOf(RoleMixin) )->isEmpty()")
+@Comments(CategoryConstraint1="A Category cannot have a RoleMixin parent")
+class Category extends RigidMixinClass {
+}
+
+abstract class AntiRigidMixinClass extends NonRigidMixinClass {
+}
+
+abstract class SemiRigidMixinClass extends NonRigidMixinClass {
+}
+
+@Ecore(constraints="RoleMixinConstraint1")
+@"http://www.eclipse.org/ocl/examples/OCL"(RoleMixinConstraint1="Mediation.allInstances()->exists( x | allParents()->including(self)->includes(x.mediated()) )")
+@Comments(RoleMixinConstraint1="A RoleMixin must be connected (directly or indirectly) to a Mediation")
+class RoleMixin extends AntiRigidMixinClass {
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="Mediation.allInstances()->any( m | m.mediated() = self )")
+	!ordered op Mediation mediation();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="if mediation()->notEmpty() then mediation().relator() else null endif")
+	!ordered op Relator relator();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="children()->select(oclIsTypeOf(Role)).oclAsType(Role)->asSet()")
+	@Comments(roles="Returns all the children Roles of the RoleMixin.")
+	!ordered op Role[*] roles();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="roles().rigidParent()->asSet()")
+	@Comments(rigidSortals="Returns the more specific rigid parents underlying each Role of the RoleMixin.")
+	!ordered op RigidSortalClass[*] rigidSortals();
+}
+
+@Ecore(constraints="MixinConstraint1")
+@"http://www.eclipse.org/ocl/examples/OCL"(MixinConstraint1="parents()->select( x | x.oclIsTypeOf(RoleMixin) )->isEmpty()")
+@Comments(MixinConstraint1="A Mixin cannot have a RoleMixin parent")
+class Mixin extends SemiRigidMixinClass {
+}
+
+@Ecore(constraints="IntrinsicMomentConstraint1")
+@"http://www.eclipse.org/ocl/examples/OCL"(IntrinsicMomentConstraint1="Characterization.allInstances()->exists( x | allParents()->including(self)->includes(x.characterizing()) )")
+@Comments(IntrinsicMomentConstraint1="An IntrinsicMoment must be connected (directly or indirectly) to a Characterization")
+abstract class IntrinsicMomentClass extends MomentClass {
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="Characterization.allInstances()->select( x | x.characterizing() = self )->any(true)")
+	op Characterization characterization();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="characterization().characterized()")
+	op Classifier characterized();
+}
+
+class Mode extends IntrinsicMomentClass {
+}
+
+class Quality extends IntrinsicMomentClass {
+}
+
+@Ecore(constraints="RelatorConstraint1 RelatorConstraint2")
+@"http://www.eclipse.org/ocl/examples/OCL"(RelatorConstraint1="Mediation.allInstances()->exists( x | allParents()->including(self)->includes(x.relator()) )", RelatorConstraint2="Mediation.allInstances()->select( x | allParents()->including(self)->includes(x.relator()) )->collect ( y | y.mediatedEnd().lower )->sum() >= 2")
+@Comments(RelatorConstraint1="A Relator must be connected (directly or indirectly) to a Mediation", RelatorConstraint2="The sum of the minimum cardinalities of the mediated ends must be greater or equal to 2")
+class Relator extends MomentClass {
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="Mediation.allInstances()->select( x | x.relator() = self )")
+	op Mediation[*] mediations();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="mediations().mediated()")
+	op Classifier[*] mediated();
+}
+
+@Ecore(constraints="DirectedBinaryAssociationConstraint1")
+@"http://www.eclipse.org/ocl/examples/OCL"(DirectedBinaryAssociationConstraint1="memberEnd->size() = 2")
+@Comments(DirectedBinaryAssociationConstraint1="DirectedBinaryAssociations are always binary")
+abstract class DirectedBinaryAssociation extends Association {
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="memberEnd->at(1)")
+	op Property[1] sourceEnd();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="memberEnd->at(2)")
+	op Property[1] targetEnd();
+}
+
+@Ecore(constraints="MeronymicConstraint1 MeronymicConstraint2a MeronymicConstraint2b")
+@"http://www.eclipse.org/ocl/examples/OCL"(MeronymicConstraint1="Meronymic.allInstances()->select( x | x.whole() = whole() )->collect( y | y.partEnd().lower )->sum() >= 2", MeronymicConstraint2a="whole().oclIsKindOf (AntiRigidSortalClass) or whole().oclIsKindOf (AntiRigidMixinClass) implies not isEssential", MeronymicConstraint2b="true -- isEssential implies isImmutablePart", MeronymicConstraint3="true -- isInseparable implies isImmutableWhole")
+@Comments(MeronymicConstraint1="The sum of the minimum cardinalities of the parts must be greater or equal to 2", MeronymicConstraint2a="AntiRigid whole implies that specific part dependence with de re modality is not possible", MeronymicConstraint2b="(Deactivated) Specific part dependence with de re modality implies specific part dependence with de dicto modality", MeronymicConstraint3="(Deactivated) Specific whole dependence with de re modality implies specific whole dependence with de dicto modality")
+abstract class Meronymic extends DirectedBinaryAssociation {
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="sourceEnd()")
+	op Property wholeEnd();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="targetEnd()")
+	op Property partEnd();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="wholeEnd().type")
+	op Classifier whole();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="partEnd().type")
+	op Classifier part();
+	attr boolean[1] isShareable = true;
+	attr boolean[1] isEssential = false;
+	attr boolean[1] isInseparable = false;
+	attr boolean[1] isImmutablePart = false;
+	attr boolean[1] isImmutableWhole = false;
+}
+
+@Ecore(constraints="subQuantityOfConstraint1a subQuantityOfConstraint1b subQuantityOfConstraint2 subQuantityOfConstraint3 subQuantityOfConstraint4")
+@"http://www.eclipse.org/ocl/examples/OCL"(subQuantityOfConstraint1a="whole().hasQuantityInstances()", subQuantityOfConstraint1b="part().hasQuantityInstances()", subQuantityOfConstraint2="not isShareable", subQuantityOfConstraint3="isEssential", subQuantityOfConstraint4="partEnd().upper = 1")
+@Comments(subQuantityOfConstraint1a="subQuantityOf relates individuals that are quantities (whole)", subQuantityOfConstraint1b="subQuantityOf relates individuals that are quantities (part)", subQuantityOfConstraint2="A part is always non-shareable", subQuantityOfConstraint3="A part is always essential", subQuantityOfConstraint4="The maximum cardinality of the part end is equal to 1")
+class subQuantityOf extends Meronymic {
+}
+
+@Ecore(constraints="subCollectionOfConstraint1a subCollectionOfConstraint1b subCollectionOfConstraint2")
+@"http://www.eclipse.org/ocl/examples/OCL"(subCollectionOfConstraint1a="whole().hasCollectiveInstances()", subCollectionOfConstraint1b="part().hasCollectiveInstances()", subCollectionOfConstraint2="partEnd().upper = 1")
+@Comments(subCollectionOfConstraint1a="subCollectionOf relates individuals that are collectives (whole)", subCollectionOfConstraint1b="subCollectionOf relates individuals that are collectives (part)", subCollectionOfConstraint2="The maximum cardinality of the part end is equal to 1")
+class subCollectionOf extends Meronymic {
+}
+
+@Ecore(constraints="memberOfConstraint1a memberOfConstraint1b memberOfConstraint2")
+@"http://www.eclipse.org/ocl/examples/OCL"(memberOfConstraint1a="whole().hasCollectiveInstances()", memberOfConstraint1b="part().hasCollectiveInstances() or part().hasFunctionalComplexInstances()", memberOfConstraint2="isEssential implies 
+
+if whole().oclIsKindOf (MixinClass) then
+	ObjectClass.allInstances()->select( x | x.allParents()->includes(self) )->forAll( y | y.oclIsKindOf(Collective) implies y.oclAsType(Collective).isExtensional )
+else
+	whole().allParents()->including(whole())->forAll( x | x.oclIsKindOf(Collective) implies x.oclAsType(Collective).isExtensional )
+endif")
+@Comments(memberOfConstraint1a="memberOf relates individuals that are functional complexes or collectives as parts of individuals that are collectives (whole)", memberOfConstraint1b="memberOf relates individuals that are functional complexes or collectives as parts of individuals that are collectives (part)", memberOfConstraint2="memberOf with essential parthood implies an extensional whole")
+class memberOf extends Meronymic {
+}
+
+@Ecore(constraints="componentOfConstraint1a componentOfConstraint1b")
+@"http://www.eclipse.org/ocl/examples/OCL"(componentOfConstraint1a="whole().hasFunctionalComplexInstances()", componentOfConstraint1b="part().hasFunctionalComplexInstances()")
+@Comments(componentOfConstraint1a="componentOf relates individuals that are functional complexes (whole)", componentOfConstraint1b="componentOf relates individuals that are functional complexes (part)")
+class componentOf extends Meronymic {
+}
+
+@Ecore(constraints="DependencyRelationshipConstraint1 DependencyRelationshipConstraint2")
+@"http://www.eclipse.org/ocl/examples/OCL"(DependencyRelationshipConstraint1="sourceEnd().lower >= 1", DependencyRelationshipConstraint2="targetEnd().isReadOnly")
+@Comments(DependencyRelationshipConstraint1="The source end minimum cardinality must be greater or equal to 1", DependencyRelationshipConstraint2="The target end is read only")
+abstract class DependencyRelationship extends DirectedBinaryAssociation {
+}
+
+@Ecore(constraints="CharacterizationConstraint1 CharacterizationConstraint2")
+@"http://www.eclipse.org/ocl/examples/OCL"(CharacterizationConstraint1="characterizing().oclIsKindOf(IntrinsicMomentClass)", CharacterizationConstraint2="characterizedEnd().lower = 1 and characterizedEnd().upper = 1")
+@Comments(CharacterizationConstraint1="The source must be an IntrinsicMoment", CharacterizationConstraint2="The characterized end cardinality is exactly one")
+class Characterization extends DependencyRelationship {
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="sourceEnd()")
+	op Property[1] characterizingEnd();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="targetEnd()")
+	op Property[1] characterizedEnd();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="characterizingEnd().type")
+	op Classifier[1] characterizing();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="characterizedEnd().type")
+	op Classifier[1] characterized();
+}
+
+@Ecore(constraints="MediationConstraint1 MediationConstraint2")
+@"http://www.eclipse.org/ocl/examples/OCL"(MediationConstraint1="relator().oclIsKindOf(Relator)", MediationConstraint2="mediatedEnd().lower >= 1")
+@Comments(MediationConstraint1="The source must be a Relator", MediationConstraint2="The mediated end minimum cardinality must be greater or equal to 1")
+class Mediation extends DependencyRelationship {
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="sourceEnd()")
+	op Property[1] relatorEnd();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="targetEnd()")
+	op Property[1] mediatedEnd();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="relatorEnd().type")
+	op Classifier[1] relator();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="mediatedEnd().type")
+	op Classifier[1] mediated();
+}
+
+@Ecore(constraints="DerivationConstraint1a DerivationConstraint1b DerivationConstraint2")
+@"http://www.eclipse.org/ocl/examples/OCL"(DerivationConstraint1a="material().oclIsTypeOf(MaterialAssociation)", DerivationConstraint1b="relator().oclIsTypeOf(Relator)", DerivationConstraint2="relatorEnd().lower = 1 and relatorEnd().upper = 1")
+@Comments(DerivationConstraint1a="The source must be a Material Association", DerivationConstraint1b="The target must be a Relator", DerivationConstraint2="The relator end cardinality is exactly one")
+class Derivation extends DependencyRelationship {
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="sourceEnd()")
+	op Property[1] materialEnd();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="targetEnd()")
+	op Property[1] relatorEnd();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="relatorEnd().type")
+	op Classifier[1] relator();
+
+	@"http://www.eclipse.org/ocl/examples/OCL"(body="materialEnd().type")
+	op Classifier[1] material();
+}
+
+class FormalAssociation extends Association {
+}
+
+@Ecore(constraints="MaterialAssociationConstraint1 MaterialAssociationConstraint2 MaterialAssociationConstraint3")
+@"http://www.eclipse.org/ocl/examples/OCL"(MaterialAssociationConstraint1="Derivation.allInstances()->one( x | x.material() = self )", MaterialAssociationConstraint2="memberEnd->forAll( x | x.lower >= 1 )", MaterialAssociationConstraint3="isDerived")
+@Comments(MaterialAssociationConstraint1="Every MaterialAssociation must be connected to exactly one Derivation", MaterialAssociationConstraint2="The minimum cardinality of every end must be greater or equal to 1", MaterialAssociationConstraint3="A MaterialAssociation must be derived")
+class MaterialAssociation extends Association {
+}
+

@@ -1,0 +1,1762 @@
+@namespace(uri="http://www.mlhim.org/mlhim2", prefix="mlhim2")
+package mlhim2;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@GenModel(documentation="
+	Used to record a clinical action that has been performed, which may have been adhoc, or due to the execution of an 
+	Activity in an Instruction workflow. Every Action corresponds to a careflow step of some kind or another.
+	")
+@ExtendedMetaData(name="Action", kind="mixed")
+class Action extends CareEntry {
+
+	@GenModel(documentation="Point in time at which this action completed.")
+	@ExtendedMetaData(kind="element", name="time", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvTemporal time;
+
+	@GenModel(documentation="Description of the activity to be performed, in the form of a defined structure.")
+	@ExtendedMetaData(kind="element", name="description", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure[1] description;
+
+	@GenModel(documentation="Details of transition in the Instruction state machine caused by this Action.")
+	@ExtendedMetaData(kind="element", name="ism_transition", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvCodedString ismTransition;
+
+	@GenModel(documentation="Details to of the Instruction that caused this Action to be performed, if there was one.")
+	@ExtendedMetaData(kind="element", name="instruction_details", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvCodedString instructionDetails;
+}
+
+@GenModel(documentation="Defines a single activity within an Instruction, such as a medication administration.")
+@ExtendedMetaData(name="Activity", kind="mixed")
+class Activity extends Locatable {
+
+	@GenModel(documentation="Description of the activity, in the form of a structure.")
+	@ExtendedMetaData(kind="element", name="description", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure[1] description;
+
+	@GenModel(documentation="Timing of the activity, in the form of a parsable string, such as an HL7 GTS or ISO8601 string.")
+	@ExtendedMetaData(kind="element", name="timing", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvParsable[1] timing;
+
+	@GenModel(documentation="List of CCD UUIDs (in order) to be executed for this activity.")
+	@ExtendedMetaData(kind="element", name="actions", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvToken[+] actions;
+}
+
+@GenModel(documentation="
+	Entry subtype for administrative information, i.e. information about setting up the clinical process, but not itself clinically relevant. 
+	CCDs will define contained information. Used for admistrative details of admission, episode, ward location, discharge,
+	appointment (if not stored in a practice management or appointments system). Not used for any clinically significant information.
+	")
+@ExtendedMetaData(name="AdminEntry", kind="mixed")
+class AdminEntry extends Entry {
+
+	@GenModel(documentation="The data of the Entry.")
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure[1] data;
+}
+
+@GenModel(documentation="
+Information was sought but refused to be provided (e.g., patient was asked but refused to answer)
+")
+@ExtendedMetaData(name="ASKR", kind="elementOnly")
+class ASKR extends UNK {
+}
+
+@GenModel(documentation="
+Information was sought but not found (e.g., patient was asked but did not know).
+")
+@ExtendedMetaData(name="ASKU", kind="elementOnly")
+class ASKU extends UNK {
+}
+
+@GenModel(documentation="
+	Record an attestation by a party of item(s) of record content. The type of attestation is recorded by the reason attribute, 
+	which may be coded.
+	")
+@ExtendedMetaData(name="Attestation", kind="mixed")
+class Attestation extends Locatable {
+
+	@GenModel(documentation="Optional visual representation of content attested e.g. screen image.")
+	@ExtendedMetaData(kind="element", name="attested_view", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvMedia attestedView;
+
+	@GenModel(documentation="Proof of attestation such as an GPG signature.")
+	@ExtendedMetaData(kind="element", name="proof", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvParsable[1] proof;
+
+	@GenModel(documentation="Reason of this attestation. Optionally coded by the MLHIM Terminology group “attestation reason”; includes values like “authorisation”, “witness” etc.")
+	@ExtendedMetaData(kind="element", name="reason", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvCodedString[1] reason;
+
+	@GenModel(documentation="Identity and optional reference into identity management service, of user who committed the item.")
+	@ExtendedMetaData(kind="element", name="commiter", namespace="##targetNamespace")
+	volatile transient derived !resolve val PartyProxy[1] commiter;
+
+	@GenModel(documentation="Time of committal of the item.")
+	@ExtendedMetaData(kind="element", name="time_commited", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvTemporal[1] timeCommited;
+
+	@GenModel(documentation="True if this attestation is outstanding; False means it has been completed.")
+	@ExtendedMetaData(kind="element", name="is_pending", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvBoolean[1] isPending;
+}
+
+@GenModel(documentation="
+	The abstract parent of all clinical ENTRY subtypes. Defines protocol and guideline attributes for all clinical Entry subtypes.
+	")
+@ExtendedMetaData(name="CareEntry", kind="mixed")
+abstract class CareEntry extends Entry {
+
+	@GenModel(documentation="Description of the method (i.e. how) the information in this entry was arrived at. For OBSERVATIONs, this is a description of the method or instrument used. For EVALUATIONs, how the evaluation was arrived at. For INSTRUCTIONs, how to execute the Instruction. This may take the form of references to guidelines, including manually followed and executable; knowledge references such as a paper in Medline; clinical reasons within a larger care process.")
+	@ExtendedMetaData(kind="element", name="protocol", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure protocol;
+
+	@GenModel(documentation="Optional external identifier of guideline creating this action if relevant")
+	@ExtendedMetaData(kind="element", name="guideline_id", namespace="##targetNamespace")
+	volatile transient derived !resolve val ObjectRef guidelineId;
+}
+
+@GenModel(documentation="
+	Concept Constraint Definition
+	")
+@ExtendedMetaData(name="CCD", kind="elementOnly")
+class CCD {
+
+	@GenModel(documentation="Contains one Locatable entry as the root term for this CCD.")
+	@ExtendedMetaData(kind="element", name="definition", namespace="##targetNamespace")
+	!resolve val Locatable[1] definition;
+
+	@GenModel(documentation="Contains one or more named meta-data sets.")
+	@ExtendedMetaData(kind="element", name="meta-data", namespace="##targetNamespace")
+	!resolve val MetaDataSet[+] metaData;
+
+	@GenModel(documentation="Provides the semantic context for the data described by the definition.")
+	@ExtendedMetaData(kind="element", name="ontology", namespace="##targetNamespace")
+	!resolve val Ontology[1] ontology;
+}
+
+@GenModel(documentation="
+The grouping variant of Item, which may contain further instances of Item, in an ordered list.
+")
+@ExtendedMetaData(name="Cluster", kind="mixed")
+class Cluster extends Item {
+
+	@GenModel(documentation="List of Items.")
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	volatile transient derived !resolve val Item[+] items;
+}
+
+@GenModel(documentation="
+	One version in a VersionedComposition. A composition is considered the unit of modification of the record, the unit of 
+	transmission in record extracts, and the unit of attestation by authorising clinicians. In this latter sense, it may be considered 
+	equivalent to a signed document.
+	")
+@ExtendedMetaData(name="Composition", kind="mixed")
+class Composition extends Locatable {
+
+	@GenModel(documentation="The signoff of this Composition.")
+	@ExtendedMetaData(kind="element", name="attestation", namespace="##targetNamespace")
+	volatile transient derived !resolve val Attestation[1] attestation;
+
+	@GenModel(documentation="A list of links to other content items.")
+	@ExtendedMetaData(kind="element", name="links", namespace="##targetNamespace")
+	volatile transient derived !resolve val Link[*] links;
+
+	@GenModel(documentation="The UUID of the original composition if this is a new version. Void if this is an original composition. This attribute along with the predecessor form the versioning function for compositions. ")
+	@ExtendedMetaData(kind="element", name="original", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvToken original;
+
+	@GenModel(documentation="The UUID of the preceeding composition if this is a new version. Void if this is an original composition.")
+	@ExtendedMetaData(kind="element", name="predecessor", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvToken predecessor;
+
+	@GenModel(documentation="DateTime created.  Since Compositions are never modified, only copied and edited. ")
+	@ExtendedMetaData(kind="element", name="created", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvTemporal[1] created;
+
+	@GenModel(documentation="The person primarily responsible for the content of the Composition (but not necessarily its committal into the EHR system). This is the identifier which should appear on the screen. It may or may not be the person who entered the data. When it is the patient, the special “self”  instance of PARTY_PROXY will be used.")
+	@ExtendedMetaData(kind="element", name="composer", namespace="##targetNamespace")
+	volatile transient derived !resolve val PartyProxy[1] composer;
+
+	@GenModel(documentation="Name of territory in which this Composition was written. ")
+	@ExtendedMetaData(kind="element", name="territory", namespace="##targetNamespace")
+	volatile transient derived !resolve val Location territory;
+
+	@GenModel(documentation="Indicates what broad category this Composition is belongs to, e.g. “persistent” - of longitudinal validity, “event”, “process”.")
+	@ExtendedMetaData(kind="element", name="category", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvCodedString category;
+
+	@GenModel(documentation="Mandatory indicator of the localised language in which this Composition is written. Coded from MLHIM Code Set “languages”. The language of an Entry if  different from the Composition is indicated in ENTRY.language.")
+	@ExtendedMetaData(kind="element", name="language", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvLanguage[1] language;
+
+	@GenModel(documentation="The clinical session context of this Composition, i.e. the contextual attributes of the clinical session.")
+	@ExtendedMetaData(kind="element", name="context", namespace="##targetNamespace")
+	volatile transient derived !resolve val EventContext[1] context;
+
+	@GenModel(documentation="The content of this Composition.  Any Locatable content items or structures may be added here. ")
+	@ExtendedMetaData(kind="element", name="content", namespace="##targetNamespace")
+	volatile transient derived !resolve val Locatable[1] content;
+}
+
+@GenModel(documentation="
+	Abstract ancestor of all concrete content types.
+	")
+@ExtendedMetaData(name="ContentItem", kind="mixed")
+abstract class ContentItem extends Locatable {
+
+	@GenModel(documentation="A list of links to other content items.")
+	@ExtendedMetaData(kind="element", name="links", namespace="##targetNamespace")
+	volatile transient derived !resolve val Link[*] links;
+
+	@GenModel(documentation="Sign off on completeness and accuracy of the content.")
+	@ExtendedMetaData(kind="element", name="attestation", namespace="##targetNamespace")
+	volatile transient derived !resolve val Attestation attestation;
+}
+
+@GenModel(documentation="
+Abstract parent class of all data structure types.
+")
+@ExtendedMetaData(name="DataStructure", kind="mixed")
+abstract class DataStructure extends Locatable {
+}
+
+@GenModel(documentation="
+An actual value may exist, but it must be derived from the provided information; usually an expression is provided directly.
+")
+@ExtendedMetaData(name="DER", kind="elementOnly")
+class DER extends INV {
+}
+
+@GenModel(documentation="
+	Any one instance of an inanimate object. 
+	")
+@ExtendedMetaData(name="Device", kind="mixed")
+class Device extends Party {
+
+	@GenModel(documentation="structural details about the device")
+	@ExtendedMetaData(kind="element", name="details", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure[1] details;
+}
+
+@GenModel(documentation="
+Serves as a common ancestor of all datatypes in MLHIM models.
+")
+@ExtendedMetaData(name="DvAny", kind="elementOnly")
+abstract class DvAny {
+
+	@GenModel(documentation="If present this must be a valid datetime string including timezone")
+	@ExtendedMetaData(kind="element", name="valid_time_begin", namespace="##targetNamespace")
+	attr type.DateTime validTimeBegin;
+
+	@GenModel(documentation="If present this must be a valid datetime string including timezone")
+	@ExtendedMetaData(kind="element", name="valid_time_end", namespace="##targetNamespace")
+	attr type.DateTime validTimeEnd;
+
+	@GenModel(documentation="The exceptional value. Often referred to as Null Flavour. ")
+	@ExtendedMetaData(kind="element", name="ev", namespace="##targetNamespace")
+	!resolve val ExceptionalValue ev;
+}
+
+@GenModel(documentation="
+Items which are truly boolean data, such as true/false or yes/no answers. Use for such data, it is important to devise the meanings (usually questions in subjective data) carefully, so that the only allowed results are in fact true or false. 
+Potential MisUse: The DvBoolean class should not be used as a replacement for naively modelled enumerated types such as male/female etc. Such values should be coded, and in any case the enumeration often has more than two values.
+")
+@ExtendedMetaData(name="DvBoolean", kind="elementOnly")
+class DvBoolean extends DvAny {
+
+	@GenModel(documentation="A string indicating a boolean type result according to the rules described below. Boolean True values are represented by any one of these strings:  [\"True\",\"1\",\"T\"]. Boolean False values are represented by any one of these strings:  [\"False\",\"0\",\"F\"]. Note that the strings are not case-sensitive; i.e. \"T\" == \"t\" and \"TRUE\" == \"t\". The empty string; \"\" represents a Void or Null value, in which case the ev attribute cannot be empty. ")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	unsettable attr type.Boolean dv;
+}
+
+@GenModel(documentation="Represents an integer between -128 and 127. An xsd:byte is a sequence of digits, optionally preceded by a + or - sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvByte", kind="elementOnly")
+class DvByte extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	unsettable attr type.Byte dv;
+}
+
+@ExtendedMetaData(name="DvChar", kind="elementOnly")
+abstract class DvChar extends DvAny {
+}
+
+@GenModel(documentation="
+A text item whose dv attribute must be the long name or description from a controlled terminology, the key (i.e. the 'code') of which is the code_string attribute.
+")
+@ExtendedMetaData(name="DvCodedString", kind="elementOnly")
+class DvCodedString extends DvString {
+
+	@GenModel(documentation="The key used by the terminology service to identify a concept or coordination of concepts. This string is most likely parsable inside the terminology service, but nothing can be assumed about its syntax outside that context. In the NLM Metathesarus this would be the Concept Unique Identifier (CUI).
+")
+	@ExtendedMetaData(kind="element", name="code_string", namespace="##targetNamespace")
+	attr type.NormalizedString codeString;
+
+	@GenModel(documentation="Full Source Name from NLM Metathesarus; or similar.")
+	@ExtendedMetaData(kind="element", name="terminology_name", namespace="##targetNamespace")
+	attr type.NormalizedString terminologyName;
+
+	@GenModel(documentation="Version Source Abbreviation (VSAB) from NLM Metathesarus; or similar ")
+	@ExtendedMetaData(kind="element", name="terminology_abbrev", namespace="##targetNamespace")
+	attr type.NormalizedString terminologyAbbrev;
+}
+
+@GenModel(documentation="
+Countable quantities. Used for countable types such as pregnancies and steps (taken by a physiotherapy patient), number of cigarettes smoked in a day, etc. Misuse:Not used for amounts of physical entities (which all have units)
+")
+@ExtendedMetaData(name="DvCount", kind="elementOnly")
+class DvCount extends DvQuantified {
+
+	@GenModel(documentation="Number of items counted.")
+	@ExtendedMetaData(kind="element", name="count", namespace="##targetNamespace")
+	attr type.Integer[1] count;
+}
+
+@GenModel(documentation="")
+@ExtendedMetaData(name="DvDate", kind="mixed")
+class DvDate extends DvTemporal {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	volatile transient derived attr type.Date dv;
+}
+
+@GenModel(documentation="
+Represents an absolute point in time, specified to the second. Used for recording a precise point in real world time, and for approximate time stamps, e.g. the origin of a History in an Observation which is only partially known. All dates and times are assumed to be in the \"current era\"; somewhere between 
+	0001-01-01T00:00:00Z  and 9999-12-31T23:59:59Z  AD.  
+")
+@ExtendedMetaData(name="DvDateTime", kind="mixed")
+class DvDateTime extends DvTemporal {
+
+	@GenModel(documentation="ISO8601:2004 date/time string including UTC offset. [date]T[time]Z")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	volatile transient derived attr type.DateTime dv;
+}
+
+@GenModel(documentation="Represents a decimal number of arbitrary precision. Schema processors vary in the number of significant digits they support, but a conforming processor must support a minimum of 18 significant digits. The format of xsd:decimal is a sequence of digits optionally preceded by a sign (\"+\" or \"-\") and optionally containing a period. The value may start or end with a period. If the fractional part is 0 then the period and trailing zeros may be omitted. Leading and trailing zeros are permitted, but they are not considered significant. That is, the decimal values 3.0 and 3.0000 are considered equal.")
+@ExtendedMetaData(name="DvDecimal", kind="elementOnly")
+class DvDecimal extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.Decimal dv;
+}
+
+@GenModel(documentation="
+Durations are a component of time intervals and define the amount of intervening time in a time interval. They should only be used as part of a time interval as prescribed by the standard. Durations are represented by the format P[n]Y[n]M[n]DT[n]H[n]M[n]S or P[n]W as shown to the right. In these representations, the [n] is replaced by the value for each of the date and time elements that follow the [n]. Leading zeros are not required, but the maximum number of digits for each element should be agreed to by the communicating parties. The capital letters 'P', 'Y', 'M', 'W', 'D', 'T', 'H', 'M', and 'S' are designators for each of the date and time elements and are not replaced.
+
+    * P is the duration designator (historically called \"period\") placed at the start of the duration representation.
+    * Y is the year designator that follows the value for the number of years.
+    * M is the month designator that follows the value for the number of months.
+    * W is the week designator that follows the value for the number of weeks.
+    * D is the day designator that follows the value for the number of days.
+    * T is the time designator that precedes the time components of the representation.
+    * H is the hour designator that follows the value for the number of hours.
+    * M is the minute designator that follows the value for the number of minutes.
+    * S is the second designator that follows the value for the number of seconds. 
+    
+For example, \"P3Y6M4DT12H30M5S\" represents a duration of \"three years, six months, four days, twelve hours, thirty minutes, and five seconds\". Date and time elements including their designator may be omitted if their value is zero, and lower order elements may also be omitted for reduced precision. For example, \"P23DT23H\" and \"P4Y\" are both acceptable duration representations. To resolve ambiguity, \"P1M\" is a one-month duration and \"PT1M\" is a one-minute duration (note the time designator, T, that precedes the time value). The smallest value used may also have a decimal fraction, as in \"P0.5Y\" to indicate half a year. This decimal fraction may be specified with either a comma or a full stop, as in \"P0,5Y\" or \"P0.5Y\". The standard does not prohibit date and time values in a duration representation from exceeding their \"carry-over points\" except as noted below. Thus, \"PT36H\" could be used as well as \"P1DT12H\" for representing the same duration. Alternately, a format for duration based on combined date and time representations may be used by agreement between the communicating parties either in the basic format PYYYYMMDDThhmmss or in the extended format P[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss]. For example, the first duration shown above would be \"P0003-06-04T12:30:05\". However, individual date and time values cannot exceed their moduli (e.g. a value of 13 for the month or 25 for the hour would not be permissible).
+")
+@ExtendedMetaData(name="DvDuration", kind="mixed")
+class DvDuration extends DvTemporal {
+
+	@GenModel(documentation="The duration in the form of a string.")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	volatile transient derived attr type.Duration dv;
+}
+
+@GenModel(documentation="
+Abstract class defining the common meta-data of all types of encapsulated data.
+")
+@ExtendedMetaData(name="DvEncapsulated", kind="elementOnly")
+abstract class DvEncapsulated extends DvAny {
+
+	@GenModel(documentation="Original size in bytes of unencoded encapsulated data. I.e. encodings such as base64, hexadecimal etc do not change the value of this attribute.")
+	@ExtendedMetaData(kind="element", name="size", namespace="##targetNamespace")
+	attr type.Decimal[1] size;
+
+	@GenModel(documentation="Name of character encoding scheme in which this value is encoded.  Unicode is the   default assumption in MLHIM, with UTF-8  being the assumed encoding. This attribute allows for variations from these assumptions.")
+	@ExtendedMetaData(kind="element", name="charset", namespace="##targetNamespace")
+	attr type.NormalizedString charset;
+
+	@GenModel(documentation="Optional indicator of the localised language in which the value is written. Coded IAW IETF RFC 5646. http://tools.ietf.org/html/rfc5646  Only used when the text object is in a different language from the enclosing CCD.")
+	@ExtendedMetaData(kind="element", name="language", namespace="##targetNamespace")
+	attr type.Language language;
+}
+
+@GenModel(documentation="
+Type for representing identifiers of real-world entities. Typical identifiers include: drivers licence number, social security number, veterans affairs number, prescription id, order id, and so on.
+")
+@ExtendedMetaData(name="DvIdentifier", kind="elementOnly")
+class DvIdentifier extends DvString {
+
+	@GenModel(documentation="Authority which issues the kind of id used in the id field of this object.")
+	@ExtendedMetaData(kind="element", name="issuer", namespace="##targetNamespace")
+	attr type.NormalizedString issuer;
+
+	@GenModel(documentation="Organisation that assigned the id to the item being identified.")
+	@ExtendedMetaData(kind="element", name="assigner", namespace="##targetNamespace")
+	attr type.NormalizedString assigner;
+
+	@GenModel(documentation="The identifier common name, such as “Driver's License” or “SSN”.")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.NormalizedString name;
+}
+
+@GenModel(documentation="Represents an integer between -2147483648 and 2147483647. An xsd:int is a sequence of digits, optionally preceded by a + or - sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvInt", kind="elementOnly")
+class DvInt extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	unsettable attr type.Int dv;
+}
+
+@GenModel(documentation="Represents an arbitrarily large integer, from which twelve other built-in integer types are derived (directly or indirectly). An xsd:integer is a sequence of digits, optionally preceded by a + or - sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvInteger", kind="elementOnly")
+class DvInteger extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.Integer dv;
+}
+
+@GenModel(documentation="
+Generic class defining an interval (i.e. range) of a comparable type. An interval is a contiguous subrange of a comparable base type. Used to define intervals of dates, times, quantities (whose units match) and so on. 
+")
+@ExtendedMetaData(name="DvInterval", kind="elementOnly")
+class DvInterval extends DvAny {
+
+	@GenModel(documentation="Lower boundary.")
+	@ExtendedMetaData(kind="element", name="lower", namespace="##targetNamespace")
+	!resolve val DvOrdered lower;
+
+	@GenModel(documentation="Upper boundary.")
+	@ExtendedMetaData(kind="element", name="upper", namespace="##targetNamespace")
+	!resolve val DvOrdered upper;
+
+	@GenModel(documentation="Is the lower boundary included in the interval?")
+	@ExtendedMetaData(kind="element", name="lower_included", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] lowerIncluded;
+
+	@GenModel(documentation="Is the upper boundary included in the interval?")
+	@ExtendedMetaData(kind="element", name="upper_included", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] upperIncluded;
+
+	@GenModel(documentation="If True, there is no lower boundary")
+	@ExtendedMetaData(kind="element", name="lower_unbounded", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] lowerUnbounded;
+
+	@GenModel(documentation="If True, there is no upper boundary")
+	@ExtendedMetaData(kind="element", name="upper_unbounded", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] upperUnbounded;
+}
+
+@GenModel(documentation="
+A language code IAW RFC 3066, Tags for the Identification of Languages. The three most common formats are:
+    For ISO-recognized languages, the format is a two- or three-letter, (usually lowercase) language code that conforms to ISO 639, optionally followed by a hyphen and a two-letter, (usually uppercase) country code that conforms to ISO 3166. For example, en or en-US.
+    For languages registered by the Internet Assigned Numbers Authority (IANA), the format is i-langname, where langname is the registered name. For example, i-navajo.
+    For unofficial languages, the format is x-langname, where langname is a name of up to eight characters agreed upon by the two parties sharing the document. For example, x-Newspeak.
+")
+@ExtendedMetaData(name="DvLanguage", kind="elementOnly")
+class DvLanguage extends DvChar {
+
+	@GenModel(documentation="Displayable rendition of the language code.")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.Language dv;
+}
+
+@GenModel(documentation="Represents an integer between -9223372036854775808 and 9223372036854775807. An xsd:long is a sequence of digits, optionally preceded by a + or - sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvLong", kind="elementOnly")
+class DvLong extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	unsettable attr type.Long dv;
+}
+
+@GenModel(documentation="
+A specialisation of DvEncapsulated for audiovisual and biosignal types. Includes further metadata relating to multimedia types which are not applicable to other subtypes of DvEncapsulated.")
+@ExtendedMetaData(name="DvMedia", kind="elementOnly")
+abstract class DvMedia extends DvEncapsulated {
+
+	@GenModel(documentation="Content type as defined in RFC2045 and RFC 2046")
+	@ExtendedMetaData(kind="element", name="mime_type", namespace="##targetNamespace")
+	attr type.NormalizedString[1] mimeType;
+
+	@GenModel(documentation="Compression type, a coded value from the MLHIM “Integrity check” code set. Void means  no compression.")
+	@ExtendedMetaData(kind="element", name="compression_type", namespace="##targetNamespace")
+	attr type.NormalizedString compressionType;
+
+	@GenModel(documentation="Integrity checksum")
+	@ExtendedMetaData(kind="element", name="hash_result", namespace="##targetNamespace")
+	attr type.NormalizedString hashResult;
+
+	@GenModel(documentation="Type of integrity check")
+	@ExtendedMetaData(kind="element", name="hash_function", namespace="##targetNamespace")
+	attr type.NormalizedString hashFunction;
+
+	@GenModel(documentation="
+URI reference to electronic information stored outside the record as a file, database entry etc, if supplied as a reference.
+")
+	@ExtendedMetaData(kind="element", name="uri", namespace="##targetNamespace")
+	attr type.AnyURI uri;
+
+	@GenModel(documentation="Text to display in lieu of multimedia display/replay")
+	@ExtendedMetaData(kind="element", name="alt_text", namespace="##targetNamespace")
+	attr type.NormalizedString altText;
+}
+
+@GenModel(documentation="")
+@ExtendedMetaData(name="DvMediaApp", kind="elementOnly")
+class DvMediaApp extends DvMedia {
+
+	@GenModel(documentation="")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	!resolve val EObject dv;
+}
+
+@GenModel(documentation="")
+@ExtendedMetaData(name="DvMediaAudio", kind="elementOnly")
+class DvMediaAudio extends DvMedia {
+
+	@GenModel(documentation="")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.Base64Binary dv;
+}
+
+@GenModel(documentation="")
+@ExtendedMetaData(name="DvMediaImage", kind="elementOnly")
+class DvMediaImage extends DvMedia {
+
+	@GenModel(documentation="")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.Base64Binary dv;
+}
+
+@GenModel(documentation="")
+@ExtendedMetaData(name="DvMediaModel", kind="elementOnly")
+class DvMediaModel extends DvMedia {
+
+	@GenModel(documentation="")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.Base64Binary dv;
+}
+
+@GenModel(documentation="")
+@ExtendedMetaData(name="DvMediaMsg", kind="elementOnly")
+class DvMediaMsg extends DvMedia {
+
+	@GenModel(documentation="")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.Base64Binary dv;
+}
+
+@GenModel(documentation="")
+@ExtendedMetaData(name="DvMediaMultipart", kind="elementOnly")
+class DvMediaMultipart extends DvMedia {
+
+	@GenModel(documentation="")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	!resolve val EObject dv;
+}
+
+@GenModel(documentation="")
+@ExtendedMetaData(name="DvMediaText", kind="elementOnly")
+class DvMediaText extends DvMedia {
+
+	@GenModel(documentation="")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.String dv;
+}
+
+@GenModel(documentation="")
+@ExtendedMetaData(name="DvMediaVideo", kind="elementOnly")
+class DvMediaVideo extends DvMedia {
+
+	@GenModel(documentation="")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.Base64Binary dv;
+}
+
+@GenModel(documentation="Represents an arbitrarily large negative integer. An xsd:negativeInteger is a sequence of digits, preceded by a - sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvNegativeInteger", kind="elementOnly")
+class DvNegativeInteger extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.NegativeInteger dv;
+}
+
+@GenModel(documentation="Represents an arbitrarily large non-negative integer. An xsd:nonNegativeInteger is a sequence of digits, optionally preceded by a + sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvNonNegativeInteger", kind="elementOnly")
+class DvNonNegativeInteger extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.NonNegativeInteger dv;
+}
+
+@GenModel(documentation="Represents an arbitrarily large non-positive integer. An xsd:nonPositiveInteger is a sequence of digits, optionally preceded by a - sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvNonPositiveInteger", kind="elementOnly")
+class DvNonPositiveInteger extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.NonPositiveInteger dv;
+}
+
+@GenModel(documentation="Represents a character string that may contain any Unicode character allowed by XML. 
+Certain characters, namely the \"less than\" symbol and the ampersand, must be escaped (using the entities < and &,
+ respectively) when used in strings in XML instances
+ ")
+@ExtendedMetaData(name="DvNormalizedString", kind="elementOnly")
+class DvNormalizedString extends DvChar {
+
+	@GenModel(documentation="UUID in order to track translations.")
+	@ExtendedMetaData(kind="element", name="uuid", namespace="##targetNamespace")
+	attr type.Token[1] uuid;
+
+	@GenModel(documentation="Optional indicator of the localised language in which the value is written. Coded IAW IETF RFC 5646. http://tools.ietf.org/html/rfc5646  Only used when the text object is in a different language from the enclosing CCD.")
+	@ExtendedMetaData(kind="element", name="language", namespace="##targetNamespace")
+	attr type.Language language;
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.NormalizedString dv;
+}
+
+@ExtendedMetaData(name="DvNumeric", kind="elementOnly")
+abstract class DvNumeric extends DvAny {
+}
+
+@GenModel(documentation="
+Abstract class defining the concept of ordered values, which includes ordinals as well as true quantities. It defines the functions less than and is_strictly_comparable_to, the latter of which must evaluate to True for instances being compared with the  less than function, or used as limits in the DvInterval class. Data value types which are to be used as limits must inherit from this class, and implement the function is_strictly_comparable_to to ensure that instances compare meaningfully. For example, instances of DvQuantity can only be compared if they measure the same kind of physical quantity.
+")
+@ExtendedMetaData(name="DvOrdered", kind="elementOnly")
+abstract class DvOrdered extends DvAny {
+
+	@GenModel(documentation="Optional normal range.")
+	@ExtendedMetaData(kind="element", name="normal_range", namespace="##targetNamespace")
+	!resolve val DvInterval normalRange;
+
+	@GenModel(documentation="List of ReferenceRanges. Optional tagged other reference ranges for this value in its particular measurement context.
+")
+	@ExtendedMetaData(kind="element", name="other_reference_ranges", namespace="##targetNamespace")
+	!resolve val ReferenceRange[*] otherReferenceRanges;
+
+	@GenModel(documentation="Optional normal status indicator of value with respect to normal range for this value. Often included by lab, even if the normal range itself is not included. Coded by ordinals in series HHH, HH, H, (nothing), L, LL, LLL, etc.")
+	@ExtendedMetaData(kind="element", name="normal_status", namespace="##targetNamespace")
+	attr type.String normalStatus;
+}
+
+@GenModel(documentation="
+Models rankings and scores, e.g. pain, Apgar values, etc, where there is a) implied ordering, b) no implication that the distance between each value is constant, and c) the total number of values is finite. Note that although the term ‘ordinal’ in mathematics means natural numbers only, here any integer is allowed, since negative and zero values are often used by medical professionals for values around a neutral point. Examples of sets of ordinal values: -3, -2, -1, 0, 1, 2, 3 -- reflex response values 0, 1, 2 -- Apgar values Used for recording any clinical datum which is customarily recorded using symbolic values. Example: the results on a urinalysis strip, e.g. {neg, trace, +,++, +++} are used for leucocytes, protein, nitrites etc; for non-haemolysed blood {neg, trace, moderate}; for haemolysed blood {neg, trace,small, moderate, large}.
+")
+@ExtendedMetaData(name="DvOrdinal", kind="elementOnly")
+class DvOrdinal extends DvOrdered {
+
+	@GenModel(documentation="Value in ordered enumeration of values. Any integer value can be used.")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.Integer dv;
+
+	@GenModel(documentation="Coded textual representation of this value in the enumeration, which may be strings made from “+” symbols, or other enumerations of terms such as “mild”, “moderate”, “severe”, or even the same number series as the values, e.g. “1”, “2”, “3”. ")
+	@ExtendedMetaData(kind="element", name="symbol", namespace="##targetNamespace")
+	attr type.String symbol;
+}
+
+@GenModel(documentation="
+A logical composite text value consisting of a series of DvTexts, i.e. plain or coded text to form a larger tract of prose, which may be interpreted for display purposes as a paragraph. DvParagraph is the standard way for constructing longer text items in summaries, reports and so on.
+")
+@ExtendedMetaData(name="DvParagraph", kind="elementOnly")
+class DvParagraph extends DvAny {
+
+	@GenModel(documentation="List of Items making up the paragraph, each of which is a text item. The items should be displayed in sequential order from smallest index number to highest index number.")
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val DvString[*] items;
+}
+
+@GenModel(documentation="
+Encapsulated data expressed as a parsable String. The internal model of the data item is not described in the MLHIM model in common with other encapsulated types, but in this case, the form of the data is assumed to be plaintext, rather than compressed or other types of large binary data.
+")
+@ExtendedMetaData(name="DvParsable", kind="elementOnly")
+class DvParsable extends DvEncapsulated {
+
+	@GenModel(documentation="The string, which may validly be empty in some syntaxes")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	unsettable attr type.NormalizedString dv;
+
+	@GenModel(documentation="name of the formalism, e.g. \"MAG 1.0\", “GLIF 1.0”, “PROforma” etc. ")
+	@ExtendedMetaData(kind="element", name="formalism", namespace="##targetNamespace")
+	attr type.NormalizedString formalism;
+}
+
+@GenModel(documentation="Represents an arbitrarily large positive integer. An xsd:positiveInteger is a sequence of digits, optionally preceded by a + sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvPositiveInteger", kind="elementOnly")
+class DvPositiveInteger extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.PositiveInteger dv;
+}
+
+@GenModel(documentation="
+Models a ratio of values, i.e. where the numerator and denominator are both pure numbers. The proportion_kind property is used to control the type attribute to be one of a defined set. Used for recording titers (e.g. 1:128), concentration ratios, e.g. Na:K (unitary denominator), albumin:creatinine ratio, and percentages, e.g. red cell distirbution width (RDW). Should not be used to represent things like blood pressure which are often written using a ‘/’ character, 
+	giving the misleading impression that the item is a ratio, when in fact it is a structured value. Similarly, visual acuity, often written as (e.g.) “6/24” in clinical notes is not a ratio but an ordinal (which includes non-numeric symbols like CF = count fingers etc).	Should not be used for formulations.
+")
+@ExtendedMetaData(name="DvProportion", kind="elementOnly")
+class DvProportion extends DvRatio {
+
+	@GenModel(documentation="Indicates semantic type of proportion:
+pk_proportion	= proportion type. Numerator and denominator may be any value.
+pk_unitary	= Denominator must be 1.
+pk_per10^n	= Denominator is 10^2, numerator is understood as a real number divided by an exponent of 10 (10^n). 
+pk_fraction	=	Numerator and denominator are real numbers, allowing rational and irrational fractions, and the presentation method uses a slash, e.g. “1/2”; if the numerator is greater than the denominator, e.g. n=3, d=2, the presentation is “1 1/2”.
+")
+	@ExtendedMetaData(kind="element", name="proportion_type", namespace="##targetNamespace")
+	attr type.NormalizedString proportionType;
+}
+
+@GenModel(documentation="
+Abstract class defining the concept of true quantified values, i.e. values which are not only ordered, but which have a precise magnitude.
+")
+@ExtendedMetaData(name="DvQuantified", kind="elementOnly")
+abstract class DvQuantified extends DvOrdered {
+
+	@GenModel(documentation="Numeric value of the quantity in canonical (i.e. single value) form. Implemented as constant, function or attribute in subtypes as appropriate. The type Ordered_numeric is mapped to the available appropriate type in each implementation technology.")
+	@ExtendedMetaData(kind="element", name="magnitude", namespace="##targetNamespace")
+	attr type.Decimal magnitude;
+
+	@GenModel(documentation="
+<!-- Optional status of magnitude with values:
+•
+“=” : magnitude is a point value
+•
+“<“ : value is < magnitude
+•
+“>” : value is > magnitude
+•
+“<=” : value is <= magnitude
+•
+“>=” : value is >= magnitude
+•
+“~” : value is approximately magnitude If not present, meaning is “=” -->
+")
+	@ExtendedMetaData(kind="element", name="magnitude_status", namespace="##targetNamespace")
+	attr type.String magnitudeStatus;
+
+	@GenModel(documentation="
+Error margin of measurement, indicating error in the recording method or instrument (+/- %). Implemented in subtypes.  A logical value of 0 indicates 100% accuracy, i.e. no error.
+")
+	@ExtendedMetaData(kind="element", name="error", namespace="##targetNamespace")
+	unsettable attr type.Int[1] error;
+
+	@GenModel(documentation="
+Accuracy of the value in the magnitude attribute.  0%   to  +/- 100% A value of 0 means that the accuracy is unknown.
+")
+	@ExtendedMetaData(kind="element", name="accuracy", namespace="##targetNamespace")
+	attr type.Decimal[1] accuracy;
+}
+
+@GenModel(documentation="
+Quantitified type representing “scientific” quantities, i.e. quantities expressed as a magnitude and units. Units were inspired by the Unified Code for Units of Measure (UCUM), developed by Gunther Schadow and Clement J. McDonald of The Regenstrief Institute. Can also be used for time durations, where it is more convenient to treat these as simply a number of individual seconds, minutes, hours, days, months, years, etc.
+")
+@ExtendedMetaData(name="DvQuantity", kind="elementOnly")
+class DvQuantity extends DvQuantified {
+
+	@GenModel(documentation="
+Units expressed as a string in UCUM unit syntax, e.g. \"kg/m2\", “mm[Hg]\", \"ms-1\", \"km/h\". Implemented accordingly in subtypes.
+")
+	@ExtendedMetaData(kind="element", name="units", namespace="##targetNamespace")
+	attr type.NormalizedString[1] units;
+}
+
+@GenModel(documentation="
+Models a ratio of values, i.e. where the numerator and denominator are both pure numbers, and the numerator is not contained (it is not a subset of the denominator). Example 1: Numerator = Number of episodes of seizures; Denominator = Number of days Example 2 = Number of hospital admissions; Denominator = Number of bed-days
+")
+@ExtendedMetaData(name="DvRate", kind="elementOnly")
+class DvRate extends DvRatio {
+
+	@GenModel(documentation="Indicates semantic type of coefficient:
+pk_coefficient	= coefficient type. Numerator and denominator may be any value.
+pk_unitary	= Denominator must be 1.
+pk_per10^n	= Denominator is 10^2, numerator is understood as a real number divided by an exponent of 10 (10^n). 
+pk_fraction	=	Numerator and denominator are real numbers, allowing rational and irrational fractions, and the presentation method uses a slash, e.g. “1/2”; if the numerator is greater than the denominator, e.g. n=3, d=2, the presentation is “1 1/2”.
+")
+	@ExtendedMetaData(kind="element", name="rate_type", namespace="##targetNamespace")
+	attr type.NormalizedString rateType;
+}
+
+@GenModel(documentation="
+Models a ratio of values, i.e. where the numerator and denominator are both pure numbers.
+")
+@ExtendedMetaData(name="DvRatio", kind="elementOnly")
+abstract class DvRatio extends DvQuantified {
+
+	@GenModel(documentation="numerator of ratio")
+	@ExtendedMetaData(kind="element", name="numerator", namespace="##targetNamespace")
+	attr type.Decimal[1] numerator;
+
+	@GenModel(documentation="denominator of ratio")
+	@ExtendedMetaData(kind="element", name="denominator", namespace="##targetNamespace")
+	attr type.Decimal[1] denominator;
+}
+
+@GenModel(documentation="Represents an integer between -32768 and 32767. An xsd:short is a sequence of digits, optionally preceded by a + or - sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvShort", kind="elementOnly")
+class DvShort extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	unsettable attr type.Short dv;
+}
+
+@GenModel(documentation="
+A text item, which may contain any amount of legal characters arranged as e.g. words, sentences etc. as its data value (dv) 
+")
+@ExtendedMetaData(name="DvString", kind="elementOnly")
+class DvString extends DvChar {
+
+	@GenModel(documentation="UUID in order to track translations.")
+	@ExtendedMetaData(kind="element", name="uuid", namespace="##targetNamespace")
+	attr type.Token[1] uuid;
+
+	@GenModel(documentation="Optional indicator of the localised language in which the value is written. Coded IAW IETF RFC 5646. http://tools.ietf.org/html/rfc5646  Only used when the text object is in a different language from the enclosing CCD.")
+	@ExtendedMetaData(kind="element", name="language", namespace="##targetNamespace")
+	attr type.Language language;
+
+	@GenModel(documentation="Displayable rendition of the item.")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.String dv;
+}
+
+@GenModel(documentation="
+Abstract base class for all temporal types.
+")
+@ExtendedMetaData(name="DvTemporal", kind="mixed")
+abstract class DvTemporal extends type.AnyType {
+}
+
+@GenModel(documentation="")
+@ExtendedMetaData(name="DvTime", kind="mixed")
+class DvTime extends DvTemporal {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	volatile transient derived attr type.Time dv;
+}
+
+@GenModel(documentation="
+Represents a character string that may contain any Unicode character allowed by XML. Certain characters, namely the \"less than\" 
+symbol and the ampersand, must be escaped (using the entities < and &, respectively) when used in strings in XML instances.
+The name token may be slightly confusing because it implies that there may be only one token with no whitespace. In fact, there 
+can be whitespace in a token value. The xsd:token type has a whiteSpace facet of collapse, which means that the processor 
+replaces each carriage return, line feed, and tab by a single space. After this replacement, each group of consecutive spaces is 
+collapsed into one space character, and all leading and trailing spaces are removed. This processing is equivalent to the processing 
+of non-CDATA attribute values in XML 1.0.
+")
+@ExtendedMetaData(name="DvToken", kind="elementOnly")
+class DvToken extends DvChar {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.Token dv;
+}
+
+@GenModel(documentation="Represents an integer between 0 and 255. An xsd:unsignedByte is a sequence of digits, optionally preceded by a + sign. Leading zeros are permitted, but decimal points are not.
+")
+@ExtendedMetaData(name="DvUnsignedByte", kind="elementOnly")
+class DvUnsignedByte extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	unsettable attr type.UnsignedByte dv;
+}
+
+@GenModel(documentation="Represents an integer between 0 and 4294967295. An xsd:unsignedInt is a sequence of digits, optionally preceded by a + sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvUnsignedInt", kind="elementOnly")
+class DvUnsignedInt extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	unsettable attr type.UnsignedInt dv;
+}
+
+@GenModel(documentation="Represents an integer between 0 and 18446744073709551615. An xsd:unsignedLong is a sequence of digits, optionally preceded by a + sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvUnsignedLong", kind="elementOnly")
+class DvUnsignedLong extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	attr type.UnsignedLong dv;
+}
+
+@GenModel(documentation="Represents an integer between -32768 and 32767. An xsd:short is a sequence of digits, optionally preceded by a + or - sign. Leading zeros are permitted, but decimal points are not.")
+@ExtendedMetaData(name="DvUnsignedShort", kind="elementOnly")
+class DvUnsignedShort extends DvNumeric {
+
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	unsettable attr type.UnsignedShort dv;
+}
+
+@GenModel(documentation="
+A reference to an object which conforms to the Universal Resource Identifier (URI) standard, as defined by W3C RFC 2936. See \"Universal Resource Identifiers in WWW\" by Tim Berners-Lee at http://www.ietf.org/rfc/rfc2396.txt. This is a World-Wide Web RFC for global identification of resources. See http://www.w3.org/Addressing for a starting point on URIs. See http://www.ietf.org/rfc/rfc2806.txt for new URI types like telephone, fax and modem numbers. Enables external resources to be referenced from within the content of the EHR. A number of functions return the logical subparts of the URI string.
+")
+@ExtendedMetaData(name="DvURI", kind="elementOnly")
+class DvURI extends DvAny {
+
+	@GenModel(documentation="Value of URI as a String.")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	unsettable attr type.AnyURI dv;
+}
+
+@GenModel(documentation="
+The leaf variant of Item, to which a DvAny instance is attached.
+")
+@ExtendedMetaData(name="Element", kind="mixed")
+class Element extends Item {
+
+	@GenModel(documentation="data value of this leaf")
+	@ExtendedMetaData(kind="element", name="dv", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvAny[1] dv;
+}
+
+@GenModel(documentation="
+	Identifier for entities in an identity service. There are typically a number of subtypes of the Entity class, including Person, 
+	Organization, Device, etc. Abstract supertypes are allowed if the referenced object is of a type not known by the current 
+	implementation of this class. For example, if the entity model is changed by the addition of a new subtype, valid EntityRefs 
+	can still be constructed to them.
+	")
+@ExtendedMetaData(name="EntityRef", kind="elementOnly")
+class EntityRef extends ObjectRef {
+}
+
+@GenModel(documentation="
+	The abstract parent of all ENTRY subtypes. An ENTRY is the root of a logical item of “hard” clinical information created in the 
+	“clinical statement” context, within a clinical session. There can be numerous such contexts in a clinical session. 
+	Observations and other Entry types only ever document information captured/created in the event documented by the enclosing 
+	Composition. An ENTRY is also the minimal unit of information any query should return, since a whole ENTRY (including sub-parts) 
+	records spatial structure, timing information, and contextual information, as well as the subject and generator of the information.
+	")
+@ExtendedMetaData(name="Entry", kind="mixed")
+abstract class Entry extends ContentItem {
+
+	@GenModel(documentation="Mandatory indicator of the localised language in which this Entry is written.")
+	@ExtendedMetaData(kind="element", name="language", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvLanguage[1] language;
+
+	@GenModel(documentation="Name of character set in which text values in this Entry are encoded.")
+	@ExtendedMetaData(kind="element", name="encoding", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvCodedString encoding;
+
+	@GenModel(documentation="Id of human subject of this ENTRY, e.g.: organ donor, foetus, family member, another clinically relevant person.")
+	@ExtendedMetaData(kind="element", name="subject", namespace="##targetNamespace")
+	volatile transient derived !resolve val PartyProxy subject;
+
+	@GenModel(documentation="Optional identification of provider of the information in this ENTRY, which might be: the patient, a patient agent, e.g. parent, guardian, the clinician, a device or software.  Generally only used when the recorder needs  to make it explicit. Otherwise, Composition  composer and other participants are assumed.")
+	@ExtendedMetaData(kind="element", name="provider", namespace="##targetNamespace")
+	volatile transient derived !resolve val PartyProxy provider;
+
+	@GenModel(documentation="Other participations at ENTRY level.")
+	@ExtendedMetaData(kind="element", name="other_participations", namespace="##targetNamespace")
+	volatile transient derived !resolve val Participation[*] otherParticipations;
+
+	@GenModel(documentation="Identifier of externally held workflow engine data for this workflow execution, for this subject of care.")
+	@ExtendedMetaData(kind="element", name="workflow_id", namespace="##targetNamespace")
+	volatile transient derived !resolve val ObjectRef workflowId;
+}
+
+@GenModel(documentation="
+	Used for all kinds of statements which evaluate other information, such as interpretations of obvservations, diagnoses, 
+	differential diagnoses, hypotheses, risk assessments, goals and plans.
+	")
+@ExtendedMetaData(name="Evaluation", kind="mixed")
+class Evaluation extends CareEntry {
+
+	@GenModel(documentation="The data from the evaluation.")
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure[1] data;
+}
+
+@GenModel(documentation="
+Defines the abstract notion of a single event in a series. This class is generic, allowing types to be generated which are 
+locked to particular spatial types. Subtypes express point or interval data.
+")
+@ExtendedMetaData(name="Event", kind="mixed")
+abstract class Event extends Locatable {
+
+	@GenModel(documentation="Time of this event. If the width is non-zero, it is the time point of the trailing edge of the event.")
+	@ExtendedMetaData(kind="element", name="time", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvTemporal[1] time;
+
+	@GenModel(documentation="The data of this event.")
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvAny[1] data;
+
+	@GenModel(documentation="Optional state data for this event.")
+	@ExtendedMetaData(kind="element", name="state", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure state;
+}
+
+@GenModel(documentation="
+	Documents the context information of a healthcare event involving the subject of care and the health system. 
+	The context information recorded here is independent of the attributes recorded in the version audit, which document 
+	the “system interaction” context, i.e. the context of a user interacting with the health record  system. Healthcare events 
+	include patient contacts, and any other business activity, such as pathology investigations which take place on behalf of 
+	the patient.
+	")
+@ExtendedMetaData(name="EventContext", kind="mixed")
+class EventContext extends Locatable {
+
+	@GenModel(documentation="The health care facility under whose care the event took place. This is the most specific workgroup or delivery unit within a care delivery enterprise that has an official identifier in the health system, and can be used to ensure medico-legal accountability.")
+	@ExtendedMetaData(kind="element", name="healthcare_facility", namespace="##targetNamespace")
+	volatile transient derived !resolve val Organization healthcareFacility;
+
+	@GenModel(documentation="Start time of the clinical session or other kind of event during which a provider performs a service of any kind for the patient.")
+	@ExtendedMetaData(kind="element", name="start_time", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvTemporal[1] startTime;
+
+	@GenModel(documentation="Optional end time of the clinical session.")
+	@ExtendedMetaData(kind="element", name="end_time", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvTemporal endTime;
+
+	@GenModel(documentation="Parties involved in the healthcare event.")
+	@ExtendedMetaData(kind="element", name="participation", namespace="##targetNamespace")
+	volatile transient derived !resolve val Participation participation;
+
+	@GenModel(documentation="The actual location where the session occurred, e.g. “microbiol lab 2”, “home”, “ward A3” and so on.")
+	@ExtendedMetaData(kind="element", name="location", namespace="##targetNamespace")
+	volatile transient derived !resolve val Location location;
+
+	@GenModel(documentation="The setting in which the clinical session took place.")
+	@ExtendedMetaData(kind="element", name="setting", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvCodedString setting;
+}
+
+@GenModel(documentation="
+Subclasses are used to indicate why a value is missing (Null) or is outside a measurable range.
+")
+@ExtendedMetaData(name="ExceptionalValue", kind="elementOnly")
+abstract class ExceptionalValue {
+
+	@GenModel(documentation="The class names (complexType names) are abbreviations according to the ISO 21090 Null Flavours. This attribute is the full name.
+")
+	@ExtendedMetaData(kind="element", name="ev_name", namespace="##targetNamespace")
+	attr type.String[1] evName;
+
+	@GenModel(documentation="The descriptive meaning/usage for the class/complexType.")
+	@ExtendedMetaData(kind="element", name="ev_meaning", namespace="##targetNamespace")
+	attr type.String[1] evMeaning;
+}
+
+@GenModel(documentation="
+	Audit and other meta-data for systems in the feeder chain.
+	")
+@ExtendedMetaData(name="FeederAudit", kind="mixed")
+class FeederAudit extends type.AnyType {
+
+	@GenModel(documentation="Any audit information for the information item from the originating system.")
+	@ExtendedMetaData(kind="element", name="originating_system_audit", namespace="##targetNamespace")
+	volatile transient derived !resolve val FeederAuditDetails[1] originatingSystemAudit;
+
+	@GenModel(documentation="Identifiers used for the item in the originating system, e.g. filler and placer ids.")
+	@ExtendedMetaData(kind="element", name="originating_system_item_ids", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvIdentifier[+] originatingSystemItemIds;
+
+	@GenModel(documentation="Any audit information for the information item from the feeder system, if different from the originating system.")
+	@ExtendedMetaData(kind="element", name="feeder_system_audit", namespace="##targetNamespace")
+	volatile transient derived !resolve val FeederAuditDetails[1] feederSystemAudit;
+
+	@GenModel(documentation="Identifiers used for the item in the feeder system, where the feeder system is distinct from the originating system.")
+	@ExtendedMetaData(kind="element", name="feeder_system_ids", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvIdentifier[+] feederSystemIds;
+
+	@GenModel(documentation="Optional inline inclusion of or reference to original content corresponding to the MLHIM content at this node. Typically a URI reference to a document or message in a persistent store associated with the EHR.")
+	@ExtendedMetaData(kind="element", name="original_content", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvEncapsulated[1] originalContent;
+}
+
+@GenModel(documentation="
+	Audit details for any system in a feeder system chain. Audit details here means the general notion of who/where/when the 
+	information item to which the audit is attached was created. None of the attributes is defined as mandatory, however, in 
+	different scenarios, various combinations of attributes will usually be mandatory. This can be controlled by specifying feeder 
+	audit details in legacy archetypes.
+	")
+@ExtendedMetaData(name="FeederAuditDetails", kind="mixed")
+class FeederAuditDetails extends type.AnyType {
+
+	@GenModel(documentation="Identifier of the system which handled the information item.")
+	@ExtendedMetaData(kind="element", name="system_id", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvIdentifier[1] systemId;
+
+	@GenModel(documentation="Any identifier used in the system such as “interim”, “final”, or numeric versions if available.")
+	@ExtendedMetaData(kind="element", name="version_id", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvNormalizedString versionId;
+
+	@GenModel(documentation="Optional provider(s) who created, committed, forwarded or otherwise handled the item.")
+	@ExtendedMetaData(kind="element", name="provider", namespace="##targetNamespace")
+	volatile transient derived !resolve val PartyIdentified provider;
+
+	@GenModel(documentation="Identifier of the particular site/facility within an organisation which handled the item. For computability, this identifier needs to be e.g. a PKI identifier which can be included in the identifier list of the PARTY_IDENTIFIED object.")
+	@ExtendedMetaData(kind="element", name="location", namespace="##targetNamespace")
+	volatile transient derived !resolve val Location location;
+
+	@GenModel(documentation="Time of handling the item. For an originating system, this will be time of creation, for an intermediate feeder system, this will be a time of accession or other time of handling, where available.")
+	@ExtendedMetaData(kind="element", name="time", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvTemporal time;
+
+	@GenModel(documentation="Subject(s) of the received information item.")
+	@ExtendedMetaData(kind="element", name="subject", namespace="##targetNamespace")
+	volatile transient derived !resolve val PartyProxy[*] subject;
+}
+
+@GenModel(documentation="
+	A container for other items representing a logical grouping. In implementations this may also inherit from 
+	library components providing the required functionality.
+	")
+@ExtendedMetaData(name="Folder", kind="mixed")
+class Folder extends Locatable {
+
+	@GenModel(documentation="A list of  UUIDs of Compositions logically in this folder.")
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	volatile transient derived !resolve val Composition[*] items;
+}
+
+@GenModel(documentation="
+	A collection of persons existing as a conceptual entity for some period of time. 
+	")
+@ExtendedMetaData(name="Group", kind="mixed")
+class Group extends Party {
+
+	@GenModel(documentation="A Set of Partys composing the Group.")
+	@ExtendedMetaData(kind="element", name="members", namespace="##targetNamespace")
+	volatile transient derived !resolve val Party[*] members;
+}
+
+@GenModel(documentation="
+Root object of a linear history, i.e. time series structure. For a periodic series of events, period will be set, and the time 
+of each Event in the History must correspond; i.e. the Event.offset must be a multiple of period for each Event. 
+Missing events in a period History are however allowed.
+")
+@ExtendedMetaData(name="History", kind="mixed")
+class History extends DataStructure {
+
+	@GenModel(documentation="Time origin of this event history. The first event is not necessarily at the origin point.")
+	@ExtendedMetaData(kind="element", name="origin", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvTemporal[1] origin;
+
+	@GenModel(documentation="The events in the series.")
+	@ExtendedMetaData(kind="element", name="events", namespace="##targetNamespace")
+	volatile transient derived !resolve val Event[+] events;
+
+	@GenModel(documentation="Period between samples in this segment if periodic.")
+	@ExtendedMetaData(kind="element", name="period", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvDuration period;
+
+	@GenModel(documentation="
+Duration of the entire History; either corresponds to the duration of all the events, and/or the duration represented by the summary, if it exists.
+")
+	@ExtendedMetaData(kind="element", name="duration", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvDuration duration;
+
+	@GenModel(documentation="Optional summary data expressing e.g. text or image which summarises entire History.")
+	@ExtendedMetaData(kind="element", name="summary", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure summary;
+}
+
+@GenModel(documentation="
+	Used for any actionable statement such as medication and therapeutic orders, monitoring, recall and review. 
+	Enough details must be provided for the specification to be directly executed by an actor, either human or machine.
+	")
+@ExtendedMetaData(name="Instruction", kind="mixed")
+class Instruction extends CareEntry {
+
+	@GenModel(documentation="Optional expiry date/time to assist determination of when an Instruction can be assumed to have expired. This helps prevent false listing of Instructions as Active when they clearly must have been terminated in some way or other.")
+	@ExtendedMetaData(kind="element", name="expiry_time", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvTemporal expiryTime;
+
+	@GenModel(documentation="Mandatory human-readable version of what the Instruction is about.")
+	@ExtendedMetaData(kind="element", name="narrative", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvString[1] narrative;
+
+	@GenModel(documentation="Optional workflow engine executable expression of the Instruction.")
+	@ExtendedMetaData(kind="element", name="wf_definition", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvParsable wfDefinition;
+
+	@GenModel(documentation="List of all activities in Instruction.")
+	@ExtendedMetaData(kind="element", name="activities", namespace="##targetNamespace")
+	volatile transient derived !resolve val Activity[+] activities;
+}
+
+@GenModel(documentation="
+Defines a single interval event in a series.
+")
+@ExtendedMetaData(name="IntervalEvent", kind="mixed")
+class IntervalEvent extends Event {
+
+	@GenModel(documentation="Length of the interval during which the state was true.")
+	@ExtendedMetaData(kind="element", name="width", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvDuration[1] width;
+
+	@GenModel(documentation="Mathematical function of the data of this event, e.g. “maximum”, “mean” etc. ")
+	@ExtendedMetaData(kind="element", name="math_function", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvCodedString[1] mathFunction;
+
+	@GenModel(documentation="Optional count of original samples to which this event corresponds.")
+	@ExtendedMetaData(kind="element", name="sample_count", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvCount sampleCount;
+}
+
+@GenModel(documentation="
+The value as represented in the instance is not a member of the set of permitted data values in the constrained 
+value domain of a variable.
+")
+@ExtendedMetaData(name="INV", kind="elementOnly")
+class INV extends NI {
+}
+
+@GenModel(documentation="
+The abstract parent of Slot, Cluster and Element representation classes.
+")
+@ExtendedMetaData(name="Item", kind="mixed")
+abstract class Item extends Locatable {
+}
+
+@GenModel(documentation="
+Logical list data structure, where each item has a value and can be referred to by a name and a positional index in the list. 
+The list may be empty.
+")
+@ExtendedMetaData(name="ItemList", kind="mixed")
+class ItemList extends ItemStructure {
+
+	@GenModel(documentation="List of Elements, Clusters or Slots for this Item.")
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	volatile transient derived !resolve val Item[*] items;
+}
+
+@GenModel(documentation="
+Used to represent any data which is logically a single value, such as a person’s height or weight.
+")
+@ExtendedMetaData(name="ItemSingle", kind="mixed")
+class ItemSingle extends ItemStructure {
+
+	@GenModel(documentation="Element, Cluster or Slot for this Item.")
+	@ExtendedMetaData(kind="element", name="item", namespace="##targetNamespace")
+	volatile transient derived !resolve val Item[1] item;
+}
+
+@GenModel(documentation="
+Abstract parent class of all item structure types.
+")
+@ExtendedMetaData(name="ItemStructure", kind="mixed")
+abstract class ItemStructure extends DataStructure {
+}
+
+@GenModel(documentation="
+Logical relational database style table data structure, in which columns are named and ordered with respect to each other.
+Implemented using Cluster-per-row encoding. Each row Cluster must have an identical number of Elements, each of which 
+in turn must have identical names and value types in the corresponding postions in each row. Some columns may be 
+designated ‘key’ columns, containing key data for each row, in the manner of relational tables. This allows row-naming, 
+where each row represents a body site, a blood antigen etc. All values in a column have the same data type.
+")
+@ExtendedMetaData(name="ItemTable", kind="mixed")
+class ItemTable extends ItemStructure {
+
+	@GenModel(documentation="List of Clusters for this Item.")
+	@ExtendedMetaData(kind="element", name="rows", namespace="##targetNamespace")
+	volatile transient derived !resolve val Cluster[+] rows;
+}
+
+@GenModel(documentation="
+Logical tree data structure. The tree may be empty. Used to represent data which are logically a tree such as audiology results, 
+microbiology results, biochemistry results.
+")
+@ExtendedMetaData(name="ItemTree", kind="mixed")
+class ItemTree extends ItemStructure {
+
+	@GenModel(documentation="List of structures to define the root of the tree.")
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	volatile transient derived !resolve val Item[+] items;
+}
+
+@GenModel(documentation="
+	The Link type defines a logical relationship between two items, such as two Entry types or an Entry and a Composition. 
+      Links can be used across compositions, and across EHRs. Links can potentially be used between interior nodes, although this 
+      probably should be prevented in CCDs. Multiple Links can be attached to the root object of any structure to give the effect of 
+      a 1->N link. 1:1 and 1:N relationships between content elements can be expressed by using one, or more than one. Chains of 
+      links can be used to see “problem threads” or other logical groupings of  items. Links should be between structures only, 
+      i.e. between objects representing complete domain concepts because relationships between sub-elements of whole concepts 
+      are not necessarily meaningful, and may be downright confusing. 
+	")
+@ExtendedMetaData(name="Link", kind="mixed")
+class Link extends type.AnyType {
+
+	@GenModel(documentation="The relation attribute is used to indicate a clinical or domain-level meaning for the kind of link. This attribute should describe the relationship with the target object.  Normally this relationship is found in the semantic relations found in the NLM Semantic Network.")
+	@ExtendedMetaData(kind="element", name="relation", namespace="##targetNamespace")
+	volatile transient derived !resolve val Relationship[1] relation;
+
+	@GenModel(documentation="The 'uuid' of the logical “to” object in the link relation, as per the linguistic sense of the meaning attribute.")
+	@ExtendedMetaData(kind="element", name="target", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvToken[1] target;
+}
+
+@GenModel(documentation="
+	Root class of all information model classes that can be expressed in a constraint model.
+	")
+@ExtendedMetaData(name="Locatable", kind="mixed")
+abstract class Locatable extends type.AnyType {
+
+	@GenModel(documentation="Audit trail from non-MLHIM system of original commit of information forming the content of this node, or from a conversion gateway which has synthesised this node.")
+	@ExtendedMetaData(kind="element", name="feeder_audit", namespace="##targetNamespace")
+	volatile transient derived !resolve val FeederAudit feederAudit;
+
+	@GenModel(documentation="Runtime name of this fragment, used to build runtime paths. This is the term provided at design time to name this EHR construct.  Its retention in the EHR faithfully preserves the original label by which this entry was known to end users. When created in English; it shall consist only of lowercase letters a-z, digits 0-9 and use the _ (underscore) as a separator.   Other languages should follow similar naming rules in order to not conflict with implementations,")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvNormalizedString[1] name;
+
+	@GenModel(documentation="UUID for each Locatable structure.")
+	@ExtendedMetaData(kind="element", name="uuid", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvToken[1] uuid;
+
+	@GenModel(documentation="Parent of this node in compositional hierarchy. Usually a UUID of another Locatable.")
+	@ExtendedMetaData(kind="element", name="parent", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvToken parent;
+}
+
+@GenModel(documentation="
+	A location should be meaningful to human readers as well as contain machine processable components.  
+	See ISO 19115  The details attribute can be constrained to describe specific address details or any other 
+	physical world location information.
+	")
+@ExtendedMetaData(name="Location", kind="mixed")
+class Location extends Locatable {
+
+	@GenModel(documentation="The details are a structural segment that may be used to create machine processable capabilities.  For example in a GIS it may contain longitude/latitude/altitude information. ")
+	@ExtendedMetaData(kind="element", name="details", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure[1] details;
+
+	@GenModel(documentation="A human readable description for this location.")
+	@ExtendedMetaData(kind="element", name="description", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvString[1] description;
+
+	@GenModel(documentation="A binary attribute indicating if this is the primary location in the list of locations.")
+	@ExtendedMetaData(kind="element", name="is_primary", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvBoolean[1] isPrimary;
+}
+
+@GenModel(documentation="
+           An entry for a meta-data set in this CCD.  
+           ")
+@ExtendedMetaData(name="MetaDataEntry", kind="elementOnly")
+class MetaDataEntry {
+
+	@GenModel(documentation="The title or name for this meta-data entry.")
+	@ExtendedMetaData(kind="element", name="title", namespace="##targetNamespace")
+	attr type.String[1] title;
+
+	@GenModel(documentation="The actual meta-data string.")
+	@ExtendedMetaData(kind="element", name="contents", namespace="##targetNamespace")
+	attr type.String[1] contents;
+}
+
+@GenModel(documentation="
+           A set of meta-data entries in this CCD. For example; DCMI, caBIG, MLHIM  
+           ")
+@ExtendedMetaData(name="MetaDataSet", kind="elementOnly")
+class MetaDataSet {
+
+	@GenModel(documentation="The title or name for this meta-data set.")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String[1] name;
+
+	@GenModel(documentation="The set of entries making up this meta-data set.")
+	@ExtendedMetaData(kind="element", name="entries", namespace="##targetNamespace")
+	!resolve val MetaDataEntry[+] entries;
+}
+
+@GenModel(documentation="
+There is information on this item available but it has not been provided by the sender due to security, privacy or other reasons. 
+There may be an alternate method of obtaining the information.	
+")
+@ExtendedMetaData(name="MSK", kind="elementOnly")
+class MSK extends NI {
+}
+
+@GenModel(documentation="
+No proper value is applicable in this context e.g.,the number of cigarettes smoked per day by a non-smoker subject.
+")
+@ExtendedMetaData(name="NA", kind="elementOnly")
+class NA extends NI {
+}
+
+@GenModel(documentation="
+This information has not been sought (e.g., patient was not asked).
+")
+@ExtendedMetaData(name="NASK", kind="elementOnly")
+class NASK extends UNK {
+}
+
+@GenModel(documentation="
+	Information is unavailable at this time but is expected that it will be available later.
+	")
+@ExtendedMetaData(name="NAV", kind="elementOnly")
+class NAV extends ASKU {
+}
+
+@GenModel(documentation="
+The value is exceptional (missing, incomplete, improper). No information is available as to the reason 
+for being an exceptional value is provided. This is the most general and default value.
+")
+@ExtendedMetaData(name="NI", kind="elementOnly")
+class NI extends ExceptionalValue {
+}
+
+@GenModel(documentation="
+	Negative infinity of numbers
+	")
+@ExtendedMetaData(name="NINF", kind="elementOnly")
+class NINF extends OTH {
+}
+
+@GenModel(documentation="
+	Any nonhuman living animal or plant.
+	")
+@ExtendedMetaData(name="NonHuman", kind="mixed")
+class NonHuman extends Party {
+
+	@GenModel(documentation="structural details about the non-human")
+	@ExtendedMetaData(kind="element", name="details", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure[1] details;
+}
+
+@GenModel(documentation="
+	Class describing a reference to another object, which may exist locally or be maintained outside the current namespace, 
+	e.g. in another service. Services are usually external, e.g. available in a LAN (including on the same host) or the internet via 
+	Corba, SOAP, or some other distributed protocol. However, in small systems they may be part of the same executable as the 
+	data containing the Id.
+	")
+@ExtendedMetaData(name="ObjectRef", kind="elementOnly")
+class ObjectRef {
+
+	@GenModel(documentation="Universally unique id of an object, regardless of where it is stored.")
+	@ExtendedMetaData(kind="element", name="uuid", namespace="##targetNamespace")
+	attr type.Token[1] uuid;
+
+	@GenModel(documentation="Namespace to which this identifier belongs in the local system context. ")
+	@ExtendedMetaData(kind="element", name="namespace", namespace="##targetNamespace")
+	attr type.NormalizedString[1] namespace;
+
+	@GenModel(documentation="Name of the class (concrete or abstract) of object to which this identifier type refers, e.g. “PARTY”, “PERSON”, “GUIDELINE” etc. These class names are from the relevant reference model. The type name “ANY” can be used to indicate that any type is accepted (e.g. if the type is unknown).")
+	@ExtendedMetaData(kind="element", name="obj_type", namespace="##targetNamespace")
+	attr type.NormalizedString[1] objType;
+}
+
+@GenModel(documentation="
+	Entry subtype for all clinical data in the past or present, i.e. which (by the time it is recorded) has already occurred. 
+	Observation data is expressed using the class History, which guarantees that it is situated in time. 
+	Observation is used for all notionally objective (i.e. measured in some way) observations of phenomena, and patient-reported 
+	phenomena, e.g. pain. Not used for recording opinion or future statements of any kind, including instructions, intentions, plans etc.
+	")
+@ExtendedMetaData(name="Observation", kind="mixed")
+class Observation extends CareEntry {
+
+	@GenModel(documentation="The data of this observation, in the form of a history of values which may be of any complexity.")
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	volatile transient derived !resolve val History[1] data;
+
+	@GenModel(documentation="Optional recording of the state of subject of this observation during the observation process, in the form of a separate history of values which may be of any complexity. State may also be recorded within the History of the data attribute.")
+	@ExtendedMetaData(kind="element", name="state", namespace="##targetNamespace")
+	volatile transient derived !resolve val History state;
+}
+
+@GenModel(documentation="
+	The pre-coordinated ontology for this CCD.  The contents of the ontology are created during design time by the CCD author.
+	The ontology provides the means to create a set of options to restrict data in the context of the CCD.  
+	")
+@ExtendedMetaData(name="Ontology", kind="elementOnly")
+class Ontology {
+
+	@GenModel(documentation="Contains the list of 'name' attributes in the CCD;in the original language. They are connected to the name points in the CCD via a uuid. This allows translations using the uuid as the GETTEXT msgid. ")
+	@ExtendedMetaData(kind="element", name="names", namespace="##targetNamespace")
+	!unique attr type.String[*] names;
+
+	@GenModel(documentation="Internal vocabularies useful for options such as DvText.dv  The DvText.dv attribute will contain the uuid link to the named element.  This element will contain the options.  ")
+	@ExtendedMetaData(kind="element", name="internalVocabularies", namespace="##targetNamespace")
+	!unique attr type.String[*] internalVocabularies;
+
+	@GenModel(documentation="Lookup tables used for data points in the CCD.  Such as DvText.dv options.  These tables may be in a variety of formats such as csv. Therefore the implementation will have to handle how this table is handled. ")
+	@ExtendedMetaData(kind="element", name="lookupTables", namespace="##targetNamespace")
+	!unique attr type.String[*] lookupTables;
+
+	@GenModel(documentation="References to teminology entries.")
+	@ExtendedMetaData(kind="element", name="terminologies", namespace="##targetNamespace")
+	!unique attr type.String[*] terminologies;
+
+	@GenModel(documentation="A list of general Ontology Entries that do not fit into one of the predefined categories.")
+	@ExtendedMetaData(kind="element", name="generalEntries", namespace="##targetNamespace")
+	!resolve val OntologyEntry[*] generalEntries;
+}
+
+@GenModel(documentation="
+           A set of optional entries for a specific node or nodes in this CCD.  
+           ")
+@ExtendedMetaData(name="OntologyEntry", kind="elementOnly")
+class OntologyEntry {
+
+	@GenModel(documentation="A list of strings for this entry.")
+	@ExtendedMetaData(kind="element", name="contents", namespace="##targetNamespace")
+	!unique attr type.String[+] contents;
+}
+
+@GenModel(documentation="
+	A legally defined entity allowed to operate as one unit of identity. 
+	")
+@ExtendedMetaData(name="Organization", kind="mixed")
+class Organization extends Party {
+
+	@GenModel(documentation="structural details about the organization")
+	@ExtendedMetaData(kind="element", name="details", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure[1] details;
+}
+
+@GenModel(documentation="
+The actual value is not a member of the permitted data values in the variable. (e.g., when the value of the variable is not 
+by the coding system)	
+")
+@ExtendedMetaData(name="OTH", kind="elementOnly")
+class OTH extends INV {
+}
+
+@GenModel(documentation="
+	Model of a participation of a Party (any Actor or Role) in an activity. Used to represent any participation of a Party in some 
+	activity, which is not explicitly in the model, e.g. assisting nurse. Can be used to record past or future participations. 
+	Should not be used in place of more permanent relationships between demographic entities.
+	")
+@ExtendedMetaData(name="Participation", kind="mixed")
+class Participation extends type.AnyType {
+
+	@GenModel(documentation="The id and possibly demographic system link of the party participating in the activity.")
+	@ExtendedMetaData(kind="element", name="performer", namespace="##targetNamespace")
+	volatile transient derived !resolve val PartyProxy performer;
+
+	@GenModel(documentation="The function of the Party in this participation (note that a given party might participate in more than one way in a particular activity). This attribute should be coded.")
+	@ExtendedMetaData(kind="element", name="function", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvCodedString[1] function;
+
+	@GenModel(documentation="The mode of the performer / activity interaction, e.g. present, by telephone, by email etc.")
+	@ExtendedMetaData(kind="element", name="mode", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvCodedString[1] mode;
+
+	@GenModel(documentation="The time interval during which the participation took place, if it is used in an observational context (i.e. recording facts about the past); or the intended time interval of the participation when used in future contexts, such as EHR Instructions.")
+	@ExtendedMetaData(kind="element", name="time", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvTemporal[1] time;
+}
+
+@GenModel(documentation="
+	Any type of real world living entity. 
+	")
+@ExtendedMetaData(name="Party", kind="mixed")
+abstract class Party extends Locatable {
+
+	@GenModel(documentation="If present this must be a valid datetime string including timezone")
+	@ExtendedMetaData(kind="element", name="valid_time_begin", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvDateTime validTimeBegin;
+
+	@GenModel(documentation="If present this must be a valid datetime string including timezone")
+	@ExtendedMetaData(kind="element", name="valid_time_end", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvDateTime validTimeEnd;
+
+	@GenModel(documentation="The exceptional value. Often referred to as Null Flavour. ")
+	@ExtendedMetaData(kind="element", name="ev", namespace="##targetNamespace")
+	volatile transient derived !resolve val ExceptionalValue ev;
+
+	@GenModel(documentation="A List of identifiers used to relate this entity to the real world.")
+	@ExtendedMetaData(kind="element", name="identifiers", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvIdentifier[*] identifiers;
+
+	@GenModel(documentation="A List of roles that this entity may participate. ")
+	@ExtendedMetaData(kind="element", name="roles", namespace="##targetNamespace")
+	volatile transient derived !resolve val Role[*] roles;
+
+	@GenModel(documentation="A List of roles that this entity may participate. ")
+	@ExtendedMetaData(kind="element", name="relationships", namespace="##targetNamespace")
+	volatile transient derived !resolve val Relationship[*] relationships;
+
+	@GenModel(documentation="A list of locations for this entity. ")
+	@ExtendedMetaData(kind="element", name="locations", namespace="##targetNamespace")
+	volatile transient derived !resolve val Location[*] locations;
+}
+
+@GenModel(documentation="
+	Proxy data for an identified party other than the subject of the record, minimally consisting of human-readable identifier(s), 
+	such as name, formal (and possibly computable) identifiers such as NHS number, and an optional link to external data. 
+	There must be at least one of name, identifier or external_ref present.Used to describe parties where only identifiers may 
+	be known, and there is no entry at all in the demographic system (or even no demographic system). Typically for health care 
+	providers, e.g. name and provider number of an institution. Should not be used to include patient identifying information.
+	")
+@ExtendedMetaData(name="PartyIdentified", kind="elementOnly")
+class PartyIdentified extends PartyProxy {
+
+	@GenModel(documentation="
+             Optional human-readable name (in String form).
+             ")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	!resolve val DvString name;
+
+	@GenModel(documentation="List of DvIdentifiers - One or more formal identifiers (possibly computable).")
+	@ExtendedMetaData(kind="element", name="identifiers", namespace="##targetNamespace")
+	!resolve val DvIdentifier[+] identifiers;
+}
+
+@GenModel(documentation="
+	Abstract concept of a proxy description of a party, including an optional link to data for this party in a demographic 
+	or other identity management system. Sub-typed into PARTY_IDENTIFIED and PARTY_SELF.
+	")
+@ExtendedMetaData(name="PartyProxy", kind="elementOnly")
+abstract class PartyProxy extends DvAny {
+
+	@GenModel(documentation="
+             Optional reference to more detailed demographic or identification information for this party, in an external system.
+              ")
+	@ExtendedMetaData(kind="element", name="external_ref", namespace="##targetNamespace")
+	!resolve val EntityRef externalRef;
+}
+
+@GenModel(documentation="
+	Proxy type for identifying a party and its relationship to the subject of the record. Use where the relationship between the 
+	party and the subject of the record must be known.
+	")
+@ExtendedMetaData(name="PartyRelated", kind="elementOnly")
+class PartyRelated extends PartyIdentified {
+
+	@GenModel(documentation="
+             Relationship of subject of this Entry to the subject of the record. May be coded. If it is the patient, coded as “self”. 
+             ")
+	@ExtendedMetaData(kind="element", name="relationship", namespace="##targetNamespace")
+	!resolve val Relationship[1] relationship;
+}
+
+@GenModel(documentation="
+	Party proxy representing the subject of the record. Used to indicate that the party is the owner of the record. 
+	May or may not have external_ref set.
+	")
+@ExtendedMetaData(name="PartySelf", kind="elementOnly")
+class PartySelf extends PartyProxy {
+}
+
+@GenModel(documentation="
+	A singular human being. 
+	")
+@ExtendedMetaData(name="Person", kind="mixed")
+class Person extends Party {
+
+	@GenModel(documentation="structural details about the person")
+	@ExtendedMetaData(kind="element", name="details", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure[1] details;
+}
+
+@GenModel(documentation="
+	Positive infinity of numbers
+	")
+@ExtendedMetaData(name="PINF", kind="elementOnly")
+class PINF extends OTH {
+}
+
+@GenModel(documentation="
+Defines a single point event in a series.
+")
+@ExtendedMetaData(name="PointEvent", kind="mixed")
+class PointEvent extends Event {
+}
+
+@GenModel(documentation="
+	The specific quantity is not known, but is known to non-zero and it is not specified because it makes up the bulk of the material;
+	  \"Add 10mg of ingredient X, 50mg of ingredient Y and sufficient quantity of water to 100mL.\"
+	")
+@ExtendedMetaData(name="QS", kind="elementOnly")
+class QS extends UNK {
+}
+
+@GenModel(documentation="
+Defines a named range to be associated with any Ordered datum. Each such range is particular to the patient and context, e.g. sex, age, and any other factor which affects ranges. May be used to represent normal, therapeutic, dangerous, critical etc ranges.
+")
+@ExtendedMetaData(name="ReferenceRange", kind="elementOnly")
+class ReferenceRange extends DvAny {
+
+	@GenModel(documentation="Term whose value indicates the meaning of this range, e.g. “normal”, “critical”, “therapeutic” etc.")
+	@ExtendedMetaData(kind="element", name="definition", namespace="##targetNamespace")
+	!resolve val DvString[1] definition;
+
+	@GenModel(documentation="The data range for this meaning.")
+	@ExtendedMetaData(kind="element", name="data_range", namespace="##targetNamespace")
+	!resolve val DvInterval[1] dataRange;
+}
+
+@GenModel(documentation="
+	A relationship exists in a source and points to a target.  Sources and Targets can be persons, places, or things. 
+	Relationships are locatable objects and they may only reference locatable objects by uuid.
+	")
+@ExtendedMetaData(name="Relationship", kind="mixed")
+class Relationship extends Locatable {
+
+	@GenModel(documentation="The List of target UUIDs.  Relationships can only be established  between instances.   ")
+	@ExtendedMetaData(kind="element", name="targets", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvToken[+] targets;
+}
+
+@GenModel(documentation="
+	A role defines some activity that an entity may participate in.
+	")
+@ExtendedMetaData(name="Role", kind="mixed")
+class Role extends Locatable {
+
+	@GenModel(documentation="The details are a structural segment that may be used to create machine processable capabilities.  For example in a workflow or authentication service. ")
+	@ExtendedMetaData(kind="element", name="details", namespace="##targetNamespace")
+	volatile transient derived !resolve val ItemStructure[1] details;
+
+	@GenModel(documentation="A human readable description for this role.")
+	@ExtendedMetaData(kind="element", name="description", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvString[1] description;
+
+	@GenModel(documentation="A binary attribute indicating if this is the primary role in the list of roles.")
+	@ExtendedMetaData(kind="element", name="is_primary", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvBoolean[1] isPrimary;
+}
+
+@GenModel(documentation="
+	Represents a heading in a heading structure, or “section tree”. Created according to structures for typical headings 
+	such as SOAP, physical examination, but also pathology result heading structures. Should not be used instead of 
+	ENTRY hierarchical structures.
+	")
+@ExtendedMetaData(name="Section", kind="mixed")
+class Section extends ContentItem {
+
+	@GenModel(documentation="Ordered list of content items under this section, which may include more SECTIONs or ENTRYs")
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	volatile transient derived !resolve val ContentItem[*] items;
+}
+
+@GenModel(documentation="
+A structure allowing the inclusion of one CCD inside a CCD. An unbounded list of allowable CCDs to choose from
+should be available at runtime.
+")
+@ExtendedMetaData(name="Slot", kind="mixed")
+class Slot extends Item {
+
+	@GenModel(documentation="The CCD ID selected at run-time.")
+	@ExtendedMetaData(kind="element", name="ccd", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvToken[1] ccd;
+
+	@GenModel(documentation="A list of allowed CCD IDs of which one is selected at runtime.")
+	@ExtendedMetaData(kind="element", name="allowed_ccds", namespace="##targetNamespace")
+	volatile transient derived !resolve val DvToken[+] allowedCcds;
+}
+
+@GenModel(documentation="
+	The content is greater or less than zero but too small to be quantified.
+	")
+@ExtendedMetaData(name="TRC", kind="elementOnly")
+class TRC extends UNK {
+}
+
+@GenModel(documentation="
+No attempt has been made to encode the information correctly but the raw source information is represented, usually in free text
+")
+@ExtendedMetaData(name="UNC", kind="elementOnly")
+class UNC extends INV {
+}
+
+@GenModel(documentation="
+A proper value is applicable, but not known
+")
+@ExtendedMetaData(name="UNK", kind="elementOnly")
+class UNK extends NI {
+}
+

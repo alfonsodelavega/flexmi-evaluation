@@ -1,0 +1,2127 @@
+<?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<?import http://www.eclipse.org/emf/2002/Ecore?>
+<package name="aris" nsURI="http://orvia.org/aris4eclipse/" nsPrefix="aris">
+	<class name="IdElement" abstract="true">
+		<attr name="id" type="//EString"/>
+	</class>
+	<class name="NamedElement" abstract="true">
+		<attr name="name" type="//EString"/>
+	</class>
+	<class name="Object" abstract="true"/>
+	<class name="Connection" abstract="true">
+		<ref name="sourceObject" lowerBound="1" type="Object"/>
+		<ref name="targetObject" lowerBound="1" type="Object"/>
+	</class>
+	<class name="Symbol" abstract="true">
+		<attr name="position" defaultValueLiteral="0;0" type="//EString"/>
+		<ref name="object" lowerBound="1" type="Object"/>
+	</class>
+	<class name="Line">
+		<ref name="sourceSymbol" lowerBound="1" type="Symbol"/>
+		<ref name="targetSymbol" lowerBound="1" type="Symbol"/>
+		<ref name="connection" lowerBound="1" type="Connection"/>
+		<attr name="pointlist" upperBound="-1" defaultValueLiteral="0;0" type="//EString"/>
+	</class>
+	<class name="Model" abstract="true">
+		<ref name="containSymbols" upperBound="-1" containment="true" type="Symbol"/>
+		<ref name="containLines" upperBound="-1" containment="true" type="Line"/>
+	</class>
+	<class name="Assignment">
+		<ref name="object" lowerBound="1" type="Object"/>
+		<ref name="model" lowerBound="1" type="Model"/>
+	</class>
+	<class name="Group">
+		<ref name="containSubgroups" upperBound="-1" containment="true" type="Group"/>
+		<ref name="containConnections" upperBound="-1" containment="true" type="Connection"/>
+		<ref name="containObjects" upperBound="-1" containment="true" type="Object"/>
+		<ref name="containModels" upperBound="-1" containment="true" type="Model"/>
+		<ref name="containAssignments" upperBound="-1" containment="true" type="Assignment"/>
+	</class>
+	<package name="model" nsURI="http://orvia.org/aris4eclipse/model/" nsPrefix="am">
+		<class name="OT_APPL_SYS">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="OT_APPL_SYS_TYPE">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_TRANS_CODE" type="//EString"/>
+			<attr name="AT_SAPSRV" type="//EString"/>
+			<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+			<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+		</class>
+		<class name="OT_GRP">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_DEACT" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_DEF_IMP" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGINAL_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_SOLAR_END_USR_ROLE_TYPE" type="//EString"/>
+		</class>
+		<class name="OT_ORG_UNIT">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGINAL_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_SOLAR_END_USR_ROLE_TYPE" type="//EString"/>
+		</class>
+		<class name="OT_PERS_TYPE">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_COST_RATE_1" type="//EString"/>
+			<attr name="AT_TXT" type="//EString"/>
+			<attr name="AT_DEF_IMP" type="//EString"/>
+			<attr name="AT_ACT_GROUP" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGINAL_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_SOLAR_END_USR_ROLE_TYPE" type="//EString"/>
+		</class>
+		<class name="OT_PERS">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGINAL_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_SOLAR_END_USR_ROLE_TYPE" type="//EString"/>
+		</class>
+		<class name="OT_SYS_ORG_UNIT">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_TXT" type="//EString"/>
+			<attr name="AT_DEF_IMP" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGINAL_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_SOLAR_END_USR_ROLE_TYPE" type="//EString"/>
+		</class>
+		<class name="OT_SYS_ORG_UNIT_TYPE">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_APPL" type="//EString"/>
+			<attr name="AT_TXT" type="//EString"/>
+			<attr name="AT_DEF_IMP" type="//EString"/>
+			<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+			<attr name="AT_SOLAR_SAP_COMPONENT" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGINAL_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PARTNER_PROD" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PROD_AVAILABILITY" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PROJ_STATUS" type="//EString"/>
+			<attr name="AT_SOLAR_KEYWORDS" type="//EString"/>
+			<attr name="AT_SOLAR_SOURCE_ID" type="//EString"/>
+			<attr name="AT_SOLAR_SOLUTION_ID" type="//EString"/>
+		</class>
+		<class name="OT_ORG_UNIT_TYPE">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGINAL_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_SOLAR_END_USR_ROLE_TYPE" type="//EString"/>
+		</class>
+		<class name="OT_CLST">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_SYN" type="//EString"/>
+			<attr name="AT_STOR_TYPE" type="//EString"/>
+			<attr name="AT_TXT" type="//EString"/>
+			<attr name="AT_DEF_IMP" type="//EString"/>
+			<attr name="AT_SOLAR_SAP_COMPONENT" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGINAL_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PARTNER_PROD" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PROD_AVAILABILITY" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PROJ_STATUS" type="//EString"/>
+			<attr name="AT_SOLAR_KEYWORDS" type="//EString"/>
+			<attr name="AT_SOLAR_SOURCE_ID" type="//EString"/>
+			<attr name="AT_SOLAR_SOLUTION_ID" type="//EString"/>
+		</class>
+		<class name="OT_POS">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGINAL_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_SOLAR_END_USR_ROLE_TYPE" type="//EString"/>
+		</class>
+		<class name="OT_ENT_TYPE">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_SYN" type="//EString"/>
+			<attr name="AT_APPL" type="//EString"/>
+			<attr name="AT_INT_CNSTR" type="//EString"/>
+			<attr name="AT_STOR_TYPE" type="//EString"/>
+			<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+			<attr name="AT_TXT" type="//EString"/>
+			<attr name="AT_DEF_IMP" type="//EString"/>
+			<attr name="AT_TRANSIENT" type="//EString"/>
+			<attr name="AT_SOLAR_SAP_COMPONENT" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGINAL_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PARTNER_PROD" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PROD_AVAILABILITY" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PROJ_STATUS" type="//EString"/>
+			<attr name="AT_SOLAR_KEYWORDS" type="//EString"/>
+			<attr name="AT_SOLAR_SOURCE_ID" type="//EString"/>
+			<attr name="AT_SOLAR_SOLUTION_ID" type="//EString"/>
+		</class>
+		<class name="OT_RULE">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_OP_TYPE" type="//EString"/>
+			<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+			<attr name="AT_TXT" type="//EString"/>
+			<attr name="AT_DEF_IMP" type="//EString"/>
+			<attr name="AT_SAP_BLOCK_MODE" type="//EString"/>
+			<attr name="AT_SAP_XI_END_CONDITION" type="//EString"/>
+			<attr name="AT_IS_COMP" type="//EString"/>
+		</class>
+		<class name="OT_OBJECTIVE">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_OBJECTIVE_CAT" type="//EString"/>
+		</class>
+		<class name="OT_EVT">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_SYN" type="//EString"/>
+			<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+			<attr name="AT_TXT" type="//EString"/>
+			<attr name="AT_DEF_IMP" type="//EString"/>
+			<attr name="AT_AUTO_EVENT" type="//EString"/>
+			<attr name="AT_SAP_CREATOR" type="//EString"/>
+			<attr name="AT_SAP_TIME_GEN" type="//EString"/>
+			<attr name="AT_SAP_LAST_USR" type="//EString"/>
+			<attr name="AT_SAP_LAST_CHG" type="//EString"/>
+			<attr name="AT_SAP_ORIGIN_LAN" type="//EString"/>
+			<attr name="AT_CREATE_R3" type="//EString"/>
+			<attr name="AT_LAST_CHG_R3" type="//EString"/>
+			<attr name="AT_SAP_XI_MESSAGE" type="//EString"/>
+		</class>
+		<class name="OT_IS_FUNC">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="OT_BUTTON">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ENTRY_POINT" type="//EString"/>
+			<attr name="AT_SAP_INVISIBLE_IN_NAVIG_AREA" type="//EString"/>
+			<attr name="AT_SAP_MERGE_ID" type="//EString"/>
+			<attr name="AT_SAP_INITIAL_STATE_OF_NAVIG_PANEL" type="//EString"/>
+			<attr name="AT_SAP_LAUNCH_IN_NEW_WINDOW" type="//EString"/>
+			<attr name="AT_SAP_TEMPLATE_ID" type="//EString"/>
+			<attr name="AT_SAP_SRC_PORTAL_ID" type="//EString"/>
+			<attr name="AT_SAP_SYSTEM" type="//EString"/>
+			<attr name="AT_SAP_APPL_PARAM" type="//EString"/>
+			<attr name="AT_SAP_IAC" type="//EString"/>
+			<attr name="AT_SAP_GUI_TYPE" type="//EString"/>
+			<attr name="AT_TRANS_CODE" type="//EString"/>
+			<attr name="AT_SAP_APPL_NAMESPACE" type="//EString"/>
+			<attr name="AT_SAP_CUSTOMER_NAMESPACE" type="//EString"/>
+			<attr name="AT_SAP_BSP_DEF_TYPE" type="//EString"/>
+			<attr name="AT_SAP_BSP_START_PAGE" type="//EString"/>
+			<attr name="AT_SAP_WEB_DYNPRO_DEF_TYPE" type="//EString"/>
+			<attr name="AT_SAP_APPL_NAME" type="//EString"/>
+			<attr name="AT_SAP_NAMESPACE" type="//EString"/>
+		</class>
+		<class name="OT_FUNC">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_DEACT" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_SYN" type="//EString"/>
+			<attr name="AT_TRANS_CODE" type="//EString"/>
+			<attr name="AT_SAP_FUNC_TYPE" type="//EString"/>
+			<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+			<attr name="AT_TXT" type="//EString"/>
+			<attr name="AT_DEF_IMP" type="//EString"/>
+			<attr name="AT_TIME_CODE" type="//EString"/>
+			<attr name="AT_ONLINE" type="//EString"/>
+			<attr name="AT_AUTO_CRTL" type="//EString"/>
+			<attr name="AT_BATCH_CRTL" type="//EString"/>
+			<attr name="AT_REQUIREMENT" type="//EString"/>
+			<attr name="AT_SAP_DGR_COVER" type="//EString"/>
+			<attr name="AT_SAP_CREATOR" type="//EString"/>
+			<attr name="AT_SAP_TIME_GEN" type="//EString"/>
+			<attr name="AT_SAP_LAST_USR" type="//EString"/>
+			<attr name="AT_SAP_LAST_CHG" type="//EString"/>
+			<attr name="AT_SAP_ORIGIN_LAN" type="//EString"/>
+			<attr name="AT_CREATE_R3" type="//EString"/>
+			<attr name="AT_LAST_CHG_R3" type="//EString"/>
+			<attr name="AT_SAP_DOM" type="//EString"/>
+			<attr name="AT_SAP_EXT_HELP" type="//EString"/>
+			<attr name="AT_SAPSRV" type="//EString"/>
+			<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+			<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			<attr name="AT_SOLAR_SAP_COMPONENT" type="//EString"/>
+			<attr name="AT_SOLAR_CONTEXT" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGINAL_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_SOLUTION_NAME" type="//EString"/>
+			<attr name="AT_SOLAR_ENTERPRISE_AREA" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+			<attr name="AT_SAP_XI_WAIT_UNTIL" type="//EString"/>
+			<attr name="AT_SAP_XI_TIMESPAN" type="//EString"/>
+			<attr name="AT_SAP_XI_ASSIGN" type="//EString"/>
+			<attr name="AT_SAP_XI_CONTROL_TYPE" type="//EString"/>
+			<attr name="AT_SAP_XI_INTERFACE_MAPPING" type="//EString"/>
+			<attr name="AT_SAP_XI_MESSAGE" type="//EString"/>
+			<attr name="AT_SAP_XI_SEND_CONTEXT" type="//EString"/>
+			<attr name="AT_SAP_XI_SEND_MODE" type="//EString"/>
+			<attr name="AT_SAP_XI_ACKNOWLEDGEMENT_TYPE" type="//EString"/>
+			<attr name="AT_SAP_XI_ACKNOWLEDGEMENT" type="//EString"/>
+			<attr name="AT_SAP_XI_SYNCH_IFACE" type="//EString"/>
+			<attr name="AT_SAP_XI_SYCH_REQUEST_MESSAGE" type="//EString"/>
+			<attr name="AT_SAP_XI_SYCH_RESPONSE_MESSAGE" type="//EString"/>
+			<attr name="AT_SAP_XI_RECEIVER_BY" type="//EString"/>
+			<attr name="AT_SAP_RECEIVER_LIST" type="//EString"/>
+			<attr name="AT_SAP_RESPONSE_MESSAGE" type="//EString"/>
+			<attr name="AT_SAP_XI_RECEIVER" type="//EString"/>
+			<attr name="AT_SAP_XI_SOURCE_MESSAGE" type="//EString"/>
+			<attr name="AT_SAP_XI_TARGET_MESSAGE" type="//EString"/>
+			<attr name="AT_SAP_XI_ALERT_MESSAGE" type="//EString"/>
+			<attr name="AT_SAP_XI_EXCEPTION" type="//EString"/>
+			<attr name="AT_SAP_XI_ALERT_TYPE" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PARTNER_PROD" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PROD_AVAILABILITY" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_PROJ_STATUS" type="//EString"/>
+			<attr name="AT_SOLAR_PROJ_TYPE" type="//EString"/>
+			<attr name="AT_SOLAR_SOURCE_ID" type="//EString"/>
+			<attr name="AT_SOLAR_KEYWORDS" type="//EString"/>
+			<attr name="AT_SOLAR_TEST_SRC_ID" type="//EString"/>
+			<attr name="AT_SOLAR_SOLUTION_ID" type="//EString"/>
+		</class>
+		<class name="OT_KPI">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_FOR_SAP_NW_CALCULATION" type="//EString"/>
+		</class>
+		<class name="OT_INFO_CARR">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_TXT" type="//EString"/>
+			<attr name="AT_SAP_EXT_HELP" type="//EString"/>
+			<attr name="AT_SAP_BLUEPRINT_REL" type="//EString"/>
+			<attr name="AT_SAP_DOC_TYPE" type="//EString"/>
+			<attr name="AT_SAP_CREATOR" type="//EString"/>
+			<attr name="AT_SAP_TIME_GEN" type="//EString"/>
+			<attr name="AT_SAP_LAST_USR" type="//EString"/>
+			<attr name="AT_SAP_LAST_CHG" type="//EString"/>
+			<attr name="AT_SAP_ORIGIN_LAN" type="//EString"/>
+			<attr name="AT_SAP_STATUS" type="//EString"/>
+			<attr name="AT_SAP_TECH_NAME" type="//EString"/>
+			<attr name="AT_SAP_PRIO" type="//EString"/>
+			<attr name="AT_SAP_OWNER" type="//EString"/>
+			<attr name="AT_SOLAR_AREA_ID" type="//EString"/>
+		</class>
+		<class name="OT_SCRN">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_TRANS_CODE" type="//EString"/>
+			<attr name="AT_SAPSRV" type="//EString"/>
+			<attr name="AT_SAP_EXT_HELP" type="//EString"/>
+			<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+			<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			<attr name="AT_SOLAR_SAP_COMPONENT" type="//EString"/>
+			<attr name="AT_SOLAR_DEFAULT_TRANSACTION" type="//EString"/>
+			<attr name="AT_SOLAR_TRANSACTION_TYPE" type="//EString"/>
+			<attr name="AT_SOLAR_ORIGIN" type="//EString"/>
+			<attr name="AT_SAP_PORTAL_ID" type="//EString"/>
+			<attr name="AT_SAP_TEMPLATE_ID" type="//EString"/>
+			<attr name="AT_SAP_SRC_PORTAL_ID" type="//EString"/>
+			<attr name="AT_SAP_MERGE_ID" type="//EString"/>
+			<attr name="AT_SAP_IVIEW_TYPE" type="//EString"/>
+			<attr name="AT_SAP_SYSTEM" type="//EString"/>
+			<attr name="AT_SAP_APPL_PARAM" type="//EString"/>
+			<attr name="AT_SAP_IAC" type="//EString"/>
+			<attr name="AT_SAP_GUI_TYPE" type="//EString"/>
+			<attr name="AT_SAP_APPL_NAMESPACE" type="//EString"/>
+			<attr name="AT_SAP_CUSTOMER_NAMESPACE" type="//EString"/>
+			<attr name="AT_SAP_BSP_DEF_TYPE" type="//EString"/>
+			<attr name="AT_SAP_BSP_START_PAGE" type="//EString"/>
+			<attr name="AT_SAP_WEB_DYNPRO_DEF_TYPE" type="//EString"/>
+			<attr name="AT_SAP_APPL_NAME" type="//EString"/>
+			<attr name="AT_SAP_NAMESPACE" type="//EString"/>
+		</class>
+		<class name="OT_LOOP_START">
+			<attr name="AT_NAME_FULL" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_PROC_CODE" type="//EString"/>
+			<attr name="AT_AUTH" type="//EString"/>
+			<attr name="AT_SHORT_DESC" type="//EString"/>
+			<attr name="AT_TITL1" type="//EString"/>
+			<attr name="AT_EXT_1" type="//EString"/>
+			<attr name="AT_PARM_1" type="//EString"/>
+			<attr name="AT_TITL2" type="//EString"/>
+			<attr name="AT_EXT_2" type="//EString"/>
+			<attr name="AT_PARM_2" type="//EString"/>
+			<attr name="AT_TITL3" type="//EString"/>
+			<attr name="AT_EXT_3" type="//EString"/>
+			<attr name="AT_PARM_3" type="//EString"/>
+			<attr name="AT_TITL4" type="//EString"/>
+			<attr name="AT_LINK" type="//EString"/>
+			<attr name="AT_PARM_4" type="//EString"/>
+			<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+			<attr name="AT_CREATOR" type="//EString"/>
+			<attr name="AT_HIER_NUM" type="//EString"/>
+			<attr name="AT_LAST_CHNG_2" type="//EString"/>
+			<attr name="AT_LUSER" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_ID" type="//EString"/>
+			<attr name="AT_SAP_ID2" type="//EString"/>
+			<attr name="AT_SAP_XI_PATH_CONDITION" type="//EString"/>
+		</class>
+		<class name="CT_READ_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_IS_INP_FOR">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_PARM" type="//EString"/>
+			<attr name="AT_PROB" type="//EString"/>
+			<attr name="AT_FRQ_CYCLE" type="//EString"/>
+			<attr name="AT_IS_MULTI_TRIGG" type="//EString"/>
+			<attr name="AT_TRANS_TIME" type="//EString"/>
+			<attr name="AT_IS_STEREOTYPE" type="//EString"/>
+			<attr name="AT_IS_COMP" type="//EString"/>
+		</class>
+		<class name="CT_IS_DP_RESP_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_IS_EVAL_BY_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_FRQ_CYCLE" type="//EString"/>
+		</class>
+		<class name="CT_MUST_BE_INFO_ON_CNC_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_IS_TECH_RESP_3">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_HAS_CONSLT_ROLE_IN_2">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_CONS_OF_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_MUST_INFO_ABT_RES">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_EXEC_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_IS_GRANT_BY">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_DECD_ON">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_MEASURED_BY">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_CALLS_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_EXEC_2">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_MAX_PROC_TIME" type="//EString"/>
+		</class>
+		<class name="CT_HAS_OUT">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_PARM" type="//EString"/>
+			<attr name="AT_OPRT" type="//EString"/>
+			<attr name="AT_FRQ_CYCLE" type="//EString"/>
+			<attr name="AT_IS_MULTI_TRIGG" type="//EString"/>
+			<attr name="AT_IS_STEREOTYPE" type="//EString"/>
+			<attr name="AT_IS_COMP" type="//EString"/>
+		</class>
+		<class name="CT_REPR">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_PROV_INP_FOR">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_DEL">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_OPRT" type="//EString"/>
+		</class>
+		<class name="CT_IS_TECH_RESP_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_ARCH">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_OPRT" type="//EString"/>
+		</class>
+		<class name="CT_CRT_OUT_TO">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_IS_REPR_BY">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_MUST_BE_INFO_ABT_2">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_HAS_CONSLT_ROLE_IN_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_LNK_2">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_FRQ_CYCLE" type="//EString"/>
+		</class>
+		<class name="CT_SUCCEED">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_IS_SUPERIOR_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_SOLAR_CORRES">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_IS_PREDEC_OF_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_XI_SYNCHRONOUS_CALL" type="//EString"/>
+		</class>
+		<class name="CT_SUPP_3">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_LEADS_TO_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_FRQ_CYCLE" type="//EString"/>
+		</class>
+		<class name="CT_LEADS_TO_2">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_FRQ_CYCLE" type="//EString"/>
+		</class>
+		<class name="CT_MUST_INFO_ABT_RES_OF">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_CONTAINS_2">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_CAN_SUPP_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_IS_CHCKD_BY">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_MUST_BE_INFO_ON_CNC_2">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_ACTIV_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_FRQ_CYCLE" type="//EString"/>
+		</class>
+		<class name="CT_IS_DP_RESP_2">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_CRT_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_FRQ_CYCLE" type="//EString"/>
+		</class>
+		<class name="CT_CAN_BE_USER">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_DISTR">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_OPRT" type="//EString"/>
+		</class>
+		<class name="CT_AGREES">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_CAN_BE_ASSIG">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_USE_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_CRT_5">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_OPRT" type="//EString"/>
+		</class>
+		<class name="CT_SAP_NW_IS_DESCRIBED_BY">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_IS_ASSIG_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_CHNG">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_OPRT" type="//EString"/>
+		</class>
+		<class name="CT_CONTR_TO_2">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_MAX_PROC_TIME" type="//EString"/>
+		</class>
+		<class name="CT_SAP_XI_OCCURS_BEFORE">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_SAP_XI_PATH_TYPE" type="//EString"/>
+			<attr name="AT_SAP_XI_EXCEPTION_EXPRESSION" type="//EString"/>
+			<attr name="AT_SAP_XI_PATH_CONDITION" type="//EString"/>
+		</class>
+		<class name="CT_CAN_ACS">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_SAP_NW_CHANGES">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_MUST_BE_INFO_ABT_1">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_DECID_ON">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+		</class>
+		<class name="CT_CONFLICTS">
+			<attr name="AT_CXN_ROLE" type="//EString"/>
+			<attr name="AT_DESC" type="//EString"/>
+			<attr name="AT_REM" type="//EString"/>
+			<attr name="AT_MOD_CODE" type="//EString"/>
+			<attr name="AT_CONFLIKT_TYPE" type="//EString"/>
+			<attr name="AT_CONFLIKT_CLS" type="//EString"/>
+		</class>
+		<package name="MT_SAP_ALLOC_DGM_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_SAP_ALLOC_DGM/" nsPrefix="MT_SAP_ALLOC_DGM">
+			<class name="MT_SAP_ALLOC_DGM">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			</class>
+			<class name="MT_SAP_ALLOC_DGM_Symbol" abstract="true"/>
+			<class name="MT_SAP_ALLOC_DGM_Line" abstract="true"/>
+			<class name="ST_ENT_TYPE"/>
+			<class name="ST_CLST"/>
+			<class name="ST_SYS_ORG_UNIT_TYPE_1"/>
+			<class name="ST_SYS_ORG_UNIT_TYPE_2"/>
+			<class name="ST_SCRN"/>
+			<class name="ST_SAP_GENERAL_DOC"/>
+			<class name="ST_SAP_PROJ_DOC"/>
+		</package>
+		<package name="MT_APPL_SYS_DGM_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_APPL_SYS_DGM/" nsPrefix="MT_APPL_SYS_DGM">
+			<class name="MT_APPL_SYS_DGM">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			</class>
+			<class name="MT_APPL_SYS_DGM_Symbol" abstract="true"/>
+			<class name="MT_APPL_SYS_DGM_Line" abstract="true"/>
+			<class name="ST_APPL_SYS"/>
+		</package>
+		<package name="MT_PRCS_SLCT_DIA_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_PRCS_SLCT_DIA/" nsPrefix="MT_PRCS_SLCT_DIA">
+			<class name="MT_PRCS_SLCT_DIA">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			</class>
+			<class name="MT_PRCS_SLCT_DIA_Symbol" abstract="true"/>
+			<class name="MT_PRCS_SLCT_DIA_Line" abstract="true"/>
+			<class name="ST_SCENARIO"/>
+			<class name="ST_PRCS_1"/>
+		</package>
+		<package name="MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER/" nsPrefix="MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER">
+			<class name="MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			</class>
+			<class name="MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER_Symbol" abstract="true"/>
+			<class name="MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER_Line" abstract="true"/>
+			<class name="ST_SOLAR_FUNC"/>
+			<class name="ST_FUNC"/>
+			<class name="ST_SOLAR_SL_OCC"/>
+		</package>
+		<package name="MT_EEPC_ROW_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_EEPC_ROW/" nsPrefix="MT_EEPC_ROW">
+			<class name="MT_EEPC_ROW">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+				<attr name="AT_SAP_DOM" type="//EString"/>
+			</class>
+			<class name="MT_EEPC_ROW_Symbol" abstract="true"/>
+			<class name="MT_EEPC_ROW_Line" abstract="true"/>
+			<class name="ST_EV"/>
+			<class name="ST_FUNC"/>
+			<class name="ST_PRCS_IF"/>
+			<class name="ST_FUNC_ACT"/>
+			<class name="ST_FUNC_TRG"/>
+			<class name="ST_SYS_FUNC_ACT"/>
+			<class name="ST_SYS_FUNC_TRG"/>
+			<class name="ST_SOLAR_FUNC"/>
+			<class name="ST_SOLAR_SL_OCC"/>
+			<class name="ST_OPR_AND_1"/>
+			<class name="ST_OPR_XOR_1"/>
+			<class name="ST_OPR_OR_1"/>
+			<class name="ST_OPR_RULE"/>
+			<class name="ST_OR_AND"/>
+			<class name="ST_XOR_AND"/>
+			<class name="ST_AND_OR"/>
+			<class name="ST_XOR_OR"/>
+			<class name="ST_AND_XOR"/>
+			<class name="ST_OR_XOR"/>
+			<class name="ST_CLST"/>
+			<class name="ST_ENT_TYPE"/>
+			<class name="ST_SAP_GENERAL_DOC"/>
+			<class name="ST_SAP_PROJ_DOC"/>
+			<class name="ST_APPL_SYS_TYPE"/>
+			<class name="ST_APPL_SYS"/>
+			<class name="ST_SOLAR_FUNC_SHORTCUT"/>
+			<class name="ST_SAP_NETWEAV_SCENARIO_CONFIG_VARIANT"/>
+		</package>
+		<package name="MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP/" nsPrefix="MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP">
+			<class name="MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			</class>
+			<class name="MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP_Symbol" abstract="true"/>
+			<class name="MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP_Line" abstract="true"/>
+			<class name="ST_SOLAR_FUNC"/>
+			<class name="ST_FUNC"/>
+			<class name="ST_SOLAR_SL_OCC"/>
+		</package>
+		<package name="MT_EERM_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_EERM/" nsPrefix="MT_EERM">
+			<class name="MT_EERM">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			</class>
+			<class name="MT_EERM_Symbol" abstract="true"/>
+			<class name="MT_EERM_Line" abstract="true"/>
+			<class name="ST_ENT_TYPE"/>
+		</package>
+		<package name="MT_VAL_ADD_CHN_DGM_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_VAL_ADD_CHN_DGM/" nsPrefix="MT_VAL_ADD_CHN_DGM">
+			<class name="MT_VAL_ADD_CHN_DGM">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			</class>
+			<class name="MT_VAL_ADD_CHN_DGM_Symbol" abstract="true"/>
+			<class name="MT_VAL_ADD_CHN_DGM_Line" abstract="true"/>
+			<class name="ST_VAL_ADD_CHN_SML_2"/>
+			<class name="ST_VAL_ADD_CHN_SML_1"/>
+			<class name="ST_SOLAR_VAC"/>
+			<class name="ST_SOLAR_SL_VAC_OCC"/>
+			<class name="ST_SOLAR_VAC_SHORTCUT"/>
+			<class name="ST_ORG_UNIT_TYPE_1"/>
+			<class name="ST_ORG_UNIT_TYPE_2"/>
+			<class name="ST_CLST"/>
+			<class name="ST_APPL_SYS_TYPE"/>
+		</package>
+		<package name="MT_EEPC_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_EEPC/" nsPrefix="MT_EEPC">
+			<class name="MT_EEPC">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+				<attr name="AT_ONLINE" type="//EString"/>
+				<attr name="AT_AUTO_CRTL" type="//EString"/>
+				<attr name="AT_BATCH_CRTL" type="//EString"/>
+				<attr name="AT_REQUIREMENT" type="//EString"/>
+				<attr name="AT_SAP_DGR_COVER" type="//EString"/>
+				<attr name="AT_SAP_CREATOR" type="//EString"/>
+				<attr name="AT_SAP_TIME_GEN" type="//EString"/>
+				<attr name="AT_SAP_LAST_USR" type="//EString"/>
+				<attr name="AT_SAP_LAST_CHG" type="//EString"/>
+				<attr name="AT_SAP_ORIGIN_LAN" type="//EString"/>
+				<attr name="AT_CREATE_R3" type="//EString"/>
+				<attr name="AT_LAST_CHG_R3" type="//EString"/>
+				<attr name="AT_SAP_DOM" type="//EString"/>
+			</class>
+			<class name="MT_EEPC_Symbol" abstract="true"/>
+			<class name="MT_EEPC_Line" abstract="true"/>
+			<class name="ST_EV"/>
+			<class name="ST_FUNC"/>
+			<class name="ST_PRCS_IF"/>
+			<class name="ST_FUNC_ACT"/>
+			<class name="ST_FUNC_TRG"/>
+			<class name="ST_SYS_FUNC_ACT"/>
+			<class name="ST_SYS_FUNC_TRG"/>
+			<class name="ST_SOLAR_FUNC"/>
+			<class name="ST_SOLAR_SL_OCC"/>
+			<class name="ST_SOLAR_FUNC_SHORTCUT"/>
+			<class name="ST_OPR_AND_1"/>
+			<class name="ST_OPR_XOR_1"/>
+			<class name="ST_OPR_OR_1"/>
+			<class name="ST_OPR_RULE"/>
+			<class name="ST_OR_AND"/>
+			<class name="ST_XOR_AND"/>
+			<class name="ST_AND_OR"/>
+			<class name="ST_XOR_OR"/>
+			<class name="ST_AND_XOR"/>
+			<class name="ST_OR_XOR"/>
+			<class name="ST_SAP_GENERAL_DOC"/>
+			<class name="ST_SAP_PROJ_DOC"/>
+			<class name="ST_APPL_SYS"/>
+			<class name="ST_APPL_SYS_TYPE"/>
+			<class name="ST_OP_1"/>
+			<class name="ST_IS_FUNC"/>
+			<class name="ST_CLST"/>
+			<class name="ST_ENT_TYPE"/>
+			<class name="ST_SAP_NETWEAV_SCENARIO_CONFIG_VARIANT"/>
+		</package>
+		<package name="MT_FUNC_ALLOC_DGM_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_FUNC_ALLOC_DGM/" nsPrefix="MT_FUNC_ALLOC_DGM">
+			<class name="MT_FUNC_ALLOC_DGM">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+				<attr name="AT_SAP_DOM" type="//EString"/>
+			</class>
+			<class name="MT_FUNC_ALLOC_DGM_Symbol" abstract="true"/>
+			<class name="MT_FUNC_ALLOC_DGM_Line" abstract="true"/>
+			<class name="ST_FUNC"/>
+			<class name="ST_SOLAR_FUNC"/>
+			<class name="ST_SOLAR_SL_OCC"/>
+			<class name="ST_SYS_ORG_UNIT_TYPE_1"/>
+			<class name="ST_ENT_TYPE"/>
+			<class name="ST_SYS_ORG_UNIT_TYPE_2"/>
+			<class name="ST_EMPL_TYPE"/>
+			<class name="ST_SCRN"/>
+			<class name="ST_DOC"/>
+			<class name="ST_SAP_GENERAL_DOC"/>
+			<class name="ST_SAP_PROJ_DOC"/>
+			<class name="ST_APPL_SYS_TYPE"/>
+			<class name="ST_OBJCTV"/>
+			<class name="ST_KPI"/>
+			<class name="ST_CLST"/>
+			<class name="ST_ORG_UNIT_TYPE_1"/>
+			<class name="ST_ORG_UNIT_TYPE_2"/>
+			<class name="ST_ORG_UNIT_1"/>
+			<class name="ST_ORG_UNIT_2"/>
+			<class name="ST_SYS_ORG_UNIT_1"/>
+			<class name="ST_SYS_ORG_UNIT_2"/>
+			<class name="ST_POS_TYPE"/>
+			<class name="ST_PERS_INT"/>
+			<class name="ST_PERS_EXT"/>
+			<class name="ST_GRP"/>
+			<class name="ST_SAP_NETWEAV_SCENARIO_CONFIG_VARIANT"/>
+			<class name="ST_POS"/>
+		</package>
+		<package name="MT_EEPC_COLUMN_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_EEPC_COLUMN/" nsPrefix="MT_EEPC_COLUMN">
+			<class name="MT_EEPC_COLUMN">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+				<attr name="AT_SAP_DOM" type="//EString"/>
+			</class>
+			<class name="MT_EEPC_COLUMN_Symbol" abstract="true"/>
+			<class name="MT_EEPC_COLUMN_Line" abstract="true"/>
+			<class name="ST_EV"/>
+			<class name="ST_FUNC"/>
+			<class name="ST_PRCS_IF"/>
+			<class name="ST_FUNC_ACT"/>
+			<class name="ST_FUNC_TRG"/>
+			<class name="ST_SYS_FUNC_ACT"/>
+			<class name="ST_SYS_FUNC_TRG"/>
+			<class name="ST_SOLAR_FUNC"/>
+			<class name="ST_SOLAR_SL_OCC"/>
+			<class name="ST_SOLAR_FUNC_SHORTCUT"/>
+			<class name="ST_OPR_AND_1"/>
+			<class name="ST_OPR_XOR_1"/>
+			<class name="ST_OPR_OR_1"/>
+			<class name="ST_OPR_RULE"/>
+			<class name="ST_OR_AND"/>
+			<class name="ST_XOR_AND"/>
+			<class name="ST_AND_OR"/>
+			<class name="ST_XOR_OR"/>
+			<class name="ST_AND_XOR"/>
+			<class name="ST_OR_XOR"/>
+			<class name="ST_SAP_GENERAL_DOC"/>
+			<class name="ST_SAP_PROJ_DOC"/>
+			<class name="ST_APPL_SYS"/>
+			<class name="ST_APPL_SYS_TYPE"/>
+			<class name="ST_CLST"/>
+			<class name="ST_ENT_TYPE"/>
+			<class name="ST_SAP_NETWEAV_SCENARIO_CONFIG_VARIANT"/>
+		</package>
+		<package name="MT_SCREEN_NAV_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_SCREEN_NAV/" nsPrefix="MT_SCREEN_NAV">
+			<class name="MT_SCREEN_NAV">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+				<attr name="AT_SAP_PORTAL_ID" type="//EString"/>
+			</class>
+			<class name="MT_SCREEN_NAV_Symbol" abstract="true"/>
+			<class name="MT_SCREEN_NAV_Line" abstract="true"/>
+			<class name="ST_SOLAR_IVIEW"/>
+			<class name="ST_SOLAR_PAGE"/>
+			<class name="ST_SOLAR_WORKSET"/>
+			<class name="ST_SOLAR_ROLE"/>
+			<class name="ST_BUTTON"/>
+			<class name="ST_EMPL_TYPE"/>
+		</package>
+		<package name="MT_RAD_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_RAD/" nsPrefix="MT_RAD">
+			<class name="MT_RAD">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			</class>
+			<class name="MT_RAD_Symbol" abstract="true"/>
+			<class name="MT_RAD_Line" abstract="true"/>
+			<class name="ST_EMPL_TYPE"/>
+			<class name="ST_SCRN"/>
+		</package>
+		<package name="MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP/" nsPrefix="MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP">
+			<class name="MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			</class>
+			<class name="MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol" abstract="true"/>
+			<class name="MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Line" abstract="true"/>
+			<class name="ST_ORG_UNIT_TYPE_1"/>
+			<class name="ST_ORG_UNIT_TYPE_2"/>
+			<class name="ST_POS_TYPE"/>
+			<class name="ST_EMPL_TYPE"/>
+			<class name="ST_SYS_ORG_UNIT_1"/>
+			<class name="ST_SYS_ORG_UNIT_2"/>
+			<class name="ST_ORG_UNIT_1"/>
+			<class name="ST_ORG_UNIT_2"/>
+			<class name="ST_GRP"/>
+			<class name="ST_POS"/>
+			<class name="ST_PERS_INT"/>
+			<class name="ST_PERS_EXT"/>
+			<class name="ST_SOLAR_ROLE"/>
+		</package>
+		<package name="MT_SAP_INTERGATION_PROCESS_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_SAP_INTERGATION_PROCESS/" nsPrefix="MT_SAP_INTERGATION_PROCESS">
+			<class name="MT_SAP_INTERGATION_PROCESS">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			</class>
+			<class name="MT_SAP_INTERGATION_PROCESS_Symbol" abstract="true"/>
+			<class name="MT_SAP_INTERGATION_PROCESS_Line" abstract="true"/>
+			<class name="ST_SAP_XI_PROC_START"/>
+			<class name="ST_SAP_XI_RECEIVE"/>
+			<class name="ST_SAP_XI_SEND"/>
+			<class name="ST_SAP_XI_WAIT"/>
+			<class name="ST_SAP_XI_BLOCK_START"/>
+			<class name="ST_SAP_XI_BLOCK_END"/>
+			<class name="ST_SAP_XI_PARALLEL_START"/>
+			<class name="ST_SAP_XI_PARALLEL_END"/>
+			<class name="ST_SAP_XI_CONTROL"/>
+			<class name="ST_SAP_XI_RECEIVER_DETERM"/>
+			<class name="ST_SAP_XI_ASSIGN"/>
+			<class name="ST_SAP_XI_TRANSFORMATION"/>
+			<class name="ST_SAP_XI_SWITCH_START"/>
+			<class name="ST_SAP_XI_SWITCH_END"/>
+			<class name="ST_SAP_XI_EMPTY"/>
+			<class name="ST_SAP_XI_LOOP_END"/>
+			<class name="ST_SAP_XI_PROC_END"/>
+			<class name="ST_SAP_XI_LOOP_START"/>
+		</package>
+		<package name="MT_SCEN_DGM_Package" nsURI="http://orvia.org/aris4eclipse/model/MT_SCEN_DGM/" nsPrefix="MT_SCEN_DGM">
+			<class name="MT_SCEN_DGM">
+				<attr name="AT_DESC" type="//EString"/>
+				<attr name="AT_SYN" type="//EString"/>
+				<attr name="AT_NAME_FULL" type="//EString"/>
+				<attr name="AT_REM" type="//EString"/>
+				<attr name="AT_LNG" type="//EString"/>
+				<attr name="AT_CREAT_TIME_STMP" type="//EString"/>
+				<attr name="AT_CREATOR" type="//EString"/>
+				<attr name="AT_TITL1" type="//EString"/>
+				<attr name="AT_EXT_1" type="//EString"/>
+				<attr name="AT_PARM_1" type="//EString"/>
+				<attr name="AT_TITL2" type="//EString"/>
+				<attr name="AT_EXT_2" type="//EString"/>
+				<attr name="AT_PARM_2" type="//EString"/>
+				<attr name="AT_TITL3" type="//EString"/>
+				<attr name="AT_EXT_3" type="//EString"/>
+				<attr name="AT_PARM_3" type="//EString"/>
+				<attr name="AT_TITL4" type="//EString"/>
+				<attr name="AT_LINK" type="//EString"/>
+				<attr name="AT_PARM_4" type="//EString"/>
+				<attr name="AT_SAFE_CLS" type="//EString"/>
+				<attr name="AT_AUTH" type="//EString"/>
+				<attr name="AT_LAST_CHNG_2" type="//EString"/>
+				<attr name="AT_LUSER" type="//EString"/>
+				<attr name="AT_MOD_CODE" type="//EString"/>
+				<attr name="AT_CICO_MODE" type="//EString"/>
+				<attr name="AT_CICO_TRNSF_STAT" type="//EString"/>
+				<attr name="AT_CICO_ORD_NAME" type="//EString"/>
+				<attr name="AT_SAP_ID" type="//EString"/>
+				<attr name="AT_SAP_ID2" type="//EString"/>
+				<attr name="AT_CICO_ORD_ID" type="//EString"/>
+				<attr name="AT_SAP_FLTR_ID" type="//EString"/>
+				<attr name="AT_SAP_DEVL_CLS" type="//EString"/>
+				<attr name="AT_SAP_ID_ORG_MOD" type="//EString"/>
+				<attr name="AT_SAP_MOD_TYPE" type="//EString"/>
+				<attr name="AT_SAP_VAR_TYPE" type="//EString"/>
+				<attr name="AT_TRANS_CODE" type="//EString"/>
+				<attr name="AT_SAPSRV" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_VIEW" type="//EString"/>
+				<attr name="AT_SAP_CUSTOMIZING_TRANSACTION" type="//EString"/>
+			</class>
+			<class name="MT_SCEN_DGM_Symbol" abstract="true"/>
+			<class name="MT_SCEN_DGM_Line" abstract="true"/>
+			<class name="ST_BUS_PROC"/>
+			<class name="ST_EMPL_ROLE"/>
+			<class name="ST_BUS_DOC"/>
+			<class name="ST_BUS_PART"/>
+		</package>
+	</package>
+</package>

@@ -1,0 +1,2501 @@
+@GenModel(documentation="xAL: eXtensible Address Language 
+This is an XML document type definition (DTD) for
+defining addresses.
+Original Date of Creation: 1 March 2001
+Copyright(c) 2000, OASIS. All Rights Reserved [http://www.oasis-open.org]
+Contact: Customer Information Quality Technical Committee, OASIS
+http://www.oasis-open.org/committees/ciq
+VERSION: 2.0 [MAJOR RELEASE] Date of Creation: 01 May 2002
+Last Update: 24 July 2002
+Previous Version: 1.3
+Common Attributes:Type - If not documented then it means, possible values of Type not limited to: Official, Unique, Abbreviation, OldName, Synonym
+Code:Address element codes are used by groups like postal groups like ECCMA, ADIS, UN/PROLIST for postal services")
+@namespace(uri="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0", prefix="xal")
+package xal;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@ExtendedMetaData(name="Address_._type", kind="mixed")
+class Address {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Postal, residential, corporate, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="AddressDetails", kind="elementOnly")
+class AddressDetails {
+
+	@GenModel(documentation="Postal authorities use specific postal service data to expedient delivery of mail")
+	@ExtendedMetaData(kind="element", name="PostalServiceElements", namespace="##targetNamespace")
+	!resolve val PostalServiceElements postalServiceElements;
+
+	@GenModel(documentation="Address as one line of free text")
+	@ExtendedMetaData(kind="element", name="Address", namespace="##targetNamespace")
+	!resolve val Address address;
+
+	@GenModel(documentation="Container for Address lines")
+	@ExtendedMetaData(kind="element", name="AddressLines", namespace="##targetNamespace")
+	!resolve val AddressLines addressLines;
+
+	@GenModel(documentation="Specification of a country")
+	@ExtendedMetaData(kind="element", name="Country", namespace="##targetNamespace")
+	!resolve val Country country;
+
+	@GenModel(documentation="Examples of administrative areas are provinces counties, special regions (such as \"Rijnmond\"), etc.")
+	@ExtendedMetaData(kind="element", name="AdministrativeArea", namespace="##targetNamespace")
+	!resolve val AdministrativeArea administrativeArea;
+
+	@GenModel(documentation="Locality is one level lower than adminisstrative area. Eg.: cities, reservations and any other built-up areas.")
+	@ExtendedMetaData(kind="element", name="Locality", namespace="##targetNamespace")
+	!resolve val Locality locality;
+
+	@GenModel(documentation="Specification of a thoroughfare. A thoroughfare could be a rd, street, canal, river, etc.  Note dependentlocality in a street. For example, in some countries, a large street will 
+have many subdivisions with numbers. Normally the subdivision name is the same as the road name, but with a number to identifiy it. Eg. SOI SUKUMVIT 3, SUKUMVIT RD, BANGKOK")
+	@ExtendedMetaData(kind="element", name="Thoroughfare", namespace="##targetNamespace")
+	!resolve val Thoroughfare thoroughfare;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":7", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="Key identifier for the element for not reinforced references from other elements. Not required to be unique for the document to be valid, but application may get confused if not unique. Extend this schema adding unique contraint if needed.")
+	@ExtendedMetaData(kind="attribute", name="AddressDetailsKey")
+	attr type.AnySimpleType addressDetailsKey;
+
+	@GenModel(documentation="Type of address. Example: Postal, residential,business, primary, secondary, etc")
+	@ExtendedMetaData(kind="attribute", name="AddressType")
+	attr type.AnySimpleType addressType;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Moved, Living, Investment, Deceased, etc..")
+	@ExtendedMetaData(kind="attribute", name="CurrentStatus")
+	attr type.AnySimpleType currentStatus;
+
+	@GenModel(documentation="Communication, Contact, etc.")
+	@ExtendedMetaData(kind="attribute", name="Usage")
+	attr type.AnySimpleType usage;
+
+	@GenModel(documentation="Start Date of the validity of address")
+	@ExtendedMetaData(kind="attribute", name="ValidFromDate")
+	attr type.AnySimpleType validFromDate;
+
+	@GenModel(documentation="End date of the validity of address")
+	@ExtendedMetaData(kind="attribute", name="ValidToDate")
+	attr type.AnySimpleType validToDate;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":15", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="AddressIdentifier_._type", kind="mixed")
+class AddressIdentifier {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Type of identifier. eg. DPID as in Australia")
+	@ExtendedMetaData(kind="attribute", name="IdentifierType")
+	attr type.AnySimpleType identifierType;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="AddressLatitude_._type", kind="mixed")
+class AddressLatitude {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Specific to postal service")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@GenModel(documentation="Specific to postal service")
+@ExtendedMetaData(name="AddressLatitudeDirection_._type", kind="mixed")
+class AddressLatitudeDirection {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="AddressLine_._type", kind="mixed")
+class AddressLine {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Defines the type of address line. eg. Street, Address Line 1, etc.")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="AddressLinesType", kind="elementOnly")
+class AddressLines {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[+] addressLine;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":1", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":2", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="AddressLongitude_._type", kind="mixed")
+class AddressLongitude {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Specific to postal service")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="AddressLongitudeDirection_._type", kind="mixed")
+class AddressLongitudeDirection {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Specific to postal service")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="AdministrativeArea_._type", kind="elementOnly")
+class AdministrativeArea {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation=" Name of the administrative area. eg. MI in USA, NSW in Australia")
+	@ExtendedMetaData(kind="element", name="AdministrativeAreaName", namespace="##targetNamespace")
+	!resolve val AdministrativeAreaName[*] administrativeAreaName;
+
+	@GenModel(documentation=" Specification of a sub-administrative area. An example of a sub-administrative areas is a county. There are two places where the name of an administrative 
+area can be specified and in this case, one becomes sub-administrative area.")
+	@ExtendedMetaData(kind="element", name="SubAdministrativeArea", namespace="##targetNamespace")
+	!resolve val SubAdministrativeArea subAdministrativeArea;
+
+	@GenModel(documentation="Locality is one level lower than adminisstrative area. Eg.: cities, reservations and any other built-up areas.")
+	@ExtendedMetaData(kind="element", name="Locality", namespace="##targetNamespace")
+	!resolve val Locality locality;
+
+	@GenModel(documentation="Specification of a post office. Examples are a rural post office where post is delivered and a post office containing post office boxes.")
+	@ExtendedMetaData(kind="element", name="PostOffice", namespace="##targetNamespace")
+	!resolve val PostOffice postOffice;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":6", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="Erode (Dist) where (Dist) is the Indicator")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="Province or State or County or Kanton, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@GenModel(documentation="Postal or Political - Sometimes locations must be distinguished between postal system, and physical locations as defined by a political system")
+	@ExtendedMetaData(kind="attribute", name="UsageType")
+	attr type.AnySimpleType usageType;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":10", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="AdministrativeAreaName_._type", kind="mixed")
+class AdministrativeAreaName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="Barcode_._type", kind="mixed")
+class Barcode {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Specific to postal service")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="BuildingNameType", kind="mixed")
+class BuildingName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@GenModel(documentation="Occurrence of the building name before/after the type. eg. EGIS BUILDING where name appears before type")
+	@ExtendedMetaData(kind="attribute", name="TypeOccurrence")
+	unsettable attr TypeOccurrence2 typeOccurrence;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="Country_._type", kind="elementOnly")
+class Country {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="A country code according to the specified scheme")
+	@ExtendedMetaData(kind="element", name="CountryNameCode", namespace="##targetNamespace")
+	!resolve val CountryNameCode[*] countryNameCode;
+
+	@GenModel(documentation="Specification of the name of a country.")
+	@ExtendedMetaData(kind="element", name="CountryName", namespace="##targetNamespace")
+	!resolve val CountryName[*] countryName;
+
+	@GenModel(documentation="Examples of administrative areas are provinces counties, special regions (such as \"Rijnmond\"), etc.")
+	@ExtendedMetaData(kind="element", name="AdministrativeArea", namespace="##targetNamespace")
+	!resolve val AdministrativeArea administrativeArea;
+
+	@GenModel(documentation="Locality is one level lower than adminisstrative area. Eg.: cities, reservations and any other built-up areas.")
+	@ExtendedMetaData(kind="element", name="Locality", namespace="##targetNamespace")
+	!resolve val Locality locality;
+
+	@GenModel(documentation="Specification of a thoroughfare. A thoroughfare could be a rd, street, canal, river, etc.  Note dependentlocality in a street. For example, in some countries, a large street will 
+have many subdivisions with numbers. Normally the subdivision name is the same as the road name, but with a number to identifiy it. Eg. SOI SUKUMVIT 3, SUKUMVIT RD, BANGKOK")
+	@ExtendedMetaData(kind="element", name="Thoroughfare", namespace="##targetNamespace")
+	!resolve val Thoroughfare thoroughfare;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":6", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":7", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="CountryName_._type", kind="mixed")
+class CountryName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Old name, new name, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="CountryNameCode_._type", kind="mixed")
+class CountryNameCode {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Country code scheme possible values, but not limited to: iso.3166-2, iso.3166-3 for two and three character country codes.")
+	@ExtendedMetaData(kind="attribute", name="Scheme")
+	attr type.AnySimpleType scheme;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="Department_._type", kind="elementOnly")
+class Department {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Specification of the name of a department.")
+	@ExtendedMetaData(kind="element", name="DepartmentName", namespace="##targetNamespace")
+	!resolve val DepartmentName[*] departmentName;
+
+	@GenModel(documentation="A MailStop is where the the mail is delivered to within a premise/subpremise/firm or a facility.")
+	@ExtendedMetaData(kind="element", name="MailStop", namespace="##targetNamespace")
+	!resolve val MailStop mailStop;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="School in Physics School, Division in Radiology division of school of physics")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":6", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="DepartmentName_._type", kind="mixed")
+class DepartmentName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="DependentLocalityType", kind="elementOnly")
+class DependentLocality {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Name of the dependent locality")
+	@ExtendedMetaData(kind="element", name="DependentLocalityName", namespace="##targetNamespace")
+	!resolve val DependentLocalityName[*] dependentLocalityName;
+
+	@GenModel(documentation="Number of the dependent locality. Some areas are numbered. Eg. SECTOR 5 in a Suburb as in India or SOI SUKUMVIT 10 as in Thailand")
+	@ExtendedMetaData(kind="element", name="DependentLocalityNumber", namespace="##targetNamespace")
+	!resolve val DependentLocalityNumber dependentLocalityNumber;
+
+	@GenModel(documentation="Specification of a postbox like mail delivery point. Only a single postbox number can be specified. Examples of postboxes are POBox, free mail numbers, etc.")
+	@ExtendedMetaData(kind="element", name="PostBox", namespace="##targetNamespace")
+	!resolve val PostBox postBox;
+
+	@GenModel(documentation="Specification of a large mail user address. Examples of large mail users are postal companies, companies in France with a cedex number, hospitals and airports with their own post code. Large mail user addresses do not have a street name with premise name or premise number in countries like Netherlands. But they have a POBox and street also in countries like France")
+	@ExtendedMetaData(kind="element", name="LargeMailUser", namespace="##targetNamespace")
+	!resolve val LargeMailUser largeMailUser;
+
+	@GenModel(documentation="Specification of a post office. Examples are a rural post office where post is delivered and a post office containing post office boxes.")
+	@ExtendedMetaData(kind="element", name="PostOffice", namespace="##targetNamespace")
+	!resolve val PostOffice postOffice;
+
+	@GenModel(documentation=" A Postal van is specific for a route as in Is`rael, Rural route")
+	@ExtendedMetaData(kind="element", name="PostalRoute", namespace="##targetNamespace")
+	!resolve val PostalRoute postalRoute;
+
+	@GenModel(documentation="Specification of a thoroughfare. A thoroughfare could be a rd, street, canal, river, etc.  Note dependentlocality in a street. For example, in some countries, a large street will 
+have many subdivisions with numbers. Normally the subdivision name is the same as the road name, but with a number to identifiy it. Eg. SOI SUKUMVIT 3, SUKUMVIT RD, BANGKOK")
+	@ExtendedMetaData(kind="element", name="Thoroughfare", namespace="##targetNamespace")
+	!resolve val Thoroughfare thoroughfare;
+
+	@GenModel(documentation="Specification of a single premise, for example a house or a building. The premise as a whole has a unique premise (house) number or a premise name.  There could be more than 
+one premise in a street referenced in an address. For example a building address near a major shopping centre or raiwlay station")
+	@ExtendedMetaData(kind="element", name="Premise", namespace="##targetNamespace")
+	!resolve val Premise premise;
+
+	@GenModel(documentation="Dependent localities are Districts within cities/towns, locality divisions, postal 
+divisions of cities, suburbs, etc. DependentLocality is a recursive element, but no nesting deeper than two exists (Locality-DependentLocality-DependentLocality).")
+	@ExtendedMetaData(kind="element", name="DependentLocality", namespace="##targetNamespace")
+	!resolve val DependentLocality dependentLocality;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":11", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="\"VIA\" as in Hill Top VIA Parish where Parish is a locality and Hill Top is a dependent locality")
+	@ExtendedMetaData(kind="attribute", name="Connector")
+	attr type.AnySimpleType connector;
+
+	@GenModel(documentation="Eg. Erode (Dist) where (Dist) is the Indicator")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="City or IndustrialEstate, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@GenModel(documentation="Postal or Political - Sometimes locations must be distinguished between postal system, and physical locations as defined by a political system")
+	@ExtendedMetaData(kind="attribute", name="UsageType")
+	attr type.AnySimpleType usageType;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":16", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="DependentLocalityName_._type", kind="mixed")
+class DependentLocalityName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="DependentLocalityNumber_._type", kind="mixed")
+class DependentLocalityNumber {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Eg. SECTOR occurs before 5 in SECTOR 5")
+	@ExtendedMetaData(kind="attribute", name="NameNumberOccurrence")
+	unsettable attr NameNumberOccurrence nameNumberOccurrence;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="DependentThoroughfare_._type", kind="elementOnly")
+class DependentThoroughfare {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="North Baker Street, where North is the pre-direction. The direction appears before the name.")
+	@ExtendedMetaData(kind="element", name="ThoroughfarePreDirection", namespace="##targetNamespace")
+	!resolve val ThoroughfarePreDirection thoroughfarePreDirection;
+
+	@GenModel(documentation="Appears before the thoroughfare name. Ed. Spanish: Avenida Aurora, where Avenida is the leading type / French: Rue Moliere, where Rue is the leading type.")
+	@ExtendedMetaData(kind="element", name="ThoroughfareLeadingType", namespace="##targetNamespace")
+	!resolve val ThoroughfareLeadingType thoroughfareLeadingType;
+
+	@GenModel(documentation="Specification of the name of a Thoroughfare (also dependant street name): street name, canal name, etc.")
+	@ExtendedMetaData(kind="element", name="ThoroughfareName", namespace="##targetNamespace")
+	!resolve val ThoroughfareName[*] thoroughfareName;
+
+	@GenModel(documentation="Appears after the thoroughfare name. Ed. British: Baker Lane, where Lane is the trailing type.")
+	@ExtendedMetaData(kind="element", name="ThoroughfareTrailingType", namespace="##targetNamespace")
+	!resolve val ThoroughfareTrailingType thoroughfareTrailingType;
+
+	@GenModel(documentation="221-bis Baker Street North, where North is the post-direction. The post-direction appears after the name.")
+	@ExtendedMetaData(kind="element", name="ThoroughfarePostDirection", namespace="##targetNamespace")
+	!resolve val ThoroughfarePostDirection thoroughfarePostDirection;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":6", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":8", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="DependentThoroughfares_._type")
+enum DependentThoroughfaresType {
+	Yes = 0;
+	No = 1;
+}
+
+@ExtendedMetaData(name="DependentThoroughfares_._type:Object", baseType="DependentThoroughfares_._type")
+datatype DependentThoroughfaresTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@GenModel(documentation="This container defines the details of the address. Can define multiple addresses including tracking address history")
+	@ExtendedMetaData(kind="element", name="AddressDetails", namespace="##targetNamespace")
+	volatile transient derived !resolve val AddressDetails[0..?] addressDetails;
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	volatile transient derived !resolve val AddressLine[0..?] addressLine;
+
+	@GenModel(documentation="Examples of administrative areas are provinces counties, special regions (such as \"Rijnmond\"), etc.")
+	@ExtendedMetaData(kind="element", name="AdministrativeArea", namespace="##targetNamespace")
+	volatile transient derived !resolve val AdministrativeArea[0..?] administrativeArea;
+
+	@GenModel(documentation="Specification of the name of a country.")
+	@ExtendedMetaData(kind="element", name="CountryName", namespace="##targetNamespace")
+	volatile transient derived !resolve val CountryName[0..?] countryName;
+
+	@GenModel(documentation="Subdivision in the firm: School of Physics at Victoria University (School of Physics is the department)")
+	@ExtendedMetaData(kind="element", name="Department", namespace="##targetNamespace")
+	volatile transient derived !resolve val Department[0..?] department;
+
+	@GenModel(documentation="Locality is one level lower than adminisstrative area. Eg.: cities, reservations and any other built-up areas.")
+	@ExtendedMetaData(kind="element", name="Locality", namespace="##targetNamespace")
+	volatile transient derived !resolve val Locality[0..?] locality;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	volatile transient derived !resolve val PostalCode[0..?] postalCode;
+
+	@GenModel(documentation="Specification of a postbox like mail delivery point. Only a single postbox number can be specified. Examples of postboxes are POBox, free mail numbers, etc.")
+	@ExtendedMetaData(kind="element", name="PostBox", namespace="##targetNamespace")
+	volatile transient derived !resolve val PostBox[0..?] postBox;
+
+	@GenModel(documentation="Specification of a post office. Examples are a rural post office where post is delivered and a post office containing post office boxes.")
+	@ExtendedMetaData(kind="element", name="PostOffice", namespace="##targetNamespace")
+	volatile transient derived !resolve val PostOffice[0..?] postOffice;
+
+	@GenModel(documentation="Specification of a single premise, for example a house or a building. The premise as a whole has a unique premise (house) number or a premise name.  There could be more than 
+one premise in a street referenced in an address. For example a building address near a major shopping centre or raiwlay station")
+	@ExtendedMetaData(kind="element", name="Premise", namespace="##targetNamespace")
+	volatile transient derived !resolve val Premise[0..?] premise;
+
+	@GenModel(documentation="Specification of the identifier of the premise (house, building, etc). Premises in a street are often uniquely identified by means of consecutive identifiers. The identifier can be a number, a letter or any combination of the two.")
+	@ExtendedMetaData(kind="element", name="PremiseNumber", namespace="##targetNamespace")
+	volatile transient derived !resolve val PremiseNumber[0..?] premiseNumber;
+
+	@GenModel(documentation="A in A12")
+	@ExtendedMetaData(kind="element", name="PremiseNumberPrefix", namespace="##targetNamespace")
+	volatile transient derived !resolve val PremiseNumberPrefix[0..?] premiseNumberPrefix;
+
+	@GenModel(documentation="A in 12A")
+	@ExtendedMetaData(kind="element", name="PremiseNumberSuffix", namespace="##targetNamespace")
+	volatile transient derived !resolve val PremiseNumberSuffix[0..?] premiseNumberSuffix;
+
+	@GenModel(documentation="Specification of a thoroughfare. A thoroughfare could be a rd, street, canal, river, etc.  Note dependentlocality in a street. For example, in some countries, a large street will 
+have many subdivisions with numbers. Normally the subdivision name is the same as the road name, but with a number to identifiy it. Eg. SOI SUKUMVIT 3, SUKUMVIT RD, BANGKOK")
+	@ExtendedMetaData(kind="element", name="Thoroughfare", namespace="##targetNamespace")
+	volatile transient derived !resolve val Thoroughfare[0..?] thoroughfare;
+
+	@GenModel(documentation="Eg.: 23 Archer street or 25/15 Zero Avenue, etc")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumber", namespace="##targetNamespace")
+	volatile transient derived !resolve val ThoroughfareNumber[0..?] thoroughfareNumber;
+
+	@GenModel(documentation="Prefix before the number. A in A12 Archer Street")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumberPrefix", namespace="##targetNamespace")
+	volatile transient derived !resolve val ThoroughfareNumberPrefix[0..?] thoroughfareNumberPrefix;
+
+	@GenModel(documentation="Suffix after the number. A in 12A Archer Street")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumberSuffix", namespace="##targetNamespace")
+	volatile transient derived !resolve val ThoroughfareNumberSuffix[0..?] thoroughfareNumberSuffix;
+
+	@GenModel(documentation="Root element for a list of addresses")
+	@ExtendedMetaData(kind="element", name="xAL", namespace="##targetNamespace")
+	volatile transient derived !resolve val Xal[0..?] xAL;
+}
+
+@ExtendedMetaData(name="EndorsementLineCode_._type", kind="mixed")
+class EndorsementLineCode {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Specific to postal service")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="FirmType", kind="elementOnly")
+class Firm {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Name of the firm")
+	@ExtendedMetaData(kind="element", name="FirmName", namespace="##targetNamespace")
+	!resolve val FirmName[*] firmName;
+
+	@GenModel(documentation="Subdivision in the firm: School of Physics at Victoria University (School of Physics is the department)")
+	@ExtendedMetaData(kind="element", name="Department", namespace="##targetNamespace")
+	!resolve val Department[*] department;
+
+	@GenModel(documentation="A MailStop is where the the mail is delivered to within a premise/subpremise/firm or a facility.")
+	@ExtendedMetaData(kind="element", name="MailStop", namespace="##targetNamespace")
+	!resolve val MailStop mailStop;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":5", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":7", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="FirmName_._type", kind="mixed")
+class FirmName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="IndicatorOccurence_._type")
+enum IndicatorOccurence {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="IndicatorOccurence_._type:Object", baseType="IndicatorOccurence_._type")
+datatype IndicatorOccurenceObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="IndicatorOccurrence_._type")
+enum IndicatorOccurrence {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="IndicatorOccurrence_._1_._type")
+enum IndicatorOccurrence1 {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="IndicatorOccurrence_._2_._type")
+enum IndicatorOccurrence2 {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="IndicatorOccurrence_._3_._type")
+enum IndicatorOccurrence3 {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="IndicatorOccurrence_._4_._type")
+enum IndicatorOccurrence4 {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="IndicatorOccurrence_._1_._type:Object", baseType="IndicatorOccurrence_._1_._type")
+datatype IndicatorOccurrenceObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="IndicatorOccurrence_._3_._type:Object", baseType="IndicatorOccurrence_._3_._type")
+datatype IndicatorOccurrenceObject1 : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="IndicatorOccurrence_._2_._type:Object", baseType="IndicatorOccurrence_._2_._type")
+datatype IndicatorOccurrenceObject2 : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="IndicatorOccurrence_._type:Object", baseType="IndicatorOccurrence_._type")
+datatype IndicatorOccurrenceObject3 : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="IndicatorOccurrence_._4_._type:Object", baseType="IndicatorOccurrence_._4_._type")
+datatype IndicatorOccurrenceObject4 : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="KeyLineCode_._type", kind="mixed")
+class KeyLineCode {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Specific to postal service")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="LargeMailUserType", kind="elementOnly")
+class LargeMailUser {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Name of the large mail user. eg. Smith Ford International airport")
+	@ExtendedMetaData(kind="element", name="LargeMailUserName", namespace="##targetNamespace")
+	!resolve val LargeMailUserName[*] largeMailUserName;
+
+	@GenModel(documentation="Specification of the identification number of a large mail user. An example are the Cedex codes in France.")
+	@ExtendedMetaData(kind="element", name="LargeMailUserIdentifier", namespace="##targetNamespace")
+	!resolve val LargeMailUserIdentifier largeMailUserIdentifier;
+
+	@GenModel(documentation="Name of the building")
+	@ExtendedMetaData(kind="element", name="BuildingName", namespace="##targetNamespace")
+	!resolve val BuildingName[*] buildingName;
+
+	@GenModel(documentation="Subdivision in the firm: School of Physics at Victoria University (School of Physics is the department)")
+	@ExtendedMetaData(kind="element", name="Department", namespace="##targetNamespace")
+	!resolve val Department department;
+
+	@GenModel(documentation="Specification of a postbox like mail delivery point. Only a single postbox number can be specified. Examples of postboxes are POBox, free mail numbers, etc.")
+	@ExtendedMetaData(kind="element", name="PostBox", namespace="##targetNamespace")
+	!resolve val PostBox postBox;
+
+	@GenModel(documentation="Specification of a thoroughfare. A thoroughfare could be a rd, street, canal, river, etc.  Note dependentlocality in a street. For example, in some countries, a large street will 
+have many subdivisions with numbers. Normally the subdivision name is the same as the road name, but with a number to identifiy it. Eg. SOI SUKUMVIT 3, SUKUMVIT RD, BANGKOK")
+	@ExtendedMetaData(kind="element", name="Thoroughfare", namespace="##targetNamespace")
+	!resolve val Thoroughfare thoroughfare;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":8", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.String type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":10", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="LargeMailUserIdentifier_._type", kind="mixed")
+class LargeMailUserIdentifier {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="eg. Building 429 in which Building is the Indicator")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="CEDEX Code")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.String type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="LargeMailUserName_._type", kind="mixed")
+class LargeMailUserName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.String code;
+
+	@GenModel(documentation="Airport, Hospital, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.String type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="Locality_._type", kind="elementOnly")
+class Locality {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Name of the locality")
+	@ExtendedMetaData(kind="element", name="LocalityName", namespace="##targetNamespace")
+	!resolve val LocalityName[*] localityName;
+
+	@GenModel(documentation="Specification of a postbox like mail delivery point. Only a single postbox number can be specified. Examples of postboxes are POBox, free mail numbers, etc.")
+	@ExtendedMetaData(kind="element", name="PostBox", namespace="##targetNamespace")
+	!resolve val PostBox postBox;
+
+	@GenModel(documentation="Specification of a large mail user address. Examples of large mail users are postal companies, companies in France with a cedex number, hospitals and airports with their own post code. Large mail user addresses do not have a street name with premise name or premise number in countries like Netherlands. But they have a POBox and street also in countries like France")
+	@ExtendedMetaData(kind="element", name="LargeMailUser", namespace="##targetNamespace")
+	!resolve val LargeMailUser largeMailUser;
+
+	@GenModel(documentation="Specification of a post office. Examples are a rural post office where post is delivered and a post office containing post office boxes.")
+	@ExtendedMetaData(kind="element", name="PostOffice", namespace="##targetNamespace")
+	!resolve val PostOffice postOffice;
+
+	@GenModel(documentation="A Postal van is specific for a route as in Is`rael, Rural route")
+	@ExtendedMetaData(kind="element", name="PostalRoute", namespace="##targetNamespace")
+	!resolve val PostalRoute postalRoute;
+
+	@GenModel(documentation="Specification of a thoroughfare. A thoroughfare could be a rd, street, canal, river, etc.  Note dependentlocality in a street. For example, in some countries, a large street will 
+have many subdivisions with numbers. Normally the subdivision name is the same as the road name, but with a number to identifiy it. Eg. SOI SUKUMVIT 3, SUKUMVIT RD, BANGKOK")
+	@ExtendedMetaData(kind="element", name="Thoroughfare", namespace="##targetNamespace")
+	!resolve val Thoroughfare thoroughfare;
+
+	@GenModel(documentation="Specification of a single premise, for example a house or a building. The premise as a whole has a unique premise (house) number or a premise name.  There could be more than 
+one premise in a street referenced in an address. For example a building address near a major shopping centre or raiwlay station")
+	@ExtendedMetaData(kind="element", name="Premise", namespace="##targetNamespace")
+	!resolve val Premise premise;
+
+	@GenModel(documentation="Dependent localities are Districts within cities/towns, locality divisions, postal 
+divisions of cities, suburbs, etc. DependentLocality is a recursive element, but no nesting deeper than two exists (Locality-DependentLocality-DependentLocality).")
+	@ExtendedMetaData(kind="element", name="DependentLocality", namespace="##targetNamespace")
+	!resolve val DependentLocality dependentLocality;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":10", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="Erode (Dist) where (Dist) is the Indicator")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="Possible values not limited to: City, IndustrialEstate, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@GenModel(documentation="Postal or Political - Sometimes locations must be distinguished between postal system, and physical locations as defined by a political system")
+	@ExtendedMetaData(kind="attribute", name="UsageType")
+	attr type.AnySimpleType usageType;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":14", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="LocalityName_._type", kind="mixed")
+class LocalityName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="MailStopType", kind="elementOnly")
+class MailStop {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Name of the the Mail Stop. eg. MSP, MS, etc")
+	@ExtendedMetaData(kind="element", name="MailStopName", namespace="##targetNamespace")
+	!resolve val MailStopName mailStopName;
+
+	@GenModel(documentation="Number of the Mail stop. eg. 123 in MS 123")
+	@ExtendedMetaData(kind="element", name="MailStopNumber", namespace="##targetNamespace")
+	!resolve val MailStopNumber mailStopNumber;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":5", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="MailStopName_._type", kind="mixed")
+class MailStopName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="MailStopNumber_._type", kind="mixed")
+class MailStopNumber {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="\"-\" in MS-123")
+	@ExtendedMetaData(kind="attribute", name="NameNumberSeparator")
+	attr type.AnySimpleType nameNumberSeparator;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="NameNumberOccurrence_._type")
+enum NameNumberOccurrence {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="NameNumberOccurrence_._type:Object", baseType="NameNumberOccurrence_._type")
+datatype NameNumberOccurrenceObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="NumberOccurrence_._type")
+enum NumberOccurrence {
+	BeforeName = 0;
+	AfterName = 1;
+	BeforeType = 2;
+	AfterType = 3;
+}
+
+@ExtendedMetaData(name="NumberOccurrence_._type:Object", baseType="NumberOccurrence_._type")
+datatype NumberOccurrenceObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="NumberRangeOccurence_._type")
+enum NumberRangeOccurence {
+	BeforeName = 0;
+	AfterName = 1;
+	BeforeType = 2;
+	AfterType = 3;
+}
+
+@ExtendedMetaData(name="NumberRangeOccurence_._type:Object", baseType="NumberRangeOccurence_._type")
+datatype NumberRangeOccurenceObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="NumberRangeOccurrence_._type")
+enum NumberRangeOccurrence {
+	BeforeName = 0;
+	AfterName = 1;
+	BeforeType = 2;
+	AfterType = 3;
+}
+
+@ExtendedMetaData(name="NumberRangeOccurrence_._type:Object", baseType="NumberRangeOccurrence_._type")
+datatype NumberRangeOccurrenceObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="NumberTypeOccurrence_._type")
+enum NumberTypeOccurrence {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="NumberTypeOccurrence_._1_._type")
+enum NumberTypeOccurrence1 {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="NumberTypeOccurrence_._type:Object", baseType="NumberTypeOccurrence_._type")
+datatype NumberTypeOccurrenceObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="NumberTypeOccurrence_._1_._type:Object", baseType="NumberTypeOccurrence_._1_._type")
+datatype NumberTypeOccurrenceObject1 : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="NumberType_._type")
+enum NumberTypeType {
+	Single = 0;
+	Range = 1;
+}
+
+@ExtendedMetaData(name="NumberType_._1_._type")
+enum NumberTypeType1 {
+	Single = 0;
+	Range = 1;
+}
+
+@ExtendedMetaData(name="NumberType_._type:Object", baseType="NumberType_._type")
+datatype NumberTypeTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="NumberType_._1_._type:Object", baseType="NumberType_._1_._type")
+datatype NumberTypeTypeObject1 : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="PostalCode_._type", kind="elementOnly")
+class PostalCode {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Specification of a postcode. The postcode is formatted according to country-specific rules. Example: SW3 0A8-1A, 600074, 2067")
+	@ExtendedMetaData(kind="element", name="PostalCodeNumber", namespace="##targetNamespace")
+	!resolve val PostalCodeNumber[*] postalCodeNumber;
+
+	@GenModel(documentation="Examples are: 1234 (USA), 1G (UK), etc.")
+	@ExtendedMetaData(kind="element", name="PostalCodeNumberExtension", namespace="##targetNamespace")
+	!resolve val PostalCodeNumberExtension[*] postalCodeNumberExtension;
+
+	@GenModel(documentation="A post town is not the same as a locality. A post town can encompass a collection of (small) localities. It can also be a subpart of a locality. An actual post town in Norway is \"Bergen\".")
+	@ExtendedMetaData(kind="element", name="PostTown", namespace="##targetNamespace")
+	!resolve val PostTown postTown;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="Area Code, Postcode, Delivery code as in NZ, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":6", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostalCodeNumber_._type", kind="mixed")
+class PostalCodeNumber {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Old Postal Code, new code, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostalCodeNumberExtension_._type", kind="mixed")
+class PostalCodeNumberExtension {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="The separator between postal code number and the extension. Eg. \"-\"")
+	@ExtendedMetaData(kind="attribute", name="NumberExtensionSeparator")
+	attr type.AnySimpleType numberExtensionSeparator;
+
+	@GenModel(documentation="Delivery Point Suffix, New Postal Code, etc..")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostalRouteType", kind="elementOnly")
+class PostalRoute {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation=" Name of the Postal Route")
+	@ExtendedMetaData(kind="element", name="PostalRouteName", namespace="##targetNamespace")
+	!resolve val PostalRouteName[*] postalRouteName;
+
+	@GenModel(documentation=" Number of the Postal Route")
+	@ExtendedMetaData(kind="element", name="PostalRouteNumber", namespace="##targetNamespace")
+	!resolve val PostalRouteNumber postalRouteNumber;
+
+	@GenModel(documentation="Specification of a postbox like mail delivery point. Only a single postbox number can be specified. Examples of postboxes are POBox, free mail numbers, etc.")
+	@ExtendedMetaData(kind="element", name="PostBox", namespace="##targetNamespace")
+	!resolve val PostBox postBox;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":6", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostalRouteName_._type", kind="mixed")
+class PostalRouteName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostalRouteNumber_._type", kind="mixed")
+class PostalRouteNumber {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":2", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostalServiceElements_._type", kind="elementOnly")
+class PostalServiceElements {
+
+	@GenModel(documentation="A unique identifier of an address assigned by postal authorities. Example: DPID in Australia")
+	@ExtendedMetaData(kind="element", name="AddressIdentifier", namespace="##targetNamespace")
+	!resolve val AddressIdentifier[*] addressIdentifier;
+
+	@GenModel(documentation="Directly affects postal service distribution")
+	@ExtendedMetaData(kind="element", name="EndorsementLineCode", namespace="##targetNamespace")
+	!resolve val EndorsementLineCode endorsementLineCode;
+
+	@GenModel(documentation="Required for some postal services")
+	@ExtendedMetaData(kind="element", name="KeyLineCode", namespace="##targetNamespace")
+	!resolve val KeyLineCode keyLineCode;
+
+	@GenModel(documentation="Required for some postal services")
+	@ExtendedMetaData(kind="element", name="Barcode", namespace="##targetNamespace")
+	!resolve val Barcode barcode;
+
+	@GenModel(documentation="Used for sorting addresses. Values may for example be CEDEX 16 (France)")
+	@ExtendedMetaData(kind="element", name="SortingCode", namespace="##targetNamespace")
+	!resolve val SortingCode sortingCode;
+
+	@GenModel(documentation="Latitude of delivery address")
+	@ExtendedMetaData(kind="element", name="AddressLatitude", namespace="##targetNamespace")
+	!resolve val AddressLatitude addressLatitude;
+
+	@GenModel(documentation="Latitude direction of delivery address;N = North and S = South")
+	@ExtendedMetaData(kind="element", name="AddressLatitudeDirection", namespace="##targetNamespace")
+	!resolve val AddressLatitudeDirection addressLatitudeDirection;
+
+	@GenModel(documentation="Longtitude of delivery address")
+	@ExtendedMetaData(kind="element", name="AddressLongitude", namespace="##targetNamespace")
+	!resolve val AddressLongitude addressLongitude;
+
+	@GenModel(documentation="Longtitude direction of delivery address;N=North and S=South")
+	@ExtendedMetaData(kind="element", name="AddressLongitudeDirection", namespace="##targetNamespace")
+	!resolve val AddressLongitudeDirection addressLongitudeDirection;
+
+	@GenModel(documentation="any postal service elements not covered by the container can be represented using this element")
+	@ExtendedMetaData(kind="element", name="SupplementaryPostalServiceData", namespace="##targetNamespace")
+	!resolve val SupplementaryPostalServiceData[*] supplementaryPostalServiceData;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":10", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="USPS, ECMA, UN/PROLIST, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":12", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostBox_._type", kind="elementOnly")
+class PostBox {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Specification of the number of a postbox")
+	@ExtendedMetaData(kind="element", name="PostBoxNumber", namespace="##targetNamespace")
+	!resolve val PostBoxNumber[1] postBoxNumber;
+
+	@GenModel(documentation="Specification of the prefix of the post box number. eg. A in POBox:A-123")
+	@ExtendedMetaData(kind="element", name="PostBoxNumberPrefix", namespace="##targetNamespace")
+	!resolve val PostBoxNumberPrefix postBoxNumberPrefix;
+
+	@GenModel(documentation="Specification of the suffix of the post box number. eg. A in POBox:123A")
+	@ExtendedMetaData(kind="element", name="PostBoxNumberSuffix", namespace="##targetNamespace")
+	!resolve val PostBoxNumberSuffix postBoxNumberSuffix;
+
+	@GenModel(documentation="Some countries like USA have POBox as 12345-123")
+	@ExtendedMetaData(kind="element", name="PostBoxNumberExtension", namespace="##targetNamespace")
+	!resolve val PostBoxNumberExtension postBoxNumberExtension;
+
+	@GenModel(documentation="Specification of a firm, company, organization, etc. It can be specified as part of an address that contains a street or a postbox. It is therefore different from 
+a large mail user address, which contains no street.")
+	@ExtendedMetaData(kind="element", name="Firm", namespace="##targetNamespace")
+	!resolve val Firm firm;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":7", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="LOCKED BAG NO:1234 where the Indicator is NO: and Type is LOCKED BAG")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="Possible values are, not limited to: POBox and Freepost.")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":10", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostBoxNumber_._type", kind="mixed")
+class PostBoxNumber {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":2", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostBoxNumberExtension_._type", kind="mixed")
+class PostBoxNumberExtension {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="\"-\" is the NumberExtensionSeparator in POBOX:12345-123")
+	@ExtendedMetaData(kind="attribute", name="NumberExtensionSeparator")
+	attr type.AnySimpleType numberExtensionSeparator;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":2", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostBoxNumberPrefix_._type", kind="mixed")
+class PostBoxNumberPrefix {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="A-12 where 12 is number and A is prefix and \"-\" is the separator")
+	@ExtendedMetaData(kind="attribute", name="NumberPrefixSeparator")
+	attr type.AnySimpleType numberPrefixSeparator;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostBoxNumberSuffix_._type", kind="mixed")
+class PostBoxNumberSuffix {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="12-A where 12 is number and A is suffix and \"-\" is the separator")
+	@ExtendedMetaData(kind="attribute", name="NumberSuffixSeparator")
+	attr type.AnySimpleType numberSuffixSeparator;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostOffice_._type", kind="elementOnly")
+class PostOffice {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Specification of the name of the post office. This can be a rural postoffice where post is delivered or a post office containing post office boxes.")
+	@ExtendedMetaData(kind="element", name="PostOfficeName", namespace="##targetNamespace")
+	!resolve val PostOfficeName[*] postOfficeName;
+
+	@GenModel(documentation="Specification of the number of the postoffice. Common in rural postoffices")
+	@ExtendedMetaData(kind="element", name="PostOfficeNumber", namespace="##targetNamespace")
+	!resolve val PostOfficeNumber postOfficeNumber;
+
+	@GenModel(documentation="A Postal van is specific for a route as in Is`rael, Rural route")
+	@ExtendedMetaData(kind="element", name="PostalRoute", namespace="##targetNamespace")
+	!resolve val PostalRoute postalRoute;
+
+	@GenModel(documentation="Specification of a postbox like mail delivery point. Only a single postbox number can be specified. Examples of postboxes are POBox, free mail numbers, etc.")
+	@ExtendedMetaData(kind="element", name="PostBox", namespace="##targetNamespace")
+	!resolve val PostBox postBox;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":6", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="eg. Kottivakkam (P.O) here (P.O) is the Indicator")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="Could be a Mobile Postoffice Van as in Isreal")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":9", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostOfficeName_._type", kind="mixed")
+class PostOfficeName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostOfficeNumber_._type", kind="mixed")
+class PostOfficeNumber {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="MS in MS 62, # in MS # 12, etc.")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="MS occurs before 62 in MS 62")
+	@ExtendedMetaData(kind="attribute", name="IndicatorOccurrence")
+	unsettable attr IndicatorOccurrence indicatorOccurrence;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostTown_._type", kind="elementOnly")
+class PostTown {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Name of the post town")
+	@ExtendedMetaData(kind="element", name="PostTownName", namespace="##targetNamespace")
+	!resolve val PostTownName[*] postTownName;
+
+	@GenModel(documentation="GENERAL PO in MIAMI GENERAL PO")
+	@ExtendedMetaData(kind="element", name="PostTownSuffix", namespace="##targetNamespace")
+	!resolve val PostTownSuffix postTownSuffix;
+
+	@GenModel(documentation="eg. village, town, suburb, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostTownName_._type", kind="mixed")
+class PostTownName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PostTownSuffix_._type", kind="mixed")
+class PostTownSuffix {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":2", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="Premise_._type", kind="elementOnly")
+class Premise {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Specification of the name of the premise (house, building, park, farm, etc). A premise name is specified when the premise cannot be addressed using a street name plus premise (house) number.")
+	@ExtendedMetaData(kind="element", name="PremiseName", namespace="##targetNamespace")
+	!resolve val PremiseName[*] premiseName;
+
+	@GenModel(documentation="LOBBY, BASEMENT, GROUND FLOOR, etc...")
+	@ExtendedMetaData(kind="element", name="PremiseLocation", namespace="##targetNamespace")
+	!resolve val PremiseLocation premiseLocation;
+
+	@GenModel(documentation="Specification of the identifier of the premise (house, building, etc). Premises in a street are often uniquely identified by means of consecutive identifiers. The identifier can be a number, a letter or any combination of the two.")
+	@ExtendedMetaData(kind="element", name="PremiseNumber", namespace="##targetNamespace")
+	!resolve val PremiseNumber[*] premiseNumber;
+
+	@GenModel(documentation="Specification for defining the premise number range. Some premises have number as Building C1-C7")
+	@ExtendedMetaData(kind="element", name="PremiseNumberRange", namespace="##targetNamespace")
+	!resolve val PremiseNumberRange premiseNumberRange;
+
+	@GenModel(documentation="A in A12")
+	@ExtendedMetaData(kind="element", name="PremiseNumberPrefix", namespace="##targetNamespace")
+	!resolve val PremiseNumberPrefix[*] premiseNumberPrefix;
+
+	@GenModel(documentation="A in 12A")
+	@ExtendedMetaData(kind="element", name="PremiseNumberSuffix", namespace="##targetNamespace")
+	!resolve val PremiseNumberSuffix[*] premiseNumberSuffix;
+
+	@GenModel(documentation="Specification of the name of a building.")
+	@ExtendedMetaData(kind="element", name="BuildingName", namespace="##targetNamespace")
+	!resolve val BuildingName[*] buildingName;
+
+	@GenModel(documentation="Specification of a single sub-premise. Examples of sub-premises are apartments and suites. Each sub-premise should be uniquely identifiable.")
+	@ExtendedMetaData(kind="element", name="SubPremise", namespace="##targetNamespace")
+	!resolve val SubPremise[*] subPremise;
+
+	@GenModel(documentation="Specification of a firm, company, organization, etc. It can be specified as part of an address that contains a street or a postbox. It is therefore different from a large mail user address, which contains no street.")
+	@ExtendedMetaData(kind="element", name="Firm", namespace="##targetNamespace")
+	!resolve val Firm firm;
+
+	@GenModel(documentation="A MailStop is where the the mail is delivered to within a premise/subpremise/firm or a facility.")
+	@ExtendedMetaData(kind="element", name="MailStop", namespace="##targetNamespace")
+	!resolve val MailStop mailStop;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@GenModel(documentation="Specification of a single premise, for example a house or a building. The premise as a whole has a unique premise (house) number or a premise name.  There could be more than 
+one premise in a street referenced in an address. For example a building address near a major shopping centre or raiwlay station")
+	@ExtendedMetaData(kind="element", name="Premise", namespace="##targetNamespace")
+	!resolve val Premise premise;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":13", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="STREET, PREMISE, SUBPREMISE, PARK, FARM, etc")
+	@ExtendedMetaData(kind="attribute", name="PremiseDependency")
+	attr type.AnySimpleType premiseDependency;
+
+	@GenModel(documentation="NEAR, ADJACENT TO, etc")
+	@ExtendedMetaData(kind="attribute", name="PremiseDependencyType")
+	attr type.AnySimpleType premiseDependencyType;
+
+	@GenModel(documentation="DES, DE, LA, LA, DU in RUE DU BOIS. These terms connect a premise/thoroughfare type and premise/thoroughfare name. Terms may appear with names AVE DU BOIS")
+	@ExtendedMetaData(kind="attribute", name="PremiseThoroughfareConnector")
+	attr type.AnySimpleType premiseThoroughfareConnector;
+
+	@GenModel(documentation="COMPLEXE in COMPLEX DES JARDINS, A building, station, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":18", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PremiseLocation_._type", kind="mixed")
+class PremiseLocation {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":2", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PremiseName_._type", kind="mixed")
+class PremiseName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@GenModel(documentation="EGIS Building where EGIS occurs before Building, DES JARDINS occurs after COMPLEXE DES JARDINS")
+	@ExtendedMetaData(kind="attribute", name="TypeOccurrence")
+	unsettable attr TypeOccurrence1 typeOccurrence;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PremiseNumber_._type", kind="mixed")
+class PremiseNumber {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="No. in House No.12, # in #12, etc.")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="No. occurs before 12 No.12")
+	@ExtendedMetaData(kind="attribute", name="IndicatorOccurrence")
+	unsettable attr IndicatorOccurrence3 indicatorOccurrence;
+
+	@GenModel(documentation="Building 12-14 is \"Range\" and Building 12 is \"Single\"")
+	@ExtendedMetaData(kind="attribute", name="NumberType")
+	unsettable attr NumberTypeType numberType;
+
+	@GenModel(documentation="12 in BUILDING 12 occurs \"after\" premise type BUILDING")
+	@ExtendedMetaData(kind="attribute", name="NumberTypeOccurrence")
+	unsettable attr NumberTypeOccurrence1 numberTypeOccurrence;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":7", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PremiseNumberPrefix_._type", kind="simple")
+class PremiseNumberPrefix {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.String value;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="A-12 where 12 is number and A is prefix and \"-\" is the separator")
+	@ExtendedMetaData(kind="attribute", name="NumberPrefixSeparator")
+	attr type.AnySimpleType numberPrefixSeparator;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="PremiseNumberRange_._type", kind="elementOnly")
+class PremiseNumberRange {
+
+	@GenModel(documentation="Start number details of the premise number range")
+	@ExtendedMetaData(kind="element", name="PremiseNumberRangeFrom", namespace="##targetNamespace")
+	!resolve val PremiseNumberRangeFrom[1] premiseNumberRangeFrom;
+
+	@GenModel(documentation="End number details of the premise number range")
+	@ExtendedMetaData(kind="element", name="PremiseNumberRangeTo", namespace="##targetNamespace")
+	!resolve val PremiseNumberRangeTo[1] premiseNumberRangeTo;
+
+	@GenModel(documentation="Eg. No. in Building No:C1-C5")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="No.12-14 where \"No.\" is before actual street number")
+	@ExtendedMetaData(kind="attribute", name="IndicatorOccurence")
+	unsettable attr IndicatorOccurence indicatorOccurence;
+
+	@GenModel(documentation="Building 23-25 where the number occurs after building name")
+	@ExtendedMetaData(kind="attribute", name="NumberRangeOccurence")
+	unsettable attr NumberRangeOccurence numberRangeOccurence;
+
+	@GenModel(documentation="Eg. Odd or even number range")
+	@ExtendedMetaData(kind="attribute", name="RangeType")
+	attr type.AnySimpleType rangeType;
+
+	@GenModel(documentation="\"-\" in 12-14  or \"Thru\" in 12 Thru 14 etc.")
+	@ExtendedMetaData(kind="attribute", name="Separator")
+	attr type.AnySimpleType separator;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+}
+
+@ExtendedMetaData(name="PremiseNumberRangeFrom_._type", kind="elementOnly")
+class PremiseNumberRangeFrom {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="A in A12")
+	@ExtendedMetaData(kind="element", name="PremiseNumberPrefix", namespace="##targetNamespace")
+	!resolve val PremiseNumberPrefix[*] premiseNumberPrefix;
+
+	@GenModel(documentation="Specification of the identifier of the premise (house, building, etc). Premises in a street are often uniquely identified by means of consecutive identifiers. The identifier can be a number, a letter or any combination of the two.")
+	@ExtendedMetaData(kind="element", name="PremiseNumber", namespace="##targetNamespace")
+	!resolve val PremiseNumber[+] premiseNumber;
+
+	@GenModel(documentation="A in 12A")
+	@ExtendedMetaData(kind="element", name="PremiseNumberSuffix", namespace="##targetNamespace")
+	!resolve val PremiseNumberSuffix[*] premiseNumberSuffix;
+}
+
+@ExtendedMetaData(name="PremiseNumberRangeTo_._type", kind="elementOnly")
+class PremiseNumberRangeTo {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="A in A12")
+	@ExtendedMetaData(kind="element", name="PremiseNumberPrefix", namespace="##targetNamespace")
+	!resolve val PremiseNumberPrefix[*] premiseNumberPrefix;
+
+	@GenModel(documentation="Specification of the identifier of the premise (house, building, etc). Premises in a street are often uniquely identified by means of consecutive identifiers. The identifier can be a number, a letter or any combination of the two.")
+	@ExtendedMetaData(kind="element", name="PremiseNumber", namespace="##targetNamespace")
+	!resolve val PremiseNumber[+] premiseNumber;
+
+	@GenModel(documentation="A in 12A")
+	@ExtendedMetaData(kind="element", name="PremiseNumberSuffix", namespace="##targetNamespace")
+	!resolve val PremiseNumberSuffix[*] premiseNumberSuffix;
+}
+
+@ExtendedMetaData(name="PremiseNumberSuffix_._type", kind="mixed")
+class PremiseNumberSuffix {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="12-A where 12 is number and A is suffix and \"-\" is the separator")
+	@ExtendedMetaData(kind="attribute", name="NumberSuffixSeparator")
+	attr type.AnySimpleType numberSuffixSeparator;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="RangeType_._type")
+enum RangeTypeType {
+	Odd = 0;
+	Even = 1;
+}
+
+@ExtendedMetaData(name="RangeType_._type:Object", baseType="RangeType_._type")
+datatype RangeTypeTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="SortingCode_._type", kind="empty")
+class SortingCode {
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Specific to postal service")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+}
+
+@ExtendedMetaData(name="SubAdministrativeArea_._type", kind="elementOnly")
+class SubAdministrativeArea {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation=" Name of the sub-administrative area")
+	@ExtendedMetaData(kind="element", name="SubAdministrativeAreaName", namespace="##targetNamespace")
+	!resolve val SubAdministrativeAreaName[*] subAdministrativeAreaName;
+
+	@GenModel(documentation="Locality is one level lower than adminisstrative area. Eg.: cities, reservations and any other built-up areas.")
+	@ExtendedMetaData(kind="element", name="Locality", namespace="##targetNamespace")
+	!resolve val Locality locality;
+
+	@GenModel(documentation="Specification of a post office. Examples are a rural post office where post is delivered and a post office containing post office boxes.")
+	@ExtendedMetaData(kind="element", name="PostOffice", namespace="##targetNamespace")
+	!resolve val PostOffice postOffice;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":5", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="Erode (Dist) where (Dist) is the Indicator")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="Province or State or County or Kanton, etc")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@GenModel(documentation="Postal or Political - Sometimes locations must be distinguished between postal system, and physical locations as defined by a political system")
+	@ExtendedMetaData(kind="attribute", name="UsageType")
+	attr type.AnySimpleType usageType;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":9", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="SubAdministrativeAreaName_._type", kind="mixed")
+class SubAdministrativeAreaName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="SubPremiseType", kind="elementOnly")
+class SubPremise {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation=" Name of the SubPremise")
+	@ExtendedMetaData(kind="element", name="SubPremiseName", namespace="##targetNamespace")
+	!resolve val SubPremiseName[*] subPremiseName;
+
+	@GenModel(documentation=" Name of the SubPremise Location. eg. LOBBY, BASEMENT, GROUND FLOOR, etc...")
+	@ExtendedMetaData(kind="element", name="SubPremiseLocation", namespace="##targetNamespace")
+	!resolve val SubPremiseLocation subPremiseLocation;
+
+	@GenModel(documentation=" Specification of the identifier of a sub-premise. Examples of sub-premises are apartments and suites. sub-premises in a building are often uniquely identified by means of consecutive
+identifiers. The identifier can be a number, a letter or any combination of the two. In the latter case, the identifier includes exactly one variable (range) part, which is either a 
+number or a single letter that is surrounded by fixed parts at the left (prefix) or the right (postfix).")
+	@ExtendedMetaData(kind="element", name="SubPremiseNumber", namespace="##targetNamespace")
+	!resolve val SubPremiseNumber[*] subPremiseNumber;
+
+	@GenModel(documentation=" Prefix of the sub premise number. eg. A in A-12")
+	@ExtendedMetaData(kind="element", name="SubPremiseNumberPrefix", namespace="##targetNamespace")
+	!resolve val SubPremiseNumberPrefix[*] subPremiseNumberPrefix;
+
+	@GenModel(documentation=" Suffix of the sub premise number. eg. A in 12A")
+	@ExtendedMetaData(kind="element", name="SubPremiseNumberSuffix", namespace="##targetNamespace")
+	!resolve val SubPremiseNumberSuffix[*] subPremiseNumberSuffix;
+
+	@GenModel(documentation="Name of the building")
+	@ExtendedMetaData(kind="element", name="BuildingName", namespace="##targetNamespace")
+	!resolve val BuildingName[*] buildingName;
+
+	@GenModel(documentation="Specification of a firm, company, organization, etc. It can be specified as part of an address that contains a street or a postbox. It is therefore different from a large mail user address, which contains no street.")
+	@ExtendedMetaData(kind="element", name="Firm", namespace="##targetNamespace")
+	!resolve val Firm firm;
+
+	@GenModel(documentation="A MailStop is where the the mail is delivered to within a premise/subpremise/firm or a facility.")
+	@ExtendedMetaData(kind="element", name="MailStop", namespace="##targetNamespace")
+	!resolve val MailStop mailStop;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@GenModel(documentation="Specification of a single sub-premise. Examples of sub-premises are apartments and suites. 
+Each sub-premise should be uniquely identifiable. SubPremiseType: Specification of the name of a sub-premise type. Possible values not limited to: Suite, Appartment, Floor, Unknown
+Multiple levels within a premise by recursively calling SubPremise Eg. Level 4, Suite 2, Block C")
+	@ExtendedMetaData(kind="element", name="SubPremise", namespace="##targetNamespace")
+	!resolve val SubPremise subPremise;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":11", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":13", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="SubPremiseLocation_._type", kind="mixed")
+class SubPremiseLocation {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+}
+
+@ExtendedMetaData(name="SubPremiseName_._type", kind="mixed")
+class SubPremiseName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@GenModel(documentation="EGIS Building where EGIS occurs before Building")
+	@ExtendedMetaData(kind="attribute", name="TypeOccurrence")
+	unsettable attr TypeOccurrence typeOccurrence;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="SubPremiseNumber_._type", kind="mixed")
+class SubPremiseNumber {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="\"TH\" in 12TH which is a floor number, \"NO.\" in NO.1, \"#\" in APT #12, etc.")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="\"No.\" occurs before 1 in No.1, or TH occurs after 12 in 12TH")
+	@ExtendedMetaData(kind="attribute", name="IndicatorOccurrence")
+	unsettable attr IndicatorOccurrence2 indicatorOccurrence;
+
+	@GenModel(documentation="12TH occurs \"before\" FLOOR (a type of subpremise) in 12TH FLOOR")
+	@ExtendedMetaData(kind="attribute", name="NumberTypeOccurrence")
+	unsettable attr NumberTypeOccurrence numberTypeOccurrence;
+
+	@GenModel(documentation="\"/\" in 12/14 Archer Street where 12 is sub-premise number and 14 is premise number")
+	@ExtendedMetaData(kind="attribute", name="PremiseNumberSeparator")
+	attr type.AnySimpleType premiseNumberSeparator;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":7", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="SubPremiseNumberPrefix_._type", kind="mixed")
+class SubPremiseNumberPrefix {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="A-12 where 12 is number and A is prefix and \"-\" is the separator")
+	@ExtendedMetaData(kind="attribute", name="NumberPrefixSeparator")
+	attr type.AnySimpleType numberPrefixSeparator;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="SubPremiseNumberSuffix_._type", kind="mixed")
+class SubPremiseNumberSuffix {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="12-A where 12 is number and A is suffix and \"-\" is the separator")
+	@ExtendedMetaData(kind="attribute", name="NumberSuffixSeparator")
+	attr type.AnySimpleType numberSuffixSeparator;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="SupplementaryPostalServiceData_._type", kind="mixed")
+class SupplementaryPostalServiceData {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="Specific to postal service")
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="Thoroughfare_._type", kind="elementOnly")
+class Thoroughfare {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="Eg.: 23 Archer street or 25/15 Zero Avenue, etc")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumber", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ThoroughfareNumber[*] thoroughfareNumber;
+
+	@GenModel(documentation="A container to represent a range of numbers (from x thru y)for a thoroughfare. eg. 1-2 Albert Av")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumberRange", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ThoroughfareNumberRange[*] thoroughfareNumberRange;
+
+	@GenModel(documentation="Prefix before the number. A in A12 Archer Street")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumberPrefix", namespace="##targetNamespace")
+	!resolve val ThoroughfareNumberPrefix[*] thoroughfareNumberPrefix;
+
+	@GenModel(documentation="Suffix after the number. A in 12A Archer Street")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumberSuffix", namespace="##targetNamespace")
+	!resolve val ThoroughfareNumberSuffix[*] thoroughfareNumberSuffix;
+
+	@GenModel(documentation="North Baker Street, where North is the pre-direction. The direction appears before the name.")
+	@ExtendedMetaData(kind="element", name="ThoroughfarePreDirection", namespace="##targetNamespace")
+	!resolve val ThoroughfarePreDirection thoroughfarePreDirection;
+
+	@GenModel(documentation="Appears before the thoroughfare name. Ed. Spanish: Avenida Aurora, where Avenida is the leading type / French: Rue Moliere, where Rue is the leading type.")
+	@ExtendedMetaData(kind="element", name="ThoroughfareLeadingType", namespace="##targetNamespace")
+	!resolve val ThoroughfareLeadingType thoroughfareLeadingType;
+
+	@GenModel(documentation="Specification of the name of a Thoroughfare (also dependant street name): street name, canal name, etc.")
+	@ExtendedMetaData(kind="element", name="ThoroughfareName", namespace="##targetNamespace")
+	!resolve val ThoroughfareName[*] thoroughfareName;
+
+	@GenModel(documentation="Appears after the thoroughfare name. Ed. British: Baker Lane, where Lane is the trailing type.")
+	@ExtendedMetaData(kind="element", name="ThoroughfareTrailingType", namespace="##targetNamespace")
+	!resolve val ThoroughfareTrailingType thoroughfareTrailingType;
+
+	@GenModel(documentation="221-bis Baker Street North, where North is the post-direction. The post-direction appears after the name.")
+	@ExtendedMetaData(kind="element", name="ThoroughfarePostDirection", namespace="##targetNamespace")
+	!resolve val ThoroughfarePostDirection thoroughfarePostDirection;
+
+	@GenModel(documentation="DependentThroughfare is related to a street; occurs in GB, IE, ES, PT")
+	@ExtendedMetaData(kind="element", name="DependentThoroughfare", namespace="##targetNamespace")
+	!resolve val DependentThoroughfare dependentThoroughfare;
+
+	@GenModel(documentation="Dependent localities are Districts within cities/towns, locality divisions, postal 
+divisions of cities, suburbs, etc. DependentLocality is a recursive element, but no nesting deeper than two exists (Locality-DependentLocality-DependentLocality).")
+	@ExtendedMetaData(kind="element", name="DependentLocality", namespace="##targetNamespace")
+	!resolve val DependentLocality dependentLocality;
+
+	@GenModel(documentation="Specification of a single premise, for example a house or a building. The premise as a whole has a unique premise (house) number or a premise name.  There could be more than 
+one premise in a street referenced in an address. For example a building address near a major shopping centre or raiwlay station")
+	@ExtendedMetaData(kind="element", name="Premise", namespace="##targetNamespace")
+	!resolve val Premise premise;
+
+	@GenModel(documentation="Specification of a firm, company, organization, etc. It can be specified as part of an address that contains a street or a postbox. It is therefore different from 
+a large mail user address, which contains no street.")
+	@ExtendedMetaData(kind="element", name="Firm", namespace="##targetNamespace")
+	!resolve val Firm firm;
+
+	@GenModel(documentation="PostalCode is the container element for either simple or complex (extended) postal codes. Type: Area Code, Postcode, etc.")
+	@ExtendedMetaData(kind="element", name="PostalCode", namespace="##targetNamespace")
+	!resolve val PostalCode postalCode;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":16", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="Does this thoroughfare have a a dependent thoroughfare? Corner of street X, etc")
+	@ExtendedMetaData(kind="attribute", name="DependentThoroughfares")
+	unsettable attr DependentThoroughfaresType dependentThoroughfares;
+
+	@GenModel(documentation="Corner of Street1 AND Street 2 where AND is the Connector")
+	@ExtendedMetaData(kind="attribute", name="DependentThoroughfaresConnector")
+	attr type.AnySimpleType dependentThoroughfaresConnector;
+
+	@GenModel(documentation="Corner of, Intersection of")
+	@ExtendedMetaData(kind="attribute", name="DependentThoroughfaresIndicator")
+	attr type.AnySimpleType dependentThoroughfaresIndicator;
+
+	@GenModel(documentation="STS in GEORGE and ADELAIDE STS, RDS IN A and B RDS, etc. Use only when both the street types are the same")
+	@ExtendedMetaData(kind="attribute", name="DependentThoroughfaresType")
+	attr type.AnySimpleType dependentThoroughfaresType;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":22", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="ThoroughfareLeadingTypeType", kind="mixed")
+class ThoroughfareLeadingType {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="ThoroughfareNameType", kind="mixed")
+class ThoroughfareName {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="ThoroughfareNumber_._type", kind="mixed")
+class ThoroughfareNumber {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="No. in Street No.12 or \"#\" in Street # 12, etc.")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="No.12 where \"No.\" is before actual street number")
+	@ExtendedMetaData(kind="attribute", name="IndicatorOccurrence")
+	unsettable attr IndicatorOccurrence4 indicatorOccurrence;
+
+	@GenModel(documentation="23 Archer St, Archer Street 23, St Archer 23")
+	@ExtendedMetaData(kind="attribute", name="NumberOccurrence")
+	unsettable attr NumberOccurrence numberOccurrence;
+
+	@GenModel(documentation="12 Archer Street is \"Single\" and 12-14 Archer Street is \"Range\"")
+	@ExtendedMetaData(kind="attribute", name="NumberType")
+	unsettable attr NumberTypeType1 numberType;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":7", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="ThoroughfareNumberFrom_._type", kind="mixed")
+class ThoroughfareNumberFrom {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	volatile transient derived !resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Prefix before the number. A in A12 Archer Street")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumberPrefix", namespace="##targetNamespace")
+	volatile transient derived !resolve val ThoroughfareNumberPrefix[*] thoroughfareNumberPrefix;
+
+	@GenModel(documentation="Eg.: 23 Archer street or 25/15 Zero Avenue, etc")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumber", namespace="##targetNamespace")
+	volatile transient derived !resolve val ThoroughfareNumber[+] thoroughfareNumber;
+
+	@GenModel(documentation="Suffix after the number. A in 12A Archer Street")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumberSuffix", namespace="##targetNamespace")
+	volatile transient derived !resolve val ThoroughfareNumberSuffix[*] thoroughfareNumberSuffix;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":6", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@GenModel(documentation="A-12 where 12 is number and A is prefix and \"-\" is the separator")
+@ExtendedMetaData(name="ThoroughfareNumberPrefix_._type", kind="mixed")
+class ThoroughfareNumberPrefix {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="NumberPrefixSeparator")
+	attr type.AnySimpleType numberPrefixSeparator;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="ThoroughfareNumberRange_._type", kind="elementOnly")
+class ThoroughfareNumberRange {
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	!resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Starting number in the range")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumberFrom", namespace="##targetNamespace")
+	!resolve val ThoroughfareNumberFrom[1] thoroughfareNumberFrom;
+
+	@GenModel(documentation="Ending number in the range")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumberTo", namespace="##targetNamespace")
+	!resolve val ThoroughfareNumberTo[1] thoroughfareNumberTo;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="\"No.\" No.12-13")
+	@ExtendedMetaData(kind="attribute", name="Indicator")
+	attr type.AnySimpleType indicator;
+
+	@GenModel(documentation="No.12-14 where \"No.\" is before actual street number")
+	@ExtendedMetaData(kind="attribute", name="IndicatorOccurrence")
+	unsettable attr IndicatorOccurrence1 indicatorOccurrence;
+
+	@GenModel(documentation="23-25 Archer St, where number appears before name")
+	@ExtendedMetaData(kind="attribute", name="NumberRangeOccurrence")
+	unsettable attr NumberRangeOccurrence numberRangeOccurrence;
+
+	@GenModel(documentation="Thoroughfare number ranges are odd or even")
+	@ExtendedMetaData(kind="attribute", name="RangeType")
+	unsettable attr RangeTypeType rangeType;
+
+	@GenModel(documentation="\"-\" in 12-14  or \"Thru\" in 12 Thru 14 etc.")
+	@ExtendedMetaData(kind="attribute", name="Separator")
+	attr type.AnySimpleType separator;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":10", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="ThoroughfareNumberSuffix_._type", kind="mixed")
+class ThoroughfareNumberSuffix {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@GenModel(documentation="NEAR, ADJACENT TO, etc
+12-A where 12 is number and A is suffix and \"-\" is the separator")
+	@ExtendedMetaData(kind="attribute", name="NumberSuffixSeparator")
+	attr type.AnySimpleType numberSuffixSeparator;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":4", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="ThoroughfareNumberTo_._type", kind="mixed")
+class ThoroughfareNumberTo {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Free format address representation. An address can have more than one line. The order of the AddressLine elements must be preserved.")
+	@ExtendedMetaData(kind="element", name="AddressLine", namespace="##targetNamespace")
+	volatile transient derived !resolve val AddressLine[*] addressLine;
+
+	@GenModel(documentation="Prefix before the number. A in A12 Archer Street")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumberPrefix", namespace="##targetNamespace")
+	volatile transient derived !resolve val ThoroughfareNumberPrefix[*] thoroughfareNumberPrefix;
+
+	@GenModel(documentation="Eg.: 23 Archer street or 25/15 Zero Avenue, etc")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumber", namespace="##targetNamespace")
+	volatile transient derived !resolve val ThoroughfareNumber[+] thoroughfareNumber;
+
+	@GenModel(documentation="Suffix after the number. A in 12A Archer Street")
+	@ExtendedMetaData(kind="element", name="ThoroughfareNumberSuffix", namespace="##targetNamespace")
+	volatile transient derived !resolve val ThoroughfareNumberSuffix[*] thoroughfareNumberSuffix;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":6", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="ThoroughfarePostDirectionType", kind="mixed")
+class ThoroughfarePostDirection {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="ThoroughfarePreDirectionType", kind="mixed")
+class ThoroughfarePreDirection {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="ThoroughfareTrailingTypeType", kind="mixed")
+class ThoroughfareTrailingType {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@GenModel(documentation="Used by postal services to encode the name of the element.")
+	@ExtendedMetaData(kind="attribute", name="Code")
+	attr type.AnySimpleType code;
+
+	@ExtendedMetaData(kind="attribute", name="Type")
+	attr type.AnySimpleType type;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="TypeOccurrence_._type")
+enum TypeOccurrence {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="TypeOccurrence_._1_._type")
+enum TypeOccurrence1 {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="TypeOccurrence_._2_._type")
+enum TypeOccurrence2 {
+	Before = 0;
+	After = 1;
+}
+
+@ExtendedMetaData(name="TypeOccurrence_._type:Object", baseType="TypeOccurrence_._type")
+datatype TypeOccurrenceObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="TypeOccurrence_._1_._type:Object", baseType="TypeOccurrence_._1_._type")
+datatype TypeOccurrenceObject1 : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="TypeOccurrence_._2_._type:Object", baseType="TypeOccurrence_._2_._type")
+datatype TypeOccurrenceObject2 : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="xAL_._type", kind="elementOnly")
+class Xal {
+
+	@GenModel(documentation="This container defines the details of the address. Can define multiple addresses including tracking address history")
+	@ExtendedMetaData(kind="element", name="AddressDetails", namespace="##targetNamespace")
+	!resolve val AddressDetails[+] addressDetails;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":1", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@GenModel(documentation="Specific to DTD to specify the version number of DTD")
+	@ExtendedMetaData(kind="attribute", name="Version")
+	attr type.AnySimpleType version;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="strict")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+

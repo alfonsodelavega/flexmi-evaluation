@@ -1,0 +1,3667 @@
+@GenModel(documentation="Contiene le classi con cui è possibile modellare l'applicazione.")
+@namespace(uri="http://www.csi.it/mddtools", prefix="guigen")
+package guigen;
+
+@GenModel(documentation="Rappresenta l'area di user interface specifica dell'applicazione, 
+innestata nella struttura comune solitamente definita dagli standard
+del sito di esposizione.")
+@logicpkg(pkg="app")
+class ApplicationArea {
+
+	@GenModel(documentation="Struttura del menu dell'applicazione.
+Il menu deve essere definito in questo punto, mentre la visualizzazione effettiva 
+dipende dalla particolare cartuccia di layout.
+In alcuni layout potrebbe esserci un unico modo di visualizzare il menu e la visualizzazione potrebbe essere di default
+(es. in alto sotto al banner dell'applicativo).
+In altri layout il menu deve essere inserito esplicitamente tramite un particolare
+widget denominato MenuView che viene espanso con la struttura del menu
+definita in questo elemento.")
+	val Menubar menubar;
+
+	@GenModel(documentation="[[TODO: add documentation here]]")
+	val Titlebar titlebar;
+
+	@GenModel(documentation="[[TODO: add documentation here]]")
+	val Statusbar statusbar;
+
+	@GenModel(documentation="Contiene i ContentPanel che costituiscono le schermate dell'applicazione.
+Deprecato (dalla v.1.3): definire le schermate in uno o più AppModule, 
+preferibilmente mantenuti su file separati.")
+	val ContentPanel[*] contentPanels;
+
+	@GenModel(documentation="[[TODO: add documentation here]]")
+	val StaticLinks staticLinks;
+
+	@GenModel(documentation="Comandi che vengono eseguiti all'inizializzazione dell'applicazione")
+	val Command onInitCommand;
+
+	@GenModel(documentation="Moduli applicativi (insiemi di ContentPanel). 
+Deprecato: utilizzare <b>extModules</b> e mantenere gli <b>AppModule</b>
+su file separati.")
+	val AppModule[*] modules;
+
+	@GenModel(documentation="Moduli applicativi (insiemi di ContentPanel). 
+Gli <b>AppModule</b> devono essere mantenuti su file separati.
+")
+	ref AppModule[*] extModules;
+
+	@GenModel(documentation="Il content panel che deve essere considerato la Home Page dell'applicativo.")
+	ref ContentPanel homePage;
+}
+
+@GenModel(documentation="Contiene la struttura del menu. ")
+@logicpkg(pkg="ui.menu")
+class Menubar {
+
+	@GenModel(documentation="Contiene il primo livello di voci di menu.")
+	val Menu[*] topLevelMenu;
+	attr boolean remoteInfoBox;
+}
+
+@GenModel(documentation="[[TODO: add documentation here]]")
+class Statusbar {
+}
+
+@GenModel(documentation="[[TODO: add documentation here]]")
+class Titlebar {
+}
+
+@GenModel(documentation="Il <b>Content Panel</b> rappresenta la singola schermata
+dell'applicativo. Pu&ograve; contenere pannelli strutturati con differenti
+tipi di layout.")
+@logicpkg(pkg="ui.panels")
+class ContentPanel {
+
+	@GenModel(documentation="Il pannello principale inserito nel content Panel.")
+	val Panel panels;
+
+	@GenModel(documentation="Nome identificativo del content panel. Deve essee univoco all'interno dell'
+applicazione.
+Deve essere un identificatore valido nello stile Java.")
+	attr String name;
+
+	@GenModel(documentation="Elenco degli <b>ApplicationData</b> utilizzabili per i binding di dati. 
+Deprecato: definire gli <b>ApplicationData</b> in uno o pi&ugrave; 
+<b>AppDataGroup</b>, mantenuti in file separati.")
+	ref ApplicationData[*] appData;
+
+	@GenModel(documentation="Comando che viene eseguito ad ogni refresh della pagina, sia che sia 
+conseguente all'invocazione di un event handler, sia che si tratti di un
+puro refresh o della visualizzazione iniziale.
+Nel caso sia conseguente all'invocazione di un <b>EventHandler</b>
+questo comando viene eseguito <b>prima</b> del comando associato.
+")
+	val Command onRefreshCommand;
+
+	@GenModel(documentation="Elenco dei <b>Dialog</b> di feedback associati al content panel.
+Devono essere attivati mediante il comando <b>ShowDialogCommand</b>.")
+	val DialogPanel[*] dialogs;
+
+	@GenModel(documentation="Stati di attivazione del ContentPanel")
+	val ScreenStates states;
+
+	@GenModel(documentation="Stato di attivazione del ContentPanel di default.")
+	ref ScreenState defaultState;
+
+	@GenModel(documentation="Contenitore dei comandi associati al content panel (vengono eseguiti in 
+differenti momenti a seconda del tipo di esecuzione del singolo comando)")
+	val CPCommands cpCommands;
+}
+
+@GenModel(documentation="Classe astratta dalla quale discendono tutti i pannelli")
+@logicpkg(pkg="ui.panels")
+abstract class Panel {
+
+	@GenModel(documentation="Codice identificativo del pannello. Deve essere univoco all'interno del
+<b>ContentPanel</b> e deve essere un identificatore valido java.")
+	attr String name;
+
+	@GenModel(documentation="Etichetta descrittiva del pannello. Il rendering e l'utilizzo di questo elemento
+dipende dal particolare sottotipo di pannello e dalla cartuccia di layout/portale.")
+	attr String label;
+
+	@GenModel(documentation="Il layout con cui devono essere organizzati visivamente gli elementi interni
+al pannello, che possono essere, a seconda del sottotipo di pannello,
+dei sottopannelli o dei widget.
+L'impostazioen della disposizione effettiva degli elementi interni, fissato un particolare layout,
+deve essere completata tramite un LayoutSpecifier (su ciascun elemento interno)
+coerente con il tipo di layout scelto (es. Se il layout è un GridLayout, negli elementi interni 
+occorre specificare un GrigWidgetLayoutSpec).")
+	val PanelLayout layout;
+
+	@GenModel(documentation="Specificatore del posizionamento di questo pannello all'intenro del layout
+del pannello contenitore.")
+	val WidgetLayoutSpecifier layoutSpec;
+
+	@GenModel(documentation="Determina la presenza di una cornice scrollabile attorno al pannello.
+Default = <i>false</i>")
+	attr boolean scrollable;
+}
+
+@GenModel(documentation="Pannello destinato a contenere sottopannelli. Serve principlamente per definire
+la struttura della user interface. Non tutte lel possibilità (di layout, di annidamento)
+sono disponibili pe rtutte le cartucce di layout/portale.")
+@uipaneldoc(description="<p>
+Il <b>FormPanel</b> &egrave; un pannello utilizzato principalmente per
+creare la macro struttura della schermata. E'un pannello destinato a 
+contenere altri pannelli con lo scopo di organizzarli in struttura secondo i vari
+layout disponibili. <br/>
+Il <b>FormPanel</b> tipicamente si colloca:
+<ul>
+<li>come pannello principale (pi&ugrave; esterno) della schermata;</li>
+<li>come pannello principale del singolo quadrante all'interno di un <b>FormPanel</b>
+con layout a quadranti (UDLRC)</li>
+<li>come contenitore di ciascun <i>item</i> di un pannello a <i>tab</i>
+o <i>wizard</i></li>
+<li>per ogni <i>item</i> di un <b>MultiPanel</b></li>
+</ul>
+Il <b>FormPanel</b> pu&ograve; essere dotato di <i>titolo</i>. Nel caso di
+<b>FormPanel</b> utilizzato all'interno di un <b>TabSetPanel</b> tale titolo 
+&egrave; utilizzato come etichetta del tab corrispondente, mentre nel caso in cui sia
+utilizzato all'interno di un <b>WizardPanel</b> il titolo viene visualizzato come
+nome dello <i>step</i> corrispondente.
+Il <b>FormPanel</b> non pu&ograve; contenere widget, ma solo sottopannelli.
+</p>")
+@logicpkg(pkg="ui.panels")
+class FormPanel extends Panel {
+
+	@GenModel(documentation="Un <B>FormPanel</b> contiene uno o più sottopannelli organizzati in 
+vari tipi di layout. La disposizione effettiva dei sottopannelli all'interno del
+<b>FormPanel</b> dipende da:
+<ul>
+<li>il tipo di layout associato al pannello</li>
+<li>lo specificatore associato a ciascun sottopannello</li>
+</ul>")
+	val Panel[*] subpanels;
+
+	@GenModel(documentation="OBSOLETO: NON UTILIZZARE: utilizzare un <b>WidgetsPanel</b> o un
+<b>CommandPanel</b> interni al <b>FormPanel</b> ed inserire lì i
+widget.")
+	val Widget[*] widgets;
+
+	@GenModel(documentation="Se <i>true</i> il pannello &egrave; collassabile.")
+	attr boolean collapsible = false;
+}
+
+@GenModel(documentation="Pannello a visualizzazione alternativa. Permette di visualizzare uno solo 
+dei pannelli definiti nella collezione <i>panels</i>.
+Per visualizzare uno specifico pannello occorre utilizzare il comando
+<b>ActivateMultipanelItem</b>.
+Lo statoiniziale di questo pannello &egrave; la non visualizzazione di nessun pannello.")
+@uipaneldoc(description="<p>
+Il <b>MultiPanel</b> &egrave; un pannello utilizzato per realizzare pannelli <i>mutevoli</i>, ovvero che 
+assumono programmaticamente le sembianze di uno tra <i>n</i> pannelli possibili. Esiste anche la 
+possibilit&agrave; di non visualizzare nessun pannello: in quesot cao il <b>MultiPanel</b> non produce nessuna
+struttura visualizzata. Il <b>MultiPanel</b> &egrave; lo strumento principale da utilizzare nel caso in cui sia 
+necessaria la scomparsa di un intero pannello (cosa che non &egravE; possibile realizzare esclusivamente
+con i comandi di visibilit&agrave; sui <b>Widget</b>).
+<br/>
+All'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.
+</p>")
+@logicpkg(pkg="ui.panels")
+class MultiPanel extends Panel {
+
+	@GenModel(documentation="I pannelli visualizzabili in alternativa")
+	val Panel[*] panels;
+}
+
+@GenModel(documentation="Tipo specifico di <b>MultiPanel</b> corredato di componente di controllo
+a \"tab\": per passare da un tab all'altro è sufficiente selezionare la \"linguetta\" 
+corrispondente.
+Come per tutti i <b>MultiPanel</b> il programmatore avrà nel model le informazioni
+riguardanti:
+<ul>
+<li>il tab correntemente visualizzato</li>
+<li>il tab \"target\" (quello sulla cui 2linguetta\" si è cliccato; questa informazione 
+&egrave; disponibile solo all'interno di un <b>EventHandler</b> associato
+ al widget fittizio <b>TabSwitcher</b>)</li>.
+</ul>
+Il primo tab è quello visualizzato di default.")
+@uipaneldoc(description="<p>
+Il <b>TabSetPanel</b> &egrave; un pannello utilizzato realizzare strutture organizzate
+a <i>tab</i>. Prevede due sezioni visibili:
+<ol>
+<li>la lista di &quot; linguette &quot; che servono per attivare i vari <i>tab</i> 
+(con evidenza visiva del tab correntemente selezionato)</li>
+<li>la sezione in cui viene visualizzato il contenuto del <i>tab</i> correntemente selezionato.</li>
+</ol>
+All'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.
+</p>")
+@logicpkg(pkg="ui.panels")
+class TabSetPanel extends MultiPanel {
+
+	@GenModel(documentation="Il <b>TabSwitcher</b> &egrave; un widget fittizio che, se inserito, permette
+di effettuar eil post dei dati e l'esecuzione di logica a fronte dell'evento di
+selezione (click) delle \"linguette\".
+")
+	val TabSwitcher switcher;
+}
+
+@GenModel(documentation="Classe astratta dalla quale discendono tutti i vari tipi di widget.")
+@logicpkg(pkg="ui.widgets")
+abstract class Widget {
+
+	@GenModel(documentation="Codice identificativo del widget. Deve essere univoco all'interno del 
+<b>ContentPanel</b> che lo contiene e deve essere un identificativo
+valido java.")
+	attr String name;
+
+	@GenModel(documentation="Etichetta associata al widget.")
+	attr String label;
+
+	@GenModel(documentation="Specifica di posizionamento del widget all'interno del pannello che lo contiene.
+Il tipo dell'oggetto associato deve essere coerente con il tipo di layout del
+pannello contenitore.")
+	val WidgetLayoutSpecifier layoutSpec;
+
+	@GenModel(documentation="Gestori degli eventi associati al widget. Le tipologie di evento gestite sono
+dipendenti dal particolare tipo di widget.")
+	val EventHandler[*] eventHandlers;
+
+	@GenModel(documentation="E' possibile specificare uno o pi&ugrave; security constraints sul widget, che
+permettono di rendere condizionata la visualizzazione o la abilitazione del
+widget a fronte delle condizioni descritte nel constraint.
+I constraint sono additivi (nel senso booleano) per ciascun <i>constrained behavior</i>
+(comportamento condizionato = {visibilit&agrave; / abilitazione}): se almeno un
+constraint &egrave; verificato il comportamento condizionato sar&agrave; abilitato
+(visibilit&agrave; / editabilit&agrave;).
+Se nessun constraint sar&agrave; verificato, la visualizzazioen/abilitazione sarà condizionata solo allo stato
+di default / comandato, ovvero al valore delle proprietà <b>defaultVisible</b> o 
+<b>defaultEnabled</b> se non è stato in precedenza utilizzato nessun
+comando di tipo <b>ONOFFCommand</b> o <b>VisibilityCommand</b>; se 
+tali comandi sono stati utilizzati allora \"vince\" l'impostazione derivante da
+questi comandi.
+Se, infine, un constraint &egrave; verificato, comunque un eventuale
+disabilitazione/invisibilit&agrave; comandata (tramite <b>ONOFFCommand</b>
+ o <b>VisibilityCommand</b>) vince.")
+	val UISecurityConstraint[*] securityConstraints;
+
+	@GenModel(documentation="stato di visibilit&agrave; di default del widget")
+	attr boolean defaultVisible = true;
+
+	@GenModel(documentation="stato di abilitazione di default del widget")
+	attr boolean defaultEnabled = true;
+
+	@GenModel(documentation="tooltip associato alla etichetta del widget")
+	attr String tooltip;
+
+	@GenModel(documentation="Se impostato a <i>true</i> e se le features ricche sono abilitate (nella 
+<b>TargetPlatform</b>) allora il widget sar&agrave; arricchito, altrimenti non
+sar&agrave; applicato nessun arricchimento.
+Il valore di default è <i>true</i> ")
+	attr Boolean enableEnrichment;
+}
+
+@GenModel(documentation="Classe astratta di widget con funzione di comando (es pulsanti)")
+@logicpkg(pkg="ui.widgets")
+class CommandWidget extends Widget {
+	attr CommandFunctions functionSpecifier = "0";
+}
+
+@GenModel(documentation="Classe astratta dalla quale discendono tutte le classi che rappresentano
+widget associabili a dati (<b>ApplicationData</b>). Un <b>DataWidget</b>
+ha un concetto di <i>valore</i> del widget che rappresenta l'input inserito.")
+@logicpkg(pkg="ui.widgets")
+class DataWidget extends Widget {
+
+	@GenModel(documentation="[[TODO: add documentation here]]")
+	attr String dataTypeModifier;
+
+	@GenModel(documentation="Il binding verso l' <b>ApplicationData</b> nel quale deve essere inserito
+il valore immesso dall'utente tramite il widget.")
+	val AppDataBinding databinding;
+
+	@GenModel(documentation="Tipo del valore atteso. Deve essere un <b>SimpleType</b> e deve corrispondenre con il tipo del
+binding eventualmente associato.
+Se non viene associato nessun binding, esiste comunque un binding implicito
+a scope USER_ACTION (sconsigliato).")
+	ref Type dataType;
+
+	@GenModel(documentation="Configurazione di validazione che indica che il valore associato al widget è obbligatorio. 
+Utilizzato solo nel caso di binding ad un application data non strutturato.
+Nel caso di binding con un field di un application data di tipo strutturato, 
+l'eventuale constraint di obbligatoriet&agrave; deve essere impostato nel <b>ComplexType</b>.")
+	attr boolean required = false;
+}
+
+@GenModel(documentation="Superclasse di tutti i pulsanti.")
+@uiwidgetdoc(description="E' il classico pulsante di comando utilizzabile per comandare l'esecuzione
+delle varie funzioni applicative (ricerca, inserimento, verifica, conferma, ....)
+Il <b>Button</b> pu&ograve; essere utilizzato all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il
+pulsante ad altri widget (es. pulsanti di lookup)</li>
+<li>CommandPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario
+realizzare una \"pulsantiera\" costituita da soli <b>Button</b></li>
+</ul>
+Prevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una
+<i>ricca</i>.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base del Button prevede:
+<ul>
+<li>la possibilit&agrave; di essere disabilitato a comando</li>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+<li>la possibilit&agrave; di associare al pulsante uno <i>specificatore di funzione</i>,
+che pu&ograve; essere utilizzato per connotare la funzione che eseguir&agrave;
+tale pulsante, con l'effetto, ad esempio di permettere l'associazione di uno
+stile specifico o di un'icona rappresentativa della funzone stessa.
+L'elenco delle funzioni specificabili &egrave il seguente:
+	<ul>
+	<li>ADD_ITEM: aggiunta di un elemento ad un insieme di dati/tabella</li>
+	<li>BACK: ritorno ad una schermata precedente</li>
+	<li>CANCEL: risposta negativa ad una richiesta di conferma di esecuzione di comando</li>
+	<li>CONFIRM: risposta positiva ad una richiesta di conferma di esecuzione di comando</li>
+	<li>DELETE_ITEM: eliminazione di un elemento da un insieme di dati/tabella</li>
+	<li>DETAIL: visualizzazione del dettaglio di una entit&agrave;</li>
+	<li>EDIT_ITEM: inizio delle attivit&agrave; di modifica di un'entit&agrave;</li>
+	<li>FIRST_ITEM: posizionamento sul primo elemento di un elenco di dati</li>
+	<li>FORWARD: prosecuzione al prossimo passo di una serie di passi guidati</li>
+	<li>LAST_ITEM: posizionamento sull'ultimo elemento di un elenco di dati</li>
+	<li>LOAD: caricamento di un record</li>
+	<li>NEXT_ITEM: posizionamento sul prossimo elemento di un elenco di dati</li>
+	<li>PREVIOUS_ITEM: posizionamento sull'elemento precedente a quello corrente
+		 all'interno di un elenco di dati</li>
+	<li>SAVE: salvataggio dei dati immessi</li>
+	<li>SEARCH: effettuazione della ricerca</li>
+	<li>SEND_MESSAGE: invio di un messaggio (es. email)</li>
+	<li>SHOW_HELP: visualizzazione di una pagina di aiuto</li>
+	<li>SHOW_REPORT: visualizzazione di un report</li>
+	<li>UNSPECIFIED: funzione generica</li>
+	</ul>
+</li>
+</ul>
+<h4>modalit&agrave; ricca</h4>
+La modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:
+<ul>
+<li>possibilit&agrave; di effettuare un refresh parziale della schermata 
+a fronte dell'esecuzione del comando associato alla pressione del pulsante</li>
+</ul>", "event-clicked"="<p>Il pulsante pu&ograve ricevere un evento di pressione da parte 
+dell'utente e, a fronte di questo evento &egrave; possibile eseguire logica
+di business. Esistono due modalit&agrave; di esecuzione della logica 
+associata: <i>standard</i> e <i>ricca</i>.
+<h5>modalit&agrave; standard</h5>
+Alla pressione del pulsante viene eseguita la logica applicativa associata
+e, al termine dell'esecuzione viene ricaricata l'intera schermata
+oppure il flusso passa ad una schermata differente.
+<h5>modalit&agrave; ricca</h5>
+Alla pressione del pulsante viene eseguita la logica applicativa associata. Durante
+l'esecuzione viene sospesa l'interazione utente e viene visualizzato un
+indicatore di \"operazione in corso\".
+Al termine dell'esecuzione i possibili effetti sono:
+<ul>
+<li>il refresh dell'intera schermata corrente, con mantenimento della
+posizione delle eventuali scrollbar</li>
+<li>il refresh di una porzione specifica di schermata</li>
+<li>il passaggio del flusso ad una schermata differente</li>
+</ul>
+</p>")
+@logicpkg(pkg="ui.widgets")
+class Button extends CommandWidget {
+
+	@GenModel(documentation="PER FUTURE ESPANSIONI")
+	attr String image;
+}
+
+@GenModel(documentation="DataWidget per l'immissione di testo.")
+@uiwidgetdoc(description="E' il classico widget di immissione di dati testuali a riga singola.
+Il widget completo prevede una <i>label</i> ed il campo di immissione associato.
+La <i>label</i> pu&ograve; essere, in casi particolari, vuota.
+Il <b>TextField</b> pu&ograve; essere utilizzato all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>
+</ul>
+Prevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una
+<i>ricca</i>.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base del TextField prevede:
+<ul>
+<li>la possibilit&agrave; di specificare il numero massimo di caratteri
+accettabili</li>
+<li>la possibilit&agrave; di specificare la dimensione massima dell'area editabile
+(che &egrave; utilizzata in modi differenti a seconda della cartuccia/skin)</li>
+<li>la possibilit&agrave; di effettuare, al momento del submit della form,
+la validazione dell'input immesso a seconda del tipo di dato associato 
+al campo e di alcuni ulteriori specifiche</li>
+<li>la possibilit&agrave; di essere disabilitato a comando</li>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita
+validazione</li>
+</ul>
+<h4>modalit&agrave; ricca</h4>
+La modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:
+<ul>
+<li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo
+di dato previsto (es. solo caratteri numerici per tipi numerici)</li>
+<li>verifiche client side al momento della digitazione di rispetto della dimensione massima del dato</li>
+<li>tooltip al passaggio del cursore sulla label del widget</li>
+</ul>
+Inoltre &egrave; possibile, se esplicitamente modellato, associare al <b>TextField</b> la
+funzionalit&agrave; di <i>suggestion</i> che consiste nel fornire, man mano che si digitano i 
+caratteri nel campo di testo, una lista di voci che corrispondono nella loro parte iniziale alla stringa
+di caratteri immessa fino a quel momento (la logica di costruzione progressiva della lista di 
+suggerimenti &egrave; a carico dello sviluppatore).", "event-key-pressed"="<p>L'evento <b>KeyPressed</b>, utilizzabile solo in modalit&agrave; ricca, 
+permette di ottenere la funzione di <i>suggestion</i>
+</p>")
+@logicpkg(pkg="ui.widgets")
+class TextField extends DataWidget, MultiDataWidget {
+
+	@GenModel(documentation="Dimensione in caratteri dell area visibile del campo.")
+	attr int fieldLength = 15;
+
+	@GenModel(documentation="Numero massimo di caratteri digitabili")
+	attr int fieldMaxLength;
+}
+
+@GenModel(documentation="Campo di immissione testo multilinea.")
+@uiwidgetdoc(description="E' il classico widget di immissione di dati testuali a riga multipla.
+Il widget completo prevede una <i>label</i> ed l'area di immissione associata.
+La <i>label</i> pu&ograve; essere, in casi particolari, vuota.
+La <b>TextArea</b> pu&ograve; essere utilizzata all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>
+</ul>
+Prevede due modalit&agrave; di funzionamento: standard e ricca.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base della TextArea prevede:
+<ul>
+<li>la possibilit&agrave; di specificare la dimensione in righe/colonne
+dell'area editabile</li>
+<li>la possibilit&agrave; di effettuare, al momento del submit della form,
+la validazione dell'input immesso a seconda del tipo di dato associato 
+al campo e di alcuni ulteriori specifiche</li>
+<li>la possibilit&agrave; di essere disabilitato a comando</li>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita
+validazione</li>
+</ul>
+<h4>modalit&agrave; ricca</h4>
+La modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:
+<ul>
+<!-- <li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo
+di dato previsto (es. solo caratteri numerici per tipi numerici)</li>
+<li>verifiche client side al momento della digitazione di rispetto della dimensione massima del dato</li> -->
+<li>tooltip al passaggio del cursore sulla label del widget</li>
+</ul>")
+@logicpkg(pkg="ui.widgets")
+class TextArea extends DataWidget {
+
+	@GenModel(documentation="Dimensione in righe dell'area di input. Se nell'input si supera il numero
+di righe specificate appare una scrollbar verticale.")
+	attr int rows = 10;
+
+	@GenModel(documentation="Dimensione in colonne dell'area di input. Se nell'input si supera il numero
+di colonne specificate appare una scrollbar orizzontale.")
+	attr int columns = 30;
+}
+
+@GenModel(documentation="[[TODO: add documentation here]]")
+@logicpkg(pkg="mdl.types")
+enum WidgetDataType {
+	STRINGA = 0;
+	NUMERICO = 0;
+	DATA = 0;
+	ORA = 0;
+	DATAORA = 0;
+}
+
+@GenModel(documentation="Campo di immissione per date, con strumento per la selezione della data
+(date picker).")
+@uiwidgetdoc(description="E' un campo utilizzabile per l'immissione di date (nel formato gg/mm/aaaa).
+Il widget completo prevede una <i>label</i> ed il campo di immissione associato.
+La <i>label</i> pu&ograve; essere, in casi particolari, vuota.
+Il <b>Calendar</b> pu&ograve; essere utilizzato all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>
+</ul>
+Prevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una
+<i>ricca</i>.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base del Calnedar prevede:
+<ul>
+<li>la limitazione automatica del numero di caratteri digitabili (gg/mm/aaa=10)</li>
+<li>la possibilit&agrave; di effettuare, al momento del submit della form,
+la validazione dell'input immesso (che deve necessariamente essere di tipo \"DATA\")</li>
+<li>la possibilit&agrave; di essere disabilitato a comando</li>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita
+validazione</li>
+</ul>
+<h4>modalit&agrave; ricca</h4>
+La modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:
+<ul>
+<li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo
+di dato previsto (maschera GG/MM/AAAA)</li>
+<li><i>date-picker</i>: strumento di selezione della data a partire da mini-calendario</li>
+<li>tooltip al passaggio del cursore sulla label del widget</li>
+</ul>")
+@logicpkg(pkg="ui.widgets")
+class Calendar extends DataWidget {
+
+	@GenModel(documentation="se valorizzato a <i>true</i> permette all'utente la scelta dell'anno tramite una
+dropdown list")
+	attr boolean selectYear = false;
+
+	@GenModel(documentation="se valorizzato a <i>true</i> permette all'utente la scelta del mese tramite una
+dropdown list")
+	attr boolean selectMonth = false;
+
+	@GenModel(documentation="permette di specificare il range di selezione dell'anno (utilizzato solo se 
+<i>selectYear = true</i>:
+<ul>
+<li>\"-nn:+nn\" : range relativo all'anno corrente (es. \"-100:+50\") </li>
+<li>\"c-nn:c+nn\" : range relativo all'anno correntemente selezionato (es. \"c-5:c+5\") </li>
+<li>\"-nnnn:+nnnn\" : range assoluto (es. \"-1950:+1999\") </li>
+</ul>")
+	attr String selectYearRange;
+}
+
+@GenModel(documentation="MultiDataWidget che permette la selezione di uno o più valori all'interno di 
+un elenco di possibili opzioni.
+Se il value-binding &egrave; impostato su un <b>ApplicationData</b> di tipo
+Simple la combo sar&agrave; a selezione singola; se il value-binding &egrave; impostato su un <b>ApplicationData</b> di tipo
+TypedArray (con component type Simple) la combo sar&agrave; a selezione multipla.
+Alla combo &egrave; possibile associare un event handler relativo all'evento
+VALUE_CHANGED, che viene scatenato nel momento un cui viene modificata la selezione.")
+@uiwidgetdoc(description="E' il widget di selezione di uno (o pi&ugrave;) dati a partire da una lista di dati precaricata.
+Il widget completo prevede una <i>label</i> ed il campo di immissione associato.
+La <i>label</i> pu&ograve; essere, in casi particolari, vuota.
+Il <b>ComboBox</b> pu&ograve; essere utilizzato all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>
+</ul>
+Prevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una
+<i>ricca</i>.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base del TextField prevede:
+<ul>
+<li>la possibilit&agrave; di specificare per ogni elemento della lista,
+un valore visualizzato e la corrispondente chiave, utilizzata come valore
+effettivamente seleizonato e utilizzabile dalla logica applicativa</li>
+<li>la scelta tra selezione singola o multipla</li>
+<li>la possibilit&agrave; di effettuare, al momento del submit della form,
+la validazione dell'input immesso a seconda del tipo di dato associato 
+al campo e di alcuni ulteriori specifiche</li>
+<li>la possibilit&agrave; di essere disabilitato a comando</li>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita
+validazione</li>
+</ul>
+<h4>modalit&agrave; ricca</h4>
+La modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:
+<ul>
+<li>funzione di <i>autocomplete</i> (restrizione dell'elenco di opzioni a fronte dell'immissione 
+progressiva dei caratteri iniziali della selezione stessa)</li>
+<li>tooltip al passaggio del cursore sulla label del widget</li>
+</ul>
+<!-- Inoltre &egrave; possibile, se esplicitamente modellato, associare alla <b>ComboBox</b> la
+funzionalit&agrave; di <i>suggestion</i> che consiste nel fornire, man mano che si digitano i 
+caratteri nel campo di testo, una lista di voci che corrispondono nella loro parte iniziale alla stringa
+di caratteri immessa fino a quel momento (la logica di costruzione progressiva della lista di 
+suggerimenti &egrave; a carico dello sviluppatore). -->", "event-value-changed"="<p>E'possibile, a fronte della selezione da parte dell'utente di una delle
+opzioni presenti nella lista, scatenare una logica applicativa e modificare di
+conseguenza la schermata visualizzata. Esistono due modalit&agrave; di esecuzione della logica 
+associata: <i>standard</i> e <i>ricca</i>.
+<h5>modalit&agrave; standard</h5>
+Alla selezione di una opzione dalla lista viene eseguita la logica applicativa associata
+e, al termine dell'esecuzione viene ricaricata l'intera schermata
+oppure il flusso passa ad una schermata differente.
+<h5>modalit&agrave; ricca</h5>
+Alla selezione di una opzione dalla lista viene eseguita la logica applicativa associata. Durante
+l'esecuzione viene sospesa l'interazione utente e viene visualizzato un
+indicatore di \"operazione in corso\".
+Al termine dell'esecuzione i possibili effetti sono:
+<ul>
+<li>il refresh dell'intera schermata corrente, con mantenimento della
+posizione delle eventuali scrollbar</li>
+<li>il refresh di una porzione specifica di schermata</li>
+<li>il passaggio del flusso ad una schermata differente</li>
+</ul>
+</p>")
+@logicpkg(pkg="ui.widgets")
+class ComboBox extends DataWidget, MultiDataWidget {
+
+	@GenModel(documentation="nome del campo che deve essere considerato come \"key\". Il campo deve
+corrispondere ad un field del complex type di cui è costituito l'array
+collegato alla combo (tramite multi-data-binding).")
+	attr String keySelector;
+
+	@GenModel(documentation="nome del campo che deve essere utilizzato come descrizione visualizzata. Il campo deve
+corrispondere ad un field del complex type di cui è costituito l'array
+collegato alla combo (tramite multi-data-binding).")
+	attr String valueSelector;
+
+	@GenModel(documentation="Se impostato a true non viene inserita la entry relativa allo stato di selezione nulla.")
+	attr boolean omitHeaderValue = false;
+
+	@GenModel(documentation="Dimensione in caratteri dell area visibile del campo.")
+	attr int fieldLength = 15;
+
+	@GenModel(documentation="numero di linee visibili senza bisogno di utilizzare la scrollbar in caso di 
+<b>ComboBox</b> a selezione <i>multipla</i>. Se impostato a zero il numero di 
+linee visualizzabili non &egrave; predicibile. Nel caso di selezione singola invece
+l'attributo non ha effetto.")
+	attr int visibleLines;
+}
+
+@GenModel(documentation="Tabella di visualizzazione dati. Permette di visualizzare in formato tabellare
+una collezione di record.
+Mette a disposizione alcune funzioni avanzate:
+<ol>
+<li>paginazione
+  <ul>
+  <li>opzionale</li>
+  <li>con possibilit&agrave; di impostare la dimensione della \"pagina\"</li>
+  <li>resettabile da business logic</li>
+  </ul>
+</li>  
+<li>export dei dati
+  <ul>
+  <li>opzionale</li>
+  <li>in formato PDF, XLS, RTF</li>
+  </ul>
+</li>
+<li>Con selezione della riga (&egrave; è il valore associato al DataWidget Table, utilizzabile nella business logic
+  <ul>
+  <li>opzionale (abilitata solo se è impostato un databinding/valuebinding)</li>
+  <li>singola o multipla (a seconda del tipo del databinding/valuebinding)</li>
+  </ul>
+</li>
+<li>Con possibilit&agrave; di editing delle celle
+  <ul>
+  <li>con widget di editing differenziato a seconda del tipo del dato della cella (TextField se Stringa/numerico, checkbox se boolean</li>
+  <li>con possibilit&agrave; di scegliere a runtime se una singola cella deve essere editabile o meno</li>
+  <li>con possibilit&agrave; di prendere il valore della cella da una collection (tramite combobox); la collection può essere unica per tutta la colonna o variabile per la singola riga</li>
+  </ul>
+</li>
+</ol>")
+@uiwidgetdoc(description="E' il classico widget di visualizzazione/editing di dati in formato tabellare.
+<!--Il widget completo prevede una <i>label</i> ed il campo di immissione associato.
+La <i>label</i> pu&ograve; essere, in casi particolari, vuota.-->
+La <b>Table</b> pu&ograve; essere utilizzata all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia; N.B: deve
+essere l'unico widget all'interno del pannello</li>
+</ul>
+Prevede tre modalit&agrave; di funzionamento, una <i>standard/visualizzazione</i>,
+una <i>standard/editing</i> ed una <i>ricca</i>.
+<h4>modalit&agrave; standard/visualizzazione</h4>
+Il funzionamento di base della Table prevede:
+<ul>
+<li>la possibilit&agrave; di visualizzare le informazioni contenute in una 
+collezione di record, con formattazioen dell'informazione coerente con il tipo di dato
+di ciascuna colonna</li>
+<li>la possibilit&agrave; (opzionale) di effettuare l'ordinamento delle righe in base ai valori
+contenuti in una colonna</li>
+<li>la possibilit&agrave; (opzionale) di <b>paginare</b> i risultati (con dimensione della pagina impostabile)</li>
+<li>la possibilit&agrave; (opzionale) di effettuare l'<b>export</b> dei dati della tabella in formato excel o pdf</li>
+<li>la possibilit&agrave; (opzionale) di <b>selezione</b> singola o multipla delle righe della Tabella, allo scopo
+di eseguire logiche applicative sulle righe selezionate (l'esecuzione della logica deve essere comandata in un momento
+successivo alla selezione da un <b>Button</b> posto nella stessa schermata)</li>
+<li>la possibilit&agrave; di effettuare, al momento del submit della form,
+la validazione dell'input immesso a seconda del tipo di dato associato 
+al campo e di alcuni ulteriori specifiche</li>
+<li>la possibilit&agrave; di essere disabilitata a comando</li>
+<li>la possibilit&agrave; di essere resa invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitata/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+<!--<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita
+validazione</li>-->
+</ul>
+<h4>modalit&agrave; standard/editing</h4>
+Ripsetto alla modalit&agrave; <i>standard/visualizzazione</i> la modalit&agrave; <i>standard/editing</i>
+prevede alcune possibilit&agrave; aggiuntive:
+<ul>
+<li><b>editing <i>in place</i></b> delle celle di una colonna:
+	<ul>
+	<li>il <b>widget di editing</b> della cella dipende dal tipo di dato associato alla colonna:
+		<ul>
+		<li><b>Calendar</b> in caso di tipo DATA</li>
+		<li><b>CheckBox</b> in caso di tipo BOOLEAN</li>
+		<li><b>TextField</b> in tutti gli altri casi</li>
+		</ul>
+	</li>
+	<li>&egrave; possibile selezionare il valore di una cella da una <b>lista di valori</b> (in questo caso il widget utilizzato
+		per l'immissione &egrave; la <b>ComboBox</b>); l'elenco dei valori selezionabili pu&ograve; essere comune a tutte le
+		righe oppure specifico per ciascuna riga
+	</li>
+	<li>&egrave; possibile, nell'ambito di una colonna dichiarata <i>editabile</i>, decidere a runtime l'editabilit&agrave;
+		della singola cella (nel qual caso il widget corrispondente apparir&agrave; disabilitato)
+	</li>
+	</ul>
+</li>
+</ul>
+<h4>modalit&agrave; ricca</h4>
+La modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:
+<ul>
+<li>tooltip al passaggio del cursore sull'intestazione delle colonne</li>
+<li>refresh della sola area della tabella in caso di esecuzione delle funzioni di ordinamento e paginazione</li>
+<li>possibilit&agrave; di ridimensionare/cambiare l'ordine/nascondere le colonne della tabella interattivamente</li>
+</ul>", "event-clicked"="<p>In una tabella &egrave; possibile rendere \"attive\" le celle di alcune
+colonne (purchè esse non siano editabili). L'evento \"clicked\" &egrave; proprio il \"click\" dell'utente 
+su tali celle. 
+E'possibile, a fronte ddi questo evento, scatenare una logica applicativa e modificare di
+conseguenza la schermata visualizzata. Esistono due modalit&agrave; di esecuzione della logica 
+associata: <i>standard</i> e <i>ricca</i>.
+<h5>modalit&agrave; standard</h5>
+Al click di una cella viene eseguita la logica applicativa associata
+e, al termine dell'esecuzione viene ricaricata l'intera schermata
+oppure il flusso passa ad una schermata differente.
+<h5>modalit&agrave; ricca</h5>
+Alla click di una cella viene eseguita la logica applicativa associata. Durante
+l'esecuzione viene sospesa l'interazione utente e viene visualizzato un
+indicatore di \"operazione in corso\".
+Al termine dell'esecuzione i possibili effetti sono:
+<ul>
+<li>il refresh dell'intera schermata corrente, con mantenimento della
+posizione delle eventuali scrollbar</li>
+<li>il refresh di una porzione specifica di schermata</li>
+<li>il passaggio del flusso ad una schermata differente</li>
+</ul>
+</p>")
+@logicpkg(pkg="ui.widgets")
+class Table extends DataWidget, MultiDataWidget {
+
+	@GenModel(documentation="Il modello delle colonne che la tabella dovr&agrave; visualizzare.")
+	val ColumnModel columnModel;
+
+	@GenModel(documentation="Numero di record max visualizzati in una pagina. 
+Un valore di \"0\" significa che la paginazione &egrave; disabilitata: in 
+questo caso vengono visualizzati tutti i record.")
+	attr int pageSize;
+
+	@GenModel(documentation="Se impostato a true abilita l'export della tabella.")
+	attr boolean enableExport = true;
+
+	@GenModel(documentation="Se impostato a true abilita la definizione di un CustomDecorator, 
+per impostazioni grafiche particolari a livello di intera riga")
+	attr boolean customDecorator;
+	attr String summary;
+}
+
+@GenModel(documentation="Vidget a due valori: on/off. Il tipo associato deve essere un Boolean")
+@uiwidgetdoc(description="E' il classico widget di selezione di un valore booleano (si/no).
+Il widget completo prevede una <i>label</i> ed il campo di immissione associato.
+La <i>label</i> pu&ograve; essere, in casi particolari, vuota.
+Il <b>CheckBox</b> pu&ograve; essere utilizzato all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>
+</ul>
+Prevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una
+<i>ricca</i>.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base del CheckBox prevede:
+<ul>
+<li>la possibilit&agrave; di effettuare, al momento del submit della form,
+la validazione dell'input immesso (es . campo required)</li>
+<li>la possibilit&agrave; di essere disabilitato a comando</li>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita
+validazione</li>
+</ul>
+<h4>modalit&agrave; ricca</h4>
+La modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:
+<ul>
+<li>tooltip al passaggio del cursore sulla label del widget</li>
+</ul>
+")
+@logicpkg(pkg="ui.widgets")
+class CheckBox extends DataWidget {
+}
+
+@GenModel(documentation="Modello di un'applicazione")
+class GUIModel {
+
+	@GenModel(documentation="Struttura della user interface")
+	val GUIStructure structure;
+
+	@GenModel(documentation="[[TODO: add documentation here]]")
+	val GUIBehaviors beahviors;
+
+	@GenModel(documentation="codice prodotto (caratteri minuscoli)")
+	attr String codProdotto;
+
+	@GenModel(documentation="codice componente (caratteri minuscoli)")
+	attr String codComponente;
+
+	@GenModel(documentation="versione del prodotto")
+	attr String versioneProdotto;
+
+	@GenModel(documentation="versione del componente")
+	attr String versioneComponente;
+
+	@GenModel(documentation="Tipi utilizzati nell'applicazione.
+")
+	val Typedefs typedefs;
+
+	@GenModel(documentation="Definizione degli application data utilizzati nell'applicazione")
+	val ApplicationDataDefs appDataDefs;
+
+	@GenModel(documentation="OBSOLETE. Il poretale/cartuccia di layout èeve essere impostata nel workflow di generazione.")
+	attr PortalNames portale;
+
+	@GenModel(documentation="Modello di sicurezza dell'applicazione.
+DEPRECATO: utilizzare un securitymodel definito esternamente e referenziato
+nella property extSecurityModel")
+	val SecurityModel securityModel;
+
+	@GenModel(documentation="Modello di sicurezza dell'applicazione.
+Deve essere definito esternamente in un modello apposito.")
+	ref SecurityModel extSecurityModel;
+
+	@GenModel(documentation="Serve per generare un pacchetto deployabile su un application server piuttosto che per un altro.")
+	val TargetPlatform targetPlatform;
+
+	@GenModel(documentation="Configurazione delle (eventuali) specifiche di attivazione dell'applicazione.")
+	val ActivationModel activationModel;
+}
+
+@GenModel(documentation="Struttura della user interface")
+class GUIStructure {
+
+	@GenModel(documentation="porzione di schermata dipendente dall'applicazione")
+	val AppWindow appWindow;
+}
+
+class GUIBehaviors {
+}
+
+@GenModel(documentation="Widget a selezione alternativa tra un insieme statico di valori.")
+@uiwidgetdoc(description="E' il classico widget di selezione di una opzione tra un insieme finito (e definito a tempo di sviluppo) di possibilit&agrave;.
+Il widget completo prevede una <i>label</i> ed il campo di immissione associato, che &egrave; a sua volta costituito
+da un elenco di pulsanti la cui selezione &egrave; mutualmente esclusiva.
+La <i>label</i> pu&ograve; essere, in casi particolari, vuota.
+Il <b>RadioButtons</b> pu&ograve; essere utilizzato all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>
+</ul>
+Prevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una
+<i>ricca</i>.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base del RadioButtons prevede:
+<ul>
+<li>la possibilit&agrave; di effettuare, al momento del submit della form,
+la validazione dell'input immesso (es. verifica di campo required)</li>
+<li>la possibilit&agrave; di essere disabilitato a comando</li>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita
+validazione</li>
+</ul>
+<h4>modalit&agrave; ricca</h4>
+La modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:
+<ul>
+<li>tooltip al passaggio del cursore sulla label del widget</li>
+</ul>
+", "event-clicked"="<p>E'possibile, a fronte della selezione da parte dell'utente di una delle opzioni visualizzate, scatenare una logica applicativa e modificare di
+conseguenza la schermata visualizzata. Esistono due modalit&agrave; di esecuzione della logica 
+associata: <i>standard</i> e <i>ricca</i>.
+<h5>modalit&agrave; standard</h5>
+Alla selezione di una opzione dalla lista viene eseguita la logica applicativa associata
+e, al termine dell'esecuzione viene ricaricata l'intera schermata
+oppure il flusso passa ad una schermata differente.
+<h5>modalit&agrave; ricca</h5>
+Alla selezione di una opzione dalla lista viene eseguita la logica applicativa associata. Durante
+l'esecuzione viene sospesa l'interazione utente e viene visualizzato un
+indicatore di \"operazione in corso\".
+Al termine dell'esecuzione i possibili effetti sono:
+<ul>
+<li>il refresh dell'intera schermata corrente, con mantenimento della
+posizione delle eventuali scrollbar</li>
+<li>il refresh di una porzione specifica di schermata</li>
+<li>il passaggio del flusso ad una schermata differente</li>
+</ul>
+</p>")
+@logicpkg(pkg="ui.widgets")
+class RadioButtons extends DataWidget {
+
+	@GenModel(documentation="Insieme dei radiobutton che determina l'insieme dei valori possibili")
+	val RadioButton[*] radio;
+
+	@GenModel(documentation="Orientamento dei singoli <b>Radiobutton</b>. Valori ammessi:
+<ul>
+<li>Vertical</li>
+<li>Horizontal</li>
+</ul>")
+	val PanelLayout layout;
+}
+
+@GenModel(documentation="Singolo elemento di un <b>RadioButtons</b>.")
+@logicpkg(pkg="ui.widgets")
+class RadioButton extends Widget {
+
+	@GenModel(documentation="Valore associato al radiobutton.
+Il testo descrittivo visualizzato deve essere impostato nella property \"label\"")
+	attr String value;
+}
+
+@GenModel(documentation="Pulsante con funzione di reset della form.
+Non è possibile associare alcun event handler a questo pulsante.")
+@uiwidgetdoc(description="E' il classico pulsante di reset utilizzabile per ripulire la forma utente, riportandola allo stato 
+iniziale.
+Il <b>ResetButton</b> pu&ograve; essere utilizzato all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il
+pulsante ad altri widget (es. pulsanti di lookup)</li>
+<li>CommandPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario
+realizzare una \"pulsantiera\" costituita da soli <b>Button</b></li>
+</ul>
+Prevede una sola modalit&agrave; di funzionamento: <i>standard</i>.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base del ResetButton prevede:
+<ul>
+<li>la possibilit&agrave; di essere disabilitato a comando</li>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+<li>la possibilit&agrave; di associare al pulsante uno <i>specificatore di funzione</i>,
+che pu&ograve; essere utilizzato per connotare la funzione che eseguir&agrave;
+tale pulsante, con l'effetto, ad esempio di permettere l'associazione di uno
+stile specifico o di un'icona rappresentativa della funzone stessa.
+L'elenco delle funzioni specificabili &egrave il seguente:
+	<ul>
+	<li>ADD_ITEM: aggiunta di un elemento ad un insieme di dati/tabella</li>
+	<li>BACK: ritorno ad una schermata precedente</li>
+	<li>CANCEL: risposta negativa ad una richiesta di conferma di esecuzione di comando</li>
+	<li>CONFIRM: risposta positiva ad una richiesta di conferma di esecuzione di comando</li>
+	<li>DELETE_ITEM: eliminazione di un elemento da un insieme di dati/tabella</li>
+	<li>DETAIL: visualizzazione del dettaglio di una entit&agrave;</li>
+	<li>EDIT_ITEM: inizio delle attivit&agrave; di modifica di un'entit&agrave;</li>
+	<li>FIRST_ITEM: posizionamento sul primo elemento di un elenco di dati</li>
+	<li>FORWARD: prosecuzione al prossimo passo di una serie di passi guidati</li>
+	<li>LAST_ITEM: posizionamento sull'ultimo elemento di un elenco di dati</li>
+	<li>LOAD: caricamento di un record</li>
+	<li>NEXT_ITEM: posizionamento sul prossimo elemento di un elenco di dati</li>
+	<li>PREVIOUS_ITEM: posizionamento sull'elemento precedente a quello corrente
+		 all'interno di un elenco di dati</li>
+	<li>SAVE: salvataggio dei dati immessi</li>
+	<li>SEARCH: effettuazione della ricerca</li>
+	<li>SEND_MESSAGE: invio di un messaggio (es. email)</li>
+	<li>SHOW_HELP: visualizzazione di una pagina di aiuto</li>
+	<li>SHOW_REPORT: visualizzazione di un report</li>
+	<li>UNSPECIFIED: funzione generica</li>
+	</ul>
+</li>
+</ul>
+", "event-clicked"="<p>Il pulsante pu&ograve; ricevere un evento di pressione da parte 
+dell'utente che scatena il reset della schermata.
+Questo evento &egrave; implicito (non occorre definire un <b>EventHandler</b>
+per attivarlo). A fronte di questo evento <b>non</b> &egrave; perci&ograve; 
+possibile eseguire logica di business. 
+</p>")
+@logicpkg(pkg="ui.widgets")
+class ResetButton extends Button {
+}
+
+@GenModel(documentation="Pulsante utilizzabile per l'esecuzione di azioni (salvataggio, ricerca, .....).
+E' possibile associare un evneto di tipo CLICKED a questo widget.")
+@logicpkg(pkg="ui.widgets")
+class ConfirmButton extends Button {
+}
+
+@GenModel(documentation="superclasse di tutte le classi che definiscono un particolare layout")
+@logicpkg(pkg="ui.layout")
+abstract class PanelLayout {
+
+	@GenModel(documentation="impostazione percentuale della dimensione delle colonne. Varia a seconda del 
+particolare tipo di layout. 
+Per ogni colonna logica (destinata a contenere un widget composto da label+controllo)
+è necessario impostare due valori separati da virgola: i valori in posizione
+dispari (1,3,...) determinano la percentuale da assegnare alla label, mentre
+i valori in posizione pari (2,4,...) determinano la percentuale da assegnare
+al controllo vero e proprio.
+Es: per un GridLayout di 2 colonne una possibile impostazione &egrave;:
+\"20,30,25,25\", che equivale ad una occupazone delle due colonne logiche 
+del 50% dello spazio e, all'intenro della prima colonna logica il 20% dello spazio sarà assegnato 
+alla label mentre il restante 30% sarà assegnato al controllo.
+")
+	attr String columnSizes;
+}
+
+@GenModel(documentation="Gli elementi sono posizionati l'uno a fianco all'altro, da sinistra a destra.
+Non è necessario nessun specificatore per i singoli elementi")
+@uilayoutdoc(description="<p>
+L' <b>HorizontalFlowPanelLayout</b> (layout sequenziale a sviluppo
+orizzontale) prevede che gli elementi contenuti nel pannello che possiede
+questo layout siano visualizzati uno dopo l'altro in una sequenza 
+orizzontale, all'interno dell'area disponibile per il pannello contenitore.
+Di fatto, se il numero di widget inseriti nel pannello &egrave; <i>n</i>, 
+rappresenta un layout con <i>n</i> colonne logiche (una per widget) e
+<i>2*n</i> colonne fisiche (una per la label ed una per il campo effettivo, 
+il tutto moltiplicato per il numero di widget).
+E' possibile regolare le percentuali di occupazione della componente label
+e della componente widget di ciascuno dei widget.
+Le percentuali sono relative allo spazio a disposizione dell'interno pannello.
+</p>")
+@logicpkg(pkg="ui.layout")
+class HorizontalFlowPanelLayout extends PanelLayout {
+}
+
+@GenModel(documentation="Gli elementi sono posizionati l'uno sotto l'altro, dall'alto in basso.
+Non è necessario nessun specificatore per i singoli elementi.
+E'possibile impostare la percentuale delle colonne associate alla label
+ed al controllo della singola colonna implicitamente definita da questo tipo di 
+layout.")
+@uilayoutdoc(description="<p>
+Il <b>VerticalFlowPanelLayout</b> (layout sequenziale a sviluppo
+verticale) prevede che gli elementi contenuti nel pannello che possiede
+questo layout siano visualizzati uno dopo l'altro in una sequenza 
+verticale, all'interno dell'area disponibile per il pannello contenitore.
+Di fatto rappresenta un layout ad una colonna logica (un solo widget) e
+due colonne fisiche (una per la label ed una per il campo effettivo).
+E' possibile regolare le percentuali di occupazione della componente label
+e della componente widget. Le percentuali sono relative allo spazio a
+disposizione dell'interno pannello.
+</p>")
+@logicpkg(pkg="ui.layout")
+class VerticalFlowPanelLayout extends PanelLayout {
+}
+
+@GenModel(documentation="Specifica di posizionamento di widget in un layout UDLRC (Up/Down/Left/Right/Center).
+I valori ammissibili sono contenuti nella Enumeration <b>UDLRCSpecConstants</b>.")
+@uilayoutdoc(description="<p>
+L' <b>UDLRCPanelLayout</b> (layout a cinque quadranti Up, Down, Left,
+Right, Center)  prevede che gli elementi contenuti nel pannello che possiede
+questo layout siano visualizzati in uno dei quadranti. realizzando in questo modo
+stutture di posizionamento relativo molto flessibili.
+Tipicamente questo layout &egrave; utilizzato nella disposizione di sotto-pannelli.
+Il layout pu&ograve; anche essere utilizzato per la disposizione di pulsanti all'interno
+di un <b>CommandPanel</b>.
+</p>")
+@logicpkg(pkg="ui.layout")
+class UDLRCPanelLayout extends PanelLayout {
+}
+
+@GenModel(documentation="Superclasse di tutte le classi di specificazione del posizionamento degli elementi in un pannello")
+@logicpkg(pkg="ui.layout")
+abstract class WidgetLayoutSpecifier {
+}
+
+@GenModel(documentation="Specificatore di posizionamento di un elemento all'interno di un contenitore
+dotato di layout <b>UDLRC</b>.")
+@logicpkg(pkg="ui.layout")
+class UDLRCWidgetLayoutSpec extends WidgetLayoutSpecifier {
+
+	@GenModel(documentation="Indica in quale dei 5 quadranti (UP/DOWN/LEFT/RIGHT/CENTER) deve
+essere posizionato l'elemento")
+	attr UDLRCSpecConstants value;
+}
+
+@GenModel(documentation="Valori ammissibili per l' <b>UDLRCWidgetLayoutSpecifier</b>.")
+@logicpkg(pkg="ui.layout")
+enum UDLRCSpecConstants {
+	UP = 0;
+	DOWN = 1;
+	LEFT = 2;
+	RIGHT = 3;
+	CENTER = 4;
+}
+
+@GenModel(documentation="Utilizzato per la visualizzazione di immagini statiche all'interno della struttura UI.")
+@logicpkg(pkg="ui.widgets")
+class Image extends Widget {
+
+	@GenModel(documentation="Il percorso dell'immagine. Il valore può variare a seconda della cartuccia di
+generazione. Nel caso della cartuccia <i>struts2</i> il valore è inserito as-is
+nel tag <i>img</i>.
+")
+	attr String image;
+}
+
+@GenModel(documentation="Voce di menu")
+@logicpkg(pkg="ui.menu")
+class Menu {
+
+	@GenModel(documentation="Codice simbolico della voce di menu. Deve essere univoco all'interno della
+struttura di menu e deve essere un identificativo valido secondo Java.")
+	attr String name;
+
+	@GenModel(documentation="Il menu viene visualizzato con questa etichetta.")
+	attr String label;
+
+	@GenModel(documentation="OBSOLETO: non utilizzare. Utilizzare l'elemento <i>submenu</i>.")
+	val MenuItem[*] item;
+
+	@GenModel(documentation="Elenco dei sottomenu di questo menu.")
+	val Menu[*] submenu;
+
+	@GenModel(documentation="elenco dei secirity constraints associati a questa voce di menu.")
+	val UISecurityConstraint[*] securityConstraints;
+
+	@GenModel(documentation="Il menu supporta un handler per l'evento CLICKED. Se non viene specificato
+nessun event handler il menu sarà completamente inattivo.")
+	val EventHandler eventHandler;
+}
+
+@GenModel(documentation="OBSOLETO: non utilizzare (utilizzare Menu)")
+class MenuItem {
+
+	@GenModel(documentation="[[TODO: add documentation here]]")
+	attr String name;
+
+	@GenModel(documentation="[[TODO: add documentation here]]")
+	attr String label;
+
+	@GenModel(documentation="[[TODO: add documentation here]]")
+	val EventHandler eventHandler;
+
+	@GenModel(documentation="[[TODO: add documentation here]]")
+	val UISecurityConstraint[*] securityConstraints;
+}
+
+class DisabledComponentSet {
+}
+
+@GenModel(documentation="Modello delle colonne di una tabella (<b>Table</b>). Determina quali 
+colonne vengono visualizzate, in che ordine e altre caratteristiche della tabella.
+")
+@logicpkg(pkg="ui.widgets.table")
+class ColumnModel {
+
+	@GenModel(documentation="Elenco (ordinato) delle colonne che devono essere visualizzate.")
+	val Column[*] columns;
+
+	@GenModel(documentation="seleziona il field del record di cui è composta la collezione collegata
+alla Table che deve essere utilizzato come valore di selezione.
+Utilizzato solo in congiunzione con un value-binding (quindi con possibilità
+di selezione).
+Es: se:
+<ul>
+<li> la tabella è collegata ad una collezione di un tipo <i>Persona</i>, 
+costituito dai field:
+  <ul>
+  <li>codFisc: String</li>
+  <li>nome: String</li>
+  <li>cognome: String</li>
+  </ul>
+</li>
+<li>il <i>value-binding</i> &egrave; associato ad un appdata di tipo String</li>
+<li>il <i>valueSelector</i> &egrave; impostato come \"codFisc\" </li>
+</ul>
+Allora selezionando una riga della tabella l'application data di value-binding 
+sarà impostato con il codice fiscale del record corrispondente.
+")
+	attr String valueSelector;
+}
+
+@GenModel(documentation="Modello della singola colonna di una <b>Table</b>.")
+@logicpkg(pkg="ui.widgets.table")
+class Column {
+
+	@GenModel(documentation="Seleziona il field del record di cui è costituita la collezione associata alla
+tabella.")
+	attr String selector;
+
+	@GenModel(documentation="Etichetta della testata della colonna")
+	attr String label;
+
+	@GenModel(documentation="Se impostata a <i>true</i> la colonna è ordinabile cliccando sulla testata.")
+	attr boolean sortable;
+
+	@GenModel(documentation="Se impostato a <i>true</i> la colonna &egrave; editabile. Il widget
+utilizzato per l'editing della colonna dipende dal tipo del field associato
+alla colonna (tramite la property <i>selector</i>):
+<ul>
+<li><b>CheckBox</b> in caso di tipo boolean</li>
+<li><b>TextField</b> in tutti gli altri casi (stringhe, numerici, date)</li>
+</ul>
+Inoltre, se sono impostate le property <i>multiDataBinding</i> o 
+<i>multiDataPropertySelector</i>, che comportano la possibilit&agrave;
+di scegliere il valore da una lista di valori, sar&agrave; utilizzata una
+<b>ComboBox</b>")
+	attr boolean editable;
+
+	@GenModel(documentation="Indica che la colonna è cliccabile. Il click permette di scatenare l'evento CLICKED
+sulla tabella. deve essere utilizzato in congiunzione con un event handler
+nella <b>Table</b>, altrimenti non ha nessun effetto.")
+	attr boolean eventActive;
+
+	@GenModel(documentation="Permette di stabilire a runtime se una cella della colonna (che deve essere
+dichiarata editabile) sarà effettivamente editabile.
+Rappresenta il selettore di un field del record di cui &egrave; costituita
+la collezione collegata alla tabella: questo field deve essere di tipo boolean.")
+	attr String editableFlagSelector;
+
+	@GenModel(documentation="Permette di associare ad una colonna editabile la possibilit&agrave;
+di scegliere il valore della cella a partire da una collezione di coppie
+chiave/valore. 
+Per specificare quale campo del record di cui è costituita questa collezione ausiliaria
+utilizzare come chiave e come descrizione, occorre impostare le property
+<i>multidataKeySelector</i> e <i>multidataValueSelector</i>.
+La collezione è la stessa per tutte le righe. 
+Nel caso sia necessario differenziare l'insieme di valori a seconda della riga,
+utilizzare <i>multidataPropertySelector</i>.")
+	val AppDataBinding multiDataBinding;
+
+	@GenModel(documentation="Utilizzato in congiunzione con <i>multiDataBinding</i> o <i>multidataPropertySelector</i>.
+Seleziona il field da utilizzare come chiave-valore della combo.")
+	attr String multidataKeySelector;
+
+	@GenModel(documentation="Utilizzato in congiunzione con <i>multiDataBinding</i> o <i>multidataPropertySelector</i>.
+Seleziona il field da utilizzare come label descrittiva nella combo.")
+	attr String multidataValueSelector;
+
+	@GenModel(documentation="Permette di associare ad una colonna editabile la possibilit&agrave;
+di scegliere il valore della cella a partire da una collezione di coppie
+chiave/valore. 
+Per specificare quale campo del record di cui &egrave; costituita questa collezione ausiliaria
+utilizzare come chiave e come descrizione, occorre impostare le property
+<i>multidataKeySelector</i> e <i>multidataValueSelector</i>.
+L'insieme dei valori è differenziato riga per riga .
+Nel caso sia sufficiente uno stesso insieme di valori per tutte le righe utilizzare
+<i>multiDataBinding</i>")
+	attr String multidataPropertySelector;
+
+	@GenModel(documentation="tooltip associato all'header della colonna")
+	attr String tooltip;
+
+	@GenModel(documentation="Permette di stabilire a runtime se una cella della colonna (che deve essere
+dichiarata <i>eventActive</i>) sarà effettivamente attiva (ovvero sarà \"cliccabile\").
+Rappresenta il selettore di un field del record di cui &egrave; costituita
+la collezione collegata alla tabella: questo field deve essere di tipo boolean.")
+	attr String activeFlagSelector;
+
+	@GenModel(documentation="In caso di colonna editabile se specificato rappresenta il massimo numero
+di caratteri digitabili. Se il valore specificato &egrave; zero il campo non ha limiti.")
+	attr int fieldMaxLength = 0;
+
+	@GenModel(documentation="Se impostato a true abilita la definizione di un CustomDecorator, 
+per impostazioni grafiche particolari da effettuarsi a livello della singola colonna.")
+	attr boolean customDecorator;
+
+	@GenModel(documentation="Opzionale. Permette di indicare un campo differente da 
+utilizzare per l'ordinamento della colonna. Utile in caso di decorator o in quei
+casi in cui serva un ordinamento custom dei valori della colonna (esempio: 
+ordinamento dei valori della colonna senza tener conto di articoli, etc..)")
+	attr String customSortPropertySelector;
+
+	@GenModel(documentation="In caso di colonna editabile se specificato rappresenta la dimensione in caratteri del campo. Se il valore specificato &egrave; zero viene utilizzato il default del browser.")
+	attr int fieldLength = 0;
+}
+
+@GenModel(documentation="Classe astratta d acui discendono tutte le classi del framework di comandi.")
+@logicpkg(pkg="cmd")
+abstract class Command {
+}
+
+@GenModel(documentation="[[TODO: add documentation here]]")
+class CommandEvent {
+}
+
+@GenModel(documentation="Permette di abilitare/disabilitare i widget e/o menu specificati. Lo stato di abilitazione
+rimane persistente in sessione.")
+@logicpkg(pkg="cmd")
+class ONOFFCommand extends Command, CommandOnWidgets {
+
+	@GenModel(documentation="Se impostato a true il comando ha effetto di abilitare i widget; 
+se impostato a false ha l'effetto di disabilitazione.")
+	attr boolean enable;
+}
+
+@GenModel(documentation="[[TODO: add documentation here]]")
+@logicpkg(pkg="cmd")
+class CustomCommand extends Command {
+}
+
+@GenModel(documentation="Permette di mostrare/nascondere i widget e/o menu specificati. Lo stato di visibilit&agrave;
+rimane persistente in sessione.")
+@logicpkg(pkg="cmd")
+class VisibilityCommand extends Command, CommandOnWidgets {
+
+	@GenModel(documentation="Se impostato a true il comando ha effetto di rendere visibile i widget; 
+se impostato a false ha l'effetto di renderli invisibili.")
+	attr boolean show;
+}
+
+@GenModel(documentation="Permette di effettuare il re-rendering di una porzione di ContentPanel.
+Funziona solo se sono abilitate le fatures di interazione \"ricca\", nell'elemento
+<b>TargetPlatform</b>.
+Al fine di garnatire l'accessibilit&agrave;, Nel caso della cartuccia \"struts2\", se il browser non supporta javascript, 
+la feature effettua un \"downgrade\" automatico mantenendo il funzionamento
+seppur perdendo la funzione ricca (ovvero si ha il refresh completo della pagina).
+Essendo sottoclasse di <b>CommandOnWidgets</b> e <b>CommandOnPanels</b> &egrave; 
+possibile specificare la porzione di <b>ContentPanel</b> che deve essere aggiornata.
+L'interpretazione delle proeprty <i>targetWidgets</i> e <i>targetPanels</i>
+dipende dalla particolare cartuccia di generazione utilizzata.")
+@logicpkg(pkg="cmd")
+class RefreshViewCommand extends Command, CommandOnWidgets, CommandOnPanels {
+}
+
+@GenModel(documentation="Permette di passare alla visualizzazione di un <b>ContentPanel</b>
+differente.")
+@logicpkg(pkg="cmd")
+class JumpCommand extends Command {
+
+	@GenModel(documentation="Il <b>ContentPanel</b> a cui saltare.")
+	ref ContentPanel jumpTo;
+
+	@GenModel(documentation="Salva in uno stack la pagina corrente prima di effettuare il salto.
+Da utilizzarsi in congiunzione con <b>JumpBackCommand</b>.")
+	attr boolean pushCurrentPage;
+}
+
+@GenModel(documentation="Permette di eseguire logica custom all'intenro di una catena di comandi.
+Al metodo specificato in <i>methodName</i> sar&agave; passata una struttura
+dati contenente:
+<ul>
+<li>i riferimenti agli <b>ApplicationData</b> referenziati
+dal <b>ContentPanel</b> che contiene il comando.</li>
+<li>un riferimento alla sessione applicativa</li>
+<li> alcune informazioni ausiliarie diepndenti dalla struttura del 
+    <b>ContentPanel</b> (es. Id del nodo selezionato in un tree, 
+    informazioni circa il tab su cui si è cliccato, informazioni sulla cella selezionata
+in una tabella) </li>
+</ul>
+Nel metodo il programmatore potr&agrave; eseguire qualsiasi tipo di logica ed in 
+particolare:
+<ul>
+<li> modificare lo stato degli application data o della sessione.</li>
+<li> inserire nel contesto applicativo messaggi informativi o di errore</li>
+<li> determinare la prosecuzione del flusso, selezionando uno tra i 
+<i>results</i> disponibili.</li>
+</ul>
+Al termine dell'esecuzione del metodo il flusso proseguir&agrave; con il comando
+inserito nel <b>CommandOutcome</b> specificato al termine della logica.
+")
+@logicpkg(pkg="cmd")
+class ExecCommand extends Command {
+
+	@GenModel(documentation="L'elenco delle possibili prosecuzioni a fronte dell'esecuzione del comando.")
+	val CommandOutcome[*] results;
+
+	@GenModel(documentation="Nome del metodo nel quale sarà contenuta la logica effettiva.
+L'implementazione dipende dalla particolare cartuccia di generazione.
+Nel caso della cartuccia \"struts2\" verr&agrave; generato un metodo nello
+strato spring, contenente una regione protetta nel quale il programamtore
+dovr&agrave; inserire la logica effettiva.")
+	attr String methodName;
+
+	@GenModel(documentation="Occorre dichiarare preventivamente gli application data che saranno modificati nella logica applicativa.")
+	ref ApplicationData[*] postExecData;
+	ref CustomTemplate customTemplate;
+
+	@GenModel(documentation="Eventuali modelli (porzioni di modello) aggiuntivi utilizzabili dalle varie cartucce
+di generazione 100% (es. modello del mapping RDB, ... modello di una
+interfaccia di servizio, ...)
+
+<b>Attenzione</b>: Questa opzione &egrave; da considerarsi una possibilit&agrave; <b>avanzata</b> 
+da utilizzarsi con cautela.")
+	ref EObject[*] extraModels;
+
+	@GenModel(documentation="<p>Sono disponibili le seguenti chiavi:</p>
+<table border=\"1\"><tbody>
+<tr>
+<th><b>Name</b></th>
+<th><b>Position</b></th>
+<th><b>Descrizione</b></th>
+</tr>
+<tr>
+<td>body</td>
+<td>executedMethod</td>
+<td>si sostituisce alla regione protetta del body del metodo associato al comando</td>
+</tr>
+</tbody></table>")
+	val InlineCodeSnippet[*] inlineCodeSnippets;
+}
+
+@GenModel(documentation="Gestore di un evento di User Interaction.")
+@logicpkg(pkg="ui.event")
+class EventHandler {
+
+	@GenModel(documentation="A fronte dell'evento specificato in <i>eventType</i> sar&agrave; eseguito
+il comando specificato in questo elemento.")
+	val Command command;
+
+	@GenModel(documentation="Specifica il tipo di evento per cui &egrave; definito questo event handler.")
+	attr EventTypes eventType;
+
+	@GenModel(documentation="Se impostato a true non saranno eseguite le logiche automatiche di conversione/validazione
+a fronte dell'occorrenza dell'evento specificato.
+Serve per gestire casi in cui la non conformit&agrave; dei dati immessi non
+&egrave; importante, anzi deve essere ignorata (es. il tasto \"indietro\" o \"annulla\").")
+	attr boolean skipValidation;
+
+	@GenModel(documentation="Permette di proteggere l'esecuzione del metodo associato all'<b>EventHandler</b>
+da effetti indesiderati derivanti dal'eventuale esecuzione contemporanea di altri metodi.
+Le possibili protezioni sono:
+<ol>
+<li><b>allowAll</b>: permette l'esecuzione contemporanea di qualsiasi metodo (nessuna 
+protezione)</li>
+<li><b>rejectSame</b> (<i>default</i>): evita l'esecuzione contemporanea di altre istanze dello stesso 
+metodo (protezione tipica del doppio click su uno stesso pulsante)</li>
+<li><b>rejectAll</b>: evita l'esecuzione contemporanea di altre istanze di qualsiasi 
+metodo (protezione cautelativa globale)</li>
+</ol>")
+	attr MethodProtectionTypes methodProtection = "REJECT_SAME";
+
+	@GenModel(documentation="Permette di specificare ulteriormente la gestione dell'evento. 
+E' possibile inserire 0, 1 o molti specificatori:
+<ul>
+<li>lo specificatore viene scritto in formato testo e la 
+ sintassi di ciascun specificatore &egrave; tipicamente del tipo:
+&lt;cod_specificatore&gt;=&lt;val_specificatore&gt; 
+(esempio: <i>min_chars=3</i>)
+</li>
+<li>le possibili valorizzazioni dipendono fortemente dal tipo di evento gestito.
+Attualmente le possibiit&agrave; sono:
+  <ul>
+  <li>evento <b>KEYPRESSED</b>:
+    <ul>
+    <li><i>min_chars=&lt;numero&gt;</i>: permette di specificare il numero
+           di caratteri minimo affinch&egrave; scatti la query di <i>suggestion</i>
+           (il default &egrave; 4)
+     </li>
+    </ul>
+  </li>
+  </ul>
+</li>
+</ul>")
+	attr String[*] eventSpecifiers;
+}
+
+@logicpkg(pkg="ui.event")
+enum MethodProtectionTypes {
+	REJECT_SAME = 1;
+	ALLOW_ALL = 0;
+	REJECT_ALL = 2;
+}
+
+@GenModel(documentation="tipologie di eventi a cui &egrave; possibile associare un event handler.")
+@logicpkg(pkg="ui.event")
+enum EventTypes {
+
+	@GenModel(documentation="Evento di click su un controllo. Esempi:
+<ul>
+<li>la pressione di un <b>ConfirmButton</b></li>
+<li>il click su una voce di <b>Menu</b></li>
+<li>il click su una cella in una <b>Table</b></li>
+</ul>")
+	CLICKED = 0;
+
+	@GenModel(documentation="Evento che modifica il vlaore di un controllo. Esempi:
+<ul>
+<li>la selezione di una voce d una <b>ComboBox</b></li>
+<li>il click su un <b>RadioButton</b></li>
+</ul>")
+	VALUE_CHANGED = 1;
+
+	@GenModel(documentation="Rappresenta l'acquisizione del focus d aparte di un controllo.
+PER FUTURE EVOLUZIONI.")
+	FOCUS_GAINED = 2;
+
+	@GenModel(documentation="Rappresenta la perdita del focus d aparte di un controllo.
+PER FUTURE EVOLUZIONI.")
+	FOCUS_LOST = 3;
+	KEY_PRESSED = 4;
+
+	@GenModel(documentation="Rappresenta l'evento di apertura di un nodo in un Tree (applicabile solo a
+<b>TreeView</b>)")
+	NODE_EXPANDED = 5;
+
+	@GenModel(documentation="Rappresenta l'evento di conferma di un'attivit&agrave; di editing complesso.
+Valido solo per <b>MapView</b>: serve per recepire le modifiche effettuate
+sulla mappa.")
+	EDIT_COMMITTED = 5;
+}
+
+@GenModel(documentation="[[TODO: add documentation here]]")
+abstract interface WidgetTargetAction {
+}
+
+@GenModel(documentation="Classe astratta da cui discendono i comandi che agiscono su un elenco di widget,
+o di elementi di menu")
+@logicpkg(pkg="cmd")
+abstract class CommandOnWidgets extends Command {
+
+	@GenModel(documentation="I widget su cui opera il comando.")
+	ref Widget[+] targetWidgets;
+
+	@GenModel(documentation="Gli elementi del menu su cui opera il comando.")
+	ref Menu[*] targetMenuElement;
+}
+
+@GenModel(documentation="Pagina utilizzabile per messaggi di feedback/conferme etc.")
+@uipaneldoc(description="<p>
+Il <b>DialogPanel</b> &egrave; un pannello utilizzato per realizzare funzioni di feedback utente
+(messaggi informativi, dichieste di conferme). E'associato all'intera schermata e, quando &egrave; 
+attivato, mostra all'utente i messaggi previsti sostituendo completamente la schermata operativa.
+<br/>
+All'interno del singolo tab &egrave; possibile inserire solo quelle tipologie di pannelli che servono per:
+<ul>
+<li>mostrare messaggi formattati all'utente (<b>MsgBoxPanel</b>)</li>
+<li>fornire all'utente i comandi per &quot;rispondere&quot; al feedback, ovvero uno o pi&ugrave;
+pulsanti di conferma o cancellazione (<b>CommandPanel</b>)</li>
+</ul>
+</p>")
+@logicpkg(pkg="ui.panels")
+class DialogPanel extends Panel {
+
+	@GenModel(documentation="I pulsanti associati al dialog.")
+	val CommandPanel commands;
+
+	@GenModel(documentation="I messaggi di feedback da visualizzare devono essere inseriti in uno o più
+<b>MessageBoxPanel</b>.")
+	val MsgBoxPanel[*] msgBoxes;
+}
+
+@GenModel(documentation="Attiva un <b>DialogPanel</b>")
+@logicpkg(pkg="cmd")
+class ShowDialogCommand extends Command {
+
+	@GenModel(documentation="Il dialog da attivare.")
+	ref DialogPanel dialog;
+}
+
+@GenModel(documentation="Possibile esito di un <b>ExecCommand</b>.")
+@logicpkg(pkg="cmd")
+class CommandOutcome {
+
+	@GenModel(documentation="Codice identificativo dell'esito. Deve essere univoco all'interno del content panel
+e deve essere un identificativo valido secondo java.")
+	attr String resultCode;
+
+	@GenModel(documentation="Il comando che viene eseguito nel caso in cui questo <b>CommandOutcome</b>
+sia quello prescelto nella logica dell'<b>ExecCommand</b>.")
+	val Command[1] command;
+}
+
+@GenModel(documentation="Classe astratta da cui discendono i comandi che agiscono su un elenco di pannelli")
+@logicpkg(pkg="cmd")
+abstract class CommandOnPanels extends Command {
+
+	@GenModel(documentation="Ii pannelli su cui agisce il comando.")
+	ref Panel[*] targetPanels;
+}
+
+@GenModel(documentation="Header dell'applicazione. comune a tutti i <b>ContentPanel</b>")
+class Header {
+
+	@GenModel(documentation="Codice del canale all'interno del portale.")
+	attr String codCanale;
+
+	@GenModel(documentation="Codice dell'applicativo come codificato nel portale")
+	attr String codApplicativo;
+
+	@GenModel(documentation="nome descrittivo del canale tematico.")
+	attr String nomeCanale;
+
+	@GenModel(documentation="Link della home page del canale tematico")
+	attr String linkCanale;
+
+	@GenModel(documentation="Nome descrittivo dell'applicativo")
+	attr String nomeApplicativo;
+	attr String title;
+	val HeaderMetaAttr[*] metaAttributes;
+}
+
+class HeaderMetaAttr {
+	attr String name;
+	attr String value;
+	attr boolean useHttpEquiv = false;
+}
+
+@GenModel(documentation="Footer dell'applicativo (comune a tutti i <b>ContentPanel</b>)")
+class Footer {
+}
+
+@GenModel(documentation="Finestra applicativa comprendente le parti comuni a tutte le schermate e la
+parte variabile.")
+@logicpkg(pkg="app")
+class AppWindow {
+
+	@GenModel(documentation="Footer del portale. Comune a tutte le schermate.")
+	val Footer footer;
+
+	@GenModel(documentation="Header del portale. Comune a tutte le schermate.")
+	val Header header;
+
+	@GenModel(documentation="Porzione di finestra dipendente dall'applicazione")
+	val ApplicationArea appArea;
+}
+
+@GenModel(documentation="Placeholder per link statici (es. contatti, help, manuali).")
+class StaticLinks {
+}
+
+@GenModel(documentation="Permette di eseguire in sequenza i comandi specificati. I codice di ritorno 
+del comando &egrave; il codice dell'ultimo dei comandi.")
+@logicpkg(pkg="cmd")
+class SequenceCommand extends Command {
+
+	@GenModel(documentation="Gli elementi della sequenza di comandi.")
+	val Command[*] commands;
+}
+
+@GenModel(documentation="Permette di ritornare alla schemata precedente. Da utilizzarsi in congiunzione con 
+<b>JumpCommand</b> e <i>pushCurrentPage</i>.")
+@logicpkg(pkg="cmd")
+class JumpBackCommand extends Command {
+}
+
+@GenModel(documentation="Rappresenta l'astrazione di una variabile applicativa.")
+@logicpkg(pkg="mdl.data")
+class ApplicationData {
+
+	@GenModel(documentation="nome simbolico. Deve essere univoco all'interno dell'applicazione e deve 
+essere un codice valido secondo java.")
+	attr String name;
+
+	@GenModel(documentation="specifica la persistenza del valore impostato nell'application data.")
+	attr DataLifetimeType lifetimeExtent;
+
+	@GenModel(documentation="Il tipo del valore contenuto nell'application data")
+	ref Type type;
+}
+
+@GenModel(documentation="Possibili modi di persistenza dell'application data.")
+@logicpkg(pkg="mdl.data")
+enum DataLifetimeType {
+
+	@GenModel(documentation="Il valore &egrave; disponibile solo fino al termine dell'azione utente corrente.")
+	USER_ACTION = 0;
+
+	@GenModel(documentation="Il valore &egrave; disponibile per tutta la durata della sessioen utente, a meno che non venga esplicitamente rimosso.")
+	USER_SESSION = 1;
+
+	@GenModel(documentation="Il valore &egrave; disponibile finch&egrave; il flusso non passa a dun content panel differente, tramite un <b>JumpCommand</b>.")
+	SAME_PAGE = 2;
+}
+
+@GenModel(documentation="Collegamento con un application data o con una parte di esso.")
+@logicpkg(pkg="mdl.data")
+class AppDataBinding {
+
+	@GenModel(documentation="L'application data collegato")
+	ref ApplicationData appData;
+
+	@GenModel(documentation="Se specificato fain modo che il binding non sia sul valore dell'application data, ma
+su uno specifico field del record.
+Ad esempio se un application data \"titolare\" ha come tipo un <b>ComplexType</b>
+di nome <i>Persona</i>, con un campo <i>nome</i>, &egrave; possibile
+associare un textfield a tale campo impostando nell'<b>AppDataBinding</b>:
+<ul>
+<li>l'elemento <i>appData</i> in modo che punti all'application data \"titolare\"</li>
+<li>l'elemento <i>path</i> in modo che valga \"nome\"</li>
+</ul>
+E'ovviamente possibile utilizzare <i>path</i> pi&ugrave; complessi
+(es. \"persona.indirizzo.numCivico\").")
+	attr String path;
+}
+
+@GenModel(documentation="Classe astratta dalla quale discendono tutte le classi che rappresentano
+widget associabili a collezioni. Un <b>MultiDataWidget</b>
+ha un concetto di <i>collezione</i> del widget che rappresenta l'insieme 
+finito di possibili valori selezionabili.")
+@logicpkg(pkg="ui.widgets")
+class MultiDataWidget extends Widget {
+
+	@GenModel(documentation="Il binding all'<b>ApplicationData</b> nel quale sono contenuti gli elementi dell'insieme
+di possibili valori. Il tipo dell'oggetto puntato deve essere un <b>TypedArray</b> e 
+il <i>componentType</i> di questo <b>TypedArray</b> deve essere un <b>ComplexType</b>, poich&egrave;
+ &egrave; necessario poter specificare il valore selezionato e la label descrittiva di tale valore (perci&ograve; servono almeno due field).")
+	val AppDataBinding multiDataBinding;
+}
+
+@GenModel(documentation="Insieme dei tipi definiti nell'applicazione")
+@logicpkg(pkg="mdl.types")
+class Typedefs {
+
+	@GenModel(documentation="DEPRECATO: utilizzare tipi definiti in <b>TypeNamespace</b> esterni
+e referenziati in <i>extNamespaces</i>.")
+	val Type[*] types;
+
+	@GenModel(documentation="DEPRECATO: utilizzare <i>extNamespaces</i>.")
+	val TypeNamespace[*] namespaces;
+
+	@GenModel(documentation="Riferimento ai <b>TypeNamespace</b> utilizzati nell'applicazione.")
+	ref TypeNamespace[*] extNamespaces;
+}
+
+@GenModel(documentation="Classe astratta dalla quale discendono tutti i tipi.")
+@logicpkg(pkg="mdl.types")
+abstract class Type {
+
+	@GenModel(documentation="Nome identificativo del tipo.
+")
+	attr String name;
+}
+
+@GenModel(documentation="Tipo base (semplice).")
+@logicpkg(pkg="mdl.types")
+class SimpleType extends Type {
+
+	@GenModel(documentation="Codice che serve per discriminare il tipo base (scalare) specifico.
+Se &egrave; impostato <i>userDefined</i> a false allora il tipo
+corrisponde ad un tipo base del linguaggio host (es int, java.lang.Double).
+Se invece <i>userDefined</i> &egrave; impostato a true, viene generato
+un nuovo tipo di dato astratto basato sul tipo scalare corrispondente e 
+nel quale &egrave; possibile specificare meglio il dominio di valori ammessi e
+alcune caratteristiche di formattazione.
+")
+	attr SimpleTypeCodes code;
+
+	@GenModel(documentation="Se impostato a true, il tipo ammette il vlaore <i>null</i> nel suo dominio.")
+	attr boolean nillable;
+
+	@GenModel(documentation="Se impostato a true viene generata una classe che rappresenta il tipo di dato
+e everr&agrave; utilizzata questa classe al posto del tipo scalare corrispondente,
+che sar&agrave; utilizzato come contenitore del dato internamente alla classe.")
+	attr boolean userDefined = false;
+
+	@GenModel(documentation="Utilizzato solo se <i>userDefined</i> = true.
+Permette di specificare il tipo di dato, in termini di restrizioni sul dominio
+di valori ammessi, opzioni di formattazione etc.
+
+[[TODO: documentare sintassi ]]")
+	attr String[*] dataTypeModifiers;
+
+	@GenModel(documentation="Utilizzato solo se <i>userDefined</i> == true.
+Permette di specificare il messaggio che deve essere utilizzato per descrivere
+il range di valori ammessi. Può essere utilizzato, a seconda delle cartucce di 
+generazione, come tooltip oppure come messaggio di errore in caso di 
+immissione di un valore scorretto.")
+	attr String editHintMsg;
+}
+
+@GenModel(documentation="Struttura dati definita da utente. 
+Nel caso di questa sottoclasse di <b>Type</b> l'attributo <i>name</i>
+deve essere un identificativo valido per java.")
+@logicpkg(pkg="mdl.types")
+class ComplexType extends Type {
+	op Field[*] getAllFields();
+
+	@GenModel(documentation="Insieme dei campi di cui &egrave; costituita la struttura dati.")
+	val Field[*] fields;
+
+	@GenModel(documentation="Se impostato a true, i field di tipo complex sono inizializzati
+(con struttura vuota al momento dell'istaziazione di oggetti di questo tipo).
+Es. Se un tipo \"Persona\" contiene un field \"residenza\" di tipo \"Indirizzo\" e <i>initFields</i>
+ &egrave; impostato a true, allora il field \"residenza\" viene impostato con
+un'oggetto di tipo \"Indirizzo\".")
+	attr boolean initFields = false;
+	ref ComplexType ~extends;
+	val TypeAnnotation[*] typeAnnotation;
+}
+
+class TypeAnnotation {
+	attr String language;
+	attr String fqn;
+}
+
+@GenModel(documentation="Array tipato. Il nome impostato &egrave; solo mnemonico.")
+@logicpkg(pkg="mdl.types")
+class TypedArray extends Type {
+
+	@GenModel(documentation="Tipo degli elementi di cui sar&agrave; costituito l'array.")
+	ref Type componentType;
+}
+
+@GenModel(documentation="Codici dei tipi base")
+@logicpkg(pkg="mdl.types")
+enum SimpleTypeCodes {
+	INT = 0;
+	LONG = 1;
+	FLOAT = 2;
+	DOUBLE = 3;
+	STRING = 4;
+	DATE = 5;
+	DATETIME = 6;
+	HOURS = 7;
+	BOOLEAN = 8;
+	BYTE = 9;
+
+	@GenModel(documentation="Rappresenta il tipo degli elementi di una struttura a tree")
+	TREE_NODE = 10;
+}
+
+@GenModel(documentation="Il campo di un <b>ComplexType</b>.")
+@logicpkg(pkg="mdl.types")
+class Field {
+
+	@GenModel(documentation="nome del campo. deve essere un identificativo valido per Java.")
+	attr String name;
+
+	@GenModel(documentation="tipo del campo.")
+	ref Type type;
+
+	@GenModel(documentation="Se impostato a true il campo sarà considerato obbligatorio.")
+	attr boolean required;
+
+	@GenModel(documentation="Tutti i controlli modellabili mediante l'attributo dataTypeModifier del widget devono avere formato
+[validatore]:[regole].
+
+Per i dettagli circa i possibili vlaidatori utilizzabili si rimanda al seguente
+<a href=\"http://jiradsp.csi.it:8081/secure/attachment/17012/modellazione_validatori_v2.doc\">documento.</a>")
+	attr String dataTypeModifier;
+	val Annotation[*] annotations;
+}
+
+@GenModel(documentation="Insieme delle definizioni di application data utilizzati nell'applicativo")
+@logicpkg(pkg="mdl.data")
+class ApplicationDataDefs {
+
+	@GenModel(documentation="DEPRECATO: utilizzare application data definiti all'interno di <b>AppDataGroup</b>
+mantenuti esternamente e referenziati in <i>extGroups</i>")
+	val ApplicationData[*] appData;
+
+	@GenModel(documentation="DEPRECATO: utilizzare <i>extGroups</i>")
+	val AppDataGroup[*] groups;
+
+	@GenModel(documentation="referenzia gli <b>AppDataGroup</b> definiti esternamente e utilizzati nell'applicazione.")
+	ref AppDataGroup[*] extGroups;
+}
+
+@GenModel(documentation="[[TODO: add documentation here]]")
+enum PortalNames {
+	SISTEMA_PIEMONTE = 0;
+	INTRANET_RUPARPIEMONTE = 1;
+	NEUTRAL = -1;
+}
+
+@GenModel(documentation="Widget che permette di visualizzare una struttura ad albero.
+La struttura dati deve essere mantenuta in un application data di tipo TreeNode.
+")
+@uiwidgetdoc(description="E' un widget utilizzabile per la visualizzazione di una struttura ad albero.
+Il <b>TreeView</b> pu&ograve; essere utilizzato all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il
+pulsante ad altri widget (es. pulsanti di lookup)</li>
+</ul>
+Prevede due modalit&agrave; di funzionamento: <i>standard</i> e <i>ricca</i>.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base del TreeView prevede:
+<ul>
+<li>la possibilit&agrave; di visualizzare una struttura ad albero in termini di testo sintetico descrittivo
+del contenuto di ciascun nodo.</li>
+<li>la possibilit&agrave; di espandere un nodo non foglia per mostrarne i nodi figli</li>
+<li>la possibilit&agrave; di essere disabilitato a comando</li>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+</ul>
+<h4>modalit&agrave; ricca</h4>
+La modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:
+<ul>
+<li>tooltip al passaggio del cursore sulla label del widget</li>
+</ul>", "event-clicked"="<p>Il <b>TreeView</b> pu&ograve; ricevere un evento di pressione da parte 
+dell'utente che agisce in due modi a seconda che il nodo selezionato sia un nodo
+foglia o intermedio.
+<ol>
+<li>in caso di nodo intermedio l'evento &egrave; implicito (non occorre definire un 
+<b>EventHandler</b>per attivarlo) e l'effetto della selezione &egrave; l'espansione 
+o la chiusura del nodo</li>
+<li>in caso di nodo foglia &egrave; possibile eseguire della logica server-side; tale
+logica avr&agrave, a disposizione l'informazione che permette di risalire al nodo selezionato.</li>
+</ol>
+</p>")
+@logicpkg(pkg="ui.widgets")
+class TreeView extends DataWidget, MultiDataWidget {
+
+	@GenModel(documentation="Determina il tipo di selezione permessa sull'albero:
+<ul>
+<li>solo sui nodi foglia</li>
+<li>solo sui nodi non foglia</li>
+<li>su tutti i nodi</li>
+</ul>")
+	attr TreeSelectionTypes nodeSelectionType = "ALL_NODES";
+}
+
+@GenModel(documentation="Permette la visualizzazione di testo, fisso o proveniente da application data, senza possibilità di editing.")
+@uiwidgetdoc(description="E' un widget di visualizzazione di dati testuali.
+Il widget completo prevede una <i>label</i> ed il campo di visualizzazione associato, che
+&egrave; semplicemente il testo corrispondente al valore associato al widget
+(da qui il nome di <b>PlainText</b>).
+La <i>label</i> pu&ograve; essere, in casi particolari, vuota.
+Il <b>TextField</b> pu&ograve; essere utilizzato all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>
+<li>DialogPanel, per la visualizzazione del testo del dialog</li>
+</ul>
+Prevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una
+<i>ricca</i>.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base del PlainText prevede:
+<ul>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+</ul>
+<h4>modalit&agrave; ricca</h4>
+La modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:
+<ul>
+<li>tooltip al passaggio del cursore sulla label del widget</li>
+</ul>
+")
+@logicpkg(pkg="ui.widgets")
+class PlainText extends DataWidget {
+
+	@GenModel(documentation="Se impostato il widget visualizzer&agrave; il testo html specificato a fianco alla label.
+In caso contrario, e se sar&agrave; specificato un data binding, il
+valore visualizzato sar&agrave; preso dall'application data referenziato.")
+	attr String staticText;
+}
+
+@GenModel(documentation="Permette di visualizzare la struttura di menu definita nella <b>MenuBar</b>.
+Deve essere inserito in un <b>MenuPanel</b>.")
+@uiwidgetdoc(description="Questo widget &egrave; un segnaposto utilizzabile per la visualizzazione della struttura
+del menu. 
+Il <b>MenuView</b> pu&ograve; essere utilizzato all'interno di:
+<ul>
+<li>MenuPanel, con layout Verticale</li>
+</ul>
+Prevede una sola modalit&agrave; di funzionamento: <i>standard</i>.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base del TreeView prevede:
+<ul>
+<li>la possibilit&agrave; di essere disabilitato a comando</li>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+</ul>
+Per ciascuna voce di menu, inoltre &egrave; possibile replicare gli stessi comportamenti di 
+visibilit&agrave;/abilitazione.
+", "event-clicked"="<p>Il <b>MenuView</b> pu&ograve; ricevere un evento di selezione della voce
+di menu corrispondente, alla quale &egrave, possibile associare una logica
+di business da eseguire.
+</p>")
+@logicpkg(pkg="ui.widgets")
+class MenuView extends CommandWidget {
+}
+
+@GenModel(documentation="Layout a griglia.
+I widget vengono inseriti in una griglia delle dimensioni specificate da <b>columns</b> e <b>rows</b>.
+Ogni cella contiene un widget e la corrispondente label, se specificata.
+Per specificare la posizione nella griglia di un widget occorre utilizzare il <b>GridWidgetLayoutSpec</b> 
+per ogni widget contenuto nel pannello che ha questo layout.")
+@uilayoutdoc(description="<p>
+Il <b>GridPanelLayout</b> (layout a grigia) &egrave; applicabile esclusivamente
+al pannello <b>WidgetsPanel</b> e prevede che gli elementi contenuti nel pannello
+che possiede questo layout (widget) siano visualizzati in una struttura a griglia.
+E' necessario specificare le dimensioni orizzontali e verticali della griglia e ciascuna cella
+della griglia pu&ograve; contenere al massimo un solo <b>Widget</b>.
+In aggiunta un widget pu&ograve; estendersi orizzontalmente per pi&ugrave; di una cella
+(<i>hspan</i>),
+Di fatto, se il numero di colonne previste dal layout  &egrave; <i>n</i>, 
+occorre tenere in considerazione una struttura costituita da <i>n</i> colonne logiche
+e <i>2*n</i> colonne fisiche (una per la label ed una per il campo effettivo, 
+il tutto moltiplicato per il numero colonne logiche).
+E' possibile regolare le percentuali di occupazione della componente label
+e della componente widget di ciascuna delle colonne logiche. 
+Le percentuali sono relative allo spazio a disposizione dell'interno pannello.
+Nel clacolo occorre inoltre tenere in considerazione anche casi &quot; degeneri &quot; quali:
+<ul>
+<li>label non valorizzate</li>
+<li>span orizzontali maggiori di 1</li>
+</ul>
+</p>")
+@logicpkg(pkg="ui.layout")
+class GridPanelLayout extends PanelLayout {
+
+	@GenModel(documentation="Dimensione orizzontale della griglia")
+	attr int columns;
+
+	@GenModel(documentation="Dimensione verticale della griglia.")
+	attr int rows;
+}
+
+@GenModel(documentation="Specifica di posizionamento di widget in un layout a griglia")
+@logicpkg(pkg="ui.layout")
+class GridWidgetLayoutSpec extends WidgetLayoutSpecifier {
+
+	@GenModel(documentation="Riga in cui deve essere posizionato il Widget (prima riga = 1)")
+	attr int row;
+
+	@GenModel(documentation="Colonna in cui deve essere posizionato il Widget (prima colonna = 1)")
+	attr int column;
+
+	@GenModel(documentation="Numero di colonne di occupazione del widget. 
+Se non specificato si assume l'occupazione di una colonna.
+Il widget occuper&agrave; le colonne da <b>column</b> a <b>column+hspan</b> comprese.")
+	attr int hspan;
+
+	@GenModel(documentation="Numero di righe di occupazione del widget. 
+Se non specificato si assume l'occupazione di una riga.
+Il widget occuper&agrave; le righe da <b>row</b> a <b>row+vspan</b> comprese.")
+	attr int vspan;
+}
+
+@GenModel(documentation="Pannello destinato a contenere esclusivamente widget di comando (es. pulsanti).
+")
+@uipaneldoc(description="<p>
+Il <b>CommandPanel</b> &egrave; un pannello utilizzato per realizzare pulsantiere,
+ovvero gruppi di <b>Button</b> destinati ad eseguire funzioni di business.
+<br/>
+All'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pulsanti disponibili.
+</p>")
+@logicpkg(pkg="ui.panels")
+class CommandPanel extends Panel {
+
+	@GenModel(documentation="Permette di differenziare stilisticamente (ove previsto dai pattern di portale)
+tra pulsanti ad uso \"funzionale\" e pulsanti ad uso \"navigazione\".")
+	attr CommandStyles cmdStyle;
+
+	@GenModel(documentation="Ristretto a commandWidgets.")
+	val Widget[*] widgets;
+}
+
+@GenModel(documentation="Pannello destinato a contenere una <b>MenuView</b>.")
+@uipaneldoc(description="<p>
+Il <b>MenuPanel</b> &egrave; un pannello privo di visualizzazione grafica propria, da utilizzarsi
+esclusivamente per contenere il widget <b>MenuView</b>.
+</p>")
+@logicpkg(pkg="ui.panels")
+class MenuPanel extends Panel {
+
+	@GenModel(documentation="I widget inseribili in questo tipo di pannello sono solo:
+<ul>
+<li>TreeView</li>
+<li>MenuView</li>
+<li>UserDefinedWidget</li>
+</ul>")
+	val Widget[*] widgets;
+}
+
+@GenModel(documentation="widget senza rendering")
+class HiddenValue extends DataWidget {
+}
+
+@GenModel(documentation="Permette di inserire un frammento di codice definito manualmente.
+Nella cartuccia di generazioen \"struts2\" questo corrisponde ad un frammento JSP.")
+@logicpkg(pkg="ui.widgets")
+class UserDefinedWidget extends Widget {
+}
+
+@GenModel(documentation="Permette di visualizzare uno degli item di un <b>MultiPanel</b> 
+(o di una delle sue sottoclassi <b>TabSetPanel</b> o <b>WizardPanel</b>).")
+@logicpkg(pkg="cmd")
+class ActivateMultiPanelItemCommand extends Command {
+
+	@GenModel(documentation="Il multipanel del quale si desidera cambiare l'item visualizzato.")
+	ref MultiPanel multipanel;
+
+	@GenModel(documentation="L'item da visualizzare. Se impostato a \"null\" non verr&agrave; visualizzato nessun pannello
+(vale solo per il <b>MultiPanel</b>).")
+	unsettable ref Panel activeItem;
+}
+
+@GenModel(documentation="Superclasse di tutti i possibili meccanismi di autenticazione.")
+@logicpkg(pkg="security")
+abstract class AutenticationMethod {
+}
+
+@GenModel(documentation="Superclasse di tutti i security constraints applicabili a widget e menu.")
+@logicpkg(pkg="security")
+abstract class UISecurityConstraint {
+
+	@GenModel(documentation="in alternativa a <i>enabled</i>. Se impostato a true il comportamento condizionato sar&agrave; la visibilit&agrave;")
+	attr boolean visible;
+
+	@GenModel(documentation="in alternativa a <i>visible</i>. Se impostato a true il comportamento condizionato sar&agrave; l'abilitazione.")
+	attr boolean enabled;
+}
+
+@GenModel(documentation="Security constraint basato sull'abilitazione dell'utente corrente ad un particolare UseCase")
+@logicpkg(pkg="security")
+class UCBasedSecurityConstraint extends UISecurityConstraint {
+
+	@GenModel(documentation="Lo UseCase di riferimento")
+	ref UseCase useCase;
+}
+
+@GenModel(documentation="Caratteristiche di sicurezza dell'applicazione")
+@logicpkg(pkg="security")
+class SecurityModel {
+
+	@GenModel(documentation="Specifica la modalit&agrave; di autenticazione prevista per l'applicazione")
+	val AutenticationMethod autenticationMethod;
+
+	@GenModel(documentation="Elenco degli <b>Actor</b> dell'applicazione (secondo la terminologia di IRIDE2)")
+	val Actor[*] actors;
+
+	@GenModel(documentation="Elenco degli <b>UseCase</b> dell'applicazione (secondo la terminologia di IRIDE2)")
+	val UseCase[*] useCases;
+
+	@GenModel(documentation="Codice identificativo dell'applicazione, come censito in IRIDE2")
+	attr String securityAppID;
+
+	@GenModel(documentation="Elenco dei <b>Role</b> dell'applicazione (secondo la terminologia di IRIDE2)")
+	val Role[*] roles;
+
+	@GenModel(documentation="Azione che viene associata al link <i>esci</i> presente sullo 
+<b>UserInfoPanel</b>.")
+	attr LogoutActionTypes userInfoLogoutAction = "LOCAL_LOGOUT";
+
+	@GenModel(documentation="Se impostata a <i>true</i> all'azione di logout viene chiesta conferma all'utente.")
+	attr boolean askForConfirmationOnLogout;
+}
+
+enum LogoutActionTypes {
+	LOCAL_LOGOUT = 0;
+	SSO_LOGOUT = 1;
+}
+
+@GenModel(documentation="Actor IRIDE2")
+@logicpkg(pkg="security")
+class Actor {
+
+	@GenModel(documentation="codice identificativo (come censito in IRIDE2)")
+	attr String code;
+
+	@GenModel(documentation="Ruoli impersonificati dall'actor.")
+	ref Role[*] roles;
+}
+
+@GenModel(documentation="codice identificativo (come censito in IRIDE2)")
+@logicpkg(pkg="security")
+class UseCase {
+
+	@GenModel(documentation="[[TODO: add documentation here]]")
+	ref Actor[*] permission;
+
+	@GenModel(documentation="codice identificativo (come censito in IRIDE2)")
+	attr String code;
+}
+
+@GenModel(documentation="Security constraint basato sull'impersonificazione dell'utente corrente di un particolare Actor")
+@logicpkg(pkg="security")
+class ActorBasedSecurityConstraint extends UISecurityConstraint {
+
+	@GenModel(documentation="L'Actor di riferimento")
+	ref Actor actor;
+}
+
+@GenModel(documentation="Security constraint a logica custom")
+@logicpkg(pkg="security")
+class CustomSecurityConstraint extends UISecurityConstraint {
+
+	@GenModel(documentation="suffisso del nome del metodo nel quale dovr&agrave; essere codificata la logica del constraint.")
+	attr String methodNameSuffix;
+}
+
+@GenModel(documentation="Meccanismo di autenticazione basato su Single Sign On di Oracle Portal")
+@logicpkg(pkg="security")
+class OPAUTHSSO extends AutenticationMethod {
+
+	@GenModel(documentation="livello minimo di autenticazione: 
+<ul>
+<li>1=username/password</li>
+<li>2=username/password/pin</li>
+<li>3=certificato digitale</li>
+</ul>")
+	attr int minAuthLevel = 1;
+}
+
+@GenModel(documentation="Meccanismo di autenticazione basato su Sistema di Single Sign On SSOBART")
+@logicpkg(pkg="security")
+class SSOBARTSSO extends AutenticationMethod {
+}
+
+@GenModel(documentation="Meccanismo di autenticazione custom")
+@logicpkg(pkg="security")
+class CustomAuthentication extends AutenticationMethod {
+}
+
+@GenModel(documentation="Pannello di visualizzazione di messaggi.
+Permette di visualizzare:
+<ul>
+<li>informativi</li>
+<li>di errore associati ai singoli campi</li>
+<li>di errore globali</li>
+</ul>")
+@uipaneldoc(description="<p>
+Lo <b>stdMessagePanel</b> &egrave; un pannello di tipo informativo utilizzato per mostrare 
+all'utente eventuali messaggi di errore o informativi.
+Se, durante l'elaborazione, si verificano degli errori oppure se la business logic inserisce dei messaggi
+informativi il pannello mostra tali messaggi.
+Se invece non si verifica almeno una di queste due condizioni, il pannello non ha nessuna evidenza
+grafica.
+Le tipologie di messaggio visualizzabili sono:
+<ul>
+<li>messaggi informativi</li>
+<li>messaggi di errore globali</li>
+<li>messaggi di errore relativi a campi specifici</li>
+</ul>
+<br/>
+</p>")
+@logicpkg(pkg="ui.panels")
+class StdMessagePanel extends Panel {
+
+	@GenModel(documentation="Impostare a true se si desidera visualizzare i messaggi di errore globali")
+	attr boolean showGlobalMessages;
+
+	@GenModel(documentation="Impostare a true se si desidera visualizzare i messaggi di errore relativi ai vari field.")
+	attr boolean showFieldErrorDetails;
+
+	@GenModel(documentation="Impostare a true se si desidera visualizzare i messaggi di errore")
+	attr boolean showFieldErrors;
+}
+
+@GenModel(documentation="Permette di far passare il flusso di esecuzione ad una pagina esterna all'applicativo.")
+@logicpkg(pkg="cmd")
+class JumpExtCommand extends Command {
+
+	@GenModel(documentation="Se specificato l'effetto del comando sarà la redirezione del flusso applicativo all'url specificato.")
+	attr String staticUrl;
+
+	@GenModel(documentation="Se specificato il flusso applicativo verr&agrave; rediretto all'url fornito dinamicamente (a runtime) dall'application data specificato.")
+	ref ApplicationData runtimeUrlProvider;
+
+	@GenModel(documentation="codice identificativo della locazione. A solo scopo menmonico. deve essere univoco all'interno del <b>ContentPanel</b>.")
+	attr String locationCode;
+
+	@GenModel(documentation="<p>
+Se impostato a <i>true</i> indica che l'url referenziato produce uno stream
+binario.
+Utilizzato solo da alcune cartucce. 
+Default=<i>false</i>.
+</p>")
+	attr boolean binaryStream = false;
+}
+
+@GenModel(documentation="specifica della target platform per cui deve essere generato il pacchetto, pi&ugrave; altre caratteristiche tecniche.")
+class TargetPlatform {
+
+	@GenModel(documentation="codice della piattaforma target")
+	attr TargetPlatformCodes code;
+
+	@GenModel(documentation="Se impostato a true sono abilitati i comportamenti \"ricchi\" di User Interaction.")
+	attr boolean enableRichUIBehavior = false;
+
+	@GenModel(documentation="Se impostato a true sono abilitati i comportamenti \"ricchi\" di User Interaction.")
+	attr boolean enableFatClient = false;
+
+	@GenModel(documentation="Elenco dei portali di esposizione dell'applicativo, nell'ambito di una esposizione
+multi-portale ")
+	val PortalExposition[*] portalExpositions;
+	ref WAYFProfile wayfProfile;
+	ref SecurityProfile securityProfile;
+}
+
+@GenModel(documentation="codici di piattaforma target disponibili")
+enum TargetPlatformCodes {
+	WLS92 = 0;
+	JBoss43 = 1;
+	JBossEAP64 = 2;
+	Wildfly17 = 3;
+}
+
+@GenModel(documentation="Pannello per la visualizzazione delle informazioni identificative dell'utente loggato.
+Un <b>ContentPanel</b> che contiene uno <b>UserInfoPanel</b> deve referenziare 
+l'application data <i>common::currentUser</i>.")
+@uipaneldoc(description="<p>
+Lo <b>UserInfoPanel</b> &egrave; un pannello utilizzato per visualizzare le informazioni
+relative all'utente selezionato, che tipicamente sono:
+<ol>
+<li>il nome ed il cognome dell'utente</li>
+<li>il codice fiscale dell'utente</li>
+<li>l'ente di appartenenza</li>
+<li>il ruolo</li>
+</ol>
+<br/>
+</p>")
+@logicpkg(pkg="ui.panels")
+class UserInfoPanel extends Panel {
+}
+
+@GenModel(documentation="Permette la definizione di un pannello in modalit&agrave; custom.
+L'implementazione di questo pannello dipende dalla cartuccia di generazione.
+Nel caso \"struts2\", ad esempio, questo pannello di concretizza in un frammento JSP incluso.")
+@logicpkg(pkg="ui.panels")
+class UserDefinedPanel extends Panel {
+}
+
+@GenModel(documentation="Particolare tipo di <b>MultiPanel</b> che prevede una sezione di
+navigazione in alto che rappresenta la sequenza degli step del wizard.
+Il naviogatore pu&ograve; essere attivo o passivo. Nel caso in cui il navigatore
+sia passivo per passare d auno step all'altro &egrave; necessario utilizzare
+il comando <b>ActivateMultiPanelItem</b> agganciato ad un evento collegato ad 
+un pulsante interno al pannello che descrive ciascuno step.")
+@uipaneldoc(description="<p>
+Il <b>WizardPanel</b> &egrave; un pannello utilizzato realizzare strutture organizzate
+a <i>wizard</i>:
+Prevede due sezioni visibili:
+<ol>
+<li>la lista di &quot; etichette &quot; che servono per attivare i vari <i>step</i> 
+(con evidenza visiva dello step correntemente selezionato)</li>
+<li>la sezione in cui viene visualizzato il contenuto dello <i>step</i> corrente.</li>
+</ol>
+All'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.
+Il <b>WizardPanel</b> pu&ograve; funzionare in tre differenti modalit&agrave;:
+<ol>
+<li>wizard <b>passivo</b>: la navigazione tra gli step deve essere comandata dalla business
+logic (es. tasti di &quot;avanti&quot; o &quot;indietro&quot; all'interno dello step)</li>
+<li>wizard <b>attivo</b>: la navigazione tra gli step pu&ograve; essere comandata sia dalla
+business logic (es. tasti di &quot;avanti&quot; o &quot;indietro&quot; all'interno dello step) sia
+tramite click sulle etichette dei vari step.</li>
+</ol>
+</p>")
+@logicpkg(pkg="ui.panels")
+class WizardPanel extends MultiPanel {
+
+	@GenModel(documentation="Se impostato a true la sezione di navigazione sar&agrave; cliccabile, 
+permettendo cos&igrave; il salto libero da uno step all'altro.")
+	attr boolean navigatorActive = true;
+
+	@GenModel(documentation="Widget fittizio che permette di associare un event handler all'evento di
+CLICK sullo step (utilizzabile solo in modalit&agrave; attiva).")
+	val TabSwitcher switcher;
+	attr WizardNumberingTypes numberingSchema = "NO_NUMBERING";
+}
+
+@GenModel(documentation="Modulo dell'applicativo. Da mantenere in un file separato.")
+class AppModule {
+
+	@GenModel(documentation="Codice identificativo del modulo. Deve essere univoco all'interno 
+dell'applicazione e deve essere un identificativo valido di package java.")
+	attr String name;
+
+	@GenModel(documentation="Elenco delle schermate che costituiscono il modulo.")
+	val ContentPanel[*] contentPanels;
+
+	@GenModel(documentation="riferimento al modello di sicurezza.")
+	ref SecurityModel extSecurityModel;
+	attr boolean secure;
+}
+
+@GenModel(documentation="Namespace (package) di tipi.")
+@logicpkg(pkg="mdl.types")
+class TypeNamespace {
+
+	@GenModel(documentation="codice identificativo del namespace: deve essere univoco all'interno dell'applicazione e deve essere un identificatore di package java valido.")
+	attr String name;
+
+	@GenModel(documentation="tipi contenuti nel package")
+	val Type[*] types;
+}
+
+@GenModel(documentation="Raggruppamento logico di application data. da mantenere in modello separato.")
+@logicpkg(pkg="mdl.data")
+class AppDataGroup {
+
+	@GenModel(documentation="codice identificativo del gruppo. Ha valenza esclusivamente menmonica.")
+	attr String name;
+
+	@GenModel(documentation="elenco degli application data compresi nel gruppo.")
+	val ApplicationData[*] appData;
+}
+
+@uipaneldoc(description="<p>
+Il <b>MsgBoxPanel</b> &egrave; un pannello utilizzabile per mostrare all'utente
+del testo in sola lettura, eventualmente formattato. Il testo pu&ograve; essere statico
+(definito a tempo di modellazione) o dinamico (calcolato a runtime).
+E' il meccanismo preferenziale da utilizzare in tutti quei casi in cui non sia sufficiente
+utilizzare lo <b>StdMessagePanel</b>, che &egrave; orientato principalmente a brevi
+messaggi testuali.
+<br/>
+Data la natura del pannello, &egrave; possibile inserire esclusivamente dei widget di
+visualizzazione di testo (<b>PlainText</b>).
+</p>")
+@logicpkg(pkg="ui.panels")
+class MsgBoxPanel extends Panel {
+
+	@GenModel(documentation="Tipologia del messaggio (utilizzato solo se il pannello &egrave; contenuto in un
+<b>DialogPanel</b>.")
+	attr MessageSeverity messageSeverity;
+
+	@GenModel(documentation="contengono il testo vero e proprio")
+	val PlainText[*] textMessages;
+
+	@GenModel(documentation="se impostato a i<i>true</i> fa si che nel pannello siano mostrate le voci della
+legenda standard (es. indicazione del significato del '*'), prima di tutti i testi
+custom. Il valore di default &egrave; <i>false</i> ")
+	attr boolean showStdLegend;
+}
+
+enum MessageSeverity {
+	INFO = 0;
+	WARN = 1;
+	ERROR = 2;
+}
+
+enum CommandStyles {
+	FUNCTIONAL = 0;
+	NAVIGATION = 1;
+}
+
+@GenModel(documentation="No OPeration command. Serve da tappo per chiudere delle catene in cui occorra rimanere nella stessa schermata.")
+@logicpkg(pkg="cmd")
+class NOPCommand extends Command {
+}
+
+@GenModel(documentation="Pannello destinato a contenere Widget.")
+@uipaneldoc(description="<p>
+Il <b>widgetsPanel</b> &egrave; il pannello principale utilizzabile per la realizzazione di
+<i>form</i> di immissione/visualizzazione dati. Al suo interno &egrave; possibile inserire, secondo
+i vari layout disponibili, praticamente tutti i <b>Widget</b>. L'effetto grafico &egrave; quello di un
+insieme di widget organizzati verticalmente, orizzontalmente oppure a griglia. Ciascun
+widget &egrave; dotato di label. Il pannello stesso pu&ograve;, opzionalmente, essere dotato di
+&quot;titolo&quot; che viene visualzzato in testa al pannello.
+<br/>
+All'interno del singolo tab &egrave; possibile inserire tutte le tipologie di widget disponibili, ad esclusione
+del <b>MenuView</b> che deve invece essere obbligatoriamente inserito in un <b>MenuPanel</b>.
+</p>")
+@logicpkg(pkg="ui.panels")
+class WidgetsPanel extends Panel {
+
+	@GenModel(documentation="Elenco dei widget contenuti. I Widget sono organizzati secondo il layout
+associato al pannello e secondo gli eventuali specificatori associati a 
+ciascun widget.")
+	val Widget[*] widgets;
+	attr String summary;
+
+	@GenModel(documentation="Se <i>true</i> il pannello &egrave; collassabile.")
+	attr boolean collapsible = false;
+}
+
+@GenModel(documentation="Stato di visibili&agrave; / abilitazione dei widget contenuti in un 
+<b>ContentPanel</b>. Per passare da uno stato all'altro &egrave; 
+necessario utilizzare il comando <b>ScreenStateCommand</b>.")
+@logicpkg(pkg="ui.state")
+class ScreenState {
+
+	@GenModel(documentation="codice identificativo dello stato. Deve essere univoco nel content panel.")
+	attr String name;
+
+	@GenModel(documentation="elenco dei widget che devono essere resi editabili se il <b>ContentPanel</b>
+&egrave; in questo stato.")
+	ref Widget[*] widgetsOn;
+
+	@GenModel(documentation="elenco dei widget che devono essere resi visibili se il <b>ContentPanel</b>
+&egrave; in questo stato.")
+	ref Widget[*] widgetsVisible;
+}
+
+@GenModel(documentation="elenco delgi stati disponibili per un determinato <b>ContentPanel</b>.")
+@logicpkg(pkg="ui.state")
+class ScreenStates {
+	val ScreenState[*] states;
+}
+
+@GenModel(documentation="Permette di far passare un <b>ContnetPanel</b> nello stato specificato")
+@logicpkg(pkg="cmd")
+class ScreenStateCommand extends Command {
+
+	@GenModel(documentation="Lo stato in cui si desidera far passare il <b>ContentPanel</b>")
+	ref ScreenState goTo;
+}
+
+@GenModel(documentation="Meccanismo di autenticazione basato su SHIBBOLETH")
+@logicpkg(pkg="security")
+class ShibbolethSSO extends AutenticationMethod {
+}
+
+@GenModel(documentation="Ruolo come definito in IRIDE2")
+@logicpkg(pkg="security")
+class Role {
+
+	@GenModel(documentation="codice identificativo (come censito in IRIDE2)")
+	attr String code;
+
+	@GenModel(documentation="codice del dominio di validit&agrave; del ruolo (come censito in IRIDE2)")
+	attr String domainCode;
+}
+
+@GenModel(documentation="Security constraint basato sull'appartenenza dell'utente corrente ad un particolare Role")
+@logicpkg(pkg="security")
+class RoleBasedSecurityConstraint extends UISecurityConstraint {
+
+	@GenModel(documentation="Il role di riferimento")
+	ref Role role;
+}
+
+@GenModel(documentation="UI constraint basato sull'esecuzione di uno script durante la fase di
+rendering dell'elemento di UI.
+Lo script deve essere codificato come espressione booleana nel linguaggio
+definito dalla property \"language\". All'interno dell'espressione possono 
+essere utilizzati tutti i campi che sono disponibili nel model della schermata")
+@logicpkg(pkg="security")
+class DeclarativeUIConstraint extends UISecurityConstraint {
+
+	@GenModel(documentation="Il linguaggio in cui deve essere scritta l'espressione del constraint")
+	attr InlineScriptingLanguage language = "beanshell";
+
+	@GenModel(documentation="Lo script del constraint. deve essere una espressione booleana. Pu&ograve;
+utilizzare tutte le properties disponibili nel model del ContentPanel e deve avere un
+valore booleano.")
+	attr String script;
+}
+
+enum InlineScriptingLanguage {
+	beanshell = 0;
+}
+
+@GenModel(documentation="Widget per la selezione e l'upload di un file")
+@uiwidgetdoc(description="E' il classico widget utilizzabile per la selezione di un <i>file</i> che dovr&agrave; essere inviato
+al server (funzione di <i>file upload</i>).
+Il <b>FileUpload</b> pu&ograve; essere utilizzato all'interno di:
+<ul>
+<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il
+pulsante ad altri widget (es. pulsanti di lookup)</li>
+</ul>
+Prevede due modalit&agrave; di funzionamento: <i>standard</i> e <i>ricca</i>.
+<h4>modalit&agrave; standard</h4>
+Il funzionamento di base del FileUpload prevede:
+<ul>
+<li>la possibilit&agrave; di selezionare da file system un file mediante <i>browsing</i> sulle cartelle
+locali alla postazione client</li>
+<li>la possibilit&agrave; di essere disabilitato a comando</li>
+<li>la possibilit&agrave; di essere reso invisibile a comando</li>
+<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente
+collegato</li>
+</ul>
+<h4>modalit&agrave; ricca</h4>
+La modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:
+<ul>
+<li>tooltip al passaggio del cursore sulla label del widget</li>
+</ul>", "event-clicked"="<p>Il widget <b>FileUpload</b> contiene un pulsante che pu&ograve; ricevere un evento di pressione 
+da parte dell'utente a fronte del quale viene visualizzato il <i>dialog</i> di selezione del file da sottomettere al
+server. 
+Questo evento &egrave; implicito (non occorre definire un <b>EventHandler</b> per attivarlo). 
+A fronte di questo evento <b>non</b> &egrave; per&ograve; possibile eseguire logica di business. 
+</p>")
+@logicpkg(pkg="ui.widgets")
+class FileUpload extends Widget {
+
+	@GenModel(documentation="se <i>multiple</i> = <i>true</i>, sar&agrave; possibile selezionare pi&ugrave; 
+di un file. Il valore di default &egrave;: <i>false</i>")
+	attr boolean multiple = false;
+}
+
+@GenModel(documentation="Widget fittizio utilizzabile esclusivamente in un <b>TabSetPanel</b>
+o un <b>WizardPanel</b> che permette l'associazione di un event handler
+all'evento di selezione (CLICK) su un tab o uno step.")
+@logicpkg(pkg="ui.widgets")
+class TabSwitcher extends CommandWidget {
+}
+
+@GenModel(documentation="Definizione di pannello riusabile. Deve essere definita in un modello esterno
+e referenziata tramite l'oggetto <b>PanelDefUse</b>.")
+class PanelDef {
+
+	@GenModel(documentation="codice menmonico identificativo della definizione")
+	attr String name;
+
+	@GenModel(documentation="Contiene la struttura del pannello.")
+	val Panel panel;
+
+	@GenModel(documentation="Dichiarazione dei parametri di configurazione del frammento.
+Per ogni parametro definito qui, nel <b>PanelDefUse</b> occorre specificare
+una valorizzazione del parametro.")
+	val PDefParam[*] params;
+
+	@GenModel(documentation="Definizione di application data fittizi che servono per impostare i binding dei dati.")
+	val ApplicationDataDefs appDataDefs;
+
+	@GenModel(documentation="Definizione di tipi fittizi utilizzati negli application data fittizi.")
+	val Typedefs typeDefs;
+
+	@GenModel(documentation="Definizione di ruoli fittizi che servono per impostare i security constraints.")
+	val Role[*] roles;
+
+	@GenModel(documentation="Definizione di attori fittizi che servono per impostare i security constraints.")
+	val Actor[*] actors;
+
+	@GenModel(documentation="Definizione di use case fittizi che servono per impostare i security constraints.")
+	val UseCase[*] useCases;
+
+	@GenModel(documentation="PER FUTURI SVILUPPI")
+	val Command onRefreshCommand;
+	val PanelDefStates states;
+	ref PanelDefState defaultState;
+}
+
+abstract class PDefParam {
+	attr String name;
+}
+
+@GenModel(documentation="Definizione di parametro di <b>PanelDef</b> che permette di rimpiazzare 
+l'application data fittizio con quello reale nel <b>PanelDefUse</b>")
+class AppDataMappingParam extends PDefParam {
+	ref ApplicationData defAppData;
+}
+
+class TypeDefMappingParam extends PDefParam {
+	ref Type defTypeDef;
+}
+
+class UseCaseMappingParam extends PDefParam {
+	ref UseCase defUseCase;
+}
+
+class RoleMappingParam extends PDefParam {
+	ref Role defRole;
+}
+
+class ActorMappingParam extends PDefParam {
+	ref Actor defActor;
+}
+
+@GenModel(documentation="Serve per utilizzare in una applicazione reale un <b>PanelDef</b>.
+")
+class PanelDefUse extends Panel {
+	ref PanelDef panelDef;
+
+	@GenModel(documentation="Configurazione del componente")
+	val PDefUseConfig config;
+}
+
+abstract class PDefParamVal {
+	ref PDefParam param;
+}
+
+@GenModel(documentation="Valorizzazione di parametro di <b>PanelDef</b> che permette di rimpiazzare 
+l'application data fittizio con quello reale nel <b>PanelDefUse</b>")
+class AppDataMappingPDefVal extends PDefParamVal {
+	ref ApplicationData actualAppData;
+}
+
+class TypeDefMappingPDefVal extends PDefParamVal {
+	ref Type actualTypeDef;
+}
+
+class UCMappingPDefVal extends PDefParamVal {
+	ref UseCase actualUseCase;
+}
+
+class RoleMappingPDefVal extends PDefParamVal {
+	ref Role actualRole;
+}
+
+class ActorMappingPDefVal extends PDefParamVal {
+	ref Actor actualActor;
+}
+
+class PDefUseConfig {
+
+	@GenModel(documentation="Insieme delle valorizzazioni di tutti i parametri previsti dal <b>PanelDef</b>.")
+	val PDefParamVal[*] paramValues;
+}
+
+@GenModel(documentation="Modello di attivazione dell'applicazione.
+Opzionale")
+@logicpkg(pkg="app")
+class ActivationModel {
+
+	@GenModel(documentation="elenco dei parametri di attivazione dell'applicazione. Il valore effettivo dei parametri
+&egrave; disponibile nella logica di business associata all' <i>onInitCommand</i>
+dell'applicazione.")
+	val ActivationParam[*] activationParams;
+}
+
+@logicpkg(pkg="app")
+class ActivationParam {
+	attr String name;
+	ref SimpleType type;
+}
+
+@GenModel(documentation="Dichiara l'inizio di una sessione di editing, effettuando un backup in memoria
+degli <b>ApplicationData</b> specificati.
+La copia di backup sar&agrave; realizzata per valore e potr&agrave; essere utilizzata
+per ripristinare il valore originario (funzione di <i>undo</i> richiamata
+utilizzando <b>EndEditCommand</b>.")
+@logicpkg(pkg="cmd")
+class BeginEditCommand extends Command {
+
+	@GenModel(documentation="Elenco dei dati oggetto dell'editing.")
+	ref ApplicationData[*] dataEdited;
+}
+
+@GenModel(documentation="Permette di terminare una sessione di editing su un certo insieme di <b>ApplicationData</b>,
+con la possibilità di effettuare un <i>undo</i> sui dati specificati.
+Utilizzato in congiunzione con <b>BeginEditCommand</b>. 
+Nota: data la struttura dei due comandi di inizio e fine della sessione di
+editing &egrave; possibile effettuare l'<i>undo</i> di una parte degli
+application data specificati nel comando di inizio editing (specificando
+nel <b>EndEditCommand</b> solo una parte degli application data
+precedentemente specificati nel <b>BeginEditCommand</b>.
+Si consiglia, in questi casi, di terminare correttamente la sessione di 
+editing per <b>tutti</b> gli application data per evitar eche rimangano 
+in memoria dati di backup obsoleti.
+Per far ci&ograve; &egrave; sufficiente utilizzare due volte il comando
+<b>EndEditCommand</b>: la prima volta con <i>undo</i> impostato a
+true (e specificando solo i dati di cui si vuole effettuare l'undo) e
+una seconda volta con <i>undo</i> impostato a false, specificando 
+i restanti dati.
+")
+@logicpkg(pkg="cmd")
+class EndEditCommand extends Command {
+
+	@GenModel(documentation="Elenco dei dati oggetto dell'editing.")
+	ref ApplicationData[*] dataEdited;
+
+	@GenModel(documentation="Se impostato a true viene ripristinato il valore originario di tutti gli
+<b>ApplicationData</b> indicati.")
+	attr boolean undo;
+}
+
+@GenModel(documentation="Permette di verificare se, all'interno di una sessione di editing, vi sono state
+delle variazioni al valore di uno o pi&ugrave; <b>ApplicationData</b>.
+Affinch&egrave; il check sia veritiero è necessario che gli <b>ApplicationData</b>
+oggetto di verifica siano un sottoinsieme dell'insieme di <b>ApplicationData</b>
+indicati nel comando <b>BeginEditCommand</b> che ha originato
+la sessione di editing (altrimenti non sar&agrave; disponibile il valore originario
+con il quale effettuare il check di modifica).
+A fronte dell'esito del check sarà possibile proseguire l'esecuzione con uno 
+tra due comandi (referenziati nei due elementi di tipo <b>CommandOutcome</b>).
+Mediante l'attributo <i>checkAggregation</i>E'possibile specificare la logica di aggregazione del check relativamente
+ai vari <b>ApplicationData</b> referenziati:
+<ul>
+<li>OR: l'esito sar&agrave; di \"occorsa variazione\" se il valore di almeno uno dei dati
+      referenziati avr&agrave; subito una modifica rispatto allo stato originale.</li>
+<li>AND: l'esito sar&agrave; di \"occorsa variazione\" se il valore di tutti i dati
+      referenziati avr&agrave; subito una modifica rispatto allo stato originale.</li>
+<li>XOR: l'esito sar&agrave; di \"occorsa variazione\" se il valore di uno soltanto tra i dati
+      referenziati avr&agrave; subito una modifica rispatto allo stato originale.</li>
+</ul>")
+@logicpkg(pkg="cmd")
+class ChkEditStatusCommand extends Command {
+
+	@GenModel(documentation="Elenco dei dati oggetto della verifica. Devono essere un sottoinsieme 
+dei dati referenziati nel corrispondente <b>BeginEditCommand</b>.")
+	ref ApplicationData[*] dataChecked;
+
+	@GenModel(documentation="Tipo di aggregazione dei check sui dati. Possibilit&agrave;:
+<ul>
+<li>OR: l'esito sar&agrave; di \"occorsa variazione\" se il valore di almeno uno dei dati
+      referenziati avr&agrave; subito una modifica rispatto allo stato originale.</li>
+<li>AND: l'esito sar&agrave; di \"occorsa variazione\" se il valore di tutti i dati
+      referenziati avr&agrave; subito una modifica rispatto allo stato originale.</li>
+<li>XOR: l'esito sar&agrave; di \"occorsa variazione\" se il valore di uno soltanto tra i dati
+      referenziati avr&agrave; subito una modifica rispatto allo stato originale.</li>
+</ul>")
+	attr LogicAggregationTypes checkAggregation = "OR";
+
+	@GenModel(documentation="Specifica il branch di elaborazione da eseguire nel caso che i check
+specificati indichino che ci sono state delle modifiche.")
+	val CommandOutcome doIfChanged;
+
+	@GenModel(documentation="Specifica il branch di elaborazione da eseguire nel caso che i check
+specificati indichino che <i>non</i> ci sono state delle modifiche.")
+	val CommandOutcome doIfNotChanged;
+}
+
+enum LogicAggregationTypes {
+	OR = 1;
+	AND = 2;
+	XOR = 3;
+}
+
+@GenModel(documentation="Stato di visibili&agrave; / abilitazione dei widget contenuti in un 
+<b>PanelDef</b>. Per passare da uno stato all'altro &egrave; 
+necessario utilizzare il comando <b>PDefStateCommand</b>.")
+class PanelDefState {
+
+	@GenModel(documentation="codice identificativo dello stato. Deve essere univoco nel <b>PanelDef</b>.")
+	attr String name;
+
+	@GenModel(documentation="elenco dei widget che devono essere resi editabili se il <b>PanelDef</b>
+&egrave; in questo stato.")
+	ref Widget[*] widgetsOn;
+
+	@GenModel(documentation="elenco dei widget che devono essere resi visibili se il <b>PanelDef</b>
+&egrave; in questo stato.")
+	ref Widget[*] widgetsVisible;
+}
+
+@GenModel(documentation="Permette di far passare un <b>PanelDef</b> nello stato specificato. 
+Pu&ograve; essere utilizzato in due modi:
+<ol>
+<li>all'interno del <b>PanelDef</b>, in una catena di comandi referenziata
+       da un <b>EventHandler</b>: in questo caso l'effetto del comando
+       &egrave; applicato ai widget dell'istanza di <b>PanelDef</b> sulla quale
+       &egrave; indirizzato l'evento</li>.
+<li>all'interno di un <b>ContentPanel</b> che referenzia un <b>PanelDef</b>
+tramite <b>PanelDefUse</b>: in questo caso il comando &egrave; inserito
+all'interno di una catena di comandi referenziata da un <b>EventHandler</b>
+associato ad un <b>Widget</b> definito nel <b>ContentPanel</b>. Ovviamente
+&egrave; necessario indicare, in questo caso, il <b>PanelDefUse</b> al quale
+deve essere inviato il comando (che nel caso precedente &egrave; implicito)
+</li>
+</ol>")
+class PDefStateCommand extends Command {
+
+	@GenModel(documentation="Lo stato in cui si desidera far passare il <b>PanelDef</b>")
+	ref PanelDefState goTo;
+
+	@GenModel(documentation="Il <b>PanelDefUse</b> a cui deve essere indirizzato il comando. Deve essere utilizzato solo
+nel caso di utilizzo del comando esterno al <b>PanelDef</b>.")
+	ref PanelDefUse pDefUse;
+}
+
+@GenModel(documentation="elenco delgi stati disponibili per un determinato <b>PanelDef</b>.")
+class PanelDefStates {
+	val PanelDefState[*] states;
+}
+
+@GenModel(documentation="Definizione di parametro di <b>PanelDef</b> che permette di personalizzare
+una <b>Table</b> contenuta nel <b>PanelDef</b>.
+La personalizzazione consiste nella possibilit&agrave; di:
+<ul>
+<li>aggiungere colonne extra in una posizione ben definita rispetto alle colonne
+      preessitenti nella tabella base</li>
+<li>nascondere una parte delle colonne presenti nella tabella base</li>
+</ul>")
+class TableCustomizationParam extends PDefParam {
+
+	@GenModel(documentation="La <b>Table</b> su cui &egrave; possibile effettuare la personalizzazione.")
+	ref Table baseTable;
+}
+
+@GenModel(documentation="Tipo specifico di <b>Column<b> utilizzabile in un <b>TableCustomizationParam</b> 
+per aggiungere colonne ad una <b>Table</b> presente in un <b>PanelDef</b>")
+class ExtraColumn extends Column {
+
+	@GenModel(documentation="Indica in che posizione deve essere aggiunta la nuova colonna:
+<ul>
+<li>se l'attributo non &egrave; impostato la colonna verr&agrave; aggiunta
+       in prima posizione</li>
+<li>se l'attributo &egrave; valorizzato la colonna verr&agrave; inserita dopo
+la colonna indicata</li>
+</ul>")
+	ref Column insertAfter;
+}
+
+@GenModel(documentation="Valorizzazione di parametro di <b>PanelDef</b> che permette di personalizzare
+una <b>Table</b> per la quale &egrave; stata prevista la personalizzabilit&agrave;
+(tramite un <b>TableCustomizationPDefVal</b>.")
+class TableCustomizationPDefVal extends PDefParamVal {
+
+	@GenModel(documentation="L'elenco delle colonne da aggiungere alle colonne preesistenti nella tabella
+base. Le colonne saranno aggiunte secondo quanto specificato nell'
+attributo <i>insertAfter</i> dell'oggetto <b>ExtraColumn</b> corrispondente.
+Se due <b>ExtraColumn</b> presentano lo stesso valore di tale attributo, esse
+saranno inserite nell'ordine in cui sono presenti in questo elenco.")
+	val ExtraColumn[*] extraCols;
+
+	@GenModel(documentation="Elenco delle colonne della <b>Table</b> base che devono essere nascoste.")
+	ref Column[*] hiddenCols;
+}
+
+@GenModel(documentation="Cartuccia custom da utilizzare per la <i>full-code generation</i> in un 
+<b>ExecCommand</b>.
+La definizione di una <b>CustomCartridge</b> &egrave; considerata una 
+feature avanzata.")
+class CustomCartridge {
+
+	@GenModel(documentation="Nome mnemonico della cartuccia.")
+	attr String name;
+
+	@GenModel(documentation="id della cartuccia")
+	attr CustomCartridgeID crtID;
+
+	@GenModel(documentation="Template messi a disposizione dalla cartuccia.")
+	val CustomTemplate[*] templates;
+}
+
+@GenModel(documentation="Elenco dei codici che possono essere utilizzati per classificare le cartucce.
+<ul>
+<li>
+I valori <b>PLATF_1</b> ... <b>PLATF_5</b> sono riservati alle estensioni
+abilitanti all'utilizzo di una <i>piattaforma</i> (es. BPM-FLUX, ...). Queste estensioni
+sono realizzate da chi gestisce la piattaorma in congiunzione con il gruppo di 
+competenza MDD.
+</li>
+<li>
+I valori <b>TECH_1</b> ... <b>TECH_5</b> sono riservati alle estensioni
+specifiche di una determinata problematica <i>tecnologica</i> (es. accesso al DB, accesso a servizi,, ...)
+Queste estensioni sono realizzate da chi gestisce gli standard di sviluppo in congiunzione con il gruppo di 
+competenza MDD.
+</li>
+<li>
+I valori <b>CUSTOM_1</b> ... <b>CUSTOM_3</b> sono riservati alle estensioni
+specifiche di un determinato progetto <i>tecnologica</i>.
+Queste estensioni p'ossono essere realizzate dal gruppo di progetto con il supporto
+del gruppo di competenza MDD, ma sono da considerarsi feature <b>AVANZATE</b>,
+da utilizzare quando realmente necessario.
+</li>
+
+</ul>")
+enum CustomCartridgeID {
+	PLATF_1 = 101;
+	PLATF_2 = 102;
+	PLATF_3 = 103;
+	PLATF_4 = 104;
+	PLATF_5 = 105;
+	CUSTOM_1 = 201;
+	CUSTOM_2 = 202;
+	CUSTOM_3 = 203;
+	TECH_1 = 301;
+	TECH_2 = 302;
+	TECH_3 = 303;
+	TECH_4 = 304;
+	TECH_5 = 305;
+}
+
+@GenModel(documentation="Un template custom da utilizzarsi per la generazione <i>full</i> 
+del codice a fronte di un <b>ExecCommand</b>. ")
+class CustomTemplate {
+
+	@GenModel(documentation="ID mnemonico del template. Il valore di questo attributo sar&agrave; a 
+disposizione del codiuce che implementa il template <i>XPand</i>, e 
+dovrà essere utilizzato per instradare la logica di generazione verso il 
+template corretto.")
+	attr String tplID;
+
+	@GenModel(documentation="nome del template
+")
+	attr String name;
+
+	@GenModel(documentation="Dichiarazione degli <i>slot</i> (opzionali) destinati a contenere eventuali 
+modelli ausiliarii.")
+	val ModelSlotDef[*] modelSlots;
+}
+
+@GenModel(documentation="Definizione di uno slot destinato a contenere un modello ausiliario utilizzabile
+da un custom template.")
+class ModelSlotDef {
+
+	@GenModel(documentation="nome mnemonico dello slot")
+	attr String name;
+
+	@GenModel(documentation="full qualified name della classe Java corrispondente alla classe EMF degli 
+elementi associabili allo slot.")
+	attr String modelClass;
+}
+
+@GenModel(documentation="Valorizzazione di uno slot con un modello utilizzabile dal custom template")
+class ModelSlot {
+
+	@GenModel(documentation="Definizione del model slot di cui questo <b>ModelSlot</b> rappresenta la
+valorizzazione.")
+	ref ModelSlotDef def;
+
+	@GenModel(documentation="Valore dello slot. Il tipo dell'elemento associato deve corrispondere con
+quanto dichiarato nell'attributo <i>modelClass</i> dell'oggetto 
+<b>ModelSlotDef</b> corrispondente.")
+	ref EObject ~val;
+}
+
+@logicpkg(pkg="ui.widgets")
+enum CommandFunctions {
+	UNSPECIFIED = 0;
+	ADD_ITEM = 101;
+	EDIT_ITEM = 102;
+	DELETE_ITEM = 103;
+	SEARCH = 104;
+	SAVE = 105;
+	LOAD = 106;
+	DETAIL = 107;
+	LOOKUP = 108;
+	NEXT_ITEM = 201;
+	PREVIOUS_ITEM = 202;
+	FIRST_ITEM = 203;
+	LAST_ITEM = 204;
+	CONFIRM = 301;
+	CANCEL = 302;
+	FORWARD = 401;
+	BACK = 402;
+	SHOW_REPORT = 501;
+	SHOW_HELP = 502;
+	SEND_MESSAGE = 503;
+}
+
+class ClearAppdataCommand extends Command {
+	ref ApplicationData[*] appData;
+}
+
+@logicpkg(pkg="ui.widgets")
+class MapView extends DataWidget, MultiDataWidget {
+	attr String mapId;
+	val MapEnvelope startEnvelopeSpec;
+	val MapEnvelope maxEnvelopeSpec;
+	val MapEnvelope scaleEnvelopeSpec;
+	attr int numLevels;
+	val AppDataBinding editDataBinding;
+	val MapViewGadgets gadgets;
+
+	@GenModel(documentation="Se impostato a <i>true</i> quando il widget &egrave; disabilitato viene disabilitato
+anche un eventuale possibilit&agrave; di scatenare un evento di <i>click</i>
+sulla mappa")
+	attr boolean noClickWhenDisabled = true;
+
+	@GenModel(documentation="Se impostato a <i>true</i> quando il widget &egrave; disabilitato viene disabilitato
+anche un eventuale possibilit&agrave; di effettuare editing di geometrie
+sulla mappa")
+	attr boolean noEditWhenDisabled = true;
+
+	@GenModel(documentation="Se impostato a <i>true</i> quando il widget &egrave; disabilitato viene disabilitata
+la funzione di <i>zoom</i> a comando utente (in tutte le sue modalit&agrave;)")
+	attr boolean noZoomWhenDisabled = false;
+
+	@GenModel(documentation="Se impostato a <i>true</i> quando il widget &egrave; disabilitato viene disabilitata
+la funzione di <i>pan</i> a comando utente (in tutte le sue modalit&agrave;)")
+	attr boolean noPanWhenDisabled = false;
+}
+
+@logicpkg(pkg="ui.widgets.mapview")
+class Point {
+	attr double x;
+	attr double y;
+}
+
+@logicpkg(pkg="ui.widgets.mapview")
+class MapEnvelope {
+	val Point northEast;
+	val Point southWest;
+}
+
+@GenModel(documentation="Definisce alcune caratteristiche dipendenti dal portale di esposizione.
+In particolare l'elenco delle risorse statiche che devono essere referenziate
+dall'applicazione e in che modo deve avvenire tale utilizzo.
+Permette di modellare tutte le varie combinazioni di possibli utilizzi
+di librerie javascript, temi, risorse da includere, modalit&agrave; remote/locali")
+class PortalProfile {
+
+	@GenModel(documentation="Nome logico (carattere informativo) del portale")
+	attr String name;
+
+	@GenModel(documentation="Risorse statiche necessarie per l'esposizione dell'applicazione sul portale")
+	val WebResourceModule[*] resModules;
+
+	@GenModel(documentation="Codice identificativo del portale per il meccanismo di riconoscimento della 
+provenienza (<i>where are you from</i>)).
+Il codice pu&ograve; essere fornito dal meccanismo di autenticazione (se
+previsto) oppure come parametro esplicito: per ogni portale il codice deve essere lo stesso nei due casi.")
+	attr String whereAreYouFromPortalCode;
+
+	@GenModel(documentation="codice utilizzato per discriminare i <i>resource provider</i> relativi ai differenti
+portali nell'ambito di una esposizione multi-portale.")
+	attr String resourceProviderCode;
+}
+
+@GenModel(documentation="Modulo di risorse web che l'applicazione utilizza in vario modo. 
+Preferibilmente si utilizza la sottoclasse <i>StdWebResourceModule</i>.")
+abstract class WebResourceModule {
+
+	@GenModel(documentation="Nome logico del modulo. Non &egrave; necessario che corrisponda al nome
+del modulo disponibile su repart.")
+	attr String name;
+
+	@GenModel(documentation="Versione del modulo. Non &egrave; necessario che corrisponda alla versione
+del modulo disponibile su repart.")
+	attr String version;
+
+	@GenModel(documentation="Determina:
+<ul>
+<li>dove il modulo sar&agrave; installato in esercizio</li>
+<li>se e come sar&agrave; referenziato a build time</i>
+<li>come sar&agrave; referenziato a runtime</i>
+</ul>")
+	attr WebResModuleDeployTypes deploymentType;
+
+	@GenModel(documentation="Modulo effettivo disponibile su repart.")
+	unsettable val RepartModule repartModule;
+}
+
+@GenModel(documentation="Possibili tipologie di <i>deploy</i> del modulo (e degli artefatti corrispondenti)")
+enum WebResModuleDeployTypes {
+
+	@GenModel(documentation="Gli artefatti relativi al modulo sono contenuti nel pacchetto applicativo
+che sarà installato nell'application server (es. nell'EAR)")
+	APPSERVER = 0;
+
+	@GenModel(documentation="Gli artefatti relativi al modulo sono referenziati in una cartella del 
+<i>web server</i> che espone l'applicazione che è disponibile con ciclo
+di vita indipendente dall'applicazione (cartella globale)")
+	WEBSERVER_GLOBAL = 0;
+
+	@GenModel(documentation="Gli artefatti relativi al modulo sono installati e in una cartella del 
+<i>web server</i> che espone l'applicazione. La cartella segue il
+ciclo di vita dell'applicazione (cartella locale). Le risorse sono poi 
+referenziate dalle componenti applicative puntando a quella
+cartella")
+	WEBSERVER_LOCAL = 0;
+}
+
+@GenModel(documentation="Modulo standard di risorse web attualmente utilizzabili nell'applicazione.
+L'utilizzo effettivo di ciascuna tipologia dipende dal tipo di modulo
+(attributo <i>stdName</i>)")
+class StdWebResourceModule extends WebResourceModule {
+	attr StdWebResModuleNames stdName;
+}
+
+@GenModel(documentation="Rappresenta un <i>artefatto</i> all'interno di un <i>modulo</i> disponibile
+sul repository degli artefatti.")
+class RepartArtifact {
+
+	@GenModel(documentation="Nome dell'artefatto, tipicamente coincidente col nome del file presente
+sul repository delgi artefatti.")
+	attr String name;
+
+	@GenModel(documentation="Tipo dell'artefatto. Tipicamente coincidente con l'estensione del file
+presente sul repository")
+	attr String type;
+}
+
+@GenModel(documentation="Rappresenta un <i>modulo</i> di <i>artefatti</i> disponibile
+sul repository degli artefatti.")
+class RepartModule {
+
+	@GenModel(documentation="organizzazione a cui appartiene il modulo")
+	attr String[1] organization;
+
+	@GenModel(documentation="nome del modulo")
+	attr String[1] name;
+
+	@GenModel(documentation="versione del modulo")
+	attr String[1] version;
+
+	@GenModel(documentation="tipo di modulo")
+	attr RepartModuleTypes[1] type;
+
+	@GenModel(documentation="Elenco degli artefatti contenuti nel modulo")
+	val RepartArtifact[+] artifacts;
+}
+
+@GenModel(documentation="Moduli standard di risorse web")
+enum StdWebResModuleNames {
+
+	@GenModel(documentation="Libreria Javascript <i>ExtJs</i>, utilizzata per la realizzazione delle funzioni 
+&quot;ricche&quot;.
+Tipologia: javascript")
+	ext_all = 101;
+
+	@GenModel(documentation="Libreria Javascript <i>OpenLayers</i>, utilizzata per la realizzazione 
+delle funzionalit&agrave; GIS (widget <b>MapView</b>).
+Tipologia: javascript")
+	openlayers = 102;
+
+	@GenModel(documentation="Libreria Javascript <i>extjscsicore</i> (estensione di ExtJS per la
+realizzazione di widget/funzioni ricche utilizzate dalla modalit&agrave;
+<i>arricchita</i> di guigen).
+Tipologia: javascript")
+	extjscsicore = 201;
+
+	@GenModel(documentation="Libreria Javascript <i>extjscsienricher</i> (estensione di ExtJS per la
+realizzazione del meccanismo di <i>arricchimento</i> disponibile in guigen).
+Tipologia: javascript")
+	extjscsienricher = 202;
+
+	@GenModel(documentation="Libreria Javascript <i>extjscsimdd</i> (estensione di ExtJS per la
+realizzazione dello strato completo di presentation in modalit&agrave;
+<i>FAT</i> di guigen).
+Tipologia: javascript")
+	extjscsimdd = 203;
+
+	@GenModel(documentation="Stilizzazione di base delle estensioni alla user interface fornite dalla libreria
+<i>ExtJS</i>.
+E' specifica di ogni portale.
+Tipologia: javascript")
+	extlibstheme = 301;
+
+	@GenModel(documentation="Impostazione della struttura portante necessaria per realizzare
+i vari tipi di layout per XHTML universale.
+E' specifica di ogni portale.
+Tipologia: stili CSS.")
+	xstructure = 302;
+
+	@GenModel(documentation="Stilizzazione specifica della singola area tematica atta a realizzarne il
+<i>brand></i>.
+Agisce come specializzazione di <i>xstructure</i>.
+E' specifica di ogni portale e di ogni area tematica. Anche l'area tematica
+di default (general) deve essere stilizzata in questo modo.
+Tipologia: stili CSS.")
+	areabrand = 303;
+
+	@GenModel(documentation="Stilizzazione specifica della singola area tematica atta a realizzarne il
+<i>brand></i>.
+Agisce come specializzazione di quanto definito in <i>xtheme</i>.
+E' specifica di ogni portale e di ogni area tematica. Anche l'area tematica
+di default (general) deve essere stilizzata in questo modo.
+Tipologia: stili css")
+	extlibsareabrand = 304;
+
+	@GenModel(documentation="Stilizzazione di base delle estensioni alla user interface fornite dalla libreria
+<i>OPENLAYERS</i>.
+E' specifica di ogni portale.
+Tipologia: javascript")
+	openlayerstheme = 305;
+
+	@GenModel(documentation="Stilizzazione specifica della singola area tematica atta a realizzarne il
+<i>brand></i>.
+Agisce come specializzazione di quanto definito in <i>openlayerstheme</i>.
+E' specifica di ogni portale e di ogni area tematica. Anche l'area tematica
+di default (general) deve essere stilizzata in questo modo.
+Tipologia: stili css")
+	openlayersareabrand = 306;
+
+	@GenModel(documentation="Arricchimenti specifici della singola applicazione.
+Tipologia: javascript")
+	enrichments = 401;
+
+	@GenModel(documentation="Frammenti html inclusi globalmente.
+Tipologia: risorse web di varia natura (tipicamente html)")
+	globalinclusions = 501;
+}
+
+enum RepartModuleTypes {
+	java = 1;
+	webres = 2;
+	javascript = 3;
+}
+
+@GenModel(documentation="Rappresenta il cosiddetto &quot;filo d'arianna&quot;, utilizzabile per mostrare
+all'utnete collegato il contesto applicativo in cui si trova (es.
+funzionalit&agrave; corrente, livello di dettaglio, ...).
+E' un <b>MultiDataWidget</b> collegabile ad <b>ApplicationData</b>
+di tipo array di stringhe che &egrave; utilizzato per mantenere l'elenco
+degli step del filo d'arianna. La costruzione degli step deve essere
+effettuata tramite logica di business.")
+@logicpkg(pkg="ui.panels")
+class Breadcrumb extends Panel {
+}
+
+@logicpkg(pkg="ui.widgets.mapview")
+class MapViewGadgets {
+	attr boolean layerSwitcher = false;
+	attr String backgroundMapMapServiceName;
+	attr String backgroundMapSwitcherLabel;
+	attr String backgroundPhotoAerialMapServiceName;
+	attr String backgroundPhotoAerialSwitcherLabel;
+	attr boolean pointEditingActive;
+	attr boolean lineEditingActive;
+	attr boolean polygonEditingActive;
+	attr boolean modifyEditingActive;
+}
+
+@GenModel(documentation="Rappresenta la singola esposizione di un'applicazione su uno specifico
+portale, nell'ambito di una esposizione multi-portale.
+Nel caso in cui il portale preveda differenti aree tematiche qui si specifica anche 
+su qyale delle aree tematiche l'applicativo deve essere esposto")
+class PortalExposition {
+
+	@GenModel(documentation="riferimento al profilo del portale di esposizione
+")
+	ref PortalProfile portal;
+
+	@GenModel(documentation="Codice dell'area tematica del portale nella quale &egrave; esposto l'applicativo.
+In caso di portali che non prevedano aree tematiche differenziate occorre
+specificare l'area tematica &quot;general&quot;")
+	attr String areaCode;
+}
+
+enum WizardNumberingTypes {
+	NO_NUMBERING = 0;
+	ARABIC_NUMERALS = 1;
+	LOWERCASE_ALPHA = 2;
+	UPPERCASE_ALPHA = 3;
+	UPPERCASE_ROMAN_NUMERALS = 4;
+	LOWERCASE_ROMAN_NUMERALS = 5;
+}
+
+@GenModel(documentation="Comando asosciato al Content Panel che viene eseguito a seconda di quanto
+specificato in <i>execute</i>.")
+class CPCommand {
+	attr CPCommandExecutionTypes execute;
+	val Command command;
+}
+
+@GenModel(documentation="Contenitore dei comandi associati al content panel (vengono eseguiti in 
+differenti momenti a seconda del tipo di esecuzione del singolo comando)")
+class CPCommands {
+
+	@GenModel(documentation="L'elenco dei comandi")
+	val CPCommand[*] commands;
+}
+
+enum CPCommandExecutionTypes {
+
+	@GenModel(documentation="Il comando viene eseguito al primo ingresso nel content panel. Serve pertanto
+per l'inizializzazione del ContentPanel")
+	ON_INIT = 0;
+
+	@GenModel(documentation="Il comando viene eseguito ad ogni ingresso nel content panel (proveniente da
+un a differente schermata). Serve pertanto per quei casi in cui sia
+necessaria una inizializzazione del ContentPanel che non possa essere effettuata
+una tantum, ma debba essere ripetuta ad ogni ingresso.")
+	ON_ENTER = 1;
+
+	@GenModel(documentation="Il comando viene eseguito prima dell'esecuzione di ogni evento esplicito su uno dei
+widget della schermata. ")
+	BEFORE_EVENTS = 2;
+
+	@GenModel(documentation="Il comando viene eseguito al termine dell'esecuzione di ogni evento esplicito su uno dei
+widget della schermata (prima dell'eventuale cambio di schermata)")
+	AFTER_EVENTS = 3;
+
+	@GenModel(documentation="Il comando viene eseguito ad ogni refresh della schermata; se il refresh &egrave;
+scatenato da un evento su un widget, il comando viene eseguito prima dell'
+esecuzione ddell'evento. ")
+	ON_REFRESH = 4;
+}
+
+class SecurityProfile {
+	attr String name;
+	val ExternalAuthenticationGuard extAuthGuard;
+	val InternalAuthenticationGuard intAuthGuard;
+	val IdentityAdapter idAdapter;
+	val PEPImplementation pepImpl;
+}
+
+class ExternalAuthenticationGuard {
+}
+
+class InternalAuthenticationGuard {
+	val LoginModule loginModule;
+	val EnvConfigParams params;
+}
+
+class WAYFRequestAdapter {
+	attr InfoSourceTypes sourceType;
+	attr String infoSourceName;
+}
+
+class WAYFProfile {
+	val WAYFRequestAdapter requestAdapter;
+}
+
+class LoginUI {
+	attr LoginUITypes uiType;
+}
+
+class LoginModule {
+	attr boolean internal;
+	val LoginUI[*] loginUI;
+}
+
+class IdentityAdapter {
+	attr InfoSourceTypes sourceType;
+	attr String infoSourceName;
+	attr TicketVerifyMethod ticketVerifyMethod = "LOCAL";
+
+	@GenModel(documentation="<p>Sono disponibili le seguenti chiavi:</p>
+<table border=\"1\"><tbody>
+<tr>
+<th><b>Name</b></th>
+<th><b>Position</b></th>
+<th><b>Descrizione</b></th>
+</tr>
+<tr>
+<td>body</td>
+<td>createCurrentUser</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>normalizeEncodedUserInfo</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>prepareTicketValidationCall</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>extractEncodedUserInfo</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>extractEncodedUserInfo</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+</tbody></table>")
+	val InlineCodeSnippet[*] inlineCodeSnippets;
+	val EnvConfigParams params;
+}
+
+enum TicketVerifyMethod {
+	LOCAL = 0;
+	REMOTE_HTTP = 1;
+}
+
+enum LoginUITypes {
+	USERNAME_PASSWORD = 1;
+	USERNAME_PASSWORD_PIN = 2;
+	CUSTOM = 4;
+}
+
+enum InfoSourceTypes {
+	REQUEST_PARAM = 1;
+	REQUEST_HEADER = 2;
+	REQUEST_COOKIE = 3;
+	SESSION_ATTRIBUTE = 5;
+	REQUEST_ATTRIBUTE = 4;
+	REQUEST_URL = 6;
+}
+
+class EnvConfigParam {
+	attr String name;
+}
+
+class EnvConfigParams {
+	val EnvConfigParam[*] params;
+}
+
+class PEPImplementation {
+	val EnvConfigParam[*] params;
+	attr boolean custom;
+
+	@GenModel(documentation="<p>Sono disponibili le seguenti chiavi:</p>
+<table border=\"1\"><tbody>
+<tr>
+<th><b>Name</b></th>
+<th><b>Position</b></th>
+<th><b>Descrizione</b></th>
+</tr>
+<tr>
+<td>import</td>
+<td>methodPrivate</td>
+<td>definizione import custom</td>
+</tr>
+<tr>
+<td>body</td>
+<td>findActorsForPersonaInApplication</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>findActorsForPersonaInUseCase</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>findRuoliForPersonaInApplication</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>findRuoliForPersonaInUseCase</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>findUseCasesForPersonaInApplication</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>getInfoPersonaInUseCase</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>getInfoPersonaSchema</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>identificaCertificato</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>identificaUserPassword</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>identificaUserPasswordPIN</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>isIdentitaAutentica</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>isPersonaAutorizzataInUseCase</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>isPersonaInRuolo</td>
+<td>regione protetta metodo omonimo</td>
+</tr>
+<tr>
+<td>body</td>
+<td>methodPrivate</td>
+<td>introduzione eventuali metodi custom private aggiuntivi</td>
+</tr>
+</tbody></table>")
+	val InlineCodeSnippet[*] inlineCodeSnippets;
+}
+
+@GenModel(documentation="Determina il tipo di selezione permessa sull'albero:
+<ul>
+<li>solo sui nodi foglia</li>
+<li>solo sui nodi non foglia</li>
+<li>su tutti i nodi</li>
+</ul>")
+enum TreeSelectionTypes {
+	ALL_NODES = 0;
+	LEAF_NODES_ONLY = 1;
+	NON_LEAF_NODES_ONLY = 2;
+}
+
+class InlineCodeSnippet {
+	attr String snippetPosition;
+	attr String snippetName;
+	attr String snippetCode;
+	attr String lang;
+}
+
+abstract interface AnnotatedElement {
+	val Annotation[*] annotations;
+}
+
+class Annotation {
+	attr String source;
+	val AnnotationDetail[*] details;
+}
+
+class AnnotationDetail {
+	attr String key;
+	attr String value;
+}
+
+class Captcha extends Widget {
+}
+
+@GenModel(documentation="Widget che permette di selezionare uno o due valori in un range numerico continuo. </p>
+<br></br>
+<b>aspetto grafico</b>
+<ul>
+	<li>E' dotato di etichetta come tutti gli altri widget a lato del widget;</li>
+	<li>appare come un classico slider, ad orientamento orizzontale</li>
+	<li>contestualmente allo slider &egrave; visualizzato il valore correntemente selezionato</li>
+	<li>in caso di slider a selezione singola appare solo un elemento spostabile che determiner&agrave;
+       	il valore selezionato</li>
+	<li>in caso di slider a selezione multipla appaiono due elementi spostabili,uno per l'estremo inferiore 
+       ed uno per l'estremo superiore del range e le due posizioni determineranno la coppia di valori che
+       rappresenteranno gli estremi del range</li>
+</ul>
+
+<br></br>
+<b>binding con dati</b>
+<ul>
+	<li> lo slider &egrave; un <b>DataWidget</b>, pertanto il suo valore sar&agrave; sincronizzato 
+	con un <b>ApplicationData</b> tramite data-binding:
+  		<ul>
+    			<li>se il tipo dell'application data collegato &egrave; un tipo semplice (non array)  lo slider sar&agrave;
+           			da considerarsi a selezione puntuale, e il valore selezionato sar&agrave; sincronizzato con il valore 
+           			di tale application data</li>
+    			<li>se il tipo dell'application data collegato &egrave; un array di tipi semplici lo slider sar&agrave; 
+           			da considerarsi a selezione di intervallo e il range selezionato dar&agrave; origine ad un array di 
+           			due elementi che conterranno l'estremo inferiore e l'estremo superiore dell'intervallo</li>
+  		</ul>
+	</li>
+  	<li>pu&ograve; essere definito un collection binding, che viene interpretato diversamente a seconda 
+           del valore dell'opzione <i>useCollectionDataAs</i>
+	       <ul>       
+       		   <li>se <i>useCollectionBindingAs</i>=\"values\": gli elementi dell'application data collegato 
+                 		saranno presi come valori discreti selezionabili (e saranno considerati ordinati secondo 
+                 		l'ordinamento dell'array) <b>N.B: FEATURE NON ANCORA IMPLEMENTATA</b></li>
+          		  <li>  se <i>useCollectionDataAs</i>=\"range\": gli elementi 0 e 1 dell'array (che devono essere 
+                		necessariamente numerici ed ordinati in modo crescente) rappresentano gli estremi inferiore 
+                	 e superiore del range selezionabile</li>
+       	</ul>
+  	</li>
+</ul>
+
+<br></br>
+<b>opzioni di configurazione</b>
+<ul>
+    <li>il tipo del binding determina se lo slider è da considerarsi puntuale o di intervallo</li>
+    <li> l'opzione useCollectionDataAs determina come considerare i dati del collection binding:
+      <ul>
+        <li>\"values\": valori discreti selezionabili verrà implementato in futuro </li>
+        <li> \"range\": estremi dell'intervallo (continuo/numerico) selezionabile </li>
+     </ul>
+   </li>
+</ul>
+
+<p>")
+class Slider extends DataWidget, MultiDataWidget {
+
+	@GenModel(documentation="
+Permette di decidere come utilizzare il contenuto del collection data binding.
+Attualmente l'unico valore ammissibile &egrave; \"range\" e indica al generatore 
+di utilizzare i primi due elementi (numerici) dell'array collegato tramite collection
+data binding come estremi inferiore e superiore del range di valori selezionabili.
+N.B: serve nei casi in cui sia necessario un range dinamico; nel caso in cui invece
+sia sufficiente un range statico definito a tempo di modellazione &egrave; necessario
+modellare le due property <i>staticLowerBound</i> e <i>staticUpperBound</i>
+")
+	attr SliderCollectionValuesUsageTypes useCollectionDataAs;
+
+	@GenModel(documentation="
+Nel caso di range staticamente definito a tempo di modellazione il valore
+di questa property viene utilizzato come estremo inferiore del range di valori 
+selezionabili
+")
+	attr Float staticLowerBound;
+
+	@GenModel(documentation="
+Nel caso di range staticamente definito a tempo di modellazione il valore
+di questa property viene utilizzato come estremo superiore del range di valori 
+selezionabili
+")
+	attr Float staticUpperBound;
+
+	@GenModel(documentation="
+se configurato definisce di quanto aumenta/diminuisce il valore selezionato
+a fronte di uno spostamento unitario del selettore
+")
+	attr Float staticStep = "1";
+}
+
+enum SliderCollectionValuesUsageTypes {
+	RANGE_BOUNDS = 0;
+	DISCRETE_VALUES = 1;
+}
+

@@ -1,0 +1,2538 @@
+@ExtendedMetaData(qualified="false")
+@namespace(uri="platform:/resource/EveCEO/models/EveAPIDBModel.xsd", prefix="EveAPIDBModel")
+package EveAPIDBModel;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@ExtendedMetaData(name="AllianceList_._type", kind="empty")
+class AllianceListType {
+
+	@ExtendedMetaData(kind="attribute", name="allianceID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceID")
+	attr type.Integer allianceID;
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="executorCorpID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="executorCorpID")
+	attr type.Integer executorCorpID;
+
+	@ExtendedMetaData(kind="attribute", name="memberCount", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="memberCount")
+	attr type.Integer memberCount;
+
+	@ExtendedMetaData(kind="attribute", name="name", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="name")
+	attr type.AnySimpleType name;
+
+	@ExtendedMetaData(kind="attribute", name="shortName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shortName")
+	attr type.NCName shortName;
+
+	@ExtendedMetaData(kind="attribute", name="startDate", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="startDate")
+	attr type.AnySimpleType[1] startDate;
+}
+
+@ExtendedMetaData(name="CertificateTree_._type", kind="empty")
+class CertificateTreeType {
+
+	@ExtendedMetaData(kind="attribute", name="categoryID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="categoryID")
+	attr type.Integer categoryID;
+
+	@ExtendedMetaData(kind="attribute", name="categoryName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="categoryName")
+	attr type.NCName categoryName;
+
+	@ExtendedMetaData(kind="attribute", name="certificateID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="certificateID")
+	attr type.Integer certificateID;
+
+	@ExtendedMetaData(kind="attribute", name="classID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="classID")
+	attr type.Integer classID;
+
+	@ExtendedMetaData(kind="attribute", name="className", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="className")
+	attr type.AnySimpleType className;
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="description", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="description")
+	attr type.AnySimpleType description;
+
+	@ExtendedMetaData(kind="attribute", name="grade", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="grade")
+	attr type.Integer grade;
+
+	@ExtendedMetaData(kind="attribute", name="level", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="level")
+	attr type.Integer level;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer typeID;
+}
+
+@ExtendedMetaData(name="CharacterAccountStatus_._type", kind="empty")
+class CharacterAccountStatusType {
+
+	@ExtendedMetaData(kind="attribute", name="cachedUntil", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="cachedUntil")
+	attr type.String[1] cachedUntil;
+
+	@ExtendedMetaData(kind="attribute", name="createDate", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="createDate")
+	attr type.String[1] createDate;
+
+	@ExtendedMetaData(kind="attribute", name="logonCount", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="logonCount")
+	attr type.Integer[1] logonCount;
+
+	@ExtendedMetaData(kind="attribute", name="logonMinutes", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="logonMinutes")
+	attr type.Integer[1] logonMinutes;
+
+	@ExtendedMetaData(kind="attribute", name="paidUntil", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="paidUntil")
+	attr type.String[1] paidUntil;
+}
+
+@ExtendedMetaData(name="CharacterCharacters_._type", kind="empty")
+class CharacterCharactersType {
+
+	@ExtendedMetaData(kind="attribute", name="allianceID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceID")
+	attr type.Integer[1] allianceID;
+
+	@ExtendedMetaData(kind="attribute", name="allianceName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceName")
+	attr type.String[1] allianceName;
+
+	@ExtendedMetaData(kind="attribute", name="ancestry", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ancestry")
+	attr type.NCName[1] ancestry;
+
+	@ExtendedMetaData(kind="attribute", name="balance", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="balance")
+	attr type.Decimal[1] balance;
+
+	@ExtendedMetaData(kind="attribute", name="bloodLine", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="bloodLine")
+	attr type.NCName[1] bloodLine;
+
+	@ExtendedMetaData(kind="attribute", name="certificateID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="certificateID")
+	attr type.Integer[1] certificateID;
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer[1] characterID;
+
+	@ExtendedMetaData(kind="attribute", name="charisma", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="charisma")
+	attr type.Integer[1] charisma;
+
+	@ExtendedMetaData(kind="attribute", name="cloneName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="cloneName")
+	attr type.String[1] cloneName;
+
+	@ExtendedMetaData(kind="attribute", name="cloneSkillPoints", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="cloneSkillPoints")
+	attr type.Integer[1] cloneSkillPoints;
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer[1] corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="corporationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationName")
+	attr type.String[1] corporationName;
+
+	@ExtendedMetaData(kind="attribute", name="DoB", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="doB")
+	attr type.String[1] doB;
+
+	@ExtendedMetaData(kind="attribute", name="gender", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="gender")
+	attr type.NCName[1] gender;
+
+	@ExtendedMetaData(kind="attribute", name="intelligence", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="intelligence")
+	attr type.Integer[1] intelligence;
+
+	@ExtendedMetaData(kind="attribute", name="level", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="level")
+	attr type.Integer[1] level;
+
+	@ExtendedMetaData(kind="attribute", name="memory", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="memory")
+	attr type.Integer[1] memory;
+
+	@ExtendedMetaData(kind="attribute", name="name", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="name")
+	attr type.NCName[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="perception", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="perception")
+	attr type.Integer[1] perception;
+
+	@ExtendedMetaData(kind="attribute", name="published", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="published")
+	attr type.Integer[1] published;
+
+	@ExtendedMetaData(kind="attribute", name="race", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="race")
+	attr type.NCName[1] race;
+
+	@ExtendedMetaData(kind="attribute", name="roleID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="roleID")
+	attr type.Integer[1] roleID;
+
+	@ExtendedMetaData(kind="attribute", name="roleName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="roleName")
+	attr type.NCName[1] roleName;
+
+	@ExtendedMetaData(kind="attribute", name="skillpoints", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="skillpoints")
+	attr type.Integer[1] skillpoints;
+
+	@ExtendedMetaData(kind="attribute", name="titleID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="titleID")
+	attr type.Integer[1] titleID;
+
+	@ExtendedMetaData(kind="attribute", name="titleName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="titleName")
+	attr type.NCName[1] titleName;
+
+	@ExtendedMetaData(kind="attribute", name="willpower", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="willpower")
+	attr type.Integer[1] willpower;
+}
+
+@ExtendedMetaData(name="CharacterContactNotifications_._type", kind="empty")
+class CharacterContactNotificationsType {
+
+	@ExtendedMetaData(kind="attribute", name="columns", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="columns")
+	attr type.AnySimpleType[1] columns;
+
+	@ExtendedMetaData(kind="attribute", name="key", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="key")
+	attr type.NCName[1] key;
+
+	@ExtendedMetaData(kind="attribute", name="name", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="name")
+	attr type.NCName[1] name;
+}
+
+@ExtendedMetaData(name="CharacterInfo_._type", kind="empty")
+class CharacterInfoType {
+
+	@ExtendedMetaData(kind="attribute", name="alliance", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="alliance")
+	attr type.String[1] alliance;
+
+	@ExtendedMetaData(kind="attribute", name="allianceID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceID")
+	attr type.Integer[1] allianceID;
+
+	@ExtendedMetaData(kind="attribute", name="alliancenDate", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="alliancenDate")
+	attr type.String[1] alliancenDate;
+
+	@ExtendedMetaData(kind="attribute", name="bloodline", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="bloodline")
+	attr type.NCName[1] bloodline;
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer[1] characterID;
+
+	@ExtendedMetaData(kind="attribute", name="characterName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterName")
+	attr type.String[1] characterName;
+
+	@ExtendedMetaData(kind="attribute", name="corporation", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporation")
+	attr type.String[1] corporation;
+
+	@ExtendedMetaData(kind="attribute", name="corporationDate", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationDate")
+	attr type.String[1] corporationDate;
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer[1] corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="race", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="race")
+	attr type.NCName[1] race;
+
+	@ExtendedMetaData(kind="attribute", name="securityStatus", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="securityStatus")
+	attr type.Decimal[1] securityStatus;
+}
+
+@ExtendedMetaData(name="CharacterMailingLists_._type", kind="empty")
+class CharacterMailingListsType {
+
+	@ExtendedMetaData(kind="attribute", name="displayName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="displayName")
+	attr type.AnySimpleType[1] displayName;
+
+	@ExtendedMetaData(kind="attribute", name="listID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="listID")
+	attr type.Integer[1] listID;
+}
+
+@ExtendedMetaData(name="CharacterMailMessages_._type", kind="empty")
+class CharacterMailMessagesType {
+
+	@ExtendedMetaData(kind="attribute", name="messageID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="messageID")
+	attr type.Integer[1] messageID;
+
+	@ExtendedMetaData(kind="attribute", name="senderID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="senderID")
+	attr type.Integer[1] senderID;
+
+	@ExtendedMetaData(kind="attribute", name="senderTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="senderTypeID")
+	attr type.Integer[1] senderTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="sentDate", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="sentDate")
+	attr type.AnySimpleType[1] sentDate;
+
+	@ExtendedMetaData(kind="attribute", name="title", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="title")
+	attr type.AnySimpleType[1] title;
+
+	@ExtendedMetaData(kind="attribute", name="toCharacterIDs", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="toCharacterIDs")
+	attr type.AnySimpleType[1] toCharacterIDs;
+
+	@ExtendedMetaData(kind="attribute", name="toCorpOrAllianceID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="toCorpOrAllianceID")
+	attr type.AnySimpleType[1] toCorpOrAllianceID;
+
+	@ExtendedMetaData(kind="attribute", name="toListID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="toListID")
+	attr type.AnySimpleType[1] toListID;
+}
+
+@ExtendedMetaData(name="CharacterMedals_._type", kind="empty")
+class CharacterMedalsType {
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="description", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="description")
+	attr type.AnySimpleType description;
+
+	@ExtendedMetaData(kind="attribute", name="issued", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="issued")
+	attr type.AnySimpleType[1] issued;
+
+	@ExtendedMetaData(kind="attribute", name="issuerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="issuerID")
+	attr type.Integer[1] issuerID;
+
+	@ExtendedMetaData(kind="attribute", name="medalID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="medalID")
+	attr type.Integer[1] medalID;
+
+	@ExtendedMetaData(kind="attribute", name="reason", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="reason")
+	attr type.String[1] reason;
+
+	@ExtendedMetaData(kind="attribute", name="status", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="status")
+	attr type.NCName[1] status;
+
+	@ExtendedMetaData(kind="attribute", name="title", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="title")
+	attr type.AnySimpleType title;
+}
+
+@ExtendedMetaData(name="CharacterNotifications_._type", kind="empty")
+class CharacterNotificationsType {
+
+	@ExtendedMetaData(kind="attribute", name="notificationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="notificationID")
+	attr type.Integer[1] notificationID;
+
+	@ExtendedMetaData(kind="attribute", name="read", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="read")
+	attr type.Integer[1] read;
+
+	@ExtendedMetaData(kind="attribute", name="senderID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="senderID")
+	attr type.Integer[1] senderID;
+
+	@ExtendedMetaData(kind="attribute", name="sentDate", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="sentDate")
+	attr type.AnySimpleType[1] sentDate;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+}
+
+@ExtendedMetaData(name="CharacterResearch_._type", kind="empty")
+class CharacterResearchType {
+
+	@ExtendedMetaData(kind="attribute", name="agentID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="agentID")
+	attr type.Integer[1] agentID;
+
+	@ExtendedMetaData(kind="attribute", name="pointsPerDay", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="pointsPerDay")
+	attr type.Decimal[1] pointsPerDay;
+
+	@ExtendedMetaData(kind="attribute", name="remainderPoints", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="remainderPoints")
+	attr type.Decimal[1] remainderPoints;
+
+	@ExtendedMetaData(kind="attribute", name="researchStartDate", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="researchStartDate")
+	attr type.String[1] researchStartDate;
+
+	@ExtendedMetaData(kind="attribute", name="skillTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="skillTypeID")
+	attr type.Integer[1] skillTypeID;
+}
+
+@ExtendedMetaData(name="CharacterSkillInTraining_._type", kind="empty")
+class CharacterSkillInTrainingType {
+
+	@ExtendedMetaData(kind="attribute", name="offset", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="offset")
+	attr type.Integer[1] offset;
+
+	@ExtendedMetaData(kind="attribute", name="skillInTraining", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="skillInTraining")
+	attr type.Integer[1] skillInTraining;
+
+	@ExtendedMetaData(kind="attribute", name="trainingDestinationSP", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="trainingDestinationSP")
+	attr type.Integer[1] trainingDestinationSP;
+
+	@ExtendedMetaData(kind="attribute", name="trainingEndTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="trainingEndTime")
+	attr type.String[1] trainingEndTime;
+
+	@ExtendedMetaData(kind="attribute", name="trainingStartSP", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="trainingStartSP")
+	attr type.Integer[1] trainingStartSP;
+
+	@ExtendedMetaData(kind="attribute", name="trainingStartTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="trainingStartTime")
+	attr type.String[1] trainingStartTime;
+
+	@ExtendedMetaData(kind="attribute", name="trainingToLevel", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="trainingToLevel")
+	attr type.Integer[1] trainingToLevel;
+
+	@ExtendedMetaData(kind="attribute", name="trainingTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="trainingTypeID")
+	attr type.Integer[1] trainingTypeID;
+}
+
+@ExtendedMetaData(name="CharacterSkillQueue_._type", kind="empty")
+class CharacterSkillQueueType {
+
+	@ExtendedMetaData(kind="attribute", name="endSP", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="endSP")
+	attr type.Integer[1] endSP;
+
+	@ExtendedMetaData(kind="attribute", name="endTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="endTime")
+	attr type.AnySimpleType[1] endTime;
+
+	@ExtendedMetaData(kind="attribute", name="level", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="level")
+	attr type.Integer[1] level;
+
+	@ExtendedMetaData(kind="attribute", name="queuePosition", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="queuePosition")
+	attr type.Integer[1] queuePosition;
+
+	@ExtendedMetaData(kind="attribute", name="startSP", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="startSP")
+	attr type.Integer[1] startSP;
+
+	@ExtendedMetaData(kind="attribute", name="startTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="startTime")
+	attr type.AnySimpleType[1] startTime;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+}
+
+@ExtendedMetaData(name="CharacterUpcomingCalendarEvents_._type", kind="empty")
+class CharacterUpcomingCalendarEventsType {
+
+	@ExtendedMetaData(kind="attribute", name="duration", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="duration")
+	attr type.Integer[1] duration;
+
+	@ExtendedMetaData(kind="attribute", name="eventDate", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eventDate")
+	attr type.AnySimpleType[1] eventDate;
+
+	@ExtendedMetaData(kind="attribute", name="eventID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eventID")
+	attr type.Integer[1] eventID;
+
+	@ExtendedMetaData(kind="attribute", name="eventText", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eventText")
+	attr type.AnySimpleType[1] eventText;
+
+	@ExtendedMetaData(kind="attribute", name="eventTitle", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eventTitle")
+	attr type.AnySimpleType[1] eventTitle;
+
+	@ExtendedMetaData(kind="attribute", name="importance", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="importance")
+	attr type.Integer[1] importance;
+
+	@ExtendedMetaData(kind="attribute", name="ownerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerID")
+	attr type.Integer[1] ownerID;
+
+	@ExtendedMetaData(kind="attribute", name="ownerName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerName")
+	attr type.AnySimpleType[1] ownerName;
+
+	@ExtendedMetaData(kind="attribute", name="ownerTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerTypeID")
+	attr type.Integer[1] ownerTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="response", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="response")
+	attr type.NCName[1] response;
+}
+
+@ExtendedMetaData(name="ConquerableStationList_._type", kind="empty")
+class ConquerableStationListType {
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer[1] corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="corporationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationName")
+	attr type.AnySimpleType[1] corporationName;
+
+	@ExtendedMetaData(kind="attribute", name="solarSystemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="solarSystemID")
+	attr type.Integer[1] solarSystemID;
+
+	@ExtendedMetaData(kind="attribute", name="stationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationID")
+	attr type.Integer[1] stationID;
+
+	@ExtendedMetaData(kind="attribute", name="stationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationName")
+	attr type.AnySimpleType[1] stationName;
+
+	@ExtendedMetaData(kind="attribute", name="stationTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationTypeID")
+	attr type.Integer[1] stationTypeID;
+}
+
+@ExtendedMetaData(name="Corporation.Characters_._type", kind="empty")
+class CorporationCharactersType {
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer[1] characterID;
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer[1] corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="corporationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationName")
+	attr type.AnySimpleType[1] corporationName;
+
+	@ExtendedMetaData(kind="attribute", name="name", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="name")
+	attr type.NCName[1] name;
+}
+
+@ExtendedMetaData(name="CorporationContainerLog_._type", kind="empty")
+class CorporationContainerLogType {
+
+	@ExtendedMetaData(kind="attribute", name="action", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="action")
+	attr type.String[1] action;
+
+	@ExtendedMetaData(kind="attribute", name="actorID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="actorID")
+	attr type.Integer[1] actorID;
+
+	@ExtendedMetaData(kind="attribute", name="actorName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="actorName")
+	attr type.String[1] actorName;
+
+	@ExtendedMetaData(kind="attribute", name="flag", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="flag")
+	attr type.Integer[1] flag;
+
+	@ExtendedMetaData(kind="attribute", name="itemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="itemID")
+	attr type.Integer[1] itemID;
+
+	@ExtendedMetaData(kind="attribute", name="itemTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="itemTypeID")
+	attr type.Integer[1] itemTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="locationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="locationID")
+	attr type.Integer[1] locationID;
+
+	@ExtendedMetaData(kind="attribute", name="logTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="logTime")
+	attr type.NCName[1] logTime;
+
+	@ExtendedMetaData(kind="attribute", name="newConfiguration", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="newConfiguration")
+	attr type.String[1] newConfiguration;
+
+	@ExtendedMetaData(kind="attribute", name="oldConfiguration", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="oldConfiguration")
+	attr type.String[1] oldConfiguration;
+
+	@ExtendedMetaData(kind="attribute", name="passwordType", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="passwordType")
+	attr type.String[1] passwordType;
+
+	@ExtendedMetaData(kind="attribute", name="quantity", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="quantity")
+	attr type.Integer[1] quantity;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+}
+
+@ExtendedMetaData(name="CorporationContractBids_._type", kind="empty")
+class CorporationContractBidsType {
+
+	@ExtendedMetaData(kind="attribute", name="amount", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="amount")
+	attr type.Decimal[1] amount;
+
+	@ExtendedMetaData(kind="attribute", name="bidderID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="bidderID")
+	attr type.Integer[1] bidderID;
+
+	@ExtendedMetaData(kind="attribute", name="bidID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="bidID")
+	attr type.Integer[1] bidID;
+
+	@ExtendedMetaData(kind="attribute", name="contractID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="contractID")
+	attr type.Integer[1] contractID;
+
+	@ExtendedMetaData(kind="attribute", name="dateBid", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="dateBid")
+	attr type.Integer[1] dateBid;
+}
+
+@ExtendedMetaData(name="CorporationCorporationSheet_._type", kind="empty")
+class CorporationCorporationSheetType {
+
+	@ExtendedMetaData(kind="attribute", name="allianceID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceID")
+	attr type.Integer[1] allianceID;
+
+	@ExtendedMetaData(kind="attribute", name="allianceName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceName")
+	attr type.String[1] allianceName;
+
+	@ExtendedMetaData(kind="attribute", name="ceoID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ceoID")
+	attr type.Integer[1] ceoID;
+
+	@ExtendedMetaData(kind="attribute", name="ceoName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ceoName")
+	attr type.NCName[1] ceoName;
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer[1] corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="corporationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationName")
+	attr type.String[1] corporationName;
+
+	@ExtendedMetaData(kind="attribute", name="description", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="description")
+	attr type.String[1] description;
+
+	@ExtendedMetaData(kind="attribute", name="factionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionID")
+	attr type.Integer[1] factionID;
+
+	@ExtendedMetaData(kind="attribute", name="memberCount", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="memberCount")
+	attr type.Integer[1] memberCount;
+
+	@ExtendedMetaData(kind="attribute", name="memberLimit", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="memberLimit")
+	attr type.Integer[1] memberLimit;
+
+	@ExtendedMetaData(kind="attribute", name="shares", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shares")
+	attr type.Integer[1] shares;
+
+	@ExtendedMetaData(kind="attribute", name="stationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationID")
+	attr type.Integer[1] stationID;
+
+	@ExtendedMetaData(kind="attribute", name="stationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationName")
+	attr type.String[1] stationName;
+
+	@ExtendedMetaData(kind="attribute", name="taxRate", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="taxRate")
+	attr type.Integer[1] taxRate;
+
+	@ExtendedMetaData(kind="attribute", name="ticker", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ticker")
+	attr type.NCName[1] ticker;
+
+	@ExtendedMetaData(kind="attribute", name="url", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="url")
+	attr type.AnyURI[1] url;
+}
+
+@ExtendedMetaData(name="CorporationIndustryJobs_._type", kind="empty")
+class CorporationIndustryJobsType {
+
+	@ExtendedMetaData(kind="attribute", name="activityID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="activityID")
+	attr type.Integer[1] activityID;
+
+	@ExtendedMetaData(kind="attribute", name="assemblyLineID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="assemblyLineID")
+	attr type.Integer[1] assemblyLineID;
+
+	@ExtendedMetaData(kind="attribute", name="beginProductionTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="beginProductionTime")
+	attr type.AnySimpleType[1] beginProductionTime;
+
+	@ExtendedMetaData(kind="attribute", name="charMaterialMultiplier", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="charMaterialMultiplier")
+	attr type.Decimal[1] charMaterialMultiplier;
+
+	@ExtendedMetaData(kind="attribute", name="charTimeMultiplier", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="charTimeMultiplier")
+	attr type.Decimal[1] charTimeMultiplier;
+
+	@ExtendedMetaData(kind="attribute", name="completed", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="completed")
+	attr type.Integer[1] completed;
+
+	@ExtendedMetaData(kind="attribute", name="completedStatus", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="completedStatus")
+	attr type.Integer[1] completedStatus;
+
+	@ExtendedMetaData(kind="attribute", name="completedSuccessfully", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="completedSuccessfully")
+	attr type.Integer[1] completedSuccessfully;
+
+	@ExtendedMetaData(kind="attribute", name="containerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="containerID")
+	attr type.Integer[1] containerID;
+
+	@ExtendedMetaData(kind="attribute", name="containerLocationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="containerLocationID")
+	attr type.Integer[1] containerLocationID;
+
+	@ExtendedMetaData(kind="attribute", name="containerTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="containerTypeID")
+	attr type.Integer[1] containerTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="endProductionTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="endProductionTime")
+	attr type.AnySimpleType[1] endProductionTime;
+
+	@ExtendedMetaData(kind="attribute", name="installedInSolarSystemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedInSolarSystemID")
+	attr type.Integer[1] installedInSolarSystemID;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemCopy", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemCopy")
+	attr type.Integer[1] installedItemCopy;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemFlag", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemFlag")
+	attr type.Integer[1] installedItemFlag;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemID")
+	attr type.Integer[1] installedItemID;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemLicensedProductionRunsRemaining", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemLicensedProductionRunsRemaining")
+	attr type.Integer[1] installedItemLicensedProductionRunsRemaining;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemLocationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemLocationID")
+	attr type.Integer[1] installedItemLocationID;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemMaterialLevel", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemMaterialLevel")
+	attr type.Integer[1] installedItemMaterialLevel;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemProductivityLevel", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemProductivityLevel")
+	attr type.Integer[1] installedItemProductivityLevel;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemQuantity", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemQuantity")
+	attr type.Integer[1] installedItemQuantity;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemTypeID")
+	attr type.Integer[1] installedItemTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="installerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installerID")
+	attr type.Integer[1] installerID;
+
+	@ExtendedMetaData(kind="attribute", name="installTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installTime")
+	attr type.AnySimpleType[1] installTime;
+
+	@ExtendedMetaData(kind="attribute", name="jobID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="jobID")
+	attr type.Integer[1] jobID;
+
+	@ExtendedMetaData(kind="attribute", name="licensedProductionRuns", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="licensedProductionRuns")
+	attr type.Integer[1] licensedProductionRuns;
+
+	@ExtendedMetaData(kind="attribute", name="materialMultiplier", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="materialMultiplier")
+	attr type.Integer[1] materialMultiplier;
+
+	@ExtendedMetaData(kind="attribute", name="outputFlag", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="outputFlag")
+	attr type.Integer[1] outputFlag;
+
+	@ExtendedMetaData(kind="attribute", name="outputLocationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="outputLocationID")
+	attr type.Integer[1] outputLocationID;
+
+	@ExtendedMetaData(kind="attribute", name="outputTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="outputTypeID")
+	attr type.Integer[1] outputTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="pauseProductionTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="pauseProductionTime")
+	attr type.AnySimpleType[1] pauseProductionTime;
+
+	@ExtendedMetaData(kind="attribute", name="runs", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="runs")
+	attr type.Integer[1] runs;
+
+	@ExtendedMetaData(kind="attribute", name="timeMultiplier", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="timeMultiplier")
+	attr type.Decimal[1] timeMultiplier;
+}
+
+@ExtendedMetaData(name="CorporationMarketOrders_._type", kind="empty")
+class CorporationMarketOrdersType {
+
+	@ExtendedMetaData(kind="attribute", name="accountKey", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="accountKey")
+	attr type.Integer[1] accountKey;
+
+	@ExtendedMetaData(kind="attribute", name="bid", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="bid")
+	attr type.Integer[1] bid;
+
+	@ExtendedMetaData(kind="attribute", name="charID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="charID")
+	attr type.Integer[1] charID;
+
+	@ExtendedMetaData(kind="attribute", name="duration", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="duration")
+	attr type.Integer[1] duration;
+
+	@ExtendedMetaData(kind="attribute", name="escrow", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="escrow")
+	attr type.Decimal[1] escrow;
+
+	@ExtendedMetaData(kind="attribute", name="issued", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="issued")
+	attr type.AnySimpleType[1] issued;
+
+	@ExtendedMetaData(kind="attribute", name="minVolume", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="minVolume")
+	attr type.Integer[1] minVolume;
+
+	@ExtendedMetaData(kind="attribute", name="orderID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="orderID")
+	attr type.Integer[1] orderID;
+
+	@ExtendedMetaData(kind="attribute", name="orderState", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="orderState")
+	attr type.Integer[1] orderState;
+
+	@ExtendedMetaData(kind="attribute", name="price", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="price")
+	attr type.Decimal[1] price;
+
+	@ExtendedMetaData(kind="attribute", name="range", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="range")
+	attr type.Integer[1] range;
+
+	@ExtendedMetaData(kind="attribute", name="stationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationID")
+	attr type.Integer[1] stationID;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+
+	@ExtendedMetaData(kind="attribute", name="volEntered", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="volEntered")
+	attr type.Integer[1] volEntered;
+
+	@ExtendedMetaData(kind="attribute", name="volRemaining", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="volRemaining")
+	attr type.Integer[1] volRemaining;
+}
+
+@ExtendedMetaData(name="CorporationMedals_._type", kind="empty")
+class CorporationMedalsType {
+
+	@ExtendedMetaData(kind="attribute", name="created", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="created")
+	attr type.AnySimpleType[1] created;
+
+	@ExtendedMetaData(kind="attribute", name="creatorID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="creatorID")
+	attr type.Integer[1] creatorID;
+
+	@ExtendedMetaData(kind="attribute", name="description", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="description")
+	attr type.AnySimpleType[1] description;
+
+	@ExtendedMetaData(kind="attribute", name="medalID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="medalID")
+	attr type.Integer[1] medalID;
+
+	@ExtendedMetaData(kind="attribute", name="title", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="title")
+	attr type.AnySimpleType[1] title;
+}
+
+@ExtendedMetaData(name="CorporationMemberMedals_._type", kind="empty")
+class CorporationMemberMedalsType {
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer[1] characterID;
+
+	@ExtendedMetaData(kind="attribute", name="issued", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="issued")
+	attr type.AnySimpleType[1] issued;
+
+	@ExtendedMetaData(kind="attribute", name="issuerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="issuerID")
+	attr type.Integer[1] issuerID;
+
+	@ExtendedMetaData(kind="attribute", name="medalID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="medalID")
+	attr type.Integer[1] medalID;
+
+	@ExtendedMetaData(kind="attribute", name="reason", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="reason")
+	attr type.AnySimpleType[1] reason;
+
+	@ExtendedMetaData(kind="attribute", name="status", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="status")
+	attr type.NCName[1] status;
+}
+
+@ExtendedMetaData(name="CorporationMemberSecurityLog_._type", kind="empty")
+class CorporationMemberSecurityLogType {
+
+	@ExtendedMetaData(kind="attribute", name="changeTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="changeTime")
+	attr type.AnySimpleType changeTime;
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer characterID;
+
+	@ExtendedMetaData(kind="attribute", name="characterName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterName")
+	attr type.AnySimpleType characterName;
+
+	@ExtendedMetaData(kind="attribute", name="issuerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="issuerID")
+	attr type.Integer issuerID;
+
+	@ExtendedMetaData(kind="attribute", name="issuerName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="issuerName")
+	attr type.AnySimpleType issuerName;
+
+	@ExtendedMetaData(kind="attribute", name="roleID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="roleID")
+	attr type.Integer roleID;
+
+	@ExtendedMetaData(kind="attribute", name="roleLocationType", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="roleLocationType")
+	attr type.NCName roleLocationType;
+
+	@ExtendedMetaData(kind="attribute", name="roleName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="roleName")
+	attr type.NCName roleName;
+}
+
+@ExtendedMetaData(name="CorporationMemberSecurity_._type", kind="empty")
+class CorporationMemberSecurityType {
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer characterID;
+
+	@ExtendedMetaData(kind="attribute", name="name", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="name")
+	attr type.AnySimpleType name;
+
+	@ExtendedMetaData(kind="attribute", name="roleID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="roleID")
+	attr type.Integer roleID;
+
+	@ExtendedMetaData(kind="attribute", name="roleName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="roleName")
+	attr type.NCName roleName;
+
+	@ExtendedMetaData(kind="attribute", name="titleID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="titleID")
+	attr type.Integer titleID;
+
+	@ExtendedMetaData(kind="attribute", name="titleName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="titleName")
+	attr type.AnySimpleType titleName;
+}
+
+@ExtendedMetaData(name="CorporationMemberTracking_._type", kind="empty")
+class CorporationMemberTrackingType {
+
+	@ExtendedMetaData(kind="attribute", name="base", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="base")
+	attr type.AnySimpleType[1] base;
+
+	@ExtendedMetaData(kind="attribute", name="baseID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="baseID")
+	attr type.Integer[1] baseID;
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer[1] characterID;
+
+	@ExtendedMetaData(kind="attribute", name="name", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="name")
+	attr type.AnySimpleType[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="startDateTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="startDateTime")
+	attr type.AnySimpleType[1] startDateTime;
+
+	@ExtendedMetaData(kind="attribute", name="title", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="title")
+	attr type.AnySimpleType[1] title;
+}
+
+@ExtendedMetaData(name="CorporationOutpostList_._type", kind="empty")
+class CorporationOutpostListType {
+
+	@ExtendedMetaData(kind="attribute", name="dockingCostPerShipVolume", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="dockingCostPerShipVolume")
+	attr type.Integer[1] dockingCostPerShipVolume;
+
+	@ExtendedMetaData(kind="attribute", name="officeRentalCost", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="officeRentalCost")
+	attr type.Integer[1] officeRentalCost;
+
+	@ExtendedMetaData(kind="attribute", name="ownerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerID")
+	attr type.Integer[1] ownerID;
+
+	@ExtendedMetaData(kind="attribute", name="reprocessingEfficiency", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="reprocessingEfficiency")
+	attr type.Decimal[1] reprocessingEfficiency;
+
+	@ExtendedMetaData(kind="attribute", name="reprocessingStationTake", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="reprocessingStationTake")
+	attr type.Decimal[1] reprocessingStationTake;
+
+	@ExtendedMetaData(kind="attribute", name="solarSystemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="solarSystemID")
+	attr type.Integer[1] solarSystemID;
+
+	@ExtendedMetaData(kind="attribute", name="standingOwnerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="standingOwnerID")
+	attr type.Integer[1] standingOwnerID;
+
+	@ExtendedMetaData(kind="attribute", name="stationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationID")
+	attr type.Integer[1] stationID;
+
+	@ExtendedMetaData(kind="attribute", name="stationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationName")
+	attr type.AnySimpleType[1] stationName;
+
+	@ExtendedMetaData(kind="attribute", name="stationTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationTypeID")
+	attr type.Integer[1] stationTypeID;
+}
+
+@ExtendedMetaData(name="CorporationOutpostServiceDetail_._type", kind="empty")
+class CorporationOutpostServiceDetailType {
+
+	@ExtendedMetaData(kind="attribute", name="discountPerGoodStanding", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="discountPerGoodStanding")
+	attr type.Integer[1] discountPerGoodStanding;
+
+	@ExtendedMetaData(kind="attribute", name="minStanding", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="minStanding")
+	attr type.Integer[1] minStanding;
+
+	@ExtendedMetaData(kind="attribute", name="ownerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerID")
+	attr type.Integer[1] ownerID;
+
+	@ExtendedMetaData(kind="attribute", name="serviceName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="serviceName")
+	attr type.AnySimpleType[1] serviceName;
+
+	@ExtendedMetaData(kind="attribute", name="stationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationID")
+	attr type.Integer[1] stationID;
+
+	@ExtendedMetaData(kind="attribute", name="surchargePerBadStanding", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="surchargePerBadStanding")
+	attr type.Integer[1] surchargePerBadStanding;
+}
+
+@ExtendedMetaData(name="CorporationShareholders_._type", kind="empty")
+class CorporationShareholdersType {
+
+	@ExtendedMetaData(kind="attribute", name="shareholderCorporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shareholderCorporationID")
+	attr type.Integer[1] shareholderCorporationID;
+
+	@ExtendedMetaData(kind="attribute", name="shareholderCorporationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shareholderCorporationName")
+	attr type.AnySimpleType[1] shareholderCorporationName;
+
+	@ExtendedMetaData(kind="attribute", name="shareholderID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shareholderID")
+	attr type.Integer[1] shareholderID;
+
+	@ExtendedMetaData(kind="attribute", name="shareholderName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shareholderName")
+	attr type.NCName[1] shareholderName;
+
+	@ExtendedMetaData(kind="attribute", name="shares", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shares")
+	attr type.Integer[1] shares;
+}
+
+@ExtendedMetaData(name="CorporationStandings_._type", kind="empty")
+class CorporationStandingsType {
+
+	@ExtendedMetaData(kind="attribute", name="fromID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="fromID")
+	attr type.Integer[1] fromID;
+
+	@ExtendedMetaData(kind="attribute", name="fromName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="fromName")
+	attr type.AnySimpleType[1] fromName;
+
+	@ExtendedMetaData(kind="attribute", name="standing", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="standing")
+	attr type.Decimal[1] standing;
+}
+
+@ExtendedMetaData(name="CorporationStarbaseDetail_._type", kind="empty")
+class CorporationStarbaseDetailType {
+
+	@ExtendedMetaData(kind="attribute", name="quantity", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="quantity")
+	attr type.Integer[1] quantity;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+}
+
+@ExtendedMetaData(name="CorporationStarbaseList_._type", kind="empty")
+class CorporationStarbaseListType {
+
+	@ExtendedMetaData(kind="attribute", name="itemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="itemID")
+	attr type.Integer[1] itemID;
+
+	@ExtendedMetaData(kind="attribute", name="locationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="locationID")
+	attr type.Integer[1] locationID;
+
+	@ExtendedMetaData(kind="attribute", name="moonID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="moonID")
+	attr type.Integer[1] moonID;
+
+	@ExtendedMetaData(kind="attribute", name="onlineTimestamp", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="onlineTimestamp")
+	attr type.AnySimpleType[1] onlineTimestamp;
+
+	@ExtendedMetaData(kind="attribute", name="standingOwnerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="standingOwnerID")
+	attr type.Integer[1] standingOwnerID;
+
+	@ExtendedMetaData(kind="attribute", name="state", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="state")
+	attr type.Integer[1] state;
+
+	@ExtendedMetaData(kind="attribute", name="stateTimestamp", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stateTimestamp")
+	attr type.AnySimpleType[1] stateTimestamp;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+}
+
+@ExtendedMetaData(name="CorporationTitles_._type", kind="empty")
+class CorporationTitlesType {
+
+	@ExtendedMetaData(kind="attribute", name="roleDescription", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="roleDescription")
+	attr type.AnySimpleType roleDescription;
+
+	@ExtendedMetaData(kind="attribute", name="roleID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="roleID")
+	attr type.Integer roleID;
+
+	@ExtendedMetaData(kind="attribute", name="roleName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="roleName")
+	attr type.NCName roleName;
+
+	@ExtendedMetaData(kind="attribute", name="titleID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="titleID")
+	attr type.Integer titleID;
+
+	@ExtendedMetaData(kind="attribute", name="titleName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="titleName")
+	attr type.AnySimpleType titleName;
+}
+
+@ExtendedMetaData(name="CorporationWalletJournal_._type", kind="empty")
+class CorporationWalletJournalType {
+
+	@ExtendedMetaData(kind="attribute", name="amount", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="amount")
+	attr type.Decimal[1] amount;
+
+	@ExtendedMetaData(kind="attribute", name="argID1", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="argID1")
+	attr type.Integer[1] argID1;
+
+	@ExtendedMetaData(kind="attribute", name="argName1", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="argName1")
+	attr type.AnySimpleType[1] argName1;
+
+	@ExtendedMetaData(kind="attribute", name="balance", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="balance")
+	attr type.Decimal[1] balance;
+
+	@ExtendedMetaData(kind="attribute", name="date", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="date")
+	attr type.AnySimpleType[1] date;
+
+	@ExtendedMetaData(kind="attribute", name="owner1TypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="owner1TypeID")
+	attr type.Integer[1] owner1TypeID;
+
+	@ExtendedMetaData(kind="attribute", name="owner2TypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="owner2TypeID")
+	attr type.Integer[1] owner2TypeID;
+
+	@ExtendedMetaData(kind="attribute", name="ownerID1", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerID1")
+	attr type.Integer[1] ownerID1;
+
+	@ExtendedMetaData(kind="attribute", name="ownerID2", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerID2")
+	attr type.Integer[1] ownerID2;
+
+	@ExtendedMetaData(kind="attribute", name="ownerName1", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerName1")
+	attr type.AnySimpleType[1] ownerName1;
+
+	@ExtendedMetaData(kind="attribute", name="ownerName2", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerName2")
+	attr type.AnySimpleType[1] ownerName2;
+
+	@ExtendedMetaData(kind="attribute", name="reason", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="reason")
+	attr type.AnySimpleType[1] reason;
+
+	@ExtendedMetaData(kind="attribute", name="refID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="refID")
+	attr type.Integer[1] refID;
+
+	@ExtendedMetaData(kind="attribute", name="refTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="refTypeID")
+	attr type.Integer[1] refTypeID;
+}
+
+@ExtendedMetaData(name="CorporationWalletTransactions_._type", kind="empty")
+class CorporationWalletTransactionsType {
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer[1] characterID;
+
+	@ExtendedMetaData(kind="attribute", name="characterName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterName")
+	attr type.AnySimpleType[1] characterName;
+
+	@ExtendedMetaData(kind="attribute", name="clientID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="clientID")
+	attr type.Integer[1] clientID;
+
+	@ExtendedMetaData(kind="attribute", name="clientName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="clientName")
+	attr type.AnySimpleType[1] clientName;
+
+	@ExtendedMetaData(kind="attribute", name="clientTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="clientTypeID")
+	attr type.Integer[1] clientTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="journalTransactionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="journalTransactionID")
+	attr type.Integer[1] journalTransactionID;
+
+	@ExtendedMetaData(kind="attribute", name="price", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="price")
+	attr type.Decimal[1] price;
+
+	@ExtendedMetaData(kind="attribute", name="quantity", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="quantity")
+	attr type.Integer[1] quantity;
+
+	@ExtendedMetaData(kind="attribute", name="stationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationID")
+	attr type.Integer[1] stationID;
+
+	@ExtendedMetaData(kind="attribute", name="stationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationName")
+	attr type.AnySimpleType[1] stationName;
+
+	@ExtendedMetaData(kind="attribute", name="transactionDateTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="transactionDateTime")
+	attr type.AnySimpleType[1] transactionDateTime;
+
+	@ExtendedMetaData(kind="attribute", name="transactionFor", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="transactionFor")
+	attr type.NCName[1] transactionFor;
+
+	@ExtendedMetaData(kind="attribute", name="transactionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="transactionID")
+	attr type.Integer[1] transactionID;
+
+	@ExtendedMetaData(kind="attribute", name="transactionType", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="transactionType")
+	attr type.NCName[1] transactionType;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+
+	@ExtendedMetaData(kind="attribute", name="typeName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeName")
+	attr type.AnySimpleType[1] typeName;
+}
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	@org.eclipse.emf.texo(java.member="mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	@org.eclipse.emf.texo(java.member="xMLNSPrefixMap")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	@org.eclipse.emf.texo(java.member="xSISchemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@ExtendedMetaData(kind="element", name="AllianceList", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceList")
+	volatile transient derived !resolve val AllianceListType[0..?] allianceList;
+
+	@ExtendedMetaData(kind="element", name="CertificateTree", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="certificateTree")
+	volatile transient derived !resolve val CertificateTreeType[0..?] certificateTree;
+
+	@ExtendedMetaData(kind="element", name="CharacterAccountStatus", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterAccountStatus")
+	volatile transient derived !resolve val CharacterAccountStatusType[0..?] characterAccountStatus;
+
+	@ExtendedMetaData(kind="element", name="CharacterCharacters", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterCharacters")
+	volatile transient derived !resolve val CharacterCharactersType[0..?] characterCharacters;
+
+	@ExtendedMetaData(kind="element", name="CharacterContactNotifications", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterContactNotifications")
+	volatile transient derived !resolve val CharacterContactNotificationsType[0..?] characterContactNotifications;
+
+	@ExtendedMetaData(kind="element", name="CharacterInfo", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterInfo")
+	volatile transient derived !resolve val CharacterInfoType[0..?] characterInfo;
+
+	@ExtendedMetaData(kind="element", name="CharacterMailingLists", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterMailingLists")
+	volatile transient derived !resolve val CharacterMailingListsType[0..?] characterMailingLists;
+
+	@ExtendedMetaData(kind="element", name="CharacterMailMessages", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterMailMessages")
+	volatile transient derived !resolve val CharacterMailMessagesType[0..?] characterMailMessages;
+
+	@ExtendedMetaData(kind="element", name="CharacterMedals", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterMedals")
+	volatile transient derived !resolve val CharacterMedalsType[0..?] characterMedals;
+
+	@ExtendedMetaData(kind="element", name="CharacterNotifications", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterNotifications")
+	volatile transient derived !resolve val CharacterNotificationsType[0..?] characterNotifications;
+
+	@ExtendedMetaData(kind="element", name="CharacterResearch", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterResearch")
+	volatile transient derived !resolve val CharacterResearchType[0..?] characterResearch;
+
+	@ExtendedMetaData(kind="element", name="CharacterSkillInTraining", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterSkillInTraining")
+	volatile transient derived !resolve val CharacterSkillInTrainingType[0..?] characterSkillInTraining;
+
+	@ExtendedMetaData(kind="element", name="CharacterSkillQueue", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterSkillQueue")
+	volatile transient derived !resolve val CharacterSkillQueueType[0..?] characterSkillQueue;
+
+	@ExtendedMetaData(kind="element", name="CharacterUpcomingCalendarEvents", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterUpcomingCalendarEvents")
+	volatile transient derived !resolve val CharacterUpcomingCalendarEventsType[0..?] characterUpcomingCalendarEvents;
+
+	@ExtendedMetaData(kind="element", name="ConquerableStationList", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="conquerableStationList")
+	volatile transient derived !resolve val ConquerableStationListType[0..?] conquerableStationList;
+
+	@ExtendedMetaData(kind="element", name="Corporation.Characters", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationCharacters")
+	volatile transient derived !resolve val CorporationCharactersType[0..?] corporationCharacters;
+
+	@ExtendedMetaData(kind="element", name="CorporationContainerLog", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationContainerLog")
+	volatile transient derived !resolve val CorporationContainerLogType[0..?] corporationContainerLog;
+
+	@ExtendedMetaData(kind="element", name="CorporationContractBids", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationContractBids")
+	volatile transient derived !resolve val CorporationContractBidsType[0..?] corporationContractBids;
+
+	@ExtendedMetaData(kind="element", name="CorporationCorporationSheet", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationCorporationSheet")
+	volatile transient derived !resolve val CorporationCorporationSheetType[0..?] corporationCorporationSheet;
+
+	@ExtendedMetaData(kind="element", name="CorporationIndustryJobs", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationIndustryJobs")
+	volatile transient derived !resolve val CorporationIndustryJobsType[0..?] corporationIndustryJobs;
+
+	@ExtendedMetaData(kind="element", name="CorporationMarketOrders", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationMarketOrders")
+	volatile transient derived !resolve val CorporationMarketOrdersType[0..?] corporationMarketOrders;
+
+	@ExtendedMetaData(kind="element", name="CorporationMedals", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationMedals")
+	volatile transient derived !resolve val CorporationMedalsType[0..?] corporationMedals;
+
+	@ExtendedMetaData(kind="element", name="CorporationMemberMedals", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationMemberMedals")
+	volatile transient derived !resolve val CorporationMemberMedalsType[0..?] corporationMemberMedals;
+
+	@ExtendedMetaData(kind="element", name="CorporationMemberSecurity", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationMemberSecurity")
+	volatile transient derived !resolve val CorporationMemberSecurityType[0..?] corporationMemberSecurity;
+
+	@ExtendedMetaData(kind="element", name="CorporationMemberSecurityLog", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationMemberSecurityLog")
+	volatile transient derived !resolve val CorporationMemberSecurityLogType[0..?] corporationMemberSecurityLog;
+
+	@ExtendedMetaData(kind="element", name="CorporationMemberTracking", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationMemberTracking")
+	volatile transient derived !resolve val CorporationMemberTrackingType[0..?] corporationMemberTracking;
+
+	@ExtendedMetaData(kind="element", name="CorporationOutpostList", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationOutpostList")
+	volatile transient derived !resolve val CorporationOutpostListType[0..?] corporationOutpostList;
+
+	@ExtendedMetaData(kind="element", name="CorporationOutpostServiceDetail", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationOutpostServiceDetail")
+	volatile transient derived !resolve val CorporationOutpostServiceDetailType[0..?] corporationOutpostServiceDetail;
+
+	@ExtendedMetaData(kind="element", name="CorporationShareholders", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationShareholders")
+	volatile transient derived !resolve val CorporationShareholdersType[0..?] corporationShareholders;
+
+	@ExtendedMetaData(kind="element", name="CorporationStandings", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationStandings")
+	volatile transient derived !resolve val CorporationStandingsType[0..?] corporationStandings;
+
+	@ExtendedMetaData(kind="element", name="CorporationStarbaseDetail", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationStarbaseDetail")
+	volatile transient derived !resolve val CorporationStarbaseDetailType[0..?] corporationStarbaseDetail;
+
+	@ExtendedMetaData(kind="element", name="CorporationStarbaseList", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationStarbaseList")
+	volatile transient derived !resolve val CorporationStarbaseListType[0..?] corporationStarbaseList;
+
+	@ExtendedMetaData(kind="element", name="CorporationTitles", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationTitles")
+	volatile transient derived !resolve val CorporationTitlesType[0..?] corporationTitles;
+
+	@ExtendedMetaData(kind="element", name="CorporationWalletJournal", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationWalletJournal")
+	volatile transient derived !resolve val CorporationWalletJournalType[0..?] corporationWalletJournal;
+
+	@ExtendedMetaData(kind="element", name="CorporationWalletTransactions", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationWalletTransactions")
+	volatile transient derived !resolve val CorporationWalletTransactionsType[0..?] corporationWalletTransactions;
+
+	@ExtendedMetaData(kind="element", name="ErrorList", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="errorList")
+	volatile transient derived !resolve val ErrorListType[0..?] errorList;
+
+	@ExtendedMetaData(kind="element", name="EveAccountBalance", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveAccountBalance")
+	volatile transient derived !resolve val EveAccountBalanceType[0..?] eveAccountBalance;
+
+	@ExtendedMetaData(kind="element", name="EveAssetList", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveAssetList")
+	volatile transient derived !resolve val EveAssetListType[0..?] eveAssetList;
+
+	@ExtendedMetaData(kind="element", name="EveCharacterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveCharacterID")
+	volatile transient derived !resolve val EveCharacterIDType[0..?] eveCharacterID;
+
+	@ExtendedMetaData(kind="element", name="EveCharacterName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveCharacterName")
+	volatile transient derived !resolve val EveCharacterNameType[0..?] eveCharacterName;
+
+	@ExtendedMetaData(kind="element", name="EveContactList", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveContactList")
+	volatile transient derived !resolve val EveContactListType[0..?] eveContactList;
+
+	@ExtendedMetaData(kind="element", name="EveContracts", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveContracts")
+	volatile transient derived !resolve val EveContractsType[0..?] eveContracts;
+
+	@ExtendedMetaData(kind="element", name="EveGraphicIcons", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveGraphicIcons")
+	volatile transient derived !resolve val EveGraphicIconsType[0..?] eveGraphicIcons;
+
+	@ExtendedMetaData(kind="element", name="EveIndustryJobs", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveIndustryJobs")
+	volatile transient derived !resolve val EveIndustryJobsType[0..?] eveIndustryJobs;
+
+	@ExtendedMetaData(kind="element", name="EveMapKills", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveMapKills")
+	volatile transient derived !resolve val EveMapKillsType[0..?] eveMapKills;
+
+	@ExtendedMetaData(kind="element", name="EveMarketOrders", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveMarketOrders")
+	volatile transient derived !resolve val EveMarketOrdersType[0..?] eveMarketOrders;
+
+	@ExtendedMetaData(kind="element", name="EveShipJumps", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveShipJumps")
+	volatile transient derived !resolve val EveShipJumpsType[0..?] eveShipJumps;
+
+	@ExtendedMetaData(kind="element", name="EveStandings", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveStandings")
+	volatile transient derived !resolve val EveStandingsType[0..?] eveStandings;
+
+	@ExtendedMetaData(kind="element", name="EveTypes", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveTypes")
+	volatile transient derived !resolve val EveTypesType[0..?] eveTypes;
+
+	@ExtendedMetaData(kind="element", name="EveWalletJournal", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveWalletJournal")
+	volatile transient derived !resolve val EveWalletJournalType[0..?] eveWalletJournal;
+
+	@ExtendedMetaData(kind="element", name="EveWalletTransactions", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="eveWalletTransactions")
+	volatile transient derived !resolve val EveWalletTransactionsType[0..?] eveWalletTransactions;
+
+	@ExtendedMetaData(kind="element", name="FacWarStats", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="facWarStats")
+	volatile transient derived !resolve val FacWarStatsType[0..?] facWarStats;
+
+	@ExtendedMetaData(kind="element", name="FacWarSystems", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="facWarSystems")
+	volatile transient derived !resolve val FacWarSystemsType[0..?] facWarSystems;
+
+	@ExtendedMetaData(kind="element", name="FacWarTopStats", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="facWarTopStats")
+	volatile transient derived !resolve val FacWarTopStatsType[0..?] facWarTopStats;
+
+	@ExtendedMetaData(kind="element", name="KillLog", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="killLog")
+	volatile transient derived !resolve val KillLogType[0..?] killLog;
+
+	@ExtendedMetaData(kind="element", name="KillLogVictim", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="killLogVictim")
+	volatile transient derived !resolve val KillLogVictimType[0..?] killLogVictim;
+
+	@ExtendedMetaData(kind="element", name="Sovereignty", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="sovereignty")
+	volatile transient derived !resolve val SovereigntyType[0..?] sovereignty;
+
+	@ExtendedMetaData(kind="element", name="victim", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="victim")
+	volatile transient derived !resolve val VictimType[0..?] victim;
+}
+
+@ExtendedMetaData(name="ErrorList_._type", kind="empty")
+class ErrorListType {
+
+	@ExtendedMetaData(kind="attribute", name="errorCode", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="errorCode")
+	attr type.Integer[1] errorCode;
+
+	@ExtendedMetaData(kind="attribute", name="errorText", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="errorText")
+	attr type.AnySimpleType[1] errorText;
+}
+
+@ExtendedMetaData(name="EveAccountBalance_._type", kind="empty")
+class EveAccountBalanceType {
+
+	@ExtendedMetaData(kind="attribute", name="accountID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="accountID")
+	attr type.Integer[1] accountID;
+
+	@ExtendedMetaData(kind="attribute", name="accountKey", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="accountKey")
+	attr type.Integer[1] accountKey;
+
+	@ExtendedMetaData(kind="attribute", name="balance", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="balance")
+	attr type.Decimal[1] balance;
+}
+
+@ExtendedMetaData(name="EveAssetList_._type", kind="empty")
+class EveAssetListType {
+
+	@ExtendedMetaData(kind="attribute", name="flag", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="flag")
+	attr type.Integer[1] flag;
+
+	@ExtendedMetaData(kind="attribute", name="itemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="itemID")
+	attr type.Integer[1] itemID;
+
+	@ExtendedMetaData(kind="attribute", name="locationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="locationID")
+	attr type.Integer locationID;
+
+	@ExtendedMetaData(kind="attribute", name="quantity", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="quantity")
+	attr type.Integer[1] quantity;
+
+	@ExtendedMetaData(kind="attribute", name="rawQuantity", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="rawQuantity")
+	attr type.Integer rawQuantity;
+
+	@ExtendedMetaData(kind="attribute", name="singleton", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="singleton")
+	attr type.Integer[1] singleton;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+}
+
+@ExtendedMetaData(name="EveCharacterID_._type", kind="empty")
+class EveCharacterIDType {
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer[1] characterID;
+
+	@ExtendedMetaData(kind="attribute", name="name", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="name")
+	attr type.AnySimpleType[1] name;
+}
+
+@ExtendedMetaData(name="EveCharacterName_._type", kind="empty")
+class EveCharacterNameType {
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer[1] characterID;
+
+	@ExtendedMetaData(kind="attribute", name="name", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="name")
+	attr type.AnySimpleType[1] name;
+}
+
+@ExtendedMetaData(name="EveContactList_._type", kind="empty")
+class EveContactListType {
+
+	@ExtendedMetaData(kind="attribute", name="contactID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="contactID")
+	attr type.Integer[1] contactID;
+
+	@ExtendedMetaData(kind="attribute", name="contactName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="contactName")
+	attr type.AnySimpleType[1] contactName;
+
+	@ExtendedMetaData(kind="attribute", name="contactTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="contactTypeID")
+	attr type.Integer[1] contactTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="standing", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="standing")
+	attr type.Decimal[1] standing;
+}
+
+@ExtendedMetaData(name="EveContracts_._type", kind="empty")
+class EveContractsType {
+
+	@ExtendedMetaData(kind="attribute", name="acceptorID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="acceptorID")
+	attr type.Integer[1] acceptorID;
+
+	@ExtendedMetaData(kind="attribute", name="assigneeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="assigneeID")
+	attr type.Integer[1] assigneeID;
+
+	@ExtendedMetaData(kind="attribute", name="availability", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="availability")
+	attr type.NCName[1] availability;
+
+	@ExtendedMetaData(kind="attribute", name="buyout", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="buyout")
+	attr type.Decimal[1] buyout;
+
+	@ExtendedMetaData(kind="attribute", name="collateral", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="collateral")
+	attr type.Decimal[1] collateral;
+
+	@ExtendedMetaData(kind="attribute", name="contractID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="contractID")
+	attr type.Integer[1] contractID;
+
+	@ExtendedMetaData(kind="attribute", name="dateAccepted", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="dateAccepted")
+	attr type.AnySimpleType[1] dateAccepted;
+
+	@ExtendedMetaData(kind="attribute", name="dateCompleted", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="dateCompleted")
+	attr type.AnySimpleType[1] dateCompleted;
+
+	@ExtendedMetaData(kind="attribute", name="dateExpired", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="dateExpired")
+	attr type.AnySimpleType[1] dateExpired;
+
+	@ExtendedMetaData(kind="attribute", name="dateIssued", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="dateIssued")
+	attr type.AnySimpleType[1] dateIssued;
+
+	@ExtendedMetaData(kind="attribute", name="endStationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="endStationID")
+	attr type.Integer[1] endStationID;
+
+	@ExtendedMetaData(kind="attribute", name="forCorp", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="forCorp")
+	attr type.Integer[1] forCorp;
+
+	@ExtendedMetaData(kind="attribute", name="issuerCorpID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="issuerCorpID")
+	attr type.Integer[1] issuerCorpID;
+
+	@ExtendedMetaData(kind="attribute", name="issuerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="issuerID")
+	attr type.Integer[1] issuerID;
+
+	@ExtendedMetaData(kind="attribute", name="numDays", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="numDays")
+	attr type.Integer[1] numDays;
+
+	@ExtendedMetaData(kind="attribute", name="price", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="price")
+	attr type.Decimal[1] price;
+
+	@ExtendedMetaData(kind="attribute", name="reward", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="reward")
+	attr type.Decimal[1] reward;
+
+	@ExtendedMetaData(kind="attribute", name="startStationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="startStationID")
+	attr type.Integer[1] startStationID;
+
+	@ExtendedMetaData(kind="attribute", name="status", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="status")
+	attr type.NCName[1] status;
+
+	@ExtendedMetaData(kind="attribute", name="title", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="title")
+	attr type.AnySimpleType[1] title;
+
+	@ExtendedMetaData(kind="attribute", name="type", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="type")
+	attr type.NCName[1] type;
+
+	@ExtendedMetaData(kind="attribute", name="volume", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="volume")
+	attr type.Decimal[1] volume;
+}
+
+@ExtendedMetaData(name="EveGraphicIcons_._type", kind="empty")
+class EveGraphicIconsType {
+
+	@ExtendedMetaData(kind="attribute", name="graphicID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="graphicID")
+	attr type.Integer[1] graphicID;
+
+	@ExtendedMetaData(kind="attribute", name="radius", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="radius")
+	attr type.Integer radius;
+
+	@ExtendedMetaData(kind="attribute", name="soundID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="soundID")
+	attr type.Integer soundID;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+}
+
+@ExtendedMetaData(name="EveIndustryJobs_._type", kind="empty")
+class EveIndustryJobsType {
+
+	@ExtendedMetaData(kind="attribute", name="activityID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="activityID")
+	attr type.Integer[1] activityID;
+
+	@ExtendedMetaData(kind="attribute", name="assemblyLineID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="assemblyLineID")
+	attr type.Integer[1] assemblyLineID;
+
+	@ExtendedMetaData(kind="attribute", name="beginProductionTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="beginProductionTime")
+	attr type.AnySimpleType[1] beginProductionTime;
+
+	@ExtendedMetaData(kind="attribute", name="charMaterialMultiplier", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="charMaterialMultiplier")
+	attr type.Decimal[1] charMaterialMultiplier;
+
+	@ExtendedMetaData(kind="attribute", name="charTimeMultiplier", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="charTimeMultiplier")
+	attr type.Decimal[1] charTimeMultiplier;
+
+	@ExtendedMetaData(kind="attribute", name="completed", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="completed")
+	attr type.Integer[1] completed;
+
+	@ExtendedMetaData(kind="attribute", name="completedStatus", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="completedStatus")
+	attr type.Integer[1] completedStatus;
+
+	@ExtendedMetaData(kind="attribute", name="completedSuccessfully", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="completedSuccessfully")
+	attr type.Integer[1] completedSuccessfully;
+
+	@ExtendedMetaData(kind="attribute", name="containerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="containerID")
+	attr type.Integer[1] containerID;
+
+	@ExtendedMetaData(kind="attribute", name="containerLocationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="containerLocationID")
+	attr type.Integer[1] containerLocationID;
+
+	@ExtendedMetaData(kind="attribute", name="containerTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="containerTypeID")
+	attr type.Integer[1] containerTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="endProductionTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="endProductionTime")
+	attr type.AnySimpleType[1] endProductionTime;
+
+	@ExtendedMetaData(kind="attribute", name="installedInSolarSystemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedInSolarSystemID")
+	attr type.Integer[1] installedInSolarSystemID;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemCopy", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemCopy")
+	attr type.Integer[1] installedItemCopy;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemFlag", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemFlag")
+	attr type.Integer[1] installedItemFlag;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemID")
+	attr type.Integer[1] installedItemID;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemLicensedProductionRunsRemaining", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemLicensedProductionRunsRemaining")
+	attr type.Integer[1] installedItemLicensedProductionRunsRemaining;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemLocationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemLocationID")
+	attr type.Integer[1] installedItemLocationID;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemMaterialLevel", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemMaterialLevel")
+	attr type.Integer[1] installedItemMaterialLevel;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemProductivityLevel", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemProductivityLevel")
+	attr type.Integer[1] installedItemProductivityLevel;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemQuantity", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemQuantity")
+	attr type.Integer[1] installedItemQuantity;
+
+	@ExtendedMetaData(kind="attribute", name="installedItemTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installedItemTypeID")
+	attr type.Integer[1] installedItemTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="installerID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installerID")
+	attr type.Integer[1] installerID;
+
+	@ExtendedMetaData(kind="attribute", name="installTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="installTime")
+	attr type.AnySimpleType[1] installTime;
+
+	@ExtendedMetaData(kind="attribute", name="jobID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="jobID")
+	attr type.Integer[1] jobID;
+
+	@ExtendedMetaData(kind="attribute", name="licensedProductionRuns", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="licensedProductionRuns")
+	attr type.Integer[1] licensedProductionRuns;
+
+	@ExtendedMetaData(kind="attribute", name="materialMultiplier", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="materialMultiplier")
+	attr type.Integer[1] materialMultiplier;
+
+	@ExtendedMetaData(kind="attribute", name="outputFlag", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="outputFlag")
+	attr type.Integer[1] outputFlag;
+
+	@ExtendedMetaData(kind="attribute", name="outputLocationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="outputLocationID")
+	attr type.Integer[1] outputLocationID;
+
+	@ExtendedMetaData(kind="attribute", name="outputTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="outputTypeID")
+	attr type.Integer[1] outputTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="pauseProductionTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="pauseProductionTime")
+	attr type.AnySimpleType[1] pauseProductionTime;
+
+	@ExtendedMetaData(kind="attribute", name="runs", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="runs")
+	attr type.Integer[1] runs;
+
+	@ExtendedMetaData(kind="attribute", name="timeMultiplier", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="timeMultiplier")
+	attr type.Integer[1] timeMultiplier;
+}
+
+@ExtendedMetaData(name="EveMapKills_._type", kind="empty")
+class EveMapKillsType {
+
+	@ExtendedMetaData(kind="attribute", name="factionKills", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionKills")
+	attr type.Integer[1] factionKills;
+
+	@ExtendedMetaData(kind="attribute", name="podKills", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="podKills")
+	attr type.Integer[1] podKills;
+
+	@ExtendedMetaData(kind="attribute", name="shipKills", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shipKills")
+	attr type.Integer[1] shipKills;
+
+	@ExtendedMetaData(kind="attribute", name="solarSystemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="solarSystemID")
+	attr type.Integer[1] solarSystemID;
+}
+
+@ExtendedMetaData(name="EveMarketOrders_._type", kind="empty")
+class EveMarketOrdersType {
+
+	@ExtendedMetaData(kind="attribute", name="accountKey", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="accountKey")
+	attr type.Integer[1] accountKey;
+
+	@ExtendedMetaData(kind="attribute", name="bid", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="bid")
+	attr type.Integer[1] bid;
+
+	@ExtendedMetaData(kind="attribute", name="charID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="charID")
+	attr type.Integer[1] charID;
+
+	@ExtendedMetaData(kind="attribute", name="duration", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="duration")
+	attr type.Integer[1] duration;
+
+	@ExtendedMetaData(kind="attribute", name="escrow", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="escrow")
+	attr type.Integer[1] escrow;
+
+	@ExtendedMetaData(kind="attribute", name="issued", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="issued")
+	attr type.Integer[1] issued;
+
+	@ExtendedMetaData(kind="attribute", name="minVolume", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="minVolume")
+	attr type.Integer[1] minVolume;
+
+	@ExtendedMetaData(kind="attribute", name="orderID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="orderID")
+	attr type.Integer[1] orderID;
+
+	@ExtendedMetaData(kind="attribute", name="orderState", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="orderState")
+	attr type.Integer[1] orderState;
+
+	@ExtendedMetaData(kind="attribute", name="price", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="price")
+	attr type.Integer[1] price;
+
+	@ExtendedMetaData(kind="attribute", name="range", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="range")
+	attr type.Integer[1] range;
+
+	@ExtendedMetaData(kind="attribute", name="stationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationID")
+	attr type.Integer[1] stationID;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+
+	@ExtendedMetaData(kind="attribute", name="volEntered", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="volEntered")
+	attr type.Integer[1] volEntered;
+
+	@ExtendedMetaData(kind="attribute", name="volRemaining", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="volRemaining")
+	attr type.Integer[1] volRemaining;
+}
+
+@ExtendedMetaData(name="EveShipJumps_._type", kind="empty")
+class EveShipJumpsType {
+
+	@ExtendedMetaData(kind="attribute", name="shipJumps", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shipJumps")
+	attr type.Integer[1] shipJumps;
+
+	@ExtendedMetaData(kind="attribute", name="solarSystemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="solarSystemID")
+	attr type.Integer[1] solarSystemID;
+}
+
+@ExtendedMetaData(name="EveStandings_._type", kind="empty")
+class EveStandingsType {
+
+	@ExtendedMetaData(kind="attribute", name="fromID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="fromID")
+	attr type.Integer[1] fromID;
+
+	@ExtendedMetaData(kind="attribute", name="fromName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="fromName")
+	attr type.AnySimpleType[1] fromName;
+
+	@ExtendedMetaData(kind="attribute", name="standing", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="standing")
+	attr type.Decimal[1] standing;
+}
+
+@ExtendedMetaData(name="EveTypes_._type", kind="empty")
+class EveTypesType {
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+
+	@ExtendedMetaData(kind="attribute", name="typeName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeName")
+	attr type.AnySimpleType[1] typeName;
+}
+
+@ExtendedMetaData(name="EveWalletJournal_._type", kind="empty")
+class EveWalletJournalType {
+
+	@ExtendedMetaData(kind="attribute", name="amount", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="amount")
+	attr type.Decimal[1] amount;
+
+	@ExtendedMetaData(kind="attribute", name="argID1", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="argID1")
+	attr type.Integer[1] argID1;
+
+	@ExtendedMetaData(kind="attribute", name="argName1", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="argName1")
+	attr type.AnySimpleType[1] argName1;
+
+	@ExtendedMetaData(kind="attribute", name="balance", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="balance")
+	attr type.Decimal[1] balance;
+
+	@ExtendedMetaData(kind="attribute", name="date", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="date")
+	attr type.AnySimpleType[1] date;
+
+	@ExtendedMetaData(kind="attribute", name="owner1TypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="owner1TypeID")
+	attr type.Integer[1] owner1TypeID;
+
+	@ExtendedMetaData(kind="attribute", name="owner2TypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="owner2TypeID")
+	attr type.Integer[1] owner2TypeID;
+
+	@ExtendedMetaData(kind="attribute", name="ownerID1", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerID1")
+	attr type.Integer[1] ownerID1;
+
+	@ExtendedMetaData(kind="attribute", name="ownerID2", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerID2")
+	attr type.Integer[1] ownerID2;
+
+	@ExtendedMetaData(kind="attribute", name="ownerName1", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerName1")
+	attr type.AnySimpleType[1] ownerName1;
+
+	@ExtendedMetaData(kind="attribute", name="ownerName2", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="ownerName2")
+	attr type.AnySimpleType[1] ownerName2;
+
+	@ExtendedMetaData(kind="attribute", name="reason", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="reason")
+	attr type.AnySimpleType[1] reason;
+
+	@ExtendedMetaData(kind="attribute", name="refID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="refID")
+	attr type.Integer[1] refID;
+
+	@ExtendedMetaData(kind="attribute", name="refTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="refTypeID")
+	attr type.Integer[1] refTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="taxAmount", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="taxAmount")
+	attr type.AnySimpleType[1] taxAmount;
+
+	@ExtendedMetaData(kind="attribute", name="taxReceiverID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="taxReceiverID")
+	attr type.AnySimpleType[1] taxReceiverID;
+}
+
+@ExtendedMetaData(name="EveWalletTransactions_._type", kind="empty")
+class EveWalletTransactionsType {
+
+	@ExtendedMetaData(kind="attribute", name="clientID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="clientID")
+	attr type.Integer[1] clientID;
+
+	@ExtendedMetaData(kind="attribute", name="clientName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="clientName")
+	attr type.AnySimpleType[1] clientName;
+
+	@ExtendedMetaData(kind="attribute", name="clientTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="clientTypeID")
+	attr type.Integer[1] clientTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="journalTransactionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="journalTransactionID")
+	attr type.Integer[1] journalTransactionID;
+
+	@ExtendedMetaData(kind="attribute", name="price", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="price")
+	attr type.Decimal[1] price;
+
+	@ExtendedMetaData(kind="attribute", name="quantity", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="quantity")
+	attr type.Integer[1] quantity;
+
+	@ExtendedMetaData(kind="attribute", name="stationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationID")
+	attr type.Integer[1] stationID;
+
+	@ExtendedMetaData(kind="attribute", name="stationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="stationName")
+	attr type.AnySimpleType[1] stationName;
+
+	@ExtendedMetaData(kind="attribute", name="transactionDateTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="transactionDateTime")
+	attr type.AnySimpleType[1] transactionDateTime;
+
+	@ExtendedMetaData(kind="attribute", name="transactionFor", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="transactionFor")
+	attr type.NCName[1] transactionFor;
+
+	@ExtendedMetaData(kind="attribute", name="transactionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="transactionID")
+	attr type.Integer[1] transactionID;
+
+	@ExtendedMetaData(kind="attribute", name="transactionType", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="transactionType")
+	attr type.NCName[1] transactionType;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer[1] typeID;
+
+	@ExtendedMetaData(kind="attribute", name="typeName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeName")
+	attr type.AnySimpleType[1] typeName;
+}
+
+@ExtendedMetaData(name="FacWarStats_._type", kind="empty")
+class FacWarStatsType {
+
+	@ExtendedMetaData(kind="attribute", name="againstID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="againstID")
+	attr type.Integer againstID;
+
+	@ExtendedMetaData(kind="attribute", name="againstName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="againstName")
+	attr type.AnySimpleType againstName;
+
+	@ExtendedMetaData(kind="attribute", name="factionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionID")
+	attr type.Integer[1] factionID;
+
+	@ExtendedMetaData(kind="attribute", name="factionName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionName")
+	attr type.AnySimpleType[1] factionName;
+
+	@ExtendedMetaData(kind="attribute", name="killsLastWeek", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="killsLastWeek")
+	attr type.Integer killsLastWeek;
+
+	@ExtendedMetaData(kind="attribute", name="killsTotal", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="killsTotal")
+	attr type.Integer killsTotal;
+
+	@ExtendedMetaData(kind="attribute", name="killsYesterday", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="killsYesterday")
+	attr type.Integer killsYesterday;
+
+	@ExtendedMetaData(kind="attribute", name="pilots", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="pilots")
+	attr type.Integer pilots;
+
+	@ExtendedMetaData(kind="attribute", name="systemsControlled", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="systemsControlled")
+	attr type.Integer systemsControlled;
+
+	@ExtendedMetaData(kind="attribute", name="victoryPointsLastWeek", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="victoryPointsLastWeek")
+	attr type.Integer victoryPointsLastWeek;
+
+	@ExtendedMetaData(kind="attribute", name="victoryPointsTotal", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="victoryPointsTotal")
+	attr type.Integer victoryPointsTotal;
+
+	@ExtendedMetaData(kind="attribute", name="victoryPointsYesterday", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="victoryPointsYesterday")
+	attr type.Integer victoryPointsYesterday;
+}
+
+@ExtendedMetaData(name="FacWarSystems_._type", kind="empty")
+class FacWarSystemsType {
+
+	@ExtendedMetaData(kind="attribute", name="contested", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="contested")
+	attr type.NCName[1] contested;
+
+	@ExtendedMetaData(kind="attribute", name="occupyingFactionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="occupyingFactionID")
+	attr type.Integer[1] occupyingFactionID;
+
+	@ExtendedMetaData(kind="attribute", name="occupyingFactionName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="occupyingFactionName")
+	attr type.AnySimpleType[1] occupyingFactionName;
+
+	@ExtendedMetaData(kind="attribute", name="solarSystemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="solarSystemID")
+	attr type.Integer[1] solarSystemID;
+
+	@ExtendedMetaData(kind="attribute", name="solarSystemName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="solarSystemName")
+	attr type.NCName[1] solarSystemName;
+}
+
+@ExtendedMetaData(name="FacWarTopStats_._type", kind="empty")
+class FacWarTopStatsType {
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer characterID;
+
+	@ExtendedMetaData(kind="attribute", name="characterName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterName")
+	attr type.AnySimpleType characterName;
+
+	@ExtendedMetaData(kind="attribute", name="factionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionID")
+	attr type.Integer factionID;
+
+	@ExtendedMetaData(kind="attribute", name="factionName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionName")
+	attr type.AnySimpleType factionName;
+
+	@ExtendedMetaData(kind="attribute", name="kills", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="kills")
+	attr type.Integer kills;
+
+	@ExtendedMetaData(kind="attribute", name="victoryPoints", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="victoryPoints")
+	attr type.Integer victoryPoints;
+}
+
+@ExtendedMetaData(name="KillLog_._type", kind="empty")
+class KillLogType {
+
+	@ExtendedMetaData(kind="attribute", name="allianceID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceID")
+	attr type.Integer allianceID;
+
+	@ExtendedMetaData(kind="attribute", name="allianceName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceName")
+	attr type.AnySimpleType allianceName;
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer characterID;
+
+	@ExtendedMetaData(kind="attribute", name="characterName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterName")
+	attr type.AnySimpleType characterName;
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="corporationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationName")
+	attr type.AnySimpleType corporationName;
+
+	@ExtendedMetaData(kind="attribute", name="damageDone", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="damageDone")
+	attr type.Integer damageDone;
+
+	@ExtendedMetaData(kind="attribute", name="factionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionID")
+	attr type.Integer factionID;
+
+	@ExtendedMetaData(kind="attribute", name="factionName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionName")
+	attr type.AnySimpleType factionName;
+
+	@ExtendedMetaData(kind="attribute", name="finalBlow", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="finalBlow")
+	attr type.Integer finalBlow;
+
+	@ExtendedMetaData(kind="attribute", name="flag", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="flag")
+	attr type.Integer flag;
+
+	@ExtendedMetaData(kind="attribute", name="killID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="killID")
+	attr type.Integer killID;
+
+	@ExtendedMetaData(kind="attribute", name="killTime", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="killTime")
+	attr type.AnySimpleType killTime;
+
+	@ExtendedMetaData(kind="attribute", name="moonID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="moonID")
+	attr type.Integer moonID;
+
+	@ExtendedMetaData(kind="attribute", name="qtyDestroyed", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="qtyDestroyed")
+	attr type.Integer qtyDestroyed;
+
+	@ExtendedMetaData(kind="attribute", name="qtyDropped", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="qtyDropped")
+	attr type.Integer qtyDropped;
+
+	@ExtendedMetaData(kind="attribute", name="securityStatus", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="securityStatus")
+	attr type.Decimal securityStatus;
+
+	@ExtendedMetaData(kind="attribute", name="shipTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shipTypeID")
+	attr type.Integer shipTypeID;
+
+	@ExtendedMetaData(kind="attribute", name="singleton", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="singleton")
+	attr type.Integer singleton;
+
+	@ExtendedMetaData(kind="attribute", name="solarSystemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="solarSystemID")
+	attr type.Integer solarSystemID;
+
+	@ExtendedMetaData(kind="attribute", name="typeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="typeID")
+	attr type.Integer typeID;
+
+	@ExtendedMetaData(kind="attribute", name="weaponTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="weaponTypeID")
+	attr type.Integer weaponTypeID;
+}
+
+@ExtendedMetaData(name="KillLogVictim_._type", kind="empty")
+class KillLogVictimType {
+
+	@ExtendedMetaData(kind="attribute", name="allianceID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceID")
+	attr type.Integer[1] allianceID;
+
+	@ExtendedMetaData(kind="attribute", name="allianceName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceName")
+	attr type.AnySimpleType[1] allianceName;
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer[1] characterID;
+
+	@ExtendedMetaData(kind="attribute", name="characterName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterName")
+	attr type.NCName[1] characterName;
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer[1] corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="corporationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationName")
+	attr type.AnySimpleType[1] corporationName;
+
+	@ExtendedMetaData(kind="attribute", name="damageTaken", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="damageTaken")
+	attr type.Integer[1] damageTaken;
+
+	@ExtendedMetaData(kind="attribute", name="factionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionID")
+	attr type.Integer[1] factionID;
+
+	@ExtendedMetaData(kind="attribute", name="factionName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionName")
+	attr type.AnySimpleType[1] factionName;
+
+	@ExtendedMetaData(kind="attribute", name="shipTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shipTypeID")
+	attr type.Integer[1] shipTypeID;
+}
+
+@ExtendedMetaData(name="Sovereignty_._type", kind="empty")
+class SovereigntyType {
+
+	@ExtendedMetaData(kind="attribute", name="allianceID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceID")
+	attr type.Integer[1] allianceID;
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer[1] corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="factionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionID")
+	attr type.Integer[1] factionID;
+
+	@ExtendedMetaData(kind="attribute", name="solarSystemID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="solarSystemID")
+	attr type.Integer[1] solarSystemID;
+
+	@ExtendedMetaData(kind="attribute", name="solarSystemName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="solarSystemName")
+	attr type.NMTOKEN[1] solarSystemName;
+}
+
+@ExtendedMetaData(name="victim_._type", kind="empty")
+class VictimType {
+
+	@ExtendedMetaData(kind="attribute", name="allianceID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceID")
+	attr type.Integer[1] allianceID;
+
+	@ExtendedMetaData(kind="attribute", name="allianceName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="allianceName")
+	attr type.AnySimpleType[1] allianceName;
+
+	@ExtendedMetaData(kind="attribute", name="characterID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterID")
+	attr type.Integer[1] characterID;
+
+	@ExtendedMetaData(kind="attribute", name="characterName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="characterName")
+	attr type.NCName[1] characterName;
+
+	@ExtendedMetaData(kind="attribute", name="corporationID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationID")
+	attr type.Integer[1] corporationID;
+
+	@ExtendedMetaData(kind="attribute", name="corporationName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="corporationName")
+	attr type.AnySimpleType[1] corporationName;
+
+	@ExtendedMetaData(kind="attribute", name="damageTaken", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="damageTaken")
+	attr type.Integer[1] damageTaken;
+
+	@ExtendedMetaData(kind="attribute", name="factionID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionID")
+	attr type.Integer[1] factionID;
+
+	@ExtendedMetaData(kind="attribute", name="factionName", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="factionName")
+	attr type.AnySimpleType[1] factionName;
+
+	@ExtendedMetaData(kind="attribute", name="shipTypeID", namespace="##targetNamespace")
+	@org.eclipse.emf.texo(java.member="shipTypeID")
+	attr type.Integer[1] shipTypeID;
+}
+

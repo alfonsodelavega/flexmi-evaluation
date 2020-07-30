@@ -1,0 +1,1338 @@
+@namespace(uri="http://www.omg.org/spec/MOF/20110701/cmof.xmi", prefix="cmof")
+package cmof;
+
+import "http://www.eclipse.org/uml2/5.0.0/Types";
+
+class ReflectiveSequence extends ReflectiveCollection {
+	!ordered op void add(!ordered types.Integer[1] index, !ordered Object[1] object);
+	!ordered op Object[1] get(!ordered types.Integer[1] index);
+	!ordered op Object[1] remove(!ordered types.Integer[1] index);
+	!ordered op Object[1] set(!ordered types.Integer[1] index, !ordered Object[1] object);
+}
+
+class ReflectiveCollection extends Object {
+	!ordered op types.Boolean[1] add(!ordered Object[1] object);
+	!ordered op types.Boolean[1] addAll(!ordered ReflectiveCollection[1] objects);
+	!ordered op void clear();
+	!ordered op types.Boolean[1] remove(!ordered Object[1] object);
+	!ordered op types.Integer[1] size();
+}
+
+class Object {
+	!ordered op Object[1] get(!ordered Property[1] property);
+	!ordered op types.Boolean[1] equals(!ordered Object[1] element);
+	!ordered op void set(!ordered Property[1] property, !ordered Object[1] value);
+	!ordered op types.Boolean[1] isSet(!ordered Property[1] property);
+	!ordered op void unset(!ordered Property[1] property);
+	!ordered op Object invoke(!ordered Operation[1] ~op, !ordered Argument[*] arguments);
+}
+
+@GenModel(documentation="A property is a structural feature of a classifier that characterizes instances of the classifier. A property related by ownedAttribute to a classifier (other than an association) represents an attribute and might also represent an association end. It relates an instance of the class to a value or set of values of the type of the attribute. A property related by memberEnd or its specializations to an association represents an end of the association. The type of the property is the type of the end of the association.")
+@duplicates
+class Property extends StructuralFeature {
+
+	@GenModel(documentation="A multiplicity of a composite aggregation must not have an upper bound greater than 1.
+A multiplicity on an aggregate end of a composite aggregation must not have an upper bound greater than 1.
+isComposite implies (upperBound()->isEmpty() or upperBound() <= 1)")
+	op boolean multiplicity_of_composite(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Subsetting may only occur when the context of the subsetting property conforms to the context of the subsetted property.
+self.subsettedProperty->notEmpty() implies
+  (self.subsettingContext()->notEmpty() and self.subsettingContext()->forAll (sc |
+    self.subsettedProperty->forAll(sp |
+      sp.subsettingContext()->exists(c | sc.conformsTo(c)))))")
+	op boolean subsetting_context_conforms(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A derived union is read only.
+isDerivedUnion implies isReadOnly")
+	op boolean derived_union_is_read_only(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A redefined property must be inherited from a more general classifier containing the redefining property.
+if (redefinedProperty->notEmpty()) then
+  (redefinitionContext->notEmpty() and
+      redefinedProperty->forAll(rp|
+        ((redefinitionContext->collect(fc|
+          fc.allParents()))->asSet())->collect(c| c.allFeatures())->asSet()->includes(rp))")
+	op boolean redefined_property_inherited(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A property may not subset a property with the same name.
+true")
+	op boolean subsetted_property_names(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A derived union is derived.
+isDerivedUnion implies isDerived")
+	op boolean derived_union_is_derived(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A subsetting property may strengthen the type of the subsetted property, and its upper bound may be less.
+self.subsettedProperty->forAll(sp |
+  self.type.conformsTo(sp.type) and
+    ((self.upperBound()->notEmpty() and sp.upperBound()->notEmpty()) implies
+      self.upperBound()<=sp.upperBound() ))")
+	op boolean subsetting_rules(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Missing derivation for Property::/default : String
+true")
+	!ordered op types.String default();
+
+	@GenModel(documentation="The query isAttribute() is true if the Property is defined as an attribute of some classifier.
+result = Classifier.allInstances->exists(c | c.attribute->includes(p))")
+	!ordered op types.Boolean[1] isAttribute(!ordered Property[1] p);
+
+	@GenModel(documentation="The value of isComposite is true only if aggregation is composite.
+result = (self.aggregation = #composite)")
+	!ordered op types.Boolean[1] isComposite();
+
+	@GenModel(documentation="The query isNavigable() indicates whether it is possible to navigate across the property.
+result = not classifier->isEmpty() or association.owningAssociation.navigableOwnedEnd->includes(self)")
+	!ordered op types.Boolean[1] isNavigable();
+
+	@GenModel(documentation="If this property is owned by a class, associated with a binary association, and the other end of the association is also owned by a class, then opposite gives the other end.
+result = if owningAssociation->isEmpty() and association.memberEnd->size() = 2
+  then
+    let otherEnd = (association.memberEnd - self)->any() in
+      if otherEnd.owningAssociation->isEmpty() then otherEnd else Set{} endif
+    else Set {}
+    endif")
+	!ordered op Property[1] opposite();
+
+	@GenModel(documentation="The query subsettingContext() gives the context for subsetting a property. It consists, in the case of an attribute, of the corresponding classifier, and in the case of an association end, all of the classifiers at the other ends.
+result = if association->notEmpty()
+then association.endType-type
+else if classifier->notEmpty() then Set{classifier} else Set{} endif
+endif")
+	!ordered op Type[*] subsettingContext();
+
+	@GenModel(documentation="References the Class that owns the Property.
+References the Class that owns the Property.")
+	@subsets
+	!ordered ref Class#ownedAttribute ~class;
+
+	@GenModel(documentation="The DataType that owns this Property.")
+	@subsets
+	!ordered ref DataType#ownedAttribute ~datatype;
+
+	@GenModel(documentation="Specifies the kind of aggregation that applies to the Property.")
+	!ordered attr AggregationKind[1] aggregation = "none";
+
+	@GenModel(documentation="References the association of which this property is a member, if any.")
+	!ordered ref Association#memberEnd association;
+
+	@GenModel(documentation="References the owning association of this property, if any.")
+	@subsets
+	!ordered ref Association#ownedEnd owningAssociation;
+
+	@GenModel(documentation="Specifies a String that represents a value to be used when no argument is supplied for the Property.
+A String that is evaluated to give a default value for the Property when an object of the owning Classifier is instantiated.")
+	!ordered volatile transient derived attr types.String default;
+
+	@GenModel(documentation="A ValueSpecification that is evaluated to give a default value for the Property when an object of the owning Classifier is instantiated.")
+	@subsets
+	!ordered val ValueSpecification defaultValue;
+
+	@GenModel(documentation="If isComposite is true, the object containing the attribute is a container for the object or value contained in the attribute.
+This is a derived value, indicating whether the aggregation of the Property is composite or not.")
+	!ordered volatile transient derived attr types.Boolean[1] isComposite = "false";
+
+	@GenModel(documentation="If isDerived is true, the value of the attribute is derived from information elsewhere.
+Specifies whether the Property is derived, i.e., whether its value or values can be computed from other information.")
+	!ordered attr types.Boolean[1] isDerived = "false";
+
+	@GenModel(documentation="Specifies whether the property is derived as the union of all of the properties that are constrained to subset it.")
+	!ordered attr types.Boolean[1] isDerivedUnion = "false";
+
+	@GenModel(documentation="True indicates this property can be used to uniquely identify an instance of the containing Class.")
+	!ordered attr types.Boolean[1] isID = "false";
+
+	@GenModel(documentation="In the case where the property is one navigable end of a binary association with both ends navigable, this gives the other end.")
+	!ordered volatile transient derived ref Property opposite;
+
+	@GenModel(documentation="References the properties that are redefined by this property.")
+	@subsets
+	!ordered ref Property[*] redefinedProperty;
+
+	@GenModel(documentation="References the properties of which this property is constrained to be a subset.")
+	!ordered ref Property[*] subsettedProperty;
+}
+
+@GenModel(documentation="A structural feature is a typed feature of a classifier that specifies the structure of instances of the classifier.
+By specializing multiplicity element, it supports a multiplicity that specifies valid cardinalities for the collection of values associated with an instantiation of the structural feature.")
+abstract class StructuralFeature extends Feature, MultiplicityElement, TypedElement {
+
+	@GenModel(documentation="States whether the feature's value may be modified by a client.")
+	!ordered attr types.Boolean[1] isReadOnly = "false";
+}
+
+@GenModel(documentation="A feature declares a behavioral or structural characteristic of instances of classifiers.")
+abstract class Feature extends RedefinableElement {
+
+	@GenModel(documentation="The Classifiers that have this Feature as a feature.")
+	@union
+	!ordered readonly volatile transient derived ref Classifier[*]#feature featuringClassifier;
+
+	@GenModel(documentation="Specifies whether this feature characterizes individual instances classified by the classifier (false) or the classifier itself (true).")
+	!ordered attr types.Boolean[1] isStatic = "false";
+}
+
+@GenModel(documentation="A redefinable element is an element that, when defined in the context of a classifier, can be redefined more specifically or differently in the context of another classifier that specializes (directly or indirectly) the context classifier.")
+abstract class RedefinableElement extends NamedElement {
+
+	@GenModel(documentation="A redefining element must be consistent with each redefined element.
+self.redefinedElement->forAll(re | re.isConsistentWith(self))")
+	op boolean redefinition_consistent(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A redefinable element can only redefine non-leaf redefinable elements
+self.redefinedElement->forAll(not isLeaf)")
+	op boolean non_leaf_redefinition(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="At least one of the redefinition contexts of the redefining element must be a specialization of at least one of the redefinition contexts for each redefined element.
+self.redefinedElement->forAll(e | self.isRedefinitionContextValid(e))")
+	op boolean redefinition_context_valid(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The query isConsistentWith() specifies, for any two RedefinableElements in a context in which redefinition is possible, whether redefinition would be logically consistent. By default, this is false; this operation must be overridden for subclasses of RedefinableElement to define the consistency conditions.
+redefinee.isRedefinitionContextValid(self)
+result = false")
+	!ordered op types.Boolean[1] isConsistentWith(!ordered RedefinableElement[1] redefinee);
+
+	@GenModel(documentation="The query isRedefinitionContextValid() specifies whether the redefinition contexts of this RedefinableElement are properly related to the redefinition contexts of the specified RedefinableElement to allow this element to redefine the other. By default at least one of the redefinition contexts of this element must be a specialization of at least one of the redefinition contexts of the specified element.
+result = redefinitionContext->exists(c | c.allParents()->includes(redefined.redefinitionContext)))")
+	!ordered op types.Boolean[1] isRedefinitionContextValid(!ordered RedefinableElement[1] redefined);
+
+	@GenModel(documentation="Indicates whether it is possible to further redefine a RedefinableElement. If the value is true, then it is not possible to further redefine the RedefinableElement. Note that this property is preserved through package merge operations; that is, the capability to redefine a RedefinableElement (i.e., isLeaf=false) must be preserved in the resulting RedefinableElement of a package merge operation where a RedefinableElement with isLeaf=false is merged with a matching RedefinableElement with isLeaf=true: the resulting RedefinableElement will have isLeaf=false. Default value is false.")
+	!ordered attr types.Boolean[1] isLeaf = "false";
+
+	@GenModel(documentation="The redefinable element that is being redefined by this element.")
+	@union
+	!ordered readonly volatile transient derived ref RedefinableElement[*] redefinedElement;
+
+	@GenModel(documentation="References the contexts that this element may be redefined from.")
+	@union
+	!ordered readonly volatile transient derived ref Classifier[*] redefinitionContext;
+}
+
+@GenModel(documentation="A named element is an element in a model that may have a name.")
+abstract class NamedElement extends Element {
+
+	@GenModel(documentation="If a NamedElement is not owned by a Namespace, it does not have a visibility.
+namespace->isEmpty() implies visibility->isEmpty()")
+	op boolean visibility_needs_ownership(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="If there is no name, or one of the containing namespaces has no name, there is no qualified name.
+(self.name->isEmpty() or self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty())
+  implies self.qualifiedName->isEmpty()")
+	op boolean has_no_qualified_name(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces.
+(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) implies
+  self.qualifiedName = self.allNamespaces()->iterate( ns : Namespace; result: String = self.name | ns.name->union(self.separator())->union(result))")
+	op boolean has_qualified_name(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The query allNamespaces() gives the sequence of namespaces in which the NamedElement is nested, working outwards.
+result = if self.namespace->isEmpty()
+then Sequence{}
+else self.namespace.allNamespaces()->prepend(self.namespace)
+endif")
+	op Namespace[*] allNamespaces();
+
+	@GenModel(documentation="The query isDistinguishableFrom() determines whether two NamedElements may logically co-exist within a Namespace. By default, two named elements are distinguishable if (a) they have unrelated types or (b) they have related types but different names.
+result = if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType)
+then ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()
+else true
+endif")
+	!ordered op types.Boolean[1] isDistinguishableFrom(!ordered NamedElement[1] n, !ordered Namespace[1] ns);
+
+	@GenModel(documentation="When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces.
+result = if self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()
+then 
+    self.allNamespaces()->iterate( ns : Namespace; result: String = self.name | ns.name->union(self.separator())->union(result))
+else
+    Set{}
+endif")
+	!ordered op types.String[1] qualifiedName();
+
+	@GenModel(documentation="The query separator() gives the string that is used to separate names when constructing a qualified name.
+result = '::'")
+	!ordered op types.String[1] separator();
+
+	@GenModel(documentation="Specifies the namespace that owns the NamedElement.")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref Namespace#ownedMember namespace;
+
+	@GenModel(documentation="The name of the NamedElement.")
+	!ordered attr types.String name;
+
+	@GenModel(documentation="A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself.")
+	!ordered readonly volatile transient derived attr types.String qualifiedName;
+
+	@GenModel(documentation="Determines where the NamedElement appears within different Namespaces within the overall model, and its accessibility.")
+	!ordered attr VisibilityKind visibility;
+}
+
+@GenModel(documentation="An element is a constituent of a model. As such, it has the capability of owning other elements.")
+abstract class Element extends Object {
+
+	@GenModel(documentation="Elements that must be owned must have an owner.
+self.mustBeOwned() implies owner->notEmpty()")
+	op boolean has_owner(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="An element may not directly or indirectly own itself.
+not self.allOwnedElements()->includes(self)")
+	op boolean not_own_self(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The query allOwnedElements() gives all of the direct and indirect owned elements of an element.
+result = ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))")
+	!ordered op Element[*] allOwnedElements();
+
+	@GenModel(documentation="The query mustBeOwned() indicates whether elements of this type must have an owner. Subclasses of Element that do not require an owner must override this operation.
+result = true")
+	!ordered op types.Boolean[1] mustBeOwned();
+	!ordered op Class[1] getMetaClass();
+	!ordered op Element[1] container();
+	!ordered op types.Boolean[1] isInstanceOfType(!ordered Class[1] type, !ordered types.Boolean[1] includesSubtypes);
+	!ordered op void delete();
+
+	@GenModel(documentation="The Comments owned by this element.")
+	@subsets
+	!ordered val Comment[*] ownedComment;
+
+	@GenModel(documentation="The Elements owned by this element.")
+	@union
+	!ordered readonly volatile transient derived ref Element[*]#owner ownedElement;
+
+	@GenModel(documentation="The Element that owns this element.")
+	@union
+	!ordered readonly volatile transient derived ref Element#ownedElement owner;
+	!ordered volatile transient derived ref Class[1] metaclass;
+}
+
+@GenModel(documentation="A comment is a textual annotation that can be attached to a set of elements.")
+class Comment extends Element {
+
+	@GenModel(documentation="References the Element(s) being commented.")
+	!ordered ref Element[*] annotatedElement;
+
+	@GenModel(documentation="Specifies a string that is the comment.")
+	!ordered attr types.String body;
+}
+
+@GenModel(documentation="A class describes a set of objects that share the same specifications of features, constraints, and semantics.")
+@duplicates
+class Class extends Classifier {
+
+	@GenModel(documentation="Missing derivation for Class::/superClass : Class
+true")
+	!ordered op Class[*] superClass();
+
+	@GenModel(documentation="References all the Classifiers that are defined (nested) within the Class.")
+	@subsets
+	val Classifier[*] nestedClassifier;
+
+	@GenModel(documentation="The attributes (i.e. the properties) owned by the class.")
+	@subsets
+	val Property[*]#~class ownedAttribute;
+
+	@GenModel(documentation="The operations owned by the class.")
+	@subsets
+	val Operation[*]#~class ownedOperation;
+
+	@GenModel(documentation="This gives the superclasses of a class.")
+	@redefines
+	!ordered volatile transient derived ref Class[*] superClass;
+}
+
+@GenModel(documentation="A classifier is a classification of instances - it describes a set of instances that have features in common. A classifier can specify a generalization hierarchy by referencing its general classifiers.")
+abstract class Classifier extends Namespace, RedefinableElement, Type {
+
+	@GenModel(documentation="The parents of a classifier must be non-final.
+self.parents()->forAll(not isFinalSpecialization)")
+	op boolean non_final_parents(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A classifier may only specialize classifiers of a valid type.
+self.parents()->forAll(c | self.maySpecializeType(c))")
+	op boolean specialize_type(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Generalization hierarchies must be directed and acyclical. A classifier can not be both a transitively general and transitively specific classifier of the same classifier.
+not self.allParents()->includes(self)")
+	op boolean no_cycles_in_generalization(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The query allFeatures() gives all of the features in the namespace of the classifier. In general, through mechanisms such as inheritance, this will be a larger set than feature.
+result = member->select(oclIsKindOf(Feature))")
+	!ordered op Feature[*] allFeatures();
+
+	@GenModel(documentation="The query allParents() gives all of the direct and indirect ancestors of a generalized Classifier.
+result = self.parents()->union(self.parents()->collect(p | p.allParents())")
+	!ordered op Classifier[*] allParents();
+
+	@GenModel(documentation="The query conformsTo() gives true for a classifier that defines a type that conforms to another. This is used, for example, in the specification of signature conformance for operations.
+result = (self=other) or (self.allParents()->includes(other))")
+	@redefines
+	!ordered op types.Boolean[1] conformsTo(!ordered Classifier[1] other);
+
+	@GenModel(documentation="The general classifiers are the classifiers referenced by the generalization relationships.
+result = self.parents()")
+	!ordered op Classifier[*] general();
+
+	@GenModel(documentation="The query hasVisibilityOf() determines whether a named element is visible in the classifier. By default all are visible. It is only called when the argument is something owned by a parent.
+result = (n.visibility <> VisibilityKind::private)
+self.allParents()->including(self)->collect(c | c.member)->includes(n)")
+	!ordered op types.Boolean[1] hasVisibilityOf(!ordered NamedElement[1] n);
+
+	@GenModel(documentation="The inherit operation is overridden to exclude redefined properties.
+The query inherit() defines how to inherit a set of elements. Here the operation is defined to inherit them all. It is intended to be redefined in circumstances where inheritance is affected by redefinition.
+result = inhs")
+	!ordered op NamedElement[*] inherit(!ordered NamedElement[*] inhs);
+
+	@GenModel(documentation="The query inheritableMembers() gives all of the members of a classifier that may be inherited in one of its descendants, subject to whatever visibility restrictions apply.
+c.allParents()->includes(self)
+result = member->select(m | c.hasVisibilityOf(m))")
+	!ordered op NamedElement[*] inheritableMembers(!ordered Classifier[1] c);
+
+	@GenModel(documentation="
+The inheritedMember association is derived by inheriting the inheritable members of the parents.
+
+The inheritedMember association is derived by inheriting the inheritable members of the parents.
+result = self.inherit(self.parents()->collect(p|p.inheritableMembers(self))->asSet())")
+	!ordered op NamedElement[*] inheritedMember();
+
+	@GenModel(documentation="The query maySpecializeType() determines whether this classifier may have a generalization relationship to classifiers of the specified type. By default a classifier may specialize classifiers of the same or a more general type. It is intended to be redefined by classifiers that have different specialization constraints.
+result = self.oclIsKindOf(c.oclType)")
+	!ordered op types.Boolean[1] maySpecializeType(!ordered Classifier[1] c);
+
+	@GenModel(documentation="The query parents() gives all of the immediate ancestors of a generalized Classifier.
+result = generalization.general")
+	!ordered op Classifier[*] parents();
+
+	@GenModel(documentation="Refers to all of the Properties that are direct (i.e. not inherited or imported) attributes of the classifier.")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref Property[*] attribute;
+
+	@GenModel(documentation="Note that there may be members of the Classifier that are of the type Feature but are not included in this association, e.g. inherited features.
+Specifies each feature defined in the classifier.")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref Feature[*]#featuringClassifier feature;
+
+	@GenModel(documentation="References the general classifier in the Generalization relationship.
+Specifies the general Classifiers for this Classifier.")
+	!ordered volatile transient derived ref Classifier[*] general;
+
+	@GenModel(documentation="Specifies the Generalization relationships for this Classifier. These Generalizations navigaten to more general classifiers in the generalization hierarchy.")
+	@subsets
+	!ordered val Generalization[*]#specific generalization;
+
+	@GenModel(documentation="Specifies all elements inherited by this classifier from the general classifiers.")
+	@subsets
+	!ordered readonly volatile transient derived ref NamedElement[*] inheritedMember;
+
+	@GenModel(documentation="If true, the Classifier does not provide a complete declaration and can typically not be instantiated. An abstract classifier is intended to be used by other classifiers e.g. as the target of general metarelationships or generalization relationships.")
+	!ordered attr types.Boolean[1] isAbstract = "false";
+
+	@GenModel(documentation="If true, the Classifier cannot be specialized by generalization. Note that this property is preserved through package merge operations; that is, the capability to specialize a Classifier (i.e., isFinalSpecialization =false) must be preserved in the resulting Classifier of a package merge operation where a Classifier with isFinalSpecialization =false is merged with a matching Classifier with isFinalSpecialization =true: the resulting Classifier will have isFinalSpecialization =false.")
+	!ordered attr types.Boolean[1] isFinalSpecialization = "false";
+
+	@GenModel(documentation="References the Classifiers that are redefined by this Classifier.")
+	@subsets
+	!ordered ref Classifier[*] redefinedClassifier;
+}
+
+@GenModel(documentation="A type is a named element that is used as the type for a typed element. A type can be contained in a package.
+A type constrains the values represented by a typed element.")
+abstract class Type extends PackageableElement {
+
+	@GenModel(documentation="The query conformsTo() gives true for a type that conforms to another. By default, two types do not conform to each other. This query is intended to be redefined for specific conformance situations.
+result = false")
+	!ordered op types.Boolean[1] conformsTo(!ordered Type[1] other);
+	!ordered op types.Boolean[1] isInstance(!ordered Object[1] object);
+
+	@GenModel(documentation="Specifies the owning package of this classifier, if any.")
+	!ordered volatile transient derived ref Package#ownedType ~package;
+}
+
+@GenModel(documentation="A packageable element indicates a named element that may be owned directly by a package.")
+@duplicates
+abstract class PackageableElement extends NamedElement {
+}
+
+@GenModel(documentation="VisibilityKind is an enumeration type that defines literals to determine the visibility of elements in a model.")
+enum VisibilityKind {
+
+	@GenModel(documentation="A public element is visible to all elements that can access the contents of the namespace that owns it.")
+	public = 0;
+
+	@GenModel(documentation="A private element is only visible inside the namespace that owns it.")
+	private = 1;
+
+	@GenModel(documentation="A protected element is visible to elements that have a generalization relationship to the namespace that owns it.")
+	protected = 2;
+
+	@GenModel(documentation="A package element is owned by a namespace that is not a package, and is visible to elements that are in the same package as its owning namespace. Only named elements that are not owned by packages can be marked as having package visibility. Any element marked as having package visibility is visible to all elements within the nearest enclosing package (given that other owning elements have proper visibility). Outside the nearest enclosing package, an element marked as having package visibility is not visible.")
+	~package = 3;
+}
+
+@GenModel(documentation="A package is used to group elements, and provides a namespace for the grouped elements.")
+@duplicates
+class Package extends Namespace, PackageableElement {
+
+	@GenModel(documentation="If an element that is owned by a package has visibility, it is public or private.
+self.ownedElements->forAll(e | e.visibility->notEmpty() implies e.visbility = #public or e.visibility = #private)")
+	op boolean elements_public_or_private(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The query makesVisible() defines whether a Package makes an element visible outside itself. Elements with no visibility and elements with public visibility are made visible.
+result = (ownedMember->includes(el)) or
+(elementImport->select(ei|ei.importedElement = #public)->collect(ei|ei.importedElement)->includes(el)) or
+(packageImport->select(pi|pi.visibility = #public)->collect(pi|pi.importedPackage.member->includes(el))->notEmpty())
+self.member->includes(el)")
+	!ordered op types.Boolean[1] makesVisible(!ordered NamedElement[1] el);
+
+	@GenModel(documentation="Missing derivation for Package::/nestedPackage : Package
+true")
+	!ordered op Package[*] nestedPackage();
+
+	@GenModel(documentation="Missing derivation for Package::/ownedType : Type
+true")
+	!ordered op Type[*] ownedType();
+
+	@GenModel(documentation="The query visibleMembers() defines which members of a Package can be accessed outside it.
+result = member->select( m | self.makesVisible(m))")
+	!ordered op PackageableElement[*] visibleMembers();
+
+	@GenModel(documentation="Provides an identifier for the package that can be used for many purposes. A URI is the universally unique identification of the package following the IETF URI specification, RFC 2396 http://www.ietf.org/rfc/rfc2396.txt and it must comply with those syntax rules.")
+	!ordered attr types.String URI;
+
+	@GenModel(documentation="References the packaged elements that are Packages.")
+	@subsets
+	!ordered volatile transient derived ref Package[*]#nestingPackage nestedPackage;
+
+	@GenModel(documentation="References the Package that owns this Package.")
+	!ordered volatile transient derived ref Package#nestedPackage nestingPackage;
+
+	@GenModel(documentation="References the PackageMerges that are owned by this Package.")
+	@subsets
+	!ordered val PackageMerge[*]#receivingPackage packageMerge;
+
+	@GenModel(documentation="Specifies the packageable elements that are owned by this Package.")
+	@subsets
+	!ordered val PackageableElement[*] packagedElement;
+
+	@GenModel(documentation="References the packaged elements that are Types.")
+	@subsets
+	!ordered volatile transient derived ref Type[*]#~package ownedType;
+}
+
+@GenModel(documentation="A namespace is an element in a model that contains a set of named elements that can be identified by name.")
+abstract class Namespace extends NamedElement {
+
+	@GenModel(documentation="All the members of a Namespace are distinguishable within it.
+membersAreDistinguishable()")
+	op boolean members_distinguishable(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The query excludeCollisions() excludes from a set of PackageableElements any that would not be distinguishable from each other in this namespace.
+result = imps->reject(imp1 | imps.exists(imp2 | not imp1.isDistinguishableFrom(imp2, self)))")
+	!ordered op PackageableElement[*] excludeCollisions(!ordered PackageableElement[*] imps);
+
+	@GenModel(documentation="The query getNamesOfMember() takes importing into account. It gives back the set of names that an element would have in an importing namespace, either because it is owned, or if not owned then imported individually, or if not individually then from a package.
+The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. The query takes account of importing. It gives back the set of names that an element would have in an importing namespace, either because it is owned, or if not owned then imported individually, or if not individually then from a package.
+result = if self.ownedMember ->includes(element)
+then Set{}->include(element.name)
+else let elementImports: ElementImport = self.elementImport->select(ei | ei.importedElement = element) in
+  if elementImports->notEmpty()
+  then elementImports->collect(el | el.getName())
+  else self.packageImport->select(pi | pi.importedPackage.visibleMembers()->includes(element))-> collect(pi | pi.importedPackage.getNamesOfMember(element))
+  endif
+endif")
+	!ordered op types.String[*] getNamesOfMember(!ordered NamedElement[1] element);
+
+	@GenModel(documentation="The query importMembers() defines which of a set of PackageableElements are actually imported into the namespace. This excludes hidden ones, i.e., those which have names that conflict with names of owned members, and also excludes elements which would have the same name when imported.
+result = self.excludeCollisions(imps)->select(imp | self.ownedMember->forAll(mem |
+mem.imp.isDistinguishableFrom(mem, self)))")
+	!ordered op PackageableElement[*] importMembers(!ordered PackageableElement[*] imps);
+
+	@GenModel(documentation="The importedMember property is derived from the ElementImports and the PackageImports. References the PackageableElements that are members of this Namespace as a result of either PackageImports or ElementImports.
+result = self.importMembers(self.elementImport.importedElement.asSet()-
+>union(self.packageImport.importedPackage->collect(p | p.visibleMembers())))")
+	!ordered op PackageableElement[*] importedMember();
+
+	@GenModel(documentation="The Boolean query membersAreDistinguishable() determines whether all of the namespace's members are distinguishable within it.
+result = self.member->forAll( memb |
+self.member->excluding(memb)->forAll(other |
+memb.isDistinguishableFrom(other, self)))")
+	!ordered op types.Boolean[1] membersAreDistinguishable();
+
+	@GenModel(documentation="References the ElementImports owned by the Namespace.")
+	@subsets
+	!ordered val ElementImport[*]#importingNamespace elementImport;
+
+	@GenModel(documentation="References the PackageableElements that are members of this Namespace as a result of either PackageImports or ElementImports.")
+	@subsets
+	!ordered readonly volatile transient derived ref PackageableElement[*] importedMember;
+
+	@GenModel(documentation="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance.")
+	@union
+	!ordered readonly volatile transient derived ref NamedElement[*] member;
+
+	@GenModel(documentation="A collection of NamedElements owned by the Namespace.")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref NamedElement[*]#namespace ownedMember;
+
+	@GenModel(documentation="Specifies a set of Constraints owned by this Namespace.")
+	@subsets
+	!ordered val Constraint[*]#context ownedRule;
+
+	@GenModel(documentation="References the PackageImports owned by the Namespace.")
+	@subsets
+	!ordered val PackageImport[*]#importingNamespace packageImport;
+}
+
+@GenModel(documentation="An element import identifies an element in another package, and allows the element to be referenced using its name without a qualifier.")
+class ElementImport extends DirectedRelationship {
+
+	@GenModel(documentation="The visibility of an ElementImport is either public or private.
+self.visibility = #public or self.visibility = #private")
+	op boolean visibility_public_or_private(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="An importedElement has either public visibility or no visibility at all.
+self.importedElement.visibility.notEmpty() implies self.importedElement.visibility = #public")
+	op boolean imported_element_is_public(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The query getName() returns the name under which the imported PackageableElement will be known in the importing namespace.
+result = if self.alias->notEmpty() then
+  self.alias
+else
+  self.importedElement.name
+endif")
+	!ordered op types.String[1] getName();
+
+	@GenModel(documentation="Specifies the name that should be added to the namespace of the importing package in lieu of the name of the imported packagable element. The aliased name must not clash with any other member name in the importing package. By default, no alias is used.")
+	!ordered attr types.String alias;
+
+	@GenModel(documentation="Specifies the PackageableElement whose name is to be added to a Namespace.")
+	@subsets
+	!ordered ref PackageableElement[1] importedElement;
+
+	@GenModel(documentation="Specifies the visibility of the imported PackageableElement within the importing Package. The default visibility is the same as that of the imported element. If the imported element does not have a visibility, it is possible to add visibility to the element import.")
+	!ordered attr VisibilityKind[1] visibility = "public";
+
+	@GenModel(documentation="Specifies the Namespace that imports a PackageableElement from another Package.")
+	@subsets
+	!ordered ref Namespace[1]#elementImport importingNamespace;
+}
+
+@GenModel(documentation="A directed relationship represents a relationship between a collection of source model elements and a collection of target model elements.")
+abstract class DirectedRelationship extends Relationship {
+
+	@GenModel(documentation="Specifies the sources of the DirectedRelationship.")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref Element[+] source;
+
+	@GenModel(documentation="Specifies the targets of the DirectedRelationship.")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref Element[+] target;
+}
+
+@GenModel(documentation="Relationship is an abstract concept that specifies some kind of relationship between elements.")
+abstract class Relationship extends Element {
+
+	@GenModel(documentation="Specifies the elements related by the Relationship.")
+	@union
+	!ordered readonly volatile transient derived ref Element[+] relatedElement;
+}
+
+@GenModel(documentation="A constraint is a condition or restriction expressed in natural language text or in a machine readable language for the purpose of declaring some of the semantics of an element.")
+class Constraint extends PackageableElement {
+
+	@GenModel(documentation="The value specification for a constraint must evaluate to a Boolean value.
+self.specification().booleanValue().isOclKindOf(Boolean)")
+	op boolean value_specification_boolean(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The value specification for a constraint must evaluate to a Boolean value.
+true")
+	op boolean boolean_value(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="A constraint cannot be applied to itself.
+not constrainedElement->includes(self)")
+	op boolean not_apply_to_self(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Evaluating the value specification for a constraint must not have side effects.
+true")
+	op boolean no_side_effects(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The ordered set of Elements referenced by this Constraint.")
+	ref Element[*] constrainedElement;
+
+	@GenModel(documentation="A condition that must be true when evaluated in order for the constraint to be satisfied.")
+	@subsets
+	!ordered val ValueSpecification[1] specification;
+
+	@GenModel(documentation="Specifies the namespace that owns the NamedElement.")
+	@subsets
+	!ordered ref Namespace#ownedRule context;
+}
+
+@GenModel(documentation="A value specification is the specification of a (possibly empty) set of instances, including both objects and data values.")
+abstract class ValueSpecification extends TypedElement, PackageableElement {
+
+	@GenModel(documentation="The query booleanValue() gives a single Boolean value when one can be computed.
+result = Set{}")
+	!ordered op types.Boolean booleanValue();
+
+	@GenModel(documentation="The query integerValue() gives a single Integer value when one can be computed.
+result = Set{}")
+	!ordered op types.Integer integerValue();
+
+	@GenModel(documentation="The query isComputable() determines whether a value specification can be computed in a model. This operation cannot be fully defined in OCL. A conforming implementation is expected to deliver true for this operation for all value specifications that it can compute, and to compute all of those for which the operation is true. A conforming implementation is expected to be able to compute the value of all literals.
+result = false")
+	!ordered op types.Boolean[1] isComputable();
+
+	@GenModel(documentation="The query isNull() returns true when it can be computed that the value is null.
+result = false")
+	!ordered op types.Boolean[1] isNull();
+
+	@GenModel(documentation="The query realValue() gives a single Real value when one can be computed.
+result = Set{}")
+	!ordered op types.Real realValue();
+
+	@GenModel(documentation="The query stringValue() gives a single String value when one can be computed.
+result = Set{}")
+	!ordered op types.String stringValue();
+
+	@GenModel(documentation="The query unlimitedValue() gives a single UnlimitedNatural value when one can be computed.
+result = Set{}")
+	!ordered op types.UnlimitedNatural unlimitedValue();
+}
+
+@GenModel(documentation="A typed element is a kind of named element that represents an element with a type.
+A typed element has a type.")
+abstract class TypedElement extends NamedElement {
+
+	@GenModel(documentation="This information is derived from the return result for this Operation.
+The type of the TypedElement.")
+	!ordered ref Type type;
+}
+
+@GenModel(documentation="A package import is a relationship that allows the use of unqualified names to refer to package members from other namespaces.")
+class PackageImport extends DirectedRelationship {
+
+	@GenModel(documentation="The visibility of a PackageImport is either public or private.
+self.visibility = #public or self.visibility = #private")
+	op boolean public_or_private(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Specifies the Package whose members are imported into a Namespace.")
+	@subsets
+	!ordered ref Package[1] importedPackage;
+
+	@GenModel(documentation="Specifies the visibility of the imported PackageableElements within the importing Namespace, i.e., whether imported elements will in turn be visible to other packages that use that importingPackage as an importedPackage. If the PackageImport is public, the imported elements will be visible outside the package, while if it is private they will not.")
+	!ordered attr VisibilityKind[1] visibility = "public";
+
+	@GenModel(documentation="Specifies the Namespace that imports the members from a Package.")
+	@subsets
+	!ordered ref Namespace[1]#packageImport importingNamespace;
+}
+
+@GenModel(documentation="A package merge defines how the contents of one package are extended by the contents of another package.")
+class PackageMerge extends DirectedRelationship {
+
+	@GenModel(documentation="References the Package that is to be merged with the receiving package of the PackageMerge.")
+	@subsets
+	!ordered ref Package[1] mergedPackage;
+
+	@GenModel(documentation="References the Package that is being extended with the contents of the merged package of the PackageMerge.")
+	@subsets
+	!ordered ref Package[1]#packageMerge receivingPackage;
+}
+
+@GenModel(documentation="A generalization is a taxonomic relationship between a more general classifier and a more specific classifier. Each instance of the specific classifier is also an indirect instance of the general classifier. Thus, the specific classifier inherits the features of the more general classifier.")
+class Generalization extends DirectedRelationship {
+
+	@GenModel(documentation="References the general classifier in the Generalization relationship.")
+	@subsets
+	!ordered ref Classifier[1] general;
+
+	@GenModel(documentation="Indicates whether the specific classifier can be used wherever the general classifier can be used. If true, the execution traces of the specific classifier will be a superset of the execution traces of the general classifier.")
+	!ordered attr types.Boolean isSubstitutable = "true";
+
+	@GenModel(documentation="References the specializing classifier in the Generalization relationship.")
+	@subsets
+	!ordered ref Classifier[1]#generalization specific;
+}
+
+@GenModel(documentation="An operation is a behavioral feature of a classifier that specifies the name, type, parameters, and constraints for invoking an associated behavior.")
+@duplicates
+class Operation extends BehavioralFeature {
+
+	@GenModel(documentation="A bodyCondition can only be specified for a query operation.
+bodyCondition->notEmpty() implies isQuery")
+	op boolean only_body_for_query(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="An operation can have at most one return parameter; i.e., an owned parameter with the direction set to 'return'
+self.ownedParameter->select(par | par.direction = #return)->size() <= 1")
+	op boolean at_most_one_return(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="If this operation has a return parameter, isOrdered equals the value of isOrdered for that parameter. Otherwise isOrdered is false.
+result = if returnResult()->notEmpty() then returnResult()->any().isOrdered else false endif")
+	!ordered op types.Boolean[1] isOrdered();
+
+	@GenModel(documentation="If this operation has a return parameter, isUnique equals the value of isUnique for that parameter. Otherwise isUnique is true.
+result = if returnResult()->notEmpty() then returnResult()->any().isUnique else true endif")
+	!ordered op types.Boolean[1] isUnique();
+
+	@GenModel(documentation="If this operation has a return parameter, lower equals the value of lower for that parameter. Otherwise lower is not defined.
+result = if returnResult()->notEmpty() then returnResult()->any().lower else Set{} endif")
+	!ordered op types.Integer[1] lower();
+
+	@GenModel(documentation="The query returnResult() returns the set containing the return parameter of the Operation if one exists, otherwise, it returns an empty set
+result = ownedParameter->select (par | par.direction = #return)")
+	!ordered op Parameter[*] returnResult();
+
+	@GenModel(documentation="If this operation has a return parameter, type equals the value of type for that parameter. Otherwise type is not defined.
+result = if returnResult()->notEmpty() then returnResult()->any().type else Set{} endif")
+	!ordered op Type[1] type();
+
+	@GenModel(documentation="If this operation has a return parameter, upper equals the value of upper for that parameter. Otherwise upper is not defined.
+result = if returnResult()->notEmpty() then returnResult()->any().upper else Set{} endif")
+	!ordered op types.UnlimitedNatural[1] upper();
+
+	@GenModel(documentation="An optional Constraint on the result values of an invocation of this Operation.")
+	@subsets
+	!ordered ref Constraint bodyCondition;
+
+	@GenModel(documentation="The DataType that owns this Operation.")
+	@subsets
+	!ordered ref DataType#ownedOperation ~datatype;
+
+	@GenModel(documentation="This information is derived from the return result for this Operation.
+Specifies whether the return parameter is ordered or not, if present.")
+	!ordered readonly volatile transient derived attr types.Boolean[1] isOrdered = "false";
+
+	@GenModel(documentation="Specifies whether an execution of the BehavioralFeature leaves the state of the system unchanged (isQuery=true) or whether side effects may occur (isQuery=false).")
+	!ordered attr types.Boolean[1] isQuery = "false";
+
+	@GenModel(documentation="This information is derived from the return result for this Operation.
+Specifies whether the return parameter is unique or not, if present.")
+	!ordered readonly volatile transient derived attr types.Boolean[1] isUnique = "true";
+
+	@GenModel(documentation="This information is derived from the return result for this Operation.
+Specifies the lower multiplicity of the return parameter, if present.")
+	!ordered readonly volatile transient derived attr types.Integer lower = "1";
+
+	@GenModel(documentation="An optional set of Constraints specifying the state of the system when the Operation is completed.")
+	@subsets
+	!ordered ref Constraint[*] postcondition;
+
+	@GenModel(documentation="An optional set of Constraints on the state of the system when the Operation is invoked.")
+	@subsets
+	!ordered ref Constraint[*] precondition;
+
+	@GenModel(documentation="References the Operations that are redefined by this Operation.")
+	@subsets
+	!ordered ref Operation[*] redefinedOperation;
+
+	@GenModel(documentation="This information is derived from the return result for this Operation.
+Specifies the return result of the operation, if present.")
+	!ordered readonly volatile transient derived ref Type type;
+
+	@GenModel(documentation="This information is derived from the return result for this Operation.
+Specifies the upper multiplicity of the return parameter, if present.")
+	!ordered readonly volatile transient derived attr types.UnlimitedNatural upper = "1";
+
+	@GenModel(documentation="The class that owns the operation.")
+	@subsets
+	!ordered ref Class#ownedOperation ~class;
+}
+
+@GenModel(documentation="A behavioral feature is a feature of a classifier that specifies an aspect of the behavior of its instances.")
+@duplicates
+abstract class BehavioralFeature extends Namespace, Feature {
+
+	@GenModel(documentation="Specifies the ordered set of formal parameters of this BehavioralFeature.")
+	@subsets
+	val Parameter[*] ownedParameter;
+
+	@GenModel(documentation="References the Types representing exceptions that may be raised during an invocation of this feature.")
+	!ordered ref Type[*] raisedException;
+}
+
+@GenModel(documentation="A parameter is a specification of an argument used to pass information into or out of an invocation of a behavioral feature.")
+class Parameter extends MultiplicityElement, TypedElement {
+
+	@GenModel(documentation="Missing derivation for Parameter::/default : String
+true")
+	!ordered op types.String default();
+
+	@GenModel(documentation="Specifies a String that represents a value to be used when no argument is supplied for the Parameter.")
+	!ordered volatile transient derived attr types.String default;
+
+	@GenModel(documentation="Specifies a ValueSpecification that represents a value to be used when no argument is supplied for the Parameter.")
+	@subsets
+	!ordered val ValueSpecification defaultValue;
+
+	@GenModel(documentation="Indicates whether a parameter is being sent into or out of a behavioral element.")
+	!ordered attr ParameterDirectionKind[1] direction = "in";
+
+	@GenModel(documentation="References the Operation owning this parameter.")
+	!ordered readonly volatile transient ref Operation operation;
+}
+
+@GenModel(documentation="A multiplicity is a definition of an inclusive interval of non-negative integers beginning with a lower bound and ending with a (possibly infinite) upper bound. A multiplicity element embeds this information to specify the allowable cardinalities for an instantiation of this element.")
+abstract class MultiplicityElement extends Element {
+
+	@GenModel(documentation="The lower bound must be a non-negative integer literal.
+lowerBound()->notEmpty() implies lowerBound() >= 0")
+	op boolean lower_ge_0(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="If a non-literal ValueSpecification is used for the lower or upper bound, then evaluating that specification must not have side effects.
+true")
+	op boolean value_specification_no_side_effects(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The upper bound must be greater than or equal to the lower bound.
+(upperBound()->notEmpty() and lowerBound()->notEmpty()) implies upperBound() >= lowerBound()")
+	op boolean upper_ge_lower(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="If a non-literal ValueSpecification is used for the lower or upper bound, then that specification must be a constant expression.
+true")
+	op boolean value_specification_constant(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The query includesCardinality() checks whether the specified cardinality is valid for this multiplicity.
+result = (lowerBound() <= C) and (upperBound() >= C)
+upperBound()->notEmpty() and lowerBound()->notEmpty()")
+	!ordered op types.Boolean[1] includesCardinality(!ordered types.Integer[1] C);
+
+	@GenModel(documentation="The query includesMultiplicity() checks whether this multiplicity includes all the cardinalities allowed by the specified multiplicity.
+result = (self.lowerBound() <= M.lowerBound()) and (self.upperBound() >= M.upperBound())
+self.upperBound()->notEmpty() and self.lowerBound()->notEmpty() and M.upperBound()->notEmpty() and M.lowerBound()->notEmpty()")
+	!ordered op types.Boolean[1] includesMultiplicity(!ordered MultiplicityElement[1] M);
+
+	@GenModel(documentation="The query isMultivalued() checks whether this multiplicity has an upper bound greater than one.
+upperBound()->notEmpty()
+result = upperBound() > 1")
+	!ordered op types.Boolean[1] isMultivalued();
+
+	@GenModel(documentation="The derived lower attribute must equal the lowerBound.
+result = lowerBound()")
+	!ordered op types.Integer lower();
+
+	@GenModel(documentation="The query lowerBound() returns the lower bound of the multiplicity as an integer.
+result = if lowerValue->isEmpty() then 1 else lowerValue.integerValue() endif")
+	!ordered op types.Integer lowerBound();
+
+	@GenModel(documentation="The derived upper attribute must equal the upperBound.
+result = upperBound()")
+	!ordered op types.UnlimitedNatural upper();
+
+	@GenModel(documentation="The query upperBound() returns the upper bound of the multiplicity for a bounded multiplicity as an unlimited natural.
+result = if upperValue->isEmpty() then 1 else upperValue.unlimitedValue() endif")
+	!ordered op types.UnlimitedNatural upperBound();
+
+	@GenModel(documentation="For a multivalued multiplicity, this attribute specifies whether the values in an instantiation of this element are sequentially ordered.")
+	!ordered attr types.Boolean[1] isOrdered = "false";
+
+	@GenModel(documentation="For a multivalued multiplicity, this attributes specifies whether the values in an instantiation of this element are unique.")
+	!ordered attr types.Boolean[1] isUnique = "true";
+
+	@GenModel(documentation="Specifies the lower bound of the multiplicity interval.")
+	!ordered volatile transient derived attr types.Integer lower = "1";
+
+	@GenModel(documentation="The specification of the lower bound for this multiplicity.")
+	@subsets
+	!ordered val ValueSpecification lowerValue;
+
+	@GenModel(documentation="Specifies the upper bound of the multiplicity interval.")
+	!ordered volatile transient derived attr types.UnlimitedNatural upper = "1";
+
+	@GenModel(documentation="The specification of the upper bound for this multiplicity.")
+	@subsets
+	!ordered val ValueSpecification upperValue;
+}
+
+@GenModel(documentation="Parameter direction kind is an enumeration type that defines literals used to specify direction of parameters.")
+enum ParameterDirectionKind {
+
+	@GenModel(documentation="Indicates that parameter values are passed into the behavioral element by the caller.")
+	in = 0;
+
+	@GenModel(documentation="Indicates that parameter values are passed into a behavioral element by the caller and then back out to the caller from the behavioral element.")
+	inout = 1;
+
+	@GenModel(documentation="Indicates that parameter values are passed from a behavioral element out to the caller.")
+	out = 2;
+
+	@GenModel(documentation="Indicates that parameter values are passed as return values from a behavioral element back to the caller.")
+	return = 3;
+}
+
+@GenModel(documentation="A data type is a type whose instances are identified only by their value. A data type may contain attributes to support the modeling of structured data types.")
+@duplicates
+class DataType extends Classifier {
+
+	@GenModel(documentation="The Attributes owned by the DataType.")
+	@subsets
+	val Property[*]#~datatype ownedAttribute;
+
+	@GenModel(documentation="The Operations owned by the DataType.")
+	@subsets
+	val Operation[*]#~datatype ownedOperation;
+}
+
+@GenModel(documentation="AggregationKind is an enumeration type that specifies the literals for defining the kind of aggregation of a property.")
+enum AggregationKind {
+
+	@GenModel(documentation="Indicates that the property has no aggregation.")
+	none = 0;
+
+	@GenModel(documentation="Indicates that the property has a shared aggregation.")
+	shared = 1;
+
+	@GenModel(documentation="Indicates that the property is aggregated compositely, i.e., the composite object has responsibility for the existence and storage of the composed objects (parts).")
+	composite = 2;
+}
+
+@GenModel(documentation="An association describes a set of tuples whose values refer to typed instances. An instance of an association is called a link.A link is a tuple with one value for each end of the association, where each value is an instance of the type of the end.
+An association describes a set of tuples whose values refer to typed instances. An instance of an association is called a link. A link is a tuple with one value for each end of the association, where each value is an instance of the type of the end.")
+class Association extends Classifier, Relationship {
+
+	@GenModel(documentation="Only binary associations can be aggregations.
+self.memberEnd->exists(aggregation <> Aggregation::none) implies self.memberEnd->size() = 2")
+	op boolean binary_associations(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="An association specializing another association has the same number of ends as the other association.
+parents()->select(oclIsKindOf(Association)).oclAsType(Association)->forAll(p | p.memberEnd->size() = self.memberEnd->size())")
+	op boolean specialized_end_number(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Association ends of associations with more than two ends must be owned by the association.
+if memberEnd->size() > 2 then ownedEnd->includesAll(memberEnd)")
+	op boolean association_ends(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="When an association specializes another association, every end of the specific association corresponds to an end of the general association, and the specific end reaches the same type or a subtype of the more general end.
+Sequence{1..self.memberEnd->size()}->
+	forAll(i | self.general->select(oclIsKindOf(Association)).oclAsType(Association)->
+		forAll(ga |self.memberEnd->at(i).type.conformsTo(ga.memberEnd->at(i).type)))")
+	op boolean specialized_end_types(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="endType is derived from the types of the member ends.
+result = self.memberEnd->collect(e | e.type)")
+	op Type[*] endType();
+
+	@GenModel(documentation="References the classifiers that are used as types of the ends of the association.")
+	@subsets
+	readonly volatile transient derived ref Type[+] endType;
+
+	@GenModel(documentation="Specifies whether the association is derived from other model elements such as other associations or constraints.")
+	!ordered attr types.Boolean[1] isDerived = "false";
+
+	@GenModel(documentation="The navigable ends that are owned by the association itself.")
+	@subsets
+	!ordered ref Property[*] navigableOwnedEnd;
+
+	@GenModel(documentation="The ends that are owned by the association itself.")
+	@subsets
+	val Property[*]#owningAssociation ownedEnd;
+
+	@GenModel(documentation="Each end represents participation of instances of the classifier connected to the end in links of the association.")
+	@subsets
+	ref Property[2..*]#association memberEnd;
+}
+
+class Argument {
+	!ordered attr types.String[1] name;
+	!ordered ref Object[1] value;
+}
+
+@GenModel(documentation="An enumeration is a data type whose values are enumerated in the model as enumeration literals.")
+class Enumeration extends DataType {
+
+	@GenModel(documentation="The ordered set of literals for this Enumeration.")
+	@subsets
+	val EnumerationLiteral[*]#enumeration ownedLiteral;
+}
+
+@GenModel(documentation="An enumeration literal is a user-defined data value for an enumeration.")
+@duplicates
+class EnumerationLiteral extends InstanceSpecification {
+
+	@GenModel(documentation="classifier = enumeration")
+	op boolean classifier_equals_owning_enumeration(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="Missing derivation for EnumerationLiteral::/classifier : Enumeration
+true")
+	!ordered op Enumeration[1] classifier();
+
+	@GenModel(documentation="The Enumeration that this EnumerationLiteral is a member of.")
+	@subsets
+	!ordered ref Enumeration#ownedLiteral enumeration;
+}
+
+@GenModel(documentation="An instance specification is a model element that represents an instance in a modeled system.")
+class InstanceSpecification extends PackageableElement {
+
+	@GenModel(documentation="One structural feature (including the same feature inherited from multiple classifiers) is the defining feature of at most one slot in an instance specification.
+classifier->forAll(c | (c.allFeatures()->forAll(f | slot->select(s | s.definingFeature = f)->size() <= 1)))")
+	op boolean structural_feature(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The defining feature of each slot is a structural feature (directly or inherited) of a classifier of the instance specification.
+slot->forAll(s | classifier->exists (c | c.allFeatures()->includes (s.definingFeature)))")
+	op boolean defining_feature(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The classifier or classifiers of the represented instance. If multiple classifiers are specified, the instance is classified by all of them.")
+	!ordered ref Classifier[*] classifier;
+
+	@GenModel(documentation="A slot giving the value or values of a structural feature of the instance. An instance specification can have one slot per structural feature of its classifiers, including inherited features. It is not necessary to model a slot for each structural feature, in which case the instance specification is a partial description.")
+	@subsets
+	!ordered val Slot[*]#owningInstance slot;
+
+	@GenModel(documentation="A specification of how to compute, derive, or construct the instance.")
+	@subsets
+	!ordered val ValueSpecification specification;
+}
+
+@GenModel(documentation="A slot specifies that an entity modeled by an instance specification has a value or values for a specific structural feature.")
+class Slot extends Element {
+
+	@GenModel(documentation="The structural feature that specifies the values that may be held by the slot.")
+	!ordered ref StructuralFeature[1] definingFeature;
+
+	@GenModel(documentation="The value or values corresponding to the defining feature for the owning instance specification.")
+	@subsets
+	val ValueSpecification[*] value;
+
+	@GenModel(documentation="The instance specification that owns this slot.")
+	@subsets
+	!ordered ref InstanceSpecification[1]#slot owningInstance;
+}
+
+@GenModel(documentation="An expression is a structured tree of symbols that denotes a (possibly empty) set of values when evaluated in a context.
+An expression represents a node in an expression tree, which may be non-terminal or terminal. It defines a symbol, and has a possibly empty sequence of operands which are value specifications.")
+class Expression extends ValueSpecification {
+
+	@GenModel(documentation="Specifies a sequence of operands.")
+	@subsets
+	val ValueSpecification[*] operand;
+
+	@GenModel(documentation="The symbol associated with the node in the expression tree.")
+	!ordered attr types.String symbol;
+}
+
+@GenModel(documentation="An instance value is a value specification that identifies an instance.")
+class InstanceValue extends ValueSpecification {
+
+	@GenModel(documentation="The instance that is the specified value.")
+	!ordered ref InstanceSpecification[1] instance;
+}
+
+@GenModel(documentation="A literal Boolean is a specification of a Boolean value.")
+@duplicates
+class LiteralBoolean extends LiteralSpecification {
+
+	@GenModel(documentation="The specified Boolean value.")
+	!ordered attr types.Boolean[1] value = "false";
+}
+
+@GenModel(documentation="A literal specification identifies a literal constant being modeled.")
+abstract class LiteralSpecification extends ValueSpecification {
+}
+
+@GenModel(documentation="A literal integer is a specification of an integer value.")
+@duplicates
+class LiteralInteger extends LiteralSpecification {
+
+	@GenModel(documentation="The specified Integer value.")
+	!ordered attr types.Integer[1] value = "0";
+}
+
+@GenModel(documentation="A literal null specifies the lack of a value.")
+@duplicates
+class LiteralNull extends LiteralSpecification {
+}
+
+@GenModel(documentation="A literal real is a specification of a real value.")
+@duplicates
+class LiteralReal extends LiteralSpecification {
+	!ordered attr types.Real[1] value;
+}
+
+@GenModel(documentation="A literal string is a specification of a string value.")
+@duplicates
+class LiteralString extends LiteralSpecification {
+
+	@GenModel(documentation="The specified String value.")
+	!ordered attr types.String value;
+}
+
+@GenModel(documentation="A literal unlimited natural is a specification of an unlimited natural number.")
+@duplicates
+class LiteralUnlimitedNatural extends LiteralSpecification {
+
+	@GenModel(documentation="The specified UnlimitedNatural value.")
+	!ordered attr types.UnlimitedNatural[1] value = "0";
+}
+
+@GenModel(documentation="An opaque expression is an uninterpreted textual statement that denotes a (possibly empty) set of values when evaluated in a context.")
+class OpaqueExpression extends ValueSpecification {
+
+	@GenModel(documentation="If the language attribute is not empty, then the size of the body and language arrays must be the same.
+language->notEmpty() implies (body->size() = language->size())")
+	op boolean language_body_size(@GenModel(documentation="The chain of diagnostics to which problems are to be appended.")
+ecore.EDiagnosticChain diagnostics, @GenModel(documentation="The cache of context-specific information.")
+ecore.EMap<EJavaObject, EJavaObject> context);
+
+	@GenModel(documentation="The query isIntegral() tells whether an expression is intended to produce an integer.
+result = false")
+	!ordered op types.Boolean[1] isIntegral();
+
+	@GenModel(documentation="The query isNonNegative() tells whether an integer expression has a non-negative value.
+self.isIntegral()
+result = false")
+	!ordered op types.Boolean[1] isNonNegative();
+
+	@GenModel(documentation="The query isPositive() tells whether an integer expression has a positive value.
+self.isIntegral()
+result = false")
+	!ordered op types.Boolean[1] isPositive();
+
+	@GenModel(documentation="The query value() gives an integer value for an expression intended to produce one.
+true
+self.isIntegral()")
+	!ordered op types.Integer[1] value();
+
+	@GenModel(documentation="The text of the expression, possibly in multiple languages.")
+	!unique attr types.String[*] body;
+
+	@GenModel(documentation="Specifies the languages in which the expression is stated. The interpretation of the expression body depends on the languages. If the languages are unspecified, they might be implicit from the expression body or the context. Languages are matched to body strings by order.")
+	attr types.String[*] language;
+}
+
+@GenModel(documentation="A primitive type defines a predefined data type, without any relevant substructure (i.e., it has no parts in the context of UML). A primitive datatype may have an algebra and operations defined outside of UML, for example, mathematically.")
+class PrimitiveType extends DataType {
+}
+
+class URIExtent extends Extent {
+	!ordered op types.String[1] contextURI();
+	!ordered op types.String[1] uri(!ordered Element[1] object);
+	!ordered op Element[1] element(!ordered types.String[1] uri);
+}
+
+class Extent extends Object {
+	!ordered op types.Boolean[1] useContainment();
+	!ordered op ReflectiveSequence[1] elements();
+	!ordered op Element[*] elementsOfType(!ordered Class[1] type, !ordered types.Boolean[1] includesSubtypes);
+	!ordered op Link[*] linksOfType(!ordered Association[1] type);
+	!ordered op Element[*] linkedElements(!ordered Association[1] association, !ordered Element[1] endElement, !ordered types.Boolean[1] end1ToEnd2Direction);
+	!ordered op types.Boolean[1] linkExists(!ordered Association[1] association, !ordered Element[1] firstElement, !ordered Element[1] secondElement);
+}
+
+class Link extends Object {
+
+	@redefines
+	!ordered op types.Boolean[1] equals(!ordered Link[1] otherLink);
+	!ordered op void delete();
+	!ordered ref Element[1] firstElement;
+	!ordered ref Element[1] secondElement;
+	!ordered ref Association[1] association;
+}
+
+class Factory extends Element {
+	!ordered op Object[1] createFromString(!ordered DataType[1] dataType, !ordered types.String[1] string);
+	!ordered op types.String[1] convertToString(!ordered DataType[1] dataType, !ordered Object[1] object);
+	!ordered op Element[1] create(!ordered Class[1] metaClass);
+	!ordered op Element[1] createElement(!ordered Class[1] ~class, !ordered Argument[*] arguments);
+	!ordered op Link[1] createLink(!ordered Association[1] association, !ordered Element[1] firstElement, !ordered Element[1] secondElement);
+	!ordered ref Package[1] ~package;
+}
+
+class Exception {
+	!ordered ref Element[1] objectInError;
+	!ordered ref Element[1] elementInError;
+	!ordered attr types.String[1] description;
+}
+
+class Tag extends Element {
+	!ordered attr types.String[1] name;
+	!ordered attr types.String[1] value;
+	!ordered ref Element[*] element;
+
+	@subsets
+	!ordered ref Element tagOwner;
+}
+

@@ -1,0 +1,2965 @@
+@"http://www.eclipse.org/OCL/Import"(ecore="http://www.eclipse.org/emf/2002/Ecore")
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http:///TaxCard.ecore", prefix="TaxCard")
+package TaxCard;
+
+enum Grantor {
+	ACD = 0;
+	Employer = 1;
+	CNPF = 2;
+	CEDIES = 3;
+	SNJ = 4;
+	CNAP = 5;
+}
+
+abstract class Constants {
+	attr double[1] MAXIMUM_CE_RATE_FOR_CHILD_NOT_BEING_PART_OF_HOUSEHOLD = "3480";
+	attr double[1] MAXIMUM_CE_RATE_FOR_HOUSE_CARE_AND_CHILD_PART_OF_THE_HOUSEHOLD_CARE = "3600";
+	attr double[1] MINIMUM_SALARY = "1500";
+	attr double[1] FLAT_RATE_FOR_EXTRA_PROFESSIONAL_DEDUCTION = "4500";
+	attr double[1] MAXIMUM_DEDUCTIBLE_PERCENTAGE_FOR_DONATIONS = "20";
+	attr double[1] MINIMUM_DEDUCTIBLE_AMOUNT_FOR_DONATIONS = "120";
+	attr double[1] MAXIMUM_DEDUCTIBLE_AMOUNT_FOR_ADDITIONAL_PENSION_AND_INSURANC = "0";
+	attr double[1] MAXIMUM_DEDUCTIBLE_AMOUNT_FOR_ALIMONY_EXPENSE = "24000";
+	attr double[1] MAXIMAL_DISTANCE_FOR_TRAVEL_EXPENSE_DEDUCTION = "99";
+	attr double[1] MAXIMAL_FLAT_DISTANCE_FOR_TRAVEL_EXPENSE_DEDUCTION = "30";
+	attr double[1] MINIMAL_DISTANCE_FOR_TRAVEL_EXPENSE_DEDUCTION = "4";
+	attr double[1] FLAT_RATE_CIM_DAILY = "2";
+	attr double[1] FLAT_RATE_CIM_MONTHLY = "62";
+	attr double[1] FLAT_RATE_CIM_YEARLY = "750";
+	attr double[1] FLAT_RATE_CIP_DAILY = "1";
+	attr double[1] FLAT_RATE_CIP_MONTHLY = "25";
+	attr double[1] FLAT_RATE_CIP_YEARLY = "30";
+	attr double[1] FLAT_RATE_CIS_DAILY = "1";
+	attr double[1] FLAT_RATE_CIS_MONTHLY = "25";
+	attr double[1] FLAT_RATE_CIS_YEARLY = "300";
+	attr double[1] FLAT_RATE_FOR_TRAVEL_EXPENSE_PER_UNIT = "99";
+	attr double[1] MAXIMUM_DEDUCTIBLE_AMOUNT_FOR_DS;
+	attr double[1] FLAT_RATE_FOR_MISCELLANEOUS_EXPENSE;
+	attr double[1] DISABILITY_FLAT_RATE_FOR_MISCELLANEOUS_EXPENSE;
+	attr double[1] MAXIMUM_DEDUCTIBLE_AMOUNT_FOR_ADDITIONAL_PENSION_AND_INSURANCE;
+}
+
+enum Country {
+	LU = 0;
+	FR = 1;
+	BE = 2;
+	DE = 3;
+	NL = 4;
+	OTHER = 5;
+}
+
+enum Disability_Types {
+	NONE = 0;
+	A = 1;
+	B = 2;
+	C = 3;
+	D = 4;
+	E = 5;
+	OTHER = 6;
+	beug = 0;
+}
+
+enum Separation_Causes {
+	NONE = 0;
+	DIVORCE = 1;
+	SEPARATION_DE_FAIT = 2;
+	SEPARATION_BY_COURT = 3;
+}
+
+enum Tax_Card_Type {
+	Principal = 0;
+	Additional = 1;
+}
+
+enum Tax_Office {
+	RTS_2 = 0;
+	RTS_3 = 1;
+	RTS_Esch = 2;
+	RTS_Ettelbruck = 3;
+}
+
+enum Tax_Class_Category {
+	One = 0;
+	One_A = 1;
+	Two = 2;
+}
+
+enum Job_Activity {
+	Salary = 0;
+	Pension = 1;
+	Annuity = 2;
+}
+
+enum Town {
+	Luxembourg_city = 0;
+	Bertrange = 1;
+	Strassen = 2;
+	Bettembourg = 3;
+	Beaufort = 4;
+}
+
+enum Type_of_Rate {
+	REGULAR = 0;
+	REAL_COST = 1;
+}
+
+enum CE_Type {
+	INALIDITY_AND_INFIRMITY = 0;
+	DEPENDENCE_AND_CARE_EXCLUDING_CHLIDREN_NOT_PART_OF_HOUSEHOLD = 1;
+	CARE_FOR_CHILDREN_NOT_BEING_PART_OF_HOUSEHOLD = 2;
+}
+
+enum Expense_Purpose {
+	HOUSE_CARE = 0;
+	CHILD_CARE = 1;
+	DEPENDENCE_CARE = 2;
+	ALIMONY = 4;
+	RECURRENT_DEPT = 5;
+	OTHER = 3;
+}
+
+enum Dependent_Type {
+	CHILD = 0;
+	SPOUSE = 1;
+	RELATIVE = 2;
+	OTHER_FAMILY_MEMBER = 3;
+	NOT_OWN_CHILD = 4;
+}
+
+class Income_Tax {
+	ref Tax_Payer[1]#incomeTax taxPayer;
+	attr double[1] tax_amount;
+	attr int[1] tax_year;
+}
+
+class FromAgent {
+	attr int[1] taxation_year;
+	attr boolean[1] is_dependent_eligible_for_CE_Not_In_Houshold_Children_Care;
+	attr boolean[1] is_eligible_debt;
+	ref Tax_Payer#from_agent taxPayer;
+	ref Expense#from_agent expense;
+	ref Dependent#from_agent dependent;
+}
+
+class FromLaw {
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 1020) then 0
+		else if(revenu <= 1180) then 0.08
+		else if(revenu <= 1340) then 0.1
+		else if(revenu <= 1500) then 0.12
+		else if(revenu <= 1655) then 0.14
+		else if(revenu <= 1815) then 0.16
+		else if(revenu <= 1975) then 0.18
+		else if(revenu <= 2135) then 0.2
+		else if(revenu <= 2295) then 0.22
+		else if(revenu <= 2450) then 0.24
+		else if(revenu <= 2610) then 0.26
+		else if(revenu <= 2770) then 0.28
+		else if(revenu <= 2930) then 0.3
+		else if(revenu <= 3090) then 0.32
+		else if(revenu <= 3245) then 0.34
+		else if(revenu <= 3405) then 0.36
+		else if(revenu <= 3565) then 0.38
+		else if(revenu <= 8415) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_salary_class_1(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 1020) then 0
+		else if(revenu <= 1180) then 81.9
+		else if(revenu <= 1340) then 105.555
+		else if(revenu <= 1500) then 132.39000
+		else if(revenu <= 1655) then 162.405
+		else if(revenu <= 1815) then 195.6
+		else if(revenu <= 1975) then 231.975
+		else if(revenu <= 2135) then 271.53
+		else if(revenu <= 2295) then 314.265
+		else if(revenu <= 2450) then 360.18
+		else if(revenu <= 2610) then 409.275
+		else if(revenu <= 2770) then 461.55
+		else if(revenu <= 2930) then 517.005
+		else if(revenu <= 3090) then 575.64
+		else if(revenu <= 3245) then 637.455
+		else if(revenu <= 3405) then 702.45
+		else if(revenu <= 3565) then 770.625
+		else if(revenu <= 8415) then 806.30250 
+		else 890.48583
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_salary_class_1(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 1960) then 0
+		else if(revenu <= 2065) then 0.12
+		else if(revenu <= 2170) then 0.15
+		else if(revenu <= 2280) then 0.18
+		else if(revenu <= 2385) then 0.21
+		else if(revenu <= 2490) then 0.24
+		else if(revenu <= 2595) then 0.27
+		else if(revenu <= 2700) then 0.3
+		else if(revenu <= 2810) then 0.33
+		else if(revenu <= 2915) then 0.36
+		else if(revenu <= 3020) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_salary_class_1A(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 1960) then 0
+		else if(revenu <= 2065) then 235.5
+		else if(revenu <= 2170) then 297.555
+		else if(revenu <= 2280) then 362.79
+		else if(revenu <= 2385) then 431.205
+		else if(revenu <= 2490) then 502.8
+		else if(revenu <= 2595) then 577.575
+		else if(revenu <= 2700) then 655.53
+		else if(revenu <= 2810) then 736.665
+		else if(revenu <= 2915) then 820.98
+		else if(revenu <= 3020) then 908.475
+		else 938.7
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_salary_class_1A(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 1960) then 0
+		else if(revenu <= 2280) then 0.08
+		else if(revenu <= 2595) then 0.1
+		else if(revenu <= 2915) then 0.12
+		else if(revenu <= 3230) then 0.14
+		else if(revenu <= 3550) then 0.16
+		else if(revenu <= 3870) then 0.18
+		else if(revenu <= 4185) then 0.2
+		else if(revenu <= 4505) then 0.22
+		else if(revenu <= 4820) then 0.24
+		else if(revenu <= 5140) then 0.26
+		else if(revenu <= 5460) then 0.28
+		else if(revenu <= 5775) then 0.3
+		else if(revenu <= 6095) then 0.32
+		else if(revenu <= 6410) then 0.34
+		else if(revenu <= 6730) then 0.36
+		else if(revenu <= 7050) then 0.38
+		else if(revenu <= 16750) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_salary_class_2(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 1960) then 0
+		else if(revenu <= 2280) then 157
+		else if(revenu <= 2595) then 202.61
+		else if(revenu <= 2915) then 254.58
+		else if(revenu <= 3230) then 312.91
+		else if(revenu <= 3550) then 377.6
+		else if(revenu <= 3870) then 448.65
+		else if(revenu <= 4185) then 526.06
+		else if(revenu <= 4505) then 609.83
+		else if(revenu <= 4820) then 699.96
+		else if(revenu <= 5140) then 796.45
+		else if(revenu <= 5460) then 899.3
+		else if(revenu <= 5775) then 1008.51
+		else if(revenu <= 6095) then 1124.08
+		else if(revenu <= 6410) then 1246.01
+		else if(revenu <= 6730) then 1374.3
+		else if(revenu <= 7050) then 1508.95
+		else if(revenu <= 16750) then  1579.455
+		else 1746.97166
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_salary_class_2(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 1000) then 0
+		else if(revenu <= 1160) then 0.08
+		else if(revenu <= 1320) then 0.1
+		else if(revenu <= 1480) then 0.12
+		else if(revenu <= 1635) then 0.14
+		else if(revenu <= 1795) then 0.16
+		else if(revenu <= 1955) then 0.18
+		else if(revenu <= 2115) then 0.2
+		else if(revenu <= 2275) then 0.22
+		else if(revenu <= 2430) then 0.24
+		else if(revenu <= 2590) then 0.26
+		else if(revenu <= 2750) then 0.28
+		else if(revenu <= 2910) then 0.3
+		else if(revenu <= 3070) then 0.32
+		else if(revenu <= 3225) then 0.34
+		else if(revenu <= 3385) then 0.36
+		else if(revenu <= 3545) then 0.38
+		else if(revenu <= 8395) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_pension_class_1(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 1000) then 0
+		else if(revenu <= 1160) then 80.3
+		else if(revenu <= 1320) then 103.555
+		else if(revenu <= 1480) then 129.99
+		else if(revenu <= 1635) then 159.605
+		else if(revenu <= 1795) then 192.4
+		else if(revenu <= 1955) then 228.375
+		else if(revenu <= 2115) then 267.53
+		else if(revenu <= 2275) then 309.865
+		else if(revenu <= 2430) then 355.38
+		else if(revenu <= 2590) then 404.075
+		else if(revenu <= 2750) then 455.95
+		else if(revenu <= 2910) then 511.005
+		else if(revenu <= 3070) then 569.24
+		else if(revenu <= 3225) then 630.655
+		else if(revenu <= 3385) then 695.25
+		else if(revenu <= 3545) then 763.025
+		else if(revenu <= 8395) then 798.5025
+		else 882.48583	
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_pension_class_1(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 1940) then 0
+		else if(revenu <= 2045) then 0.12
+		else if(revenu <= 2150) then 0.15
+		else if(revenu <= 2260) then 0.18
+		else if(revenu <= 2365) then 0.21
+		else if(revenu <= 2470) then 0.24
+		else if(revenu <= 2575) then 0.27
+		else if(revenu <= 2680) then 0.3
+		else if(revenu <= 2790) then 0.33
+		else if(revenu <= 2895) then 0.36
+		else if(revenu <= 3000) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_pension_class_1A(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 1940) then 0
+		else if(revenu <= 2045) then 233.100
+		else if(revenu <= 2150) then 294.555
+		else if(revenu <= 2260) then 359.190
+		else if(revenu <= 2365) then 427.005
+		else if(revenu <= 2470) then 498
+		else if(revenu <= 2575) then 572.175
+		else if(revenu <= 2680) then 649.53
+		else if(revenu <= 2790) then 730.065
+		else if(revenu <= 2895) then 813.780
+		else if(revenu <= 3000) then 900.675
+		else 930.700
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_pension_class_1A(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			
+			 if(revenu<= 1940) then 0
+		else if(revenu <= 2260) then 0.08
+		else if(revenu <= 2575) then 0.1
+		else if(revenu <= 2895) then 0.12
+		else if(revenu <= 3210) then 0.14
+		else if(revenu <= 3530) then 0.16
+		else if(revenu <= 3850) then 0.18
+		else if(revenu <= 4165) then 0.2
+		else if(revenu <= 4485) then 0.22
+		else if(revenu <= 4800) then 0.24
+		else if(revenu <= 5120) then 0.26
+		else if(revenu <= 5440) then 0.28
+		else if(revenu <= 5755) then 0.3
+		else if(revenu <= 6075) then 0.32
+		else if(revenu <= 6390) then 0.34
+		else if(revenu <= 6710) then 0.36
+		else if(revenu <= 7030) then 0.38
+		else if(revenu <= 16730) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_pension_class_2(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 1940) then 0
+		else if(revenu <= 2260) then 155.4
+		else if(revenu <= 2575) then 200.61
+		else if(revenu <= 2895) then 252.18
+		else if(revenu <= 3210) then 310.11
+		else if(revenu <= 3530) then 374.4
+		else if(revenu <= 3850) then 445.05
+		else if(revenu <= 4165) then 522.06
+		else if(revenu <= 4485) then 605.43
+		else if(revenu <= 4800) then 695.16
+		else if(revenu <= 5120) then 791.25
+		else if(revenu <= 5440) then 893.7
+		else if(revenu <= 5755) then 1002.51
+		else if(revenu <= 6075) then 1117.68
+		else if(revenu <= 6390) then 1239.21
+		else if(revenu <= 6710) then  1367.1
+		else if(revenu <= 7030) then 1501.35
+		else if(revenu <= 16730) then 1571.655
+		else 1738.97166
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_pension_class_2(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 11250) then 0
+		else if(revenu <= 13150) then 0.08
+		else if(revenu <= 15050) then 0.1
+		else if(revenu <= 16950) then 0.12
+		else if(revenu <= 18850) then 0.14
+		else if(revenu <= 20800) then 0.16
+		else if(revenu <= 22700) then 0.18
+		else if(revenu <= 24600) then 0.2
+		else if(revenu <= 26500) then 0.22
+		else if(revenu <= 28400) then 0.24
+		else if(revenu <= 30300) then 0.26
+		else if(revenu <= 32250) then 0.28
+		else if(revenu <= 34150) then 0.3
+		else if(revenu <= 36050) then 0.32
+		else if(revenu <= 37950) then 0.34
+		else if(revenu <= 39850) then 0.36
+		else if(revenu <= 41750) then 0.38
+		else if(revenu <= 100000) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_other_yearly_class_1(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 11250) then 0
+		else if(revenu <= 13150) then 901.200 
+		else if(revenu <= 15050) then 1164.660
+		else if(revenu <= 16950) then 1466.280
+		else if(revenu <= 18850) then 1806.060
+		else if(revenu <= 20800) then 2184
+		else if(revenu <= 22700) then 2600.100
+		else if(revenu <= 24600) then 3054.360
+		else if(revenu <= 26500) then 3546.780 
+		else if(revenu <= 28400) then 4077.360
+		else if(revenu <= 30300) then 4646.100
+		else if(revenu <= 32250) then 5253
+		else if(revenu <= 34150) then 5898.060
+		else if(revenu <= 36050) then 6581.28
+		else if(revenu <= 37950) then 7302.66
+		else if(revenu <= 39850) then 8062.2
+		else if(revenu <= 41750) then 8859.9
+		else if(revenu <= 100000) then 9277.83
+		else 10277.83
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_other_yearly_class_1(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<=22500) then 0
+		else if(revenu <= 23800) then 0.12
+		else if(revenu <= 25050) then 0.15
+		else if(revenu <= 26300) then 0.18
+		else if(revenu <= 27600) then 0.21
+		else if(revenu <= 28850) then 0.24
+		else if(revenu <= 30150) then 0.27
+		else if(revenu <= 31400) then 0.3
+		else if(revenu <= 32700) then 0.33
+		else if(revenu <= 33950) then 0.36
+		else if(revenu <= 35250) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_other_yearly_class_1A(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<=22500) then 0
+		else if(revenu <= 23800) then 2703.600
+		else if(revenu <= 25050) then 3417.660
+		else if(revenu <= 26300) then 4169.880
+		else if(revenu <= 27600) then 4960.260
+		else if(revenu <= 28850) then 5788.800
+		else if(revenu <= 30150) then 6655.500
+		else if(revenu <= 31400) then 7560.360
+		else if(revenu <= 32700) then 8503.380
+		else if(revenu <= 33950) then 9484.560
+		else if(revenu <= 35250) then 10503.900
+		else  10856.400
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_other_yearly_class_1A(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<=22500) then 0
+		else if(revenu <= 26300) then 0.08
+		else if(revenu <= 30150) then 0.1
+		else if(revenu <= 33950) then 0.12
+		else if(revenu <= 37750) then 0.14
+		else if(revenu <= 41600) then 0.16
+		else if(revenu <= 45400) then 0.18
+		else if(revenu <= 49200) then 0.2
+		else if(revenu <= 53050) then 0.22
+		else if(revenu <= 56850) then 0.24
+		else if(revenu <= 60650) then 0.26
+		else if(revenu <= 64500) then 0.28
+		else if(revenu <= 68300) then 0.3
+		else if(revenu <= 72100) then 0.32
+		else if(revenu <= 75950) then 0.34
+		else if(revenu <= 79750) then 0.36
+		else if(revenu <= 83550) then 0.38
+		else if(revenu <= 200000) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_other_yearly_class_2(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<=22500) then 0
+		else if(revenu <= 26300) then 1802.400 
+		else if(revenu <= 30150) then 2329.320
+		else if(revenu <= 33950) then 2932.560
+		else if(revenu <= 37750) then 3612.120
+		else if(revenu <= 41600) then 4368.000
+		else if(revenu <= 45400) then 5200.200
+		else if(revenu <= 49200) then 6108.720
+		else if(revenu <= 53050) then 7093.560
+		else if(revenu <= 56850) then 8154.720
+		else if(revenu <= 60650) then 9292.200
+		else if(revenu <= 64500) then 10506.000
+		else if(revenu <= 68300) then 11796.120
+		else if(revenu <= 72100) then 13162.560
+		else if(revenu <= 75950) then 14605.320
+		else if(revenu <= 79750) then 16124.400
+		else if(revenu <= 83550) then 17719.800
+		else if(revenu <= 200000) then 18555.660
+		else 20555.660
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_other_yearly_class_2(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 12250) then 0
+		else if(revenu <= 14150) then 0.08
+		else if(revenu <= 16100) then 0.1
+		else if(revenu <= 18000) then 0.12
+		else if(revenu <= 19900) then 0.14
+		else if(revenu <= 21800) then 0.16
+		else if(revenu <= 23700) then 0.18
+		else if(revenu <= 25600) then 0.2
+		else if(revenu <= 27500) then 0.22
+		else if(revenu <= 29450) then 0.24
+		else if(revenu <= 31350) then 0.26
+		else if(revenu <= 33250) then 0.28
+		else if(revenu <= 35150) then 0.3
+		else if(revenu <= 37050) then 0.32
+		else if(revenu <= 38950) then 0.34
+		else if(revenu <= 40900) then 0.36
+		else if(revenu <= 42800) then 0.38
+		else if(revenu <= 101000) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_salary_yearly_class_1(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 12250) then 0
+		else if(revenu <= 14150) then 982.8000
+		else if(revenu <= 16100) then 1266.6600
+		else if(revenu <= 18000) then 1588.6800
+		else if(revenu <= 19900) then 1948.8600
+		else if(revenu <= 21800) then 2347.2000
+		else if(revenu <= 23700) then 2783.7000
+		else if(revenu <= 25600) then 3258.3600
+		else if(revenu <= 27500) then 3771.1800
+		else if(revenu <= 29450) then 4322.1600
+		else if(revenu <= 31350) then 4911.3000
+		else if(revenu <= 33250) then 5538.6000
+		else if(revenu <= 35150) then 6204.0600
+		else if(revenu <= 37050) then 6907.6800
+		else if(revenu <= 38950) then 7649.4600
+		else if(revenu <= 40900) then 8429.4000
+		else if(revenu <= 42800) then  9247.5000
+		else if(revenu <= 101000) then  9675.6300
+		else 10685.8300
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_salary_yearly_class_1(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 23500) then 0
+		else if(revenu <= 24800) then 0.12
+		else if(revenu <= 26050) then 0.15
+		else if(revenu <= 27350) then 0.18
+		else if(revenu <= 28600) then 0.21
+		else if(revenu <= 29900) then 0.24
+		else if(revenu <= 31150) then 0.27
+		else if(revenu <= 32450) then 0.3
+		else if(revenu <= 33700) then 0.33
+		else if(revenu <= 34950) then 0.36
+		else if(revenu <= 36250) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_salary_yearly_class_1A(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 23500) then 0
+		else if(revenu <= 24800) then 2826.0000
+		else if(revenu <= 26050) then 3570.6600
+		else if(revenu <= 27350) then 4353.4800
+		else if(revenu <= 28600) then 5174.4600
+		else if(revenu <= 29900) then 6033.6000
+		else if(revenu <= 31150) then 6930.9000
+		else if(revenu <= 32450) then 7866.3600
+		else if(revenu <= 33700) then 8839.9800
+		else if(revenu <= 34950) then 9851.7600
+		else if(revenu <= 36250) then  10901.7000
+		else 11264.4000
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_salary_yearly_class_1A(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 23550) then 0
+		else if(revenu <= 27350) then 0.08
+		else if(revenu <= 31150) then 0.1
+		else if(revenu <= 34950) then 0.12
+		else if(revenu <= 38800) then 0.14
+		else if(revenu <= 42600) then 0.16
+		else if(revenu <= 46400) then 0.18
+		else if(revenu <= 50250) then 0.2
+		else if(revenu <= 54050) then 0.22
+		else if(revenu <= 57850) then 0.24
+		else if(revenu <= 61700) then 0.26
+		else if(revenu <= 65500) then 0.28
+		else if(revenu <= 69300) then 0.3
+		else if(revenu <= 73150) then 0.32
+		else if(revenu <= 76950) then 0.34
+		else if(revenu <= 80750) then 0.36
+		else if(revenu <= 84600) then 0.38
+		else if(revenu <= 201000) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_salary_yearly_class_2(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 23550) then 0
+		else if(revenu <= 27350) then 1884.000
+		else if(revenu <= 31150) then 2431.3200
+		else if(revenu <= 34950) then 3054.9600
+		else if(revenu <= 38800) then 3754.9200
+		else if(revenu <= 42600) then 4531.2000
+		else if(revenu <= 46400) then 5383.8000
+		else if(revenu <= 50250) then 6312.7200
+		else if(revenu <= 54050) then 7317.9600
+		else if(revenu <= 57850) then 8399.5200
+		else if(revenu <= 61700) then 9557.4000
+		else if(revenu <= 65500) then 10791.6000
+		else if(revenu <= 69300) then 12102.1200
+		else if(revenu <= 73150) then 13488.9600
+		else if(revenu <= 76950) then 14952.1200
+		else if(revenu <= 80750) then 16491.6000
+		else if(revenu <= 84600) then 18107.4000
+		else if(revenu <= 201000) then 18953.4600
+		else 20963.6600
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_salary_yearly_class_2(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 12000) then 0
+		else if(revenu <= 13950) then 0.08
+		else if(revenu <= 15850) then 0.1
+		else if(revenu <= 17750) then 0.12
+		else if(revenu <= 19650) then 0.14
+		else if(revenu <= 21550) then 0.16
+		else if(revenu <= 23450) then 0.18
+		else if(revenu <= 25400) then 0.2
+		else if(revenu <= 27300) then 0.22
+		else if(revenu <= 29200) then 0.24
+		else if(revenu <= 31100) then 0.26
+		else if(revenu <= 33000) then 0.28
+		else if(revenu <= 34900) then 0.3
+		else if(revenu <= 36800) then 0.32
+		else if(revenu <= 38750) then 0.34
+		else if(revenu <= 40650) then 0.36
+		else if(revenu <= 42550) then 0.38
+		else if(revenu <= 100750) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_pension_yearly_class_1(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body=" if(revenu<= 12000) then 0
+		else if(revenu <= 13950) then 963.600
+		else if(revenu <= 15850) then 1242.660
+		else if(revenu <= 17750) then 1559.880
+		else if(revenu <= 19650) then 1915.260
+		else if(revenu <= 21550) then 2308.800
+		else if(revenu <= 23450) then 2740.500
+		else if(revenu <= 25400) then 3210.360
+		else if(revenu <= 27300) then 3718.380
+		else if(revenu <= 29200) then 4264.560
+		else if(revenu <= 31100) then 4848.900
+		else if(revenu <= 33000) then 5471.400
+		else if(revenu <= 34900) then 6132.060
+		else if(revenu <= 36800) then 6830.880
+		else if(revenu <= 38750) then 7567.860
+		else if(revenu <= 40650) then 8343.000
+		else if(revenu <= 42550) then 9156.300
+		else if(revenu <= 100750) then 9582.030
+		else 10589.830
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_pension_yearly_class_1(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 23300) then 0
+		else if(revenu <= 24550) then 0.12
+		else if(revenu <= 25850) then 0.15
+		else if(revenu <= 27100) then 0.18
+		else if(revenu <= 28350) then 0.21
+		else if(revenu <= 29650) then 0.24
+		else if(revenu <= 30900) then 0.27
+		else if(revenu <= 32200) then 0.3
+		else if(revenu <= 33450) then 0.33
+		else if(revenu <= 34750) then 0.36
+		else if(revenu <= 36000) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_pension_yearly_class_1A(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 23300) then 0
+		else if(revenu <= 24550) then 2797.200
+		else if(revenu <= 25850) then 3534.660
+		else if(revenu <= 27100) then 4310.280
+		else if(revenu <= 28350) then 5124.060
+		else if(revenu <= 29650) then 5976.000
+		else if(revenu <= 30900) then 6866.100
+		else if(revenu <= 32200) then 7794.360
+		else if(revenu <= 33450) then 8760.780
+		else if(revenu <= 34750) then 9765.360
+		else if(revenu <= 36000) then  10808.100
+		else 11168.400
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_pension_yearly_class_1A(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 23300) then 0
+		else if(revenu <= 27100) then 0.08
+		else if(revenu <= 30900) then 0.1
+		else if(revenu <= 34750) then 0.12
+		else if(revenu <= 38550) then 0.14
+		else if(revenu <= 42350) then 0.16
+		else if(revenu <= 46200) then 0.18
+		else if(revenu <= 50000) then 0.2
+		else if(revenu <= 53800) then 0.22
+		else if(revenu <= 57650) then 0.24
+		else if(revenu <= 61450) then 0.26
+		else if(revenu <= 65250) then 0.28
+		else if(revenu <= 69100) then 0.3
+		else if(revenu <= 72900) then 0.32
+		else if(revenu <= 76700) then 0.34
+		else if(revenu <= 80550) then 0.36
+		else if(revenu <= 84350) then 0.38
+		else if(revenu <= 200750) then 0.39
+		else 0.4
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_A_for_pension_yearly_class_2(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if(revenu<= 23300) then 0
+		else if(revenu <= 27100) then 1864.800
+		else if(revenu <= 30900) then 2407.320
+		else if(revenu <= 34750) then 3026.160
+		else if(revenu <= 38550) then 3721.320
+		else if(revenu <= 42350) then 4492.800
+		else if(revenu <= 46200) then 5340.600
+		else if(revenu <= 50000) then 6264.720
+		else if(revenu <= 53800) then 7265.160
+		else if(revenu <= 57650) then 8341.920
+		else if(revenu <= 61450) then 9495.000
+		else if(revenu <= 65250) then 10724.400
+		else if(revenu <= 69100) then 12030.120
+		else if(revenu <= 72900) then 13412.160
+		else if(revenu <= 76700) then 14870.520
+		else if(revenu <= 80550) then 16405.200
+		else if(revenu <= 84350) then 18016.200
+		else if(revenu <= 200750) then 18859.860
+		else 20867.660
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+        endif")
+	op EBigDecimal[1] get_B_for_pension_yearly_class_2(EBigDecimal[1] revenu);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			if(income_type='Employment') then
+			let a:Real = if(classe=Tax_Class_Category::One_A) then get_A_for_salary_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_A_for_salary_yearly_class_2(amount) else get_A_for_salary_yearly_class_1(amount) endif endif in
+			let b:Real = if(classe=Tax_Class_Category::One_A) then get_B_for_salary_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_B_for_salary_yearly_class_2(amount) else get_B_for_salary_yearly_class_1(amount) endif endif in
+		    let res:Real = round_lower_euros(a * amount - b) in
+            let max:Real = if(classe=Tax_Class_Category::Two) then 301020 else 151020 endif in
+            
+		    if(amount<max) then
+		    let final_res:Real= round_lower_euros(res*1.07) in
+		    if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif
+		    else 
+		    let adjustement:Real= if(classe=Tax_Class_Category::One_A) then 982.86 else if(classe=Tax_Class_Category::Two) then 1988.88 else 994.44 endif endif in
+		 	let final_res:Real=  round_lower_euros(res + (res*0.09-adjustement)) in
+		 	if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif
+		    endif
+		    
+		   
+			
+			else
+			if(income_type='Pension') then
+			let a:Real = if(classe=Tax_Class_Category::One_A) then get_A_for_pension_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_A_for_pension_yearly_class_2(amount) else get_A_for_pension_yearly_class_1(amount) endif endif in
+			let b:Real = if(classe=Tax_Class_Category::One_A) then get_B_for_pension_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_B_for_pension_yearly_class_2(amount) else get_B_for_pension_yearly_class_1(amount) endif endif in
+		    let res:Real = round_lower_euros(a * amount - b) in
+		    let max:Real = if(classe=Tax_Class_Category::Two) then 300780 else 150780 endif in
+            
+		    if(amount<max) then
+		    let final_res:Real= round_lower_euros(res*1.07) in
+		    if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif
+		    else 
+		    let adjustement:Real= if(classe=Tax_Class_Category::One_A) then 982.86 else if(classe=Tax_Class_Category::Two) then 1988.88 else 994.44 endif endif in
+		 	let final_res:Real=  round_lower_euros(res + (res*0.09-adjustement)) in
+		 	if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif
+	
+		    endif
+			
+			else
+			
+			let a:Real = if(classe=Tax_Class_Category::One_A) then get_A_for_other_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_A_for_other_yearly_class_2(amount) else get_A_for_other_yearly_class_1(amount) endif endif in
+			let b:Real = if(classe=Tax_Class_Category::One_A) then get_B_for_other_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_B_for_other_yearly_class_2(amount) else get_B_for_other_yearly_class_1(amount) endif endif in
+		    let res:Real = round_lower_euros(a * amount - b) in
+            let max:Real = if(classe=Tax_Class_Category::Two) then 300000 else 150000 endif in
+            
+		    if(amount<max) then
+		    let final_res:Real= round_lower_euros(res*1.07) in
+		    if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif
+		    else 
+		    let adjustement:Real= if(classe=Tax_Class_Category::One_A) then 982.86 else if(classe=Tax_Class_Category::Two) then 1988.88 else 994.44 endif endif in
+		 	let final_res:Real=  round_lower_euros(res + (res*0.09-adjustement)) in
+		 	if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif 
+		    endif  
+			endif
+			endif")
+	op EBigDecimal[1] calculate_taxes_per_year(EBigDecimal[1] amount, Tax_Class_Category[1] classe, String[1] income_type);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			if(income_type='Employment') then
+			let a:Real = if(classe=Tax_Class_Category::One_A) then get_A_for_salary_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_A_for_salary_yearly_class_2(amount) else get_A_for_salary_yearly_class_1(amount) endif endif in
+			let b:Real = if(classe=Tax_Class_Category::One_A) then get_B_for_salary_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_B_for_salary_yearly_class_2(amount) else get_B_for_salary_yearly_class_1(amount) endif endif in
+		    let res:Real = round_lower_euros(a * local_amount - b) in
+            let max:Real = if(classe=Tax_Class_Category::Two) then 301020 else 151020 endif in
+            
+		    if(amount<max) then
+		    let final_res:Real= round_lower_euros(res*1.07) in
+		    if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif
+		    else 
+		    let adjustement:Real= if(classe=Tax_Class_Category::One_A) then 982.86 else if(classe=Tax_Class_Category::Two) then 1988.88 else 994.44 endif endif in
+		 	let final_res:Real=  round_lower_euros(res + (res*0.09-adjustement)) in
+		 	if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif
+		    endif
+		    
+		   
+			
+			else
+			if(income_type='Pension') then
+			let a:Real = if(classe=Tax_Class_Category::One_A) then get_A_for_pension_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_A_for_pension_yearly_class_2(amount) else get_A_for_pension_yearly_class_1(amount) endif endif in
+			let b:Real = if(classe=Tax_Class_Category::One_A) then get_B_for_pension_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_B_for_pension_yearly_class_2(amount) else get_B_for_pension_yearly_class_1(amount) endif endif in
+		    let res:Real = round_lower_euros(a * local_amount - b) in
+		    let max:Real = if(classe=Tax_Class_Category::Two) then 300780 else 150780 endif in
+            
+		    if(amount<max) then
+		    let final_res:Real= round_lower_euros(res*1.07) in
+		    if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif
+		    else 
+		    let adjustement:Real= if(classe=Tax_Class_Category::One_A) then 982.86 else if(classe=Tax_Class_Category::Two) then 1988.88 else 994.44 endif endif in
+		 	let final_res:Real=  round_lower_euros(res + (res*0.09-adjustement)) in
+		 	if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif
+	
+		    endif
+			
+			else
+			
+			let a:Real = if(classe=Tax_Class_Category::One_A) then get_A_for_other_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_A_for_other_yearly_class_2(amount) else get_A_for_other_yearly_class_1(amount) endif endif in
+			let b:Real = if(classe=Tax_Class_Category::One_A) then get_B_for_other_yearly_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_B_for_other_yearly_class_2(amount) else get_B_for_other_yearly_class_1(amount) endif endif in
+		    let res:Real = round_lower_euros(a * local_amount - b) in
+            let max:Real = if(classe=Tax_Class_Category::Two) then 300000 else 150000 endif in
+            
+		    if(amount<max) then
+		    let final_res:Real= round_lower_euros(res*1.07) in
+		    if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif
+		    else 
+		    let adjustement:Real= if(classe=Tax_Class_Category::One_A) then 982.86 else if(classe=Tax_Class_Category::Two) then 1988.88 else 994.44 endif endif in
+		 	let final_res:Real=  round_lower_euros(res + (res*0.09-adjustement)) in
+		 	if(final_res<12)then
+		    0
+		    else
+		    final_res
+		    endif 
+		    endif  
+			endif
+			endif")
+	op EBigDecimal[1] calculate_taxes_per_year_mixed(EBigDecimal[1] amount, EBigDecimal[1] local_amount, Tax_Class_Category[1] classe, String[1] income_type);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			let gross_salary_year:Real= income.income_per_year() in
+			let type:Income_Type=income.income_type in
+			
+			if(type.oclIsTypeOf(Employment_Income)) then
+			let sum_deductions_year:Real=income.tax_card.getSumDeductionsYear() in
+			let part_pension_year:Real= gross_salary_year * income.taxPayer.from_law.PENSION_RATE() in
+			let part_CNS_year:Real= gross_salary_year * income.taxPayer.from_law.CNS_RATE() in
+			let taxable_income:Real= gross_salary_year- (part_CNS_year + part_pension_year + sum_deductions_year) in  	
+			round_lower_fifty_euros(taxable_income)
+			
+			else
+			if(type.oclIsTypeOf(Pensions_and_Annuities_Income))then
+			let sum_deductions_year:Real=income.tax_card.getSumDeductionsYear() in
+			let taxable_income:Real= gross_salary_year- sum_deductions_year in  	
+			round_lower_fifty_euros(taxable_income)
+			else
+			let details:Set(Income_Detail)= income.details->select(i:Income_Detail|i.is_worked=true) in
+			
+			let res:Real= details->iterate( elem : Income_Detail;  acc : Real = 0 | 
+			 	
+			 	if(elem.is_contributing_CNS=false and elem.is_contributing_pension=false) then acc + elem.amount 
+			 	else
+			 	if(elem.is_contributing_CNS=true and elem.is_contributing_pension=true) then
+			 	acc+  elem.amount - (elem.amount* income.taxPayer.from_law.PENSION_RATE()) - (elem.amount* income.taxPayer.from_law.CNS_RATE())
+			 	else
+			 	if(elem.is_contributing_CNS=true)then
+			    acc+  elem.amount  - (elem.amount* income.taxPayer.from_law.CNS_RATE())
+			 	else
+			 	acc+  elem.amount  - (elem.amount* income.taxPayer.from_law.PENSION_RATE()) 
+			 	
+			 	endif 
+			 	endif 
+			 	endif 
+		
+			 )
+		
+			in round_lower_fifty_euros(res)
+			
+			endif
+			endif
+			
+			")
+	op EBigDecimal[1] getTaxableIncomePerYear(Income[1] income);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			
+			if(amount<50) then
+			0
+			else
+			if (amount>=50 and amount<100) then
+			50.0
+			else
+			let temp_amount:Real = round_lower_euros(amount) in
+			let ch:String=temp_amount.toString()in
+			let temp_amount1:Real = temp_amount / 100.0 in
+			
+			if(temp_amount1.round() = temp_amount1.floor()) then
+			temp_amount1.floor() * 100.0
+			else
+			(temp_amount1.round()  * 100.0) -50
+			endif
+			endif
+			endif")
+	op EBigDecimal[1] round_lower_fifty_euros(EBigDecimal[1] amount);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			
+			if(income_type='Employment') then
+			let a:Real = if(classe=Tax_Class_Category::One_A) then get_A_for_salary_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_A_for_salary_class_2(amount) else get_A_for_salary_class_1(amount) endif endif in
+			let b:Real = if(classe=Tax_Class_Category::One_A) then get_B_for_salary_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_B_for_salary_class_2(amount) else get_B_for_salary_class_1(amount) endif endif in
+		    let res:Real = round_ten_cent(a * amount - b) in
+            let max:Real = if(classe=Tax_Class_Category::Two) then 25085 else 12585 endif in
+            
+		    if(amount<max) then
+		    let final_res:Real= round_ten_cent(res*1.07) in
+		    if(final_res<1)then
+		    0
+		    else
+		    final_res
+		    endif
+		    else 
+		    let adjustement:Real= if(classe=Tax_Class_Category::One_A) then 81.906 else if(classe=Tax_Class_Category::Two) then 165.74 else 82.87 endif endif in
+		 	let final_res:Real=  round_ten_cent(res + (res*0.09-adjustement)) in
+		 	if(final_res<1)then
+		    0
+		    else
+		    final_res
+		    endif
+		    endif
+		    
+		   
+			
+			else
+			if(income_type='Pension') then
+			let a:Real = if(classe=Tax_Class_Category::One_A) then get_A_for_pension_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_A_for_pension_class_2(amount) else get_A_for_pension_class_1(amount) endif endif in
+			let b:Real = if(classe=Tax_Class_Category::One_A) then get_B_for_pension_class_1A(amount) else if(classe=Tax_Class_Category::Two) then get_B_for_pension_class_2(amount) else get_B_for_pension_class_1(amount) endif endif in
+		    let res:Real = round_ten_cent(a * amount - b) in
+		    let max:Real = if(classe=Tax_Class_Category::Two) then 25065 else 12565 endif in
+            
+		    if(amount<max) then
+		    let final_res:Real= round_ten_cent(res*1.07) in
+		    if(final_res<1)then
+		    0
+		    else
+		    final_res
+		    endif
+		    else 
+		    let adjustement:Real= if(classe=Tax_Class_Category::One_A) then 81.906 else if(classe=Tax_Class_Category::Two) then 165.74 else 82.87 endif endif in
+		 	let final_res:Real=  round_ten_cent(res + (res*0.09-adjustement)) in
+		 	if(final_res<1)then
+		    0
+		    else
+		    final_res
+		    endif
+		    endif	
+			else
+			0
+			endif
+			endif")
+	op EBigDecimal[1] calculate_taxes_per_month(EBigDecimal[1] amount, Tax_Class_Category[1] classe, String[1] income_type);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			let p1:Integer = amount.floor() in
+			p1.toString().toReal()")
+	op EBigDecimal[1] round_lower_euros(EBigDecimal[1] amount);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			let p1:Integer = amount.floor() in
+			if(p1=amount) then
+			amount
+			else
+			let p2_temp:Real = (amount-p1) * 10 in
+			let p2:Integer = p2_temp.floor() in
+			p1.toString().toReal()+(p2.toString().toReal()/10.0)
+			endif")
+	op EBigDecimal[1] round_ten_cent(EBigDecimal[1] amount);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			let ch:String=amount.toString() in
+			if(ch.indexOf('.')=-1)then
+			amount
+			else
+			let pos_pt:Integer=ch.indexOf('.') in
+			if(pos_pt+degit >=ch.size()) then
+			amount 
+			else
+			let ch1:String=ch.substring(1,pos_pt+degit) in
+			ch1.toReal()
+			endif
+			endif")
+	op EBigDecimal[1] precision(EBigDecimal[1] amount, EBigInteger[1] degit);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			
+			if(year_divorce>1997)then
+			if(year <=2007) then
+			20400
+			else
+			if(year=2008) then
+			21600
+			else 
+			if(year=2009 or year = 2010) then
+			23400
+			else
+			24000
+			endif
+			endif
+			endif
+			else
+
+			if(year <=2007) then
+			20400
+			else
+			if(year=2008) then
+			21600
+			else 
+			23400
+			endif
+			endif	
+			endif
+			
+			")
+	op EBigDecimal[1] MAXIMUM_FLAT_RATE_FOR_ALIMONY(EBigInteger[1] year, EBigInteger[1] year_divorce);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="4500")
+	op EBigDecimal[1] AEP_FLAT_RATE();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="1921.03")
+	op EBigDecimal[1] MINIMUM_LEGAL_SALARY();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="3480 ")
+	op EBigDecimal[1] MAXIMUM_RATE_FOR_CE_CHILDREN();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="0.08")
+	op EBigDecimal[1] PENSION_RATE();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="0.0305")
+	op EBigDecimal[1] CNS_RATE();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="1455")
+	op EBigDecimal[1] CE_INVALIDITY_FLAT_RATE_TYPE_E();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="25")
+	op EBigDecimal[1] CIP_MINIMUM_INCOME_MONTH();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="300")
+	op EBigDecimal[1] CIP_MINIMUM_INCOME_YEAR();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="300")
+	op EBigDecimal[1] FLAT_RATE_CIP_YEARLY();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="99")
+	op EBigDecimal[1] FLAT_RATE_PER_UNIT();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="30")
+	op EBigDecimal[1] MAXIMUM_DISTANCE_IN_UNITS();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="4")
+	op EBigDecimal[1] MINIMUM_DISTANCE_IN_UNITS();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="2574")
+	op EBigDecimal[1] FLAT_MAXIMUM_FD();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="3.12")
+	op EBigDecimal[1] CIS_MINIMUM_INCOME_DAY();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="78")
+	op EBigDecimal[1] CIS_MINIMUM_INCOME_MONTH();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="936")
+	op EBigDecimal[1] CIS_MINIMUM_INCOME_YEAR();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="1")
+	op EBigDecimal[1] FLAT_RATE_CIS_DAILY();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="25")
+	op EBigDecimal[1] FLAT_RATE_CIS_MONTHLY();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="300")
+	op EBigDecimal[1] FLAT_RATE_CIS_YEARLY();
+	ref Tax_Payer[1]#from_law taxPayer;
+}
+
+class Tax_Property {
+	attr EBigInteger[1] starting_year;
+	attr boolean[1] taxed_jointly;
+	ref Legal_Union_Record[1]#properties union_record;
+}
+
+abstract class Tax_Payer extends Physical_Person, Tax_Case {
+
+	@GenModel(documentation="Here generated operation from model tax class categorization")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+let is_resident_taxpayer:Boolean = self.oclIsKindOf(Resident_Tax_Payer) in													
+/** Description: Returns yes if a given taxpayer is a resident. - **/	
+if (is_resident_taxpayer) = true then
+   let is_divorced:Boolean = self.getSeperationState(taxation_year,Separation_Causes::DIVORCE) in													
+   /** Description: Returns yes if the taxpayer is divorced within the selected taxation year. -  **/	
+   let is_living_separately:Boolean = self.getSeperationState(taxation_year,Separation_Causes::SEPARATION_DE_FAIT) in													
+   /** Description: Returns yes if the taxpayer is not cohabiting with his/her spouse. In French: \"Separation de fait\". -  **/	
+   let is_living_separately_by_court:Boolean = self.getSeperationState(taxation_year,Separation_Causes::SEPARATION_BY_COURT) in													
+   /** Description: Returns yes if the taxpayer has a judicial sentence dismissing him from cohabiting with his/her spouse. In French: \"Separation de corps\". -  **/	
+   if (is_divorced or is_living_separately_by_court or (is_living_separately and not is_resident_taxpayer)) = false then
+        let is_widower:Boolean = self.is_widower in													
+        /** Description: Returns yes if the taxpayer has the statute of widower for the current taxation year. -  **/	
+        if (is_widower) = true then
+               let spouse_death_year:Integer = self.last_start_year_widower in													
+               /** Description: Returns the year on which the spouse of the taxpayer past away. -  **/	
+               if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = true then
+               Tax_Class_Category::Two
+               else
+                  if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = false then
+                  Tax_Class_Category::One_A
+                  else
+                  invalid
+                  endif
+               endif
+        else
+          if (is_widower) = false then
+                  let is_reciving_bonus_for_children:Boolean = self.getIsreceivingAllowancesForChildren(taxation_year) in													
+                  /** Description: Returns yes if the taxpayer is receiving a bonus for children in household. -  **/	
+                  if (is_reciving_bonus_for_children) = true then
+                  Tax_Class_Category::One_A
+                  else
+                    if (is_reciving_bonus_for_children) = false then
+                              let taxpayer_age:Integer = self.getAge(taxation_year) in													
+                              /** Description: Returns the age of a given taxpayer. -  **/	
+                              if (taxpayer_age >= 64) = true then
+                              Tax_Class_Category::One_A
+                              else
+                                 if (taxpayer_age >= 64) = false then
+                                 Tax_Class_Category::One
+                                 else
+                                 invalid
+                                 endif
+                              endif
+                    else
+                    invalid
+                    endif
+                  endif
+          else
+          invalid
+          endif
+        endif
+   else
+     if (is_divorced or is_living_separately_by_court or (is_living_separately and not is_resident_taxpayer)) = true then
+          let can_beneficiate_from_transition_state :Boolean = self.getDivorceTransitionState(taxation_year) in													
+          /** Description: Returns yes if: (1) the divorce/separation occurred within the last three years from the taxation year, and (2) the taxpayer did has not beneficiated from a divorce/separation transition state for the last five years from the current taxation year. -  **/	
+          if (can_beneficiate_from_transition_state ) = false then
+                  let is_widower:Boolean = self.is_widower in													
+                  /** Description: Returns yes if the taxpayer has the statute of widower for the current taxation year. -  **/	
+                  if (is_widower) = true then
+                            let spouse_death_year:Integer = self.last_start_year_widower in													
+                            /** Description: Returns the year on which the spouse of the taxpayer past away. -  **/	
+                            if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = true then
+                            Tax_Class_Category::Two
+                            else
+                              if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = false then
+                              Tax_Class_Category::One_A
+                              else
+                              invalid
+                              endif
+                            endif
+                  else
+                    if (is_widower) = false then
+                              let is_reciving_bonus_for_children:Boolean = self.getIsreceivingAllowancesForChildren(taxation_year) in													
+                              /** Description: Returns yes if the taxpayer is receiving a bonus for children in household. -  **/	
+                              if (is_reciving_bonus_for_children) = true then
+                              Tax_Class_Category::One_A
+                              else
+                                 if (is_reciving_bonus_for_children) = false then
+                                             let taxpayer_age:Integer = self.getAge(taxation_year) in													
+                                             /** Description: Returns the age of a given taxpayer. -  **/	
+                                             if (taxpayer_age >= 64) = true then
+                                             Tax_Class_Category::One_A
+                                             else
+                                                if (taxpayer_age >= 64) = false then
+                                                Tax_Class_Category::One
+                                                else
+                                                invalid
+                                                endif
+                                             endif
+                                 else
+                                 invalid
+                                 endif
+                              endif
+                    else
+                    invalid
+                    endif
+                  endif
+          else
+             if (can_beneficiate_from_transition_state ) = true then
+             Tax_Class_Category::Two
+             else
+             invalid
+             endif
+          endif
+     else
+     invalid
+     endif
+   endif
+else
+   if (is_resident_taxpayer) = false then
+     let is_married:Boolean = self.getIsMaried(taxation_year) in													
+     /** Description: Returns yes if the taxpayer is married. -  **/	
+     if (is_married) = false then
+          let is_divorced:Boolean = self.getSeperationState(taxation_year,Separation_Causes::DIVORCE) in													
+          /** Description: Returns yes if the taxpayer is divorced within the selected taxation year. -  **/	
+          let is_living_separately:Boolean = self.getSeperationState(taxation_year,Separation_Causes::SEPARATION_DE_FAIT) in													
+          /** Description: Returns yes if the taxpayer is not cohabiting with his/her spouse. In French: \"Separation de fait\". -  **/	
+          let is_living_separately_by_court:Boolean = self.getSeperationState(taxation_year,Separation_Causes::SEPARATION_BY_COURT) in													
+          /** Description: Returns yes if the taxpayer has a judicial sentence dismissing him from cohabiting with his/her spouse. In French: \"Separation de corps\". -  **/	
+          if (is_divorced or is_living_separately_by_court or (is_living_separately and not is_resident_taxpayer)) = false then
+                  let is_widower:Boolean = self.is_widower in													
+                  /** Description: Returns yes if the taxpayer has the statute of widower for the current taxation year. -  **/	
+                  if (is_widower) = true then
+                            let spouse_death_year:Integer = self.last_start_year_widower in													
+                            /** Description: Returns the year on which the spouse of the taxpayer past away. -  **/	
+                            if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = true then
+                            Tax_Class_Category::Two
+                            else
+                              if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = false then
+                              Tax_Class_Category::One_A
+                              else
+                              invalid
+                              endif
+                            endif
+                  else
+                    if (is_widower) = false then
+                              let is_reciving_bonus_for_children:Boolean = self.getIsreceivingAllowancesForChildren(taxation_year) in													
+                              /** Description: Returns yes if the taxpayer is receiving a bonus for children in household. -  **/	
+                              if (is_reciving_bonus_for_children) = true then
+                              Tax_Class_Category::One_A
+                              else
+                                 if (is_reciving_bonus_for_children) = false then
+                                             let taxpayer_age:Integer = self.getAge(taxation_year) in													
+                                             /** Description: Returns the age of a given taxpayer. -  **/	
+                                             if (taxpayer_age >= 64) = true then
+                                             Tax_Class_Category::One_A
+                                             else
+                                                if (taxpayer_age >= 64) = false then
+                                                Tax_Class_Category::One
+                                                else
+                                                invalid
+                                                endif
+                                             endif
+                                 else
+                                 invalid
+                                 endif
+                              endif
+                    else
+                    invalid
+                    endif
+                  endif
+          else
+             if (is_divorced or is_living_separately_by_court or (is_living_separately and not is_resident_taxpayer)) = true then
+                    let can_beneficiate_from_transition_state :Boolean = self.getDivorceTransitionState(taxation_year) in													
+                    /** Description: Returns yes if: (1) the divorce/separation occurred within the last three years from the taxation year, and (2) the taxpayer did has not beneficiated from a divorce/separation transition state for the last five years from the current taxation year. -  **/	
+                    if (can_beneficiate_from_transition_state ) = false then
+                              let is_widower:Boolean = self.is_widower in													
+                              /** Description: Returns yes if the taxpayer has the statute of widower for the current taxation year. -  **/	
+                              if (is_widower) = true then
+                                           let spouse_death_year:Integer = self.last_start_year_widower in													
+                                           /** Description: Returns the year on which the spouse of the taxpayer past away. -  **/	
+                                           if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = true then
+                                           Tax_Class_Category::Two
+                                           else
+                                             if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = false then
+                                             Tax_Class_Category::One_A
+                                             else
+                                             invalid
+                                             endif
+                                           endif
+                              else
+                                 if (is_widower) = false then
+                                             let is_reciving_bonus_for_children:Boolean = self.getIsreceivingAllowancesForChildren(taxation_year) in													
+                                             /** Description: Returns yes if the taxpayer is receiving a bonus for children in household. -  **/	
+                                             if (is_reciving_bonus_for_children) = true then
+                                             Tax_Class_Category::One_A
+                                             else
+                                                if (is_reciving_bonus_for_children) = false then
+                                                               let taxpayer_age:Integer = self.getAge(taxation_year) in													
+                                                               /** Description: Returns the age of a given taxpayer. -  **/	
+                                                               if (taxpayer_age >= 64) = true then
+                                                               Tax_Class_Category::One_A
+                                                               else
+                                                                 if (taxpayer_age >= 64) = false then
+                                                                 Tax_Class_Category::One
+                                                                 else
+                                                                 invalid
+                                                                 endif
+                                                               endif
+                                                else
+                                                invalid
+                                                endif
+                                             endif
+                                 else
+                                 invalid
+                                 endif
+                              endif
+                    else
+                       if (can_beneficiate_from_transition_state ) = true then
+                       Tax_Class_Category::Two
+                       else
+                       invalid
+                       endif
+                    endif
+             else
+             invalid
+             endif
+          endif
+     else
+        if (is_married) = true then
+             let total_professional_income_household:Real = self.getProfetionalIncomeHousehold(taxation_year) in													
+             /** Description: Returns the sum of the taxpayer's household professional incomes. -  **/	
+             let sum_professional_income_household_Luxembourg:Real = self.getProfetionalIncomeHouseholdLuxembourg(taxation_year) in													
+             /** Description: Returns the sum of the taxpayer's household professional incomes that are taxed in Luxembourg. -  **/	
+             if (sum_professional_income_household_Luxembourg > (0.5 * total_professional_income_household)) = true then
+             Tax_Class_Category::Two
+             else
+               if (sum_professional_income_household_Luxembourg > (0.5 * total_professional_income_household)) = false then
+               Tax_Class_Category::One_A
+               else
+               invalid
+               endif
+             endif
+        else
+        invalid
+        endif
+     endif
+   else
+   invalid
+   endif
+   endif
+   ")
+	op Tax_Class_Category[1] getTaxClassModified(EBigInteger[1] taxation_year);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+let is_resident_taxpayer:Boolean = self.oclIsKindOf(Resident_Tax_Payer) in													
+/** Description: Returns yes if a given taxpayer is a resident. - **/	
+if (is_resident_taxpayer) = true then
+   let is_taxed_jointly:Boolean = self.getIsTaxedJointly(taxation_year) in													
+   /** Description: Returns yes if the taxpayer is married or has a partnership contract. -  **/	
+   if (is_taxed_jointly) = true then
+   Tax_Class_Category::Two
+   else
+     if (is_taxed_jointly) = false then
+          let is_divorced:Boolean = self.getSeperationState(taxation_year,Separation_Causes::DIVORCE) in													
+          /** Description: Returns yes if the taxpayer is divorced within the selected taxation year. -  **/	
+          let is_living_separately:Boolean = self.getSeperationState(taxation_year,Separation_Causes::SEPARATION_DE_FAIT) in													
+          /** Description: Returns yes if the taxpayer is not cohabiting with his/her spouse. In French: \"Separation de fait\". -  **/	
+          let is_living_separately_by_court:Boolean = self.getSeperationState(taxation_year,Separation_Causes::SEPARATION_BY_COURT) in													
+          /** Description: Returns yes if the taxpayer has a judicial sentence dismissing him from cohabiting with his/her spouse. In French: \"Separation de corps\". -  **/	
+          if (is_divorced or is_living_separately_by_court or (is_living_separately and not is_resident_taxpayer)) = false then
+                  let is_widower:Boolean = self.is_widower in													
+                  /** Description: Returns yes if the taxpayer has the statute of widower for the current taxation year. -  **/	
+                  if (is_widower) = true then
+                            let spouse_death_year:Integer = self.last_start_year_widower in													
+                            /** Description: Returns the year on which the spouse of the taxpayer past away. -  **/	
+                            if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = true then
+                            Tax_Class_Category::Two
+                            else
+                              if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = false then
+                              Tax_Class_Category::One_A
+                              else
+                              invalid
+                              endif
+                            endif
+                  else
+                    if (is_widower) = false then
+                              let is_reciving_bonus_for_children:Boolean = self.getIsreceivingAllowancesForChildren(taxation_year) in													
+                              /** Description: Returns yes if the taxpayer is receiving a bonus for children in household. -  **/	
+                              if (is_reciving_bonus_for_children) = true then
+                              Tax_Class_Category::One_A
+                              else
+                                 if (is_reciving_bonus_for_children) = false then
+                                             let taxpayer_age:Integer = self.getAge(taxation_year) in													
+                                             /** Description: Returns the age of a given taxpayer. -  **/	
+                                             if (taxpayer_age >= 64) = true then
+                                             Tax_Class_Category::One_A
+                                             else
+                                                if (taxpayer_age >= 64) = false then
+                                                Tax_Class_Category::One
+                                                else
+                                                invalid
+                                                endif
+                                             endif
+                                 else
+                                 invalid
+                                 endif
+                              endif
+                    else
+                    invalid
+                    endif
+                  endif
+          else
+             if (is_divorced or is_living_separately_by_court or (is_living_separately and not is_resident_taxpayer)) = true then
+                    let can_beneficiate_from_transition_state :Boolean = self.getDivorceTransitionState(taxation_year) in													
+                    /** Description: Returns yes if: (1) the divorce/separation occurred within the last three years from the taxation year, and (2) the taxpayer did has not benefited from a divorce/separation transition state for the last five years from the current taxation year.  -  **/	
+                    if (can_beneficiate_from_transition_state ) = false then
+                              let is_widower:Boolean = self.is_widower in													
+                              /** Description: Returns yes if the taxpayer has the statute of widower for the current taxation year. -  **/	
+                              if (is_widower) = true then
+                                           let spouse_death_year:Integer = self.last_start_year_widower in													
+                                           /** Description: Returns the year on which the spouse of the taxpayer past away. -  **/	
+                                           if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = true then
+                                           Tax_Class_Category::Two
+                                           else
+                                             if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = false then
+                                             Tax_Class_Category::One_A
+                                             else
+                                             invalid
+                                             endif
+                                           endif
+                              else
+                                 if (is_widower) = false then
+                                             let is_reciving_bonus_for_children:Boolean = self.getIsreceivingAllowancesForChildren(taxation_year) in													
+                                             /** Description: Returns yes if the taxpayer is receiving a bonus for children in household. -  **/	
+                                             if (is_reciving_bonus_for_children) = true then
+                                             Tax_Class_Category::One_A
+                                             else
+                                                if (is_reciving_bonus_for_children) = false then
+                                                               let taxpayer_age:Integer = self.getAge(taxation_year) in													
+                                                               /** Description: Returns the age of a given taxpayer. -  **/	
+                                                               if (taxpayer_age >= 64) = true then
+                                                               Tax_Class_Category::One_A
+                                                               else
+                                                                 if (taxpayer_age >= 64) = false then
+                                                                 Tax_Class_Category::One
+                                                                 else
+                                                                 invalid
+                                                                 endif
+                                                               endif
+                                                else
+                                                invalid
+                                                endif
+                                             endif
+                                 else
+                                 invalid
+                                 endif
+                              endif
+                    else
+                       if (can_beneficiate_from_transition_state ) = true then
+                       Tax_Class_Category::Two
+                       else
+                       invalid
+                       endif
+                    endif
+             else
+             invalid
+             endif
+          endif
+     else
+     invalid
+     endif
+   endif
+else
+   if (is_resident_taxpayer) = false then
+     let is_married:Boolean = self.getIsMaried(taxation_year) in													
+     /** Description: Returns yes if the taxpayer is married. -  **/	
+     if (is_married) = false then
+          let is_taxed_jointly:Boolean = self.getIsTaxedJointly(taxation_year) in													
+          /** Description: Returns yes if the taxpayer is married or has a partnership contract. -  **/	
+          if (is_taxed_jointly) = true then
+          Tax_Class_Category::Two
+          else
+             if (is_taxed_jointly) = false then
+                    let is_divorced:Boolean = self.getSeperationState(taxation_year,Separation_Causes::DIVORCE) in													
+                    /** Description: Returns yes if the taxpayer is divorced within the selected taxation year. -  **/	
+                    let is_living_separately:Boolean = self.getSeperationState(taxation_year,Separation_Causes::SEPARATION_DE_FAIT) in													
+                    /** Description: Returns yes if the taxpayer is not cohabiting with his/her spouse. In French: \"Separation de fait\". -  **/	
+                    let is_living_separately_by_court:Boolean = self.getSeperationState(taxation_year,Separation_Causes::SEPARATION_BY_COURT) in													
+                    /** Description: Returns yes if the taxpayer has a judicial sentence dismissing him from cohabiting with his/her spouse. In French: \"Separation de corps\". -  **/	
+                    if (is_divorced or is_living_separately_by_court or (is_living_separately and not is_resident_taxpayer)) = false then
+                              let is_widower:Boolean = self.is_widower in													
+                              /** Description: Returns yes if the taxpayer has the statute of widower for the current taxation year. -  **/	
+                              if (is_widower) = true then
+                                           let spouse_death_year:Integer = self.last_start_year_widower in													
+                                           /** Description: Returns the year on which the spouse of the taxpayer past away. -  **/	
+                                           if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = true then
+                                           Tax_Class_Category::Two
+                                           else
+                                             if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = false then
+                                             Tax_Class_Category::One_A
+                                             else
+                                             invalid
+                                             endif
+                                           endif
+                              else
+                                 if (is_widower) = false then
+                                             let is_reciving_bonus_for_children:Boolean = self.getIsreceivingAllowancesForChildren(taxation_year) in													
+                                             /** Description: Returns yes if the taxpayer is receiving a bonus for children in household. -  **/	
+                                             if (is_reciving_bonus_for_children) = true then
+                                             Tax_Class_Category::One_A
+                                             else
+                                                if (is_reciving_bonus_for_children) = false then
+                                                               let taxpayer_age:Integer = self.getAge(taxation_year) in													
+                                                               /** Description: Returns the age of a given taxpayer. -  **/	
+                                                               if (taxpayer_age >= 64) = true then
+                                                               Tax_Class_Category::One_A
+                                                               else
+                                                                 if (taxpayer_age >= 64) = false then
+                                                                 Tax_Class_Category::One
+                                                                 else
+                                                                 invalid
+                                                                 endif
+                                                               endif
+                                                else
+                                                invalid
+                                                endif
+                                             endif
+                                 else
+                                 invalid
+                                 endif
+                              endif
+                    else
+                       if (is_divorced or is_living_separately_by_court or (is_living_separately and not is_resident_taxpayer)) = true then
+                                 let can_beneficiate_from_transition_state :Boolean = self.getDivorceTransitionState(taxation_year) in													
+                                 /** Description: Returns yes if: (1) the divorce/separation occurred within the last three years from the taxation year, and (2) the taxpayer did has not benefited from a divorce/separation transition state for the last five years from the current taxation year.  -  **/	
+                                 if (can_beneficiate_from_transition_state ) = false then
+                                             let is_widower:Boolean = self.is_widower in													
+                                             /** Description: Returns yes if the taxpayer has the statute of widower for the current taxation year. -  **/	
+                                             if (is_widower) = true then
+                                                            let spouse_death_year:Integer = self.last_start_year_widower in													
+                                                            /** Description: Returns the year on which the spouse of the taxpayer past away. -  **/	
+                                                            if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = true then
+                                                            Tax_Class_Category::Two
+                                                            else
+                                                               if (spouse_death_year <= taxation_year and spouse_death_year >= taxation_year -3) = false then
+                                                               Tax_Class_Category::One_A
+                                                               else
+                                                               invalid
+                                                               endif
+                                                            endif
+                                             else
+                                                if (is_widower) = false then
+                                                               let is_reciving_bonus_for_children:Boolean = self.getIsreceivingAllowancesForChildren(taxation_year) in													
+                                                               /** Description: Returns yes if the taxpayer is receiving a bonus for children in household. -  **/	
+                                                               if (is_reciving_bonus_for_children) = true then
+                                                               Tax_Class_Category::One_A
+                                                               else
+                                                                 if (is_reciving_bonus_for_children) = false then
+                                                                                   let taxpayer_age:Integer = self.getAge(taxation_year) in													
+                                                                                   /** Description: Returns the age of a given taxpayer. -  **/	
+                                                                                   if (taxpayer_age >= 64) = true then
+                                                                                   Tax_Class_Category::One_A
+                                                                                   else
+                                                                                     if (taxpayer_age >= 64) = false then
+                                                                                     Tax_Class_Category::One
+                                                                                     else
+                                                                                     invalid
+                                                                                     endif
+                                                                                   endif
+                                                                 else
+                                                                 invalid
+                                                                 endif
+                                                               endif
+                                                else
+                                                invalid
+                                                endif
+                                             endif
+                                 else
+                                   if (can_beneficiate_from_transition_state ) = true then
+                                   Tax_Class_Category::Two
+                                   else
+                                   invalid
+                                   endif
+                                 endif
+                       else
+                       invalid
+                       endif
+                    endif
+             else
+             invalid
+             endif
+          endif
+     else
+        if (is_married) = true then
+             let total_professional_income_household:Real = self.getProfetionalIncomeHousehold(taxation_year) in													
+             /** Description: Returns the sum of the taxpayer's household professional incomes. -  **/	
+             let sum_professional_income_household_Luxembourg:Real = self.getProfetionalIncomeHouseholdLuxembourg(taxation_year) in													
+             /** Description: Returns the sum of the taxpayer's household professional incomes that are taxed in Luxembourg. -  **/	
+             if (sum_professional_income_household_Luxembourg > (0.5 * total_professional_income_household)) = true then
+             Tax_Class_Category::Two
+             else
+               if (sum_professional_income_household_Luxembourg > (0.5 * total_professional_income_household)) = false then
+               Tax_Class_Category::One_A
+               else
+               invalid
+               endif
+             endif
+        else
+        invalid
+        endif
+     endif
+   else
+   invalid
+   endif
+endif
+")
+	op Tax_Class_Category[1] getTaxClass(EBigInteger[1] taxation_year);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			let spouse:Physical_Person= self.getSpouse(year)in
+			let include_spouse:Boolean= if(not spouse.oclIsUndefined()) then spouse.oclIsKindOf(Tax_Payer) else false endif in
+			let myIncomes:Set(Income)=self.incomes->select(i:Income|i.year=year and i.income_type.oclIsKindOf(Employment_Income)) in
+			let myPart:Real= if(myIncomes->oclIsInvalid())then 0.0 else myIncomes.income_amount->sum() endif in
+			
+			if(include_spouse=false)then
+			myPart
+			else
+			let herIncomes:Set(Income)=spouse.oclAsType(Tax_Payer).incomes->select(i:Income|i.year=year and i.income_type.oclIsKindOf(Employment_Income)) in
+			let herPart:Real=if(herIncomes->oclIsInvalid())then 0.0 else herIncomes.income_amount->sum() endif in
+			myPart+herPart
+			endif")
+	op EBigDecimal[1] getProfetionalIncomeHousehold(EBigInteger[1] year);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			let spouse:Physical_Person= self.getSpouse(year)in
+			let include_spouse:Boolean= if(not spouse.oclIsUndefined()) then spouse.oclIsKindOf(Tax_Payer) else false endif in
+			let myIncomes:Set(Income)=self.incomes->select(i:Income|i.year=year and i.income_type.oclIsKindOf(Employment_Income) and i.oclIsTypeOf(Local_Income)) in
+			let myPart:Real=if(myIncomes->oclIsInvalid())then 0.0 else myIncomes.income_amount->sum() endif in
+			
+			if(include_spouse=false)then
+			myPart
+			else
+			let herIncomes:Set(Income)=spouse.oclAsType(Tax_Payer).incomes->select(i:Income|i.year=year and i.income_type.oclIsKindOf(Employment_Income)and i.oclIsTypeOf(Local_Income)) in
+			let herPart:Real=if(herIncomes->oclIsInvalid())then 0.0 else  herIncomes.income_amount->sum() endif in
+			myPart+herPart
+			endif")
+	op EBigDecimal[1] getProfetionalIncomeHouseholdLuxembourg(EBigInteger[1] year);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			let children1:Set(Dependent)=self.dependents->select(dependent_type=Dependent_Type::CHILD) in
+			let union:Legal_Union_Record=self.getLegalUnionRecord(year) in
+			let house: Household = union.household in
+			let children:Set(Dependent)=if (house.oclIsInvalid()) then children1 else children1->union(house.children->select(allowances->exists(ending_year=-1 and amount>0 and reciver=self))) endif in
+			if(children->size()=0)then
+			false
+			else		
+			let allowances:Boolean=children.allowances->select(starting_year<=year and ending_year=-1 and amount>0)->size()>0in
+			if(allowances)then
+			true
+			else
+			false
+			endif			
+			endif")
+	op boolean[1] getIsreceivingAllowancesForChildren(EBigInteger[1] year);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+let is_married:Boolean = if(self.getLegalUnionRecord(year).oclIsUndefined()) then false else self.getLegalUnionRecord(year).oclIsTypeOf(Marriage_Record) endif in													
+/** Description: - **/	
+if (is_married) = false then
+   let is_in_partnership_relation:Boolean = if(self.getLegalUnionRecord(year).oclIsUndefined()) then false else self.getLegalUnionRecord(year).oclIsTypeOf(Partnership_Record) endif in													
+   /** Description: -  **/	
+   if (is_in_partnership_relation) = false then
+   false
+   else
+     if (is_in_partnership_relation) = true then
+          let is_joint_tax_beneficial:Boolean = true in													
+          /** Description: -  **/	
+          if (is_joint_tax_beneficial) = true then
+                  let is_couple_living_apart:Boolean = false in													
+                  /** Description: -  **/	
+                  let relation_lasted_for_the_taxation_year:Boolean = true  in													
+                  /** Description: -  **/	
+                  if (relation_lasted_for_the_taxation_year and not is_couple_living_apart) = false then
+                  false
+                  else
+                    if (relation_lasted_for_the_taxation_year and not is_couple_living_apart) = true then
+                              let are_both_spouses_resident:Boolean = (self.getSpouse(year).oclIsTypeOf(Resident_Tax_Payer) or self.getSpouse(year).oclIsTypeOf(Physical_Person)) and self.oclIsTypeOf(Resident_Tax_Payer) in													
+                              /** Description: -  **/	
+                              if (are_both_spouses_resident) = true then
+                              true
+                              else
+                                 if (are_both_spouses_resident) = false then
+                                             let are_both_spouses_non_resident:Boolean = (self.getSpouse(year).oclIsTypeOf(Non_Resident_Tax_Payer) or self.getSpouse(year).oclIsTypeOf(Physical_Person)) and self.oclIsTypeOf(Non_Resident_Tax_Payer) in													
+                                             /** Description: -  **/	
+                                             if (are_both_spouses_non_resident) = false then
+                                             false
+                                             else
+                                                if (are_both_spouses_non_resident) = true then
+                                                               let my_incomes_all:Set(Income) = self.incomes->select(i:Income|i.year=year and i.oclIsTypeOf(Local_Income)) 
+                                                               	in													
+                                                               /** Description: -  **/	
+                                                               let spouse_incomes_all:Set(Income) = if(self.getSpouse(year).oclIsKindOf(Tax_Payer)) then self.getSpouse(year).oclAsType(Tax_Payer).incomes->select(i:Income|i.year=year and i.oclIsTypeOf(Local_Income)) else OrderedSet{} endif	in													
+                                                               /** Description: -  **/	
+                                                               let total_household_income:Real = if(my_incomes_all->oclIsInvalid() and spouse_incomes_all->oclIsInvalid()) then 0 else if(my_incomes_all->oclIsInvalid()) then spouse_incomes_all.income_amount->sum() else if(spouse_incomes_all->oclIsInvalid()) then my_incomes_all.income_amount->sum() else my_incomes_all.income_amount->sum() + spouse_incomes_all.income_amount->sum()  endif endif endif
+                                                               in													
+                                                               /** Description: -  **/	
+                                                               let resident_taxpayer_income:Real = if(self.oclIsTypeOf(Resident_Tax_Payer)) then if(my_incomes_all->oclIsInvalid()) then 0.0 else my_incomes_all.income_amount->sum() endif else if(spouse_incomes_all->oclIsInvalid()) then 0.0 else spouse_incomes_all.income_amount->sum() endif endif in													
+                                                               /** Description: -  **/	
+                                                               let non_resident_taxpayer_in_Belgium:Boolean = false in													
+                                                               /** Description: -  **/	
+                                                               if ((resident_taxpayer_income > total_household_income * 0.9) or (non_resident_taxpayer_in_Belgium and resident_taxpayer_income > total_household_income * 0.5)) = true then
+                                                               true
+                                                               else
+                                                                 if ((resident_taxpayer_income > total_household_income * 0.9) or (non_resident_taxpayer_in_Belgium and resident_taxpayer_income > total_household_income * 0.5)) = false then
+                                                                 false
+                                                                 else
+                                                                 invalid
+                                                                 endif
+                                                               endif
+                                                else
+                                                invalid
+                                                endif
+                                             endif
+                                 else
+                                 invalid
+                                 endif
+                              endif
+                    else
+                    invalid
+                    endif
+                  endif
+          else
+             if (is_joint_tax_beneficial) = false then
+             false
+             else
+             invalid
+             endif
+          endif
+     else
+     invalid
+     endif
+   endif
+else
+   if (is_married) = true then
+     let are_both_spouses_resident:Boolean = (self.getSpouse(year).oclIsTypeOf(Resident_Tax_Payer) or self.getSpouse(year).oclIsTypeOf(Physical_Person)) and self.oclIsTypeOf(Resident_Tax_Payer) in													
+     /** Description: -  **/	
+     if (are_both_spouses_resident) = true then
+     true
+     else
+        if (are_both_spouses_resident) = false then
+             let are_both_spouses_non_resident:Boolean = (self.getSpouse(year).oclIsTypeOf(Non_Resident_Tax_Payer) or self.getSpouse(year).oclIsTypeOf(Physical_Person)) and self.oclIsTypeOf(Non_Resident_Tax_Payer) in													
+             /** Description: -  **/	
+             if (are_both_spouses_non_resident) = true then
+                    let my_incomes_all:Set(Income) = self.incomes->select(i:Income|i.year=year and i.oclIsTypeOf(Local_Income)) 
+                    	in													
+                    /** Description: -  **/	
+                    let spouse_incomes_all:Set(Income) = if(self.getSpouse(year).oclIsKindOf(Tax_Payer)) then self.getSpouse(year).oclAsType(Tax_Payer).incomes->select(i:Income|i.year=year and i.oclIsTypeOf(Local_Income)) else OrderedSet{} endif	in													
+                    /** Description: -  **/	
+                    let total_household_income:Real = if(my_incomes_all->oclIsInvalid() and spouse_incomes_all->oclIsInvalid()) then 0 else if(my_incomes_all->oclIsInvalid()) then spouse_incomes_all.income_amount->sum() else if(spouse_incomes_all->oclIsInvalid()) then my_incomes_all.income_amount->sum() else my_incomes_all.income_amount->sum() + spouse_incomes_all.income_amount->sum()  endif endif endif
+                     in													
+                    /** Description: -  **/	
+                    let resident_taxpayer_income:Real = if(self.oclIsTypeOf(Resident_Tax_Payer)) then if(my_incomes_all->oclIsInvalid()) then 0.0 else my_incomes_all.income_amount->sum() endif else if(spouse_incomes_all->oclIsInvalid()) then 0.0 else spouse_incomes_all.income_amount->sum() endif endif in													
+                    /** Description: -  **/	
+                    let non_resident_taxpayer_in_Belgium:Boolean = false in													
+                    /** Description: -  **/	
+                    let is_couple_assimilated_to_residents:Boolean = (resident_taxpayer_income > total_household_income * 0.9) or (non_resident_taxpayer_in_Belgium and resident_taxpayer_income > total_household_income * 0.5) in													
+                    /** Description: -  **/	
+                    if (is_couple_assimilated_to_residents) = true then
+                    true
+                    else
+                       if (is_couple_assimilated_to_residents) = false then
+                                 let is_couple_living_apart:Boolean = false in													
+                                 /** Description: -  **/	
+                                 if (is_couple_living_apart) = true then
+                                 false
+                                 else
+                                   if (is_couple_living_apart) = false then
+                                                let my_incomes:Set(Income) = self.incomes->select(i:Income|i.year=year and i.income_type.oclIsKindOf(Employment_Income) and i.oclIsTypeOf(Local_Income)) 	in													
+                                                /** Description: -  **/	
+                                                let spouse_incomes:Set(Income) = if(self.getSpouse(year).oclIsKindOf(Tax_Payer)) then self.getSpouse(year).oclAsType(Tax_Payer).incomes->select(i:Income|i.year=year and i.income_type.oclIsKindOf(Employment_Income) and i.oclIsTypeOf(Local_Income)) else OrderedSet{} endif	in													
+                                                /** Description: -  **/	
+                                                let both_spouses_have_professional_income:Boolean = if(my_incomes->oclIsInvalid() or spouse_incomes->oclIsInvalid()) then false else my_incomes->size()>0 and spouse_incomes->size()>0 endif in													
+                                                /** Description: -  **/	
+                                                if (both_spouses_have_professional_income) = true then
+                                                               let local_professional_household_income:Real = self.getProfetionalIncomeHouseholdLuxembourg(year) in													
+                                                               /** Description: -  **/	
+                                                               let total_professional_household_income:Real = self.getProfetionalIncomeHousehold(year) in													
+                                                               /** Description: -  **/	
+                                                               if (local_professional_household_income   > total_professional_household_income * 0.5) = false then
+                                                               false
+                                                               else
+                                                                 if (local_professional_household_income   > total_professional_household_income * 0.5) = true then
+                                                                 true
+                                                                 else
+                                                                 invalid
+                                                                 endif
+                                                               endif
+                                                else
+                                                  if (both_spouses_have_professional_income) = false then
+                                                  false
+                                                  else
+                                                  invalid
+                                                  endif
+                                                endif
+                                   else
+                                   invalid
+                                   endif
+                                 endif
+                       else
+                       invalid
+                       endif
+                    endif
+             else
+               if (are_both_spouses_non_resident) = false then
+                       let is_couple_living_apart:Boolean = false in													
+                       /** Description: -  **/	
+                       if (is_couple_living_apart) = true then
+                       false
+                       else
+                         if (is_couple_living_apart) = false then
+                                   let my_incomes:Set(Income) = self.incomes->select(i:Income|i.year=year and i.income_type.oclIsKindOf(Employment_Income) and i.oclIsTypeOf(Local_Income)) 	in													
+                                   /** Description: -  **/	
+                                   let spouse_incomes:Set(Income) = if(self.getSpouse(year).oclIsKindOf(Tax_Payer)) then self.getSpouse(year).oclAsType(Tax_Payer).incomes->select(i:Income|i.year=year and i.income_type.oclIsKindOf(Employment_Income) and i.oclIsTypeOf(Local_Income)) else OrderedSet{} endif	in													
+                                   /** Description: -  **/	
+                                   let both_spouses_have_professional_income:Boolean = if(my_incomes->oclIsInvalid() or spouse_incomes->oclIsInvalid()) then false else my_incomes->size()>0 and spouse_incomes->size()>0 endif in													
+                                   /** Description: -  **/	
+                                   if (both_spouses_have_professional_income) = true then
+                                                let total_professional_household_income:Real = self.getProfetionalIncomeHousehold(year) in													
+                                                /** Description: -  **/	
+                                                let professional_income_resident_taxpayer:Real = if(self.oclIsTypeOf(Resident_Tax_Payer)) then if(my_incomes->oclIsInvalid()) then 0.0 else my_incomes.income_amount->sum() endif else if(spouse_incomes->oclIsInvalid()) then 0.0 else spouse_incomes.income_amount->sum() endif endif in													
+                                                /** Description: -  **/	
+                                                if (professional_income_resident_taxpayer > total_professional_household_income * 0.9) = false then
+                                                false
+                                                else
+                                                  if (professional_income_resident_taxpayer > total_professional_household_income * 0.9) = true then
+                                                  true
+                                                  else
+                                                  invalid
+                                                  endif
+                                                endif
+                                   else
+                                      if (both_spouses_have_professional_income) = false then
+                                      false
+                                      else
+                                      invalid
+                                      endif
+                                   endif
+                         else
+                         invalid
+                         endif
+                       endif
+               else
+               invalid
+               endif
+             endif
+        else
+        invalid
+        endif
+     endif
+   else
+   invalid
+   endif
+endif
+")
+	op boolean[1] getIsTaxedJointly(EBigInteger[1] year);
+	op boolean[1] is_dependent_part_of_the_household(Dependent[1] IN_dependent);
+	op EBigInteger[1] number_of_months_of_allowance();
+
+	@GenModel(documentation="Operation*")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="if ( self.disability_percentage >= 0.25 and  self.disability_percentage < 0.35) then
+			150
+			else if ( self.disability_percentage >= 0.35  and self.disability_percentage < 0.45) then
+			225
+			else if ( self.disability_percentage >=0.45 and  self.disability_percentage <0.55) then
+			375
+			else if ( self.disability_percentage >= 0.55 and  self.disability_percentage < 0.65 ) then
+			450 
+			else if ( self.disability_percentage >= 0.65 and self.disability_percentage < 0.75) then
+			525
+			else if ( self.disability_percentage >=0.75 and self.disability_percentage < 0.85) then
+			585
+			else if ( self.disability_percentage >=0.85 and  self.disability_percentage<  0.95) then
+			645
+			else if ( self.disability_percentage >= 0.95 and self.disability_percentage<=1)then
+			735 else 0 endif endif endif endif endif endif endif endif")
+	op EBigDecimal[1] deduction_according_disability_rate();
+	attr double[1] AEP_deduction = "0";
+	!ordered val Income[+]#taxPayer incomes;
+	!ordered ref Income_Tax_Credit[*]#taxPayer income_Tax_Credit;
+	!ordered val Dependent[*]#responsible_person dependents;
+	ref Income_Tax#taxPayer incomeTax;
+	val FromLaw[1]#taxPayer from_law;
+	val FromAgent[1]#taxPayer from_agent;
+}
+
+class Physical_Person {
+	op boolean[1] is_separated_from(Physical_Person[1] IN_person);
+	op boolean[1] is_person_affiliated_personnaly_to_social_security();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			
+			let legel_unions:Set(Legal_Union_Record)=Legal_Union_Record.allInstances()->select( ((individual_A=self or individual_B=self) and oclIsKindOf(Marriage_Record))) in
+			
+			if(legel_unions->size()=0) then
+			false
+			else
+			let possible_unions:Set(Legal_Union_Record)=legel_unions->select(start_year<=year)in
+			let lasted_union:Legal_Union_Record= possible_unions->select(start_year=possible_unions.start_year->max())->any(true) in
+			if(lasted_union.end_year=-1)then
+			true
+			else
+			false
+			endif
+			endif")
+	op boolean[1] getIsMaried(EBigInteger[1] year);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			
+			let legel_unions:Set(Legal_Union_Record)=Legal_Union_Record.allInstances()->select( ((individual_A=self or individual_B=self))) in
+			
+			if(legel_unions->size()=0) then			
+			invalid
+			else
+			let possible_unions:Set(Legal_Union_Record)=legel_unions->select(start_year<=year)in
+			let lasted_union:Legal_Union_Record= possible_unions->select(start_year=possible_unions.start_year->max())->any(true) in
+			if(lasted_union.end_year=-1)then
+			lasted_union
+			else
+			invalid
+			endif
+			endif")
+	op Legal_Union_Record[1] getLegalUnionRecord(EBigInteger[1] year);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			
+			let legel_unions:Set(Legal_Union_Record)=Legal_Union_Record.allInstances()->select( ((individual_A=self or individual_B=self))) in
+			
+			if(legel_unions->size()=0) then
+			let union:Legal_Union_Record=self.getLegalUnionRecord(year) in 
+			if(union.oclIsInvalid())then
+			invalid
+			else
+	        if(union.individual_B=self) then union.individual_A.oclAsType(Physical_Person) else union.individual_B.oclAsType(Physical_Person) endif endif
+			else
+			let possible_unions:Set(Legal_Union_Record)=legel_unions->select(start_year<=year)in
+			let lasted_union:Legal_Union_Record= possible_unions->select(start_year=possible_unions.start_year->max())->any(true) in
+			if(lasted_union.end_year=-1)then
+			
+			if(lasted_union.individual_A=self)then
+			lasted_union.individual_B
+			else
+			lasted_union.individual_A
+			endif
+			else
+			invalid
+			endif
+			endif")
+	op Physical_Person[1] getSpouse(EBigInteger[1] year);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			let sep_year:Integer=self.getSeperationYear(year) in
+			if(sep_year=-1)then
+			false
+			else
+			if( (sep_year <= year and sep_year >= (year -3))=false) then
+			false
+			else
+			let past_sep_year:Integer=self.getSeperationYear(year-5) in
+			if(past_sep_year=-1)then
+			true
+			else
+			false
+			endif
+			endif
+			endif
+			")
+	op boolean[1] getDivorceTransitionState(EBigInteger[1] year);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			
+			let legel_unions:Set(Legal_Union_Record)=Legal_Union_Record.allInstances()->select(individual_A=self or individual_B=self) in
+			
+			if(legel_unions->size()=0) then
+			-1
+			else
+			let possible_unions:Set(Legal_Union_Record)=legel_unions->select(start_year<=year)in
+			let lasted_union:Legal_Union_Record= possible_unions->select(start_year=possible_unions.start_year->max())->any(true) in
+			if(lasted_union.oclIsUndefined()) then
+			-1
+			else
+			if(lasted_union.end_year=-1)then
+			-1
+			else
+			lasted_union.end_year
+			endif
+			endif
+			endif")
+	op EBigInteger[1] getSeperationYear(EBigInteger[1] year);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			let legel_unions:Set(Legal_Union_Record)=Legal_Union_Record.allInstances()->select(individual_A=self or individual_B=self) in
+			
+			if(legel_unions->size()=0) then
+			false
+			else
+			let possible_unions:Set(Legal_Union_Record)=legel_unions->select(start_year<=year)in
+			let lasted_union:Legal_Union_Record= possible_unions->select(start_year=possible_unions.start_year->max())->any(true) in
+			if(lasted_union.end_year=-1)then
+			false
+			else
+			lasted_union.separation_cause=seperation_type
+			endif
+			endif")
+	op boolean[1] getSeperationState(EBigInteger[1] year, Separation_Causes[1] seperation_type);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			if(birth_year>=year )then
+			0
+			else
+			let age:Integer=year-birth_year+1 in
+			if(birth_month=1 and birth_day=1) then
+			age+1
+			else
+			age
+			endif
+			endif")
+	op EBigInteger[1] getAge(EBigInteger[1] year);
+	volatile derived attr boolean[1] is_assisting_spouse;
+	attr String[1] SSNo;
+	!ordered ref Address[*]#taxPayer addresses;
+	!ordered ref Expense[*]#beneficiary expenses;
+
+	@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="External_Allowance", "unique"="false", upper="*")
+	volatile derived attr int[1] birth_year;
+	attr int[1] birth_month;
+	attr int[1] birth_day;
+	attr double[1] disability_percentage = "0";
+	attr Disability_Types[1] disability_type;
+	attr boolean[1] is_affiliated_personnaly_to_social_security;
+	attr String[1] name;
+	attr boolean[1] is_widower;
+	attr EBigInteger[1] last_start_year_widower;
+}
+
+class External_Allowance {
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body=" if(dep_age>=6 and dep_age<=11) then
+ round_lower_euros(base + 16.17)
+  else if (dep_age>=12) then round_lower_euros(base + 48.52) else 
+  if(is_disabled) then round_lower_euros(base + 185.60) else base endif endif endif")
+	op double[1] getAmount(double[1] base, EBigInteger[1] dep_age, boolean[1] is_disabled);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="let p1:Integer = amount.floor() in
+			p1.toString().toReal()")
+	op double[1] round_lower_euros(double[1] amount);
+	attr double[1] amount;
+	attr Grantor[1] grantor;
+	attr int[1] starting_year;
+	attr int[1] ending_year;
+	ref Physical_Person[1] reciver;
+	ref Dependent[1]#allowances person;
+}
+
+class Address {
+	attr Country[1] country = "LU";
+	attr String[1] street;
+	attr String[1] zipCode;
+	attr String[1] city;
+	!ordered ref Physical_Person[+]#addresses taxPayer;
+}
+
+@Ecore(constraints="test")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(test="self.properties->size()>0")
+abstract class Legal_Union_Record {
+	attr boolean[1] mutual_agreement;
+	attr int[1] start_year;
+	attr int[1] end_year;
+	attr Separation_Causes[1] separation_cause;
+	val Physical_Person[1] individual_A;
+	val Physical_Person[1] individual_B;
+	ref Household[1]#parents household;
+	val Tax_Property[1]#union_record properties;
+}
+
+class Dependent extends Physical_Person {
+	op boolean[1] compute_if_dependent_receives_allowances_eligible_for_CIM();
+	op boolean[1] compute_if_dependent_receives_allowances_eligible_for_DS();
+	op boolean[1] compute_if_dependent_receives_allowances_eligible_for_CE_dependance_and_care();
+	op boolean[1] is_dependent_following_continued_studies(boolean[1] IN_continued_studies);
+	attr Dependent_Type[1] dependent_type;
+	attr boolean[1] continued_studies = false;
+	ref Tax_Payer#dependents responsible_person;
+	!ordered ref Expense[*]#dependent expense;
+	!ordered val External_Allowance[*]#person allowances;
+	ref Household#children household;
+	ref FromAgent[1]#dependent from_agent;
+}
+
+class Household extends Tax_Case {
+	val Legal_Union_Record[1]#household parents;
+	!ordered val Dependent[*]#household children;
+}
+
+class Fiscal_Address extends Address {
+}
+
+abstract interface Tax_Case {
+}
+
+class Habitual_Address extends Address {
+}
+
+class Marriage_Record extends Legal_Union_Record {
+}
+
+class Non_Resident_Tax_Payer extends Tax_Payer {
+	attr boolean[1] is_assimilated_to_resident = false;
+}
+
+class Partnership_Record extends Legal_Union_Record {
+}
+
+class Resident_Tax_Payer extends Tax_Payer {
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(derivation="self.oclAsType(Tax_Payer).from_agent.taxation_year=2014")
+	derived attr boolean[1] test;
+}
+
+abstract class Income_Type {
+	ref Income[1]#income_type income;
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(derivation="
+				self.income.tax_card->notEmpty()
+				")
+	derived attr boolean[1] subjectToWithholdingTax;
+}
+
+class Trade_and_Business_Income extends Income_Type {
+}
+
+class Agriculture_and_Forestry_Income extends Income_Type {
+}
+
+class Independent_Professional_Services_Income extends Income_Type {
+}
+
+class Pensions_and_Annuities_Income extends Income_Type {
+	attr boolean occasional_payement = false;
+}
+
+class Capital_and_Investments_Income extends Income_Type {
+}
+
+class Employment_Income extends Income_Type {
+}
+
+class Rentals_and_Leases_Income extends Income_Type {
+	attr boolean[1] is_periodic = true;
+}
+
+class Sundry_Income extends Income_Type {
+}
+
+class Directors_Fee extends Independent_Professional_Services_Income {
+}
+
+class Foreign_Income extends Income {
+}
+
+class Local_Income extends Income {
+}
+
+abstract class Income {
+	op EBigInteger[1] compute_duration_of_contract();
+	op EBigInteger[1] compute_duration_of_contract_within_taxation_year(EDate[1] IN_date);
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			if(self.income_type.oclIsTypeOf(Pensions_and_Annuities_Income)) then 
+			if(start_year.oclIsUndefined())then
+			-1
+			else
+			let res:Integer=self.taxPayer.from_agent.taxation_year-start_year in
+			if(res<0) then
+			0
+			else
+			res
+			endif
+			endif
+			else
+			-1
+			endif")
+	op EBigInteger[1] getDurationInyears();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="self.details->select(is_worked)->size()")
+	op EBigInteger[1] prorata_worked_months();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="let a:Set(Income_Detail)=self.details->select(is_worked) in  
+			a.worked_days->sum().mod(25)")
+	op EBigInteger[1] prorata_worked_days();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+			let nb_months:Integer=self.prorata_worked_months()in
+			let nb_days:Integer=self.prorata_worked_days()in
+			 if(nb_months=12) then
+			1
+			else 
+			nb_months/12 + nb_days/300
+			endif")
+	op EBigDecimal[1] prorata_period();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="income_per_year()/300")
+	op EBigDecimal[1] income_per_day();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="income_per_year()/12")
+	op EBigDecimal[1] income_per_month();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="
+					let involved_details:Set(Income_Detail)=self.details->select(i:Income_Detail| i.is_worked=true) in
+					involved_details.amount->sum()")
+	op EBigDecimal[1] income_per_year();
+	val Income_Type[1]#income income_type;
+	attr EDate[1] start_date_within_taxation_year;
+	attr int[1] num;
+	attr EDate[1] start_date_of_contract;
+	attr EDate[1] end_date_within_taxation_year;
+	val Tax_Card#income tax_card;
+	!ordered val Expense[*]#income expenses;
+	attr double tax_liability;
+	ref Tax_Payer[1]#incomes taxPayer;
+	attr int year;
+	attr int start_year;
+	val Income_Detail[12]#income details;
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(derivation="let non_null_amounts:OrderedSet(Income_Detail)=self.details->select(det:Income_Detail|det.amount>0)->asOrderedSet() in
+					non_null_amounts->collect(amount)->min() ")
+	derived attr EBigDecimal[1] income_amount;
+}
+
+class Tax_Card {
+
+	@GenModel(documentation="TO be added each time a model is validated")
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="deduction_FO_yearly+deduction_FD_yearly+deduction_CE_invalidity_yearly")
+	op EBigDecimal[1] getSumDeductionsYear();
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="credit_CIS_yearly+credit_CIP_yearly")
+	op EBigDecimal[1] getSumCreditsYear();
+	attr String card_identifier;
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(derivation="
+				if(self.income.taxPayer.incomes->size()=1) then 
+				Tax_Card_Type::Principal
+				else
+				let all_incomes:OrderedSet(Income)=self.income.taxPayer.incomes->select(inc:Income| inc.income_amount= self.income.taxPayer.incomes.income_amount->max())->asOrderedSet() in
+				let bigest_income:Income= all_incomes->first() in
+			    if(bigest_income=self.income) then
+			    Tax_Card_Type::Principal
+			    else
+				Tax_Card_Type::Additional
+				endif
+				endif
+				")
+	derived attr Tax_Card_Type[1] tax_card_type;
+	attr Tax_Office tax_office;
+	attr EDate valid_from_date;
+	attr EDate valid_until_date;
+	volatile derived attr double[1] percentage_of_witholding;
+	!ordered volatile derived attr String[*] tax_payers_name_surname;
+	!ordered volatile derived attr String[*] tax_payers_partner_name_surname;
+	ref Address[1] tax_payers_address;
+	attr String jobs_Employer_SSNo;
+	attr String jobs_employers_name;
+	attr Job_Activity jobs_activity_type;
+	volatile attr Town[1] jobs_place_of_work;
+	attr double[1] deduction_FD_daily = "0";
+	attr double[1] deduction_FD_monthly = "0";
+	attr double[1] deduction_FD_yearly = "0";
+	attr double[1] deduction_AC_daily = "0";
+	attr double[1] deduction_AC_monthly = "0";
+	attr double[1] deduction_AC_yearly = "0";
+	attr double[1] deduction_CE_daily = "0";
+	attr double[1] deduction_CE_monthly = "0";
+	attr double[1] deduction_CE_yearly = "0";
+	attr double[1] deduction_CE_invalidity_yearly = "0";
+	attr double[1] deduction_DS_daily = "0";
+	attr double[1] deduction_DS_monthly = "0";
+	attr double[1] deduction_DS_yearly = "0";
+	attr double[1] deduction_DS_Alimony_yearly = "0";
+	attr double[1] deduction_DS_Debt_yearly = "0";
+	attr double[1] deduction_FO_daily = "0";
+	attr double[1] deduction_FO_monthly = "0";
+	attr double[1] deduction_FO_yearly = "0";
+	attr double[1] credit_CIS_daily = "0";
+	attr double[1] credit_CIS_monthly = "0";
+	attr double[1] credit_CIS_yearly = "0";
+	attr double[1] credit_CIP_monthly = "0";
+	attr double[1] credit_CIP_yearly = "0";
+	attr double[1] credit_CIM_daily = "0";
+	attr double[1] credit_CIM_monthly = "0";
+	attr double[1] credit_CIM_yearly = "0";
+	attr boolean[1] validity;
+	!ordered ref Income_Tax_Credit[*]#taxation_Frame income_Tax_Credit;
+	ref Tax_Card#current_tax_card previous;
+	ref Tax_Card#previous current_tax_card;
+	ref Income[1]#tax_card income;
+}
+
+class CIM extends Income_Tax_Credit {
+}
+
+class CIP extends Income_Tax_Credit {
+}
+
+class CIS extends Income_Tax_Credit {
+}
+
+class Income_Tax_Credit {
+	attr Grantor[1] grantedBy;
+	ref Tax_Payer#income_Tax_Credit taxPayer;
+	attr int[1] tax_year;
+	attr double[1] yearly = "300";
+	attr double[1] monthly = "25";
+	attr double[1] daily = "1";
+	ref Tax_Card#income_Tax_Credit taxation_Frame;
+}
+
+class FD extends Professional_Expenses_Deduction {
+	op EBigDecimal[1] compute_distance_unit_between_home_and_workpalce();
+	attr double[1] distance_declared_in_january;
+	volatile derived attr double[1] calculated_distance;
+}
+
+class Professional_Expenses_Deduction {
+}
+
+class FO {
+	op EBigDecimal[1] compute_disability_flat_rate();
+	op EBigDecimal[1] compute_regular_flat_rate();
+	volatile derived attr Type_of_Rate[1] rate_type_for_FO;
+}
+
+class CE {
+	attr CE_Type[1] ce_deduction_type;
+	attr double[1] dependent_relative_flat_rate;
+	attr double[1] disability_flat_rate;
+}
+
+class DS_for_Permanent_Expense extends DS {
+	attr Category_of_Permanent_Expense[1] permanent_expense_category;
+}
+
+class DS {
+	attr double[1] maximum_deductible_amount;
+}
+
+class DS_for_Interest_Expense extends DS {
+	op EBigDecimal[1] compute_maximum_deductible_amount(!ordered Dependent[*] IN_children_with_allowances, !ordered Legal_Union_Record[*] IN_legal_union);
+}
+
+class DS_for_Health_and_Pension_Insurance extends DS {
+	attr Category_of_Health_and_Pension_Insurances[1] insurance_category;
+}
+
+class DS_for_Private_Insurance_and_Plan extends DS {
+	op EBigDecimal[1] compute_increase_for_life_insurance();
+	op EBigDecimal[1] compute_maximum_deductible_amount_for_private_insruance();
+	op EBigDecimal[1] compute_maximum_deductible_amount_for_old_age_pension_plan();
+	attr Category_of_Private_Insurance_and_Plan[1] private_insurance_and_plan_category;
+	volatile derived attr double[1] increase_for_life_insurance;
+	volatile derived attr double[1] maximum_deductible_amount_for_private_insurance;
+	volatile derived attr double[1] maximum_deductible_amount_for_old_age_pension_plan;
+}
+
+class DS_for_Loss_Carryforward extends DS {
+}
+
+class DS_for_Donation extends DS {
+}
+
+class Permanent_Expense extends Special_Expense_DS {
+	op boolean[1] is_expense_eligible_for_deduction(boolean[1] IN_agent_response);
+	attr Category_of_Permanent_Expense[1] category;
+	volatile derived attr boolean[1] is_eligible_for_deduction = false;
+}
+
+class Special_Expense_DS extends Expense {
+}
+
+class Expense {
+	ref Physical_Person#expenses beneficiary;
+	attr double[1] declared_amount;
+	attr Expense_Purpose[1] expense_purpose = "OTHER";
+	ref Dependent#expense dependent;
+	attr int[1] year_expense_was_incurred_in;
+	ref Income[1]#expenses income;
+	val FromAgent#expense from_agent;
+}
+
+class Interest_Expense extends Special_Expense_DS {
+}
+
+class Private_Insurance_and_Plan extends Special_Expense_DS {
+	op boolean[1] is_private_insurance_and_plan_eligible_for_deduction();
+	attr Category_of_Private_Insurance_and_Plan[1] category;
+
+	@"http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName"(body="Expense", "unique"="false", upper="*")
+	attr int[1] duration_of_contract;
+	volatile derived attr boolean[1] is_private_insurance_and_plan_eligible_for_deduction = false;
+}
+
+enum Category_of_Private_Insurance_and_Plan {
+	PRIVATE_INSURANCE = 0;
+	PRIVATE_LIFE_INSURANCE = 1;
+	COMPANY_MEMBERS_PRIVATE_INSURANCE = 2;
+	HOUSING_SAVING_PLAN = 3;
+	OLD_AGE_PENSION_PLAN = 4;
+}
+
+class Health_and_Pension_Insurance extends Special_Expense_DS {
+	attr Category_of_Health_and_Pension_Insurances[1] category;
+	attr boolean[1] is_related_to_additional_salary = false;
+}
+
+enum Category_of_Health_and_Pension_Insurances {
+	MANDATORY_HEALTH_AND_PENSION_INSURANCE = 0;
+	ADDITIONAL_EMPLOYERS_PENSION_INSURANCE = 1;
+	CONTINUED_HEALTH_AND_PENSION_INSURANCE = 2;
+}
+
+class Donation extends Special_Expense_DS {
+	op boolean[1] get_beneficiary_eligibility_for_deduction();
+	attr String[1] beneficiary1;
+	volatile derived attr boolean[1] is_beneficiary_eligible = false;
+	attr boolean[1] is_donation_reported;
+}
+
+class Loss_Carryforward extends Special_Expense_DS {
+	op boolean[1] is_accountability_regular();
+	op boolean[1] is_compensated_by_other_means();
+	op boolean[1] has_been_tax_payer_partner_in_business();
+	op boolean[1] has_tax_payer_inherited_business_ownership();
+	volatile derived attr boolean[1] regular_accountability;
+	volatile derived attr boolean[1] compensation_by_other_means;
+	volatile derived attr boolean[1] tax_payer_has_inherited_business_ownership = false;
+	volatile derived attr boolean[1] tax_payer_has_been_partner_in_business = true;
+}
+
+class Spousal_Expense_AC extends Expense {
+}
+
+class Extraordinary_Expense_CE extends Expense {
+	op boolean[1] is_above_thresholded_deduction_percentage_for_CE();
+	op EBigDecimal[1] compute_thresholded_deduction_percentage_for_CE(EBigDecimal[1] IN_thresholded_deduction_percentage);
+	attr double[1] thresholded_deduction_percentage;
+	attr CE_Type[1] ce_type;
+}
+
+class Travel_Expense_FD extends Professional_Expense {
+}
+
+class Professional_Expense extends Expense {
+}
+
+class Miscellaneous_Expense_FO extends Professional_Expense {
+}
+
+enum Category_of_Permanent_Expense {
+	MISCELLANEOUS_DEBT = 0;
+	ALIMONY = 1;
+}
+
+class Income_Detail {
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(derivation="
+							let details:OrderedSet(Income_Detail)=self.income.details in
+			   				 details->indexOf(self)")
+	derived attr int[1] month = 12;
+	attr double[1] amount;
+	attr boolean[1] is_worked;
+	attr double[1] distance;
+	attr int[1] worked_days;
+	attr boolean[1] is_contributing_CNS;
+	attr boolean[1] is_contributing_pension;
+	attr boolean[1] is_contributing_dependante_insurance;
+	ref Income[1]#details income;
+}
+

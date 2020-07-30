@@ -1,0 +1,2965 @@
+@GenModel(documentation="
+    This schema is a subset of the official W3C XHTML Schema
+    
+
+    ================ Character mnemonic entities =========================
+
+    XHTML entity sets are identified by the PUBLIC and SYSTEM identifiers:
+  
+    PUBLIC \"-//W3C//ENTITIES Latin 1 for XHTML//EN\"
+    SYSTEM \"http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent\"
+
+    PUBLIC \"-//W3C//ENTITIES Special for XHTML//EN\"
+    SYSTEM \"http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent\"
+
+    PUBLIC \"-//W3C//ENTITIES Symbols for XHTML//EN\"
+    SYSTEM \"http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent\"
+    
+
+    ================== Imported Names ====================================
+    
+
+    these are used for image maps
+    
+
+    =================== Generic Attributes ===============================
+    
+
+    =================== Text Elements ====================================
+    
+
+    ================== Block level elements ==============================
+    
+
+    ================== Content models for exclusions =====================
+    
+
+    ================ Document Structure ==================================
+    
+
+    =================== Document Body ====================================
+    
+
+    =================== Paragraphs =======================================
+    
+
+    =================== Headings =========================================
+    There are six levels of headings from h1 (the most important)
+    to h6 (the least important).
+    
+
+    =================== Lists ============================================
+    
+
+    definition lists - dt for term, dd for its definition
+    
+
+    =================== Address ==========================================
+    
+
+    =================== Horizontal Rule ==================================
+    
+
+    =================== Preformatted Text ================================
+    
+
+    =================== Block-like Quotes ================================
+    
+
+    =================== Inserted/Deleted Text ============================
+    ins/del are allowed in block and inline content, but its
+    inappropriate to include block content within an ins element
+    occurring in inline content.
+    
+
+    ================== The Anchor Element ================================
+    
+
+    ===================== Inline Elements ================================
+    
+
+    ==================== Object ======================================
+    object is used to embed objects as part of HTML pages.
+    param elements should precede other content. Parameters
+    can also be expressed as attribute/value pairs on the
+    object element itself when brevity is desired.
+    
+
+    =================== Images ===========================================
+    To avoid accessibility problems for people who aren't
+    able to see the image, you should provide a text
+    description using the alt and longdesc attributes.
+    In addition, avoid the use of server-side image maps.
+    Note that in this DTD there is no name attribute. That
+    is only available in the transitional and frameset DTD.
+    
+
+    ======================= Tables =======================================
+    Derived from IETF HTML table standard, see [RFC1942]
+    
+
+    Use thead to duplicate headers when breaking table
+    across page boundaries, or for static headers when
+    tbody sections are rendered in scrolling panel.
+    Use tfoot to duplicate footers when breaking table
+    across page boundaries, or for static footers when
+    tbody sections are rendered in scrolling panel.
+    Use multiple tbody sections when rules are needed
+    between groups of table rows.
+    
+
+    th is for headers, td for data and for cells acting as both
+    ")
+@"http://www.w3.org/XML/1998/namespace"(lang="en")
+@namespace(uri="http://automotive-his.de/200706/rif-xhtml", prefix="rif-xhtml")
+package xhtml;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@ExtendedMetaData(name="abbr_._type", kind="mixed")
+class AbbrType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@GenModel(documentation="
+      a elements use \"Inline\" excluding a
+      ")
+@ExtendedMetaData(name="a.content", kind="mixed")
+class AContent {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+      forced line break
+      ")
+	@ExtendedMetaData(kind="element", name="br", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BrType[*] br;
+
+	@GenModel(documentation="
+      generic language/style container
+      ")
+	@ExtendedMetaData(kind="element", name="span", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SpanType[*] span;
+
+	@ExtendedMetaData(kind="element", name="object", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ObjectType[*] object;
+
+	@ExtendedMetaData(kind="element", name="img", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ImgType[*] img;
+
+	@GenModel(documentation="
+      fixed pitch font
+      ")
+	@ExtendedMetaData(kind="element", name="tt", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val TtType[*] tt;
+
+	@GenModel(documentation="
+      italic font
+      ")
+	@ExtendedMetaData(kind="element", name="i", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val IType[*] i;
+
+	@GenModel(documentation="
+      bold font
+      ")
+	@ExtendedMetaData(kind="element", name="b", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BType[*] b;
+
+	@GenModel(documentation="
+      bigger font
+      ")
+	@ExtendedMetaData(kind="element", name="big", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BigType[*] big;
+
+	@GenModel(documentation="
+      smaller font
+      ")
+	@ExtendedMetaData(kind="element", name="small", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SmallType[*] small;
+
+	@GenModel(documentation="
+				underline
+			")
+	@ExtendedMetaData(kind="element", name="u", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val UType[*] u;
+
+	@GenModel(documentation="
+			strike-through
+			")
+	@ExtendedMetaData(kind="element", name="strike", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val StrikeType[*] strike;
+
+	@GenModel(documentation="
+      emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="em", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val EmType[*] em;
+
+	@GenModel(documentation="
+      strong emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="strong", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val StrongType[*] strong;
+
+	@GenModel(documentation="
+      definitional
+      ")
+	@ExtendedMetaData(kind="element", name="dfn", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DfnType[*] dfn;
+
+	@GenModel(documentation="
+      program code
+      ")
+	@ExtendedMetaData(kind="element", name="code", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val CodeType[*] code;
+
+	@GenModel(documentation="
+      inlined quote
+      ")
+	@ExtendedMetaData(kind="element", name="q", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val QType[*] q;
+
+	@GenModel(documentation="
+      sample
+      ")
+	@ExtendedMetaData(kind="element", name="samp", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SampType[*] samp;
+
+	@GenModel(documentation="
+      something user would type
+      ")
+	@ExtendedMetaData(kind="element", name="kbd", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val KbdType[*] kbd;
+
+	@GenModel(documentation="
+      variable
+      ")
+	@ExtendedMetaData(kind="element", name="var", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val VarType[*] var;
+
+	@GenModel(documentation="
+      citation
+      ")
+	@ExtendedMetaData(kind="element", name="cite", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val CiteType[*] cite;
+
+	@GenModel(documentation="
+      abbreviation
+      ")
+	@ExtendedMetaData(kind="element", name="abbr", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AbbrType[*] abbr;
+
+	@GenModel(documentation="
+      acronym
+      ")
+	@ExtendedMetaData(kind="element", name="acronym", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AcronymType[*] acronym;
+
+	@GenModel(documentation="
+      subscript
+      ")
+	@ExtendedMetaData(kind="element", name="sub", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SubType[*] sub;
+
+	@GenModel(documentation="
+      superscript
+      ")
+	@ExtendedMetaData(kind="element", name="sup", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SupType[*] sup;
+
+	@ExtendedMetaData(kind="element", name="ins", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val InsType[*] ins;
+
+	@ExtendedMetaData(kind="element", name="del", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DelType[*] del;
+}
+
+@ExtendedMetaData(name="acronym_._type", kind="mixed")
+class AcronymType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="address_._type", kind="mixed")
+class AddressType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="align_._type")
+enum AlignType {
+	left = 0;
+	center = 1;
+	right = 2;
+	justify = 3;
+	char = 4;
+}
+
+@ExtendedMetaData(name="align_._type:Object", baseType="align_._type")
+datatype AlignTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="a_._type", kind="mixed")
+class AType extends AContent {
+
+	@ExtendedMetaData(kind="attribute", name="charset")
+	attr Charset charset;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="coords")
+	attr Coords coords;
+
+	@ExtendedMetaData(kind="attribute", name="href")
+	attr URI href;
+
+	@ExtendedMetaData(kind="attribute", name="hreflang")
+	attr LanguageCode hreflang;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.NMTOKEN name;
+
+	@ExtendedMetaData(kind="attribute", name="rel")
+	attr LinkTypes rel;
+
+	@ExtendedMetaData(kind="attribute", name="rev")
+	attr LinkTypes rev;
+
+	@ExtendedMetaData(kind="attribute", name="shape")
+	unsettable attr Shape shape = "rect";
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr ContentType type;
+}
+
+@ExtendedMetaData(name="big_._type", kind="mixed")
+class BigType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="Block", kind="elementOnly")
+class Block {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="p", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val PType[*] p;
+
+	@ExtendedMetaData(kind="element", name="h1", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H1Type[*] h1;
+
+	@ExtendedMetaData(kind="element", name="h2", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H2Type[*] h2;
+
+	@ExtendedMetaData(kind="element", name="h3", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H3Type[*] h3;
+
+	@ExtendedMetaData(kind="element", name="h4", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H4Type[*] h4;
+
+	@ExtendedMetaData(kind="element", name="h5", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H5Type[*] h5;
+
+	@ExtendedMetaData(kind="element", name="h6", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H6Type[*] h6;
+
+	@GenModel(documentation="
+      generic language/style container      
+      ")
+	@ExtendedMetaData(kind="element", name="div", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DivType[*] div;
+
+	@GenModel(documentation="
+      Unordered list
+      ")
+	@ExtendedMetaData(kind="element", name="ul", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val UlType[*] ul;
+
+	@GenModel(documentation="
+      Ordered (numbered) list
+      ")
+	@ExtendedMetaData(kind="element", name="ol", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val OlType[*] ol;
+
+	@ExtendedMetaData(kind="element", name="dl", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DlType[*] dl;
+
+	@GenModel(documentation="
+      content is \"Inline\" excluding \"img|object|big|small|sub|sup\"
+      ")
+	@ExtendedMetaData(kind="element", name="pre", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val PreType[*] pre;
+
+	@ExtendedMetaData(kind="element", name="hr", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val HrType[*] hr;
+
+	@ExtendedMetaData(kind="element", name="blockquote", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val BlockquoteType[*] blockquote;
+
+	@GenModel(documentation="
+      information on author
+      ")
+	@ExtendedMetaData(kind="element", name="address", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val AddressType[*] address;
+
+	@ExtendedMetaData(kind="element", name="table", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val TableType[*] table;
+
+	@ExtendedMetaData(kind="element", name="ins", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val InsType[*] ins;
+
+	@ExtendedMetaData(kind="element", name="del", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DelType[*] del;
+}
+
+@ExtendedMetaData(name="blockquote_._type", kind="elementOnly")
+class BlockquoteType extends Block {
+
+	@ExtendedMetaData(kind="attribute", name="cite")
+	attr URI cite;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="body_._type", kind="elementOnly")
+class BodyType extends Block {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="br_._type", kind="empty")
+class BrType {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="b_._type", kind="mixed")
+class BType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="caption_._type", kind="mixed")
+class CaptionType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@GenModel(documentation="
+      a single character, as per section 2.2 of [XML]
+      ")
+@ExtendedMetaData(name="Character", baseType="http://www.eclipse.org/emf/2003/XMLType#string", length="1")
+datatype Character : java.lang.String;
+
+@GenModel(documentation="
+      a character encoding, as per [RFC2045]
+      ")
+@ExtendedMetaData(name="Charset", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype Charset : java.lang.String;
+
+@GenModel(documentation="
+      a space separated list of character encodings, as per [RFC2045]
+      ")
+@ExtendedMetaData(name="Charsets", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype Charsets : java.lang.String;
+
+@ExtendedMetaData(name="cite_._type", kind="mixed")
+class CiteType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="code_._type", kind="mixed")
+class CodeType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="colgroup_._type", kind="elementOnly")
+class ColgroupType {
+
+	@GenModel(documentation="
+      col elements define the alignment properties for cells in
+      one or more columns.
+      The width attribute specifies the width of the columns, e.g.
+          width=64        width in screen pixels
+          width=0.5*      relative width of 0.5
+      The span attribute causes the attributes of one
+      col element to apply to more than one column.
+      ")
+	@ExtendedMetaData(kind="element", name="col", namespace="##targetNamespace")
+	!resolve val ColType[*] col;
+
+	@ExtendedMetaData(kind="attribute", name="align")
+	unsettable attr AlignType align;
+
+	@ExtendedMetaData(kind="attribute", name="char")
+	attr Character char;
+
+	@ExtendedMetaData(kind="attribute", name="charoff")
+	attr Length charoff;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="span")
+	unsettable attr Number span = "1";
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@ExtendedMetaData(kind="attribute", name="valign")
+	unsettable attr ValignType valign;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr MultiLength width;
+}
+
+@ExtendedMetaData(name="col_._type", kind="empty")
+class ColType {
+
+	@ExtendedMetaData(kind="attribute", name="align")
+	unsettable attr AlignType align;
+
+	@ExtendedMetaData(kind="attribute", name="char")
+	attr Character char;
+
+	@ExtendedMetaData(kind="attribute", name="charoff")
+	attr Length charoff;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="span")
+	unsettable attr Number span = "1";
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@ExtendedMetaData(kind="attribute", name="valign")
+	unsettable attr ValignType valign;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr MultiLength width;
+}
+
+@GenModel(documentation="
+      media type, as per [RFC2045]
+      ")
+@ExtendedMetaData(name="ContentType", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype ContentType : java.lang.String;
+
+@GenModel(documentation="
+      comma-separated list of media types, as per [RFC2045]
+      ")
+@ExtendedMetaData(name="ContentTypes", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype ContentTypes : java.lang.String;
+
+@GenModel(documentation="
+      comma separated list of lengths
+      ")
+@ExtendedMetaData(name="Coords", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype Coords : java.lang.String;
+
+@GenModel(documentation="
+      date and time information. ISO date format
+      ")
+@ExtendedMetaData(name="Datetime", baseType="http://www.eclipse.org/emf/2003/XMLType#dateTime")
+datatype Datetime : javax.xml.datatype.XMLGregorianCalendar;
+
+@ExtendedMetaData(name="dd_._type", kind="mixed")
+class DdType extends Flow {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="declare_._type")
+enum DeclareType {
+	declare = 0;
+}
+
+@ExtendedMetaData(name="declare_._type:Object", baseType="declare_._type")
+datatype DeclareTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="del_._type", kind="mixed")
+class DelType extends Flow {
+
+	@ExtendedMetaData(kind="attribute", name="cite")
+	attr URI cite1;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="datetime")
+	attr Datetime datetime;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="dfn_._type", kind="mixed")
+class DfnType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="div_._type", kind="mixed")
+class DivType extends Flow {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="dl_._type", kind="elementOnly")
+class DlType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="dt", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DtType[*] dt;
+
+	@ExtendedMetaData(kind="element", name="dd", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DdType[*] dd;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@GenModel(documentation="
+      content is \"Inline\" except that anchors shouldn't be nested
+      ")
+	@ExtendedMetaData(kind="element", name="a", namespace="##targetNamespace")
+	volatile transient derived !resolve val AType[0..?] a;
+
+	@GenModel(documentation="
+      abbreviation
+      ")
+	@ExtendedMetaData(kind="element", name="abbr", namespace="##targetNamespace")
+	volatile transient derived !resolve val AbbrType[0..?] abbr;
+
+	@GenModel(documentation="
+      acronym
+      ")
+	@ExtendedMetaData(kind="element", name="acronym", namespace="##targetNamespace")
+	volatile transient derived !resolve val AcronymType[0..?] acronym;
+
+	@GenModel(documentation="
+      information on author
+      ")
+	@ExtendedMetaData(kind="element", name="address", namespace="##targetNamespace")
+	volatile transient derived !resolve val AddressType[0..?] address;
+
+	@GenModel(documentation="
+      bold font
+      ")
+	@ExtendedMetaData(kind="element", name="b", namespace="##targetNamespace")
+	volatile transient derived !resolve val BType[0..?] b;
+
+	@GenModel(documentation="
+      bigger font
+      ")
+	@ExtendedMetaData(kind="element", name="big", namespace="##targetNamespace")
+	volatile transient derived !resolve val BigType[0..?] big;
+
+	@ExtendedMetaData(kind="element", name="blockquote", namespace="##targetNamespace")
+	volatile transient derived !resolve val BlockquoteType[0..?] blockquote;
+
+	@ExtendedMetaData(kind="element", name="body", namespace="##targetNamespace")
+	volatile transient derived !resolve val BodyType[0..?] body;
+
+	@GenModel(documentation="
+      forced line break
+      ")
+	@ExtendedMetaData(kind="element", name="br", namespace="##targetNamespace")
+	volatile transient derived !resolve val BrType[0..?] br;
+
+	@ExtendedMetaData(kind="element", name="caption", namespace="##targetNamespace")
+	volatile transient derived !resolve val CaptionType[0..?] caption;
+
+	@GenModel(documentation="
+      citation
+      ")
+	@ExtendedMetaData(kind="element", name="cite", namespace="##targetNamespace")
+	volatile transient derived !resolve val CiteType[0..?] cite;
+
+	@GenModel(documentation="
+      program code
+      ")
+	@ExtendedMetaData(kind="element", name="code", namespace="##targetNamespace")
+	volatile transient derived !resolve val CodeType[0..?] code;
+
+	@GenModel(documentation="
+      col elements define the alignment properties for cells in
+      one or more columns.
+      The width attribute specifies the width of the columns, e.g.
+          width=64        width in screen pixels
+          width=0.5*      relative width of 0.5
+      The span attribute causes the attributes of one
+      col element to apply to more than one column.
+      ")
+	@ExtendedMetaData(kind="element", name="col", namespace="##targetNamespace")
+	volatile transient derived !resolve val ColType[0..?] col;
+
+	@GenModel(documentation="
+      colgroup groups a set of col elements. It allows you to group
+      several semantically related columns together.
+      ")
+	@ExtendedMetaData(kind="element", name="colgroup", namespace="##targetNamespace")
+	volatile transient derived !resolve val ColgroupType[0..?] colgroup;
+
+	@ExtendedMetaData(kind="element", name="dd", namespace="##targetNamespace")
+	volatile transient derived !resolve val DdType[0..?] dd;
+
+	@ExtendedMetaData(kind="element", name="del", namespace="##targetNamespace")
+	volatile transient derived !resolve val DelType[0..?] del;
+
+	@GenModel(documentation="
+      definitional
+      ")
+	@ExtendedMetaData(kind="element", name="dfn", namespace="##targetNamespace")
+	volatile transient derived !resolve val DfnType[0..?] dfn;
+
+	@GenModel(documentation="
+      generic language/style container      
+      ")
+	@ExtendedMetaData(kind="element", name="div", namespace="##targetNamespace")
+	volatile transient derived !resolve val DivType[0..?] div;
+
+	@ExtendedMetaData(kind="element", name="dl", namespace="##targetNamespace")
+	volatile transient derived !resolve val DlType[0..?] dl;
+
+	@ExtendedMetaData(kind="element", name="dt", namespace="##targetNamespace")
+	volatile transient derived !resolve val DtType[0..?] dt;
+
+	@GenModel(documentation="
+      emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="em", namespace="##targetNamespace")
+	volatile transient derived !resolve val EmType[0..?] em;
+
+	@ExtendedMetaData(kind="element", name="h1", namespace="##targetNamespace")
+	volatile transient derived !resolve val H1Type[0..?] h1;
+
+	@ExtendedMetaData(kind="element", name="h2", namespace="##targetNamespace")
+	volatile transient derived !resolve val H2Type[0..?] h2;
+
+	@ExtendedMetaData(kind="element", name="h3", namespace="##targetNamespace")
+	volatile transient derived !resolve val H3Type[0..?] h3;
+
+	@ExtendedMetaData(kind="element", name="h4", namespace="##targetNamespace")
+	volatile transient derived !resolve val H4Type[0..?] h4;
+
+	@ExtendedMetaData(kind="element", name="h5", namespace="##targetNamespace")
+	volatile transient derived !resolve val H5Type[0..?] h5;
+
+	@ExtendedMetaData(kind="element", name="h6", namespace="##targetNamespace")
+	volatile transient derived !resolve val H6Type[0..?] h6;
+
+	@ExtendedMetaData(kind="element", name="hr", namespace="##targetNamespace")
+	volatile transient derived !resolve val HrType[0..?] hr;
+
+	@ExtendedMetaData(kind="element", name="html", namespace="##targetNamespace")
+	volatile transient derived !resolve val HtmlType[0..?] html;
+
+	@GenModel(documentation="
+      italic font
+      ")
+	@ExtendedMetaData(kind="element", name="i", namespace="##targetNamespace")
+	volatile transient derived !resolve val IType[0..?] i;
+
+	@ExtendedMetaData(kind="element", name="img", namespace="##targetNamespace")
+	volatile transient derived !resolve val ImgType[0..?] img;
+
+	@ExtendedMetaData(kind="element", name="ins", namespace="##targetNamespace")
+	volatile transient derived !resolve val InsType[0..?] ins;
+
+	@GenModel(documentation="
+      something user would type
+      ")
+	@ExtendedMetaData(kind="element", name="kbd", namespace="##targetNamespace")
+	volatile transient derived !resolve val KbdType[0..?] kbd;
+
+	@GenModel(documentation="
+      list item
+      ")
+	@ExtendedMetaData(kind="element", name="li", namespace="##targetNamespace")
+	volatile transient derived !resolve val LiType[0..?] li;
+
+	@ExtendedMetaData(kind="element", name="object", namespace="##targetNamespace")
+	volatile transient derived !resolve val ObjectType[0..?] object;
+
+	@GenModel(documentation="
+      Ordered (numbered) list
+      ")
+	@ExtendedMetaData(kind="element", name="ol", namespace="##targetNamespace")
+	volatile transient derived !resolve val OlType[0..?] ol;
+
+	@ExtendedMetaData(kind="element", name="p", namespace="##targetNamespace")
+	volatile transient derived !resolve val PType[0..?] p;
+
+	@GenModel(documentation="
+      param is used to supply a named property value.
+      In XML it would seem natural to follow RDF and support an
+      abbreviated syntax where the param elements are replaced
+      by attribute value pairs on the object start tag.
+      ")
+	@ExtendedMetaData(kind="element", name="param", namespace="##targetNamespace")
+	volatile transient derived !resolve val ParamType[0..?] param;
+
+	@GenModel(documentation="
+      content is \"Inline\" excluding \"img|object|big|small|sub|sup\"
+      ")
+	@ExtendedMetaData(kind="element", name="pre", namespace="##targetNamespace")
+	volatile transient derived !resolve val PreType[0..?] pre;
+
+	@GenModel(documentation="
+      inlined quote
+      ")
+	@ExtendedMetaData(kind="element", name="q", namespace="##targetNamespace")
+	volatile transient derived !resolve val QType[0..?] q;
+
+	@GenModel(documentation="
+      sample
+      ")
+	@ExtendedMetaData(kind="element", name="samp", namespace="##targetNamespace")
+	volatile transient derived !resolve val SampType[0..?] samp;
+
+	@GenModel(documentation="
+      smaller font
+      ")
+	@ExtendedMetaData(kind="element", name="small", namespace="##targetNamespace")
+	volatile transient derived !resolve val SmallType[0..?] small;
+
+	@GenModel(documentation="
+      generic language/style container
+      ")
+	@ExtendedMetaData(kind="element", name="span", namespace="##targetNamespace")
+	volatile transient derived !resolve val SpanType[0..?] span;
+
+	@GenModel(documentation="
+			strike-through
+			")
+	@ExtendedMetaData(kind="element", name="strike", namespace="##targetNamespace")
+	volatile transient derived !resolve val StrikeType[0..?] strike;
+
+	@GenModel(documentation="
+      strong emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="strong", namespace="##targetNamespace")
+	volatile transient derived !resolve val StrongType[0..?] strong;
+
+	@GenModel(documentation="
+      subscript
+      ")
+	@ExtendedMetaData(kind="element", name="sub", namespace="##targetNamespace")
+	volatile transient derived !resolve val SubType[0..?] sub;
+
+	@GenModel(documentation="
+      superscript
+      ")
+	@ExtendedMetaData(kind="element", name="sup", namespace="##targetNamespace")
+	volatile transient derived !resolve val SupType[0..?] sup;
+
+	@ExtendedMetaData(kind="element", name="table", namespace="##targetNamespace")
+	volatile transient derived !resolve val TableType[0..?] table;
+
+	@ExtendedMetaData(kind="element", name="tbody", namespace="##targetNamespace")
+	volatile transient derived !resolve val TbodyType[0..?] tbody;
+
+	@ExtendedMetaData(kind="element", name="td", namespace="##targetNamespace")
+	volatile transient derived !resolve val TdType[0..?] td;
+
+	@ExtendedMetaData(kind="element", name="tfoot", namespace="##targetNamespace")
+	volatile transient derived !resolve val TfootType[0..?] tfoot;
+
+	@ExtendedMetaData(kind="element", name="th", namespace="##targetNamespace")
+	volatile transient derived !resolve val ThType[0..?] th;
+
+	@ExtendedMetaData(kind="element", name="thead", namespace="##targetNamespace")
+	volatile transient derived !resolve val TheadType[0..?] thead;
+
+	@ExtendedMetaData(kind="element", name="tr", namespace="##targetNamespace")
+	volatile transient derived !resolve val TrType[0..?] tr;
+
+	@GenModel(documentation="
+      fixed pitch font
+      ")
+	@ExtendedMetaData(kind="element", name="tt", namespace="##targetNamespace")
+	volatile transient derived !resolve val TtType[0..?] tt;
+
+	@GenModel(documentation="
+				underline
+			")
+	@ExtendedMetaData(kind="element", name="u", namespace="##targetNamespace")
+	volatile transient derived !resolve val UType[0..?] u;
+
+	@GenModel(documentation="
+      Unordered list
+      ")
+	@ExtendedMetaData(kind="element", name="ul", namespace="##targetNamespace")
+	volatile transient derived !resolve val UlType[0..?] ul;
+
+	@GenModel(documentation="
+      variable
+      ")
+	@ExtendedMetaData(kind="element", name="var", namespace="##targetNamespace")
+	volatile transient derived !resolve val VarType[0..?] var;
+}
+
+@ExtendedMetaData(name="dt_._type", kind="mixed")
+class DtType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="em_._type", kind="mixed")
+class EmType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@GenModel(documentation="
+      \"Flow\" mixes block and inline and is used for list items etc.
+      ")
+@ExtendedMetaData(name="Flow", kind="mixed")
+class Flow {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="p", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val PType[*] p;
+
+	@ExtendedMetaData(kind="element", name="h1", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H1Type[*] h1;
+
+	@ExtendedMetaData(kind="element", name="h2", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H2Type[*] h2;
+
+	@ExtendedMetaData(kind="element", name="h3", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H3Type[*] h3;
+
+	@ExtendedMetaData(kind="element", name="h4", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H4Type[*] h4;
+
+	@ExtendedMetaData(kind="element", name="h5", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H5Type[*] h5;
+
+	@ExtendedMetaData(kind="element", name="h6", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H6Type[*] h6;
+
+	@GenModel(documentation="
+      generic language/style container      
+      ")
+	@ExtendedMetaData(kind="element", name="div", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DivType[*] div;
+
+	@GenModel(documentation="
+      Unordered list
+      ")
+	@ExtendedMetaData(kind="element", name="ul", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val UlType[*] ul;
+
+	@GenModel(documentation="
+      Ordered (numbered) list
+      ")
+	@ExtendedMetaData(kind="element", name="ol", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val OlType[*] ol;
+
+	@ExtendedMetaData(kind="element", name="dl", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DlType[*] dl;
+
+	@GenModel(documentation="
+      content is \"Inline\" excluding \"img|object|big|small|sub|sup\"
+      ")
+	@ExtendedMetaData(kind="element", name="pre", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val PreType[*] pre;
+
+	@ExtendedMetaData(kind="element", name="hr", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val HrType[*] hr;
+
+	@ExtendedMetaData(kind="element", name="blockquote", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BlockquoteType[*] blockquote;
+
+	@GenModel(documentation="
+      information on author
+      ")
+	@ExtendedMetaData(kind="element", name="address", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AddressType[*] address;
+
+	@ExtendedMetaData(kind="element", name="table", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val TableType[*] table;
+
+	@GenModel(documentation="
+      content is \"Inline\" except that anchors shouldn't be nested
+      ")
+	@ExtendedMetaData(kind="element", name="a", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AType[*] a;
+
+	@GenModel(documentation="
+      forced line break
+      ")
+	@ExtendedMetaData(kind="element", name="br", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BrType[*] br;
+
+	@GenModel(documentation="
+      generic language/style container
+      ")
+	@ExtendedMetaData(kind="element", name="span", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SpanType[*] span;
+
+	@ExtendedMetaData(kind="element", name="object", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ObjectType[*] object;
+
+	@ExtendedMetaData(kind="element", name="img", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ImgType[*] img;
+
+	@GenModel(documentation="
+      fixed pitch font
+      ")
+	@ExtendedMetaData(kind="element", name="tt", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val TtType[*] tt;
+
+	@GenModel(documentation="
+      italic font
+      ")
+	@ExtendedMetaData(kind="element", name="i", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val IType[*] i;
+
+	@GenModel(documentation="
+      bold font
+      ")
+	@ExtendedMetaData(kind="element", name="b", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BType[*] b;
+
+	@GenModel(documentation="
+      bigger font
+      ")
+	@ExtendedMetaData(kind="element", name="big", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BigType[*] big;
+
+	@GenModel(documentation="
+      smaller font
+      ")
+	@ExtendedMetaData(kind="element", name="small", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SmallType[*] small;
+
+	@GenModel(documentation="
+				underline
+			")
+	@ExtendedMetaData(kind="element", name="u", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val UType[*] u;
+
+	@GenModel(documentation="
+			strike-through
+			")
+	@ExtendedMetaData(kind="element", name="strike", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val StrikeType[*] strike;
+
+	@GenModel(documentation="
+      emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="em", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val EmType[*] em;
+
+	@GenModel(documentation="
+      strong emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="strong", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val StrongType[*] strong;
+
+	@GenModel(documentation="
+      definitional
+      ")
+	@ExtendedMetaData(kind="element", name="dfn", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DfnType[*] dfn;
+
+	@GenModel(documentation="
+      program code
+      ")
+	@ExtendedMetaData(kind="element", name="code", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val CodeType[*] code;
+
+	@GenModel(documentation="
+      inlined quote
+      ")
+	@ExtendedMetaData(kind="element", name="q", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val QType[*] q;
+
+	@GenModel(documentation="
+      sample
+      ")
+	@ExtendedMetaData(kind="element", name="samp", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SampType[*] samp;
+
+	@GenModel(documentation="
+      something user would type
+      ")
+	@ExtendedMetaData(kind="element", name="kbd", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val KbdType[*] kbd;
+
+	@GenModel(documentation="
+      variable
+      ")
+	@ExtendedMetaData(kind="element", name="var", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val VarType[*] var;
+
+	@GenModel(documentation="
+      citation
+      ")
+	@ExtendedMetaData(kind="element", name="cite", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val CiteType[*] cite;
+
+	@GenModel(documentation="
+      abbreviation
+      ")
+	@ExtendedMetaData(kind="element", name="abbr", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AbbrType[*] abbr;
+
+	@GenModel(documentation="
+      acronym
+      ")
+	@ExtendedMetaData(kind="element", name="acronym", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AcronymType[*] acronym;
+
+	@GenModel(documentation="
+      subscript
+      ")
+	@ExtendedMetaData(kind="element", name="sub", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SubType[*] sub;
+
+	@GenModel(documentation="
+      superscript
+      ")
+	@ExtendedMetaData(kind="element", name="sup", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SupType[*] sup;
+
+	@ExtendedMetaData(kind="element", name="ins", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val InsType[*] ins;
+
+	@ExtendedMetaData(kind="element", name="del", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DelType[*] del;
+}
+
+@GenModel(documentation="
+      form uses \"Block\" excluding form
+      ")
+@ExtendedMetaData(name="form.content", kind="elementOnly")
+class FormContent {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="p", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val PType[*] p;
+
+	@ExtendedMetaData(kind="element", name="h1", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H1Type[*] h1;
+
+	@ExtendedMetaData(kind="element", name="h2", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H2Type[*] h2;
+
+	@ExtendedMetaData(kind="element", name="h3", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H3Type[*] h3;
+
+	@ExtendedMetaData(kind="element", name="h4", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H4Type[*] h4;
+
+	@ExtendedMetaData(kind="element", name="h5", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H5Type[*] h5;
+
+	@ExtendedMetaData(kind="element", name="h6", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val H6Type[*] h6;
+
+	@GenModel(documentation="
+      generic language/style container      
+      ")
+	@ExtendedMetaData(kind="element", name="div", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DivType[*] div;
+
+	@GenModel(documentation="
+      Unordered list
+      ")
+	@ExtendedMetaData(kind="element", name="ul", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val UlType[*] ul;
+
+	@GenModel(documentation="
+      Ordered (numbered) list
+      ")
+	@ExtendedMetaData(kind="element", name="ol", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val OlType[*] ol;
+
+	@ExtendedMetaData(kind="element", name="dl", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DlType[*] dl;
+
+	@GenModel(documentation="
+      content is \"Inline\" excluding \"img|object|big|small|sub|sup\"
+      ")
+	@ExtendedMetaData(kind="element", name="pre", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val PreType[*] pre;
+
+	@ExtendedMetaData(kind="element", name="hr", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val HrType[*] hr;
+
+	@ExtendedMetaData(kind="element", name="blockquote", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val BlockquoteType[*] blockquote;
+
+	@GenModel(documentation="
+      information on author
+      ")
+	@ExtendedMetaData(kind="element", name="address", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val AddressType[*] address;
+
+	@ExtendedMetaData(kind="element", name="table", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val TableType[*] table;
+
+	@ExtendedMetaData(kind="element", name="ins", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val InsType[*] ins;
+
+	@ExtendedMetaData(kind="element", name="del", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val DelType[*] del;
+}
+
+@ExtendedMetaData(name="h1_._type", kind="mixed")
+class H1Type extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="h2_._type", kind="mixed")
+class H2Type extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="h3_._type", kind="mixed")
+class H3Type extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="h4_._type", kind="mixed")
+class H4Type extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="h5_._type", kind="mixed")
+class H5Type extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="h6_._type", kind="mixed")
+class H6Type extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="hr_._type", kind="empty")
+class HrType {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="html_._type", kind="elementOnly")
+class HtmlType {
+
+	@ExtendedMetaData(kind="element", name="body", namespace="##targetNamespace")
+	!resolve val BodyType[1] body;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="img_._type", kind="empty")
+class ImgType {
+
+	@ExtendedMetaData(kind="attribute", name="alt")
+	attr Text[1] alt;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr Length height;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="ismap")
+	unsettable attr IsmapType ismap;
+
+	@ExtendedMetaData(kind="attribute", name="longdesc")
+	attr URI longdesc;
+
+	@ExtendedMetaData(kind="attribute", name="src")
+	attr URI[1] src;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@GenModel(documentation="
+          usemap points to a map element which may be in this document
+          or an external document, although the latter is not widely supported
+          ")
+	@ExtendedMetaData(kind="attribute", name="usemap")
+	attr URI usemap;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr Length width;
+}
+
+@GenModel(documentation="
+      \"Inline\" covers inline or \"text-level\" elements
+      ")
+@ExtendedMetaData(name="Inline", kind="mixed")
+class Inline {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+      content is \"Inline\" except that anchors shouldn't be nested
+      ")
+	@ExtendedMetaData(kind="element", name="a", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AType[*] a;
+
+	@GenModel(documentation="
+      forced line break
+      ")
+	@ExtendedMetaData(kind="element", name="br", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BrType[*] br;
+
+	@GenModel(documentation="
+      generic language/style container
+      ")
+	@ExtendedMetaData(kind="element", name="span", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SpanType[*] span;
+
+	@ExtendedMetaData(kind="element", name="object", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ObjectType[*] object;
+
+	@ExtendedMetaData(kind="element", name="img", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ImgType[*] img;
+
+	@GenModel(documentation="
+      fixed pitch font
+      ")
+	@ExtendedMetaData(kind="element", name="tt", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val TtType[*] tt;
+
+	@GenModel(documentation="
+      italic font
+      ")
+	@ExtendedMetaData(kind="element", name="i", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val IType[*] i;
+
+	@GenModel(documentation="
+      bold font
+      ")
+	@ExtendedMetaData(kind="element", name="b", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BType[*] b;
+
+	@GenModel(documentation="
+      bigger font
+      ")
+	@ExtendedMetaData(kind="element", name="big", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BigType[*] big;
+
+	@GenModel(documentation="
+      smaller font
+      ")
+	@ExtendedMetaData(kind="element", name="small", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SmallType[*] small;
+
+	@GenModel(documentation="
+				underline
+			")
+	@ExtendedMetaData(kind="element", name="u", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val UType[*] u;
+
+	@GenModel(documentation="
+			strike-through
+			")
+	@ExtendedMetaData(kind="element", name="strike", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val StrikeType[*] strike;
+
+	@GenModel(documentation="
+      emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="em", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val EmType[*] em;
+
+	@GenModel(documentation="
+      strong emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="strong", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val StrongType[*] strong;
+
+	@GenModel(documentation="
+      definitional
+      ")
+	@ExtendedMetaData(kind="element", name="dfn", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DfnType[*] dfn;
+
+	@GenModel(documentation="
+      program code
+      ")
+	@ExtendedMetaData(kind="element", name="code", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val CodeType[*] code;
+
+	@GenModel(documentation="
+      inlined quote
+      ")
+	@ExtendedMetaData(kind="element", name="q", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val QType[*] q;
+
+	@GenModel(documentation="
+      sample
+      ")
+	@ExtendedMetaData(kind="element", name="samp", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SampType[*] samp;
+
+	@GenModel(documentation="
+      something user would type
+      ")
+	@ExtendedMetaData(kind="element", name="kbd", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val KbdType[*] kbd;
+
+	@GenModel(documentation="
+      variable
+      ")
+	@ExtendedMetaData(kind="element", name="var", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val VarType[*] var;
+
+	@GenModel(documentation="
+      citation
+      ")
+	@ExtendedMetaData(kind="element", name="cite", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val CiteType[*] cite;
+
+	@GenModel(documentation="
+      abbreviation
+      ")
+	@ExtendedMetaData(kind="element", name="abbr", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AbbrType[*] abbr;
+
+	@GenModel(documentation="
+      acronym
+      ")
+	@ExtendedMetaData(kind="element", name="acronym", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AcronymType[*] acronym;
+
+	@GenModel(documentation="
+      subscript
+      ")
+	@ExtendedMetaData(kind="element", name="sub", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SubType[*] sub;
+
+	@GenModel(documentation="
+      superscript
+      ")
+	@ExtendedMetaData(kind="element", name="sup", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SupType[*] sup;
+
+	@ExtendedMetaData(kind="element", name="ins", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val InsType[*] ins;
+
+	@ExtendedMetaData(kind="element", name="del", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DelType[*] del;
+}
+
+@ExtendedMetaData(name="ins_._type", kind="mixed")
+class InsType extends Flow {
+
+	@ExtendedMetaData(kind="attribute", name="cite")
+	attr URI cite1;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="datetime")
+	attr Datetime datetime;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="ismap_._type")
+enum IsmapType {
+	ismap = 0;
+}
+
+@ExtendedMetaData(name="ismap_._type:Object", baseType="ismap_._type")
+datatype IsmapTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="i_._type", kind="mixed")
+class IType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="kbd_._type", kind="mixed")
+class KbdType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@GenModel(documentation="
+      a language code, as per [RFC3066]
+      ")
+@ExtendedMetaData(name="LanguageCode", baseType="http://www.eclipse.org/emf/2003/XMLType#language")
+datatype LanguageCode : java.lang.String;
+
+@GenModel(documentation="
+      nn for pixels or nn% for percentage length
+      ")
+@ExtendedMetaData(name="Length", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype Length : java.lang.String;
+
+@GenModel(documentation="
+      space-separated list of link types
+      ")
+@ExtendedMetaData(name="LinkTypes", baseType="http://www.eclipse.org/emf/2003/XMLType#NMTOKENS")
+datatype LinkTypes : java.util.List;
+
+@ExtendedMetaData(name="li_._type", kind="mixed")
+class LiType extends Flow {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@GenModel(documentation="
+      pixel, percentage, or relative
+      ")
+@ExtendedMetaData(name="MultiLength", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="[-+]?(\d+|\d+(\.\d+)?%25)|[1-9]?(\d+)?\*")
+datatype MultiLength : java.lang.String;
+
+@GenModel(documentation="
+      one or more digits
+      ")
+@ExtendedMetaData(name="Number", baseType="http://www.eclipse.org/emf/2003/XMLType#nonNegativeInteger", pattern="[0-9]+")
+datatype Number : java.math.BigInteger;
+
+@ExtendedMetaData(name="object_._type", kind="mixed")
+class ObjectType {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+      param is used to supply a named property value.
+      In XML it would seem natural to follow RDF and support an
+      abbreviated syntax where the param elements are replaced
+      by attribute value pairs on the object start tag.
+      ")
+	@ExtendedMetaData(kind="element", name="param", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ParamType[*] param;
+
+	@ExtendedMetaData(kind="element", name="p", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val PType[*] p;
+
+	@ExtendedMetaData(kind="element", name="h1", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H1Type[*] h1;
+
+	@ExtendedMetaData(kind="element", name="h2", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H2Type[*] h2;
+
+	@ExtendedMetaData(kind="element", name="h3", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H3Type[*] h3;
+
+	@ExtendedMetaData(kind="element", name="h4", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H4Type[*] h4;
+
+	@ExtendedMetaData(kind="element", name="h5", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H5Type[*] h5;
+
+	@ExtendedMetaData(kind="element", name="h6", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val H6Type[*] h6;
+
+	@GenModel(documentation="
+      generic language/style container      
+      ")
+	@ExtendedMetaData(kind="element", name="div", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DivType[*] div;
+
+	@GenModel(documentation="
+      Unordered list
+      ")
+	@ExtendedMetaData(kind="element", name="ul", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val UlType[*] ul;
+
+	@GenModel(documentation="
+      Ordered (numbered) list
+      ")
+	@ExtendedMetaData(kind="element", name="ol", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val OlType[*] ol;
+
+	@ExtendedMetaData(kind="element", name="dl", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DlType[*] dl;
+
+	@GenModel(documentation="
+      content is \"Inline\" excluding \"img|object|big|small|sub|sup\"
+      ")
+	@ExtendedMetaData(kind="element", name="pre", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val PreType[*] pre;
+
+	@ExtendedMetaData(kind="element", name="hr", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val HrType[*] hr;
+
+	@ExtendedMetaData(kind="element", name="blockquote", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BlockquoteType[*] blockquote;
+
+	@GenModel(documentation="
+      information on author
+      ")
+	@ExtendedMetaData(kind="element", name="address", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AddressType[*] address;
+
+	@ExtendedMetaData(kind="element", name="table", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val TableType[*] table;
+
+	@GenModel(documentation="
+      content is \"Inline\" except that anchors shouldn't be nested
+      ")
+	@ExtendedMetaData(kind="element", name="a", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AType[*] a;
+
+	@GenModel(documentation="
+      forced line break
+      ")
+	@ExtendedMetaData(kind="element", name="br", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BrType[*] br;
+
+	@GenModel(documentation="
+      generic language/style container
+      ")
+	@ExtendedMetaData(kind="element", name="span", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SpanType[*] span;
+
+	@ExtendedMetaData(kind="element", name="object", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ObjectType[*] object;
+
+	@ExtendedMetaData(kind="element", name="img", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val ImgType[*] img;
+
+	@GenModel(documentation="
+      fixed pitch font
+      ")
+	@ExtendedMetaData(kind="element", name="tt", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val TtType[*] tt;
+
+	@GenModel(documentation="
+      italic font
+      ")
+	@ExtendedMetaData(kind="element", name="i", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val IType[*] i;
+
+	@GenModel(documentation="
+      bold font
+      ")
+	@ExtendedMetaData(kind="element", name="b", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BType[*] b;
+
+	@GenModel(documentation="
+      bigger font
+      ")
+	@ExtendedMetaData(kind="element", name="big", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BigType[*] big;
+
+	@GenModel(documentation="
+      smaller font
+      ")
+	@ExtendedMetaData(kind="element", name="small", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SmallType[*] small;
+
+	@GenModel(documentation="
+				underline
+			")
+	@ExtendedMetaData(kind="element", name="u", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val UType[*] u;
+
+	@GenModel(documentation="
+			strike-through
+			")
+	@ExtendedMetaData(kind="element", name="strike", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val StrikeType[*] strike;
+
+	@GenModel(documentation="
+      emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="em", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val EmType[*] em;
+
+	@GenModel(documentation="
+      strong emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="strong", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val StrongType[*] strong;
+
+	@GenModel(documentation="
+      definitional
+      ")
+	@ExtendedMetaData(kind="element", name="dfn", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DfnType[*] dfn;
+
+	@GenModel(documentation="
+      program code
+      ")
+	@ExtendedMetaData(kind="element", name="code", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val CodeType[*] code;
+
+	@GenModel(documentation="
+      inlined quote
+      ")
+	@ExtendedMetaData(kind="element", name="q", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val QType[*] q;
+
+	@GenModel(documentation="
+      sample
+      ")
+	@ExtendedMetaData(kind="element", name="samp", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SampType[*] samp;
+
+	@GenModel(documentation="
+      something user would type
+      ")
+	@ExtendedMetaData(kind="element", name="kbd", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val KbdType[*] kbd;
+
+	@GenModel(documentation="
+      variable
+      ")
+	@ExtendedMetaData(kind="element", name="var", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val VarType[*] var;
+
+	@GenModel(documentation="
+      citation
+      ")
+	@ExtendedMetaData(kind="element", name="cite", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val CiteType[*] cite;
+
+	@GenModel(documentation="
+      abbreviation
+      ")
+	@ExtendedMetaData(kind="element", name="abbr", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AbbrType[*] abbr;
+
+	@GenModel(documentation="
+      acronym
+      ")
+	@ExtendedMetaData(kind="element", name="acronym", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AcronymType[*] acronym;
+
+	@GenModel(documentation="
+      subscript
+      ")
+	@ExtendedMetaData(kind="element", name="sub", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SubType[*] sub;
+
+	@GenModel(documentation="
+      superscript
+      ")
+	@ExtendedMetaData(kind="element", name="sup", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SupType[*] sup;
+
+	@ExtendedMetaData(kind="element", name="ins", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val InsType[*] ins;
+
+	@ExtendedMetaData(kind="element", name="del", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DelType[*] del;
+
+	@ExtendedMetaData(kind="attribute", name="archive")
+	attr UriList archive;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="classid")
+	attr URI classid;
+
+	@ExtendedMetaData(kind="attribute", name="codebase")
+	attr URI codebase;
+
+	@ExtendedMetaData(kind="attribute", name="codetype")
+	attr ContentType codetype;
+
+	@ExtendedMetaData(kind="attribute", name="data")
+	attr URI data;
+
+	@ExtendedMetaData(kind="attribute", name="declare")
+	unsettable attr DeclareType declare;
+
+	@ExtendedMetaData(kind="attribute", name="height")
+	attr Length height;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.NMTOKEN name;
+
+	@ExtendedMetaData(kind="attribute", name="standby")
+	attr Text standby;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="tabindex")
+	attr TabindexNumber tabindex;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr ContentType type;
+
+	@ExtendedMetaData(kind="attribute", name="usemap")
+	attr URI usemap;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr Length width;
+}
+
+@ExtendedMetaData(name="ol_._type", kind="elementOnly")
+class OlType {
+
+	@GenModel(documentation="
+      list item
+      ")
+	@ExtendedMetaData(kind="element", name="li", namespace="##targetNamespace")
+	!resolve val LiType[+] li;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="param_._type", kind="empty")
+class ParamType {
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr type.AnySimpleType name;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr ContentType type;
+
+	@ExtendedMetaData(kind="attribute", name="value")
+	attr type.AnySimpleType value;
+
+	@ExtendedMetaData(kind="attribute", name="valuetype")
+	unsettable attr ValuetypeType valuetype = "data";
+}
+
+@GenModel(documentation="
+      integer representing length in pixels
+      ")
+@ExtendedMetaData(name="Pixels", baseType="http://www.eclipse.org/emf/2003/XMLType#nonNegativeInteger")
+datatype Pixels : java.math.BigInteger;
+
+@GenModel(documentation="
+      pre uses \"Inline\" excluding big, small, sup or sup
+      ")
+@ExtendedMetaData(name="pre.content", kind="mixed")
+class PreContent {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@GenModel(documentation="
+      content is \"Inline\" except that anchors shouldn't be nested
+      ")
+	@ExtendedMetaData(kind="element", name="a", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AType[*] a;
+
+	@GenModel(documentation="
+      fixed pitch font
+      ")
+	@ExtendedMetaData(kind="element", name="tt", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val TtType[*] tt;
+
+	@GenModel(documentation="
+      italic font
+      ")
+	@ExtendedMetaData(kind="element", name="i", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val IType[*] i;
+
+	@GenModel(documentation="
+      bold font
+      ")
+	@ExtendedMetaData(kind="element", name="b", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BType[*] b;
+
+	@GenModel(documentation="
+      bigger font
+      ")
+	@ExtendedMetaData(kind="element", name="big", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BigType[*] big;
+
+	@GenModel(documentation="
+      smaller font
+      ")
+	@ExtendedMetaData(kind="element", name="small", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SmallType[*] small;
+
+	@GenModel(documentation="
+				underline
+			")
+	@ExtendedMetaData(kind="element", name="u", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val UType[*] u;
+
+	@GenModel(documentation="
+			strike-through
+			")
+	@ExtendedMetaData(kind="element", name="strike", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val StrikeType[*] strike;
+
+	@GenModel(documentation="
+      emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="em", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val EmType[*] em;
+
+	@GenModel(documentation="
+      strong emphasis
+      ")
+	@ExtendedMetaData(kind="element", name="strong", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val StrongType[*] strong;
+
+	@GenModel(documentation="
+      definitional
+      ")
+	@ExtendedMetaData(kind="element", name="dfn", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DfnType[*] dfn;
+
+	@GenModel(documentation="
+      program code
+      ")
+	@ExtendedMetaData(kind="element", name="code", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val CodeType[*] code;
+
+	@GenModel(documentation="
+      inlined quote
+      ")
+	@ExtendedMetaData(kind="element", name="q", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val QType[*] q;
+
+	@GenModel(documentation="
+      sample
+      ")
+	@ExtendedMetaData(kind="element", name="samp", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SampType[*] samp;
+
+	@GenModel(documentation="
+      something user would type
+      ")
+	@ExtendedMetaData(kind="element", name="kbd", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val KbdType[*] kbd;
+
+	@GenModel(documentation="
+      variable
+      ")
+	@ExtendedMetaData(kind="element", name="var", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val VarType[*] var;
+
+	@GenModel(documentation="
+      citation
+      ")
+	@ExtendedMetaData(kind="element", name="cite", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val CiteType[*] cite;
+
+	@GenModel(documentation="
+      abbreviation
+      ")
+	@ExtendedMetaData(kind="element", name="abbr", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AbbrType[*] abbr;
+
+	@GenModel(documentation="
+      acronym
+      ")
+	@ExtendedMetaData(kind="element", name="acronym", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val AcronymType[*] acronym;
+
+	@GenModel(documentation="
+      subscript
+      ")
+	@ExtendedMetaData(kind="element", name="sub", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SubType[*] sub;
+
+	@GenModel(documentation="
+      superscript
+      ")
+	@ExtendedMetaData(kind="element", name="sup", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SupType[*] sup;
+
+	@GenModel(documentation="
+      forced line break
+      ")
+	@ExtendedMetaData(kind="element", name="br", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val BrType[*] br;
+
+	@GenModel(documentation="
+      generic language/style container
+      ")
+	@ExtendedMetaData(kind="element", name="span", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val SpanType[*] span;
+
+	@ExtendedMetaData(kind="element", name="ins", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val InsType[*] ins;
+
+	@ExtendedMetaData(kind="element", name="del", namespace="##targetNamespace", group="#group:1")
+	volatile transient derived !resolve val DelType[*] del;
+}
+
+@ExtendedMetaData(name="pre_._type", kind="mixed")
+class PreType extends PreContent {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="p_._type", kind="mixed")
+class PType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="q_._type", kind="mixed")
+class QType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="cite")
+	attr URI cite1;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="samp_._type", kind="mixed")
+class SampType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@GenModel(documentation="
+      Scope is simpler than headers attribute for common tables
+      ")
+@ExtendedMetaData(name="Scope")
+enum Scope {
+	row = 0;
+	col = 1;
+	rowgroup = 2;
+	colgroup = 3;
+}
+
+@ExtendedMetaData(name="Scope:Object", baseType="Scope")
+datatype ScopeObject : org.eclipse.emf.common.util.Enumerator;
+
+@GenModel(documentation="
+      script expression
+      ")
+@ExtendedMetaData(name="Script", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype Script : java.lang.String;
+
+@ExtendedMetaData(name="Shape")
+enum Shape {
+	rect = 0;
+	circle = 1;
+	poly = 2;
+	default = 3;
+}
+
+@ExtendedMetaData(name="Shape:Object", baseType="Shape")
+datatype ShapeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="small_._type", kind="mixed")
+class SmallType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="span_._type", kind="mixed")
+class SpanType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="strike_._type", kind="mixed")
+class StrikeType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="strong_._type", kind="mixed")
+class StrongType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@GenModel(documentation="
+      style sheet data
+      ")
+@ExtendedMetaData(name="StyleSheet", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype StyleSheet : java.lang.String;
+
+@ExtendedMetaData(name="sub_._type", kind="mixed")
+class SubType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="sup_._type", kind="mixed")
+class SupType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@GenModel(documentation="
+      tabindex attribute specifies the position of the current element
+      in the tabbing order for the current document. This value must be
+      a number between 0 and 32767. User agents should ignore leading zeros. 
+      ")
+@ExtendedMetaData(name="tabindexNumber", baseType="Number", minInclusive="0", maxInclusive="32767")
+datatype TabindexNumber : java.math.BigInteger;
+
+@ExtendedMetaData(name="table_._type", kind="elementOnly")
+class TableType {
+
+	@ExtendedMetaData(kind="element", name="caption", namespace="##targetNamespace")
+	!resolve val CaptionType caption;
+
+	@GenModel(documentation="
+      col elements define the alignment properties for cells in
+      one or more columns.
+      The width attribute specifies the width of the columns, e.g.
+          width=64        width in screen pixels
+          width=0.5*      relative width of 0.5
+      The span attribute causes the attributes of one
+      col element to apply to more than one column.
+      ")
+	@ExtendedMetaData(kind="element", name="col", namespace="##targetNamespace")
+	!resolve val ColType[*] col;
+
+	@GenModel(documentation="
+      colgroup groups a set of col elements. It allows you to group
+      several semantically related columns together.
+      ")
+	@ExtendedMetaData(kind="element", name="colgroup", namespace="##targetNamespace")
+	!resolve val ColgroupType[*] colgroup;
+
+	@ExtendedMetaData(kind="element", name="thead", namespace="##targetNamespace")
+	!resolve val TheadType thead;
+
+	@ExtendedMetaData(kind="element", name="tfoot", namespace="##targetNamespace")
+	!resolve val TfootType tfoot;
+
+	@ExtendedMetaData(kind="element", name="tbody", namespace="##targetNamespace")
+	!resolve val TbodyType[*] tbody;
+
+	@ExtendedMetaData(kind="element", name="tr", namespace="##targetNamespace")
+	!resolve val TrType[*] tr;
+
+	@ExtendedMetaData(kind="attribute", name="border")
+	attr Pixels border;
+
+	@ExtendedMetaData(kind="attribute", name="cellpadding")
+	attr Length cellpadding;
+
+	@ExtendedMetaData(kind="attribute", name="cellspacing")
+	attr Length cellspacing;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="summary")
+	attr Text summary;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@ExtendedMetaData(kind="attribute", name="width")
+	attr Length width;
+}
+
+@ExtendedMetaData(name="tbody_._type", kind="elementOnly")
+class TbodyType {
+
+	@ExtendedMetaData(kind="element", name="tr", namespace="##targetNamespace")
+	!resolve val TrType[+] tr;
+
+	@ExtendedMetaData(kind="attribute", name="align")
+	unsettable attr AlignType align;
+
+	@ExtendedMetaData(kind="attribute", name="char")
+	attr Character char;
+
+	@ExtendedMetaData(kind="attribute", name="charoff")
+	attr Length charoff;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@ExtendedMetaData(kind="attribute", name="valign")
+	unsettable attr ValignType valign;
+}
+
+@ExtendedMetaData(name="td_._type", kind="mixed")
+class TdType extends Flow {
+
+	@ExtendedMetaData(kind="attribute", name="abbr")
+	attr Text abbr1;
+
+	@ExtendedMetaData(kind="attribute", name="align")
+	unsettable attr AlignType align;
+
+	@ExtendedMetaData(kind="attribute", name="axis")
+	attr type.AnySimpleType axis;
+
+	@ExtendedMetaData(kind="attribute", name="char")
+	attr Character char;
+
+	@ExtendedMetaData(kind="attribute", name="charoff")
+	attr Length charoff;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="colspan")
+	unsettable attr Number colspan = "1";
+
+	@ExtendedMetaData(kind="attribute", name="headers")
+	attr type.IDREFS headers;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="rowspan")
+	unsettable attr Number rowspan = "1";
+
+	@ExtendedMetaData(kind="attribute", name="scope")
+	unsettable attr Scope scope;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@ExtendedMetaData(kind="attribute", name="valign")
+	unsettable attr ValignType valign;
+}
+
+@GenModel(documentation="
+      used for titles etc.
+      ")
+@ExtendedMetaData(name="Text", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype Text : java.lang.String;
+
+@ExtendedMetaData(name="tfoot_._type", kind="elementOnly")
+class TfootType {
+
+	@ExtendedMetaData(kind="element", name="tr", namespace="##targetNamespace")
+	!resolve val TrType[+] tr;
+
+	@ExtendedMetaData(kind="attribute", name="align")
+	unsettable attr AlignType align;
+
+	@ExtendedMetaData(kind="attribute", name="char")
+	attr Character char;
+
+	@ExtendedMetaData(kind="attribute", name="charoff")
+	attr Length charoff;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@ExtendedMetaData(kind="attribute", name="valign")
+	unsettable attr ValignType valign;
+}
+
+@ExtendedMetaData(name="thead_._type", kind="elementOnly")
+class TheadType {
+
+	@ExtendedMetaData(kind="element", name="tr", namespace="##targetNamespace")
+	!resolve val TrType[+] tr;
+
+	@ExtendedMetaData(kind="attribute", name="align")
+	unsettable attr AlignType align;
+
+	@ExtendedMetaData(kind="attribute", name="char")
+	attr Character char;
+
+	@ExtendedMetaData(kind="attribute", name="charoff")
+	attr Length charoff;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@ExtendedMetaData(kind="attribute", name="valign")
+	unsettable attr ValignType valign;
+}
+
+@ExtendedMetaData(name="th_._type", kind="mixed")
+class ThType extends Flow {
+
+	@ExtendedMetaData(kind="attribute", name="abbr")
+	attr Text abbr1;
+
+	@ExtendedMetaData(kind="attribute", name="align")
+	unsettable attr AlignType align;
+
+	@ExtendedMetaData(kind="attribute", name="axis")
+	attr type.AnySimpleType axis;
+
+	@ExtendedMetaData(kind="attribute", name="char")
+	attr Character char;
+
+	@ExtendedMetaData(kind="attribute", name="charoff")
+	attr Length charoff;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="colspan")
+	unsettable attr Number colspan = "1";
+
+	@ExtendedMetaData(kind="attribute", name="headers")
+	attr type.IDREFS headers;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="rowspan")
+	unsettable attr Number rowspan = "1";
+
+	@ExtendedMetaData(kind="attribute", name="scope")
+	unsettable attr Scope scope;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@ExtendedMetaData(kind="attribute", name="valign")
+	unsettable attr ValignType valign;
+}
+
+@ExtendedMetaData(name="tr_._type", kind="elementOnly")
+class TrType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="th", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val ThType[*] th;
+
+	@ExtendedMetaData(kind="element", name="td", namespace="##targetNamespace", group="#group:0")
+	volatile transient derived !resolve val TdType[*] td;
+
+	@ExtendedMetaData(kind="attribute", name="align")
+	unsettable attr AlignType align;
+
+	@ExtendedMetaData(kind="attribute", name="char")
+	attr Character char;
+
+	@ExtendedMetaData(kind="attribute", name="charoff")
+	attr Length charoff;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+
+	@ExtendedMetaData(kind="attribute", name="valign")
+	unsettable attr ValignType valign;
+}
+
+@ExtendedMetaData(name="tt_._type", kind="mixed")
+class TtType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="ul_._type", kind="elementOnly")
+class UlType {
+
+	@GenModel(documentation="
+      list item
+      ")
+	@ExtendedMetaData(kind="element", name="li", namespace="##targetNamespace")
+	!resolve val LiType[+] li;
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@GenModel(documentation="
+      a Uniform Resource Identifier, see [RFC2396]
+      ")
+@ExtendedMetaData(name="URI", baseType="http://www.eclipse.org/emf/2003/XMLType#anyURI")
+datatype URI : java.lang.String;
+
+@GenModel(documentation="
+      a space separated list of Uniform Resource Identifiers
+      ")
+@ExtendedMetaData(name="UriList", baseType="http://www.eclipse.org/emf/2003/XMLType#string")
+datatype UriList : java.lang.String;
+
+@ExtendedMetaData(name="u_._type", kind="mixed")
+class UType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+
+@ExtendedMetaData(name="valign_._type")
+enum ValignType {
+	top = 0;
+	middle = 1;
+	bottom = 2;
+	baseline = 3;
+}
+
+@ExtendedMetaData(name="valign_._type:Object", baseType="valign_._type")
+datatype ValignTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="valuetype_._type")
+enum ValuetypeType {
+	data = 0;
+	~ref = 1;
+	object = 2;
+}
+
+@ExtendedMetaData(name="valuetype_._type:Object", baseType="valuetype_._type")
+datatype ValuetypeTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="var_._type", kind="mixed")
+class VarType extends Inline {
+
+	@ExtendedMetaData(kind="attribute", name="class")
+	attr type.NMTOKENS ~class;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="style")
+	attr StyleSheet style;
+
+	@ExtendedMetaData(kind="attribute", name="title")
+	attr Text title;
+}
+

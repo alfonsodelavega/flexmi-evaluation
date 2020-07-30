@@ -1,0 +1,2126 @@
+@namespace(uri="http://www.iec.ch/61850/2006/SCL", prefix="scl")
+package scl;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@ExtendedMetaData(name="Authentication_._type", kind="empty")
+class AuthenticationType {
+
+	@ExtendedMetaData(kind="attribute", name="certificate")
+	unsettable attr type.Boolean certificate = "false";
+
+	@ExtendedMetaData(kind="attribute", name="none")
+	unsettable attr type.Boolean none = "true";
+
+	@ExtendedMetaData(kind="attribute", name="password")
+	unsettable attr type.Boolean password = "false";
+
+	@ExtendedMetaData(kind="attribute", name="strong")
+	unsettable attr type.Boolean strong = "false";
+
+	@ExtendedMetaData(kind="attribute", name="weak")
+	unsettable attr type.Boolean weak = "false";
+}
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@ExtendedMetaData(kind="element", name="Communication", namespace="##targetNamespace")
+	volatile transient derived !resolve val TCommunication[0..?] communication;
+
+	@ExtendedMetaData(kind="element", name="DataTypeTemplates", namespace="##targetNamespace")
+	volatile transient derived !resolve val TDataTypeTemplates[0..?] dataTypeTemplates;
+
+	@ExtendedMetaData(kind="element", name="IED", namespace="##targetNamespace")
+	volatile transient derived !resolve val TIED[0..?] iED;
+
+	@ExtendedMetaData(kind="element", name="LN", namespace="##targetNamespace")
+	volatile transient derived !resolve val TLN[0..?] lN;
+
+	@ExtendedMetaData(kind="element", name="LN0", namespace="##targetNamespace")
+	volatile transient derived !resolve val LN0Type[0..?] lN0;
+
+	@ExtendedMetaData(kind="element", name="SCL", namespace="##targetNamespace")
+	volatile transient derived !resolve val SCLType[0..?] sCL;
+
+	@ExtendedMetaData(kind="element", name="Substation", namespace="##targetNamespace")
+	volatile transient derived !resolve val TSubstation[0..?] substation;
+}
+
+@ExtendedMetaData(name="History_._type", kind="elementOnly")
+class HistoryType {
+
+	@ExtendedMetaData(kind="element", name="Hitem", namespace="##targetNamespace")
+	!resolve val THitem[+] hitem;
+}
+
+@ExtendedMetaData(name="LN0_._type", kind="elementOnly")
+class LN0Type extends TLN0 {
+}
+
+@ExtendedMetaData(name="nameStructure_._type")
+enum NameStructureType {
+	IEDName = 0;
+}
+
+@ExtendedMetaData(name="nameStructure_._type:Object", baseType="nameStructure_._type")
+datatype NameStructureTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="OptFields_._type", kind="empty")
+class OptFieldsType {
+
+	@ExtendedMetaData(kind="attribute", name="bufOvfl")
+	unsettable attr type.Boolean bufOvfl = "false";
+
+	@ExtendedMetaData(kind="attribute", name="configRef")
+	unsettable attr type.Boolean configRef = "false";
+
+	@ExtendedMetaData(kind="attribute", name="dataRef")
+	unsettable attr type.Boolean dataRef = "false";
+
+	@ExtendedMetaData(kind="attribute", name="dataSet")
+	unsettable attr type.Boolean dataSet = "false";
+
+	@ExtendedMetaData(kind="attribute", name="entryID")
+	unsettable attr type.Boolean entryID = "false";
+
+	@ExtendedMetaData(kind="attribute", name="reasonCode")
+	unsettable attr type.Boolean reasonCode = "false";
+
+	@ExtendedMetaData(kind="attribute", name="seqNum")
+	unsettable attr type.Boolean seqNum = "false";
+
+	@ExtendedMetaData(kind="attribute", name="timeStamp")
+	unsettable attr type.Boolean timeStamp = "false";
+}
+
+@ExtendedMetaData(name="SCL_._type", kind="elementOnly")
+class SCLType extends TBaseElement {
+
+	@ExtendedMetaData(kind="element", name="Header", namespace="##targetNamespace")
+	!resolve val THeader[1] header;
+
+	@ExtendedMetaData(kind="element", name="Substation", namespace="##targetNamespace")
+	!resolve val TSubstation[*] substation;
+
+	@ExtendedMetaData(kind="element", name="Communication", namespace="##targetNamespace")
+	!resolve val TCommunication communication;
+
+	@ExtendedMetaData(kind="element", name="IED", namespace="##targetNamespace")
+	!resolve val TIED[*] iED;
+
+	@ExtendedMetaData(kind="element", name="DataTypeTemplates", namespace="##targetNamespace")
+	!resolve val TDataTypeTemplates dataTypeTemplates;
+}
+
+@ExtendedMetaData(name="SettingGroups_._type", kind="elementOnly")
+class SettingGroupsType {
+
+	@ExtendedMetaData(kind="element", name="SGEdit", namespace="##targetNamespace")
+	!resolve val TServiceYesNo sGEdit;
+
+	@ExtendedMetaData(kind="element", name="ConfSG", namespace="##targetNamespace")
+	!resolve val TServiceYesNo confSG;
+}
+
+@ExtendedMetaData(name="SmpRate_._type", baseType="http://www.eclipse.org/emf/2003/XMLType#decimal", minInclusive="0")
+datatype SmpRateType : java.math.BigDecimal;
+
+@ExtendedMetaData(name="SmvOpts_._type", kind="empty")
+class SmvOptsType {
+
+	@ExtendedMetaData(kind="attribute", name="dataSet")
+	unsettable attr type.Boolean dataSet = "false";
+
+	@ExtendedMetaData(kind="attribute", name="refreshTime")
+	unsettable attr type.Boolean refreshTime = "false";
+
+	@ExtendedMetaData(kind="attribute", name="sampleRate")
+	unsettable attr type.Boolean sampleRate = "false";
+
+	@ExtendedMetaData(kind="attribute", name="sampleSynchronized")
+	unsettable attr type.Boolean sampleSynchronized = "true";
+
+	@ExtendedMetaData(kind="attribute", name="security")
+	unsettable attr type.Boolean security = "false";
+}
+
+@ExtendedMetaData(name="tAbstractConductingEquipment", kind="elementOnly")
+abstract class TAbstractConductingEquipment extends TEquipment {
+
+	@ExtendedMetaData(kind="element", name="Terminal", namespace="##targetNamespace")
+	!resolve val TTerminal[0..2] terminal;
+
+	@ExtendedMetaData(kind="element", name="SubEquipment", namespace="##targetNamespace")
+	!resolve val TSubEquipment[*] subEquipment;
+}
+
+@ExtendedMetaData(name="tAbstractDataAttribute", kind="elementOnly")
+abstract class TAbstractDataAttribute extends TUnNaming {
+
+	@ExtendedMetaData(kind="element", name="Val", namespace="##targetNamespace")
+	!resolve val TVal[*] ~val;
+
+	@ExtendedMetaData(kind="attribute", name="bType")
+	attr TBasicTypeEnum[1] bType;
+
+	@ExtendedMetaData(kind="attribute", name="count")
+	unsettable attr type.UnsignedInt count = "0";
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr TAttributeNameEnum[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="sAddr")
+	attr type.NormalizedString sAddr;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr TAnyName type;
+
+	@ExtendedMetaData(kind="attribute", name="valKind")
+	unsettable attr TValKindEnum valKind = "Set";
+}
+
+@ExtendedMetaData(name="tAccessControl", kind="mixed")
+class TAccessControl extends TAnyContentFromOtherNamespace {
+}
+
+@ExtendedMetaData(name="tAccessPoint", kind="elementOnly")
+class TAccessPoint extends TNaming {
+
+	@ExtendedMetaData(kind="element", name="Server", namespace="##targetNamespace")
+	!resolve val TServer server;
+
+	@ExtendedMetaData(kind="element", name="LN", namespace="##targetNamespace")
+	!resolve val TLN[*] lN;
+
+	@ExtendedMetaData(kind="attribute", name="clock")
+	unsettable attr type.Boolean clock = "false";
+
+	@ExtendedMetaData(kind="attribute", name="router")
+	unsettable attr type.Boolean router = "false";
+}
+
+@ExtendedMetaData(name="tAddress", kind="elementOnly")
+class TAddress {
+
+	@ExtendedMetaData(kind="element", name="P", namespace="##targetNamespace")
+	!resolve val TP[+] p;
+}
+
+@ExtendedMetaData(name="tAnyContentFromOtherNamespace", kind="mixed")
+abstract class TAnyContentFromOtherNamespace {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":2", processing="lax", group="#group:1")
+	!unique volatile transient derived attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="lax")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="tAnyLN", kind="elementOnly")
+abstract class TAnyLN extends TUnNaming {
+
+	@ExtendedMetaData(kind="element", name="DataSet", namespace="##targetNamespace")
+	!resolve val TDataSet[*] dataSet;
+
+	@ExtendedMetaData(kind="element", name="ReportControl", namespace="##targetNamespace")
+	!resolve val TReportControl[*] reportControl;
+
+	@ExtendedMetaData(kind="element", name="LogControl", namespace="##targetNamespace")
+	!resolve val TLogControl[*] logControl;
+
+	@ExtendedMetaData(kind="element", name="DOI", namespace="##targetNamespace")
+	!resolve val TDOI[*] dOI;
+
+	@ExtendedMetaData(kind="element", name="Inputs", namespace="##targetNamespace")
+	!resolve val TInputs inputs;
+
+	@ExtendedMetaData(kind="attribute", name="lnType")
+	attr TName[1] lnType;
+}
+
+@ExtendedMetaData(name="tAnyName", baseType="http://www.eclipse.org/emf/2003/XMLType#normalizedString")
+datatype TAnyName : java.lang.String;
+
+@ExtendedMetaData(name="tAssociation", kind="empty")
+class TAssociation {
+
+	@ExtendedMetaData(kind="attribute", name="associationID")
+	attr TName associationID;
+
+	@ExtendedMetaData(kind="attribute", name="iedName")
+	attr TName[1] iedName;
+
+	@ExtendedMetaData(kind="attribute", name="kind")
+	unsettable attr TAssociationKindEnum[1] kind;
+
+	@ExtendedMetaData(kind="attribute", name="ldInst")
+	attr TName[1] ldInst;
+
+	@ExtendedMetaData(kind="attribute", name="lnClass")
+	attr TLNClassEnum[1] lnClass;
+
+	@ExtendedMetaData(kind="attribute", name="lnInst")
+	attr TAnyName[1] lnInst;
+
+	@ExtendedMetaData(kind="attribute", name="prefix")
+	attr TAnyName prefix;
+}
+
+@ExtendedMetaData(name="tAssociationKindEnum")
+enum TAssociationKindEnum {
+	preEstablished = 0;
+	predefined = 1;
+}
+
+@ExtendedMetaData(name="tAssociationKindEnum:Object", baseType="tAssociationKindEnum")
+datatype TAssociationKindEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tAttributeNameEnum", memberTypes="tPredefinedAttributeNameEnum tExtensionAttributeNameEnum")
+datatype TAttributeNameEnum : java.lang.Object;
+
+@ExtendedMetaData(name="tAuthenticationEnum")
+enum TAuthenticationEnum {
+	none = 0;
+	password = 1;
+	week = 2;
+	strong = 3;
+	certificate = 4;
+}
+
+@ExtendedMetaData(name="tAuthenticationEnum:Object", baseType="tAuthenticationEnum")
+datatype TAuthenticationEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tBaseElement", kind="elementOnly")
+abstract class TBaseElement {
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##other", name=":0", processing="lax")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+
+	@ExtendedMetaData(kind="element", name="Text", namespace="##targetNamespace")
+	!resolve val TText text;
+
+	@ExtendedMetaData(kind="element", name="Private", namespace="##targetNamespace")
+	!resolve val TPrivate[*] private;
+
+	@ExtendedMetaData(kind="attributeWildcard", wildcards="##other", name=":3", processing="lax")
+	!unique attr ecore.EFeatureMapEntry[*] anyAttribute;
+}
+
+@ExtendedMetaData(name="tBasicTypeEnum", memberTypes="tPredefinedBasicTypeEnum tExtensionBasicTypeEnum")
+datatype TBasicTypeEnum : java.lang.Object;
+
+@ExtendedMetaData(name="tBay", kind="elementOnly")
+class TBay extends TEquipmentContainer {
+
+	@ExtendedMetaData(kind="element", name="ConductingEquipment", namespace="##targetNamespace")
+	!resolve val TConductingEquipment[*] conductingEquipment;
+
+	@ExtendedMetaData(kind="element", name="ConnectivityNode", namespace="##targetNamespace")
+	!resolve val TConnectivityNode[*] connectivityNode;
+}
+
+@ExtendedMetaData(name="tBDA", kind="elementOnly")
+class TBDA extends TAbstractDataAttribute {
+}
+
+@ExtendedMetaData(name="tBitRateInMbPerSec", kind="simple")
+class TBitRateInMbPerSec extends TValueWithUnit {
+}
+
+@ExtendedMetaData(name="tCDCEnum", memberTypes="tPredefinedCDCEnum tExtensionCDCEnum")
+datatype TCDCEnum : java.lang.Object;
+
+@ExtendedMetaData(name="tClientLN", kind="empty")
+class TClientLN {
+
+	@ExtendedMetaData(kind="attribute", name="iedName")
+	attr TName[1] iedName;
+
+	@ExtendedMetaData(kind="attribute", name="ldInst")
+	attr TName[1] ldInst;
+
+	@ExtendedMetaData(kind="attribute", name="lnClass")
+	attr TLNClassEnum[1] lnClass;
+
+	@ExtendedMetaData(kind="attribute", name="lnInst")
+	attr TAnyName[1] lnInst;
+
+	@ExtendedMetaData(kind="attribute", name="prefix")
+	attr TAnyName prefix;
+}
+
+@ExtendedMetaData(name="tClientServices", kind="empty")
+class TClientServices {
+
+	@ExtendedMetaData(kind="attribute", name="bufReport")
+	unsettable attr type.Boolean bufReport = "false";
+
+	@ExtendedMetaData(kind="attribute", name="goose")
+	unsettable attr type.Boolean goose = "false";
+
+	@ExtendedMetaData(kind="attribute", name="gsse")
+	unsettable attr type.Boolean gsse = "false";
+
+	@ExtendedMetaData(kind="attribute", name="readLog")
+	unsettable attr type.Boolean readLog = "false";
+
+	@ExtendedMetaData(kind="attribute", name="unbufReport")
+	unsettable attr type.Boolean unbufReport = "false";
+}
+
+@ExtendedMetaData(name="tCommonConductingEquipmentEnum", memberTypes="tPredefinedCommonConductingEquipmentEnum tExtensionEquipmentEnum")
+datatype TCommonConductingEquipmentEnum : java.lang.Object;
+
+@ExtendedMetaData(name="tCommunication", kind="elementOnly")
+class TCommunication extends TUnNaming {
+
+	@ExtendedMetaData(kind="element", name="SubNetwork", namespace="##targetNamespace")
+	!resolve val TSubNetwork[+] subNetwork;
+}
+
+@ExtendedMetaData(name="tConductingEquipment", kind="elementOnly")
+class TConductingEquipment extends TAbstractConductingEquipment {
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr TCommonConductingEquipmentEnum[1] type;
+}
+
+@ExtendedMetaData(name="tConfLNs", kind="empty")
+class TConfLNs {
+
+	@ExtendedMetaData(kind="attribute", name="fixLnInst")
+	unsettable attr type.Boolean fixLnInst = "false";
+
+	@ExtendedMetaData(kind="attribute", name="fixPrefix")
+	unsettable attr type.Boolean fixPrefix = "false";
+}
+
+@ExtendedMetaData(name="tConnectedAP", kind="elementOnly")
+class TConnectedAP extends TUnNaming {
+
+	@ExtendedMetaData(kind="element", name="Address", namespace="##targetNamespace")
+	!resolve val TAddress address;
+
+	@ExtendedMetaData(kind="element", name="GSE", namespace="##targetNamespace")
+	!resolve val TGSE[*] gSE;
+
+	@ExtendedMetaData(kind="element", name="SMV", namespace="##targetNamespace")
+	!resolve val TSMV[*] sMV;
+
+	@ExtendedMetaData(kind="element", name="PhysConn", namespace="##targetNamespace")
+	!resolve val TPhysConn[*] physConn;
+
+	@ExtendedMetaData(kind="attribute", name="apName")
+	attr TName[1] apName;
+
+	@ExtendedMetaData(kind="attribute", name="iedName")
+	attr TName[1] iedName;
+}
+
+@ExtendedMetaData(name="tConnectivityNode", kind="elementOnly")
+class TConnectivityNode extends TLNodeContainer {
+
+	@ExtendedMetaData(kind="attribute", name="pathName")
+	attr TRef[1] pathName;
+}
+
+@ExtendedMetaData(name="tControl", kind="elementOnly")
+abstract class TControl extends TNaming {
+
+	@ExtendedMetaData(kind="attribute", name="datSet")
+	attr TName datSet;
+}
+
+@ExtendedMetaData(name="tControlBlock", kind="elementOnly")
+abstract class TControlBlock extends TUnNaming {
+
+	@ExtendedMetaData(kind="element", name="Address", namespace="##targetNamespace")
+	!resolve val TAddress address;
+
+	@ExtendedMetaData(kind="attribute", name="cbName")
+	attr TName[1] cbName;
+
+	@ExtendedMetaData(kind="attribute", name="ldInst")
+	attr TName[1] ldInst;
+}
+
+@ExtendedMetaData(name="tControlWithIEDName", kind="elementOnly")
+class TControlWithIEDName extends TControl {
+
+	@ExtendedMetaData(kind="element", name="IEDName", namespace="##targetNamespace")
+	!unique attr TName[*] iEDName;
+
+	@ExtendedMetaData(kind="attribute", name="confRev")
+	unsettable attr type.UnsignedInt confRev;
+}
+
+@ExtendedMetaData(name="tControlWithTriggerOpt", kind="elementOnly")
+abstract class TControlWithTriggerOpt extends TControl {
+
+	@ExtendedMetaData(kind="element", name="TrgOps", namespace="##targetNamespace")
+	!resolve val TTrgOps trgOps;
+
+	@ExtendedMetaData(kind="attribute", name="intgPd")
+	unsettable attr type.UnsignedInt intgPd = "0";
+}
+
+@ExtendedMetaData(name="tDA", kind="elementOnly")
+class TDA extends TAbstractDataAttribute {
+
+	@ExtendedMetaData(kind="attribute", name="dchg")
+	unsettable attr type.Boolean dchg = "false";
+
+	@ExtendedMetaData(kind="attribute", name="dupd")
+	unsettable attr type.Boolean dupd = "false";
+
+	@ExtendedMetaData(kind="attribute", name="fc")
+	unsettable attr TFCEnum[1] fc;
+
+	@ExtendedMetaData(kind="attribute", name="qchg")
+	unsettable attr type.Boolean qchg = "false";
+}
+
+@ExtendedMetaData(name="tDAI", kind="elementOnly")
+class TDAI extends TUnNaming {
+
+	@ExtendedMetaData(kind="element", name="Val", namespace="##targetNamespace")
+	!resolve val TVal[*] ~val;
+
+	@ExtendedMetaData(kind="attribute", name="ix")
+	unsettable attr type.UnsignedInt ix;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr TAttributeNameEnum[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="sAddr")
+	attr type.NormalizedString sAddr;
+
+	@ExtendedMetaData(kind="attribute", name="valKind")
+	unsettable attr TValKindEnum valKind = "Set";
+}
+
+@ExtendedMetaData(name="tDataSet", kind="elementOnly")
+class TDataSet extends TNaming {
+
+	@ExtendedMetaData(kind="group", name="group:6")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="FCDA", namespace="##targetNamespace", group="#group:6")
+	volatile transient derived !resolve val TFCDA[*] fCDA;
+
+	@ExtendedMetaData(kind="element", name="FCCB", namespace="##targetNamespace", group="#group:6")
+	volatile transient derived !resolve val TFCCB[*] fCCB;
+}
+
+@ExtendedMetaData(name="tDataTypeTemplates", kind="elementOnly")
+class TDataTypeTemplates {
+
+	@ExtendedMetaData(kind="element", name="LNodeType", namespace="##targetNamespace")
+	!resolve val TLNodeType[+] lNodeType;
+
+	@ExtendedMetaData(kind="element", name="DOType", namespace="##targetNamespace")
+	!resolve val TDOType[+] dOType;
+
+	@ExtendedMetaData(kind="element", name="DAType", namespace="##targetNamespace")
+	!resolve val TDAType[*] dAType;
+
+	@ExtendedMetaData(kind="element", name="EnumType", namespace="##targetNamespace")
+	!resolve val TEnumType[*] enumType;
+}
+
+@ExtendedMetaData(name="tDAType", kind="elementOnly")
+class TDAType extends TIDNaming {
+
+	@ExtendedMetaData(kind="element", name="BDA", namespace="##targetNamespace")
+	!resolve val TBDA[+] bDA;
+
+	@ExtendedMetaData(kind="attribute", name="iedType")
+	unsettable attr TAnyName iedType = "";
+}
+
+@ExtendedMetaData(name="tDO", kind="elementOnly")
+class TDO extends TUnNaming {
+
+	@ExtendedMetaData(kind="attribute", name="accessControl")
+	attr type.NormalizedString accessControl;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr TRestrName1stU[1] name;
+
+	@ExtendedMetaData(kind="attribute", name="transient")
+	unsettable attr type.Boolean ~transient = "false";
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr TName[1] type;
+}
+
+@ExtendedMetaData(name="tDOI", kind="elementOnly")
+class TDOI extends TUnNaming {
+
+	@ExtendedMetaData(kind="group", name="group:5")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="SDI", namespace="##targetNamespace", group="#group:5")
+	volatile transient derived !resolve val TSDI[*] sDI;
+
+	@ExtendedMetaData(kind="element", name="DAI", namespace="##targetNamespace", group="#group:5")
+	volatile transient derived !resolve val TDAI[*] dAI;
+
+	@ExtendedMetaData(kind="attribute", name="accessControl")
+	attr type.NormalizedString accessControl;
+
+	@ExtendedMetaData(kind="attribute", name="ix")
+	unsettable attr type.UnsignedInt ix;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr TRestrName1stU[1] name;
+}
+
+@ExtendedMetaData(name="tDomainLNEnum", memberTypes="tDomainLNGroupAEnum tDomainLNGroupCEnum tDomainLNGroupGEnum tDomainLNGroupIEnum tDomainLNGroupMEnum tDomainLNGroupPEnum tDomainLNGroupREnum tDomainLNGroupSEnum tDomainLNGroupTEnum tDomainLNGroupXEnum tDomainLNGroupYEnum tDomainLNGroupZEnum")
+datatype TDomainLNEnum : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupAEnum")
+enum TDomainLNGroupAEnum {
+	ANCR = 0;
+	ARCO = 1;
+	ATCC = 2;
+	AVCO = 3;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupAEnum:Object", baseType="tDomainLNGroupAEnum")
+datatype TDomainLNGroupAEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupCEnum")
+enum TDomainLNGroupCEnum {
+	CILO = 0;
+	CSWI = 1;
+	CALH = 2;
+	CCGR = 3;
+	CPOW = 4;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupCEnum:Object", baseType="tDomainLNGroupCEnum")
+datatype TDomainLNGroupCEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupGEnum")
+enum TDomainLNGroupGEnum {
+	GAPC = 0;
+	GGIO = 1;
+	GSAL = 2;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupGEnum:Object", baseType="tDomainLNGroupGEnum")
+datatype TDomainLNGroupGEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupIEnum")
+enum TDomainLNGroupIEnum {
+	IHMI = 0;
+	IARC = 1;
+	ITCI = 2;
+	ITMI = 3;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupIEnum:Object", baseType="tDomainLNGroupIEnum")
+datatype TDomainLNGroupIEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupMEnum")
+enum TDomainLNGroupMEnum {
+	MMXU = 0;
+	MDIF = 1;
+	MHAI = 2;
+	MHAN = 3;
+	MMTR = 4;
+	MMXN = 5;
+	MSQI = 6;
+	MSTA = 7;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupMEnum:Object", baseType="tDomainLNGroupMEnum")
+datatype TDomainLNGroupMEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupPEnum")
+enum TDomainLNGroupPEnum {
+	PDIF = 0;
+	PDIS = 1;
+	PDIR = 2;
+	PDOP = 3;
+	PDUP = 4;
+	PFRC = 5;
+	PHAR = 6;
+	PHIZ = 7;
+	PIOC = 8;
+	PMRI = 9;
+	PMSS = 10;
+	POPF = 11;
+	PPAM = 12;
+	PSCH = 13;
+	PSDE = 14;
+	PTEF = 15;
+	PTOC = 16;
+	PTOF = 17;
+	PTOV = 18;
+	PTRC = 19;
+	PTTR = 20;
+	PTUC = 21;
+	PTUV = 22;
+	PUPF = 23;
+	PTUF = 24;
+	PVOC = 25;
+	PVPH = 26;
+	PZSU = 27;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupPEnum:Object", baseType="tDomainLNGroupPEnum")
+datatype TDomainLNGroupPEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupREnum")
+enum TDomainLNGroupREnum {
+	RSYN = 0;
+	RDRE = 1;
+	RADR = 2;
+	RBDR = 3;
+	RDRS = 4;
+	RBRF = 5;
+	RDIR = 6;
+	RFLO = 7;
+	RPSB = 8;
+	RREC = 9;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupREnum:Object", baseType="tDomainLNGroupREnum")
+datatype TDomainLNGroupREnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupSEnum")
+enum TDomainLNGroupSEnum {
+	SARC = 0;
+	SIMG = 1;
+	SIML = 2;
+	SPDC = 3;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupSEnum:Object", baseType="tDomainLNGroupSEnum")
+datatype TDomainLNGroupSEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupTEnum")
+enum TDomainLNGroupTEnum {
+	TCTR = 0;
+	TVTR = 1;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupTEnum:Object", baseType="tDomainLNGroupTEnum")
+datatype TDomainLNGroupTEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupXEnum")
+enum TDomainLNGroupXEnum {
+	XCBR = 0;
+	XSWI = 1;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupXEnum:Object", baseType="tDomainLNGroupXEnum")
+datatype TDomainLNGroupXEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupYEnum")
+enum TDomainLNGroupYEnum {
+	YPTR = 0;
+	YEFN = 1;
+	YLTC = 2;
+	YPSH = 3;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupYEnum:Object", baseType="tDomainLNGroupYEnum")
+datatype TDomainLNGroupYEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDomainLNGroupZEnum")
+enum TDomainLNGroupZEnum {
+	ZAXN = 0;
+	ZBAT = 1;
+	ZBSH = 2;
+	ZCAB = 3;
+	ZCAP = 4;
+	ZCON = 5;
+	ZGEN = 6;
+	ZGIL = 7;
+	ZLIN = 8;
+	ZMOT = 9;
+	ZREA = 10;
+	ZRRC = 11;
+	ZSAR = 12;
+	ZTCF = 13;
+	ZTCR = 14;
+}
+
+@ExtendedMetaData(name="tDomainLNGroupZEnum:Object", baseType="tDomainLNGroupZEnum")
+datatype TDomainLNGroupZEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tDOType", kind="elementOnly")
+class TDOType extends TIDNaming {
+
+	@ExtendedMetaData(kind="group", name="group:6")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="SDO", namespace="##targetNamespace", group="#group:6")
+	volatile transient derived !resolve val TSDO[*] sDO;
+
+	@ExtendedMetaData(kind="element", name="DA", namespace="##targetNamespace", group="#group:6")
+	volatile transient derived !resolve val TDA[*] dA;
+
+	@ExtendedMetaData(kind="attribute", name="cdc")
+	attr TCDCEnum[1] cdc;
+
+	@ExtendedMetaData(kind="attribute", name="iedType")
+	unsettable attr TAnyName iedType = "";
+}
+
+@ExtendedMetaData(name="tDurationInMilliSec", kind="simple")
+class TDurationInMilliSec extends TValueWithUnit {
+}
+
+@ExtendedMetaData(name="tDurationInSec", kind="simple")
+class TDurationInSec extends TValueWithUnit {
+}
+
+@ExtendedMetaData(name="tEnumType", kind="elementOnly")
+class TEnumType extends TIDNaming {
+
+	@ExtendedMetaData(kind="element", name="EnumVal", namespace="##targetNamespace")
+	!resolve val TEnumVal[+] enumVal;
+}
+
+@ExtendedMetaData(name="tEnumVal", kind="simple")
+class TEnumVal {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.NormalizedString value;
+
+	@ExtendedMetaData(kind="attribute", name="ord")
+	attr type.Integer[1] ord;
+}
+
+@ExtendedMetaData(name="tEquipment", kind="elementOnly")
+abstract class TEquipment extends TPowerSystemResource {
+
+	@ExtendedMetaData(kind="attribute", name="virtual")
+	unsettable attr type.Boolean virtual = "false";
+}
+
+@ExtendedMetaData(name="tEquipmentContainer", kind="elementOnly")
+abstract class TEquipmentContainer extends TPowerSystemResource {
+
+	@ExtendedMetaData(kind="element", name="PowerTransformer", namespace="##targetNamespace")
+	!resolve val TPowerTransformer[*] powerTransformer;
+
+	@ExtendedMetaData(kind="element", name="GeneralEquipment", namespace="##targetNamespace")
+	!resolve val TGeneralEquipment[*] generalEquipment;
+}
+
+@ExtendedMetaData(name="tEquipmentEnum", memberTypes="tPredefinedEquipmentEnum tExtensionEquipmentEnum")
+datatype TEquipmentEnum : java.lang.Object;
+
+@ExtendedMetaData(name="tExtensionAttributeNameEnum", baseType="tRestrName1stL")
+datatype TExtensionAttributeNameEnum : java.lang.String;
+
+@ExtendedMetaData(name="tExtensionBasicTypeEnum", baseType="http://www.eclipse.org/emf/2003/XMLType#Name", pattern="\p{Lu}[\p{L},\d]*")
+datatype TExtensionBasicTypeEnum : java.lang.String;
+
+@ExtendedMetaData(name="tExtensionCDCEnum", baseType="http://www.eclipse.org/emf/2003/XMLType#Name", minLength="1", pattern="\p{Lu}+")
+datatype TExtensionCDCEnum : java.lang.String;
+
+@ExtendedMetaData(name="tExtensionEquipmentEnum", baseType="http://www.eclipse.org/emf/2003/XMLType#Name", pattern="E\p{Lu}*")
+datatype TExtensionEquipmentEnum : java.lang.String;
+
+@ExtendedMetaData(name="tExtensionGeneralEquipmentEnum", baseType="http://www.eclipse.org/emf/2003/XMLType#Name", pattern="E\p{Lu}*")
+datatype TExtensionGeneralEquipmentEnum : java.lang.String;
+
+@ExtendedMetaData(name="tExtensionLNClassEnum", baseType="http://www.eclipse.org/emf/2003/XMLType#Name", minLength="1", pattern="\p{Lu}+")
+datatype TExtensionLNClassEnum : java.lang.String;
+
+@ExtendedMetaData(name="tExtensionPTypeEnum", baseType="http://www.eclipse.org/emf/2003/XMLType#normalizedString", pattern="\p{Lu}[\d,\p{L},\-]*")
+datatype TExtensionPTypeEnum : java.lang.String;
+
+@ExtendedMetaData(name="tExtRef", kind="empty")
+class TExtRef {
+
+	@ExtendedMetaData(kind="attribute", name="daName")
+	attr TName daName;
+
+	@ExtendedMetaData(kind="attribute", name="doName")
+	attr TName[1] doName;
+
+	@ExtendedMetaData(kind="attribute", name="iedName")
+	attr TName[1] iedName;
+
+	@ExtendedMetaData(kind="attribute", name="intAddr")
+	attr type.NormalizedString intAddr;
+
+	@ExtendedMetaData(kind="attribute", name="ldInst")
+	attr TName[1] ldInst;
+
+	@ExtendedMetaData(kind="attribute", name="lnClass")
+	attr TLNClassEnum[1] lnClass;
+
+	@ExtendedMetaData(kind="attribute", name="lnInst")
+	attr TAnyName[1] lnInst;
+
+	@ExtendedMetaData(kind="attribute", name="prefix")
+	attr TAnyName prefix;
+}
+
+@ExtendedMetaData(name="tFCCB", kind="empty")
+class TFCCB {
+
+	@ExtendedMetaData(kind="attribute", name="cbName")
+	attr TName[1] cbName;
+
+	@ExtendedMetaData(kind="attribute", name="daName")
+	attr TName daName;
+
+	@ExtendedMetaData(kind="attribute", name="fc")
+	unsettable attr TServiceFCEnum[1] fc;
+
+	@ExtendedMetaData(kind="attribute", name="ldInst")
+	attr TName[1] ldInst;
+
+	@ExtendedMetaData(kind="attribute", name="lnClass")
+	attr TLNClassEnum[1] lnClass;
+
+	@ExtendedMetaData(kind="attribute", name="lnInst")
+	attr TName lnInst;
+
+	@ExtendedMetaData(kind="attribute", name="prefix")
+	attr TAnyName prefix;
+}
+
+@ExtendedMetaData(name="tFCDA", kind="empty")
+class TFCDA {
+
+	@ExtendedMetaData(kind="attribute", name="daName")
+	attr TName daName;
+
+	@ExtendedMetaData(kind="attribute", name="doName")
+	attr TName doName;
+
+	@ExtendedMetaData(kind="attribute", name="fc")
+	unsettable attr TFCEnum[1] fc;
+
+	@ExtendedMetaData(kind="attribute", name="ldInst")
+	attr TName ldInst;
+
+	@ExtendedMetaData(kind="attribute", name="lnClass")
+	attr TLNClassEnum lnClass;
+
+	@ExtendedMetaData(kind="attribute", name="lnInst")
+	attr TName lnInst;
+
+	@ExtendedMetaData(kind="attribute", name="prefix")
+	attr TAnyName prefix;
+}
+
+@ExtendedMetaData(name="tFCEnum")
+enum TFCEnum {
+	ST = 0;
+	MX = 1;
+	CO = 2;
+	SP = 3;
+	SG = 4;
+	SE = 5;
+	SV = 6;
+	CF = 7;
+	DC = 8;
+	EX = 9;
+}
+
+@ExtendedMetaData(name="tFCEnum:Object", baseType="tFCEnum")
+datatype TFCEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tFunction", kind="elementOnly")
+class TFunction extends TPowerSystemResource {
+
+	@ExtendedMetaData(kind="element", name="SubFunction", namespace="##targetNamespace")
+	!resolve val TSubFunction[*] subFunction;
+
+	@ExtendedMetaData(kind="element", name="GeneralEquipment", namespace="##targetNamespace")
+	!resolve val TGeneralEquipment[*] generalEquipment;
+}
+
+@ExtendedMetaData(name="tGeneralEquipment", kind="elementOnly")
+class TGeneralEquipment extends TEquipment {
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr TGeneralEquipmentEnum[1] type;
+}
+
+@ExtendedMetaData(name="tGeneralEquipmentEnum", memberTypes="tPredefinedGeneralEquipmentEnum tExtensionGeneralEquipmentEnum")
+datatype TGeneralEquipmentEnum : java.lang.Object;
+
+@ExtendedMetaData(name="tGSE", kind="elementOnly")
+class TGSE extends TControlBlock {
+
+	@ExtendedMetaData(kind="element", name="MinTime", namespace="##targetNamespace")
+	!resolve val TDurationInMilliSec minTime;
+
+	@ExtendedMetaData(kind="element", name="MaxTime", namespace="##targetNamespace")
+	!resolve val TDurationInMilliSec maxTime;
+}
+
+@ExtendedMetaData(name="tGSEControl", kind="elementOnly")
+class TGSEControl extends TControlWithIEDName {
+
+	@ExtendedMetaData(kind="attribute", name="appID")
+	attr type.NormalizedString[1] appID;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	unsettable attr TGSEControlTypeEnum type = "GOOSE";
+}
+
+@ExtendedMetaData(name="tGSEControlTypeEnum")
+enum TGSEControlTypeEnum {
+	GSSE = 0;
+	GOOSE = 1;
+}
+
+@ExtendedMetaData(name="tGSEControlTypeEnum:Object", baseType="tGSEControlTypeEnum")
+datatype TGSEControlTypeEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tGSESettings", kind="empty")
+class TGSESettings extends TServiceSettings {
+
+	@ExtendedMetaData(kind="attribute", name="appID")
+	unsettable attr TServiceSettingsEnum appID = "Fix";
+
+	@ExtendedMetaData(kind="attribute", name="dataLabel")
+	unsettable attr TServiceSettingsEnum dataLabel = "Fix";
+}
+
+@ExtendedMetaData(name="tHeader", kind="elementOnly")
+class THeader {
+
+	@ExtendedMetaData(kind="element", name="Text", namespace="##targetNamespace")
+	!resolve val TText text;
+
+	@ExtendedMetaData(kind="element", name="History", namespace="##targetNamespace")
+	!resolve val HistoryType history;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	attr type.NormalizedString[1] ~id;
+
+	@ExtendedMetaData(kind="attribute", name="nameStructure")
+	unsettable attr NameStructureType nameStructure = "IEDName";
+
+	@ExtendedMetaData(kind="attribute", name="revision")
+	unsettable attr type.NormalizedString revision = "";
+
+	@ExtendedMetaData(kind="attribute", name="toolID")
+	attr type.NormalizedString toolID;
+
+	@ExtendedMetaData(kind="attribute", name="version")
+	attr type.NormalizedString version;
+}
+
+@ExtendedMetaData(name="tHitem", kind="mixed")
+class THitem extends TAnyContentFromOtherNamespace {
+
+	@ExtendedMetaData(kind="attribute", name="revision")
+	attr type.NormalizedString[1] revision;
+
+	@ExtendedMetaData(kind="attribute", name="version")
+	attr type.NormalizedString[1] version;
+
+	@ExtendedMetaData(kind="attribute", name="what")
+	attr type.NormalizedString what;
+
+	@ExtendedMetaData(kind="attribute", name="when")
+	attr type.NormalizedString[1] when;
+
+	@ExtendedMetaData(kind="attribute", name="who")
+	attr type.NormalizedString who;
+
+	@ExtendedMetaData(kind="attribute", name="why")
+	attr type.NormalizedString why;
+}
+
+@ExtendedMetaData(name="tIDNaming", kind="elementOnly")
+abstract class TIDNaming extends TBaseElement {
+
+	@ExtendedMetaData(kind="attribute", name="desc")
+	attr type.NormalizedString desc;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	attr TName[1] ~id;
+}
+
+@ExtendedMetaData(name="tIED", kind="elementOnly")
+class TIED extends TNaming {
+
+	@ExtendedMetaData(kind="element", name="Services", namespace="##targetNamespace")
+	!resolve val TServices services;
+
+	@ExtendedMetaData(kind="element", name="AccessPoint", namespace="##targetNamespace")
+	!resolve val TAccessPoint[+] accessPoint;
+
+	@ExtendedMetaData(kind="attribute", name="configVersion")
+	attr type.NormalizedString configVersion;
+
+	@ExtendedMetaData(kind="attribute", name="manufacturer")
+	attr type.NormalizedString manufacturer;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr type.NormalizedString type;
+}
+
+@ExtendedMetaData(name="tInputs", kind="elementOnly")
+class TInputs extends TUnNaming {
+
+	@ExtendedMetaData(kind="element", name="ExtRef", namespace="##targetNamespace")
+	!resolve val TExtRef[+] extRef;
+}
+
+@ExtendedMetaData(name="tLDevice", kind="elementOnly")
+class TLDevice extends TUnNaming {
+
+	@ExtendedMetaData(kind="element", name="LN0", namespace="##targetNamespace")
+	!resolve val LN0Type[1] lN0;
+
+	@ExtendedMetaData(kind="element", name="LN", namespace="##targetNamespace")
+	!resolve val TLN[*] lN;
+
+	@ExtendedMetaData(kind="element", name="AccessControl", namespace="##targetNamespace")
+	!resolve val TAccessControl accessControl;
+
+	@ExtendedMetaData(kind="attribute", name="inst")
+	attr TName[1] inst;
+
+	@ExtendedMetaData(kind="attribute", name="ldName")
+	attr TRestrLdName ldName;
+}
+
+@ExtendedMetaData(name="tLLN0Enum")
+enum TLLN0Enum {
+	LLN0 = 0;
+}
+
+@ExtendedMetaData(name="tLLN0Enum:Object", baseType="tLLN0Enum")
+datatype TLLN0EnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tLN", kind="elementOnly")
+class TLN extends TAnyLN {
+
+	@ExtendedMetaData(kind="attribute", name="inst")
+	unsettable attr type.UnsignedInt[1] inst;
+
+	@ExtendedMetaData(kind="attribute", name="lnClass")
+	attr TLNClassEnum[1] lnClass;
+
+	@ExtendedMetaData(kind="attribute", name="prefix")
+	attr TAnyName prefix;
+}
+
+@ExtendedMetaData(name="tLN0", kind="elementOnly")
+class TLN0 extends TAnyLN {
+
+	@ExtendedMetaData(kind="element", name="GSEControl", namespace="##targetNamespace")
+	!resolve val TGSEControl[*] gSEControl;
+
+	@ExtendedMetaData(kind="element", name="SampledValueControl", namespace="##targetNamespace")
+	!resolve val TSampledValueControl[*] sampledValueControl;
+
+	@ExtendedMetaData(kind="element", name="SettingControl", namespace="##targetNamespace")
+	!resolve val TSettingControl settingControl;
+
+	@ExtendedMetaData(kind="element", name="SCLControl", namespace="##targetNamespace")
+	!resolve val TSCLControl sCLControl;
+
+	@ExtendedMetaData(kind="element", name="Log", namespace="##targetNamespace")
+	!resolve val TLog log;
+
+	@ExtendedMetaData(kind="attribute", name="inst")
+	unsettable attr type.NormalizedString[1] inst = "";
+
+	@ExtendedMetaData(kind="attribute", name="lnClass")
+	unsettable attr TLNClassEnum[1] lnClass = "LLN0";
+}
+
+@ExtendedMetaData(name="tLNClassEnum", memberTypes="tPredefinedLNClassEnum tExtensionLNClassEnum")
+datatype TLNClassEnum : java.lang.Object;
+
+@ExtendedMetaData(name="tLNode", kind="elementOnly")
+class TLNode extends TUnNaming {
+
+	@ExtendedMetaData(kind="attribute", name="iedName")
+	unsettable attr TName iedName = "None";
+
+	@ExtendedMetaData(kind="attribute", name="ldInst")
+	unsettable attr TAnyName ldInst = "";
+
+	@ExtendedMetaData(kind="attribute", name="lnClass")
+	attr TLNClassEnum[1] lnClass;
+
+	@ExtendedMetaData(kind="attribute", name="lnInst")
+	unsettable attr TAnyName lnInst = "";
+
+	@ExtendedMetaData(kind="attribute", name="lnType")
+	attr TName lnType;
+
+	@ExtendedMetaData(kind="attribute", name="prefix")
+	unsettable attr TAnyName prefix = "";
+}
+
+@ExtendedMetaData(name="tLNodeContainer", kind="elementOnly")
+abstract class TLNodeContainer extends TNaming {
+
+	@ExtendedMetaData(kind="element", name="LNode", namespace="##targetNamespace")
+	!resolve val TLNode[*] lNode;
+}
+
+@ExtendedMetaData(name="tLNodeType", kind="elementOnly")
+class TLNodeType extends TIDNaming {
+
+	@ExtendedMetaData(kind="element", name="DO", namespace="##targetNamespace")
+	!resolve val TDO[+] dO;
+
+	@ExtendedMetaData(kind="attribute", name="iedType")
+	unsettable attr TAnyName iedType = "";
+
+	@ExtendedMetaData(kind="attribute", name="lnClass")
+	attr TLNClassEnum[1] lnClass;
+}
+
+@ExtendedMetaData(name="tLog", kind="mixed")
+class TLog extends TAnyContentFromOtherNamespace {
+}
+
+@ExtendedMetaData(name="tLogControl", kind="elementOnly")
+class TLogControl extends TControlWithTriggerOpt {
+
+	@ExtendedMetaData(kind="attribute", name="logEna")
+	unsettable attr type.Boolean logEna = "true";
+
+	@ExtendedMetaData(kind="attribute", name="logName")
+	attr TName[1] logName;
+
+	@ExtendedMetaData(kind="attribute", name="reasonCode")
+	unsettable attr type.Boolean reasonCode = "true";
+}
+
+@ExtendedMetaData(name="tLogSettings", kind="empty")
+class TLogSettings extends TServiceSettings {
+
+	@ExtendedMetaData(kind="attribute", name="intgPd")
+	unsettable attr TServiceSettingsEnum intgPd = "Fix";
+
+	@ExtendedMetaData(kind="attribute", name="logEna")
+	unsettable attr TServiceSettingsEnum logEna = "Fix";
+
+	@ExtendedMetaData(kind="attribute", name="trgOps")
+	unsettable attr TServiceSettingsEnum trgOps = "Fix";
+}
+
+@ExtendedMetaData(name="tLPHDEnum")
+enum TLPHDEnum {
+	LPHD = 0;
+}
+
+@ExtendedMetaData(name="tLPHDEnum:Object", baseType="tLPHDEnum")
+datatype TLPHDEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tName", baseType="tAnyName", minLength="1")
+datatype TName : java.lang.String;
+
+@ExtendedMetaData(name="tNaming", kind="elementOnly")
+abstract class TNaming extends TBaseElement {
+
+	@ExtendedMetaData(kind="attribute", name="desc")
+	attr type.NormalizedString desc;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr TName[1] name;
+}
+
+@ExtendedMetaData(name="tP", kind="simple")
+class TP {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr TPAddr value;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr TPTypeEnum[1] type;
+}
+
+@ExtendedMetaData(name="tPAddr", baseType="http://www.eclipse.org/emf/2003/XMLType#normalizedString", minLength="1")
+datatype TPAddr : java.lang.String;
+
+@ExtendedMetaData(name="tP_APPID", kind="simple")
+class TPAPPID extends TP {
+}
+
+@ExtendedMetaData(name="tPhaseEnum")
+enum TPhaseEnum {
+	A = 0;
+	B = 1;
+	C = 2;
+	N = 3;
+	all = 4;
+	none = 5;
+}
+
+@ExtendedMetaData(name="tPhaseEnum:Object", baseType="tPhaseEnum")
+datatype TPhaseEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tPhysConn", kind="elementOnly")
+class TPhysConn {
+
+	@ExtendedMetaData(kind="element", name="P", namespace="##targetNamespace")
+	!resolve val TP[*] p;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr type.NormalizedString[1] type;
+}
+
+@ExtendedMetaData(name="tP_IP", kind="simple")
+class TPIP extends TP {
+}
+
+@ExtendedMetaData(name="tP_IP-GATEWAY", kind="simple")
+class TPIPGATEWAY extends TP {
+}
+
+@ExtendedMetaData(name="tP_IP-SUBNET", kind="simple")
+class TPIPSUBNET extends TP {
+}
+
+@ExtendedMetaData(name="tP_MAC-Address", kind="simple")
+class TPMACAddress extends TP {
+}
+
+@ExtendedMetaData(name="tP_OSI-AE-Invoke", kind="simple")
+class TPOSIAEInvoke extends TP {
+}
+
+@ExtendedMetaData(name="tP_OSI-AE-Qualifier", kind="simple")
+class TPOSIAEQualifier extends TP {
+}
+
+@ExtendedMetaData(name="tP_OSI-AP-Invoke", kind="simple")
+class TPOSIAPInvoke extends TP {
+}
+
+@ExtendedMetaData(name="tP_OSI-AP-Title", kind="simple")
+class TPOSIAPTitle extends TP {
+}
+
+@ExtendedMetaData(name="tP_OSI-NSAP", kind="simple")
+class TPOSINSAP extends TP {
+}
+
+@ExtendedMetaData(name="tP_OSI-PSEL", kind="simple")
+class TPOSIPSEL extends TP {
+}
+
+@ExtendedMetaData(name="tP_OSI-SSEL", kind="simple")
+class TPOSISSEL extends TP {
+}
+
+@ExtendedMetaData(name="tP_OSI-TSEL", kind="simple")
+class TPOSITSEL extends TP {
+}
+
+@ExtendedMetaData(name="tPowerSystemResource", kind="elementOnly")
+abstract class TPowerSystemResource extends TLNodeContainer {
+}
+
+@ExtendedMetaData(name="tPowerTransformer", kind="elementOnly")
+class TPowerTransformer extends TEquipment {
+
+	@ExtendedMetaData(kind="element", name="TransformerWinding", namespace="##targetNamespace")
+	!resolve val TTransformerWinding[+] transformerWinding;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	unsettable attr TPowerTransformerEnum[1] type = "PTR";
+}
+
+@ExtendedMetaData(name="tPowerTransformerEnum")
+enum TPowerTransformerEnum {
+	PTR = 0;
+}
+
+@ExtendedMetaData(name="tPowerTransformerEnum:Object", baseType="tPowerTransformerEnum")
+datatype TPowerTransformerEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tPredefinedAttributeNameEnum")
+enum TPredefinedAttributeNameEnum {
+	T = 0;
+	Test = 1;
+	Check = 2;
+	SIUnit = 3;
+	Oper = 4;
+	SBO = 5;
+	SBOw = 6;
+	Cancel = 7;
+}
+
+@ExtendedMetaData(name="tPredefinedAttributeNameEnum:Object", baseType="tPredefinedAttributeNameEnum")
+datatype TPredefinedAttributeNameEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tPredefinedBasicTypeEnum")
+enum TPredefinedBasicTypeEnum {
+	BOOLEAN = 0;
+	INT8 = 1;
+	INT16 = 2;
+	INT24 = 3;
+	INT32 = 4;
+	INT128 = 5;
+	INT8U = 6;
+	INT16U = 7;
+	INT24U = 8;
+	INT32U = 9;
+	FLOAT32 = 10;
+	FLOAT64 = 11;
+	Enum = 12;
+	Dbpos = 13;
+	Tcmd = 14;
+	Quality = 15;
+	Timestamp = 16;
+	VisString32 = 17;
+	VisString64 = 18;
+	VisString129 = 19;
+	VisString255 = 20;
+	Octet64 = 21;
+	Struct = 22;
+	EntryTime = 23;
+	Unicode255 = 24;
+	Check = 25;
+}
+
+@ExtendedMetaData(name="tPredefinedBasicTypeEnum:Object", baseType="tPredefinedBasicTypeEnum")
+datatype TPredefinedBasicTypeEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tPredefinedCDCEnum")
+enum TPredefinedCDCEnum {
+	SPS = 0;
+	DPS = 1;
+	INS = 2;
+	ACT = 3;
+	ACD = 4;
+	SEC = 5;
+	BCR = 6;
+	MV = 7;
+	CMV = 8;
+	SAV = 9;
+	WYE = 10;
+	DEL = 11;
+	SEQ = 12;
+	HMV = 13;
+	HWYE = 14;
+	HDEL = 15;
+	SPC = 16;
+	DPC = 17;
+	INC = 18;
+	BSC = 19;
+	ISC = 20;
+	APC = 21;
+	SPG = 22;
+	ING = 23;
+	ASG = 24;
+	CURVE = 25;
+	DPL = 26;
+	LPL = 27;
+	CSD = 28;
+}
+
+@ExtendedMetaData(name="tPredefinedCDCEnum:Object", baseType="tPredefinedCDCEnum")
+datatype TPredefinedCDCEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tPredefinedCommonConductingEquipmentEnum")
+enum TPredefinedCommonConductingEquipmentEnum {
+	CBR = 0;
+	DIS = 1;
+	VTR = 2;
+	CTR = 3;
+	GEN = 4;
+	CAP = 5;
+	REA = 6;
+	CON = 7;
+	MOT = 8;
+	EFN = 9;
+	PSH = 10;
+	BAT = 11;
+	BSH = 12;
+	CAB = 13;
+	GIL = 14;
+	LIN = 15;
+	RRC = 16;
+	SAR = 17;
+	TCF = 18;
+	TCR = 19;
+	IFL = 20;
+}
+
+@ExtendedMetaData(name="tPredefinedCommonConductingEquipmentEnum:Object", baseType="tPredefinedCommonConductingEquipmentEnum")
+datatype TPredefinedCommonConductingEquipmentEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tPredefinedEquipmentEnum", memberTypes="tCommonConductingEquipmentEnum tPowerTransformerEnum tTransformerWindingEnum")
+datatype TPredefinedEquipmentEnum : java.lang.Object;
+
+@ExtendedMetaData(name="tPredefinedGeneralEquipmentEnum")
+enum TPredefinedGeneralEquipmentEnum {
+	AXN = 0;
+	BAT = 1;
+	MOT = 2;
+}
+
+@ExtendedMetaData(name="tPredefinedGeneralEquipmentEnum:Object", baseType="tPredefinedGeneralEquipmentEnum")
+datatype TPredefinedGeneralEquipmentEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tPredefinedLNClassEnum", memberTypes="tLPHDEnum tLLN0Enum tDomainLNEnum")
+datatype TPredefinedLNClassEnum : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tPredefinedPTypeEnum")
+enum TPredefinedPTypeEnum {
+	IP = 0;
+	IPSUBNET = 1;
+	IPGATEWAY = 2;
+	OSINSAP = 3;
+	OSITSEL = 4;
+	OSISSEL = 5;
+	OSIPSEL = 6;
+	OSIAPTitle = 7;
+	OSIAPInvoke = 8;
+	OSIAEQualifier = 9;
+	OSIAEInvoke = 10;
+	MACAddress = 11;
+	APPID = 12;
+	VLANPRIORITY = 13;
+	VLANID = 14;
+}
+
+@ExtendedMetaData(name="tPredefinedPTypeEnum:Object", baseType="tPredefinedPTypeEnum")
+datatype TPredefinedPTypeEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tPrivate", kind="mixed")
+class TPrivate extends TAnyContentFromOtherNamespace {
+
+	@ExtendedMetaData(kind="attribute", name="source")
+	attr type.AnyURI source;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr type.NormalizedString type;
+}
+
+@ExtendedMetaData(name="tPTypeEnum", memberTypes="tPredefinedPTypeEnum tExtensionPTypeEnum")
+datatype TPTypeEnum : java.lang.Object;
+
+@ExtendedMetaData(name="tP_VLAN-ID", kind="simple")
+class TPVLANID extends TP {
+}
+
+@ExtendedMetaData(name="tP_VLAN-PRIORITY", kind="simple")
+class TPVLANPRIORITY extends TP {
+}
+
+@ExtendedMetaData(name="tRef", baseType="http://www.eclipse.org/emf/2003/XMLType#normalizedString", pattern=".+/.+/.+/.+")
+datatype TRef : java.lang.String;
+
+@ExtendedMetaData(name="tReportControl", kind="elementOnly")
+class TReportControl extends TControlWithTriggerOpt {
+
+	@ExtendedMetaData(kind="element", name="OptFields", namespace="##targetNamespace")
+	!resolve val OptFieldsType[1] optFields;
+
+	@ExtendedMetaData(kind="element", name="RptEnabled", namespace="##targetNamespace")
+	!resolve val TRptEnabled rptEnabled;
+
+	@ExtendedMetaData(kind="attribute", name="buffered")
+	unsettable attr type.Boolean buffered = "false";
+
+	@ExtendedMetaData(kind="attribute", name="bufTime")
+	unsettable attr type.UnsignedInt bufTime = "0";
+
+	@ExtendedMetaData(kind="attribute", name="confRev")
+	unsettable attr type.UnsignedInt[1] confRev;
+
+	@ExtendedMetaData(kind="attribute", name="rptID")
+	attr TName[1] rptID;
+}
+
+@ExtendedMetaData(name="tReportSettings", kind="empty")
+class TReportSettings extends TServiceSettings {
+
+	@ExtendedMetaData(kind="attribute", name="bufTime")
+	unsettable attr TServiceSettingsEnum bufTime = "Fix";
+
+	@ExtendedMetaData(kind="attribute", name="intgPd")
+	unsettable attr TServiceSettingsEnum intgPd = "Fix";
+
+	@ExtendedMetaData(kind="attribute", name="optFields")
+	unsettable attr TServiceSettingsEnum optFields = "Fix";
+
+	@ExtendedMetaData(kind="attribute", name="rptID")
+	unsettable attr TServiceSettingsEnum rptID = "Fix";
+
+	@ExtendedMetaData(kind="attribute", name="trgOps")
+	unsettable attr TServiceSettingsEnum trgOps = "Fix";
+}
+
+@ExtendedMetaData(name="tRestrLdName", baseType="http://www.eclipse.org/emf/2003/XMLType#Name", maxLength="64", pattern="\p{L}[\d,\p{L}]*")
+datatype TRestrLdName : java.lang.String;
+
+@ExtendedMetaData(name="tRestrName", baseType="http://www.eclipse.org/emf/2003/XMLType#Name", pattern="[\d,\p{L}]+")
+datatype TRestrName : java.lang.String;
+
+@ExtendedMetaData(name="tRestrName1stL", baseType="http://www.eclipse.org/emf/2003/XMLType#Name", pattern="\p{Ll}[\d,\p{L}]*")
+datatype TRestrName1stL : java.lang.String;
+
+@ExtendedMetaData(name="tRestrName1stU", baseType="http://www.eclipse.org/emf/2003/XMLType#Name", pattern="\p{Lu}[\d,\p{L}]*")
+datatype TRestrName1stU : java.lang.String;
+
+@ExtendedMetaData(name="tRptEnabled", kind="elementOnly")
+class TRptEnabled extends TUnNaming {
+
+	@ExtendedMetaData(kind="element", name="ClientLN", namespace="##targetNamespace")
+	!resolve val TClientLN[*] clientLN;
+
+	@ExtendedMetaData(kind="attribute", name="max")
+	unsettable attr type.UnsignedInt max = "1";
+}
+
+@ExtendedMetaData(name="tSampledValueControl", kind="elementOnly")
+class TSampledValueControl extends TControlWithIEDName {
+
+	@ExtendedMetaData(kind="element", name="SmvOpts", namespace="##targetNamespace")
+	!resolve val SmvOptsType[1] smvOpts;
+
+	@ExtendedMetaData(kind="attribute", name="multicast")
+	unsettable attr type.Boolean multicast = "true";
+
+	@ExtendedMetaData(kind="attribute", name="nofASDU")
+	unsettable attr type.UnsignedInt[1] nofASDU;
+
+	@ExtendedMetaData(kind="attribute", name="smpRate")
+	unsettable attr type.UnsignedInt[1] smpRate;
+
+	@ExtendedMetaData(kind="attribute", name="smvID")
+	attr type.NormalizedString[1] smvID;
+}
+
+@ExtendedMetaData(name="tSCLControl", kind="elementOnly")
+class TSCLControl extends TUnNaming {
+}
+
+@ExtendedMetaData(name="tSDI", kind="elementOnly")
+class TSDI extends TUnNaming {
+
+	@ExtendedMetaData(kind="group", name="group:5")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="SDI", namespace="##targetNamespace", group="#group:5")
+	volatile transient derived !resolve val TSDI[*] sDI;
+
+	@ExtendedMetaData(kind="element", name="DAI", namespace="##targetNamespace", group="#group:5")
+	volatile transient derived !resolve val TDAI[*] dAI;
+
+	@ExtendedMetaData(kind="attribute", name="ix")
+	unsettable attr type.UnsignedInt ix;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	attr TAttributeNameEnum[1] name;
+}
+
+@ExtendedMetaData(name="tSDO", kind="elementOnly")
+class TSDO extends TNaming {
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr TName[1] type;
+}
+
+@ExtendedMetaData(name="tServer", kind="elementOnly")
+class TServer extends TUnNaming {
+
+	@ExtendedMetaData(kind="element", name="Authentication", namespace="##targetNamespace")
+	!resolve val AuthenticationType[1] authentication;
+
+	@ExtendedMetaData(kind="element", name="LDevice", namespace="##targetNamespace")
+	!resolve val TLDevice[+] lDevice;
+
+	@ExtendedMetaData(kind="element", name="Association", namespace="##targetNamespace")
+	!resolve val TAssociation[*] association;
+
+	@ExtendedMetaData(kind="attribute", name="timeout")
+	unsettable attr type.UnsignedInt timeout = "30";
+}
+
+@ExtendedMetaData(name="tServiceFCEnum")
+enum TServiceFCEnum {
+	SG = 0;
+	BR = 1;
+	RP = 2;
+	LG = 3;
+	GO = 4;
+	GS = 5;
+	MS = 6;
+	US = 7;
+}
+
+@ExtendedMetaData(name="tServiceFCEnum:Object", baseType="tServiceFCEnum")
+datatype TServiceFCEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tServices", kind="elementOnly")
+class TServices {
+
+	@ExtendedMetaData(kind="element", name="DynAssociation", namespace="##targetNamespace")
+	!resolve val TServiceYesNo dynAssociation;
+
+	@ExtendedMetaData(kind="element", name="SettingGroups", namespace="##targetNamespace")
+	!resolve val SettingGroupsType settingGroups;
+
+	@ExtendedMetaData(kind="element", name="GetDirectory", namespace="##targetNamespace")
+	!resolve val TServiceYesNo getDirectory;
+
+	@ExtendedMetaData(kind="element", name="GetDataObjectDefinition", namespace="##targetNamespace")
+	!resolve val TServiceYesNo getDataObjectDefinition;
+
+	@ExtendedMetaData(kind="element", name="DataObjectDirectory", namespace="##targetNamespace")
+	!resolve val TServiceYesNo dataObjectDirectory;
+
+	@ExtendedMetaData(kind="element", name="GetDataSetValue", namespace="##targetNamespace")
+	!resolve val TServiceYesNo getDataSetValue;
+
+	@ExtendedMetaData(kind="element", name="SetDataSetValue", namespace="##targetNamespace")
+	!resolve val TServiceYesNo setDataSetValue;
+
+	@ExtendedMetaData(kind="element", name="DataSetDirectory", namespace="##targetNamespace")
+	!resolve val TServiceYesNo dataSetDirectory;
+
+	@ExtendedMetaData(kind="element", name="ConfDataSet", namespace="##targetNamespace")
+	!resolve val TServiceWithMaxAndMaxAttributesAndModify confDataSet;
+
+	@ExtendedMetaData(kind="element", name="DynDataSet", namespace="##targetNamespace")
+	!resolve val TServiceWithMaxAndMaxAttributes dynDataSet;
+
+	@ExtendedMetaData(kind="element", name="ReadWrite", namespace="##targetNamespace")
+	!resolve val TServiceYesNo readWrite;
+
+	@ExtendedMetaData(kind="element", name="TimerActivatedControl", namespace="##targetNamespace")
+	!resolve val TServiceYesNo timerActivatedControl;
+
+	@ExtendedMetaData(kind="element", name="ConfReportControl", namespace="##targetNamespace")
+	!resolve val TServiceWithMax confReportControl;
+
+	@ExtendedMetaData(kind="element", name="GetCBValues", namespace="##targetNamespace")
+	!resolve val TServiceYesNo getCBValues;
+
+	@ExtendedMetaData(kind="element", name="ConfLogControl", namespace="##targetNamespace")
+	!resolve val TServiceWithMax confLogControl;
+
+	@ExtendedMetaData(kind="element", name="ReportSettings", namespace="##targetNamespace")
+	!resolve val TReportSettings reportSettings;
+
+	@ExtendedMetaData(kind="element", name="LogSettings", namespace="##targetNamespace")
+	!resolve val TLogSettings logSettings;
+
+	@ExtendedMetaData(kind="element", name="GSESettings", namespace="##targetNamespace")
+	!resolve val TGSESettings gSESettings;
+
+	@ExtendedMetaData(kind="element", name="SMVSettings", namespace="##targetNamespace")
+	!resolve val TSMVSettings sMVSettings;
+
+	@ExtendedMetaData(kind="element", name="GSEDir", namespace="##targetNamespace")
+	!resolve val TServiceYesNo gSEDir;
+
+	@ExtendedMetaData(kind="element", name="GOOSE", namespace="##targetNamespace")
+	!resolve val TServiceWithMax gOOSE;
+
+	@ExtendedMetaData(kind="element", name="GSSE", namespace="##targetNamespace")
+	!resolve val TServiceWithMax gSSE;
+
+	@ExtendedMetaData(kind="element", name="FileHandling", namespace="##targetNamespace")
+	!resolve val TServiceYesNo fileHandling;
+
+	@ExtendedMetaData(kind="element", name="ConfLNs", namespace="##targetNamespace")
+	!resolve val TConfLNs confLNs;
+
+	@ExtendedMetaData(kind="element", name="ClientServices", namespace="##targetNamespace")
+	!resolve val TClientServices clientServices;
+}
+
+@ExtendedMetaData(name="tServiceSettings", kind="empty")
+abstract class TServiceSettings {
+
+	@ExtendedMetaData(kind="attribute", name="cbName")
+	unsettable attr TServiceSettingsEnum cbName = "Fix";
+
+	@ExtendedMetaData(kind="attribute", name="datSet")
+	unsettable attr TServiceSettingsEnum datSet = "Fix";
+}
+
+@ExtendedMetaData(name="tServiceSettingsEnum")
+enum TServiceSettingsEnum {
+	Dyn = 0;
+	Conf = 1;
+	Fix = 2;
+}
+
+@ExtendedMetaData(name="tServiceSettingsEnum:Object", baseType="tServiceSettingsEnum")
+datatype TServiceSettingsEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tServiceWithMax", kind="empty")
+class TServiceWithMax {
+
+	@ExtendedMetaData(kind="attribute", name="max")
+	unsettable attr type.UnsignedInt[1] max;
+}
+
+@ExtendedMetaData(name="tServiceWithMaxAndMaxAttributes", kind="empty")
+class TServiceWithMaxAndMaxAttributes extends TServiceWithMax {
+
+	@ExtendedMetaData(kind="attribute", name="maxAttributes")
+	unsettable attr type.UnsignedInt maxAttributes;
+}
+
+@ExtendedMetaData(name="tServiceWithMaxAndMaxAttributesAndModify", kind="empty")
+class TServiceWithMaxAndMaxAttributesAndModify extends TServiceWithMaxAndMaxAttributes {
+
+	@ExtendedMetaData(kind="attribute", name="modify")
+	unsettable attr type.Boolean modify = "true";
+}
+
+@ExtendedMetaData(name="tServiceWithMaxAndModify", kind="empty")
+class TServiceWithMaxAndModify extends TServiceWithMax {
+
+	@ExtendedMetaData(kind="attribute", name="modify")
+	unsettable attr type.Boolean modify = "true";
+}
+
+@ExtendedMetaData(name="tServiceYesNo", kind="empty")
+class TServiceYesNo {
+}
+
+@ExtendedMetaData(name="tSettingControl", kind="elementOnly")
+class TSettingControl extends TUnNaming {
+
+	@ExtendedMetaData(kind="attribute", name="actSG")
+	unsettable attr type.UnsignedInt actSG = "1";
+
+	@ExtendedMetaData(kind="attribute", name="numOfSGs")
+	unsettable attr type.UnsignedInt[1] numOfSGs;
+}
+
+@ExtendedMetaData(name="tSIUnitEnum")
+enum TSIUnitEnum {
+	none = 0;
+	m = 1;
+	kg = 2;
+	s = 3;
+	A = 4;
+	K = 5;
+	mol = 6;
+	cd = 7;
+	deg = 8;
+	rad = 9;
+	sr = 10;
+	Gy = 11;
+	q = 12;
+	C = 13;
+	Sv = 14;
+	F = 15;
+	C1 = 16;
+	S1 = 17;
+	H = 18;
+	V = 19;
+	ohm = 20;
+	J = 21;
+	N = 22;
+	Hz = 23;
+	lx = 24;
+	Lm = 25;
+	Wb = 26;
+	T = 27;
+	W = 28;
+	Pa = 29;
+	m2 = 30;
+	m3 = 31;
+	mS = 32;
+	mS2 = 33;
+	m3S = 34;
+	mM3 = 35;
+	M1 = 36;
+	kgM3 = 37;
+	m2S = 38;
+	WMK = 39;
+	JK = 40;
+	ppm = 41;
+	s11 = 42;
+	radS = 43;
+	VA = 44;
+	Watts = 45;
+	VAr = 46;
+	phi = 47;
+	cosPhi = 48;
+	Vs = 49;
+	V2 = 50;
+	As = 51;
+	A2 = 52;
+	A2S = 53;
+	VAh = 54;
+	Wh = 55;
+	VArh = 56;
+	VHz = 57;
+	bS = 58;
+}
+
+@ExtendedMetaData(name="tSIUnitEnum:Object", baseType="tSIUnitEnum")
+datatype TSIUnitEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tSMV", kind="elementOnly")
+class TSMV extends TControlBlock {
+}
+
+@ExtendedMetaData(name="tSMVSettings", kind="elementOnly")
+class TSMVSettings extends TServiceSettings {
+
+	@ExtendedMetaData(kind="element", name="SmpRate", namespace="##targetNamespace")
+	!unique attr SmpRateType[+] smpRate;
+
+	@ExtendedMetaData(kind="attribute", name="optFields")
+	unsettable attr TServiceSettingsEnum optFields = "Fix";
+
+	@ExtendedMetaData(kind="attribute", name="smpRate")
+	unsettable attr TServiceSettingsEnum smpRate1 = "Fix";
+
+	@ExtendedMetaData(kind="attribute", name="svID")
+	unsettable attr TServiceSettingsEnum svID = "Fix";
+}
+
+@ExtendedMetaData(name="tSubEquipment", kind="elementOnly")
+class TSubEquipment extends TPowerSystemResource {
+
+	@ExtendedMetaData(kind="attribute", name="phase")
+	unsettable attr TPhaseEnum phase = "none";
+
+	@ExtendedMetaData(kind="attribute", name="virtual")
+	unsettable attr type.Boolean virtual = "false";
+}
+
+@ExtendedMetaData(name="tSubFunction", kind="elementOnly")
+class TSubFunction extends TPowerSystemResource {
+
+	@ExtendedMetaData(kind="element", name="GeneralEquipment", namespace="##targetNamespace")
+	!resolve val TGeneralEquipment[*] generalEquipment;
+}
+
+@ExtendedMetaData(name="tSubNetwork", kind="elementOnly")
+class TSubNetwork extends TNaming {
+
+	@ExtendedMetaData(kind="element", name="BitRate", namespace="##targetNamespace")
+	!resolve val TBitRateInMbPerSec bitRate;
+
+	@ExtendedMetaData(kind="element", name="ConnectedAP", namespace="##targetNamespace")
+	!resolve val TConnectedAP[+] connectedAP;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	attr type.NormalizedString type;
+}
+
+@ExtendedMetaData(name="tSubstation", kind="elementOnly")
+class TSubstation extends TEquipmentContainer {
+
+	@ExtendedMetaData(kind="element", name="VoltageLevel", namespace="##targetNamespace")
+	!resolve val TVoltageLevel[+] voltageLevel;
+
+	@ExtendedMetaData(kind="element", name="Function", namespace="##targetNamespace")
+	!resolve val TFunction[*] function;
+}
+
+@ExtendedMetaData(name="tTapChanger", kind="elementOnly")
+class TTapChanger extends TPowerSystemResource {
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	unsettable attr type.Name[1] type = "LTC";
+
+	@ExtendedMetaData(kind="attribute", name="virtual")
+	unsettable attr type.Boolean virtual = "false";
+}
+
+@ExtendedMetaData(name="tTerminal", kind="elementOnly")
+class TTerminal extends TUnNaming {
+
+	@ExtendedMetaData(kind="attribute", name="bayName")
+	attr TName[1] bayName;
+
+	@ExtendedMetaData(kind="attribute", name="cNodeName")
+	attr TName[1] cNodeName;
+
+	@ExtendedMetaData(kind="attribute", name="connectivityNode")
+	attr TRef[1] connectivityNode;
+
+	@ExtendedMetaData(kind="attribute", name="name")
+	unsettable attr TAnyName name = "";
+
+	@ExtendedMetaData(kind="attribute", name="substationName")
+	attr TName[1] substationName;
+
+	@ExtendedMetaData(kind="attribute", name="voltageLevelName")
+	attr TName[1] voltageLevelName;
+}
+
+@ExtendedMetaData(name="tText", kind="mixed")
+class TText extends TAnyContentFromOtherNamespace {
+
+	@ExtendedMetaData(kind="attribute", name="source")
+	attr type.AnyURI source;
+}
+
+@ExtendedMetaData(name="tTransformerWinding", kind="elementOnly")
+class TTransformerWinding extends TAbstractConductingEquipment {
+
+	@ExtendedMetaData(kind="element", name="TapChanger", namespace="##targetNamespace")
+	!resolve val TTapChanger tapChanger;
+
+	@ExtendedMetaData(kind="attribute", name="type")
+	unsettable attr TTransformerWindingEnum[1] type = "PTW";
+}
+
+@ExtendedMetaData(name="tTransformerWindingEnum")
+enum TTransformerWindingEnum {
+	PTW = 0;
+}
+
+@ExtendedMetaData(name="tTransformerWindingEnum:Object", baseType="tTransformerWindingEnum")
+datatype TTransformerWindingEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tTrgOps", kind="empty")
+class TTrgOps {
+
+	@ExtendedMetaData(kind="attribute", name="dchg")
+	unsettable attr type.Boolean dchg = "false";
+
+	@ExtendedMetaData(kind="attribute", name="dupd")
+	unsettable attr type.Boolean dupd = "false";
+
+	@ExtendedMetaData(kind="attribute", name="period")
+	unsettable attr type.Boolean period = "false";
+
+	@ExtendedMetaData(kind="attribute", name="qchg")
+	unsettable attr type.Boolean qchg = "false";
+}
+
+@ExtendedMetaData(name="tTrgOptControlEnum")
+enum TTrgOptControlEnum {
+	dchg = 0;
+	qchg = 1;
+	dupd = 2;
+	period = 3;
+	none = 4;
+}
+
+@ExtendedMetaData(name="tTrgOptControlEnum:Object", baseType="tTrgOptControlEnum")
+datatype TTrgOptControlEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tTrgOptEnum")
+enum TTrgOptEnum {
+	dchg = 0;
+	qchg = 1;
+	dupd = 2;
+	none = 3;
+}
+
+@ExtendedMetaData(name="tTrgOptEnum:Object", baseType="tTrgOptEnum")
+datatype TTrgOptEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tUnitMultiplierEnum")
+enum TUnitMultiplierEnum {
+	_ = 0;
+	m = 1;
+	k = 2;
+	M1 = 3;
+	mu = 4;
+	y = 5;
+	z = 6;
+	a = 7;
+	f = 8;
+	p = 9;
+	n = 10;
+	c = 11;
+	d = 12;
+	da = 13;
+	h = 14;
+	G = 15;
+	T = 16;
+	P1 = 17;
+	E = 18;
+	Z1 = 19;
+	Y1 = 20;
+}
+
+@ExtendedMetaData(name="tUnitMultiplierEnum:Object", baseType="tUnitMultiplierEnum")
+datatype TUnitMultiplierEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tUnNaming", kind="elementOnly")
+abstract class TUnNaming extends TBaseElement {
+
+	@ExtendedMetaData(kind="attribute", name="desc")
+	attr type.NormalizedString desc;
+}
+
+@ExtendedMetaData(name="tVal", kind="simple")
+class TVal {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.NormalizedString value;
+
+	@ExtendedMetaData(kind="attribute", name="sGroup")
+	unsettable attr type.UnsignedInt sGroup;
+}
+
+@ExtendedMetaData(name="tValKindEnum")
+enum TValKindEnum {
+	Spec = 0;
+	Conf = 1;
+	RO = 2;
+	Set = 3;
+}
+
+@ExtendedMetaData(name="tValKindEnum:Object", baseType="tValKindEnum")
+datatype TValKindEnumObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="tValueWithUnit", kind="simple")
+class TValueWithUnit {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.Decimal value;
+
+	@ExtendedMetaData(kind="attribute", name="multiplier")
+	unsettable attr TUnitMultiplierEnum multiplier = "";
+
+	@ExtendedMetaData(kind="attribute", name="unit")
+	unsettable attr TSIUnitEnum[1] unit;
+}
+
+@ExtendedMetaData(name="tVoltage", kind="simple")
+class TVoltage extends TValueWithUnit {
+}
+
+@ExtendedMetaData(name="tVoltageLevel", kind="elementOnly")
+class TVoltageLevel extends TEquipmentContainer {
+
+	@ExtendedMetaData(kind="element", name="Voltage", namespace="##targetNamespace")
+	!resolve val TVoltage voltage;
+
+	@ExtendedMetaData(kind="element", name="Bay", namespace="##targetNamespace")
+	!resolve val TBay[+] bay;
+}
+

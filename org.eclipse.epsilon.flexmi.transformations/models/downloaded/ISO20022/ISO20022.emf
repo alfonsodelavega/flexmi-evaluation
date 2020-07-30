@@ -1,0 +1,1811 @@
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINTS", description="#1. namespace uri is urn:iso:std:iso:20022:2013:ecore #2. ISO20022 meta classes are grouped under a single package. #3. In the Meta Model, eAttributes are typed with specific EMF DataTypes (EBoolean, EString,...) Those EMF DataTypes are mapped to XSD DataTypes as described in #TODOINSERT REF TO EMF BOOK  #4. All ISO20022 meta classes extend the abstract meta class ModelEntity that conveys versioning information and the ObjectIdentifier")
+@GmCore(ignored="false", name="iso20022", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+@namespace(uri="urn:iso:std:iso:20022:2013:ecore", prefix="iso20022")
+package iso20022;
+
+@GenModel(documentation="identification and efficient resolution to the location of a MessagingEndpoint")
+@GmCore(ignored="false", name="Address", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Address extends ModelEntity {
+
+	@GenModel(documentation="a BroadCastList to which this Address belongs")
+	@GmCore(ignored="false", name="broadCastList", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BroadcastList[*]#address broadCastList;
+
+	@GenModel(documentation="specifies the MessagingEndpoint for the Address")
+	@GmCore(ignored="false", name="endpoint", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessagingEndpoint[1]#location endpoint;
+}
+
+@GenModel(documentation="Abstract definition of a model entity.The common meta class which is the generalisation of all Meta Classes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Abstract meta class which is the common ancestor of all ISO20022 meta classes.")
+@GmCore(ignored="false", name="ModelEntity", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class ModelEntity {
+
+	@GenModel(documentation="List of next versions of a ModelEntity that stem from this ModelEntity.Allows version control management.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="RepositoryManagement", description="Versioning of Repository Objects")
+	@GmCore(ignored="false", name="nextVersions", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref ModelEntity[*]#previousVersion nextVersions;
+
+	@GenModel(documentation="Previous version of a ModelEntity that this ModelEntity stems from.Allows version control management.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="RepositoryManagement", description="Versioning of Repository Concepts")
+	@GmCore(ignored="false", name="previousVersion", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref ModelEntity#nextVersions previousVersion;
+
+	@GenModel(documentation="Uniquely identifies the RepositoryConcept")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="ObjectIdentifier moved up to the meta class ModelEntity, that is the common ancestor to all ISO20022 meta classes")
+	@GmCore(ignored="false", name="objectIdentifier", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String objectIdentifier;
+}
+
+@GenModel(documentation="set of references to MessagingEndpoints (identified by their Address), that is used for message broadcasting")
+@GmCore(ignored="false", name="BroadcastList", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class BroadcastList extends ModelEntity {
+
+	@GenModel(documentation="a BroadCastList entry using an Address")
+	@GmCore(ignored="false", name="address", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Address[*]#broadCastList address;
+}
+
+@GenModel(documentation="addressable node on the MessageTransportSystem which is capable of sending and receiving TransportMessages")
+@GmCore(ignored="false", name="MessagingEndpoint", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessagingEndpoint extends ModelEntity {
+
+	@GenModel(documentation="the MessageTransportSystem that owns and uses this MessagingEndpoint")
+	@GmCore(ignored="false", name="transportSystem", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageTransportSystem[1]#endpoint transportSystem;
+
+	@GenModel(documentation="the TransportMessage that is received by the receiving MessagingEndpoint")
+	@GmCore(ignored="false", name="receivedMessage", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref TransportMessage[*]#receiver receivedMessage;
+
+	@GenModel(documentation="the TransportMessage that is sent by the sending MessagingEndpoint")
+	@GmCore(ignored="false", name="sentMessage", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref TransportMessage[*]#sender sentMessage;
+
+	@GenModel(documentation="an Address used to identify the MessagingEndpoint")
+	@GmCore(ignored="false", name="location", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Address[*]#endpoint location;
+}
+
+@GenModel(documentation="mechanism that receives Transport Messages from the sending MessagingEndpoint, transports them, and delivers them to the receiving MessagingEndpoint")
+@GmCore(ignored="false", name="MessageTransportSystem", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageTransportSystem extends ModelEntity {
+
+	@GenModel(documentation="a MessagingEndpoint owned by a single MessageTransportSystem")
+	@GmCore(ignored="false", name="endpoint", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val MessagingEndpoint[*]#transportSystem endpoint;
+}
+
+@GenModel(documentation="document that is an instance of the MessageTransportSystem message schema")
+@GmCore(ignored="false", name="TransportMessage", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class TransportMessage extends ModelEntity {
+
+	@GenModel(documentation="The sender and receiver of a TransportMessage must use the same MessageTransportSystemreceiver->asBag().transportSystem = sender.transportSystem->asBag()")
+	@GmCore(ignored="false", name="sameMessageTransportSystem", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] sameMessageTransportSystem(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="the sending MessagingEndpoint of a TransportMessage")
+	@GmCore(ignored="false", name="sender", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessagingEndpoint[1]#sentMessage sender;
+
+	@GenModel(documentation="the MessageInstance that is part of the TransportMessage")
+	@GmCore(ignored="false", name="messageInstance", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageInstance[1]#transportMessage messageInstance;
+
+	@GenModel(documentation="the receiving MessagingEndpoint in a TransportMessage")
+	@GmCore(ignored="false", name="receiver", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessagingEndpoint[*]#receivedMessage receiver;
+}
+
+@GenModel(documentation="instance of MessageDefinition, containing a set of structured information exchanged between BusinessRoles, in the scope of a BusinessTransaction")
+@GmCore(ignored="false", name="MessageInstance", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageInstance extends ModelEntity {
+
+	@GenModel(documentation="the SyntaxScheme instantiated by this MessageInstance")
+	@GmCore(ignored="false", name="specification", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref SyntaxMessageScheme[1] specification;
+
+	@GenModel(documentation="the TransportMessage that contains the MessageInstance")
+	@GmCore(ignored="false", name="transportMessage", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref TransportMessage[+]#messageInstance transportMessage;
+}
+
+@GenModel(documentation="syntax processable notation used to define the structure of a MessageInstance in a particular syntax")
+@GmCore(ignored="false", name="SyntaxMessageScheme", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class SyntaxMessageScheme extends TopLevelCatalogueEntry {
+
+	@GenModel(documentation="the MessageDefinitionTrace from the SyntaxMessageScheme to the MessageDefinition")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="messageDefinitionTrace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageDefinition#derivation messageDefinitionTrace;
+}
+
+@GenModel(documentation="artefact in the BusinessProcessCatalogue that is not owned by another artefact in the Repository")
+@GmCore(ignored="false", name="TopLevelCatalogueEntry", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class TopLevelCatalogueEntry extends RepositoryConcept {
+
+	@GenModel(documentation="the BusinessProcessCatalogue that contains all ISO 20022 TopLevelCatalogueEntries")
+	@GmCore(ignored="false", name="businessProcessCatalogue", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessProcessCatalogue[1]#topLevelCatalogueEntry businessProcessCatalogue;
+}
+
+@GenModel(documentation="artefact that has been defined during the development of an ISO 20022 MessageDefinition and which is stored in the Repository")
+@GmCore(ignored="false", name="RepositoryConcept", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class RepositoryConcept extends ModelEntity {
+
+	@GenModel(documentation="If a removalDate is specified then the registrationStatus must be OBSOLETEremovalDate->notEmpty( ) implies registrationStatus = RegistrationStatus::OBSOLETE")
+	@GmCore(ignored="false", name="RemovalDateRegistrationStatus", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] RemovalDateRegistrationStatus(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="First letter of name shall be upper case. [A-Z]Set {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}->exists(x|x=name.substring(1,1))")
+	@GmCore(ignored="false", name="NameFirstLetterUppercase", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] NameFirstLetterUppercase(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="a word or set of words by which a RepositoryConcept is known, addressed or referred to")
+	@GmCore(ignored="false", name="name", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] name;
+
+	@GenModel(documentation="describes the semantic meaning of a RepositoryConcept")
+	@GmCore(ignored="false", name="definition", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String definition;
+
+	@GenModel(documentation="Enables modelers to markup elements of the Repository with semantic metadata.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="SemanticMarkup is structured with a MetaClass instead of a Tuple text.This provides more control, structure and validation to the feature and avoids the need for reparsing each time the value of a textual feature.")
+	@GmCore(ignored="false", name="semanticMarkup", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val SemanticMarkup[*] semanticMarkup;
+
+	@GenModel(documentation="Doclets of the entity, used for documentation.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="RepositoryManagement", description="to store documentation information : scope, usage, ...")
+	@GmCore(ignored="false", name="doclet", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val Doclet[*] doclet;
+
+	@GenModel(documentation="provides a representative instance of a RepositoryConcept")
+	@GmCore(ignored="false", name="example", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	attr String[*] example;
+
+	@GenModel(documentation="a property of a RepositoryConcept specifying a semantic condition or restriction expressed in natural language text and potentially in a formal notation")
+	@GmCore(ignored="false", name="constraint", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	val Constraint[*]#owner constraint;
+
+	@GenModel(documentation="specifies in which stage of the registration lifecycle a RepositoryConcept is in")
+	@GmCore(ignored="false", name="registrationStatus", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr RegistrationStatus[1] registrationStatus = "Provisionally Registered";
+
+	@GenModel(documentation="specifies the date at which a RepositoryConcept will cease or has ceased to be part of the Repository")
+	@GmCore(ignored="false", name="removalDate", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr EDate removalDate;
+}
+
+@GenModel(documentation="Enables modelers to markup elements of the Repository with semantic metadata. Each semanticMarkup string is a TupleValue. ")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Semantic Markup represented as a structured meta class instead of as a textual value")
+@GmCore(ignored="false", name="SemanticMarkup", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class SemanticMarkup extends ModelEntity {
+
+	@GenModel(documentation="The type of semantic mark-up e.g. 'synonym'.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Semantic Markup represented as a structured meta class instead of as a textual value")
+	@GmCore(ignored="false", name="type", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String type;
+
+	@GenModel(documentation="The elements of semantic markup.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Semantic Markup represented as a structured meta class instead of as a textual value")
+	@GmCore(ignored="false", name="elements", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val SemanticMarkupElement[*] elements;
+}
+
+@GenModel(documentation="A semantic mark-up element defines a name + value pair for content. E.g. for synonyms, the name will be either 'name' or 'context' and the value will be the corresponding synonym name or context.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Semantic Markup represented as a structured meta class instead of as a textual value")
+@GmCore(ignored="false", name="SemanticMarkupElement", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class SemanticMarkupElement extends ModelEntity {
+
+	@GenModel(documentation="Name of the semantic mark-up element.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Semantic Markup represented as a structured meta class instead of as a textual value")
+	@GmCore(ignored="false", name="name", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String name;
+
+	@GenModel(documentation="Value of the semantic mark-up element.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Semantic Markup represented as a structured meta class instead of as a textual value")
+	@GmCore(ignored="false", name="value", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String value;
+}
+
+@GenModel(documentation="A Doclet provides a way of adding categorised documentation to an model entity.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="RepositoryManagement", description="to store documentation information : scope, usage, ...")
+@GmCore(ignored="false", name="Doclet", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Doclet extends ModelEntity {
+
+	@GenModel(documentation="The type of doclet. The definition of the doclet type is left open so that new doclet types can be easily added without the need for a change to the meta-model.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="RepositoryManagement", description="The type of the additional documentation information : scope, usage, title,...")
+	@GmCore(ignored="false", name="type", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String type;
+
+	@GenModel(documentation="The content for the documentation.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="RepositoryManagement", description="The actual content of the additional documentation information : scope, usage, title,...")
+	@GmCore(ignored="false", name="content", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String content;
+}
+
+@GenModel(documentation="A rule that must be universally satisfied i.e. all conditions required for the Constraint to be applicable, are known.")
+@GmCore(ignored="false", name="Constraint", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Constraint extends RepositoryConcept {
+
+	@GenModel(documentation="The description of a Constraint in a specific language, defined in expressionLanguage")
+	@GmCore(ignored="false", name="expression", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String expression;
+
+	@GenModel(documentation="The language in which a Constraint in expressed.")
+	@GmCore(ignored="false", name="expressionLanguage", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String expressionLanguage;
+
+	@GenModel(documentation="The owner of the Rule.")
+	@GmCore(ignored="false", name="owner", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref RepositoryConcept[1]#constraint owner;
+}
+
+@GenModel(documentation="the enumeration of the standing of a RepositoryConcept in the Repository")
+@GmCore(ignored="false", name="RegistrationStatus", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum RegistrationStatus {
+
+	@GenModel(documentation="status of a RepositoryConcept, showing it is pending final approval")
+	@GmCore(ignored="false", name="PROVISIONALLY_REGISTERED", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	PROVISIONALLY_REGISTERED = 0;
+
+	@GenModel(documentation="status of a RepositoryConcept, showing it is ISO 20022 compliant, approved by the Registration Authority and can be used")
+	@GmCore(ignored="false", name="REGISTERED", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	REGISTERED = 1;
+
+	@GenModel(documentation="status of a RepositoryConcept, showing it is still compliant but cannot be used in new ISO 20022 compliant developments.")
+	@GmCore(ignored="false", name="OBSOLETE", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	OBSOLETE = 2;
+}
+
+@GenModel(documentation="Part of the ISO 20022 Repository that contains all Business Process and BusinessTransaction related items.")
+@GmCore(ignored="false", name="BusinessProcessCatalogue", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class BusinessProcessCatalogue extends ModelEntity {
+
+	@GenModel(documentation="All TopLevelCatalogueEntries of a BusinessProcessCatalogue must have different namestopLevelCatalogueEntry->forAll(entry1,entry2 | entry1 <> entry2 implies entry1.name <> entry2.name)")
+	@GmCore(ignored="false", name="EntriesHaveUniqueName", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] EntriesHaveUniqueName(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="The Repository that owns the BusinessProcessCatalogue.")
+	@GmCore(ignored="false", name="repository", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Repository[1]#businessProcessCatalogue repository;
+
+	@GenModel(documentation="a TopLevelCatalogueEntry in the BusinessProcessCatalague")
+	@GmCore(ignored="false", name="topLevelCatalogueEntry", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val TopLevelCatalogueEntry[*]#businessProcessCatalogue topLevelCatalogueEntry;
+}
+
+@GenModel(documentation="place where all RepositoryConcepts are stored")
+@GmCore(ignored="false", name="Repository", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Repository extends ModelEntity {
+
+	@GenModel(documentation="the DataDictionary owned by the ISO 20022 Repository")
+	@GmCore(ignored="false", name="dataDictionary", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val DataDictionary[1]#repository dataDictionary;
+
+	@GenModel(documentation="the BusinessProcessCatalogue owned by the ISO 20022 Repository")
+	@GmCore(ignored="false", name="businessProcessCatalogue", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val BusinessProcessCatalogue[1]#repository businessProcessCatalogue;
+}
+
+@GenModel(documentation="Part of the ISO 20022 Repository that contains all items that can be re-used during business process modelling and message definition activities.")
+@GmCore(ignored="false", name="DataDictionary", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class DataDictionary extends ModelEntity {
+
+	@GenModel(documentation="All TopLevelDictionaryEntries of a DataDictionary must have different namestopLevelDictionaryEntry->forAll(entry1,entry2 | entry1 <> entry2 implies entry1.name <> entry2.name)")
+	@GmCore(ignored="false", name="EntriesHaveUniqueName", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] EntriesHaveUniqueName(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="a TopLevelDictionaryEntry in the DataDictionary")
+	@GmCore(ignored="false", name="topLevelDictionaryEntry", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val TopLevelDictionaryEntry[*]#dataDictionary topLevelDictionaryEntry;
+
+	@GenModel(documentation="The Repository that owns the DataDictionary.")
+	@GmCore(ignored="false", name="repository", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Repository[1]#dataDictionary repository;
+}
+
+@GenModel(documentation="artefact in the Dictionary that is not owned by another artefact in the Repository")
+@GmCore(ignored="false", name="TopLevelDictionaryEntry", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class TopLevelDictionaryEntry extends RepositoryConcept {
+
+	@GenModel(documentation="the DataDictionary that contains all ISO 20022 TopLevelDictionaryEntries")
+	@GmCore(ignored="false", name="dataDictionary", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref DataDictionary[1]#topLevelDictionaryEntry dataDictionary;
+}
+
+@GenModel(documentation="Formal description of the structure of a MessageInstance")
+@GmCore(ignored="false", name="MessageDefinition", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageDefinition extends RepositoryType {
+
+	@GenModel(documentation="The businessArea of the messageDefinitionIdentifier of this MessageDefinition is equal to the code of the BusinessArea that contains this MessageDefinitionbusinessArea.code = messageDefinitionIdentifier.businessArea")
+	@GmCore(ignored="false", name="BusinessAreaNameMatch", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] BusinessAreaNameMatch(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="the MessageSet to which the MessageDefinition belongs")
+	@GmCore(ignored="false", name="messageSet", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageSet[*]#messageDefinition messageSet;
+
+	@GenModel(documentation="Name used in an XML schema for the ComplexType that defines the Message Definition.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="xmlName", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String xmlName;
+
+	@GenModel(documentation="Name used in an XML schema for the first element under the root element of a Message Definition.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="xmlTag", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String xmlTag;
+
+	@GenModel(documentation="The BusinessArea to which this MessageDefinition belongs")
+	@GmCore(ignored="false", name="businessArea", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessArea[1]#messageDefinition businessArea;
+
+	@GenModel(documentation="XORs applied to a selection of the elements of the Message Definition.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="xors", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	val Xor[*]#messageDefinition xors;
+
+	@GenModel(documentation="a property of MessageDefinition that specifies the top level element of the MessageDefinition")
+	@GmCore(ignored="false", name="rootElement", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] rootElement = "Document";
+
+	@GenModel(documentation="a MessageBuildingBlock belonging to this MessageDefinition")
+	@GmCore(ignored="false", name="messageBuildingBlock", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	val MessageBuildingBlock[+] messageBuildingBlock;
+
+	@GenModel(documentation="the MessageChoreography to which the MessageDefinition belongs")
+	@GmCore(ignored="false", name="choreography", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageChoreography[*]#messageDefinition choreography;
+
+	@GenModel(documentation="all of the MessageTypeTraces from one MessageDefinition that are traced to different MessageTransmissions")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="trace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageTransmission[*]#derivation trace;
+
+	@GenModel(documentation="The MessageDefinitionIdentifier for this MessageDefinition")
+	@GmCore(ignored="false", name="messageDefinitionIdentifier", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val MessageDefinitionIdentifier[1] messageDefinitionIdentifier;
+
+	@GenModel(documentation="All of the SyntaxMessageSchemes that are derived from from one MessageDefinition")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="derivation", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref SyntaxMessageScheme[*]#messageDefinitionTrace derivation;
+}
+
+@GenModel(documentation="Abstract layer : Abstract meta class for representing any Type.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Abstract layer : Abstract meta class for representing any Type.")
+@GmCore(ignored="false", name="RepositoryType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class RepositoryType extends RepositoryConcept {
+}
+
+@GenModel(documentation="A set of MessageDefinitions")
+@GmCore(ignored="false", name="MessageSet", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageSet extends TopLevelCatalogueEntry {
+
+	@GenModel(documentation="the generated syntax is derived from the syntax for a validEncoding generatedSyntax->asBag() = validEncoding.syntax")
+	@GmCore(ignored="false", name="GeneratedSyntaxDerivation", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] GeneratedSyntaxDerivation(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="identification of the syntax for a specific EncodingScheme")
+	@GmCore(ignored="false", name="generatedSyntax", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered readonly volatile transient derived ref Syntax[*]#generatedFor generatedSyntax;
+
+	@GenModel(documentation="the set of encodings considered ISO 20022 valid for this MessageSet")
+	@GmCore(ignored="false", name="validEncoding", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Encoding[*]#messageSet validEncoding;
+
+	@GenModel(documentation="the MessageDefinition that belongs to the MessageSet")
+	@GmCore(ignored="false", name="messageDefinition", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageDefinition[*]#messageSet messageDefinition;
+}
+
+@GenModel(documentation="a particular syntax for a MessageInstance")
+@GmCore(ignored="false", name="Syntax", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Syntax extends ModelEntity {
+
+	@GenModel(documentation="the syntax that is valid for a MessageSet, based on the Encoding usedgeneratedFor-> asBag()=possibleEncodings.messageSet")
+	@GmCore(ignored="false", name="GeneratedForDerivation", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] GeneratedForDerivation(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="the set of possible encodings for a given Syntax")
+	@GmCore(ignored="false", name="possibleEncodings", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Encoding[+]#syntax possibleEncodings;
+
+	@GenModel(documentation="the scheme in which a syntax is encoded")
+	@GmCore(ignored="false", name="generatedFor", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered readonly volatile transient derived ref MessageSet[*]#generatedSyntax generatedFor;
+}
+
+@GenModel(documentation="A particular set of encoding rules for a MessageInstance.")
+@GmCore(ignored="false", name="Encoding", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Encoding extends ModelEntity {
+
+	@GenModel(documentation="The MessageSets for which this Encoding is a valid ISO 20022 encoding")
+	@GmCore(ignored="false", name="messageSet", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageSet[*]#validEncoding messageSet;
+
+	@GenModel(documentation="The source syntax on which an encoding applies")
+	@GmCore(ignored="false", name="syntax", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Syntax[1]#possibleEncodings syntax;
+}
+
+@GenModel(documentation="Set of strongly related business activities, that provide a self-standing business value to a set of BusinessRoles.")
+@GmCore(ignored="false", name="BusinessArea", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class BusinessArea extends TopLevelCatalogueEntry {
+
+	@GenModel(documentation="The value of the BusinessArea code.")
+	@GmCore(ignored="false", name="code", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] code;
+
+	@GenModel(documentation="The MessageDefinition that belongs to the BusinessArea.")
+	@GmCore(ignored="false", name="messageDefinition", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val MessageDefinition[*]#businessArea messageDefinition;
+}
+
+@GenModel(documentation="A rule which enforces a choice amongst a set of Message Elements contained either within a Message Definition or a Message Component.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+@GmCore(ignored="false", name="Xor", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Xor extends RepositoryConcept {
+
+	@GenModel(documentation="Message Elements impacted by the XOR.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="impactedElements", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	ref MessageElement[*] impactedElements;
+
+	@GenModel(documentation="Message Component owning the XOR.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="messageComponent", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageComponent#xors messageComponent;
+
+	@GenModel(documentation="MessageBuildingBlocks impacted by the XOR.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="impactedMessageBuildingBlocks", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	ref MessageBuildingBlock[*] impactedMessageBuildingBlocks;
+
+	@GenModel(documentation="Message Definition owning the XOR.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="messageDefinition", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageDefinition#xors messageDefinition;
+}
+
+@GenModel(documentation="Characteristic of a MessageComponent / ChoiceComponent, having a unique meaning within the scope of that MessageComponent / ChoiceComponent")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="The property element is moved from MessageComponentType to the new abstract Meta Class MessageElementContainer so that only such MessageElementContainer may own MessageElements. This MessageElementContainer class is the super class of MessageComponent and ChoiceComponent. As such, it is constrained directly in the MOF MetaClass structure that an ExternalSchema may not contain MessageElement; instead of constraining this with an OCL rule.")
+@GmCore(ignored="false", name="MessageElement", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class MessageElement extends MessageConstruct, MessageConcept {
+
+	@GenModel(documentation="A MessageElement may not trace to both a BusinessComponent and a BusinessElementbusinessComponentTrace->size( ) + businessElementTrace->size( ) <= 1")
+	@GmCore(ignored="false", name="NoMoreThanOneTrace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] NoMoreThanOneTrace(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="A trace can only raise the minimum cardinality and can only lower the maximum cardinalityminOccurs >= businessElementTrace.minOccurs and (businessElementTrace.maxOccurs.oclIsUndefined() or maxOccurs <= businessElementTrace.maxOccurs)")
+	@GmCore(ignored="false", name="CardinalityAlignment", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] CardinalityAlignment(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="a property of a MessageElement indicating whether it has a semantic relationship to a BusinessComponent / BusinessElement, i.e. whether it is derived from a BusinessComponent  /  BusinessElement")
+	@GmCore(ignored="false", name="isTechnical", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered readonly volatile transient derived attr boolean[1] isTechnical;
+
+	@GenModel(documentation="the trace of a MessageElement to the BusinessComponent from which it is derived")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="businessComponentTrace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessComponent#derivationElement businessComponentTrace;
+
+	@GenModel(documentation="The trace of a MessageElement to the BusinessElement from which the MessageElement is derived")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="businessElementTrace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessElement#derivation businessElementTrace;
+
+	@GenModel(documentation="the MessageComponent that describes the context within which the MessageElement is defined")
+	@GmCore(ignored="false", name="componentContext", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageElementContainer[1]#messageElement componentContext;
+
+	@GenModel(documentation="a Property of a MessageElement specifying whether a MessageElement can be computed using other MessageElements, but that is shown for clarity even though it adds no semantic information")
+	@GmCore(ignored="false", name="isDerived", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr boolean[1] isDerived = false;
+}
+
+@GenModel(documentation="Abstract layer : Abstract meta class for representing a MessageElement or a MessageBuildingBlock")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Abstract layer : Abstract meta class for representing a MessageElement or a MessageBuildingBlock")
+@GmCore(ignored="false", name="MessageConstruct", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class MessageConstruct extends Construct {
+
+	@GenModel(documentation="XML schema tag name for the element.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="xmlTag", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String xmlTag;
+
+	@GenModel(documentation="Direct reference to the type of a MessageElement or MessageBuildingBlock")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT")
+	@GmCore(ignored="false", name="xmlMemberType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered readonly volatile transient derived ref LogicalType[1] xmlMemberType;
+}
+
+@GenModel(documentation="Abstract layer : Abstract meta class for representing a BusinessElement, a MessageElement or a MessageBuildingBlock.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Abstract layer : Abstract meta class for representing a BusinessElement, a MessageElement or a MessageBuildingBlock.")
+@GmCore(ignored="false", name="Construct", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class Construct extends RepositoryConcept, MultiplicityEntity {
+
+	@GenModel(documentation="The type of this Member")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT")
+	@GmCore(ignored="false", name="memberType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered readonly volatile transient derived ref RepositoryType[1] memberType;
+}
+
+@GenModel(documentation="Any model entity where a multiplicity can be defined.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Two features maxOccurs and minOccurs are used instead of the single DataType feature Cardinality.")
+@GmCore(ignored="false", name="MultiplicityEntity", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class MultiplicityEntity {
+
+	@GenModel(documentation="MaxOccurs is an integer with a value greater than or equal to the lower limit. If undefined an unlimited upper value is assumed.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Two features maxOccurs and minOccurs are used instead of the single DataType feature Cardinality.")
+	@GmCore(ignored="false", name="maxOccurs", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Integer maxOccurs;
+
+	@GenModel(documentation="MinOccurs is an integer with value greater than or equal to zero. If undefined a value of zero is assumed.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Two features maxOccurs and minOccurs are used instead of the single DataType feature Cardinality.")
+	@GmCore(ignored="false", name="minOccurs", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Integer minOccurs = "0";
+}
+
+@GenModel(documentation="Abstract layer : Abstract meta class for representing the type of a MessageBuildingBlock or MessageElement, that is : a DataType, MessageComponent, ChoiceComponent or ExternalSchema or UserDefined")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Abstract layer : Abstract meta class for representing the type of a MessageBuildingBlock or MessageElement, that is : a DataType, MessageComponent, ChoiceComponent or ExternalSchema or UserDefined")
+@GmCore(ignored="false", name="LogicalType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class LogicalType extends RepositoryType {
+}
+
+@GenModel(documentation="DataDictionary artefact that is used in a MessageDefinition and that is not a DataType.")
+@GmCore(ignored="false", name="MessageConcept", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class MessageConcept extends ModelEntity {
+}
+
+@GenModel(documentation="Representation of a (part of a) key business notion, characterized by specific BusinessElements.")
+@GmCore(ignored="false", name="BusinessComponent", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class BusinessComponent extends TopLevelDictionaryEntry, BusinessElementType, BusinessConcept {
+
+	@GenModel(documentation="All BusinessElements contained by this BusinessComponents have different nameselement->forAll(el1,el2 : BusinessElement| el1 <> el2 implies el1.name <> el2.name)")
+	@GmCore(ignored="false", name="BusinessElementsHaveUniqueNames", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] BusinessElementsHaveUniqueNames(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="The BusinessComponents that specialize this BusinessComponent.")
+	@GmCore(ignored="false", name="subType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessComponent[*]#superType subType;
+
+	@GenModel(documentation="The BusinessComponent that is specialized by this BusinessComponent.")
+	@GmCore(ignored="false", name="superType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessComponent#subType superType;
+
+	@GenModel(documentation="A semantic property of a BusinessComponent.")
+	@GmCore(ignored="false", name="element", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	val BusinessElement[*]#elementContext element;
+
+	@GenModel(documentation="All of the MessageComponentTypes that derive from this BusinessComponent.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="derivationComponent", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageComponentType[*]#trace derivationComponent;
+
+	@GenModel(documentation="Describes the semantics that determine how the BusinessComponent may participate in the BusinessAssociation.")
+	@GmCore(ignored="false", name="associationDomain", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessAssociationEnd[*]#type associationDomain;
+
+	@GenModel(documentation="All of the MessageElements that derive from this BusinessComponent.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="derivationElement", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageElement[*]#businessComponentTrace derivationElement;
+}
+
+@GenModel(documentation="Abstract layer : Abstract meta class for representing the complex type of a BusinessElement, that is : a DataType or a BusinessComponent")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Abstract layer : Abstract meta class for representing the complex type of a BusinessElement, that is : a DataType or a BusinessComponent")
+@GmCore(ignored="false", name="BusinessElementType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class BusinessElementType extends RepositoryType {
+}
+
+@GenModel(documentation="A DataDictionary item defined at the Conceptual Level with a business meaning.")
+@GmCore(ignored="false", name="BusinessConcept", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class BusinessConcept extends ModelEntity {
+}
+
+@GenModel(documentation="Property of a BusinessComponent that has a distinctive meaning within the scope of that BusinessComponent.")
+@GmCore(ignored="false", name="BusinessElement", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class BusinessElement extends Construct, BusinessConcept {
+
+	@GenModel(documentation="Specifies whether a BusinessElement can be computed using other BusinessElements, but that is shown for clarity even though it adds no semantic information.")
+	@GmCore(ignored="false", name="isDerived", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr boolean[1] isDerived = false;
+
+	@GenModel(documentation="All of the MessageElements that derive from one BusinessElement in a specific BusinessComponent.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="derivation", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageElement[*]#businessElementTrace derivation;
+
+	@GenModel(documentation="Derived direct reference to the type of the BusinessElement.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT")
+	@GmCore(ignored="false", name="businessElementType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered readonly volatile transient derived ref BusinessElementType[1] businessElementType;
+
+	@GenModel(documentation="The business context in which the BusinessElement is used")
+	@GmCore(ignored="false", name="elementContext", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessComponent[1]#element elementContext;
+}
+
+@GenModel(documentation="MessageComponent, ExternalSchema, UserDefined or ChoiceComponent")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="The property element is moved from MessageComponentType to the new abstract Meta Class MessageElementContainer so that only such MessageElementContainer may own MessageElements. This MessageElementContainer class is the super class of MessageComponent and ChoiceComponent. As such, it is constrained directly in the MOF MetaClass structure that an ExternalSchema may not contain MessageElement; instead of constraining this with an OCL rule.")
+@GmCore(ignored="false", name="MessageComponentType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class MessageComponentType extends TopLevelDictionaryEntry, LogicalType, MessageConcept {
+
+	@GenModel(documentation="The MessageBuildingBlock that is the context for this MessageComponentType")
+	@GmCore(ignored="false", name="messageBuildingBlock", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageBuildingBlock[*]#complexType messageBuildingBlock;
+
+	@GenModel(documentation="A property indicating the absense of a semantic relationship to a BusinessComponent, i.e. it is not derived from a BusinessComponent")
+	@GmCore(ignored="false", name="isTechnical", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered readonly volatile transient derived attr boolean[1] isTechnical;
+
+	@GenModel(documentation="The BusinessComponent that this MessageComponentType is derived from.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="trace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessComponent#derivationComponent trace;
+}
+
+@GenModel(documentation="Characteristic of a MessageDefinition, having a unique meaning within the scope of that MessageDefinition.")
+@GmCore(ignored="false", name="MessageBuildingBlock", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageBuildingBlock extends MessageConstruct {
+
+	@GenModel(documentation="A MessageBuildingBlock must have exactly one of the following: simpleType or complexType.complexType->size() + simpleType->size()  = 1")
+	@GmCore(ignored="false", name="MessageBuildingBlockHasExactlyOneType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] MessageBuildingBlockHasExactlyOneType(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="The simple content model of a MessageBuildingBlock when it is expressed using a DataType")
+	@GmCore(ignored="false", name="simpleType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref DataType simpleType;
+
+	@GenModel(documentation="the complex content model of a MessageBuildingBlock when it is expressed using a MessageComponentType")
+	@GmCore(ignored="false", name="complexType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageComponentType#messageBuildingBlock complexType;
+}
+
+@GenModel(documentation="Representation of a set of values without identity.")
+@GmCore(ignored="false", name="DataType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class DataType extends TopLevelDictionaryEntry, BusinessElementType, LogicalType {
+}
+
+@GenModel(documentation="The context of a BusinessAssociation must be the type of its opposite and vice-versa")
+@GmCore(ignored="false", name="BusinessAssociationEnd", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class BusinessAssociationEnd extends BusinessElement {
+
+	@GenModel(documentation="Two opposite association ends may not have composite or shared aggregation at the same timenot(aggregation <> Aggregation::NONE and opposite.aggregation <> Aggregation::NONE)")
+	@GmCore(ignored="false", name="AtMostOneAggregatedEnd", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] AtMostOneAggregatedEnd(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="The context of this end must be the type of the opposite and vice-versaopposite.elementContext = type and elementContext = opposite.type")
+	@GmCore(ignored="false", name="ContextConsistentWithType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] ContextConsistentWithType(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="Opposite end of a bi-directional relationship between 2 BusinessComponents.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Direct reference to the opposite BusinessAssociationEnd")
+	@GmCore(ignored="false", name="opposite", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessAssociationEnd opposite;
+
+	@GenModel(documentation="Expresses the strength of the semantic relationship between two BusinessComponents.")
+	@GmCore(ignored="false", name="aggregation", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Aggregation[1] aggregation;
+
+	@GenModel(documentation="Specifies that a BusinessAssociationEnd always has a complex content model and is therefore always typed by a BusinessComponent, contrarily to a BusinessAttribute which may be typed by a data type.")
+	@GmCore(ignored="false", name="type", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessComponent[1]#associationDomain type;
+}
+
+@GenModel(documentation="enumeration of the different kinds of 'has a' relationship supported by the metamodel")
+@GmCore(ignored="false", name="Aggregation", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum Aggregation {
+
+	@GenModel(documentation="the relationship between two RepositoryConcepts is expressed through a simple association.")
+	@GmCore(ignored="false", name="NONE", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	NONE = 0;
+
+	@GenModel(documentation="a kind of relationship between 2 RepositoryConcepts expressing that one of the concepts cannot exist without the other.")
+	@GmCore(ignored="false", name="COMPOSITE", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	COMPOSITE = 1;
+
+	@GenModel(documentation="a kind of relationship between 2 RepositoryConcepts whereby one component may belong to multiple aggregates")
+	@GmCore(ignored="false", name="SHARED", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	SHARED = 2;
+}
+
+@GenModel(documentation="Re-usable Dictionary Item that is a building block for assembling MessageDefinitions, composed of a sequence of MessageElements")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="The property element is moved from MessageComponentType to the new abstract Meta Class MessageElementContainer so that only such MessageElementContainer may own MessageElements. This MessageElementContainer class is the super class of MessageComponent and ChoiceComponent. As such, it is constrained directly in the MOF MetaClass structure that an ExternalSchema may not contain MessageElement; instead of constraining this with an OCL rule.")
+@GmCore(ignored="false", name="MessageElementContainer", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class MessageElementContainer extends MessageComponentType {
+
+	@GenModel(documentation="All MessageElements contained in this MessageComponentContainer must have different names.messageElement->forAll(el1,el2 |  el1 <> el2 implies el1.name <> el2.name)")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="The property element is moved from MessageComponentType to the new abstract Meta Class MessageElementContainer so that only such MessageElementContainer may own MessageElements. This MessageElementContainer class is the super class of MessageComponent and ChoiceComponent. As such, it is constrained directly in the MOF MetaClass structure that an ExternalSchema may not contain MessageElement; instead of constraining this with an OCL rule.")
+	@GmCore(ignored="false", name="MessageElementsHaveUniqueNames", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] MessageElementsHaveUniqueNames(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="All the elements belonging to a technical MessageComponentContainer must be technical.self.isTechnical implies messageElement -> forAll(messageElement|messageElement.isTechnical)")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="The property element is moved from MessageComponentType to the new abstract Meta Class MessageElementContainer so that only such MessageElementContainer may own MessageElements. This MessageElementContainer class is the super class of MessageComponent and ChoiceComponent. As such, it is constrained directly in the MOF MetaClass structure that an ExternalSchema may not contain MessageElement; instead of constraining this with an OCL rule.")
+	@GmCore(ignored="false", name="technicalElement", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] technicalElement(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="a semantic property of a MessageComponentType")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="The property element is moved from MessageComponentType to the new abstract Meta Class MessageElementContainer so that only such MessageElementContainer may own MessageElements. This MessageElementContainer class is the super class of MessageComponent and ChoiceComponent. As such, it is constrained directly in the MOF MetaClass structure that an ExternalSchema may not contain MessageElement; instead of constraining this with an OCL rule.")
+	@GmCore(ignored="false", name="messageElement", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	val MessageElement[*]#componentContext messageElement;
+}
+
+@GenModel(documentation="re-usable Dictionary Item that is a building block for assembling MessageDefinitions, composed of a sequence of MessageElements")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="The property element is moved from MessageComponentType to the new abstract Meta Class MessageElementContainer so that only such MessageElementContainer may own MessageElements. This MessageElementContainer class is the super class of MessageComponent and ChoiceComponent. As such, it is constrained directly in the MOF MetaClass structure that an ExternalSchema may not contain MessageElement; instead of constraining this with an OCL rule.")
+@GmCore(ignored="false", name="MessageComponent", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageComponent extends MessageElementContainer {
+
+	@GenModel(documentation="XORs applied to a selection of the elements of the Message Component.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="xors", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	val Xor[*]#messageComponent xors;
+}
+
+@GenModel(documentation="precise and complete description of a MessageInstance exchange within a BusinessTransaction, describing the sequence and correlation of MessageInstances within a conversation, including the constraints on the interaction between Participants")
+@GmCore(ignored="false", name="MessageChoreography", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageChoreography extends TopLevelCatalogueEntry {
+
+	@GenModel(documentation="the BusinessTransactionTrace from the MessageChoreography to the BusinessTransaction")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="businessTransactionTrace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessTransaction#trace businessTransactionTrace;
+
+	@GenModel(documentation="The MessageDefinition that is used in a MessageChoreography.")
+	@GmCore(ignored="false", name="messageDefinition", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageDefinition[+]#choreography messageDefinition;
+}
+
+@GenModel(documentation="particular solution that meets the communication requirements and the interaction requirements of a particular BusinessProcess and BusinessArea")
+@GmCore(ignored="false", name="BusinessTransaction", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class BusinessTransaction extends TopLevelCatalogueEntry {
+
+	@GenModel(documentation="All MessageTransmissions contained in this BusinessTransaction shall have different names.transmission->forAll(msg1,msg2 | msg1 <> msg2 implies msg1.name <> msg2.name)")
+	@GmCore(ignored="false", name="MessageTransmissionsHaveUniqueNames", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] MessageTransmissionsHaveUniqueNames(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="All Participants of this BusinessTransaction shall have different names.participant->forAll(p1,p2 | p1 <> p2 implies p1.name <> p2.name)")
+	@GmCore(ignored="false", name="ParticipantsHaveUniqueNames", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] ParticipantsHaveUniqueNames(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="the BusinessProcessTrace that is used to trace the BusinessTransaction")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="businessProcessTrace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessProcess[1]#businessProcessTrace businessProcessTrace;
+
+	@GenModel(documentation="the involvement of a BusinessRole in a BusinessTransaction")
+	@GmCore(ignored="false", name="participant", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val Participant[*]#businessTransaction participant;
+
+	@GenModel(documentation="he conveyance of information from a sending Participant in the context of a BusinessTransaction")
+	@GmCore(ignored="false", name="transmission", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	val MessageTransmission[*]#businessTransaction transmission;
+
+	@GenModel(documentation="Provides a set of characterstics for a MessageTransportMode to have in the context of a single BusinessTransaction")
+	@GmCore(ignored="false", name="messageTransportMode", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageTransportMode[1]#businessTransaction messageTransportMode;
+
+	@GenModel(documentation="decomposition of a BusinessTransaction into a number of sub transactions which are BusinessTransactions in their own right.")
+	@GmCore(ignored="false", name="subTransaction", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessTransaction[*]#parentTransaction subTransaction;
+
+	@GenModel(documentation="assembly of a number of BusinessTransactions that together form a BusinessTransaction")
+	@GmCore(ignored="false", name="parentTransaction", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessTransaction#subTransaction parentTransaction;
+
+	@GenModel(documentation="all of the BusinessTransactionTraces that derive MessageChoreographies from one BusinessTransaction")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="trace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageChoreography[*]#businessTransactionTrace trace;
+}
+
+@GenModel(documentation="unrealized definition of the business activities undertaken by BusinessRoles within a BusinessArea whereby each BusinessProcess fulfils one type of business activity and whereby a BusinessProcess may include and extend other BusinessProcesses")
+@GmCore(ignored="false", name="BusinessProcess", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class BusinessProcess extends TopLevelCatalogueEntry {
+
+	@GenModel(documentation="specifies the BusinessProcess that is extending another BusinessProcess")
+	@GmCore(ignored="false", name="extender", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessProcess[*]#extended extender;
+
+	@GenModel(documentation="specifies the BusinessProcess that is extended by another BusinessProcess")
+	@GmCore(ignored="false", name="extended", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessProcess[*]#extender extended;
+
+	@GenModel(documentation="specifies the BusinessProcess that is included by another BusinessProcess")
+	@GmCore(ignored="false", name="included", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessProcess[*]#includer included;
+
+	@GenModel(documentation="specifies the BusinessProcess that is incuding another BusinessProcess")
+	@GmCore(ignored="false", name="includer", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessProcess[*]#included includer;
+
+	@GenModel(documentation="the BusinessRole that plays a role in BusinessProcess that owns it.")
+	@GmCore(ignored="false", name="businessRole", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val BusinessRole[*]#businessProcess businessRole;
+
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="businessProcessTrace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessTransaction[*]#businessProcessTrace businessProcessTrace;
+}
+
+@GenModel(documentation="Functional role played by a business actor in a particular BusinessProcess or BusinessTransaction.")
+@GmCore(ignored="false", name="BusinessRole", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class BusinessRole extends RepositoryConcept {
+
+	@GenModel(documentation="the BusinessRoleTrace for a BusinessRole")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="businessRoleTrace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Participant[*]#businessRoleTrace businessRoleTrace;
+
+	@GenModel(documentation="the BusinessProcess that owns the BusinessRole")
+	@GmCore(ignored="false", name="businessProcess", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessProcess[1]#businessRole businessProcess;
+}
+
+@GenModel(documentation="involvement of a BusinessRole in a BusinessTransaction")
+@GmCore(ignored="false", name="Participant", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Participant extends RepositoryConcept, MultiplicityEntity {
+
+	@GenModel(documentation="the BusinessTransaction in which the Participant plays a role")
+	@GmCore(ignored="false", name="businessTransaction", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessTransaction[1]#participant businessTransaction;
+
+	@GenModel(documentation="The handling of a stimulus passed from a sending participant")
+	@GmCore(ignored="false", name="receives", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Receive[*]#receiver receives;
+
+	@GenModel(documentation="The passing of information from a sending Participant to a receiving Participant")
+	@GmCore(ignored="false", name="sends", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Send[*]#sender sends;
+
+	@GenModel(documentation="the BusinessRoleTrace that traces the Participant to its BusinessRole")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="businessRoleTrace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessRole[1]#businessRoleTrace businessRoleTrace;
+}
+
+@GenModel(documentation="the handling of a stimulus passed from a sender instance")
+@GmCore(ignored="false", name="Receive", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Receive extends ModelEntity {
+
+	@GenModel(documentation="the stimulus handled as part of the Receive")
+	@GmCore(ignored="false", name="messageTransmission", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageTransmission[1]#receive messageTransmission;
+
+	@GenModel(documentation="the object handling a stimulus passed from the sender")
+	@GmCore(ignored="false", name="receiver", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Participant[1]#receives receiver;
+}
+
+@GenModel(documentation="the passing of information from one Participant to another in the context of a BusinessTransaction")
+@GmCore(ignored="false", name="MessageTransmission", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageTransmission extends RepositoryConcept {
+
+	@GenModel(documentation="the BusinessTransaction to which the MessageTransmission belongs")
+	@GmCore(ignored="false", name="businessTransaction", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessTransaction[1]#transmission businessTransaction;
+
+	@GenModel(documentation="all of the MessagetypeTraces that derive MessageDefinitions from one MessageTransmission")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="derivation", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageDefinition[*]#trace derivation;
+
+	@GenModel(documentation="Describes the purpose and scope of the MessageTransmission in the BusinessTransaction")
+	@GmCore(ignored="false", name="messageTypeDescription", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] messageTypeDescription;
+
+	@GenModel(documentation="the passing of a MessagTransmission from a sender instance to a receiver instance")
+	@GmCore(ignored="false", name="send", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val Send[1]#messageTransmission send;
+
+	@GenModel(documentation="the handling of a MessageTransmission passed from a sender instance")
+	@GmCore(ignored="false", name="receive", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered val Receive[*]#messageTransmission receive;
+}
+
+@GenModel(documentation="the passing of a stimulus from a sender instance to a receiver instance")
+@GmCore(ignored="false", name="Send", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Send extends ModelEntity {
+
+	@GenModel(documentation="The object passing a stimulus to a receiver object")
+	@GmCore(ignored="false", name="sender", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref Participant[1]#sends sender;
+
+	@GenModel(documentation="the stimulus handled as part of the Send")
+	@GmCore(ignored="false", name="messageTransmission", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageTransmission[1]#send messageTransmission;
+}
+
+@GenModel(documentation="group of settings for the values for the MessageTransportCharacteristics properties")
+@GmCore(ignored="false", name="MessageTransportMode", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageTransportMode extends TopLevelCatalogueEntry {
+
+	@GenModel(documentation="the maximum duration of time within which a TransportMessage must be delivered")
+	@GmCore(ignored="false", name="boundedCommunicationDelay", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] boundedCommunicationDelay;
+
+	@GenModel(documentation="clocks must maintain a maximum (inclusive) variance from UTC for the supported MessageTransportMode")
+	@GmCore(ignored="false", name="maximumClockVariation", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] maximumClockVariation;
+
+	@GenModel(documentation="the maximum size of a TransportMessage in kilobytes (any positive integer greater than zero).")
+	@GmCore(ignored="false", name="maximumMessageSize", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Integer[1] maximumMessageSize;
+
+	@GenModel(documentation="the MessageDeliveryOrder is relaxed by a rolling window of time in which the Transport Messages may be delivered out of order whereby for each TransportMessage delivered it defines the maximum duration of time it may be out of sequence within")
+	@GmCore(ignored="false", name="messageDeliveryWindow", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] messageDeliveryWindow;
+
+	@GenModel(documentation="the Choreography is relaxed by a rolling window of time in which the Business Messages may be sent out of order whereby for each Business Message sent it defines the maximum duration of time it may be out of sequence with")
+	@GmCore(ignored="false", name="messageSendingWindow", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] messageSendingWindow;
+
+	@GenModel(documentation="the degree to which the sending MessagingEndpoint is assured that a TransportMessage will be delivered")
+	@GmCore(ignored="false", name="deliveryAssurance", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr DeliveryAssurance[1] deliveryAssurance;
+
+	@GenModel(documentation="whether the MessageTransportSystem safely retains a TransportMessage until it has been received by the destination MessagingEndpoint")
+	@GmCore(ignored="false", name="durability", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Durability[1] durability;
+
+	@GenModel(documentation="specifies how receiving MessagingEndpoints may be addressed in a TransportMessage")
+	@GmCore(ignored="false", name="messageCasting", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr MessageCasting[1] messageCasting;
+
+	@GenModel(documentation="indicates to what extent Transport Messages from a sending MessagingEndpoint arrive in the order in which they were sent at the receiving MessagingEndpoints")
+	@GmCore(ignored="false", name="messageDeliveryOrder", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr MessageDeliveryOrder[1] messageDeliveryOrder;
+
+	@GenModel(documentation="the level of validation the MessageTransportSystem has tested the message")
+	@GmCore(ignored="false", name="messageValidationLevel", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr MessageValidationLevel[1] messageValidationLevel;
+
+	@GenModel(documentation="specifies whether the MessageTransportSystem validates the MessageInstance with respect to SyntaxMessageScheme, Constraints, the MarketPractices, and the MessageChoreography")
+	@GmCore(ignored="false", name="messageValidationOnOff", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr MessageValidationOnOff[1] messageValidationOnOff;
+
+	@GenModel(documentation="specifies how the MessageTransport System acts upon the results of MessageValidationOnOff")
+	@GmCore(ignored="false", name="messageValidationResults", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr MessageValidationResults[1] messageValidationResults;
+
+	@GenModel(documentation="indicates whether a receiving MessagingEndpoint blocks the sending and receipt of other Transport Messages until it sends a response to this TransportMessage")
+	@GmCore(ignored="false", name="receiverAsynchronicity", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr ReceiverAsynchronicity[1] receiverAsynchronicity;
+
+	@GenModel(documentation="indicates whether a sending MessagingEndpoint blocks after sending a TransportMessage to the MessageTransportSystem while waiting for a response from a MessagingEndpoint")
+	@GmCore(ignored="false", name="senderAsynchronicity", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr SenderAsynchronicity[1] senderAsynchronicity;
+
+	@GenModel(documentation="specifies the BusinessTransaction for which a set of MessageTransportMode characteristics apply")
+	@GmCore(ignored="false", name="businessTransaction", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessTransaction[*]#messageTransportMode businessTransaction;
+}
+
+@GenModel(documentation="characteristic from the MessageTransport, specifying the degree to which the sending MessagingEndpoint is assured that a TransportMessage will be delivered")
+@GmCore(ignored="false", name="DeliveryAssurance", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum DeliveryAssurance {
+
+	@GenModel(documentation="the receiving Messaging Endpoint receives the TransportMessage at least once")
+	@GmCore(ignored="false", name="AT_LEAST_ONCE", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	AT_LEAST_ONCE = 0;
+
+	@GenModel(documentation="the receiving Messaging Endpoint receives the TransportMessage exactly once")
+	@GmCore(ignored="false", name="EXACTLY_ONCE", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	EXACTLY_ONCE = 1;
+
+	@GenModel(documentation="the receiving MessagingEndpoint receives the TransportMessage at most once. There is no assurance a TransportMessage will be delivered")
+	@GmCore(ignored="false", name="AT_MOST_ONCE", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	AT_MOST_ONCE = 2;
+}
+
+@GenModel(documentation="characteristic from the MessageTransport, indicating whether the MessageTransportSystem safely retains a TransportMessage until it has been received by the destination MessagingEndpoint")
+@GmCore(ignored="false", name="Durability", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum Durability {
+
+	@GenModel(documentation="the TransportMessage is kept available indefinitely until the message is delivered to the destination MessagingEndpoint. The TransportMessage is only kept available if it is ready for delivery within the BoundedCommunicationDelay; otherwise it expires like every other non-durable message")
+	@GmCore(ignored="false", name="DURABLE", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	DURABLE = 0;
+
+	@GenModel(documentation="the TransportMessage is kept available until it is delivered to the receiving MessagingEndpoint or until it is expired because the BoundedCommunicationDelay is exceeded")
+	@GmCore(ignored="false", name="PERSISTENT", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	PERSISTENT = 1;
+
+	@GenModel(documentation="the TransportMessage is not kept available and will not be delivered if the receiving MessagingEndpoint is not available")
+	@GmCore(ignored="false", name="TRANSIENT", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	TRANSIENT = 2;
+}
+
+@GenModel(documentation="characteristic from the MessageTransport, indicating how receiving MessagingEndpoints may be addressed in a TransportMessage")
+@GmCore(ignored="false", name="MessageCasting", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum MessageCasting {
+
+	@GenModel(documentation="TransportMessages are addressed to a single receiving MessagingEndpoint")
+	@GmCore(ignored="false", name="UNICAST", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	UNICAST = 0;
+
+	@GenModel(documentation="TransportMessages are addressed to nought to many receiving MessagingEndpoints")
+	@GmCore(ignored="false", name="MULTICAST", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	MULTICAST = 1;
+
+	@GenModel(documentation="TransportMessages are addressed to a single Broadcast List")
+	@GmCore(ignored="false", name="BROADCAST", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	BROADCAST = 2;
+
+	@GenModel(documentation="TransportMessages may be Multicast or Broadcast")
+	@GmCore(ignored="false", name="ANYCAST", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	ANYCAST = 3;
+}
+
+@GenModel(documentation="characteristic from the MessageTransport, indicating to what extent TransportMessages from a sending MessagingEndpoint arrive in the order in which they were sent at the receiving MessagingEndpoints")
+@GmCore(ignored="false", name="MessageDeliveryOrder", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum MessageDeliveryOrder {
+
+	@GenModel(documentation="the receipt order of TransportMessages at all receivers is preserved across all sending MessagingEndpoints")
+	@GmCore(ignored="false", name="EXPECTED_CAUSAL_ORDER", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	EXPECTED_CAUSAL_ORDER = 0;
+
+	@GenModel(documentation="at every receiver, the order of receipt of TransportMessages is preserved for each sending MessagingEndpoint but not across sending MessagingEndpoints")
+	@GmCore(ignored="false", name="FIFO_ORDERED", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	FIFO_ORDERED = 1;
+
+	@GenModel(documentation="TransportMessages may arrive in any order at the receiving MessagingEndpoints. The only limitation is the Bounded Communication Delay")
+	@GmCore(ignored="false", name="UNORDERED", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	UNORDERED = 2;
+}
+
+@GenModel(documentation="characteristic from the MessageTransport, indicating the level of validation that is required by the MessageTransportSystem")
+@GmCore(ignored="false", name="MessageValidationLevel", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum MessageValidationLevel {
+
+	@GenModel(documentation="the MessageInstance is not validated")
+	@GmCore(ignored="false", name="NO_VALIDATION", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	NO_VALIDATION = 0;
+
+	@GenModel(documentation="the MessageInstance has its syntax validated.")
+	@GmCore(ignored="false", name="SYNTAX_VALID", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	SYNTAX_VALID = 1;
+
+	@GenModel(documentation="the MessageInstance is Syntax Valid plus validated against the Syntax Message Scheme.")
+	@GmCore(ignored="false", name="SCHEMA_VALID", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	SCHEMA_VALID = 2;
+
+	@GenModel(documentation="the MessageInstance is Schema Valid plus validated against the MessageRules")
+	@GmCore(ignored="false", name="MESSAGE_VALID", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	MESSAGE_VALID = 3;
+
+	@GenModel(documentation="the MessageInstance is Message Valid plus validated against the BusinessRules")
+	@GmCore(ignored="false", name="RULE_VALID", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	RULE_VALID = 4;
+
+	@GenModel(documentation="the MessageInstance is Message Valid plus validated against the Market Practices")
+	@GmCore(ignored="false", name="MARKET_PRACTICE_VALID", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	MARKET_PRACTICE_VALID = 5;
+
+	@GenModel(documentation="the MessageInstance is Message Valid plus validated against the MessageChoreography")
+	@GmCore(ignored="false", name="BUSINESS_PROCESS_VALID", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	BUSINESS_PROCESS_VALID = 6;
+
+	@GenModel(documentation="the MessageInstance is Message Valid plus validated against all Rules and MarketPractices")
+	@GmCore(ignored="false", name="COMPLETELY_VALID", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	COMPLETELY_VALID = 7;
+}
+
+@GenModel(documentation="characteristic from the MessageTransport, specifying whether the MessageTransportSystem validates the MessageInstance with respect to SyntaxMessageScheme, Rules, the MarketPractices, and the MessageChoreography")
+@GmCore(ignored="false", name="MessageValidationOnOff", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum MessageValidationOnOff {
+
+	@GenModel(documentation="all MessageInstances are validated by the MessageTransportSystem")
+	@GmCore(ignored="false", name="VALIDATION_ON", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	VALIDATION_ON = 0;
+
+	@GenModel(documentation="MessageInstances are not validated by the MessageTransportSystem")
+	@GmCore(ignored="false", name="VALIDATION_OFF", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	VALIDATION_OFF = 1;
+}
+
+@GenModel(documentation="characteristic from the MessageTransport, specifying the behaviour of the MessageTransportSystem as a result of MessageValidation")
+@GmCore(ignored="false", name="MessageValidationResults", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum MessageValidationResults {
+
+	@GenModel(documentation="invalid messages cause a rejection TransportMessage to be sent to the sending MessagingEndpoint, and the invalid MessageInstance is not delivered to any other MessagingEndpoint. Valid messages are delivered to their destinations and marked as valid in the TransportMessage")
+	@GmCore(ignored="false", name="REJECT", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	REJECT = 0;
+
+	@GenModel(documentation="invalid messages must cause a rejection TransportMessage to be sent to the sending MessagingEndpoint, and the invalid MessageInstance is marked as invalid in the TransportMessage and delivered to its destination MessagingEndpoints. Valid messages are delivered to their destinations and marked as valid in the TransportMessage")
+	@GmCore(ignored="false", name="REJECT_AND_DELIVER", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	REJECT_AND_DELIVER = 1;
+
+	@GenModel(documentation="invalid messages do not cause a rejection TransportMessage to be sent to the sending MessagingEndpoint. The invalid MessageInstance is delivered to its destination MessagingEndpoints. Valid messages are delivered to their destinations and marked as valid in the TransportMessage")
+	@GmCore(ignored="false", name="DELIVER", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	DELIVER = 2;
+}
+
+@GenModel(documentation="characteristic from the MessageTransport, indicating whether a receiving MessagingEndpoint blocks the sending and receipt of other TransportMessages until it sends a response to this TransportMessage")
+@GmCore(ignored="false", name="ReceiverAsynchronicity", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum ReceiverAsynchronicity {
+
+	@GenModel(documentation="ENDPOINT_SYNCHRONOUS")
+	@GmCore(ignored="false", name="ENDPOINT_SYNCHRONOUS", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	ENDPOINT_SYNCHRONOUS = 0;
+
+	@GenModel(documentation="The receiving MessagingEndpoint blocks the sending and receipt of other TransportMessages within the conversation, in which the TransportMessage was sent, while waiting for a response to this sent TransportMessage")
+	@GmCore(ignored="false", name="CONVERSATION_SYNCHRONOUS", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	CONVERSATION_SYNCHRONOUS = 1;
+
+	@GenModel(documentation="The receiving MessagingEndpoint must not block the receipt or processing of other TransportMessages while processing the current TransportMessage")
+	@GmCore(ignored="false", name="ASYNCHRONOUS", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	ASYNCHRONOUS = 2;
+}
+
+@GenModel(documentation="characteristic from the MessageTransport, indicating whether a sending Messaging Endpoint blocks after sending a TransportMessage to the MessageTransportSystem while waiting for a response from a MessagingEndpoint")
+@GmCore(ignored="false", name="SenderAsynchronicity", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum SenderAsynchronicity {
+
+	@GenModel(documentation="The sending MessagingEndpoint blocks the sending and receipt of other TransportMessages while waiting for a response to the sent TransportMessage.")
+	@GmCore(ignored="false", name="ENDPOINT_SYNCHRONOUS", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	ENDPOINT_SYNCHRONOUS = 0;
+
+	@GenModel(documentation="The sending MessagingEndpoint blocks the sending and receipt of other TransportMessages within the conversation, in which the TransportMessage was sent, while waiting for a response to this sent TransportMessage.")
+	@GmCore(ignored="false", name="CONVERSATION_SYNCHRONOUS", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	CONVERSATION_SYNCHRONOUS = 1;
+
+	@GenModel(documentation="The sending MessagingEndpoint shall not block the sending or receipt of other TransportMessages while waiting for a response to the sent TransportMessage.")
+	@GmCore(ignored="false", name="ASYNCHRONOUS", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	ASYNCHRONOUS = 2;
+}
+
+@GenModel(documentation="Unique identification of a MessageDefinition within the ISO 20022 namespace, identifying the BusinessArea to which the MessageDefinition belongs, the Message Functionality it covers, its flavour and its version")
+@GmCore(ignored="false", name="MessageDefinitionIdentifier", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageDefinitionIdentifier extends ModelEntity {
+
+	@GenModel(documentation="part of a MessageDefinitionIdentifier describing the BusinessArea to which the MessageDefinition using this MessageDefinitionIdentifier belongs")
+	@GmCore(ignored="false", name="businessArea", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] businessArea;
+
+	@GenModel(documentation="function and purpose for which a MessageInstance described by a MessageDefinition can be used")
+	@GmCore(ignored="false", name="messageFunctionality", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] messageFunctionality;
+
+	@GenModel(documentation="a variation of a messageFunctionality, whereby MessageDefinitions that are based on this MessageDefinition are compliant to the MessageDefinition from which this MessageDefinition is derived.")
+	@GmCore(ignored="false", name="flavour", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] flavour;
+
+	@GenModel(documentation="identifies the version of the MessageDefinition")
+	@GmCore(ignored="false", name="version", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] version;
+}
+
+@GenModel(documentation="exchange of one or more MessageInstances amongst MessagingEndpoints")
+@GmCore(ignored="false", name="Conversation", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Conversation extends ModelEntity {
+}
+
+@GenModel(documentation="Kind of MessageElement that relates two MessageComponentTypes.")
+@GmCore(ignored="false", name="MessageAssociationEnd", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageAssociationEnd extends MessageElement {
+
+	@GenModel(documentation="Indicates if the message element is a composite.")
+	@GmCore(ignored="false", name="isComposite", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr boolean[1] isComposite = true;
+
+	@GenModel(documentation="The MessageComponentType which specifies the complex content model of a MessageAssociationEnd.")
+	@GmCore(ignored="false", name="type", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageComponentType[1] type;
+}
+
+@GenModel(documentation="Kind of MessageElement whose type is a DataType or a MessageComponentType")
+@GmCore(ignored="false", name="MessageAttribute", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MessageAttribute extends MessageElement {
+
+	@GenModel(documentation="A MessageAttribute must have exactly one of the following: simpleType and complexTypecomplexType->size() + simpleType->size()  = 1")
+	@GmCore(ignored="false", name="MessageAttributeHasExactlyOneType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] MessageAttributeHasExactlyOneType(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="the simple content model of a MessageAttribute when it is expressed using a DataType")
+	@GmCore(ignored="false", name="simpleType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref DataType simpleType;
+
+	@GenModel(documentation="the complex content model of a MessageAttribute when it is expressed using a MessageComponentType")
+	@GmCore(ignored="false", name="complexType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageComponentType complexType;
+}
+
+@GenModel(documentation="A BusinessElement, typed by a BusinessComponent or a DataType (contrary to a BusinessAssociationEnd, which is always typed by another BusinessComponent)")
+@GmCore(ignored="false", name="BusinessAttribute", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class BusinessAttribute extends BusinessElement {
+
+	@GenModel(documentation="A BusinessAttribute must have exactly one of the following: simpleType and complexType.complexType->size() + simpleType->size()  = 1")
+	@GmCore(ignored="false", name="BusinessAttributeHasExactlyOneType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] BusinessAttributeHasExactlyOneType(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="Deriving Code Sets may only be used to type MessageAttributes.  Therefore, a BusinessAttribute may not be typed by a Deriving CodeSet.simpleType.oclIsKindOf(CodeSet) implies simpleType.oclAsType(CodeSet).trace->isEmpty()")
+	@GmCore(ignored="false", name="NoDerivingCodeSetType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] NoDerivingCodeSetType(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+
+	@GenModel(documentation="Expresses that the content model of a BusinessAttribute may be specified by a type from the XSD type library or a derived datatype.")
+	@GmCore(ignored="false", name="simpleType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref DataType simpleType;
+
+	@GenModel(documentation="The BusinessComponent that describes the complex content model of the BusinessAttrribute.")
+	@GmCore(ignored="false", name="complexType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref BusinessComponent complexType;
+}
+
+@GenModel(documentation="A finite set of characters.")
+@GmCore(ignored="false", name="Text", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Text extends String {
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'string', as specified by W3C Recommendation XML Schema Part 2: Datatypes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="String", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class String extends DataType {
+
+	@GenModel(documentation="The minimum number of units of characters.")
+	@GmCore(ignored="false", name="minLength", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Integer minLength;
+
+	@GenModel(documentation="The number of units of characters.")
+	@GmCore(ignored="false", name="maxLength", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Integer maxLength;
+
+	@GenModel(documentation="The number of units of characters.")
+	@GmCore(ignored="false", name="length", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Integer length;
+
+	@GenModel(documentation="A constraint on the value space of a datatype which is achieved by constraining the lexical space to literals which match a specific pattern.")
+	@GmCore(ignored="false", name="pattern", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String pattern;
+}
+
+@GenModel(documentation="Set of values whereby each value distinguishes uniquely one instance of an object within an identification scheme from all other instances of the objects within the same scheme.")
+@GmCore(ignored="false", name="IdentifierSet", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class IdentifierSet extends String {
+
+	@GenModel(documentation="Uniquely identifies a set of identifiers through a Uniform Resource Identifier (URI).")
+	@GmCore(ignored="false", name="identificationScheme", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] identificationScheme;
+}
+
+@GenModel(documentation="A list of exactly two mutually exclusive values that express the only two possible states of an instance of an object.")
+@GmCore(ignored="false", name="Indicator", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Indicator extends Boolean {
+
+	@GenModel(documentation="Provides the semantic meaning when the Indicator is set to true.")
+	@GmCore(ignored="false", name="meaningWhenTrue", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] meaningWhenTrue;
+
+	@GenModel(documentation="Provides the semantic meaning when the Indicator is set to false.")
+	@GmCore(ignored="false", name="meaningWhenFalse", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String[1] meaningWhenFalse;
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'boolean', as specified by W3C Recommendation XML Schema Part 2: Datatypes")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="Boolean", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Boolean extends DataType {
+
+	@GenModel(documentation="A constraint on the value space of a datatype which is achieved by constraining the lexical space to literals which match a specific pattern.")
+	@GmCore(ignored="false", name="pattern", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String pattern;
+}
+
+@GenModel(documentation="A quantity or amount measured with respect to another measured quantity or amount")
+@GmCore(ignored="false", name="Rate", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Rate extends Decimal {
+
+	@GenModel(documentation="specifies the ratio between the base value and the actual value")
+	@GmCore(ignored="false", name="baseValue", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Double[1] baseValue;
+
+	@GenModel(documentation="specifies unit code required to qualify this rate")
+	@GmCore(ignored="false", name="baseUnitCode", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String baseUnitCode;
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'decimal', as specified by W3C Recommendation XML Schema Part 2: Datatypes")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="Decimal", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Decimal extends DataType {
+
+	@GenModel(documentation="the lowest value in the allowed set of values")
+	@GmCore(ignored="false", name="minInclusive", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String minInclusive;
+
+	@GenModel(documentation="the lowest but one value in the allowed set of values")
+	@GmCore(ignored="false", name="minExclusive", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String minExclusive;
+
+	@GenModel(documentation="the highest value in the allowed set of values")
+	@GmCore(ignored="false", name="maxInclusive", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String maxInclusive;
+
+	@GenModel(documentation="the highest but one value in the allowed set of values")
+	@GmCore(ignored="false", name="maxExclusive", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String maxExclusive;
+
+	@GenModel(documentation="the maximum number of allowed digits in a Decimal number")
+	@GmCore(ignored="false", name="totalDigits", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Integer totalDigits;
+
+	@GenModel(documentation="the fractional part of a Decimal number")
+	@GmCore(ignored="false", name="fractionDigits", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Integer fractionDigits;
+
+	@GenModel(documentation="A constraint on the value space of a datatype which is achieved by constraining the lexical space to literals which match a specific pattern.")
+	@GmCore(ignored="false", name="pattern", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String pattern;
+}
+
+@GenModel(documentation="Reusable Dictionary Item that allows referring to a structure defined outside of the ISO 20022 MessageDefinition.")
+@GmCore(ignored="false", name="ExternalSchema", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class ExternalSchema extends MessageComponentType {
+
+	@GenModel(documentation="Identifies the description of the content model of an ExternalSchema, through (a set of) URI.")
+	@GmCore(ignored="false", name="namespaceList", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	attr String[*] namespaceList;
+
+	@GenModel(documentation="Specifies whether it is required for the content model of the ExternalSchema to be validated.")
+	@GmCore(ignored="false", name="processContent", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr ProcessContent[1] processContent;
+}
+
+@GenModel(documentation="specifies how a contentmodel must be validated")
+@GmCore(ignored="false", name="ProcessContent", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum ProcessContent {
+
+	@GenModel(documentation="the contentmodel must be validated on a can-do basis")
+	@GmCore(ignored="false", name="LAX", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	LAX = 0;
+
+	@GenModel(documentation="the contentmodel must not be validated")
+	@GmCore(ignored="false", name="SKIP", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	SKIP = 1;
+
+	@GenModel(documentation="the contentmodel must be validated against its specification")
+	@GmCore(ignored="false", name="STRICT", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	STRICT = 2;
+}
+
+@GenModel(documentation="A counted number of non-monetary units possibly including fractions")
+@GmCore(ignored="false", name="Quantity", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Quantity extends Decimal {
+
+	@GenModel(documentation="qualifies the value of a Quantity")
+	@GmCore(ignored="false", name="unitCode", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String unitCode;
+}
+
+@GenModel(documentation="A character string (letters, figures or symbols) that for brevity and/or language independence may be used to represent or replace a definitive value or text of an attribute.")
+@GmCore(ignored="false", name="Code", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Code extends RepositoryConcept {
+
+	@GenModel(documentation="Provides the full, non-abbreviated name of the Code")
+	@GmCore(ignored="false", name="codeName", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String codeName;
+
+	@GenModel(documentation="Direct reference to the CodeSet owning this Code.")
+	@GmCore(ignored="false", name="owner", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref CodeSet[1]#code owner;
+}
+
+@GenModel(documentation="Set of Codes grouped together to characterize all the values of an attribute.")
+@GmCore(ignored="false", name="CodeSet", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class CodeSet extends String {
+
+	@GenModel(documentation="The CodeSet that this CodesSet is derived from.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="trace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref CodeSet#derivation trace;
+
+	@GenModel(documentation="The CodeSets which are derived from this CodeSet.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Traces are represented as a direct reference to the traced-to repository concept instead of using an intermediate Trace meta class")
+	@GmCore(ignored="false", name="derivation", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref CodeSet[*]#trace derivation;
+
+	@GenModel(documentation="Uniquely identifies a set of Codes through a Uniform Resource Identifier (URI).")
+	@GmCore(ignored="false", name="identificationScheme", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String identificationScheme;
+
+	@GenModel(documentation="A set of Codes belonging to the same CodeSet")
+	@GmCore(ignored="false", name="code", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	val Code[*]#owner code;
+}
+
+@GenModel(documentation="A number of monetary units specified in a currency where the unit of currency is explicit or implied.")
+@GmCore(ignored="false", name="Amount", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Amount extends Decimal {
+
+	@GenModel(documentation="specifies the allowed currencies that can be used to qualify this amount")
+	@GmCore(ignored="false", name="currencyIdentifierSet", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref DataType currencyIdentifierSet;
+}
+
+@GenModel(documentation="re-usable Dictionary Item that is a building block for assembling MessageDefinitions, composed of a choice of MessageElements")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="The property element is moved from MessageComponentType to the new abstract Meta Class MessageElementContainer so that only such MessageElementContainer may own MessageElements. This MessageElementContainer class is the super class of MessageComponent and ChoiceComponent. As such, it is constrained directly in the MOF MetaClass structure that an ExternalSchema may not contain MessageElement; instead of constraining this with an OCL rule.")
+@GmCore(ignored="false", name="ChoiceComponent", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class ChoiceComponent extends MessageElementContainer {
+
+	@GenModel(documentation="A MessageComponent or ChoiceComponent must have at least one MessageElementmessageElement->notEmpty( ) ")
+	@GmCore(ignored="false", name="AtLeastOneProperty", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered op boolean[1] AtLeastOneProperty(@GmCore(ignored="false", name="context", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EMap[1] context, @GmCore(ignored="false", name="diagnostics", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+!ordered ecore.EDiagnosticChain[1] diagnostics);
+}
+
+@GenModel(documentation="Enumeration of the possible Namespace values that can be used by a User Defined.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+@GmCore(ignored="false", name="Namespace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum Namespace {
+
+	@GenModel(documentation="Maps to the W3C Schema value '##any'.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="any", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	any = 0;
+
+	@GenModel(documentation="Maps to the W3C Schema value '##other'.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="other", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	other = 1;
+
+	@GenModel(documentation="Indicates that the value of the property 'namespace' must be retrieved from the property 'namespaceList'.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="list", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	list = 2;
+}
+
+@GenModel(documentation="Abstract definition of a data type whose properties are common to all kinds of time-related concepts.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="This abstract meta class factorises the properties common to date and time meta classes.")
+@GmCore(ignored="false", name="AbstractDateTimeConcept", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+abstract class AbstractDateTimeConcept extends DataType {
+
+	@GenModel(documentation="the lowest value in the allowed set of values")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT")
+	@GmCore(ignored="false", name="minInclusive", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String minInclusive;
+
+	@GenModel(documentation="the lowest but one value in the allowed set of values")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT")
+	@GmCore(ignored="false", name="minExclusive", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String minExclusive;
+
+	@GenModel(documentation="the highest value in the allowed set of values")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT")
+	@GmCore(ignored="false", name="maxInclusive", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String maxInclusive;
+
+	@GenModel(documentation="the highest but one value in the allowed set of values")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT")
+	@GmCore(ignored="false", name="maxExclusive", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String maxExclusive;
+
+	@GenModel(documentation="A constraint on the value space of a datatype which is achieved by constraining the lexical space to literals which match a specific pattern.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT")
+	@GmCore(ignored="false", name="pattern", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String pattern;
+}
+
+@GenModel(documentation="Collection of MessageComponents that define the endpoints for a given category.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="RepositoryManagement", description="Identifies highly reusable structures and allows reducing the size of the documentation.")
+@GmCore(ignored="false", name="EndPointCategory", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class EndPointCategory extends TopLevelDictionaryEntry {
+
+	@GenModel(documentation="MessageComponents that are considered to be end points.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="RepositoryManagement", description="Identifies highly reusable structures and allows reducing the size of the documentation.")
+	@GmCore(ignored="false", name="endPoints", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered ref MessageElementContainer[*] endPoints;
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'base64Binary', as specified by W3C Recommendation XML Schema Part 2: Datatypes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="Binary", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Binary extends DataType {
+
+	@GenModel(documentation="the minimum number of units of characters")
+	@GmCore(ignored="false", name="minLength", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Integer minLength;
+
+	@GenModel(documentation="the maximum number of units of characters")
+	@GmCore(ignored="false", name="maxLength", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Integer maxLength;
+
+	@GenModel(documentation="the number of units of characters")
+	@GmCore(ignored="false", name="length", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Integer length;
+
+	@GenModel(documentation="A constraint on the value space of a datatype which is achieved by constraining the lexical space to literals which match a specific pattern.")
+	@GmCore(ignored="false", name="pattern", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr String pattern;
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'date', as specified by W3C Recommendation XML Schema Part 2: Datatypes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="Date", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Date extends AbstractDateTimeConcept {
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'dateTime', as specified by W3C Recommendation XML Schema Part 2: Datatypes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="DateTime", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class DateTime extends AbstractDateTimeConcept {
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'gDay', as specified by W3C Recommendation XML Schema Part 2: Datatypes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="Day", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Day extends AbstractDateTimeConcept {
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'duration', as specified by W3C Recommendation XML Schema Part 2: Datatypes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="Duration", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Duration extends AbstractDateTimeConcept {
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'gMonth', as specified by W3C Recommendation XML Schema Part 2: Datatypes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="Month", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Month extends AbstractDateTimeConcept {
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'gMonthDay', as specified by W3C Recommendation XML Schema Part 2: Datatypes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="MonthDay", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class MonthDay extends AbstractDateTimeConcept {
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'time', as specified by W3C Recommendation XML Schema Part 2: Datatypes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="Time", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Time extends AbstractDateTimeConcept {
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'gYear', as specified by W3C Recommendation XML Schema Part 2: Datatypes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="Year", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class Year extends AbstractDateTimeConcept {
+}
+
+@GenModel(documentation="Any set of values drawn from the value space of 'gYearMonth', as specified by W3C Recommendation XML Schema Part 2: Datatypes.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_CONSTRAINT", description="Prefixed with XSD to avoid confusion with base types available in programming languages: e.g. java.lang.String.")
+@GmCore(ignored="false", name="YearMonth", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class YearMonth extends AbstractDateTimeConcept {
+}
+
+@GenModel(documentation="A Type which allows referring to a structure defined outside of the ISO20022 MessageDefinition.")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+@GmCore(ignored="false", name="UserDefined", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class UserDefined extends MessageComponentType {
+
+	@GenModel(documentation="The URN namespace of the referenced external structure definition. The allowed values are: ##any, ##other or list. When equal to 'list', then the value of the property 'namespaceList' must be filled.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="namespace", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr Namespace[1] namespace;
+
+	@GenModel(documentation="A list of URN namespaces.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="namespaceList", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	attr String namespaceList;
+
+	@GenModel(documentation="Indicates the kind of validation which must be performed on the external structure.")
+	@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="LEGACY")
+	@GmCore(ignored="false", name="processContents", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr ProcessContent[1] processContents;
+}
+
+@GenModel(documentation="set of non ISO 20022 compliant messages that is defined and used by (a part of) the (financial) industry")
+@GmCore(ignored="false", name="IndustryMessageSet", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class IndustryMessageSet extends TopLevelCatalogueEntry {
+}
+
+@GenModel(documentation="documentation set showing relations between ISO 20022 MessageDefinitions, MessageComponentTypes, MessageElements, BusinessComponents, BusinessAssociations and/or BusinessElements and items defined in other Industry MessageSets")
+@GmCore(ignored="false", name="ConvergenceDocumentation", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class ConvergenceDocumentation extends TopLevelCatalogueEntry {
+}
+
+@GenModel(documentation="industryMessageSet constructed according to the rules defined in ISO 15022-1 and ISO 15022-2 and that is stored in the ISO 15022 Catalogue of Messages")
+@GmCore(ignored="false", name="ISO15022MessageSet", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class ISO15022MessageSet extends IndustryMessageSet {
+}
+
+@GenModel(documentation="Meta class for represensting XML Schema DataTypes")
+@"urn:iso:std:iso:20022:2013:ecore:extension"(basis="IMPLEMENTATION_ENHANCEMENT", description="Meta class for represensting XML Schema DataTypes")
+@GmCore(ignored="false", name="SchemaType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+class SchemaType extends DataType {
+
+	@GmCore(ignored="false", name="kind", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	!ordered attr SchemaTypeKind[1] kind;
+}
+
+@GmCore(ignored="false", name="SchemaTypeKind", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum SchemaTypeKind {
+
+	@GmCore(ignored="false", name="anySimpleType", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	anySimpleType = 0;
+
+	@GmCore(ignored="false", name="anyURI", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	anyURI = 1;
+
+	@GmCore(ignored="false", name="base64Binary", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	base64Binary = 2;
+
+	@GmCore(ignored="false", name="boolean", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	boolean = 3;
+
+	@GmCore(ignored="false", name="byte", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	byte = 4;
+
+	@GmCore(ignored="false", name="date", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	date = 5;
+
+	@GmCore(ignored="false", name="dateTime", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	dateTime = 6;
+
+	@GmCore(ignored="false", name="decimal", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	decimal = 7;
+
+	@GmCore(ignored="false", name="double", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	double = 8;
+
+	@GmCore(ignored="false", name="duration", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	duration = 9;
+
+	@GmCore(ignored="false", name="ENTITIES", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	ENTITIES = 10;
+
+	@GmCore(ignored="false", name="ENTITY", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	ENTITY = 11;
+
+	@GmCore(ignored="false", name="float", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	float = 12;
+
+	@GmCore(ignored="false", name="gDay", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	gDay = 13;
+
+	@GmCore(ignored="false", name="gMonth", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	gMonth = 14;
+
+	@GmCore(ignored="false", name="gMonthDay", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	gMonthDay = 15;
+
+	@GmCore(ignored="false", name="gYear", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	gYear = 16;
+
+	@GmCore(ignored="false", name="gYearMonth", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	gYearMonth = 17;
+
+	@GmCore(ignored="false", name="hexBinary", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	hexBinary = 18;
+
+	@GmCore(ignored="false", name="ID", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	ID = 19;
+
+	@GmCore(ignored="false", name="IDREF", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	IDREF = 20;
+
+	@GmCore(ignored="false", name="IDREFS", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	IDREFS = 21;
+
+	@GmCore(ignored="false", name="int", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	int = 22;
+
+	@GmCore(ignored="false", name="integer", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	integer = 23;
+
+	@GmCore(ignored="false", name="language", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	language = 24;
+
+	@GmCore(ignored="false", name="long", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	long = 25;
+
+	@GmCore(ignored="false", name="Name", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	Name = 26;
+
+	@GmCore(ignored="false", name="NCName", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	NCName = 27;
+
+	@GmCore(ignored="false", name="negativeInteger", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	negativeInteger = 28;
+
+	@GmCore(ignored="false", name="NMTOKEN", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	NMTOKEN = 29;
+
+	@GmCore(ignored="false", name="NMTOKENS", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	NMTOKENS = 30;
+
+	@GmCore(ignored="false", name="nonNegativeInteger", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	nonNegativeInteger = 31;
+
+	@GmCore(ignored="false", name="nonPositiveInteger", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	nonPositiveInteger = 32;
+
+	@GmCore(ignored="false", name="normalizedString", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	normalizedString = 33;
+
+	@GmCore(ignored="false", name="positiveInteger", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	positiveInteger = 34;
+
+	@GmCore(ignored="false", name="QName", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	QName = 35;
+
+	@GmCore(ignored="false", name="short", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	short = 36;
+
+	@GmCore(ignored="false", name="string", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	string = 37;
+
+	@GmCore(ignored="false", name="time", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	time = 38;
+
+	@GmCore(ignored="false", name="token", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	token = 39;
+
+	@GmCore(ignored="false", name="unsignedByte", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	unsignedByte = 40;
+
+	@GmCore(ignored="false", name="unsignedInt", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	unsignedInt = 41;
+
+	@GmCore(ignored="false", name="unsignedLong", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	unsignedLong = 42;
+
+	@GmCore(ignored="false", name="unsignedShort", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	unsignedShort = 43;
+}
+
+@GenModel(documentation="Enumeration of the version of ISO20022")
+@GmCore(ignored="false", name="ISO20022Version", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+enum ISO20022Version {
+
+	@GenModel(documentation="Version 2004 of ISO20022")
+	@GmCore(ignored="false", name="_2004", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	_2004 = 0;
+
+	@GenModel(documentation="Version 2013 of ISO20022")
+	@GmCore(ignored="false", name="_2013", convertedToEEnum="", convertedToPrimitiveType="", convertedToEClass="", convertedToEDataType="", replacedBy="")
+	_2013 = 1;
+}
+

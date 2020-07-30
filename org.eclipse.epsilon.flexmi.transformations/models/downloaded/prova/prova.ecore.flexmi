@@ -1,0 +1,3465 @@
+<?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<?import http://www.eclipse.org/emf/2002/Ecore?>
+<package name="test" nsURI="http:///com.eu.evidence.rtdruid.oil.autoecore.test.ecore" nsPrefix="test">
+	<class name="OS">
+		<attr name="name" lowerBound="1" type="//EString"/>
+		<attr name="EE_OPT" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="CFLAGS" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ASFLAGS" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="LDFLAGS" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="LDDEPS" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="LIBS" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="STATUS" containment="true" type="OS__STATUS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="STANDARD"/>
+			</EAnnotation>
+		</ref>
+		<ref name="STARTUPHOOK" containment="true" type="OS__STARTUPHOOK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="ERRORHOOK" containment="true" type="OS__ERRORHOOK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="SHUTDOWNHOOK" containment="true" type="OS__SHUTDOWNHOOK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="PRETASKHOOK" containment="true" type="OS__PRETASKHOOK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="POSTTASKHOOK" containment="true" type="OS__POSTTASKHOOK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USEGETSERVICEID" containment="true" type="OS__USEGETSERVICEID">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USEPARAMETERACCESS" containment="true" type="OS__USEPARAMETERACCESS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USERESSCHEDULER" containment="true" type="OS__USERESSCHEDULER">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="TRUE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="STARTUPSYNC" containment="true" type="OS__STARTUPSYNC">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USEREMOTETASK" containment="true" type="OS__USEREMOTETASK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="IFREQUIRED"/>
+			</EAnnotation>
+		</ref>
+		<attr name="MP_SHARED_RAM" defaultValueLiteral="" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="MP_SHARED_ROM" defaultValueLiteral="" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="NIOS2_MUTEX_BASE" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IPIC_GLOBAL_NAME" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="NIOS2_SYS_CONFIG" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="NIOS2_APP_CONFIG" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="NIOS2_DO_MAKE_OBJDUMP" containment="true" type="OS__NIOS2_1DO_1MAKE_1OBJDUMP">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<attr name="NIOS2_JAM_FILE" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="MASTER_CPU" defaultValueLiteral="default_cpu" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="default_cpu"/>
+			</EAnnotation>
+		</attr>
+		<ref name="CPU_DATA" upperBound="-1" containment="true" type="OS__CPU_1DATA">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="MCU_DATA" containment="true" type="OS__MCU_1DATA">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="BOARD_DATA" containment="true" type="OS__BOARD_1DATA">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="NO_BOARD"/>
+			</EAnnotation>
+		</ref>
+		<ref name="LIB" upperBound="-1" containment="true" type="OS__LIB">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="KERNEL_TYPE" containment="true" type="OS__KERNEL_1TYPE">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="ORTI_SECTIONS" upperBound="-1" containment="true" type="OS__ORTI_1SECTIONS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__STATUS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__STATUS__STANDARD">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="STANDARD" type="//EString"/>
+	</class>
+	<class name="OS__STATUS__EXTENDED">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="EXTENDED" type="//EString"/>
+	</class>
+	<class name="OS__STARTUPHOOK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__STARTUPHOOK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__STARTUPHOOK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__ERRORHOOK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__ERRORHOOK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__ERRORHOOK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__SHUTDOWNHOOK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__SHUTDOWNHOOK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__SHUTDOWNHOOK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__PRETASKHOOK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__PRETASKHOOK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__PRETASKHOOK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__POSTTASKHOOK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__POSTTASKHOOK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__POSTTASKHOOK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__USEGETSERVICEID" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__USEGETSERVICEID__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__USEGETSERVICEID__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__USEPARAMETERACCESS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__USEPARAMETERACCESS__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__USEPARAMETERACCESS__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__USERESSCHEDULER" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__USERESSCHEDULER__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__USERESSCHEDULER__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__STARTUPSYNC" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__STARTUPSYNC__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__STARTUPSYNC__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__USEREMOTETASK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__USEREMOTETASK__ALWAYS">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ALWAYS" type="//EString"/>
+	</class>
+	<class name="OS__USEREMOTETASK__IFREQUIRED">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="IFREQUIRED" type="//EString"/>
+	</class>
+	<class name="OS__NIOS2_1DO_1MAKE_1OBJDUMP" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__NIOS2_1DO_1MAKE_1OBJDUMP__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__NIOS2_1DO_1MAKE_1OBJDUMP__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__ARM7">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ARM7" type="//EString"/>
+		<attr name="ID" defaultValueLiteral="default_cpu" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="default_cpu"/>
+			</EAnnotation>
+		</attr>
+		<attr name="APP_SRC" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="THUMB_SRC" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="MULTI_STACK" containment="true" type="OS__CPU_1DATA__ARM7__MULTI_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<attr name="STACK_TOP" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="STACK_BOTTOM" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="SVC_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="FIQ_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ABT_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="UND_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="SHARED_MIN_SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__ARM7__MULTI_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<ref name="IRQ_STACK" containment="true" type="OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__IRQ_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="DUMMY_STACK" containment="true" type="OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__DUMMY_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__IRQ_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__IRQ_1STACK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__IRQ_1STACK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__DUMMY_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__DUMMY_1STACK__SHARED">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="SHARED" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__ARM7__MULTI_1STACK__TRUE__DUMMY_1STACK__PRIVATE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PRIVATE" type="//EString"/>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__ARM7__MULTI_1STACK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__NIOSII">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="NIOSII" type="//EString"/>
+		<attr name="ID" defaultValueLiteral="default_cpu" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="default_cpu"/>
+			</EAnnotation>
+		</attr>
+		<attr name="APP_SRC" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="MULTI_STACK" containment="true" type="OS__CPU_1DATA__NIOSII__MULTI_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<attr name="STACK_TOP" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="SHARED_MIN_SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="SYSTEM_LIBRARY_NAME" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="SYSTEM_LIBRARY_PATH" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IPIC_LOCAL_NAME" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__NIOSII__MULTI_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<ref name="IRQ_STACK" containment="true" type="OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__IRQ_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="DUMMY_STACK" containment="true" type="OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__DUMMY_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__IRQ_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__IRQ_1STACK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__IRQ_1STACK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__DUMMY_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__DUMMY_1STACK__SHARED">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="SHARED" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__NIOSII__MULTI_1STACK__TRUE__DUMMY_1STACK__PRIVATE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PRIVATE" type="//EString"/>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__NIOSII__MULTI_1STACK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__MPC5">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="MPC5" type="//EString"/>
+		<attr name="ID" defaultValueLiteral="default_cpu" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="default_cpu"/>
+			</EAnnotation>
+		</attr>
+		<attr name="APP_SRC" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="MULTI_STACK" containment="true" type="OS__CPU_1DATA__MPC5__MULTI_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<attr name="STACK_BOTTOM" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="SHARED_MIN_SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ0" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_LVL0" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_LVL1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ2" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_LVL2" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ3" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_LVL3" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ4" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_LVL4" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ5" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_LVL5" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ6" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_LVL6" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ7" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_LVL7" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__MPC5__MULTI_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<ref name="IRQ_STACK" containment="true" type="OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__IRQ_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="DUMMY_STACK" containment="true" type="OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__DUMMY_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__IRQ_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__IRQ_1STACK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__IRQ_1STACK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__DUMMY_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__DUMMY_1STACK__SHARED">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="SHARED" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__MPC5__MULTI_1STACK__TRUE__DUMMY_1STACK__PRIVATE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PRIVATE" type="//EString"/>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__MPC5__MULTI_1STACK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30" type="//EString"/>
+		<attr name="ID" defaultValueLiteral="default_cpu" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="default_cpu"/>
+			</EAnnotation>
+		</attr>
+		<attr name="APP_SRC" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="MULTI_STACK" containment="true" type="OS__CPU_1DATA__PIC30__MULTI_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="ICD2" containment="true" type="OS__CPU_1DATA__PIC30__ICD2">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="ENABLE_SPLIM" containment="true" type="OS__CPU_1DATA__PIC30__ENABLE_1SPLIM">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="TRUE"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__MULTI_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<ref name="IRQ_STACK" containment="true" type="OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE__IRQ_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE__IRQ_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE__IRQ_1STACK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__MULTI_1STACK__TRUE__IRQ_1STACK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__MULTI_1STACK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__ICD2" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__ICD2__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__ICD2__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__ENABLE_1SPLIM" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__ENABLE_1SPLIM__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__PIC30__ENABLE_1SPLIM__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="AVR_5" type="//EString"/>
+		<attr name="ID" defaultValueLiteral="default_cpu" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="default_cpu"/>
+			</EAnnotation>
+		</attr>
+		<attr name="APP_SRC" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="MULTI_STACK" containment="true" type="OS__CPU_1DATA__AVR_15__MULTI_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<attr name="STACK_BOTTOM" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="SHARED_MIN_SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="TIMER0" containment="true" type="OS__CPU_1DATA__AVR_15__TIMER0">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="STOP"/>
+			</EAnnotation>
+		</ref>
+		<ref name="TIMER1" containment="true" type="OS__CPU_1DATA__AVR_15__TIMER1">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="STOP"/>
+			</EAnnotation>
+		</ref>
+		<ref name="TIMER2" containment="true" type="OS__CPU_1DATA__AVR_15__TIMER2">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="STOP"/>
+			</EAnnotation>
+		</ref>
+		<ref name="TIMER3" containment="true" type="OS__CPU_1DATA__AVR_15__TIMER3">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="STOP"/>
+			</EAnnotation>
+		</ref>
+		<attr name="HANDLER_IRQ0" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ2" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ3" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ4" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ5" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ6" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_IRQ7" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T0_MATCH" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T0_OVERFLW" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T1_EVENT" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T1_MATCH_A" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T1_MATCH_B" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T1_MATCH_C" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T1_OVERFLW" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T2_MATCH" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T2_OVERFLW" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T3_EVENT" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T3_MATCH_A" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T3_MATCH_B" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T3_MATCH_C" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_T3_OVERFLW" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_SPI" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_US0_RX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_US0_EMPTY" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_US0_TX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_US1_RX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_US1_EMPTY" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_US1_TX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_ADC" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_EEPROM" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_ANALOG_COMP" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_2WSI" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="HANDLER_SPM_READY" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="HANDLER" upperBound="-1" containment="true" type="OS__CPU_1DATA__AVR_15__HANDLER">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__MULTI_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<ref name="IRQ_STACK" containment="true" type="OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__IRQ_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="DUMMY_STACK" containment="true" type="OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__DUMMY_1STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__IRQ_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__IRQ_1STACK__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__IRQ_1STACK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__DUMMY_1STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__DUMMY_1STACK__SHARED">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="SHARED" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__MULTI_1STACK__TRUE__DUMMY_1STACK__PRIVATE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PRIVATE" type="//EString"/>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__MULTI_1STACK__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER0" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER0__STOP">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="STOP" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER0__DIV1">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV1" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER0__DIV8">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV8" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER0__DIV32">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV32" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER0__DIV64">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV64" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER0__DIV256">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV256" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER0__DIV1024">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV1024" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER1" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER1__STOP">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="STOP" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER1__DIV1">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV1" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER1__DIV8">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV8" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER1__DIV64">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV64" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER1__DIV256">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV256" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER1__DIV1024">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV1024" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER2" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER2__STOP">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="STOP" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER2__DIV1">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV1" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER2__DIV8">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV8" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER2__DIV64">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV64" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER2__DIV256">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV256" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER2__DIV1024">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV1024" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER3" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER3__STOP">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="STOP" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER3__DIV1">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV1" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER3__DIV8">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV8" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER3__DIV64">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV64" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER3__DIV256">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV256" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__TIMER3__DIV1024">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DIV1024" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ0">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_IRQ0" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ1">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_IRQ1" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ2">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_IRQ2" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ3">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_IRQ3" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ4">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_IRQ4" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ5">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_IRQ5" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ6">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_IRQ6" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1IRQ7">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_IRQ7" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T0_1MATCH">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T0_MATCH" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T0_1OVERFLW">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T0_OVERFLW" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T1_1EVENT">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T1_EVENT" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T1_1MATCH_1A">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T1_MATCH_A" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T1_1MATCH_1B">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T1_MATCH_B" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T1_1MATCH_1C">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T1_MATCH_C" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T1_1OVERFLW">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T1_OVERFLW" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T2_1MATCH">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T2_MATCH" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T2_1OVERFLW">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T2_OVERFLW" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T3_1EVENT">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T3_EVENT" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T3_1MATCH_1A">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T3_MATCH_A" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T3_1MATCH_1B">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T3_MATCH_B" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T3_1MATCH_1C">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T3_MATCH_C" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1T3_1OVERFLW">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_T3_OVERFLW" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1SPI">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_SPI" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US0_1RX">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_US0_RX" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US0_1EMPTY">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_US0_EMPTY" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US0_1TX">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_US0_TX" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US1_1RX">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_US1_RX" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US1_1EMPTY">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_US1_EMPTY" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1US1_1TX">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_US1_TX" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1ADC">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_ADC" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1EEPROM">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_EEPROM" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1ANALOG_1COMP">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_ANALOG_COMP" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_12WSI">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_2WSI" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__CPU_1DATA__AVR_15__HANDLER__HANDLER_1SPM_1READY">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="HANDLER_SPM_READY" type="//EString"/>
+		<attr name="FUNCTION" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TYPE" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__MCU_1DATA" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__SAMSUNG_1KS32C50100">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="SAMSUNG_KS32C50100" type="//EString"/>
+		<attr name="IRQ_EXT0" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_EXT1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_EXT2" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_EXT3" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_UART0TX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_UART0RX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_UART1TX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_UART1RX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_GDMA0" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_GDMA1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_TIMER0" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_TIMER1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_HDLCATX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_HDLCARX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_HDLCBTX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_HDLCBRX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_ETHBDMATX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_ETHBDMARX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_ETHMACTX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_ETHMACRX" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_I2C" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="IRQ_NO_PENDING" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30" type="//EString"/>
+		<ref name="MODEL" containment="true" type="OS__MCU_1DATA__PIC30__MODEL">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__CUSTOM">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="CUSTOM" type="//EString"/>
+		<attr name="MODEL" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="LINKERSCRIPT" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="DEV_LIB" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="INCLUDE_C" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="INCLUDE_S" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ128GA006">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ128GA006" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ128GA008">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ128GA008" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ128GA010">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ128GA010" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ32GA002">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ32GA002" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ32GA004">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ32GA004" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ64GA002">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ64GA002" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ64GA004">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ64GA004" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ64GA006">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ64GA006" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ64GA008">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ64GA008" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ64GA010">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ64GA010" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ96GA006">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ96GA006" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ96GA008">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ96GA008" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24FJ96GA010">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24FJ96GA010" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP206">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ128GP206" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP210">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ128GP210" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP306">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ128GP306" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP310">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ128GP310" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP506">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ128GP506" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ128GP510">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ128GP510" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ256GP206">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ256GP206" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ256GP210">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ256GP210" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ256GP610">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ256GP610" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ64GP206">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ64GP206" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ64GP210">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ64GP210" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ64GP506">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ64GP506" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC24HJ64GP510">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC24HJ64GP510" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F1010">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F1010" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F2010">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F2010" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F2011">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F2011" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F2012">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F2012" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F2020">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F2020" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F2021">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F2021" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F2022">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F2022" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F2023">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F2023" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F3010">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F3010" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F3011">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F3011" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F3012">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F3012" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F3013">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F3013" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F3014">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F3014" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F4011">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F4011" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F4012">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F4012" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F4013">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F4013" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F5011">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F5011" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F5013">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F5013" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F5015">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F5015" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F5016">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F5016" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F6010">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F6010" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F6010A">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F6010A" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F6011">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F6011" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F6011A">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F6011A" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F6012">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F6012" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F6012A">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F6012A" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F6013">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F6013" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F6013A">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F6013A" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F6014">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F6014" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F6014A">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F6014A" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC30F6015">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC30F6015" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP206">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ128GP206" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP306">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ128GP306" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP310">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ128GP310" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP706">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ128GP706" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP708">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ128GP708" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128GP710">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ128GP710" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128MC506">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ128MC506" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128MC510">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ128MC510" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128MC706">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ128MC706" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128MC708">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ128MC708" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ128MC710">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ128MC710" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ256GP506">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ256GP506" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ256GP510">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ256GP510" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ256GP710">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ256GP710" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ256MC510">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ256MC510" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ256MC710">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ256MC710" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP206">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ64GP206" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP306">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ64GP306" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP310">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ64GP310" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP706">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ64GP706" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP708">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ64GP708" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64GP710">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ64GP710" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64MC506">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ64MC506" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64MC508">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ64MC508" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64MC510">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ64MC510" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64MC706">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ64MC706" type="//EString"/>
+	</class>
+	<class name="OS__MCU_1DATA__PIC30__MODEL__PIC33FJ64MC710">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PIC33FJ64MC710" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__NO_1BOARD">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="NO_BOARD" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="EE_FLEX" type="//EString"/>
+		<ref name="USELEDS" containment="true" type="OS__BOARD_1DATA__EE_1FLEX__USELEDS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USELCD" containment="true" type="OS__BOARD_1DATA__EE_1FLEX__USELCD">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+		<ref name="TYPE" containment="true" type="OS__BOARD_1DATA__EE_1FLEX__TYPE">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="STANDARD"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__USELEDS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__USELEDS__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__USELEDS__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__USELCD" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__USELCD__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__USELCD__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DEMO" type="//EString"/>
+		<ref name="OPTIONS" upperBound="-1" containment="true" type="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__ACCELEROMETER">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ACCELEROMETER" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__ADC_1IN">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ADC_IN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__BUTTONS">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="BUTTONS" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__BUZZER">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="BUZZER" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__DAC">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="DAC" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__ENCODER">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ENCODER" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__IR">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="IR" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__LCD">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="LCD" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__LEDS">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="LEDS" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__PWM_1OUT">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PWM_OUT" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__PWM_1MOTOR">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PWM_MOTOR" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__SENSORS">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="SENSORS" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__TRIMMER">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRIMMER" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__USB">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="USB" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__ZIGBEE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ZIGBEE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__DEMO__OPTIONS__ALL">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ALL" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="MULTI" type="//EString"/>
+		<ref name="OPTIONS" upperBound="-1" containment="true" type="OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS__ETHERNET">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ETHERNET" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS__EIB">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="EIB" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__MULTI__OPTIONS__ALL">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ALL" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="STANDARD" type="//EString"/>
+		<ref name="OPTIONS" upperBound="-1" containment="true" type="OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS__LEDS">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="LEDS" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS__LCD">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="LCD" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__EE_1FLEX__TYPE__STANDARD__OPTIONS__ALL">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ALL" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="MICROCHIP_EXPLORER16" type="//EString"/>
+		<ref name="USELEDS" containment="true" type="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELEDS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USEBUTTONS" containment="true" type="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEBUTTONS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USELCD" containment="true" type="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELCD">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USEANALOG" containment="true" type="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEANALOG">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELEDS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELEDS__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELEDS__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEBUTTONS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEBUTTONS__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEBUTTONS__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELCD" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELCD__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USELCD__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEANALOG" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEANALOG__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1EXPLORER16__USEANALOG__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="MICROCHIP_DSPICDEM11PLUS" type="//EString"/>
+		<ref name="USELEDS" containment="true" type="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELEDS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USELCD" containment="true" type="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELCD">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USEBUTTONS" containment="true" type="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEBUTTONS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USEAUDIO" containment="true" type="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEAUDIO">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="USEANALOG" containment="true" type="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEANALOG">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELEDS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELEDS__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELEDS__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELCD" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELCD__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USELCD__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEBUTTONS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEBUTTONS__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEBUTTONS__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEAUDIO" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEAUDIO__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEAUDIO__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEANALOG" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEANALOG__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__MICROCHIP_1DSPICDEM11PLUS__USEANALOG__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__ATMEGA_1STK50X">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ATMEGA_STK50X" type="//EString"/>
+	</class>
+	<class name="OS__BOARD_1DATA__XBOW_1MIB5X0">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="XBOW_MIB5X0" type="//EString"/>
+	</class>
+	<class name="OS__LIB" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__LIB__ENABLE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ENABLE" type="//EString"/>
+		<attr name="NAME" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__KERNEL_1TYPE" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__FP">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FP" type="//EString"/>
+		<ref name="NESTED_IRQ" containment="true" type="OS__KERNEL_1TYPE__FP__NESTED_1IRQ">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__KERNEL_1TYPE__FP__NESTED_1IRQ" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__FP__NESTED_1IRQ__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__FP__NESTED_1IRQ__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__EDF">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="EDF" type="//EString"/>
+		<attr name="TICK_TIME" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="NESTED_IRQ" containment="true" type="OS__KERNEL_1TYPE__EDF__NESTED_1IRQ">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="REL_DEADLINES_IN_RAM" containment="true" type="OS__KERNEL_1TYPE__EDF__REL_1DEADLINES_1IN_1RAM">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="FALSE"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__KERNEL_1TYPE__EDF__NESTED_1IRQ" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__EDF__NESTED_1IRQ__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__EDF__NESTED_1IRQ__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__EDF__REL_1DEADLINES_1IN_1RAM" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__EDF__REL_1DEADLINES_1IN_1RAM__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__EDF__REL_1DEADLINES_1IN_1RAM__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__BCC1">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="BCC1" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__BCC2">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="BCC2" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__ECC1">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ECC1" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__ECC2">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ECC2" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__IRIS">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="IRIS" type="//EString"/>
+		<ref name="CONTRACTS" upperBound="-1" containment="true" type="OS__KERNEL_1TYPE__IRIS__CONTRACTS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__KERNEL_1TYPE__IRIS__CONTRACTS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__IRIS__CONTRACTS__CONTRACT">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="CONTRACT" type="//EString"/>
+		<attr name="NAME" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="BUDGET" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="PERIOD" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__KERNEL_1TYPE__CBS">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="CBS" type="//EString"/>
+		<ref name="CONTRACTS" upperBound="-1" containment="true" type="OS__KERNEL_1TYPE__CBS__CONTRACTS">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="OS__KERNEL_1TYPE__CBS__CONTRACTS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__KERNEL_1TYPE__CBS__CONTRACTS__CONTRACT">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="CONTRACT" type="//EString"/>
+		<attr name="NAME" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="BUDGET" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="PERIOD" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="OS__ORTI_1SECTIONS" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="OS__ORTI_1SECTIONS__NONE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="NONE" type="//EString"/>
+	</class>
+	<class name="OS__ORTI_1SECTIONS__ALL">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ALL" type="//EString"/>
+	</class>
+	<class name="OS__ORTI_1SECTIONS__OS_1SECTION">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="OS_SECTION" type="//EString"/>
+	</class>
+	<class name="OS__ORTI_1SECTIONS__TASK_1SECTION">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TASK_SECTION" type="//EString"/>
+	</class>
+	<class name="OS__ORTI_1SECTIONS__RESOURCE_1SECTION">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="RESOURCE_SECTION" type="//EString"/>
+	</class>
+	<class name="OS__ORTI_1SECTIONS__STACK_1SECTION">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="STACK_SECTION" type="//EString"/>
+	</class>
+	<class name="OS__ORTI_1SECTIONS__ALARM_1SECTION">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ALARM_SECTION" type="//EString"/>
+	</class>
+	<class name="APPMODE">
+		<attr name="name" lowerBound="1" type="//EString"/>
+	</class>
+	<class name="TASK">
+		<attr name="name" lowerBound="1" type="//EString"/>
+		<ref name="AUTOSTART" containment="true" type="TASK__AUTOSTART">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<attr name="PRIORITY" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ACTIVATION" defaultValueLiteral="1" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="REL_DEADLINE" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="SCHEDULE" containment="true" type="TASK__SCHEDULE">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="EVENT" upperBound="-1" type="EVENT"/>
+		<ref name="RESOURCE" upperBound="-1" type="RESOURCE"/>
+		<ref name="STACK" containment="true" type="TASK__STACK">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="SHARED"/>
+			</EAnnotation>
+		</ref>
+		<attr name="CPU_ID" defaultValueLiteral="default_cpu" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="default_cpu"/>
+			</EAnnotation>
+		</attr>
+		<attr name="APP_SRC" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="LINKED" upperBound="-1" type="TASK"/>
+		<attr name="CONTRACT" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TASK__AUTOSTART" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="TASK__AUTOSTART__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<ref name="APPMODE" upperBound="-1" type="APPMODE"/>
+	</class>
+	<class name="TASK__AUTOSTART__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+	<class name="TASK__SCHEDULE" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="TASK__SCHEDULE__NON">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="NON" type="//EString"/>
+	</class>
+	<class name="TASK__SCHEDULE__FULL">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FULL" type="//EString"/>
+	</class>
+	<class name="TASK__STACK" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="TASK__STACK__SHARED">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="SHARED" type="//EString"/>
+	</class>
+	<class name="TASK__STACK__PRIVATE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="PRIVATE" type="//EString"/>
+		<attr name="SYS_SIZE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="RESOURCE">
+		<attr name="name" lowerBound="1" type="//EString"/>
+		<ref name="RESOURCEPROPERTY" containment="true" type="RESOURCE__RESOURCEPROPERTY">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="RESOURCE__RESOURCEPROPERTY" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="RESOURCE__RESOURCEPROPERTY__STANDARD">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="STANDARD" type="//EString"/>
+		<attr name="APP_SRC" upperBound="-1" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="RESOURCE__RESOURCEPROPERTY__LINKED">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="LINKED" type="//EString"/>
+		<ref name="LINKEDRESOURCE" type="RESOURCE"/>
+	</class>
+	<class name="RESOURCE__RESOURCEPROPERTY__INTERNAL">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="INTERNAL" type="//EString"/>
+	</class>
+	<class name="EVENT">
+		<attr name="name" lowerBound="1" type="//EString"/>
+		<attr name="MASK" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="true"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="true"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="COUNTER">
+		<attr name="name" lowerBound="1" type="//EString"/>
+		<attr name="MINCYCLE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="MAXALLOWEDVALUE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="TICKSPERBASE" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="CPU_ID" defaultValueLiteral="default_cpu" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="DEFAULT_VALUE" value="default_cpu"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ALARM">
+		<attr name="name" lowerBound="1" type="//EString"/>
+		<ref name="COUNTER" type="COUNTER"/>
+		<ref name="ACTION" containment="true" type="ALARM__ACTION">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+		<ref name="AUTOSTART" containment="true" type="ALARM__AUTOSTART">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="ALARM__ACTION" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="ENUM" type="//EString"/>
+	</class>
+	<class name="ALARM__ACTION__ACTIVATETASK">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ACTIVATETASK" type="//EString"/>
+		<ref name="TASK" type="TASK"/>
+	</class>
+	<class name="ALARM__ACTION__SETEVENT">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="SETEVENT" type="//EString"/>
+		<ref name="TASK" type="TASK"/>
+		<ref name="EVENT" type="EVENT"/>
+	</class>
+	<class name="ALARM__ACTION__ALARMCALLBACK">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="ALARMCALLBACK" type="//EString"/>
+		<attr name="ALARMCALLBACKNAME" type="//EString">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ALARM__AUTOSTART" abstract="true">
+		<attr name="variant_type" lowerBound="1" changeable="false" defaultValueLiteral="BOOLEAN" type="//EString"/>
+	</class>
+	<class name="ALARM__AUTOSTART__TRUE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="TRUE" type="//EString"/>
+		<attr name="ALARMTIME" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<attr name="CYCLETIME" type="//EInt">
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="WITH_AUTO" value="false"/>
+			</EAnnotation>
+			<EAnnotation source="htt:///com/eu/evidence/rtdruid/annotations">
+				<EStringToStringMapEntry key="AUTO" value="false"/>
+			</EAnnotation>
+		</attr>
+		<ref name="APPMODE" upperBound="-1" type="APPMODE"/>
+	</class>
+	<class name="ALARM__AUTOSTART__FALSE">
+		<attr name="type" lowerBound="1" changeable="false" defaultValueLiteral="FALSE" type="//EString"/>
+	</class>
+</package>

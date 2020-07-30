@@ -1,0 +1,2032 @@
+@namespace(uri="top", prefix="top")
+package top;
+
+@namespace(uri="http:///ru.croc.ctp.jxfw.ecore", prefix="Model.xtend")
+package Model {
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="true")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum SourceDataStateEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Создан")
+		CREATED = 0;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отправлен")
+		RECEIVED = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Ожидает загрузки")
+		LOADING = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отправлен на доработку")
+		DECLINED = 3;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Принят")
+		ACCEPTED = 4;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Помещен в ЭА")
+		STORED_IN_EA = 5;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Помещен в ЭА-доп")
+		STORED_IN_EA_ADDITIONAL = 6;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Ожидает выгрузки в ЭА")
+		LOADING_TO_EA = 7;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Готов к выгрузке в ЦСОД")
+		READY_FOR_CSOD = 8;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Выгружено в ЦСОД")
+		UNLOADED_TO_CSOD = 9;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Удален")
+		REMOVED = 99;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum ActiveEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Активно")
+		ACTIVE = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отключено")
+		DISABLED = 2;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum ActualEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Актуально")
+		ACTUAL = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Устарело")
+		OUT_OF_DATE = 2;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum ReportPeriodStateEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Открытый")
+		OPEN = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Завершен сбор отчетов")
+		REPORTS_COLLECTED = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Завершена обработка РУ")
+		RU_FINISH = 3;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Завершена обработка ФУ")
+		FU_FINISH = 4;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Закрытый")
+		CLOSED = 5;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum RoutingStateEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Не актуальная")
+		NOT_ACTUAL = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Подготовка")
+		PREPARING = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Актуальная")
+		ACTUAL = 3;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum LevelEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ФУ")
+		FEDERAL = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="РУ")
+		REGIONAL = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ФУ/РУ")
+		FEDERAL_REGIONAL = 3;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum DepartmentTypeEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ЦА")
+		CA = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС")
+		TOGS = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отдел")
+		OTHER = 3;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum StatusEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Не начат")
+		NOT_STARTED = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Выполняется")
+		IN_PROGRESS = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Ожидает пользователя")
+		AWAITING_USER = 3;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Завершен")
+		FINISHED = 4;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Завершен с ошибками")
+		ERROR = 5;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Прерван")
+		INTERRUPTED = 6;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Данные не актуальны")
+		NOT_ACTUAL = 7;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Ожидает запуска")
+		WAITING_FOR_START = 8;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum ParamTypeEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Текстовое поле")
+		TEXT = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Выпадающий список")
+		DROPBOX = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Чек-бокс")
+		CHECKBOX = 3;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Дата")
+		DATE = 4;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum ModuleTypeEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Модуль данных")
+		DATA = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Модуль обработки")
+		CONVEYER = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Модуль UI")
+		UI = 3;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum LevelTwoEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Федеральный уровень")
+		FEDERAL = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Региональный уровень")
+		REGIONAL = 2;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum PermissionTypeEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Чтение")
+		READ = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Полный")
+		FULL = 2;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum SeveritylEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Системный сбой")
+		EMERGENCY = 0;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Фатальная ошибка")
+		ALERT = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Критическая ошибка")
+		CRITICAL = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Ошибка")
+		ERROR = 3;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Предупреждение")
+		WARNING = 4;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Уведомление")
+		NOTICE = 5;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Информационное сообщение")
+		INFORMATIONAL = 6;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отладочное сообщение")
+		DEBUG = 7;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum ProcessTypeEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Процесс")
+		PROCESS = 0;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Операция")
+		OPERATION = 1;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum PriorityEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Минимальный")
+		LOWEST = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Низкий")
+		LOW = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Средний")
+		NORMAL = 3;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Высокий")
+		HIGH = 4;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наивысший")
+		HIGHEST = 5;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum OperationStatuslEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Ожидает запуска")
+		NOT_STARTED = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Запущен в обработку")
+		STARTED = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Ошибка")
+		ERROR = 3;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Получен результат")
+		FINISHED = 4;
+	}
+
+	@"http://www.croc.ru/ctp/model/enumType"(isFlags="false")
+	@"http://www.croc.ru/ctp/model/i18n"
+	enum ReportCollectViewStatusEnum {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Получен")
+		RECEIVED = 1;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Ожидается получение")
+		COMING = 2;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отправлен на доработку")
+		REVISION = 3;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class SourceData {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String dataId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr EZonedDateTime ver;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Статус")
+		unsettable attr SourceDataStateEnum status;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String json;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String xml;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String flk;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Результат парсинга ФЛК с указанием кол-ва предупредительных и обязательных контролей")
+		unsettable attr String flkSummary;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Микро данные")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class MicroData {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr Integer togs;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код шаблона")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String templateCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Год отчетного периода")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="3")
+		attr Integer periodYear;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код отчетного периода")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="4")
+		attr Integer periodCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ОКПО")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="5")
+		attr Long okpo;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="6")
+		attr String dataId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="7")
+		attr EZonedDateTime ver;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Дата шаблона")
+		unsettable attr String templateVersion;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Данные")
+		unsettable attr String data;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Микроданные.Витрина")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class MicroDataActual {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Номер ТОГС")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr Integer togs;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код шаблона формы")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String tplCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Год отчетного периода")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="3")
+		attr Integer pYear;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код отчетного периода")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="4")
+		attr Integer pCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ОКПО респондента, приславшего отчет")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="5")
+		attr Long okpo;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Уникальный идентификатор первичных данных (всех версий), ссылка на source_data.data_id")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="6")
+		attr String dataId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Означает, что последняя версия отчета отправлена на доработку")
+		unsettable attr Boolean isCanceled;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Json с параметрами")
+		unsettable attr String data;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Микроданные.Соответствие")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class RoutingListMap {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Номер ТОГС")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr Integer togs;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код шаблона формы")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String tplCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Год отчетного периода")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="3")
+		attr Integer periodYear;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код отчетного периода")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="4")
+		attr Integer periodCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Признак зафиксированного/утвержденного списка респондентов")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="5")
+		attr Boolean isClosed;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор списка респондентов")
+		unsettable attr String listId;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Ведомость приема отчетов ДСЭСД")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class InitialReportRegistry {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя ведомости")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия ведомости")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr EZonedDateTime ver;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор отчета")
+		unsettable attr String reportId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Результат обработки")
+		unsettable attr Integer result;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Экономическое описание")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class EconomicalDescription {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Описание")
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Статус")
+		unsettable attr ActiveEnum status;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия СПЭЭО")
+		unsettable attr String speeoVer;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Актуальность")
+		unsettable attr ActualEnum actual;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Версия экономического описания")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class EconomicalDescriptionVersion {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Экономическое описание")
+		unsettable attr String economicalDescription;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Описание")
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Статус")
+		unsettable attr ActiveEnum status;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия СПЭЭО")
+		unsettable attr String speeoVer;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Актуальность")
+		unsettable attr ActualEnum actual;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Время загрузки")
+		unsettable attr EZonedDateTime loadDate;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Настройки")
+		unsettable attr String settings;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Разработка в составе ЭЭО")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Development {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия ЭЭО")
+		unsettable attr String economicalDescriptionVer;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия СПЭЭО - наименование")
+		unsettable attr String economicalDescriptionVerName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Актуальность")
+		unsettable attr ActualEnum actual;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Отчетный период наблюдения")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class ReportPeriod {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Разработка")
+		unsettable attr String development;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Запись справочника отчетных периодов")
+		unsettable attr String reportPeriodCatalog;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Порядковый номер")
+		unsettable attr Integer sequenceNumber;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Описание")
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Статус")
+		unsettable attr ReportPeriodStateEnum status;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Техкарта")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Routing {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отчетный период наблюдения")
+		unsettable attr String development;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Разработка")
+		unsettable attr String reportPeriod;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Запись справочника отчетных   периодов")
+		unsettable attr String reportPeriodCatalog;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Описание")
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия")
+		unsettable attr String routingVersion;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Статус")
+		unsettable attr RoutingStateEnum status;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Настройки")
+		unsettable attr String settings;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Признак логического удаления")
+		unsettable attr Boolean isDeleted;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Метаописание процесса обработки")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class ProcessMetaView {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Техкарта - идентификатор")
+		unsettable attr String routing;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Индекс сортировки")
+		unsettable attr Integer orderNumber;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Параметры")
+		unsettable attr String settings;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование процесса в тех. карте")
+		unsettable attr String processId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Доступно на уровне")
+		unsettable attr LevelEnum accessLevel;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Метаописание шага процесса обработки")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class ProcessStepMetaView {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Метаописание процесса обработки")
+		unsettable attr String processMetaView;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Техкарта - идентификатор")
+		unsettable attr String routing;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Индекс сортировки")
+		unsettable attr Integer orderNumber;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Параметры")
+		unsettable attr String settings;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование шага в тех карте")
+		unsettable attr String stepName;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Процесс обработки")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class ProcessView {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Метаописание процесса обработки - идентификатор")
+		unsettable attr String processMetaView;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия Техкарты - идентификатор")
+		unsettable attr String routing;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС/ЦА - идентификатор")
+		unsettable attr String department;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС/ЦА – номер")
+		unsettable attr String departmentShortName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Тип подразделения")
+		unsettable attr DepartmentTypeEnum departmentType;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Комментарий")
+		unsettable attr String lastComment;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Индекс сортировки")
+		unsettable attr Integer orderNumber;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование процесса в тех. карте")
+		unsettable attr String processId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор процесса")
+		unsettable attr String processObjectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор экземпляра процесса")
+		unsettable attr String processInstanceId;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Шаг процесса обработки")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class ProcessStepView {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Метаописание шага процесса обработки - идентификатор")
+		unsettable attr String processStepMetaView;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Процесс - идентификатор")
+		unsettable attr String processView;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Техкарта - идентификатор")
+		unsettable attr String routing;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС/ЦА - идентификатор")
+		unsettable attr String department;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС/ЦА – номер")
+		unsettable attr String departmentShortName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Тип подразделения")
+		unsettable attr DepartmentTypeEnum departmentType;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Комментарий")
+		unsettable attr String lastComment;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Индекс сортировки")
+		unsettable attr Integer orderNumber;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Статус")
+		unsettable attr StatusEnum status;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Время изменения статуса")
+		unsettable attr EZonedDateTime statusChangeDate;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Пользователь, изменивший статус -   идентификатор")
+		unsettable attr String changeUser;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Пользователь, изменивший статус -   ФИО")
+		unsettable attr String changeUserFio;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код модуля UI - идентификатор")
+		unsettable attr String moduleUi;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Параметры")
+		unsettable attr String settings;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование процесса в тех. карте")
+		unsettable attr String processId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор процесса")
+		unsettable attr String processObjectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор экземпляра процесса")
+		unsettable attr String processInstanceId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование шага в тех карте")
+		unsettable attr String stepName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор данных")
+		unsettable attr String resultDataId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Результаты шага")
+		unsettable attr String result;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="История комментариев")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class CommentHistory {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectType;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Процесс - идентификатор")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Дата и время изменения")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="3")
+		attr EZonedDateTime commentDate;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Пользователь - идентификатор")
+		unsettable attr String user;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Пользователь – Фамилия И.О.")
+		unsettable attr String userFio;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Комментарий")
+		unsettable attr String comment;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Общесистемный параметр")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class SystemParam {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Описание")
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Признак «Группа»")
+		unsettable attr Boolean isGroup;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Группа параметров")
+		unsettable attr String group;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код записи")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Тип параметра")
+		unsettable attr ParamTypeEnum paramType;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Признак «редактируемое»")
+		unsettable attr Boolean isEditable;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Значение – текст")
+		unsettable attr String valueText;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Значение – выпадающий список")
+		unsettable attr Integer valueCombo;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Значение – чек-бокс")
+		unsettable attr Boolean valueBool;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Значение – дата")
+		unsettable attr EZonedDateTime valueDateTime;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Перечень доступных значений")
+		unsettable attr String availableValues;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Модуль обработки")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Module {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование модуля")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ID модуля")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Тип модуля")
+		unsettable attr ModuleTypeEnum moduleType;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Описание")
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Уровень доступа для модуля")
+		unsettable attr LevelEnum level;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия")
+		unsettable attr String moduleVersion;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Дата создания версии")
+		unsettable attr EZonedDateTime moduleVersionDate;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Актуальность")
+		unsettable attr Boolean isActual;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Параметры модуля")
+		unsettable attr String params;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Бинарные данные модуля")
+		unsettable attr String moduleDataId;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Справочник отчетных периодов")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class ReportPeriodCatalog {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ID элемента")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Порядковый номер")
+		unsettable attr Integer sequenceNumber;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Год")
+		unsettable attr Integer year;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Периодичность - идентификатор")
+		unsettable attr String periodicity;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Периодичность - код")
+		unsettable attr String periodicityCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Периодичность - наименование")
+		unsettable attr String periodicityName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Номер периода в рамках года")
+		unsettable attr Integer periodNum;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Признак 'закрыт'")
+		unsettable attr Boolean closed;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Таблица периодичность")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Periodicity {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ID элемента")
+		unsettable attr String coded;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Подразделение ActiveDirectory")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class AdCopyDepartment {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ID AD Росстата")
+		unsettable attr String activeDirectoryId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование подразделения")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="№ ТОГС/ЦОДФУ")
+		unsettable attr String shortName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Архивный")
+		unsettable attr Boolean isArchiveInAd;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Вышестоящее подразделение")
+		unsettable attr String parentAdCopyDepartment;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Тип подразделения")
+		unsettable attr DepartmentTypeEnum departmentType;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String distinguishedName;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr Integer togsNum;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr Integer level;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Пользователь  ActiveDirectory")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class AdCopyUser {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ID AD Росстата")
+		unsettable attr String activeDirectoryId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Логин")
+		unsettable attr String login;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Фамилия")
+		unsettable attr String lastName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя")
+		unsettable attr String firstName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отчество")
+		unsettable attr String middleName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Адрес электронной почты")
+		unsettable attr String email;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Архивный")
+		unsettable attr Boolean isArchiveInAd;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отдел/подразделение")
+		unsettable attr String adCopyDevision;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС/ФУ")
+		unsettable attr String adCopyDepartment;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String distinguishedName;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr Integer togsNum;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Должность")
+		unsettable attr String position;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Подразделение")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Department {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ID AD Росстата")
+		unsettable attr String activeDirectoryId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование подразделения")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="№ ТОГС/ЦОДФУ")
+		unsettable attr String shortName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС")
+		unsettable attr Integer togsNum;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Архивный в АД")
+		unsettable attr Boolean isArchiveInAD;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Удалено")
+		unsettable attr Boolean logicDeleted;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Вышестоящее подразделение")
+		unsettable attr String parentDepartment;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Тип подразделения")
+		unsettable attr DepartmentTypeEnum departmentType;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Пользователь")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class User {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ID AD Росстата")
+		unsettable attr String activeDirectoryId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор пользователя")
+		unsettable attr String login;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Фамилия")
+		unsettable attr String lastName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя")
+		unsettable attr String firstName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отчество")
+		unsettable attr String middleName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Адрес электронной почты")
+		unsettable attr String email;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Архивный в АД")
+		unsettable attr Boolean isArchiveInAd;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Удалено")
+		unsettable attr Boolean logicDeleted;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отдел/подразделение")
+		unsettable attr String devision;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Отдел/подразделение – наименование")
+		unsettable attr String devisionName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС/ФУ")
+		unsettable attr String department;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС/ФУ - наименование")
+		unsettable attr String departmentName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Должность")
+		unsettable attr String position;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/relation_column"(lazyLoad="true")
+		ref Role[*] userRoles;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Право")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class UserRight {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Признак «Группирующий элемент»")
+		unsettable attr Boolean isGroup;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Группа прав")
+		unsettable attr String groupId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Описание")
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/relation_column"(lazyLoad="true")
+		ref Role[*] roles;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Роль")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Role {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование роли")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Уровень роли")
+		unsettable attr LevelTwoEnum level;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код роли")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Описание роли")
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Перечень прав пользователя")
+		@"http://www.croc.ru/ctp/model/relation_column"(lazyLoad="true")
+		ref UserRight[*] userRights;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Перечень ролей пользователя")
+		@"http://www.croc.ru/ctp/model/relation_column"(lazyLoad="true")
+		ref User[*] roleUsers;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Связь роли и права")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Role_UserRights {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор роли")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String role;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор права")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String userRight;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование права")
+		unsettable attr String userRightName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код права")
+		unsettable attr String userRightCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Уровень доступа")
+		unsettable attr PermissionTypeEnum rightLevel;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Связь роли и пользователя")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class User_Role {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор роли")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String role;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор пользователя")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String user;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование роли")
+		unsettable attr String roleName;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Уведомление")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Notification {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование события")
+		unsettable attr String notification;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Описание события")
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Тема письма")
+		unsettable attr String mailSubject;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class AuditEvent {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String eventClass;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String eventClassName;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr EZonedDateTime occurred;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String initiator;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String initiatorName;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr SeveritylEnum severity;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String host;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String sourceSystem;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String sourceModule;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String parameters;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String eventType;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String eventTypeName;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Message {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr Integer severity;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr Integer count;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String receiver;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String subject;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String body;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr EZonedDateTime sent;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class AuditEventClass {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String eventClass;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String title;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr Integer defaultSeverity;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr Boolean sendNotification;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String templateSubject;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String templateBody;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String defaultReceivers;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class AuditEventType {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String eventType;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String title;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Parameter {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String value;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class EoMetadataPart {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String eoId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String type;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String data;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="3")
+		attr String development;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String dataRef;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class EoValueType {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String eoId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String extId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String parentId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr Integer orderNum;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String customColumns;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class SecretCodeRef {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String eoId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String dictionaryCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String extId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr Integer orderNum;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String customColumns;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Шаблоны форм (содержимое)")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class FormTemplatesContent {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор разработки, к которой привязан шаблон")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String devId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код шаблона")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String tmplCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия шаблона")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="3")
+		attr String tmplVer;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя шаблона")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Тип периодичности шаблона.")
+		unsettable attr Integer periodicity;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор версии ЭО, к которой привязан шаблон")
+		unsettable attr String eoVerId;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Шаблоны форм")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class FormTemplates {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код шаблона")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String tmplCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия шаблона")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String tmplVer;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя шаблона")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Тип периодичности шаблона.")
+		unsettable attr Integer periodicity;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Содержимое шаблона")
+		unsettable attr String xmlBody;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Содержимое привязки шаблона")
+		unsettable attr String xmlBinding;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Управление конвейером обработки")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class ProcessLog {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Дата и время события")
+		unsettable attr EZonedDateTime creationTime;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя пользователя, который стал инициатором события")
+		unsettable attr String user;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Комментарий пользователя")
+		unsettable attr String comment;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Историческая запись")
+		unsettable attr Boolean history;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="идентификатор Экономического описания")
+		unsettable attr String economicDescriptionId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="идентификатор Разработки")
+		unsettable attr String developmentId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="идентификатор Версии техкарты")
+		unsettable attr String routing_id;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="идентификатор Периода разработки")
+		unsettable attr String periodId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="уровень разработки")
+		unsettable attr String level;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Тип процесса")
+		unsettable attr ProcessTypeEnum processType;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор процесса")
+		unsettable attr String processId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта процесса")
+		unsettable attr String processObjectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор экземпляра процесса")
+		unsettable attr String processInstanceId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="имя шага процесса ")
+		unsettable attr String stepName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="статус экземпляра процесса")
+		unsettable attr StatusEnum status;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Дата и время изменения статуса")
+		unsettable attr EZonedDateTime statusDate;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Приоритет ")
+		unsettable attr PriorityEnum priority;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Номер очереди")
+		unsettable attr Integer queueNumber;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Контекст экземпляра процесса")
+		unsettable attr String context;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String settings;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Записи конвейера обработки")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class OperationLogView {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="№ в очереди")
+		unsettable attr Integer sequenceNumber;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор ТОГС/ФУ")
+		unsettable attr String department;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор ТОГС/ФУ")
+		unsettable attr DepartmentTypeEnum department_type;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="№ ТОГС/ЦОДФУ")
+		unsettable attr String departmentShortName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Разработка – идентификатор")
+		unsettable attr String development;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Разработка – наименование")
+		unsettable attr String developmentName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Период разработки – идентификатор")
+		unsettable attr String reportPeriod;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Период разработки – наименование")
+		unsettable attr String reportPeriodName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Период разработки – статус")
+		unsettable attr ReportPeriodStateEnum reportPeriodStatus;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Модуль обработки – идентификатор")
+		unsettable attr String module;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Модуль обработки – наименование")
+		unsettable attr String moduleName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Процесс - идентификатор")
+		unsettable attr String process;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Процесс - наименование")
+		unsettable attr String processName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор экземпляра процесса")
+		unsettable attr String processInstanceId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Шаг – идентификатор")
+		unsettable attr String step;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Шаг – наименование")
+		unsettable attr String stepName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Операция - наименование")
+		unsettable attr String taskName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Дата постановки в очередь")
+		unsettable attr EZonedDateTime createDate;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Дата и время фактического запуска")
+		unsettable attr EZonedDateTime runDate;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Дата и время получения результата")
+		unsettable attr EZonedDateTime resultDate;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Номер версии сформированных данных")
+		unsettable attr String dataVer;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Приоритет")
+		unsettable attr PriorityEnum priority;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Сотрудник – ФИО")
+		unsettable attr String userFio;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Сотрудник – идентификатор")
+		unsettable attr String user;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Статус")
+		unsettable attr OperationStatuslEnum status;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Справочник 'ОКВЭД'")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class EoOkved {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия экономического описания")
+		unsettable attr String eoId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор записи в НСИ")
+		unsettable attr String extId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Описание")
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Ссылка на иерархию")
+		unsettable attr String parentId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код для сортировки")
+		unsettable attr Integer orderNum;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Дополнительные колонки")
+		unsettable attr String customColumns;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Справочник 'Признак показателя'")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class EoDimensions {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия экономического описания")
+		unsettable attr String eoId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Справочник")
+		unsettable attr String dictionary;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Контроль сбора сводов")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class ReportCollectView {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Метаописание шага процесса обработки - идентификатор")
+		unsettable attr String processStepMetaView;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Процесс - идентификатор")
+		unsettable attr String processView;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Техкарта - идентификатор")
+		unsettable attr String routing;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Шаг - идентификатор")
+		unsettable attr String processStepView;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор данных")
+		unsettable attr String sourceResultDataId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС - идентификатор")
+		unsettable attr String department;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС – номер")
+		unsettable attr String departmentShortName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование свода")
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="утвержден")
+		unsettable attr Boolean isFixed;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Комментарий")
+		unsettable attr String lastComment;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Статус получения")
+		unsettable attr ReportCollectViewStatusEnum status;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия свода")
+		unsettable attr Integer dataVersion;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наличие новой версии")
+		unsettable attr Boolean hasNewVersion;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Дата поступления")
+		unsettable attr EZonedDateTime receiveDate;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Наименование процесса в тех. карте")
+		unsettable attr String sourceProcessId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор процесса")
+		unsettable attr String sourceProcessObjectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор экземпляра процесса")
+		unsettable attr String sourceProcessInstanceId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Тип свода")
+		unsettable attr String aggregateType;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Респонденты. Утвержденные TBD")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class ApprovedRespondents {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="идентификатор версии техкарты")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String routingId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ID критерия")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String tplCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ТОГС")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="3")
+		attr Integer togs;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ОКПО респондента")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="4")
+		attr Long okpo;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ID респондента в ОСР")
+		unsettable attr String osrId;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Записи лога")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class LogEntry {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Первичный ключ")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String key;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Время инициализации логгера")
+		unsettable attr Long appStartTime;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя приложения")
+		unsettable attr String appName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя класса")
+		unsettable attr String className;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя файла")
+		unsettable attr String fileName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Уровень записи")
+		unsettable attr String level;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Номер строки в файле")
+		unsettable attr String lineNumber;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Время создания записи")
+		unsettable attr Long logTimestamp;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя логгера")
+		unsettable attr String loggerClassName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Адрес хоста")
+		unsettable attr String hostIp;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя хоста")
+		unsettable attr String hostName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Сообщение")
+		unsettable attr String message;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя метода")
+		unsettable attr String methodName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Контекст")
+		unsettable attr String ndc;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя потока")
+		unsettable attr String threadName;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Исключение и стектрейс")
+		unsettable attr String throwableStrRep;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Респонденты. Микроданные TBD")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class RespondentMicrodata {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="идентификатор списка")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String listId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор критерия загрузки каталога респондентов из ОСР")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String tplCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ОКПО респондента")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="3")
+		attr Long okpo;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="микроданные")
+		unsettable attr String microdata;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="кортеж атрибутов")
+		unsettable attr String respAttributes;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Этапы")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Stage {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String stageType;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String metadata;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Операции")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Operation {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String operType;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String metadata;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String binaryId;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Справочник 'Операционный код'")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class EoOpercode {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор объекта")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Версия экономического описания")
+		unsettable attr String eoId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Код")
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Имя")
+		unsettable attr String name;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"(ru="Респонденты. Атрибуты каталога")
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class RespondentCatalog {
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="идентификатор списка респондентов")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String listId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="ID критерия")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="2")
+		attr String tplCode;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="идентификатор версии техкарты")
+		unsettable attr String routingId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Номер ТОГСа")
+		unsettable attr Integer togsNum;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="дата создания")
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="4")
+		attr EZonedDateTime creationDate;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор версии ЭО")
+		unsettable attr String economicDescriptionId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор разработки")
+		unsettable attr String developmentId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор периода разработки")
+		unsettable attr String periodId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="Идентификатор подразделения")
+		unsettable attr String departmentId;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="утвержден для сбора")
+		unsettable attr Boolean isFixed;
+
+		@"http://www.croc.ru/ctp/model/i18n"(ru="дата утверждения для сбора")
+		unsettable attr EZonedDateTime fixDate;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class AggregateType {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String eoId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String extId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String parentId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr Integer orderNum;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String customColumns;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Section {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String eoId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String extId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String code;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String name;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String description;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String parentId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr Integer orderNum;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String customColumns;
+	}
+
+	@"http://www.croc.ru/ctp/model/i18n"
+	@"http://www.croc.ru/ctp/model/objectProperties"
+	class Togs {
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		@"http://www.croc.ru/ctp/model/attributeProperties"(complexKeyOrder="1")
+		attr String objectId;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String fullName;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String shortName;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String codeAd;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String codeNsi;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String parentNsi;
+
+		@"http://www.croc.ru/ctp/model/i18n"
+		unsettable attr String parentId;
+	}
+
+}
+

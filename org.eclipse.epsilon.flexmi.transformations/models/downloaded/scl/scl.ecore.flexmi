@@ -1,0 +1,3733 @@
+<?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<?import http://www.eclipse.org/emf/2002/Ecore?>
+<package name="scl" nsURI="http://www.iec.ch/61850/2006/SCL" nsPrefix="scl">
+	<EAnnotation source="http://www.eclipse.org/emf/2002/GenModel">
+		<EStringToStringMapEntry key="documentation" value="COPYRIGHT IEC, 2005. Version 1.4. Release 2005/09/11.
+		COPYRIGHT IEC, 2005. Version 1.4. Release 2005/09/11.
+		COPYRIGHT IEC, 2005. Version 1.4. Release 2005/09/11.
+		COPYRIGHT IEC, 2005. Version 1.4. Release 2005/09/11."/>
+	</EAnnotation>
+	<class name="AuthenticationType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="Authentication_._type"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="certificate" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="certificate"/>
+			</EAnnotation>
+		</attr>
+		<attr name="none" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="none"/>
+			</EAnnotation>
+		</attr>
+		<attr name="password" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="password"/>
+			</EAnnotation>
+		</attr>
+		<attr name="strong" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="strong"/>
+			</EAnnotation>
+		</attr>
+		<attr name="weak" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="weak"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="DocumentRoot">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value=""/>
+			<EStringToStringMapEntry key="kind" value="mixed"/>
+		</EAnnotation>
+		<attr name="mixed" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="elementWildcard"/>
+				<EStringToStringMapEntry key="name" value=":mixed"/>
+			</EAnnotation>
+		</attr>
+		<ref name="xMLNSPrefixMap" upperBound="-1" transient="true" containment="true" resolveProxies="false" type="EStringToStringMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="xmlns:prefix"/>
+			</EAnnotation>
+		</ref>
+		<ref name="xSISchemaLocation" upperBound="-1" transient="true" containment="true" resolveProxies="false" type="EStringToStringMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="xsi:schemaLocation"/>
+			</EAnnotation>
+		</ref>
+		<ref name="communication" upperBound="-2" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TCommunication">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Communication"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dataTypeTemplates" upperBound="-2" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TDataTypeTemplates">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DataTypeTemplates"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="iED" upperBound="-2" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TIED">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="IED"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="lN" upperBound="-2" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TLN">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="LN"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="lN0" upperBound="-2" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="LN0Type">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="LN0"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="sCL" upperBound="-2" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="SCLType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SCL"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="substation" upperBound="-2" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TSubstation">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Substation"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="HistoryType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="History_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="hitem" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="THitem">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Hitem"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="LN0Type">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="LN0_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+	</class>
+	<EEnum name="NameStructureType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="nameStructure_._type"/>
+		</EAnnotation>
+		<EEnumLiteral name="IEDName"/>
+	</EEnum>
+	<type name="NameStructureTypeObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="nameStructure_._type:Object"/>
+			<EStringToStringMapEntry key="baseType" value="nameStructure_._type"/>
+		</EAnnotation>
+	</type>
+	<class name="OptFieldsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="OptFields_._type"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="bufOvfl" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="bufOvfl"/>
+			</EAnnotation>
+		</attr>
+		<attr name="configRef" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="configRef"/>
+			</EAnnotation>
+		</attr>
+		<attr name="dataRef" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="dataRef"/>
+			</EAnnotation>
+		</attr>
+		<attr name="dataSet" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="dataSet"/>
+			</EAnnotation>
+		</attr>
+		<attr name="entryID" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="entryID"/>
+			</EAnnotation>
+		</attr>
+		<attr name="reasonCode" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="reasonCode"/>
+			</EAnnotation>
+		</attr>
+		<attr name="seqNum" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="seqNum"/>
+			</EAnnotation>
+		</attr>
+		<attr name="timeStamp" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="timeStamp"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="SCLType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="SCL_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="header" lowerBound="1" containment="true" resolveProxies="false" type="THeader">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Header"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="substation" upperBound="-1" containment="true" resolveProxies="false" type="TSubstation">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Substation"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="communication" containment="true" resolveProxies="false" type="TCommunication">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Communication"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="iED" upperBound="-1" containment="true" resolveProxies="false" type="TIED">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="IED"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dataTypeTemplates" containment="true" resolveProxies="false" type="TDataTypeTemplates">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DataTypeTemplates"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="SettingGroupsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="SettingGroups_._type"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="sGEdit" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SGEdit"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="confSG" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ConfSG"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<type name="SmpRateType" instanceClassName="java.math.BigDecimal">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="SmpRate_._type"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#decimal"/>
+			<EStringToStringMapEntry key="minInclusive" value="0"/>
+		</EAnnotation>
+	</type>
+	<class name="SmvOptsType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="SmvOpts_._type"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="dataSet" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="dataSet"/>
+			</EAnnotation>
+		</attr>
+		<attr name="refreshTime" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="refreshTime"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sampleRate" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="sampleRate"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sampleSynchronized" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="sampleSynchronized"/>
+			</EAnnotation>
+		</attr>
+		<attr name="security" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="security"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TAbstractConductingEquipment" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAbstractConductingEquipment"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="terminal" upperBound="2" containment="true" resolveProxies="false" type="TTerminal">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Terminal"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="subEquipment" upperBound="-1" containment="true" resolveProxies="false" type="TSubEquipment">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SubEquipment"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TAbstractDataAttribute" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAbstractDataAttribute"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="val" upperBound="-1" containment="true" resolveProxies="false" type="TVal">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Val"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="bType" lowerBound="1" type="//TBasicTypeEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="bType"/>
+			</EAnnotation>
+		</attr>
+		<attr name="count" defaultValueLiteral="0" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="count"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" lowerBound="1" type="//TAttributeNameEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sAddr" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="sAddr"/>
+			</EAnnotation>
+		</attr>
+		<attr name="type" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+		<attr name="valKind" defaultValueLiteral="Set" unsettable="true" type="//TValKindEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="valKind"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TAccessControl">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAccessControl"/>
+			<EStringToStringMapEntry key="kind" value="mixed"/>
+		</EAnnotation>
+	</class>
+	<class name="TAccessPoint">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAccessPoint"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="server" containment="true" resolveProxies="false" type="TServer">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Server"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="lN" upperBound="-1" containment="true" resolveProxies="false" type="TLN">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="LN"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="clock" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="clock"/>
+			</EAnnotation>
+		</attr>
+		<attr name="router" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="router"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TAddress">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAddress"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="p" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TP">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="P"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TAnyContentFromOtherNamespace" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAnyContentFromOtherNamespace"/>
+			<EStringToStringMapEntry key="kind" value="mixed"/>
+		</EAnnotation>
+		<attr name="mixed" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="elementWildcard"/>
+				<EStringToStringMapEntry key="name" value=":mixed"/>
+			</EAnnotation>
+		</attr>
+		<attr name="group" unique="false" upperBound="-1" volatile="true" transient="true" derived="true" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="group"/>
+				<EStringToStringMapEntry key="name" value="group:1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="any" unique="false" upperBound="-1" volatile="true" transient="true" derived="true" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="elementWildcard"/>
+				<EStringToStringMapEntry key="wildcards" value="##other"/>
+				<EStringToStringMapEntry key="name" value=":2"/>
+				<EStringToStringMapEntry key="processing" value="lax"/>
+				<EStringToStringMapEntry key="group" value="#group:1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="anyAttribute" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attributeWildcard"/>
+				<EStringToStringMapEntry key="wildcards" value="##other"/>
+				<EStringToStringMapEntry key="name" value=":3"/>
+				<EStringToStringMapEntry key="processing" value="lax"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TAnyLN" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAnyLN"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="dataSet" upperBound="-1" containment="true" resolveProxies="false" type="TDataSet">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DataSet"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="reportControl" upperBound="-1" containment="true" resolveProxies="false" type="TReportControl">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ReportControl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="logControl" upperBound="-1" containment="true" resolveProxies="false" type="TLogControl">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="LogControl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dOI" upperBound="-1" containment="true" resolveProxies="false" type="TDOI">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DOI"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="inputs" containment="true" resolveProxies="false" type="TInputs">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Inputs"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="lnType" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnType"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<type name="TAnyName" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAnyName"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#normalizedString"/>
+		</EAnnotation>
+	</type>
+	<class name="TAssociation">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAssociation"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="associationID" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="associationID"/>
+			</EAnnotation>
+		</attr>
+		<attr name="iedName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="iedName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="kind" lowerBound="1" unsettable="true" type="//TAssociationKindEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="kind"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ldInst" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ldInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnClass" lowerBound="1" type="//TLNClassEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnClass"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnInst" lowerBound="1" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="prefix" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="prefix"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TAssociationKindEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAssociationKindEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="preEstablished" literal="pre-established"/>
+		<EEnumLiteral name="predefined" value="1"/>
+	</EEnum>
+	<type name="TAssociationKindEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAssociationKindEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tAssociationKindEnum"/>
+		</EAnnotation>
+	</type>
+	<type name="TAttributeNameEnum" instanceClassName="java.lang.Object">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAttributeNameEnum"/>
+			<EStringToStringMapEntry key="memberTypes" value="tPredefinedAttributeNameEnum tExtensionAttributeNameEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TAuthenticationEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAuthenticationEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="none"/>
+		<EEnumLiteral name="password" value="1"/>
+		<EEnumLiteral name="week" value="2"/>
+		<EEnumLiteral name="strong" value="3"/>
+		<EEnumLiteral name="certificate" value="4"/>
+	</EEnum>
+	<type name="TAuthenticationEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tAuthenticationEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tAuthenticationEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TBaseElement" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tBaseElement"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="any" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="elementWildcard"/>
+				<EStringToStringMapEntry key="wildcards" value="##other"/>
+				<EStringToStringMapEntry key="name" value=":0"/>
+				<EStringToStringMapEntry key="processing" value="lax"/>
+			</EAnnotation>
+		</attr>
+		<ref name="text" containment="true" resolveProxies="false" type="TText">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Text"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="private" upperBound="-1" containment="true" resolveProxies="false" type="TPrivate">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Private"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="anyAttribute" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attributeWildcard"/>
+				<EStringToStringMapEntry key="wildcards" value="##other"/>
+				<EStringToStringMapEntry key="name" value=":3"/>
+				<EStringToStringMapEntry key="processing" value="lax"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<type name="TBasicTypeEnum" instanceClassName="java.lang.Object">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tBasicTypeEnum"/>
+			<EStringToStringMapEntry key="memberTypes" value="tPredefinedBasicTypeEnum tExtensionBasicTypeEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TBay">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tBay"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="conductingEquipment" upperBound="-1" containment="true" resolveProxies="false" type="TConductingEquipment">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ConductingEquipment"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="connectivityNode" upperBound="-1" containment="true" resolveProxies="false" type="TConnectivityNode">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ConnectivityNode"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TBDA">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tBDA"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+	</class>
+	<class name="TBitRateInMbPerSec">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tBitRateInMbPerSec"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<type name="TCDCEnum" instanceClassName="java.lang.Object">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tCDCEnum"/>
+			<EStringToStringMapEntry key="memberTypes" value="tPredefinedCDCEnum tExtensionCDCEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TClientLN">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tClientLN"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="iedName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="iedName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ldInst" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ldInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnClass" lowerBound="1" type="//TLNClassEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnClass"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnInst" lowerBound="1" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="prefix" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="prefix"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TClientServices">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tClientServices"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="bufReport" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="bufReport"/>
+			</EAnnotation>
+		</attr>
+		<attr name="goose" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="goose"/>
+			</EAnnotation>
+		</attr>
+		<attr name="gsse" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="gsse"/>
+			</EAnnotation>
+		</attr>
+		<attr name="readLog" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="readLog"/>
+			</EAnnotation>
+		</attr>
+		<attr name="unbufReport" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="unbufReport"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<type name="TCommonConductingEquipmentEnum" instanceClassName="java.lang.Object">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tCommonConductingEquipmentEnum"/>
+			<EStringToStringMapEntry key="memberTypes" value="tPredefinedCommonConductingEquipmentEnum tExtensionEquipmentEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TCommunication">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tCommunication"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="subNetwork" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TSubNetwork">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SubNetwork"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TConductingEquipment">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tConductingEquipment"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="type" lowerBound="1" type="//TCommonConductingEquipmentEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TConfLNs">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tConfLNs"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="fixLnInst" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="fixLnInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="fixPrefix" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="fixPrefix"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TConnectedAP">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tConnectedAP"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="address" containment="true" resolveProxies="false" type="TAddress">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Address"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="gSE" upperBound="-1" containment="true" resolveProxies="false" type="TGSE">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GSE"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="sMV" upperBound="-1" containment="true" resolveProxies="false" type="TSMV">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SMV"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="physConn" upperBound="-1" containment="true" resolveProxies="false" type="TPhysConn">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="PhysConn"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="apName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="apName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="iedName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="iedName"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TConnectivityNode">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tConnectivityNode"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="pathName" lowerBound="1" type="//TRef">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="pathName"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TControl" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tControl"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="datSet" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="datSet"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TControlBlock" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tControlBlock"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="address" containment="true" resolveProxies="false" type="TAddress">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Address"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="cbName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="cbName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ldInst" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ldInst"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TControlWithIEDName">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tControlWithIEDName"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="iEDName" unique="false" upperBound="-1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="IEDName"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="confRev" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="confRev"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TControlWithTriggerOpt" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tControlWithTriggerOpt"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="trgOps" containment="true" resolveProxies="false" type="TTrgOps">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="TrgOps"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="intgPd" defaultValueLiteral="0" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="intgPd"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TDA">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDA"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="dchg" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="dchg"/>
+			</EAnnotation>
+		</attr>
+		<attr name="dupd" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="dupd"/>
+			</EAnnotation>
+		</attr>
+		<attr name="fc" lowerBound="1" unsettable="true" type="//TFCEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="fc"/>
+			</EAnnotation>
+		</attr>
+		<attr name="qchg" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="qchg"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TDAI">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDAI"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="val" upperBound="-1" containment="true" resolveProxies="false" type="TVal">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Val"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="ix" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ix"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" lowerBound="1" type="//TAttributeNameEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sAddr" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="sAddr"/>
+			</EAnnotation>
+		</attr>
+		<attr name="valKind" defaultValueLiteral="Set" unsettable="true" type="//TValKindEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="valKind"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TDataSet">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDataSet"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="group" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="group"/>
+				<EStringToStringMapEntry key="name" value="group:6"/>
+			</EAnnotation>
+		</attr>
+		<ref name="fCDA" upperBound="-1" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TFCDA">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="FCDA"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+				<EStringToStringMapEntry key="group" value="#group:6"/>
+			</EAnnotation>
+		</ref>
+		<ref name="fCCB" upperBound="-1" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TFCCB">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="FCCB"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+				<EStringToStringMapEntry key="group" value="#group:6"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TDataTypeTemplates">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDataTypeTemplates"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="lNodeType" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TLNodeType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="LNodeType"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dOType" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TDOType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DOType"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dAType" upperBound="-1" containment="true" resolveProxies="false" type="TDAType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DAType"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="enumType" upperBound="-1" containment="true" resolveProxies="false" type="TEnumType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="EnumType"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TDAType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDAType"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="bDA" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TBDA">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="BDA"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="iedType" defaultValueLiteral="" unsettable="true" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="iedType"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TDO">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDO"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="accessControl" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="accessControl"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" lowerBound="1" type="//TRestrName1stU">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+			</EAnnotation>
+		</attr>
+		<attr name="transient" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="transient"/>
+			</EAnnotation>
+		</attr>
+		<attr name="type" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TDOI">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDOI"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="group" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="group"/>
+				<EStringToStringMapEntry key="name" value="group:5"/>
+			</EAnnotation>
+		</attr>
+		<ref name="sDI" upperBound="-1" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TSDI">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SDI"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+				<EStringToStringMapEntry key="group" value="#group:5"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dAI" upperBound="-1" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TDAI">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DAI"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+				<EStringToStringMapEntry key="group" value="#group:5"/>
+			</EAnnotation>
+		</ref>
+		<attr name="accessControl" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="accessControl"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ix" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ix"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" lowerBound="1" type="//TRestrName1stU">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<type name="TDomainLNEnum" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNEnum"/>
+			<EStringToStringMapEntry key="memberTypes" value="tDomainLNGroupAEnum tDomainLNGroupCEnum tDomainLNGroupGEnum tDomainLNGroupIEnum tDomainLNGroupMEnum tDomainLNGroupPEnum tDomainLNGroupREnum tDomainLNGroupSEnum tDomainLNGroupTEnum tDomainLNGroupXEnum tDomainLNGroupYEnum tDomainLNGroupZEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupAEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupAEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="ANCR"/>
+		<EEnumLiteral name="ARCO" value="1"/>
+		<EEnumLiteral name="ATCC" value="2"/>
+		<EEnumLiteral name="AVCO" value="3"/>
+	</EEnum>
+	<type name="TDomainLNGroupAEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupAEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupAEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupCEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupCEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="CILO"/>
+		<EEnumLiteral name="CSWI" value="1"/>
+		<EEnumLiteral name="CALH" value="2"/>
+		<EEnumLiteral name="CCGR" value="3"/>
+		<EEnumLiteral name="CPOW" value="4"/>
+	</EEnum>
+	<type name="TDomainLNGroupCEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupCEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupCEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupGEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupGEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="GAPC"/>
+		<EEnumLiteral name="GGIO" value="1"/>
+		<EEnumLiteral name="GSAL" value="2"/>
+	</EEnum>
+	<type name="TDomainLNGroupGEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupGEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupGEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupIEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupIEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="IHMI"/>
+		<EEnumLiteral name="IARC" value="1"/>
+		<EEnumLiteral name="ITCI" value="2"/>
+		<EEnumLiteral name="ITMI" value="3"/>
+	</EEnum>
+	<type name="TDomainLNGroupIEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupIEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupIEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupMEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupMEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="MMXU"/>
+		<EEnumLiteral name="MDIF" value="1"/>
+		<EEnumLiteral name="MHAI" value="2"/>
+		<EEnumLiteral name="MHAN" value="3"/>
+		<EEnumLiteral name="MMTR" value="4"/>
+		<EEnumLiteral name="MMXN" value="5"/>
+		<EEnumLiteral name="MSQI" value="6"/>
+		<EEnumLiteral name="MSTA" value="7"/>
+	</EEnum>
+	<type name="TDomainLNGroupMEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupMEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupMEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupPEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupPEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="PDIF"/>
+		<EEnumLiteral name="PDIS" value="1"/>
+		<EEnumLiteral name="PDIR" value="2"/>
+		<EEnumLiteral name="PDOP" value="3"/>
+		<EEnumLiteral name="PDUP" value="4"/>
+		<EEnumLiteral name="PFRC" value="5"/>
+		<EEnumLiteral name="PHAR" value="6"/>
+		<EEnumLiteral name="PHIZ" value="7"/>
+		<EEnumLiteral name="PIOC" value="8"/>
+		<EEnumLiteral name="PMRI" value="9"/>
+		<EEnumLiteral name="PMSS" value="10"/>
+		<EEnumLiteral name="POPF" value="11"/>
+		<EEnumLiteral name="PPAM" value="12"/>
+		<EEnumLiteral name="PSCH" value="13"/>
+		<EEnumLiteral name="PSDE" value="14"/>
+		<EEnumLiteral name="PTEF" value="15"/>
+		<EEnumLiteral name="PTOC" value="16"/>
+		<EEnumLiteral name="PTOF" value="17"/>
+		<EEnumLiteral name="PTOV" value="18"/>
+		<EEnumLiteral name="PTRC" value="19"/>
+		<EEnumLiteral name="PTTR" value="20"/>
+		<EEnumLiteral name="PTUC" value="21"/>
+		<EEnumLiteral name="PTUV" value="22"/>
+		<EEnumLiteral name="PUPF" value="23"/>
+		<EEnumLiteral name="PTUF" value="24"/>
+		<EEnumLiteral name="PVOC" value="25"/>
+		<EEnumLiteral name="PVPH" value="26"/>
+		<EEnumLiteral name="PZSU" value="27"/>
+	</EEnum>
+	<type name="TDomainLNGroupPEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupPEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupPEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupREnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupREnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="RSYN"/>
+		<EEnumLiteral name="RDRE" value="1"/>
+		<EEnumLiteral name="RADR" value="2"/>
+		<EEnumLiteral name="RBDR" value="3"/>
+		<EEnumLiteral name="RDRS" value="4"/>
+		<EEnumLiteral name="RBRF" value="5"/>
+		<EEnumLiteral name="RDIR" value="6"/>
+		<EEnumLiteral name="RFLO" value="7"/>
+		<EEnumLiteral name="RPSB" value="8"/>
+		<EEnumLiteral name="RREC" value="9"/>
+	</EEnum>
+	<type name="TDomainLNGroupREnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupREnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupREnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupSEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupSEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="SARC"/>
+		<EEnumLiteral name="SIMG" value="1"/>
+		<EEnumLiteral name="SIML" value="2"/>
+		<EEnumLiteral name="SPDC" value="3"/>
+	</EEnum>
+	<type name="TDomainLNGroupSEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupSEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupSEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupTEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupTEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="TCTR"/>
+		<EEnumLiteral name="TVTR" value="1"/>
+	</EEnum>
+	<type name="TDomainLNGroupTEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupTEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupTEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupXEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupXEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="XCBR"/>
+		<EEnumLiteral name="XSWI" value="1"/>
+	</EEnum>
+	<type name="TDomainLNGroupXEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupXEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupXEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupYEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupYEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="YPTR"/>
+		<EEnumLiteral name="YEFN" value="1"/>
+		<EEnumLiteral name="YLTC" value="2"/>
+		<EEnumLiteral name="YPSH" value="3"/>
+	</EEnum>
+	<type name="TDomainLNGroupYEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupYEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupYEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TDomainLNGroupZEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupZEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="ZAXN"/>
+		<EEnumLiteral name="ZBAT" value="1"/>
+		<EEnumLiteral name="ZBSH" value="2"/>
+		<EEnumLiteral name="ZCAB" value="3"/>
+		<EEnumLiteral name="ZCAP" value="4"/>
+		<EEnumLiteral name="ZCON" value="5"/>
+		<EEnumLiteral name="ZGEN" value="6"/>
+		<EEnumLiteral name="ZGIL" value="7"/>
+		<EEnumLiteral name="ZLIN" value="8"/>
+		<EEnumLiteral name="ZMOT" value="9"/>
+		<EEnumLiteral name="ZREA" value="10"/>
+		<EEnumLiteral name="ZRRC" value="11"/>
+		<EEnumLiteral name="ZSAR" value="12"/>
+		<EEnumLiteral name="ZTCF" value="13"/>
+		<EEnumLiteral name="ZTCR" value="14"/>
+	</EEnum>
+	<type name="TDomainLNGroupZEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDomainLNGroupZEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tDomainLNGroupZEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TDOType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDOType"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="group" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="group"/>
+				<EStringToStringMapEntry key="name" value="group:6"/>
+			</EAnnotation>
+		</attr>
+		<ref name="sDO" upperBound="-1" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TSDO">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SDO"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+				<EStringToStringMapEntry key="group" value="#group:6"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dA" upperBound="-1" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TDA">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DA"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+				<EStringToStringMapEntry key="group" value="#group:6"/>
+			</EAnnotation>
+		</ref>
+		<attr name="cdc" lowerBound="1" type="//TCDCEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="cdc"/>
+			</EAnnotation>
+		</attr>
+		<attr name="iedType" defaultValueLiteral="" unsettable="true" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="iedType"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TDurationInMilliSec">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDurationInMilliSec"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TDurationInSec">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tDurationInSec"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TEnumType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tEnumType"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="enumVal" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TEnumVal">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="EnumVal"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TEnumVal">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tEnumVal"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+		<attr name="value" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="name" value=":0"/>
+				<EStringToStringMapEntry key="kind" value="simple"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ord" lowerBound="1" type="//Integer">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ord"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TEquipment" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tEquipment"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="virtual" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="virtual"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TEquipmentContainer" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tEquipmentContainer"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="powerTransformer" upperBound="-1" containment="true" resolveProxies="false" type="TPowerTransformer">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="PowerTransformer"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="generalEquipment" upperBound="-1" containment="true" resolveProxies="false" type="TGeneralEquipment">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GeneralEquipment"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<type name="TEquipmentEnum" instanceClassName="java.lang.Object">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tEquipmentEnum"/>
+			<EStringToStringMapEntry key="memberTypes" value="tPredefinedEquipmentEnum tExtensionEquipmentEnum"/>
+		</EAnnotation>
+	</type>
+	<type name="TExtensionAttributeNameEnum" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tExtensionAttributeNameEnum"/>
+			<EStringToStringMapEntry key="baseType" value="tRestrName1stL"/>
+		</EAnnotation>
+	</type>
+	<type name="TExtensionBasicTypeEnum" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tExtensionBasicTypeEnum"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#Name"/>
+			<EStringToStringMapEntry key="pattern" value="\p{Lu}[\p{L},\d]*"/>
+		</EAnnotation>
+	</type>
+	<type name="TExtensionCDCEnum" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tExtensionCDCEnum"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#Name"/>
+			<EStringToStringMapEntry key="minLength" value="1"/>
+			<EStringToStringMapEntry key="pattern" value="\p{Lu}+"/>
+		</EAnnotation>
+	</type>
+	<type name="TExtensionEquipmentEnum" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tExtensionEquipmentEnum"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#Name"/>
+			<EStringToStringMapEntry key="pattern" value="E\p{Lu}*"/>
+		</EAnnotation>
+	</type>
+	<type name="TExtensionGeneralEquipmentEnum" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tExtensionGeneralEquipmentEnum"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#Name"/>
+			<EStringToStringMapEntry key="pattern" value="E\p{Lu}*"/>
+		</EAnnotation>
+	</type>
+	<type name="TExtensionLNClassEnum" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tExtensionLNClassEnum"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#Name"/>
+			<EStringToStringMapEntry key="minLength" value="1"/>
+			<EStringToStringMapEntry key="pattern" value="\p{Lu}+"/>
+		</EAnnotation>
+	</type>
+	<type name="TExtensionPTypeEnum" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tExtensionPTypeEnum"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#normalizedString"/>
+			<EStringToStringMapEntry key="pattern" value="\p{Lu}[\d,\p{L},\-]*"/>
+		</EAnnotation>
+	</type>
+	<class name="TExtRef">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tExtRef"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="daName" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="daName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="doName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="doName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="iedName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="iedName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="intAddr" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="intAddr"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ldInst" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ldInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnClass" lowerBound="1" type="//TLNClassEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnClass"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnInst" lowerBound="1" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="prefix" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="prefix"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TFCCB">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tFCCB"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="cbName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="cbName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="daName" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="daName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="fc" lowerBound="1" unsettable="true" type="//TServiceFCEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="fc"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ldInst" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ldInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnClass" lowerBound="1" type="//TLNClassEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnClass"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnInst" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="prefix" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="prefix"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TFCDA">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tFCDA"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="daName" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="daName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="doName" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="doName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="fc" lowerBound="1" unsettable="true" type="//TFCEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="fc"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ldInst" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ldInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnClass" type="//TLNClassEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnClass"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnInst" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="prefix" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="prefix"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TFCEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tFCEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="ST"/>
+		<EEnumLiteral name="MX" value="1"/>
+		<EEnumLiteral name="CO" value="2"/>
+		<EEnumLiteral name="SP" value="3"/>
+		<EEnumLiteral name="SG" value="4"/>
+		<EEnumLiteral name="SE" value="5"/>
+		<EEnumLiteral name="SV" value="6"/>
+		<EEnumLiteral name="CF" value="7"/>
+		<EEnumLiteral name="DC" value="8"/>
+		<EEnumLiteral name="EX" value="9"/>
+	</EEnum>
+	<type name="TFCEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tFCEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tFCEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TFunction">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tFunction"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="subFunction" upperBound="-1" containment="true" resolveProxies="false" type="TSubFunction">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SubFunction"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="generalEquipment" upperBound="-1" containment="true" resolveProxies="false" type="TGeneralEquipment">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GeneralEquipment"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TGeneralEquipment">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tGeneralEquipment"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="type" lowerBound="1" type="//TGeneralEquipmentEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<type name="TGeneralEquipmentEnum" instanceClassName="java.lang.Object">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tGeneralEquipmentEnum"/>
+			<EStringToStringMapEntry key="memberTypes" value="tPredefinedGeneralEquipmentEnum tExtensionGeneralEquipmentEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TGSE">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tGSE"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="minTime" containment="true" resolveProxies="false" type="TDurationInMilliSec">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="MinTime"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="maxTime" containment="true" resolveProxies="false" type="TDurationInMilliSec">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="MaxTime"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TGSEControl">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tGSEControl"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="appID" lowerBound="1" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="appID"/>
+			</EAnnotation>
+		</attr>
+		<attr name="type" defaultValueLiteral="GOOSE" unsettable="true" type="//TGSEControlTypeEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TGSEControlTypeEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tGSEControlTypeEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="GSSE"/>
+		<EEnumLiteral name="GOOSE" value="1"/>
+	</EEnum>
+	<type name="TGSEControlTypeEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tGSEControlTypeEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tGSEControlTypeEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TGSESettings">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tGSESettings"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="appID" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="appID"/>
+			</EAnnotation>
+		</attr>
+		<attr name="dataLabel" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="dataLabel"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="THeader">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tHeader"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="text" containment="true" resolveProxies="false" type="TText">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Text"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="history" containment="true" resolveProxies="false" type="HistoryType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="History"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="id" lowerBound="1" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="id"/>
+			</EAnnotation>
+		</attr>
+		<attr name="nameStructure" defaultValueLiteral="IEDName" unsettable="true" type="//NameStructureType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="nameStructure"/>
+			</EAnnotation>
+		</attr>
+		<attr name="revision" defaultValueLiteral="" unsettable="true" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="revision"/>
+			</EAnnotation>
+		</attr>
+		<attr name="toolID" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="toolID"/>
+			</EAnnotation>
+		</attr>
+		<attr name="version" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="version"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="THitem">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tHitem"/>
+			<EStringToStringMapEntry key="kind" value="mixed"/>
+		</EAnnotation>
+		<attr name="revision" lowerBound="1" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="revision"/>
+			</EAnnotation>
+		</attr>
+		<attr name="version" lowerBound="1" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="version"/>
+			</EAnnotation>
+		</attr>
+		<attr name="what" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="what"/>
+			</EAnnotation>
+		</attr>
+		<attr name="when" lowerBound="1" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="when"/>
+			</EAnnotation>
+		</attr>
+		<attr name="who" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="who"/>
+			</EAnnotation>
+		</attr>
+		<attr name="why" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="why"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TIDNaming" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tIDNaming"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="desc" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="desc"/>
+			</EAnnotation>
+		</attr>
+		<attr name="id" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="id"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TIED">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tIED"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="services" containment="true" resolveProxies="false" type="TServices">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Services"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="accessPoint" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TAccessPoint">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="AccessPoint"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="configVersion" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="configVersion"/>
+			</EAnnotation>
+		</attr>
+		<attr name="manufacturer" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="manufacturer"/>
+			</EAnnotation>
+		</attr>
+		<attr name="type" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TInputs">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tInputs"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="extRef" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TExtRef">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ExtRef"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TLDevice">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLDevice"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="lN0" lowerBound="1" containment="true" resolveProxies="false" type="LN0Type">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="LN0"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="lN" upperBound="-1" containment="true" resolveProxies="false" type="TLN">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="LN"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="accessControl" containment="true" resolveProxies="false" type="TAccessControl">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="AccessControl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="inst" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="inst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ldName" type="//TRestrLdName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ldName"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TLLN0Enum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLLN0Enum"/>
+		</EAnnotation>
+		<EEnumLiteral name="LLN0"/>
+	</EEnum>
+	<type name="TLLN0EnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLLN0Enum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tLLN0Enum"/>
+		</EAnnotation>
+	</type>
+	<class name="TLN">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLN"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="inst" lowerBound="1" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="inst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnClass" lowerBound="1" type="//TLNClassEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnClass"/>
+			</EAnnotation>
+		</attr>
+		<attr name="prefix" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="prefix"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TLN0">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLN0"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="gSEControl" upperBound="-1" containment="true" resolveProxies="false" type="TGSEControl">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GSEControl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="sampledValueControl" upperBound="-1" containment="true" resolveProxies="false" type="TSampledValueControl">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SampledValueControl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="settingControl" containment="true" resolveProxies="false" type="TSettingControl">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SettingControl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="sCLControl" containment="true" resolveProxies="false" type="TSCLControl">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SCLControl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="log" containment="true" resolveProxies="false" type="TLog">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Log"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="inst" lowerBound="1" defaultValueLiteral="" unsettable="true" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="inst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnClass" lowerBound="1" defaultValueLiteral="LLN0" unsettable="true" type="//TLNClassEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnClass"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<type name="TLNClassEnum" instanceClassName="java.lang.Object">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLNClassEnum"/>
+			<EStringToStringMapEntry key="memberTypes" value="tPredefinedLNClassEnum tExtensionLNClassEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TLNode">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLNode"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="iedName" defaultValueLiteral="None" unsettable="true" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="iedName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ldInst" defaultValueLiteral="" unsettable="true" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ldInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnClass" lowerBound="1" type="//TLNClassEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnClass"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnInst" defaultValueLiteral="" unsettable="true" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnInst"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnType" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnType"/>
+			</EAnnotation>
+		</attr>
+		<attr name="prefix" defaultValueLiteral="" unsettable="true" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="prefix"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TLNodeContainer" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLNodeContainer"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="lNode" upperBound="-1" containment="true" resolveProxies="false" type="TLNode">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="LNode"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TLNodeType">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLNodeType"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="dO" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TDO">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DO"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="iedType" defaultValueLiteral="" unsettable="true" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="iedType"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lnClass" lowerBound="1" type="//TLNClassEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="lnClass"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TLog">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLog"/>
+			<EStringToStringMapEntry key="kind" value="mixed"/>
+		</EAnnotation>
+	</class>
+	<class name="TLogControl">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLogControl"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="logEna" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="logEna"/>
+			</EAnnotation>
+		</attr>
+		<attr name="logName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="logName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="reasonCode" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="reasonCode"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TLogSettings">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLogSettings"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="intgPd" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="intgPd"/>
+			</EAnnotation>
+		</attr>
+		<attr name="logEna" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="logEna"/>
+			</EAnnotation>
+		</attr>
+		<attr name="trgOps" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="trgOps"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TLPHDEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLPHDEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="LPHD"/>
+	</EEnum>
+	<type name="TLPHDEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tLPHDEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tLPHDEnum"/>
+		</EAnnotation>
+	</type>
+	<type name="TName" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tName"/>
+			<EStringToStringMapEntry key="baseType" value="tAnyName"/>
+			<EStringToStringMapEntry key="minLength" value="1"/>
+		</EAnnotation>
+	</type>
+	<class name="TNaming" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tNaming"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="desc" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="desc"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TP">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+		<attr name="value" type="//TPAddr">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="name" value=":0"/>
+				<EStringToStringMapEntry key="kind" value="simple"/>
+			</EAnnotation>
+		</attr>
+		<attr name="type" lowerBound="1" type="//TPTypeEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<type name="TPAddr" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPAddr"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#normalizedString"/>
+			<EStringToStringMapEntry key="minLength" value="1"/>
+		</EAnnotation>
+	</type>
+	<class name="TPAPPID">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_APPID"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<EEnum name="TPhaseEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPhaseEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="A"/>
+		<EEnumLiteral name="B" value="1"/>
+		<EEnumLiteral name="C" value="2"/>
+		<EEnumLiteral name="N" value="3"/>
+		<EEnumLiteral name="all" value="4"/>
+		<EEnumLiteral name="none" value="5"/>
+	</EEnum>
+	<type name="TPhaseEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPhaseEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tPhaseEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TPhysConn">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPhysConn"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="p" upperBound="-1" containment="true" resolveProxies="false" type="TP">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="P"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="type" lowerBound="1" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TPIP">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_IP"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPIPGATEWAY">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_IP-GATEWAY"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPIPSUBNET">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_IP-SUBNET"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPMACAddress">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_MAC-Address"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPOSIAEInvoke">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_OSI-AE-Invoke"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPOSIAEQualifier">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_OSI-AE-Qualifier"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPOSIAPInvoke">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_OSI-AP-Invoke"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPOSIAPTitle">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_OSI-AP-Title"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPOSINSAP">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_OSI-NSAP"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPOSIPSEL">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_OSI-PSEL"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPOSISSEL">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_OSI-SSEL"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPOSITSEL">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_OSI-TSEL"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPowerSystemResource" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPowerSystemResource"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+	</class>
+	<class name="TPowerTransformer">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPowerTransformer"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="transformerWinding" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TTransformerWinding">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="TransformerWinding"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="type" lowerBound="1" defaultValueLiteral="PTR" unsettable="true" type="//TPowerTransformerEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TPowerTransformerEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPowerTransformerEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="PTR"/>
+	</EEnum>
+	<type name="TPowerTransformerEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPowerTransformerEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tPowerTransformerEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TPredefinedAttributeNameEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedAttributeNameEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="T"/>
+		<EEnumLiteral name="Test" value="1"/>
+		<EEnumLiteral name="Check" value="2"/>
+		<EEnumLiteral name="SIUnit" value="3"/>
+		<EEnumLiteral name="Oper" value="4"/>
+		<EEnumLiteral name="SBO" value="5"/>
+		<EEnumLiteral name="SBOw" value="6"/>
+		<EEnumLiteral name="Cancel" value="7"/>
+	</EEnum>
+	<type name="TPredefinedAttributeNameEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedAttributeNameEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tPredefinedAttributeNameEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TPredefinedBasicTypeEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedBasicTypeEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="BOOLEAN"/>
+		<EEnumLiteral name="INT8" value="1"/>
+		<EEnumLiteral name="INT16" value="2"/>
+		<EEnumLiteral name="INT24" value="3"/>
+		<EEnumLiteral name="INT32" value="4"/>
+		<EEnumLiteral name="INT128" value="5"/>
+		<EEnumLiteral name="INT8U" value="6"/>
+		<EEnumLiteral name="INT16U" value="7"/>
+		<EEnumLiteral name="INT24U" value="8"/>
+		<EEnumLiteral name="INT32U" value="9"/>
+		<EEnumLiteral name="FLOAT32" value="10"/>
+		<EEnumLiteral name="FLOAT64" value="11"/>
+		<EEnumLiteral name="Enum" value="12"/>
+		<EEnumLiteral name="Dbpos" value="13"/>
+		<EEnumLiteral name="Tcmd" value="14"/>
+		<EEnumLiteral name="Quality" value="15"/>
+		<EEnumLiteral name="Timestamp" value="16"/>
+		<EEnumLiteral name="VisString32" value="17"/>
+		<EEnumLiteral name="VisString64" value="18"/>
+		<EEnumLiteral name="VisString129" value="19"/>
+		<EEnumLiteral name="VisString255" value="20"/>
+		<EEnumLiteral name="Octet64" value="21"/>
+		<EEnumLiteral name="Struct" value="22"/>
+		<EEnumLiteral name="EntryTime" value="23"/>
+		<EEnumLiteral name="Unicode255" value="24"/>
+		<EEnumLiteral name="Check" value="25"/>
+	</EEnum>
+	<type name="TPredefinedBasicTypeEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedBasicTypeEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tPredefinedBasicTypeEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TPredefinedCDCEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedCDCEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="SPS"/>
+		<EEnumLiteral name="DPS" value="1"/>
+		<EEnumLiteral name="INS" value="2"/>
+		<EEnumLiteral name="ACT" value="3"/>
+		<EEnumLiteral name="ACD" value="4"/>
+		<EEnumLiteral name="SEC" value="5"/>
+		<EEnumLiteral name="BCR" value="6"/>
+		<EEnumLiteral name="MV" value="7"/>
+		<EEnumLiteral name="CMV" value="8"/>
+		<EEnumLiteral name="SAV" value="9"/>
+		<EEnumLiteral name="WYE" value="10"/>
+		<EEnumLiteral name="DEL" value="11"/>
+		<EEnumLiteral name="SEQ" value="12"/>
+		<EEnumLiteral name="HMV" value="13"/>
+		<EEnumLiteral name="HWYE" value="14"/>
+		<EEnumLiteral name="HDEL" value="15"/>
+		<EEnumLiteral name="SPC" value="16"/>
+		<EEnumLiteral name="DPC" value="17"/>
+		<EEnumLiteral name="INC" value="18"/>
+		<EEnumLiteral name="BSC" value="19"/>
+		<EEnumLiteral name="ISC" value="20"/>
+		<EEnumLiteral name="APC" value="21"/>
+		<EEnumLiteral name="SPG" value="22"/>
+		<EEnumLiteral name="ING" value="23"/>
+		<EEnumLiteral name="ASG" value="24"/>
+		<EEnumLiteral name="CURVE" value="25"/>
+		<EEnumLiteral name="DPL" value="26"/>
+		<EEnumLiteral name="LPL" value="27"/>
+		<EEnumLiteral name="CSD" value="28"/>
+	</EEnum>
+	<type name="TPredefinedCDCEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedCDCEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tPredefinedCDCEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TPredefinedCommonConductingEquipmentEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedCommonConductingEquipmentEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="CBR"/>
+		<EEnumLiteral name="DIS" value="1"/>
+		<EEnumLiteral name="VTR" value="2"/>
+		<EEnumLiteral name="CTR" value="3"/>
+		<EEnumLiteral name="GEN" value="4"/>
+		<EEnumLiteral name="CAP" value="5"/>
+		<EEnumLiteral name="REA" value="6"/>
+		<EEnumLiteral name="CON" value="7"/>
+		<EEnumLiteral name="MOT" value="8"/>
+		<EEnumLiteral name="EFN" value="9"/>
+		<EEnumLiteral name="PSH" value="10"/>
+		<EEnumLiteral name="BAT" value="11"/>
+		<EEnumLiteral name="BSH" value="12"/>
+		<EEnumLiteral name="CAB" value="13"/>
+		<EEnumLiteral name="GIL" value="14"/>
+		<EEnumLiteral name="LIN" value="15"/>
+		<EEnumLiteral name="RRC" value="16"/>
+		<EEnumLiteral name="SAR" value="17"/>
+		<EEnumLiteral name="TCF" value="18"/>
+		<EEnumLiteral name="TCR" value="19"/>
+		<EEnumLiteral name="IFL" value="20"/>
+	</EEnum>
+	<type name="TPredefinedCommonConductingEquipmentEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedCommonConductingEquipmentEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tPredefinedCommonConductingEquipmentEnum"/>
+		</EAnnotation>
+	</type>
+	<type name="TPredefinedEquipmentEnum" instanceClassName="java.lang.Object">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedEquipmentEnum"/>
+			<EStringToStringMapEntry key="memberTypes" value="tCommonConductingEquipmentEnum tPowerTransformerEnum tTransformerWindingEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TPredefinedGeneralEquipmentEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedGeneralEquipmentEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="AXN"/>
+		<EEnumLiteral name="BAT" value="1"/>
+		<EEnumLiteral name="MOT" value="2"/>
+	</EEnum>
+	<type name="TPredefinedGeneralEquipmentEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedGeneralEquipmentEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tPredefinedGeneralEquipmentEnum"/>
+		</EAnnotation>
+	</type>
+	<type name="TPredefinedLNClassEnum" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedLNClassEnum"/>
+			<EStringToStringMapEntry key="memberTypes" value="tLPHDEnum tLLN0Enum tDomainLNEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TPredefinedPTypeEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedPTypeEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="IP"/>
+		<EEnumLiteral name="IPSUBNET" value="1" literal="IP-SUBNET"/>
+		<EEnumLiteral name="IPGATEWAY" value="2" literal="IP-GATEWAY"/>
+		<EEnumLiteral name="OSINSAP" value="3" literal="OSI-NSAP"/>
+		<EEnumLiteral name="OSITSEL" value="4" literal="OSI-TSEL"/>
+		<EEnumLiteral name="OSISSEL" value="5" literal="OSI-SSEL"/>
+		<EEnumLiteral name="OSIPSEL" value="6" literal="OSI-PSEL"/>
+		<EEnumLiteral name="OSIAPTitle" value="7" literal="OSI-AP-Title"/>
+		<EEnumLiteral name="OSIAPInvoke" value="8" literal="OSI-AP-Invoke"/>
+		<EEnumLiteral name="OSIAEQualifier" value="9" literal="OSI-AE-Qualifier"/>
+		<EEnumLiteral name="OSIAEInvoke" value="10" literal="OSI-AE-Invoke"/>
+		<EEnumLiteral name="MACAddress" value="11" literal="MAC-Address"/>
+		<EEnumLiteral name="APPID" value="12"/>
+		<EEnumLiteral name="VLANPRIORITY" value="13" literal="VLAN-PRIORITY"/>
+		<EEnumLiteral name="VLANID" value="14" literal="VLAN-ID"/>
+	</EEnum>
+	<type name="TPredefinedPTypeEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPredefinedPTypeEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tPredefinedPTypeEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TPrivate">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPrivate"/>
+			<EStringToStringMapEntry key="kind" value="mixed"/>
+		</EAnnotation>
+		<attr name="source" type="//AnyURI">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="source"/>
+			</EAnnotation>
+		</attr>
+		<attr name="type" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<type name="TPTypeEnum" instanceClassName="java.lang.Object">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tPTypeEnum"/>
+			<EStringToStringMapEntry key="memberTypes" value="tPredefinedPTypeEnum tExtensionPTypeEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TPVLANID">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_VLAN-ID"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TPVLANPRIORITY">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tP_VLAN-PRIORITY"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<type name="TRef" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tRef"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#normalizedString"/>
+			<EStringToStringMapEntry key="pattern" value=".+/.+/.+/.+"/>
+		</EAnnotation>
+	</type>
+	<class name="TReportControl">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tReportControl"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="optFields" lowerBound="1" containment="true" resolveProxies="false" type="OptFieldsType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="OptFields"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="rptEnabled" containment="true" resolveProxies="false" type="TRptEnabled">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="RptEnabled"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="buffered" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="buffered"/>
+			</EAnnotation>
+		</attr>
+		<attr name="bufTime" defaultValueLiteral="0" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="bufTime"/>
+			</EAnnotation>
+		</attr>
+		<attr name="confRev" lowerBound="1" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="confRev"/>
+			</EAnnotation>
+		</attr>
+		<attr name="rptID" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="rptID"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TReportSettings">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tReportSettings"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="bufTime" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="bufTime"/>
+			</EAnnotation>
+		</attr>
+		<attr name="intgPd" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="intgPd"/>
+			</EAnnotation>
+		</attr>
+		<attr name="optFields" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="optFields"/>
+			</EAnnotation>
+		</attr>
+		<attr name="rptID" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="rptID"/>
+			</EAnnotation>
+		</attr>
+		<attr name="trgOps" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="trgOps"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<type name="TRestrLdName" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tRestrLdName"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#Name"/>
+			<EStringToStringMapEntry key="maxLength" value="64"/>
+			<EStringToStringMapEntry key="pattern" value="\p{L}[\d,\p{L}]*"/>
+		</EAnnotation>
+	</type>
+	<type name="TRestrName" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tRestrName"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#Name"/>
+			<EStringToStringMapEntry key="pattern" value="[\d,\p{L}]+"/>
+		</EAnnotation>
+	</type>
+	<type name="TRestrName1stL" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tRestrName1stL"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#Name"/>
+			<EStringToStringMapEntry key="pattern" value="\p{Ll}[\d,\p{L}]*"/>
+		</EAnnotation>
+	</type>
+	<type name="TRestrName1stU" instanceClassName="java.lang.String">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tRestrName1stU"/>
+			<EStringToStringMapEntry key="baseType" value="http://www.eclipse.org/emf/2003/XMLType#Name"/>
+			<EStringToStringMapEntry key="pattern" value="\p{Lu}[\d,\p{L}]*"/>
+		</EAnnotation>
+	</type>
+	<class name="TRptEnabled">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tRptEnabled"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="clientLN" upperBound="-1" containment="true" resolveProxies="false" type="TClientLN">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ClientLN"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="max" defaultValueLiteral="1" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="max"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TSampledValueControl">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSampledValueControl"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="smvOpts" lowerBound="1" containment="true" resolveProxies="false" type="SmvOptsType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SmvOpts"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="multicast" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="multicast"/>
+			</EAnnotation>
+		</attr>
+		<attr name="nofASDU" lowerBound="1" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="nofASDU"/>
+			</EAnnotation>
+		</attr>
+		<attr name="smpRate" lowerBound="1" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="smpRate"/>
+			</EAnnotation>
+		</attr>
+		<attr name="smvID" lowerBound="1" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="smvID"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TSCLControl">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSCLControl"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+	</class>
+	<class name="TSDI">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSDI"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="group" unique="false" upperBound="-1" type="//EFeatureMapEntry">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="group"/>
+				<EStringToStringMapEntry key="name" value="group:5"/>
+			</EAnnotation>
+		</attr>
+		<ref name="sDI" upperBound="-1" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TSDI">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SDI"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+				<EStringToStringMapEntry key="group" value="#group:5"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dAI" upperBound="-1" volatile="true" transient="true" derived="true" containment="true" resolveProxies="false" type="TDAI">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DAI"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+				<EStringToStringMapEntry key="group" value="#group:5"/>
+			</EAnnotation>
+		</ref>
+		<attr name="ix" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="ix"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" lowerBound="1" type="//TAttributeNameEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TSDO">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSDO"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="type" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TServer">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServer"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="authentication" lowerBound="1" containment="true" resolveProxies="false" type="AuthenticationType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Authentication"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="lDevice" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TLDevice">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="LDevice"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="association" upperBound="-1" containment="true" resolveProxies="false" type="TAssociation">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Association"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="timeout" defaultValueLiteral="30" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="timeout"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TServiceFCEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServiceFCEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="SG"/>
+		<EEnumLiteral name="BR" value="1"/>
+		<EEnumLiteral name="RP" value="2"/>
+		<EEnumLiteral name="LG" value="3"/>
+		<EEnumLiteral name="GO" value="4"/>
+		<EEnumLiteral name="GS" value="5"/>
+		<EEnumLiteral name="MS" value="6"/>
+		<EEnumLiteral name="US" value="7"/>
+	</EEnum>
+	<type name="TServiceFCEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServiceFCEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tServiceFCEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TServices">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServices"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="dynAssociation" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DynAssociation"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="settingGroups" containment="true" resolveProxies="false" type="SettingGroupsType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SettingGroups"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="getDirectory" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GetDirectory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="getDataObjectDefinition" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GetDataObjectDefinition"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dataObjectDirectory" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DataObjectDirectory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="getDataSetValue" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GetDataSetValue"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="setDataSetValue" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SetDataSetValue"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dataSetDirectory" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DataSetDirectory"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="confDataSet" containment="true" resolveProxies="false" type="TServiceWithMaxAndMaxAttributesAndModify">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ConfDataSet"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="dynDataSet" containment="true" resolveProxies="false" type="TServiceWithMaxAndMaxAttributes">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="DynDataSet"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="readWrite" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ReadWrite"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="timerActivatedControl" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="TimerActivatedControl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="confReportControl" containment="true" resolveProxies="false" type="TServiceWithMax">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ConfReportControl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="getCBValues" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GetCBValues"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="confLogControl" containment="true" resolveProxies="false" type="TServiceWithMax">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ConfLogControl"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="reportSettings" containment="true" resolveProxies="false" type="TReportSettings">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ReportSettings"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="logSettings" containment="true" resolveProxies="false" type="TLogSettings">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="LogSettings"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="gSESettings" containment="true" resolveProxies="false" type="TGSESettings">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GSESettings"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="sMVSettings" containment="true" resolveProxies="false" type="TSMVSettings">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SMVSettings"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="gSEDir" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GSEDir"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="gOOSE" containment="true" resolveProxies="false" type="TServiceWithMax">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GOOSE"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="gSSE" containment="true" resolveProxies="false" type="TServiceWithMax">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GSSE"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="fileHandling" containment="true" resolveProxies="false" type="TServiceYesNo">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="FileHandling"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="confLNs" containment="true" resolveProxies="false" type="TConfLNs">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ConfLNs"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="clientServices" containment="true" resolveProxies="false" type="TClientServices">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ClientServices"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TServiceSettings" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServiceSettings"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="cbName" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="cbName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="datSet" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="datSet"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TServiceSettingsEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServiceSettingsEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="Dyn"/>
+		<EEnumLiteral name="Conf" value="1"/>
+		<EEnumLiteral name="Fix" value="2"/>
+	</EEnum>
+	<type name="TServiceSettingsEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServiceSettingsEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tServiceSettingsEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TServiceWithMax">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServiceWithMax"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="max" lowerBound="1" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="max"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TServiceWithMaxAndMaxAttributes">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServiceWithMaxAndMaxAttributes"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="maxAttributes" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="maxAttributes"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TServiceWithMaxAndMaxAttributesAndModify">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServiceWithMaxAndMaxAttributesAndModify"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="modify" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="modify"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TServiceWithMaxAndModify">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServiceWithMaxAndModify"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="modify" defaultValueLiteral="true" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="modify"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TServiceYesNo">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tServiceYesNo"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+	</class>
+	<class name="TSettingControl">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSettingControl"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="actSG" defaultValueLiteral="1" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="actSG"/>
+			</EAnnotation>
+		</attr>
+		<attr name="numOfSGs" lowerBound="1" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="numOfSGs"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TSIUnitEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSIUnitEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="none"/>
+		<EEnumLiteral name="m" value="1"/>
+		<EEnumLiteral name="kg" value="2"/>
+		<EEnumLiteral name="s" value="3"/>
+		<EEnumLiteral name="A" value="4"/>
+		<EEnumLiteral name="K" value="5"/>
+		<EEnumLiteral name="mol" value="6"/>
+		<EEnumLiteral name="cd" value="7"/>
+		<EEnumLiteral name="deg" value="8"/>
+		<EEnumLiteral name="rad" value="9"/>
+		<EEnumLiteral name="sr" value="10"/>
+		<EEnumLiteral name="Gy" value="11"/>
+		<EEnumLiteral name="q" value="12"/>
+		<EEnumLiteral name="C" value="13" literal="°C"/>
+		<EEnumLiteral name="Sv" value="14"/>
+		<EEnumLiteral name="F" value="15"/>
+		<EEnumLiteral name="C1" value="16" literal="C"/>
+		<EEnumLiteral name="S1" value="17" literal="S"/>
+		<EEnumLiteral name="H" value="18"/>
+		<EEnumLiteral name="V" value="19"/>
+		<EEnumLiteral name="ohm" value="20"/>
+		<EEnumLiteral name="J" value="21"/>
+		<EEnumLiteral name="N" value="22"/>
+		<EEnumLiteral name="Hz" value="23"/>
+		<EEnumLiteral name="lx" value="24"/>
+		<EEnumLiteral name="Lm" value="25"/>
+		<EEnumLiteral name="Wb" value="26"/>
+		<EEnumLiteral name="T" value="27"/>
+		<EEnumLiteral name="W" value="28"/>
+		<EEnumLiteral name="Pa" value="29"/>
+		<EEnumLiteral name="m2" value="30" literal="m^2"/>
+		<EEnumLiteral name="m3" value="31" literal="m^3"/>
+		<EEnumLiteral name="mS" value="32" literal="m/s"/>
+		<EEnumLiteral name="mS2" value="33" literal="m/s^2"/>
+		<EEnumLiteral name="m3S" value="34" literal="m^3/s"/>
+		<EEnumLiteral name="mM3" value="35" literal="m/m^3"/>
+		<EEnumLiteral name="M1" value="36" literal="M"/>
+		<EEnumLiteral name="kgM3" value="37" literal="kg/m^3"/>
+		<EEnumLiteral name="m2S" value="38" literal="m^2/s"/>
+		<EEnumLiteral name="WMK" value="39" literal="W/m K"/>
+		<EEnumLiteral name="JK" value="40" literal="J/K"/>
+		<EEnumLiteral name="ppm" value="41"/>
+		<EEnumLiteral name="s11" value="42" literal="s^-1"/>
+		<EEnumLiteral name="radS" value="43" literal="rad/s"/>
+		<EEnumLiteral name="VA" value="44"/>
+		<EEnumLiteral name="Watts" value="45"/>
+		<EEnumLiteral name="VAr" value="46"/>
+		<EEnumLiteral name="phi" value="47"/>
+		<EEnumLiteral name="cosPhi" value="48" literal="cos_phi"/>
+		<EEnumLiteral name="Vs" value="49"/>
+		<EEnumLiteral name="V2" value="50" literal="V^2"/>
+		<EEnumLiteral name="As" value="51"/>
+		<EEnumLiteral name="A2" value="52" literal="A^2"/>
+		<EEnumLiteral name="A2S" value="53" literal="A^2 s"/>
+		<EEnumLiteral name="VAh" value="54"/>
+		<EEnumLiteral name="Wh" value="55"/>
+		<EEnumLiteral name="VArh" value="56"/>
+		<EEnumLiteral name="VHz" value="57" literal="V/Hz"/>
+		<EEnumLiteral name="bS" value="58" literal="b/s"/>
+	</EEnum>
+	<type name="TSIUnitEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSIUnitEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tSIUnitEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TSMV">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSMV"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+	</class>
+	<class name="TSMVSettings">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSMVSettings"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="smpRate" unique="false" lowerBound="1" upperBound="-1" type="//SmpRateType">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="SmpRate"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</attr>
+		<attr name="optFields" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="optFields"/>
+			</EAnnotation>
+		</attr>
+		<attr name="smpRate1" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="smpRate"/>
+			</EAnnotation>
+		</attr>
+		<attr name="svID" defaultValueLiteral="Fix" unsettable="true" type="//TServiceSettingsEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="svID"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TSubEquipment">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSubEquipment"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="phase" defaultValueLiteral="none" unsettable="true" type="//TPhaseEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="phase"/>
+			</EAnnotation>
+		</attr>
+		<attr name="virtual" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="virtual"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TSubFunction">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSubFunction"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="generalEquipment" upperBound="-1" containment="true" resolveProxies="false" type="TGeneralEquipment">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="GeneralEquipment"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TSubNetwork">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSubNetwork"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="bitRate" containment="true" resolveProxies="false" type="TBitRateInMbPerSec">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="BitRate"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="connectedAP" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TConnectedAP">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="ConnectedAP"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="type" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TSubstation">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tSubstation"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="voltageLevel" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TVoltageLevel">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="VoltageLevel"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="function" upperBound="-1" containment="true" resolveProxies="false" type="TFunction">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Function"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="TTapChanger">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tTapChanger"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="type" lowerBound="1" defaultValueLiteral="LTC" unsettable="true" type="//Name">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+		<attr name="virtual" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="virtual"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TTerminal">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tTerminal"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="bayName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="bayName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="cNodeName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="cNodeName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="connectivityNode" lowerBound="1" type="//TRef">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="connectivityNode"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" defaultValueLiteral="" unsettable="true" type="//TAnyName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="name"/>
+			</EAnnotation>
+		</attr>
+		<attr name="substationName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="substationName"/>
+			</EAnnotation>
+		</attr>
+		<attr name="voltageLevelName" lowerBound="1" type="//TName">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="voltageLevelName"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TText">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tText"/>
+			<EStringToStringMapEntry key="kind" value="mixed"/>
+		</EAnnotation>
+		<attr name="source" type="//AnyURI">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="source"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TTransformerWinding">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tTransformerWinding"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="tapChanger" containment="true" resolveProxies="false" type="TTapChanger">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="TapChanger"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<attr name="type" lowerBound="1" defaultValueLiteral="PTW" unsettable="true" type="//TTransformerWindingEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="type"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TTransformerWindingEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tTransformerWindingEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="PTW"/>
+	</EEnum>
+	<type name="TTransformerWindingEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tTransformerWindingEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tTransformerWindingEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TTrgOps">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tTrgOps"/>
+			<EStringToStringMapEntry key="kind" value="empty"/>
+		</EAnnotation>
+		<attr name="dchg" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="dchg"/>
+			</EAnnotation>
+		</attr>
+		<attr name="dupd" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="dupd"/>
+			</EAnnotation>
+		</attr>
+		<attr name="period" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="period"/>
+			</EAnnotation>
+		</attr>
+		<attr name="qchg" defaultValueLiteral="false" unsettable="true" type="//Boolean">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="qchg"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TTrgOptControlEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tTrgOptControlEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="dchg"/>
+		<EEnumLiteral name="qchg" value="1"/>
+		<EEnumLiteral name="dupd" value="2"/>
+		<EEnumLiteral name="period" value="3"/>
+		<EEnumLiteral name="none" value="4"/>
+	</EEnum>
+	<type name="TTrgOptControlEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tTrgOptControlEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tTrgOptControlEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TTrgOptEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tTrgOptEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="dchg"/>
+		<EEnumLiteral name="qchg" value="1"/>
+		<EEnumLiteral name="dupd" value="2"/>
+		<EEnumLiteral name="none" value="3"/>
+	</EEnum>
+	<type name="TTrgOptEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tTrgOptEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tTrgOptEnum"/>
+		</EAnnotation>
+	</type>
+	<EEnum name="TUnitMultiplierEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tUnitMultiplierEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="_" literal=""/>
+		<EEnumLiteral name="m" value="1"/>
+		<EEnumLiteral name="k" value="2"/>
+		<EEnumLiteral name="M1" value="3" literal="M"/>
+		<EEnumLiteral name="mu" value="4"/>
+		<EEnumLiteral name="y" value="5"/>
+		<EEnumLiteral name="z" value="6"/>
+		<EEnumLiteral name="a" value="7"/>
+		<EEnumLiteral name="f" value="8"/>
+		<EEnumLiteral name="p" value="9"/>
+		<EEnumLiteral name="n" value="10"/>
+		<EEnumLiteral name="c" value="11"/>
+		<EEnumLiteral name="d" value="12"/>
+		<EEnumLiteral name="da" value="13"/>
+		<EEnumLiteral name="h" value="14"/>
+		<EEnumLiteral name="G" value="15"/>
+		<EEnumLiteral name="T" value="16"/>
+		<EEnumLiteral name="P1" value="17" literal="P"/>
+		<EEnumLiteral name="E" value="18"/>
+		<EEnumLiteral name="Z1" value="19" literal="Z"/>
+		<EEnumLiteral name="Y1" value="20" literal="Y"/>
+	</EEnum>
+	<type name="TUnitMultiplierEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tUnitMultiplierEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tUnitMultiplierEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TUnNaming" abstract="true">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tUnNaming"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<attr name="desc" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="desc"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TVal">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tVal"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+		<attr name="value" type="//NormalizedString">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="name" value=":0"/>
+				<EStringToStringMapEntry key="kind" value="simple"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sGroup" unsettable="true" type="//UnsignedInt">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="sGroup"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<EEnum name="TValKindEnum">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tValKindEnum"/>
+		</EAnnotation>
+		<EEnumLiteral name="Spec"/>
+		<EEnumLiteral name="Conf" value="1"/>
+		<EEnumLiteral name="RO" value="2"/>
+		<EEnumLiteral name="Set" value="3"/>
+	</EEnum>
+	<type name="TValKindEnumObject" instanceClassName="org.eclipse.emf.common.util.Enumerator">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tValKindEnum:Object"/>
+			<EStringToStringMapEntry key="baseType" value="tValKindEnum"/>
+		</EAnnotation>
+	</type>
+	<class name="TValueWithUnit">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tValueWithUnit"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+		<attr name="value" type="//Decimal">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="name" value=":0"/>
+				<EStringToStringMapEntry key="kind" value="simple"/>
+			</EAnnotation>
+		</attr>
+		<attr name="multiplier" defaultValueLiteral="" unsettable="true" type="//TUnitMultiplierEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="multiplier"/>
+			</EAnnotation>
+		</attr>
+		<attr name="unit" lowerBound="1" unsettable="true" type="//TSIUnitEnum">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="attribute"/>
+				<EStringToStringMapEntry key="name" value="unit"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="TVoltage">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tVoltage"/>
+			<EStringToStringMapEntry key="kind" value="simple"/>
+		</EAnnotation>
+	</class>
+	<class name="TVoltageLevel">
+		<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<EStringToStringMapEntry key="name" value="tVoltageLevel"/>
+			<EStringToStringMapEntry key="kind" value="elementOnly"/>
+		</EAnnotation>
+		<ref name="voltage" containment="true" resolveProxies="false" type="TVoltage">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Voltage"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+		<ref name="bay" lowerBound="1" upperBound="-1" containment="true" resolveProxies="false" type="TBay">
+			<EAnnotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+				<EStringToStringMapEntry key="kind" value="element"/>
+				<EStringToStringMapEntry key="name" value="Bay"/>
+				<EStringToStringMapEntry key="namespace" value="##targetNamespace"/>
+			</EAnnotation>
+		</ref>
+	</class>
+</package>

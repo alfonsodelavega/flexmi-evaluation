@@ -1,0 +1,1807 @@
+@namespace(uri="http://www.eclipse.org/MoDisco/Javaee/web-app_3_0.xsd", prefix="webapp30")
+package webapp30;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+import "http://www.w3.org/XML/1998/namespace";
+
+@ExtendedMetaData(name="absoluteOrderingType", kind="elementOnly")
+class AbsoluteOrderingType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="name", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val JavaIdentifierType[*] name;
+
+	@ExtendedMetaData(kind="element", name="others", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val OrderingOthersType[*] others;
+}
+
+@ExtendedMetaData(name="addressing-responsesType", kind="simple")
+class AddressingResponsesType extends String {
+}
+
+@ExtendedMetaData(name="addressing-responsesType_._base")
+enum AddressingResponsesTypeBase {
+	ANONYMOUS = 0;
+	NONANONYMOUS = 1;
+	ALL = 2;
+}
+
+@ExtendedMetaData(name="addressing-responsesType_._base:Object", baseType="addressing-responsesType_._base")
+datatype AddressingResponsesTypeBaseObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="addressingType", kind="elementOnly")
+class AddressingType {
+
+	@ExtendedMetaData(kind="element", name="enabled", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType enabled;
+
+	@ExtendedMetaData(kind="element", name="required", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType required;
+
+	@ExtendedMetaData(kind="element", name="responses", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val AddressingResponsesType responses;
+}
+
+@ExtendedMetaData(name="auth-constraintType", kind="elementOnly")
+class AuthConstraintType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="role-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val RoleNameType[*] roleName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="auth-methodType", kind="simple")
+class AuthMethodType extends String {
+}
+
+@ExtendedMetaData(name="auth-methodType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token")
+datatype AuthMethodTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="cookie-commentType", kind="simple")
+class CookieCommentType extends NonEmptyStringType {
+}
+
+@ExtendedMetaData(name="cookie-configType", kind="elementOnly")
+class CookieConfigType {
+
+	@ExtendedMetaData(kind="element", name="name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val CookieNameType name;
+
+	@ExtendedMetaData(kind="element", name="domain", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val CookieDomainType domain;
+
+	@ExtendedMetaData(kind="element", name="path", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val CookiePathType path;
+
+	@ExtendedMetaData(kind="element", name="comment", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val CookieCommentType comment;
+
+	@ExtendedMetaData(kind="element", name="http-only", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType httpOnly;
+
+	@ExtendedMetaData(kind="element", name="secure", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType secure;
+
+	@ExtendedMetaData(kind="element", name="max-age", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdIntegerType maxAge;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="cookie-domainType", kind="simple")
+class CookieDomainType extends NonEmptyStringType {
+}
+
+@ExtendedMetaData(name="cookie-nameType", kind="simple")
+class CookieNameType extends NonEmptyStringType {
+}
+
+@ExtendedMetaData(name="cookie-pathType", kind="simple")
+class CookiePathType extends NonEmptyStringType {
+}
+
+@ExtendedMetaData(name="data-sourceType", kind="elementOnly")
+class DataSourceType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType description;
+
+	@ExtendedMetaData(kind="element", name="name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JndiNameType[1] name;
+
+	@ExtendedMetaData(kind="element", name="class-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType className;
+
+	@ExtendedMetaData(kind="element", name="server-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String serverName;
+
+	@ExtendedMetaData(kind="element", name="port-number", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdIntegerType portNumber;
+
+	@ExtendedMetaData(kind="element", name="database-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String databaseName;
+
+	@ExtendedMetaData(kind="element", name="url", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JdbcUrlType url;
+
+	@ExtendedMetaData(kind="element", name="user", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String user;
+
+	@ExtendedMetaData(kind="element", name="password", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String password;
+
+	@ExtendedMetaData(kind="element", name="property", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val PropertyType[*] property;
+
+	@ExtendedMetaData(kind="element", name="login-timeout", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdIntegerType loginTimeout;
+
+	@ExtendedMetaData(kind="element", name="transactional", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdBooleanType transactional;
+
+	@ExtendedMetaData(kind="element", name="isolation-level", namespace="http://java.sun.com/xml/ns/javaee")
+	unsettable attr IsolationLevelType isolationLevel;
+
+	@ExtendedMetaData(kind="element", name="initial-pool-size", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdIntegerType initialPoolSize;
+
+	@ExtendedMetaData(kind="element", name="max-pool-size", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdIntegerType maxPoolSize;
+
+	@ExtendedMetaData(kind="element", name="min-pool-size", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdIntegerType minPoolSize;
+
+	@ExtendedMetaData(kind="element", name="max-idle-time", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdIntegerType maxIdleTime;
+
+	@ExtendedMetaData(kind="element", name="max-statements", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdIntegerType maxStatements;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="descriptionType", kind="simple")
+class DescriptionType extends XsdStringType {
+
+	@ExtendedMetaData(kind="attribute", name="lang", namespace="http://www.w3.org/XML/1998/namespace")
+	attr namespace.LangType lang;
+}
+
+@ExtendedMetaData(name="dewey-versionType", baseType="http://www.eclipse.org/emf/2003/XMLType#token", pattern="\.?[0-9]+(\.[0-9]+)*")
+datatype DeweyVersionType : java.lang.String;
+
+@ExtendedMetaData(name="dispatcherType", kind="simple")
+class DispatcherType extends String {
+}
+
+@ExtendedMetaData(name="dispatcherType_._base")
+enum DispatcherTypeBase {
+	FORWARD = 0;
+	INCLUDE = 1;
+	REQUEST = 2;
+	ASYNC = 3;
+	ERROR = 4;
+}
+
+@ExtendedMetaData(name="dispatcherType_._base:Object", baseType="dispatcherType_._base")
+datatype DispatcherTypeBaseObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="display-nameType", kind="simple")
+class DisplayNameType extends String {
+
+	@ExtendedMetaData(kind="attribute", name="lang", namespace="http://www.w3.org/XML/1998/namespace")
+	attr namespace.LangType lang;
+}
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@ExtendedMetaData(kind="element", name="web-app", namespace="http://java.sun.com/xml/ns/javaee")
+	volatile transient derived !resolve val WebAppType[0..?] webApp;
+}
+
+@ExtendedMetaData(name="ejb-linkType", kind="simple")
+class EjbLinkType extends String {
+}
+
+@ExtendedMetaData(name="ejb-linkType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token")
+datatype EjbLinkTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="ejb-local-refType", kind="elementOnly")
+class EjbLocalRefType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="ejb-ref-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val EjbRefNameType[1] ejbRefName;
+
+	@ExtendedMetaData(kind="element", name="ejb-ref-type", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val EjbRefTypeType ejbRefType;
+
+	@ExtendedMetaData(kind="element", name="local-home", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val LocalHomeType localHome;
+
+	@ExtendedMetaData(kind="element", name="local", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val LocalType local;
+
+	@ExtendedMetaData(kind="element", name="ejb-link", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val EjbLinkType ejbLink;
+
+	@ExtendedMetaData(kind="element", name="mapped-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType mappedName;
+
+	@ExtendedMetaData(kind="element", name="injection-target", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val InjectionTargetType[*] injectionTarget;
+
+	@ExtendedMetaData(kind="element", name="lookup-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType lookupName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="ejb-ref-nameType", kind="simple")
+class EjbRefNameType extends JndiNameType {
+}
+
+@ExtendedMetaData(name="ejb-ref-nameType_._base")
+datatype EjbRefNameTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="ejb-refType", kind="elementOnly")
+class EjbRefType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="ejb-ref-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val EjbRefNameType[1] ejbRefName;
+
+	@ExtendedMetaData(kind="element", name="ejb-ref-type", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val EjbRefTypeType ejbRefType;
+
+	@ExtendedMetaData(kind="element", name="home", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val HomeType home;
+
+	@ExtendedMetaData(kind="element", name="remote", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val RemoteType remote;
+
+	@ExtendedMetaData(kind="element", name="ejb-link", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val EjbLinkType ejbLink;
+
+	@ExtendedMetaData(kind="element", name="mapped-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType mappedName;
+
+	@ExtendedMetaData(kind="element", name="injection-target", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val InjectionTargetType[*] injectionTarget;
+
+	@ExtendedMetaData(kind="element", name="lookup-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType lookupName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="ejb-ref-typeType", kind="simple")
+class EjbRefTypeType extends String {
+}
+
+@ExtendedMetaData(name="ejb-ref-typeType_._base")
+enum EjbRefTypeTypeBase {
+	Entity = 0;
+	Session = 1;
+}
+
+@ExtendedMetaData(name="ejb-ref-typeType_._base:Object", baseType="ejb-ref-typeType_._base")
+datatype EjbRefTypeTypeBaseObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="emptyType", kind="empty")
+class EmptyType {
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="encodingType", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="[^\s]+")
+datatype EncodingType : java.lang.String;
+
+@ExtendedMetaData(name="env-entryType", kind="elementOnly")
+class EnvEntryType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="env-entry-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JndiNameType[1] envEntryName;
+
+	@ExtendedMetaData(kind="element", name="env-entry-type", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val EnvEntryTypeValuesType envEntryType;
+
+	@ExtendedMetaData(kind="element", name="env-entry-value", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType envEntryValue;
+
+	@ExtendedMetaData(kind="element", name="mapped-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType mappedName;
+
+	@ExtendedMetaData(kind="element", name="injection-target", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val InjectionTargetType[*] injectionTarget;
+
+	@ExtendedMetaData(kind="element", name="lookup-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType lookupName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="env-entry-type-valuesType", kind="simple")
+class EnvEntryTypeValuesType extends FullyQualifiedClassType {
+}
+
+@ExtendedMetaData(name="env-entry-type-valuesType_._base")
+datatype EnvEntryTypeValuesTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="error-codeType", kind="simple")
+class ErrorCodeType extends XsdPositiveIntegerType {
+}
+
+@ExtendedMetaData(name="error-codeType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#positiveInteger", pattern="\d{3}")
+datatype ErrorCodeTypeBase : java.math.BigInteger;
+
+@ExtendedMetaData(name="error-pageType", kind="elementOnly")
+class ErrorPageType {
+
+	@ExtendedMetaData(kind="element", name="error-code", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val ErrorCodeType errorCode;
+
+	@ExtendedMetaData(kind="element", name="exception-type", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType exceptionType;
+
+	@ExtendedMetaData(kind="element", name="location", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val WarPathType[1] location;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="filter-mappingType", kind="elementOnly")
+class FilterMappingType {
+
+	@ExtendedMetaData(kind="element", name="filter-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FilterNameType[1] filterName;
+
+	@ExtendedMetaData(kind="group", name="group:1")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="url-pattern", namespace="http://java.sun.com/xml/ns/javaee", group="#group:1")
+	volatile transient derived !resolve val UrlPatternType[*] urlPattern;
+
+	@ExtendedMetaData(kind="element", name="servlet-name", namespace="http://java.sun.com/xml/ns/javaee", group="#group:1")
+	volatile transient derived !resolve val ServletNameType[*] servletName;
+
+	@ExtendedMetaData(kind="element", name="dispatcher", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DispatcherType[0..5] dispatcher;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="filter-nameType", kind="simple")
+class FilterNameType extends NonEmptyStringType {
+}
+
+@ExtendedMetaData(name="filterType", kind="elementOnly")
+class FilterType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="display-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DisplayNameType[*] displayName;
+
+	@ExtendedMetaData(kind="element", name="icon", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val IconType[*] icon;
+
+	@ExtendedMetaData(kind="element", name="filter-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FilterNameType[1] filterName;
+
+	@ExtendedMetaData(kind="element", name="filter-class", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType filterClass;
+
+	@ExtendedMetaData(kind="element", name="async-supported", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType asyncSupported;
+
+	@ExtendedMetaData(kind="element", name="init-param", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val ParamValueType[*] initParam;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="form-login-configType", kind="elementOnly")
+class FormLoginConfigType {
+
+	@ExtendedMetaData(kind="element", name="form-login-page", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val WarPathType[1] formLoginPage;
+
+	@ExtendedMetaData(kind="element", name="form-error-page", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val WarPathType[1] formErrorPage;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="fully-qualified-classType", kind="simple")
+class FullyQualifiedClassType extends String {
+}
+
+@ExtendedMetaData(name="fully-qualified-classType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token")
+datatype FullyQualifiedClassTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="generic-booleanType", kind="simple")
+class GenericBooleanType extends String {
+}
+
+@ExtendedMetaData(name="generic-booleanType_._base")
+enum GenericBooleanTypeBase {
+	~true = 0;
+	~false = 1;
+	yes = 2;
+	no = 3;
+}
+
+@ExtendedMetaData(name="generic-booleanType_._base:Object", baseType="generic-booleanType_._base")
+datatype GenericBooleanTypeBaseObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="handler-chainsType", kind="elementOnly")
+class HandlerChainsType {
+
+	@ExtendedMetaData(kind="element", name="handler-chain", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val HandlerChainType[*] handlerChain;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="handler-chainType", kind="elementOnly")
+class HandlerChainType {
+
+	@ExtendedMetaData(kind="element", name="service-name-pattern", namespace="http://java.sun.com/xml/ns/javaee")
+	attr QnamePattern serviceNamePattern;
+
+	@ExtendedMetaData(kind="element", name="port-name-pattern", namespace="http://java.sun.com/xml/ns/javaee")
+	attr QnamePattern portNamePattern;
+
+	@ExtendedMetaData(kind="element", name="protocol-bindings", namespace="http://java.sun.com/xml/ns/javaee")
+	attr ProtocolBindingListType protocolBindings;
+
+	@ExtendedMetaData(kind="element", name="handler", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val HandlerType[+] handler;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="handlerType", kind="elementOnly")
+class HandlerType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="display-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DisplayNameType[*] displayName;
+
+	@ExtendedMetaData(kind="element", name="icon", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val IconType[*] icon;
+
+	@ExtendedMetaData(kind="element", name="handler-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String[1] handlerName;
+
+	@ExtendedMetaData(kind="element", name="handler-class", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType[1] handlerClass;
+
+	@ExtendedMetaData(kind="element", name="init-param", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val ParamValueType[*] initParam;
+
+	@ExtendedMetaData(kind="element", name="soap-header", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdQNameType[*] soapHeader;
+
+	@ExtendedMetaData(kind="element", name="soap-role", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String[*] soapRole;
+
+	@ExtendedMetaData(kind="element", name="port-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String[*] portName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="homeType", kind="simple")
+class HomeType extends FullyQualifiedClassType {
+}
+
+@ExtendedMetaData(name="homeType_._base")
+datatype HomeTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="http-methodType", baseType="http://www.eclipse.org/emf/2003/XMLType#token", pattern="[!-~-[\(\)<>@,;:\"/\[\]?=\{\}\\\p{Z}]]+")
+datatype HttpMethodType : java.lang.String;
+
+@ExtendedMetaData(name="iconType", kind="elementOnly")
+class IconType {
+
+	@ExtendedMetaData(kind="element", name="small-icon", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val PathType smallIcon;
+
+	@ExtendedMetaData(kind="element", name="large-icon", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val PathType largeIcon;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="lang", namespace="http://www.w3.org/XML/1998/namespace")
+	attr namespace.LangType lang;
+}
+
+@ExtendedMetaData(name="injection-targetType", kind="elementOnly")
+class InjectionTargetType {
+
+	@ExtendedMetaData(kind="element", name="injection-target-class", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType[1] injectionTargetClass;
+
+	@ExtendedMetaData(kind="element", name="injection-target-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JavaIdentifierType[1] injectionTargetName;
+}
+
+@ExtendedMetaData(name="isolation-levelType")
+enum IsolationLevelType {
+	TRANSACTIONREADUNCOMMITTED = 0;
+	TRANSACTIONREADCOMMITTED = 1;
+	TRANSACTIONREPEATABLEREAD = 2;
+	TRANSACTIONSERIALIZABLE = 3;
+}
+
+@ExtendedMetaData(name="isolation-levelType:Object", baseType="isolation-levelType")
+datatype IsolationLevelTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="java-identifierType", kind="simple")
+class JavaIdentifierType extends String {
+}
+
+@ExtendedMetaData(name="java-identifierType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token", pattern="($|_|\p{L})(\p{L}|\p{Nd}|_|$)*")
+datatype JavaIdentifierTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="java-typeType", kind="simple")
+class JavaTypeType extends String {
+}
+
+@ExtendedMetaData(name="java-typeType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token", pattern="[^\p{Z}]*")
+datatype JavaTypeTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="jdbc-urlType", kind="simple")
+class JdbcUrlType extends String {
+}
+
+@ExtendedMetaData(name="jdbc-urlType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token", pattern="jdbc:(.*):(.*)")
+datatype JdbcUrlTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="jndi-nameType", kind="simple")
+class JndiNameType extends String {
+}
+
+@ExtendedMetaData(name="jndi-nameType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token")
+datatype JndiNameTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="jsp-configType", kind="elementOnly")
+class JspConfigType {
+
+	@ExtendedMetaData(kind="element", name="taglib", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TaglibType[*] taglib;
+
+	@ExtendedMetaData(kind="element", name="jsp-property-group", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JspPropertyGroupType[*] jspPropertyGroup;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="jsp-fileType", kind="simple")
+class JspFileType extends PathType {
+}
+
+@ExtendedMetaData(name="jsp-fileType_._base")
+datatype JspFileTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="jsp-property-groupType", kind="elementOnly")
+class JspPropertyGroupType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="display-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DisplayNameType[*] displayName;
+
+	@ExtendedMetaData(kind="element", name="icon", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val IconType[*] icon;
+
+	@ExtendedMetaData(kind="element", name="url-pattern", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val UrlPatternType[+] urlPattern;
+
+	@ExtendedMetaData(kind="element", name="el-ignored", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType elIgnored;
+
+	@ExtendedMetaData(kind="element", name="page-encoding", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String pageEncoding;
+
+	@ExtendedMetaData(kind="element", name="scripting-invalid", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType scriptingInvalid;
+
+	@ExtendedMetaData(kind="element", name="is-xml", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType isXml;
+
+	@ExtendedMetaData(kind="element", name="include-prelude", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val PathType[*] includePrelude;
+
+	@ExtendedMetaData(kind="element", name="include-coda", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val PathType[*] includeCoda;
+
+	@ExtendedMetaData(kind="element", name="deferred-syntax-allowed-as-literal", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType deferredSyntaxAllowedAsLiteral;
+
+	@ExtendedMetaData(kind="element", name="trim-directive-whitespaces", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType trimDirectiveWhitespaces;
+
+	@ExtendedMetaData(kind="element", name="default-content-type", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String defaultContentType;
+
+	@ExtendedMetaData(kind="element", name="buffer", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String buffer;
+
+	@ExtendedMetaData(kind="element", name="error-on-undeclared-namespace", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType errorOnUndeclaredNamespace;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="lifecycle-callbackType", kind="elementOnly")
+class LifecycleCallbackType {
+
+	@ExtendedMetaData(kind="element", name="lifecycle-callback-class", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType lifecycleCallbackClass;
+
+	@ExtendedMetaData(kind="element", name="lifecycle-callback-method", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JavaIdentifierType[1] lifecycleCallbackMethod;
+}
+
+@ExtendedMetaData(name="listenerType", kind="elementOnly")
+class ListenerType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="display-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DisplayNameType[*] displayName;
+
+	@ExtendedMetaData(kind="element", name="icon", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val IconType[*] icon;
+
+	@ExtendedMetaData(kind="element", name="listener-class", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType[1] listenerClass;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="load-on-startupType", memberTypes="null-charType http://www.eclipse.org/emf/2003/XMLType#integer")
+datatype LoadOnStartupType : java.lang.Object;
+
+@ExtendedMetaData(name="locale-encoding-mapping-listType", kind="elementOnly")
+class LocaleEncodingMappingListType {
+
+	@ExtendedMetaData(kind="element", name="locale-encoding-mapping", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val LocaleEncodingMappingType[+] localeEncodingMapping;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="locale-encoding-mappingType", kind="elementOnly")
+class LocaleEncodingMappingType {
+
+	@ExtendedMetaData(kind="element", name="locale", namespace="http://java.sun.com/xml/ns/javaee")
+	attr LocaleType[1] locale;
+
+	@ExtendedMetaData(kind="element", name="encoding", namespace="http://java.sun.com/xml/ns/javaee")
+	attr EncodingType[1] encoding;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="localeType", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?")
+datatype LocaleType : java.lang.String;
+
+@ExtendedMetaData(name="local-homeType", kind="simple")
+class LocalHomeType extends FullyQualifiedClassType {
+}
+
+@ExtendedMetaData(name="local-homeType_._base")
+datatype LocalHomeTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="localType", kind="simple")
+class LocalType extends FullyQualifiedClassType {
+}
+
+@ExtendedMetaData(name="localType_._base")
+datatype LocalTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="login-configType", kind="elementOnly")
+class LoginConfigType {
+
+	@ExtendedMetaData(kind="element", name="auth-method", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val AuthMethodType authMethod;
+
+	@ExtendedMetaData(kind="element", name="realm-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String realmName;
+
+	@ExtendedMetaData(kind="element", name="form-login-config", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FormLoginConfigType formLoginConfig;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="message-destination-linkType", kind="simple")
+class MessageDestinationLinkType extends String {
+}
+
+@ExtendedMetaData(name="message-destination-linkType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token")
+datatype MessageDestinationLinkTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="message-destination-refType", kind="elementOnly")
+class MessageDestinationRefType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="message-destination-ref-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JndiNameType[1] messageDestinationRefName;
+
+	@ExtendedMetaData(kind="element", name="message-destination-type", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val MessageDestinationTypeType messageDestinationType;
+
+	@ExtendedMetaData(kind="element", name="message-destination-usage", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val MessageDestinationUsageType messageDestinationUsage;
+
+	@ExtendedMetaData(kind="element", name="message-destination-link", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val MessageDestinationLinkType messageDestinationLink;
+
+	@ExtendedMetaData(kind="element", name="mapped-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType mappedName;
+
+	@ExtendedMetaData(kind="element", name="injection-target", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val InjectionTargetType[*] injectionTarget;
+
+	@ExtendedMetaData(kind="element", name="lookup-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType lookupName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="message-destinationType", kind="elementOnly")
+class MessageDestinationType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="display-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DisplayNameType[*] displayName;
+
+	@ExtendedMetaData(kind="element", name="icon", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val IconType[*] icon;
+
+	@ExtendedMetaData(kind="element", name="message-destination-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String[1] messageDestinationName;
+
+	@ExtendedMetaData(kind="element", name="mapped-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType mappedName;
+
+	@ExtendedMetaData(kind="element", name="lookup-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType lookupName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="message-destination-typeType", kind="simple")
+class MessageDestinationTypeType extends FullyQualifiedClassType {
+}
+
+@ExtendedMetaData(name="message-destination-typeType_._base")
+datatype MessageDestinationTypeTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="message-destination-usageType", kind="simple")
+class MessageDestinationUsageType extends String {
+}
+
+@ExtendedMetaData(name="message-destination-usageType_._base")
+enum MessageDestinationUsageTypeBase {
+	Consumes = 0;
+	Produces = 1;
+	ConsumesProduces = 2;
+}
+
+@ExtendedMetaData(name="message-destination-usageType_._base:Object", baseType="message-destination-usageType_._base")
+datatype MessageDestinationUsageTypeBaseObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="mime-mappingType", kind="elementOnly")
+class MimeMappingType {
+
+	@ExtendedMetaData(kind="element", name="extension", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String[1] extension;
+
+	@ExtendedMetaData(kind="element", name="mime-type", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val MimeTypeType[1] mimeType;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="mime-typeType", kind="simple")
+class MimeTypeType extends String {
+}
+
+@ExtendedMetaData(name="mime-typeType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token", pattern="[^\p{Cc}^\s]+/[^\p{Cc}^\s]+")
+datatype MimeTypeTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="multipart-configType", kind="elementOnly")
+class MultipartConfigType {
+
+	@ExtendedMetaData(kind="element", name="location", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String location;
+
+	@ExtendedMetaData(kind="element", name="max-file-size", namespace="http://java.sun.com/xml/ns/javaee")
+	unsettable attr type.Long maxFileSize;
+
+	@ExtendedMetaData(kind="element", name="max-request-size", namespace="http://java.sun.com/xml/ns/javaee")
+	unsettable attr type.Long maxRequestSize;
+
+	@ExtendedMetaData(kind="element", name="file-size-threshold", namespace="http://java.sun.com/xml/ns/javaee")
+	attr type.Integer fileSizeThreshold;
+}
+
+@ExtendedMetaData(name="nonEmptyStringType", kind="simple")
+class NonEmptyStringType extends String {
+}
+
+@ExtendedMetaData(name="nonEmptyStringType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token", minLength="1")
+datatype NonEmptyStringTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="null-charType")
+enum NullCharType {
+	_ = 0;
+}
+
+@ExtendedMetaData(name="null-charType:Object", baseType="null-charType")
+datatype NullCharTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="ordering-orderingType", kind="elementOnly")
+class OrderingOrderingType {
+
+	@ExtendedMetaData(kind="element", name="name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JavaIdentifierType[*] name;
+
+	@ExtendedMetaData(kind="element", name="others", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val OrderingOthersType others;
+}
+
+@ExtendedMetaData(name="ordering-othersType", kind="empty")
+class OrderingOthersType {
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="orderingType", kind="elementOnly")
+class OrderingType {
+
+	@ExtendedMetaData(kind="element", name="after", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val OrderingOrderingType after;
+
+	@ExtendedMetaData(kind="element", name="before", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val OrderingOrderingType before;
+}
+
+@ExtendedMetaData(name="param-valueType", kind="elementOnly")
+class ParamValueType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="param-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String[1] paramName;
+
+	@ExtendedMetaData(kind="element", name="param-value", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType[1] paramValue;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="pathType", kind="simple")
+class PathType extends String {
+}
+
+@ExtendedMetaData(name="pathType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token")
+datatype PathTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="persistence-context-refType", kind="elementOnly")
+class PersistenceContextRefType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="persistence-context-ref-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JndiNameType[1] persistenceContextRefName;
+
+	@ExtendedMetaData(kind="element", name="persistence-unit-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String persistenceUnitName;
+
+	@ExtendedMetaData(kind="element", name="persistence-context-type", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val PersistenceContextTypeType persistenceContextType;
+
+	@ExtendedMetaData(kind="element", name="persistence-property", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val PropertyType[*] persistenceProperty;
+
+	@ExtendedMetaData(kind="element", name="mapped-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType mappedName;
+
+	@ExtendedMetaData(kind="element", name="injection-target", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val InjectionTargetType[*] injectionTarget;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="persistence-context-typeType", kind="simple")
+class PersistenceContextTypeType extends String {
+}
+
+@ExtendedMetaData(name="persistence-context-typeType_._base")
+enum PersistenceContextTypeTypeBase {
+	Transaction = 0;
+	Extended = 1;
+}
+
+@ExtendedMetaData(name="persistence-context-typeType_._base:Object", baseType="persistence-context-typeType_._base")
+datatype PersistenceContextTypeTypeBaseObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="persistence-unit-refType", kind="elementOnly")
+class PersistenceUnitRefType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="persistence-unit-ref-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JndiNameType[1] persistenceUnitRefName;
+
+	@ExtendedMetaData(kind="element", name="persistence-unit-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String persistenceUnitName;
+
+	@ExtendedMetaData(kind="element", name="mapped-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType mappedName;
+
+	@ExtendedMetaData(kind="element", name="injection-target", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val InjectionTargetType[*] injectionTarget;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="port-component-refType", kind="elementOnly")
+class PortComponentRefType {
+
+	@ExtendedMetaData(kind="element", name="service-endpoint-interface", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType[1] serviceEndpointInterface;
+
+	@ExtendedMetaData(kind="element", name="enable-mtom", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType enableMtom;
+
+	@ExtendedMetaData(kind="element", name="mtom-threshold", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdNonNegativeIntegerType mtomThreshold;
+
+	@ExtendedMetaData(kind="element", name="addressing", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val AddressingType addressing;
+
+	@ExtendedMetaData(kind="element", name="respect-binding", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val RespectBindingType respectBinding;
+
+	@ExtendedMetaData(kind="element", name="port-component-link", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String portComponentLink;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="propertyType", kind="elementOnly")
+class PropertyType {
+
+	@ExtendedMetaData(kind="element", name="name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType[1] name;
+
+	@ExtendedMetaData(kind="element", name="value", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType[1] value;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="protocol-bindingListType", itemType="protocol-bindingType")
+datatype ProtocolBindingListType : java.util.List;
+
+@ExtendedMetaData(name="protocol-bindingType", memberTypes="http://www.eclipse.org/emf/2003/XMLType#anyURI protocol-URIAliasType")
+datatype ProtocolBindingType : java.lang.String;
+
+@ExtendedMetaData(name="protocol-URIAliasType", baseType="http://www.eclipse.org/emf/2003/XMLType#token", pattern="##.+")
+datatype ProtocolURIAliasType : java.lang.String;
+
+@ExtendedMetaData(name="qname-pattern", baseType="http://www.eclipse.org/emf/2003/XMLType#token", pattern="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?")
+datatype QnamePattern : java.lang.String;
+
+@ExtendedMetaData(name="remoteType", kind="simple")
+class RemoteType extends FullyQualifiedClassType {
+}
+
+@ExtendedMetaData(name="remoteType_._base")
+datatype RemoteTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="res-authType", kind="simple")
+class ResAuthType extends String {
+}
+
+@ExtendedMetaData(name="res-authType_._base")
+enum ResAuthTypeBase {
+	Application = 0;
+	Container = 1;
+}
+
+@ExtendedMetaData(name="res-authType_._base:Object", baseType="res-authType_._base")
+datatype ResAuthTypeBaseObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="resource-env-refType", kind="elementOnly")
+class ResourceEnvRefType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="resource-env-ref-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JndiNameType[1] resourceEnvRefName;
+
+	@ExtendedMetaData(kind="element", name="resource-env-ref-type", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType resourceEnvRefType;
+
+	@ExtendedMetaData(kind="element", name="mapped-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType mappedName;
+
+	@ExtendedMetaData(kind="element", name="injection-target", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val InjectionTargetType[*] injectionTarget;
+
+	@ExtendedMetaData(kind="element", name="lookup-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType lookupName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="resource-refType", kind="elementOnly")
+class ResourceRefType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="res-ref-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JndiNameType[1] resRefName;
+
+	@ExtendedMetaData(kind="element", name="res-type", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType resType;
+
+	@ExtendedMetaData(kind="element", name="res-auth", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val ResAuthType resAuth;
+
+	@ExtendedMetaData(kind="element", name="res-sharing-scope", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val ResSharingScopeType resSharingScope;
+
+	@ExtendedMetaData(kind="element", name="mapped-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType mappedName;
+
+	@ExtendedMetaData(kind="element", name="injection-target", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val InjectionTargetType[*] injectionTarget;
+
+	@ExtendedMetaData(kind="element", name="lookup-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType lookupName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="respect-bindingType", kind="elementOnly")
+class RespectBindingType {
+
+	@ExtendedMetaData(kind="element", name="enabled", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType enabled;
+}
+
+@ExtendedMetaData(name="res-sharing-scopeType", kind="simple")
+class ResSharingScopeType extends String {
+}
+
+@ExtendedMetaData(name="res-sharing-scopeType_._base")
+enum ResSharingScopeTypeBase {
+	Shareable = 0;
+	Unshareable = 1;
+}
+
+@ExtendedMetaData(name="res-sharing-scopeType_._base:Object", baseType="res-sharing-scopeType_._base")
+datatype ResSharingScopeTypeBaseObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="role-nameType", kind="simple")
+class RoleNameType extends String {
+}
+
+@ExtendedMetaData(name="role-nameType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token")
+datatype RoleNameTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="run-asType", kind="elementOnly")
+class RunAsType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="role-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val RoleNameType[1] roleName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="security-constraintType", kind="elementOnly")
+class SecurityConstraintType {
+
+	@ExtendedMetaData(kind="element", name="display-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DisplayNameType[*] displayName;
+
+	@ExtendedMetaData(kind="element", name="web-resource-collection", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val WebResourceCollectionType[+] webResourceCollection;
+
+	@ExtendedMetaData(kind="element", name="auth-constraint", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val AuthConstraintType authConstraint;
+
+	@ExtendedMetaData(kind="element", name="user-data-constraint", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val UserDataConstraintType userDataConstraint;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="security-role-refType", kind="elementOnly")
+class SecurityRoleRefType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="role-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val RoleNameType[1] roleName;
+
+	@ExtendedMetaData(kind="element", name="role-link", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val RoleNameType roleLink;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="security-roleType", kind="elementOnly")
+class SecurityRoleType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="role-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val RoleNameType[1] roleName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="service-refType", kind="elementOnly")
+class ServiceRefType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="display-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DisplayNameType[*] displayName;
+
+	@ExtendedMetaData(kind="element", name="icon", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val IconType[*] icon;
+
+	@ExtendedMetaData(kind="element", name="service-ref-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JndiNameType[1] serviceRefName;
+
+	@ExtendedMetaData(kind="element", name="service-interface", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType[1] serviceInterface;
+
+	@ExtendedMetaData(kind="element", name="service-ref-type", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType serviceRefType;
+
+	@ExtendedMetaData(kind="element", name="wsdl-file", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdAnyURIType wsdlFile;
+
+	@ExtendedMetaData(kind="element", name="jaxrpc-mapping-file", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val PathType jaxrpcMappingFile;
+
+	@ExtendedMetaData(kind="element", name="service-qname", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdQNameType serviceQname;
+
+	@ExtendedMetaData(kind="element", name="port-component-ref", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val PortComponentRefType[*] portComponentRef;
+
+	@ExtendedMetaData(kind="element", name="handler", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val HandlerType[*] handler;
+
+	@ExtendedMetaData(kind="element", name="handler-chains", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val HandlerChainsType handlerChains;
+
+	@ExtendedMetaData(kind="element", name="mapped-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType mappedName;
+
+	@ExtendedMetaData(kind="element", name="injection-target", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val InjectionTargetType[*] injectionTarget;
+
+	@ExtendedMetaData(kind="element", name="lookup-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdStringType lookupName;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="servlet-mappingType", kind="elementOnly")
+class ServletMappingType {
+
+	@ExtendedMetaData(kind="element", name="servlet-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val ServletNameType[1] servletName;
+
+	@ExtendedMetaData(kind="element", name="url-pattern", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val UrlPatternType[+] urlPattern;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="servlet-nameType", kind="simple")
+class ServletNameType extends NonEmptyStringType {
+}
+
+@ExtendedMetaData(name="servletType", kind="elementOnly")
+class ServletType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="display-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DisplayNameType[*] displayName;
+
+	@ExtendedMetaData(kind="element", name="icon", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val IconType[*] icon;
+
+	@ExtendedMetaData(kind="element", name="servlet-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val ServletNameType[1] servletName;
+
+	@ExtendedMetaData(kind="element", name="servlet-class", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val FullyQualifiedClassType servletClass;
+
+	@ExtendedMetaData(kind="element", name="jsp-file", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val JspFileType jspFile;
+
+	@ExtendedMetaData(kind="element", name="init-param", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val ParamValueType[*] initParam;
+
+	@ExtendedMetaData(kind="element", name="load-on-startup", namespace="http://java.sun.com/xml/ns/javaee")
+	attr LoadOnStartupType loadOnStartup;
+
+	@ExtendedMetaData(kind="element", name="enabled", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType enabled;
+
+	@ExtendedMetaData(kind="element", name="async-supported", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrueFalseType asyncSupported;
+
+	@ExtendedMetaData(kind="element", name="run-as", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val RunAsType runAs;
+
+	@ExtendedMetaData(kind="element", name="security-role-ref", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val SecurityRoleRefType[*] securityRoleRef;
+
+	@ExtendedMetaData(kind="element", name="multipart-config", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val MultipartConfigType multipartConfig;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="session-configType", kind="elementOnly")
+class SessionConfigType {
+
+	@ExtendedMetaData(kind="element", name="session-timeout", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val XsdIntegerType sessionTimeout;
+
+	@ExtendedMetaData(kind="element", name="cookie-config", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val CookieConfigType cookieConfig;
+
+	@ExtendedMetaData(kind="element", name="tracking-mode", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TrackingModeType[0..3] trackingMode;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="string", kind="simple")
+class String {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.Token value;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="taglibType", kind="elementOnly")
+class TaglibType {
+
+	@ExtendedMetaData(kind="element", name="taglib-uri", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String[1] taglibUri;
+
+	@ExtendedMetaData(kind="element", name="taglib-location", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val PathType[1] taglibLocation;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="tracking-modeType", kind="simple")
+class TrackingModeType extends String {
+}
+
+@ExtendedMetaData(name="tracking-modeType_._base")
+enum TrackingModeTypeBase {
+	COOKIE = 0;
+	URL = 1;
+	SSL = 2;
+}
+
+@ExtendedMetaData(name="tracking-modeType_._base:Object", baseType="tracking-modeType_._base")
+datatype TrackingModeTypeBaseObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="transport-guaranteeType", kind="simple")
+class TransportGuaranteeType extends String {
+}
+
+@ExtendedMetaData(name="transport-guaranteeType_._base")
+enum TransportGuaranteeTypeBase {
+	NONE = 0;
+	INTEGRAL = 1;
+	CONFIDENTIAL = 2;
+}
+
+@ExtendedMetaData(name="transport-guaranteeType_._base:Object", baseType="transport-guaranteeType_._base")
+datatype TransportGuaranteeTypeBaseObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="true-falseType", kind="simple")
+class TrueFalseType extends XsdBooleanType {
+}
+
+@ExtendedMetaData(name="true-falseType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#boolean", pattern="(true|false)")
+datatype TrueFalseTypeBase : boolean;
+
+@ExtendedMetaData(name="true-falseType_._base:Object", baseType="true-falseType_._base")
+datatype TrueFalseTypeBaseObject : java.lang.Boolean;
+
+@ExtendedMetaData(name="url-patternType", kind="simple")
+class UrlPatternType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.String value;
+}
+
+@ExtendedMetaData(name="user-data-constraintType", kind="elementOnly")
+class UserDataConstraintType {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="transport-guarantee", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val TransportGuaranteeType[1] transportGuarantee;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="war-pathType", kind="simple")
+class WarPathType extends String {
+}
+
+@ExtendedMetaData(name="war-pathType_._base", baseType="http://www.eclipse.org/emf/2003/XMLType#token", pattern="/.*")
+datatype WarPathTypeBase : java.lang.String;
+
+@ExtendedMetaData(name="web-appType", kind="elementOnly")
+class WebAppType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="module-name", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val String[*] moduleName;
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="display-name", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val DisplayNameType[*] displayName;
+
+	@ExtendedMetaData(kind="element", name="icon", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val IconType[*] icon;
+
+	@ExtendedMetaData(kind="element", name="distributable", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val EmptyType[*] distributable;
+
+	@ExtendedMetaData(kind="element", name="context-param", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ParamValueType[*] contextParam;
+
+	@ExtendedMetaData(kind="element", name="filter", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val FilterType[*] filter;
+
+	@ExtendedMetaData(kind="element", name="filter-mapping", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val FilterMappingType[*] filterMapping;
+
+	@ExtendedMetaData(kind="element", name="listener", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ListenerType[*] listener;
+
+	@ExtendedMetaData(kind="element", name="servlet", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ServletType[*] servlet;
+
+	@ExtendedMetaData(kind="element", name="servlet-mapping", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ServletMappingType[*] servletMapping;
+
+	@ExtendedMetaData(kind="element", name="session-config", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val SessionConfigType[*] sessionConfig;
+
+	@ExtendedMetaData(kind="element", name="mime-mapping", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val MimeMappingType[*] mimeMapping;
+
+	@ExtendedMetaData(kind="element", name="welcome-file-list", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val WelcomeFileListType[*] welcomeFileList;
+
+	@ExtendedMetaData(kind="element", name="error-page", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ErrorPageType[*] errorPage;
+
+	@ExtendedMetaData(kind="element", name="jsp-config", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val JspConfigType[*] jspConfig;
+
+	@ExtendedMetaData(kind="element", name="security-constraint", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val SecurityConstraintType[*] securityConstraint;
+
+	@ExtendedMetaData(kind="element", name="login-config", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val LoginConfigType[*] loginConfig;
+
+	@ExtendedMetaData(kind="element", name="security-role", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val SecurityRoleType[*] securityRole;
+
+	@ExtendedMetaData(kind="element", name="env-entry", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val EnvEntryType[*] envEntry;
+
+	@ExtendedMetaData(kind="element", name="ejb-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val EjbRefType[*] ejbRef;
+
+	@ExtendedMetaData(kind="element", name="ejb-local-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val EjbLocalRefType[*] ejbLocalRef;
+
+	@ExtendedMetaData(kind="element", name="service-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ServiceRefType[*] serviceRef;
+
+	@ExtendedMetaData(kind="element", name="resource-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ResourceRefType[*] resourceRef;
+
+	@ExtendedMetaData(kind="element", name="resource-env-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ResourceEnvRefType[*] resourceEnvRef;
+
+	@ExtendedMetaData(kind="element", name="message-destination-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val MessageDestinationRefType[*] messageDestinationRef;
+
+	@ExtendedMetaData(kind="element", name="persistence-context-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val PersistenceContextRefType[*] persistenceContextRef;
+
+	@ExtendedMetaData(kind="element", name="persistence-unit-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val PersistenceUnitRefType[*] persistenceUnitRef;
+
+	@ExtendedMetaData(kind="element", name="post-construct", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val LifecycleCallbackType[*] postConstruct;
+
+	@ExtendedMetaData(kind="element", name="pre-destroy", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val LifecycleCallbackType[*] preDestroy;
+
+	@ExtendedMetaData(kind="element", name="data-source", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val DataSourceType[*] dataSource;
+
+	@ExtendedMetaData(kind="element", name="message-destination", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val MessageDestinationType[*] messageDestination;
+
+	@ExtendedMetaData(kind="element", name="locale-encoding-mapping-list", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val LocaleEncodingMappingListType[*] localeEncodingMappingList;
+
+	@ExtendedMetaData(kind="element", name="absolute-ordering", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val AbsoluteOrderingType[*] absoluteOrdering;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="metadata-complete")
+	unsettable attr type.Boolean metadataComplete;
+
+	@ExtendedMetaData(kind="attribute", name="version")
+	unsettable attr WebAppVersionType[1] version;
+}
+
+@ExtendedMetaData(name="web-app-versionType")
+enum WebAppVersionType {
+	_30 = 0;
+}
+
+@ExtendedMetaData(name="web-app-versionType:Object", baseType="web-app-versionType")
+datatype WebAppVersionTypeObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="web-fragmentType", kind="elementOnly")
+class WebFragmentType {
+
+	@ExtendedMetaData(kind="group", name="group:0")
+	!unique attr ecore.EFeatureMapEntry[*] group;
+
+	@ExtendedMetaData(kind="element", name="name", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val JavaIdentifierType[*] name;
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="display-name", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val DisplayNameType[*] displayName;
+
+	@ExtendedMetaData(kind="element", name="icon", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val IconType[*] icon;
+
+	@ExtendedMetaData(kind="element", name="distributable", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val EmptyType[*] distributable;
+
+	@ExtendedMetaData(kind="element", name="context-param", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ParamValueType[*] contextParam;
+
+	@ExtendedMetaData(kind="element", name="filter", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val FilterType[*] filter;
+
+	@ExtendedMetaData(kind="element", name="filter-mapping", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val FilterMappingType[*] filterMapping;
+
+	@ExtendedMetaData(kind="element", name="listener", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ListenerType[*] listener;
+
+	@ExtendedMetaData(kind="element", name="servlet", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ServletType[*] servlet;
+
+	@ExtendedMetaData(kind="element", name="servlet-mapping", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ServletMappingType[*] servletMapping;
+
+	@ExtendedMetaData(kind="element", name="session-config", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val SessionConfigType[*] sessionConfig;
+
+	@ExtendedMetaData(kind="element", name="mime-mapping", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val MimeMappingType[*] mimeMapping;
+
+	@ExtendedMetaData(kind="element", name="welcome-file-list", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val WelcomeFileListType[*] welcomeFileList;
+
+	@ExtendedMetaData(kind="element", name="error-page", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ErrorPageType[*] errorPage;
+
+	@ExtendedMetaData(kind="element", name="jsp-config", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val JspConfigType[*] jspConfig;
+
+	@ExtendedMetaData(kind="element", name="security-constraint", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val SecurityConstraintType[*] securityConstraint;
+
+	@ExtendedMetaData(kind="element", name="login-config", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val LoginConfigType[*] loginConfig;
+
+	@ExtendedMetaData(kind="element", name="security-role", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val SecurityRoleType[*] securityRole;
+
+	@ExtendedMetaData(kind="element", name="env-entry", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val EnvEntryType[*] envEntry;
+
+	@ExtendedMetaData(kind="element", name="ejb-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val EjbRefType[*] ejbRef;
+
+	@ExtendedMetaData(kind="element", name="ejb-local-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val EjbLocalRefType[*] ejbLocalRef;
+
+	@ExtendedMetaData(kind="element", name="service-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ServiceRefType[*] serviceRef;
+
+	@ExtendedMetaData(kind="element", name="resource-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ResourceRefType[*] resourceRef;
+
+	@ExtendedMetaData(kind="element", name="resource-env-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val ResourceEnvRefType[*] resourceEnvRef;
+
+	@ExtendedMetaData(kind="element", name="message-destination-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val MessageDestinationRefType[*] messageDestinationRef;
+
+	@ExtendedMetaData(kind="element", name="persistence-context-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val PersistenceContextRefType[*] persistenceContextRef;
+
+	@ExtendedMetaData(kind="element", name="persistence-unit-ref", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val PersistenceUnitRefType[*] persistenceUnitRef;
+
+	@ExtendedMetaData(kind="element", name="post-construct", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val LifecycleCallbackType[*] postConstruct;
+
+	@ExtendedMetaData(kind="element", name="pre-destroy", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val LifecycleCallbackType[*] preDestroy;
+
+	@ExtendedMetaData(kind="element", name="data-source", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val DataSourceType[*] dataSource;
+
+	@ExtendedMetaData(kind="element", name="message-destination", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val MessageDestinationType[*] messageDestination;
+
+	@ExtendedMetaData(kind="element", name="locale-encoding-mapping-list", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val LocaleEncodingMappingListType[*] localeEncodingMappingList;
+
+	@ExtendedMetaData(kind="element", name="ordering", namespace="http://java.sun.com/xml/ns/javaee", group="#group:0")
+	volatile transient derived !resolve val OrderingType[*] ordering;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+
+	@ExtendedMetaData(kind="attribute", name="metadata-complete")
+	unsettable attr type.Boolean metadataComplete;
+
+	@ExtendedMetaData(kind="attribute", name="version")
+	unsettable attr WebAppVersionType[1] version;
+}
+
+@ExtendedMetaData(name="web-resource-collectionType", kind="elementOnly")
+class WebResourceCollectionType {
+
+	@ExtendedMetaData(kind="element", name="web-resource-name", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val String[1] webResourceName;
+
+	@ExtendedMetaData(kind="element", name="description", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val DescriptionType[*] description;
+
+	@ExtendedMetaData(kind="element", name="url-pattern", namespace="http://java.sun.com/xml/ns/javaee")
+	!resolve val UrlPatternType[+] urlPattern;
+
+	@ExtendedMetaData(kind="element", name="http-method", namespace="http://java.sun.com/xml/ns/javaee")
+	!unique attr HttpMethodType[*] httpMethod;
+
+	@ExtendedMetaData(kind="element", name="http-method-omission", namespace="http://java.sun.com/xml/ns/javaee")
+	!unique attr HttpMethodType[*] httpMethodOmission;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="welcome-file-listType", kind="elementOnly")
+class WelcomeFileListType {
+
+	@ExtendedMetaData(kind="element", name="welcome-file", namespace="http://java.sun.com/xml/ns/javaee")
+	!unique attr type.String[+] welcomeFile;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="xsdAnyURIType", kind="simple")
+class XsdAnyURIType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.AnyURI value;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="xsdBooleanType", kind="simple")
+class XsdBooleanType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	unsettable attr type.Boolean value;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="xsdIntegerType", kind="simple")
+class XsdIntegerType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.Integer value;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="xsdNMTOKENType", kind="simple")
+class XsdNMTOKENType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.NMTOKEN value;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="xsdNonNegativeIntegerType", kind="simple")
+class XsdNonNegativeIntegerType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.NonNegativeInteger value;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="xsdPositiveIntegerType", kind="simple")
+class XsdPositiveIntegerType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.PositiveInteger value;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="xsdQNameType", kind="simple")
+class XsdQNameType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.QName value;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+
+@ExtendedMetaData(name="xsdStringType", kind="simple")
+class XsdStringType {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.String value;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	id attr type.ID ~id;
+}
+

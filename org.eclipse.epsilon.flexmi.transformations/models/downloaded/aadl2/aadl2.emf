@@ -1,0 +1,2813 @@
+@"http://www.eclipse.org/uml2/2.0.0/UML"(originalName="AADL2")
+@namespace(uri="http://aadl.info/AADL/2.0", prefix="aadl2")
+package aadl2;
+
+@GenModel(documentation="An element is a constituent of a model.
+An element is a constituent of a model. As such, it has the capability of owning other elements.
+<p>From package AADLInfrastructure.</p>")
+abstract class Element {
+	!ordered op Element[1] getOwner();
+
+	@GenModel(documentation="The Elements owned by this element.
+<p>From package AADLInfrastructure.</p>")
+	@union
+	!ordered readonly volatile transient derived ref Element[*] ownedElement;
+
+	@GenModel(documentation="The Comments owned by this element.
+<p>From package AADLInfrastructure.</p>")
+	@subsets
+	!ordered val Comment[*] ownedComment;
+}
+
+@GenModel(documentation="A comment is a textual annotation that can be attached to a set of elements.
+<p>From package AADLInfrastructure.</p>")
+class Comment extends Element {
+
+	@GenModel(documentation="Specifies a string that is the comment
+<p>From package AADLInfrastructure.</p>")
+	!ordered attr String body;
+}
+
+@GenModel(documentation="<p>From package AADLInfrastructure.</p>")
+datatype String : java.lang.String;
+
+@GenModel(documentation="A type constrains the values represented by a typed element.
+<p>From package AADLInfrastructure.</p>")
+abstract class Type extends NamedElement {
+}
+
+@GenModel(documentation="A named element is an element in a model that may have a name.
+<p>From package AADLInfrastructure.</p>
+<p>From package AADLProperties::Associations.</p>")
+abstract class NamedElement extends Element {
+	!ordered op Namespace[1] getNamespace();
+
+	@GenModel(documentation="When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces.
+<p>From package AADLInfrastructure.</p>")
+	!ordered op String[1] qualifiedName();
+
+	@GenModel(documentation="<p>From package AADLInfrastructure.</p>")
+	!ordered op PropertyExpression[*] getPropertyValues(!ordered String[1] propertySetName, !ordered String[1] propertyName);
+
+	@GenModel(documentation="The name of the NamedElement.
+<p>From package AADLInfrastructure.</p>")
+	!ordered attr String name;
+
+	@GenModel(documentation="A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself.
+<p>From package AADLInfrastructure.</p>")
+	!ordered readonly volatile transient derived attr String qualifiedName;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered val PropertyAssociation[*] ownedPropertyAssociation;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+class PropertyAssociation extends Element {
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered ref Property[1] property;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered val ContainedNamedElement[*] appliesTo;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered ref Classifier[*] inBinding;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered attr Boolean[1] append;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered attr Boolean[1] constant;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered val ModalPropertyValue[+] ownedValue;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+class Property extends BasicProperty, AbstractNamedValue {
+
+	@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+	!ordered attr Boolean[1] inherit;
+
+	@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+	!ordered val PropertyExpression defaultValue;
+
+	@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+	!ordered volatile transient derived ref MetaclassReference[*] appliesToMetaclass;
+
+	@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+	!ordered volatile transient derived ref Classifier[*] appliesToClassifier;
+
+	@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+	!ordered val PropertyOwner[*] appliesTo;
+
+	@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+	!ordered attr Boolean[1] emptyListDefault;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+class BasicProperty extends TypedElement {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+	!ordered ref PropertyType referencedPropertyType;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+	!ordered val PropertyType ownedPropertyType;
+
+	@redefines
+	@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+	!unique !ordered readonly volatile transient derived ref PropertyType[1] propertyType;
+}
+
+@GenModel(documentation="A typed element has a type.
+<p>From package AADLInfrastructure.</p>")
+abstract class TypedElement extends NamedElement {
+
+	@GenModel(documentation="The type of the TypedElement.
+<p>From package AADLInfrastructure.</p>")
+	!ordered ref Type type;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+abstract class PropertyType extends Type {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+abstract class AbstractNamedValue {
+}
+
+@GenModel(documentation="<p>From package AADLInfrastructure.</p>")
+datatype Boolean : boolean;
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+abstract class PropertyExpression extends Element {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class MetaclassReference extends PropertyOwner {
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered attr String annexName;
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!unique !ordered attr String[+] metaclassName;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Definitions.</p>")
+abstract class PropertyOwner extends Element {
+}
+
+@GenModel(documentation="A classifier is a classification of instances - it describes a set of instances that have features in common.
+A classifier can specify a generalization hierarchy by referencing its general classifiers.
+<p>From package AADLInfrastructure.</p>
+<p>From package AADLProperties::Associations.</p>
+<p>From package AADLConstructs::Extensibility.</p>
+<p>From package AADLConstructs::Templates.</p>
+<p>From package AADLDetails::NoneSupport.</p>")
+abstract class Classifier extends Namespace, Type {
+
+	@GenModel(documentation="Specifies each feature defined in the classifier.
+<p>From package AADLInfrastructure.</p>")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref ClassifierFeature[*]#featuringClassifier classifierFeature;
+
+	@GenModel(documentation="Specifies all elements inherited by this classifier from the general classifiers.
+<p>From package AADLInfrastructure.</p>")
+	@subsets
+	!ordered readonly volatile transient derived ref NamedElement[*] inheritedMember;
+
+	@GenModel(documentation="Specifies the Generalization relationships for this Classifier. These Generalizations navigate to more general classifiers in the generalization hierarchy.
+<p>From package AADLInfrastructure.</p>")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref Generalization[*]#specific generalization;
+
+	@GenModel(documentation="Specifies the more general classifiers in the generalization hierarchy for this Classifier.
+<p>From package AADLInfrastructure.</p>")
+	@union
+	!ordered readonly volatile transient derived ref Classifier[*] general;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Extensibility.</p>")
+	!ordered val AnnexSubclause[*] ownedAnnexSubclause;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered val Prototype[*] ownedPrototype;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered val PrototypeBinding[*] ownedPrototypeBinding;
+
+	@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>")
+	!ordered attr Boolean[1] noPrototypes;
+
+	@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>")
+	!ordered attr Boolean[1] noAnnexes;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered attr Boolean[1] noProperties;
+}
+
+@GenModel(documentation="A namespace is an element in a model that contains a set of named elements that can be identified by name.
+<p>From package AADLInfrastructure.</p>
+<p>From package AADLProperties::PropertySets.</p>")
+abstract class Namespace extends NamedElement {
+
+	@GenModel(documentation="A collection of NamedElements owned by the Namespace.
+<p>From package AADLInfrastructure.</p>")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref NamedElement[*] ownedMember;
+
+	@GenModel(documentation="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance.
+<p>From package AADLInfrastructure.</p>")
+	@union
+	!ordered readonly volatile transient derived ref NamedElement[*] member;
+}
+
+@GenModel(documentation="A classifier feature declares a behavioral or structural characteristic of instances of classifiers.
+<p>From package AADLInfrastructure.</p>")
+abstract class ClassifierFeature extends NamedElement {
+
+	@GenModel(documentation="The Classifiers that have this ClassifierFeature as a feature.
+<p>From package AADLInfrastructure.</p>")
+	!ordered readonly volatile transient derived !resolve ref Classifier[*]#classifierFeature featuringClassifier;
+}
+
+@GenModel(documentation="A generalization is a taxonomic relationship between a more general classifier and a more specific classifier. Each instance of the specific classifier is also an instance of the general classifier. Thus, the specific classifier indirectly has features of the more general classifier.
+<p>From package AADLInfrastructure.</p>")
+abstract class Generalization extends DirectedRelationship {
+
+	@GenModel(documentation="References the general classifier in the Generalization relationship.
+<p>From package AADLInfrastructure.</p>")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref Classifier[1] general;
+
+	@GenModel(documentation="References the specializing classifier in the Generalization relationship. 
+<p>From package AADLInfrastructure.</p>")
+	@subsets
+	!ordered volatile transient derived ref Classifier[1]#generalization specific;
+}
+
+@GenModel(documentation="A directed relationship represents a relationship between a collection of source model elements and a collection of target model elements.
+<p>From package AADLInfrastructure.</p>")
+abstract class DirectedRelationship extends Relationship {
+
+	@GenModel(documentation="Specifies the sources of the DirectedRelationship.
+<p>From package AADLInfrastructure.</p>")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref Element[+] source;
+
+	@GenModel(documentation="Specifies the targets of the DirectedRelationship.
+<p>From package AADLInfrastructure.</p>")
+	@union
+	@subsets
+	!ordered readonly volatile transient derived ref Element[+] target;
+}
+
+@GenModel(documentation="Relationship is an abstract concept that specifies some kind of relationship between elements.
+<p>From package AADLInfrastructure.</p>")
+abstract class Relationship extends Element {
+
+	@GenModel(documentation="Specifies the elements related by the Relationship.
+<p>From package AADLInfrastructure.</p>")
+	@union
+	!ordered readonly volatile transient derived ref Element[+] relatedElement;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Extensibility.</p>")
+abstract class AnnexSubclause extends ModalElement {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Associations.</p>
+<p>From package AADLConstructs::Modes.</p>")
+class ModalElement extends NamedElement {
+	!ordered op Mode[*] getAllInModes();
+
+	@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+	!ordered ref Mode[*] inMode;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+class Mode extends ModeFeature {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+	!ordered attr Boolean[1] initial = "false";
+
+	@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+	!ordered readonly volatile transient derived attr Boolean[1] ~derived = "false";
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+abstract class ModeFeature extends ClassifierFeature {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>
+<p>From package AADLDetails::Calls.</p>")
+abstract class Prototype extends StructuralFeature, CalledSubprogram {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref Prototype refined;
+}
+
+@GenModel(documentation="<p>From package AADLInfrastructure.</p>")
+abstract class StructuralFeature extends RefinableElement, ClassifierFeature {
+}
+
+@GenModel(documentation="<p>From package AADLInfrastructure.</p>")
+abstract class RefinableElement extends NamedElement {
+
+	@GenModel(documentation="References the contexts that this element may be redefined from.
+A refinable element can be refined by another element. Refinement is limited to classifier features, which can be refined by a classifier feature of the same name in an extended classifier. A refining element can add detail to an incomplete declaration.
+<p>From package AADLInfrastructure.</p>")
+	!ordered readonly volatile transient derived ref Classifier refinementContext;
+
+	@GenModel(documentation="The refinable element that is being refined by this element.
+<p>From package AADLInfrastructure.</p>")
+	@union
+	!ordered readonly volatile transient derived ref RefinableElement refinedElement;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Calls.</p>")
+abstract class CalledSubprogram {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+abstract class PrototypeBinding extends Element {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref Prototype[1] formal;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+class ContainedNamedElement extends Element {
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	val ContainmentPathElement[1] path;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered readonly volatile transient derived ref ContainmentPathElement[*] containmentPathElement;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+class ContainmentPathElement extends Element {
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	val ArrayRange[*] arrayRange;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered ref NamedElement[1] namedElement;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered attr String annexName;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered val ContainmentPathElement path;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+class ArrayRange extends Element {
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered attr Integer[1] lowerBound;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered attr Integer[1] upperBound;
+}
+
+@GenModel(documentation="<p>From package AADLInfrastructure.</p>")
+datatype Integer : long;
+
+@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+class ModalPropertyValue extends ModalElement {
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered val PropertyExpression[1] ownedValue;
+}
+
+@GenModel(documentation="<p>From package AADLInfrastructure.</p>")
+abstract class BehavioralFeature extends ClassifierFeature {
+}
+
+@GenModel(documentation="<p>From package AADLInfrastructure.</p>")
+datatype Real : double;
+
+@GenModel(documentation="<p>From package AADLConstructs::Arrays.</p>")
+class ArrayDimension extends Element {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Arrays.</p>")
+	val ArraySize size;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Arrays.</p>
+<p>From package AADLProperties::Arrays.</p>")
+class ArraySize extends Element {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Arrays.</p>")
+	!ordered attr Integer[1] size;
+
+	@GenModel(documentation="<p>From package AADLProperties::Arrays.</p>")
+	!ordered ref ArraySizeProperty sizeProperty;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Arrays.</p>")
+abstract class ArraySizeProperty {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Arrays.</p>")
+abstract class ArrayableElement extends Element {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Arrays.</p>")
+	val ArrayDimension[*] arrayDimension;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Arrays.</p>")
+class ComponentImplementationReference extends Element {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Arrays.</p>")
+	!ordered ref ComponentImplementation[1] implementation;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Arrays.</p>")
+	!ordered val PrototypeBinding[*] ownedPrototypeBinding;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>
+<p>From package AADLConstructs::Components.</p>
+<p>From package AADLDetails::Components::Abstract.</p>
+<p>From package AADLDetails::Connections.</p>
+<p>From package AADLDetails::Special Features.</p>")
+abstract class ComponentImplementation extends ComponentClassifier {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered op Subcomponent[*] getAllSubcomponents();
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!unique !ordered volatile transient derived ref ComponentType[1] type;
+
+	@union
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered readonly volatile transient derived ref Subcomponent[*] ownedSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered volatile transient derived ref ComponentImplementation extended;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	val FlowImplementation[*] ownedFlowImplementation;
+
+	@union
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered readonly volatile transient derived ref Connection[*] ownedConnection;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered val ImplementationExtension ownedExtension;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered val Realization[1] ownedRealization;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered val EndToEndFlow[*] ownedEndToEndFlow;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val AbstractSubcomponent[*] ownedAbstractSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+	!ordered val AccessConnection[*] ownedAccessConnection;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+	!ordered val ParameterConnection[*] ownedParameterConnection;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+	!ordered val PortConnection[*] ownedPortConnection;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+	!ordered val FeatureConnection[*] ownedFeatureConnection;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+	!ordered val FeatureGroupConnection[*] ownedFeatureGroupConnection;
+
+	@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>")
+	!ordered attr Boolean[1] noSubcomponents;
+
+	@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>")
+	!ordered attr Boolean[1] noConnections;
+
+	@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>")
+	!ordered attr Boolean[1] noCalls;
+
+	@union
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered readonly volatile transient derived ref ProcessorFeature[*] ownedProcessorFeature;
+
+	@union
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered readonly volatile transient derived ref InternalFeature[*] ownedInternalFeature;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered val EventSource[*] ownedEventSource;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered val EventDataSource[*] ownedEventDataSource;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered val PortProxy[*] ownedPortProxy;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered val SubprogramProxy[*] ownedSubprogramProxy;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>
+<p>From package AADLConstructs::Components.</p>")
+abstract class ComponentClassifier extends Classifier, SubcomponentType, FeatureClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered val Mode[*] ownedMode;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered val ModeTransition[*] ownedModeTransition;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered attr Boolean[1] derivedModes;
+
+	@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>")
+	!ordered attr Boolean[1] noFlows;
+
+	@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>")
+	!ordered attr Boolean[1] noModes;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+abstract class SubcomponentType extends Type {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+abstract class FeatureClassifier {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+class ModeTransition extends ModeFeature {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+	!ordered ref Mode[1] source;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+	!ordered ref Mode[1] destination;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+	!ordered val ModeTransitionTrigger[+] ownedTrigger;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+class ModeTransitionTrigger extends Element {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+	!ordered ref Context context;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+	!ordered ref TriggerPort[1] triggerPort;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Connections.</p>")
+abstract class Context extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+abstract class TriggerPort extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>
+<p>From package AADLConstructs::Components.</p>")
+abstract class ComponentType extends ComponentClassifier {
+
+	@union
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered readonly volatile transient derived ref Feature[*] ownedFeature;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered volatile transient derived ref ComponentType extended;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	val FlowSpecification[*] ownedFlowSpecification;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered val TypeExtension ownedExtension;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered val FeatureGroup[*] ownedFeatureGroup;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered val AbstractFeature[*] ownedAbstractFeature;
+
+	@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>")
+	!ordered attr Boolean[1] noFeatures;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>
+<p>From package AADLConstructs::Features.</p>")
+abstract class Feature extends StructuralFeature, FeatureConnectionEnd, ArrayableElement {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered readonly volatile transient derived ref ComponentPrototype prototype;
+
+	@union
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered readonly volatile transient derived ref FeatureClassifier featureClassifier;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered ref Feature refined;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered readonly volatile transient derived ref Classifier classifier;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+abstract class FeatureConnectionEnd extends ConnectionEnd {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Connections.</p>")
+abstract class ConnectionEnd extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+abstract class ComponentPrototype extends Prototype, SubcomponentType, FeatureClassifier {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered attr Boolean[1] array;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref ComponentClassifier constrainingClassifier;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+class FlowSpecification extends FlowFeature, ModalPath, FlowElement {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered ref FlowSpecification refined;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered attr FlowKind[1] kind;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered val FlowEnd outEnd;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered val FlowEnd InEnd;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+abstract class FlowFeature extends StructuralFeature, Flow {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+abstract class Flow extends NamedElement {
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+abstract class ModalPath extends ModalElement {
+	!ordered op Mode[*] getInModes();
+	!ordered op ModeTransition[*] getInModeTransitions();
+	!ordered op ModeTransition[*] getAllInModeTransitions();
+
+	@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+	!ordered ref ModeFeature[*] inModeOrTransition;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+abstract class FlowElement extends EndToEndFlowElement {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+abstract class EndToEndFlowElement extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+enum FlowKind {
+	source = 0;
+	path = 1;
+	sink = 2;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+class FlowEnd extends Element {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered ref Context context;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered ref Feature[1] feature;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+class TypeExtension extends Generalization {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered ref ComponentType[1] extended;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>
+<p>From package AADLConstructs::Features.</p>")
+class FeatureGroup extends DirectedFeature, Context, FeatureGroupConnectionEnd, CallContext {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered attr Boolean[1] inverse;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered ref FeatureType featureType;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered readonly volatile transient derived ref FeatureGroupType featureGroupType;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered readonly volatile transient derived ref FeatureGroupPrototype featureGroupPrototype;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Calls.</p>")
+abstract class CallContext {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+abstract class DirectedFeature extends Feature {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered volatile transient derived attr DirectionType[1] direction;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered attr Boolean[1] in;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered attr Boolean[1] out;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+enum DirectionType {
+	in = 0;
+	out = 1;
+	inOut = 2;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+abstract class FeatureGroupConnectionEnd extends ConnectionEnd {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+abstract class FeatureType {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>
+<p>From package AADLDetails::Features.</p>")
+class FeatureGroupType extends Classifier, FeatureType {
+
+	@union
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	readonly volatile transient derived ref Feature[*] ownedFeature;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered volatile transient derived ref FeatureGroupType extended;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered ref FeatureGroupType inverse;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered val GroupExtension ownedExtension;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered val BusAccess[*] ownedBusAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered val DataAccess[*] ownedDataAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered val FeatureGroup[*] ownedFeatureGroup;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered val Parameter[*] ownedParameter;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered val AbstractFeature[*] ownedAbstractFeature;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+class GroupExtension extends Generalization {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered ref FeatureGroupType[1] extended;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+class BusAccess extends Access {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered ref BusFeatureClassifier busFeatureClassifier;
+
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered attr Boolean[1] virtual = "false";
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+abstract class Access extends Feature, AccessConnectionEnd {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered attr AccessType[1] kind;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered readonly volatile transient derived attr AccessCategory[1] category;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+abstract class AccessConnectionEnd extends ConnectionEnd {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+enum AccessType {
+	provides = 0;
+	requires = 1;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+enum AccessCategory {
+	bus = 0;
+	data = 1;
+	subprogram = 2;
+	subprogramGroup = 3;
+	virtualBus = 4;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+abstract class BusFeatureClassifier extends FeatureClassifier {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+class DataAccess extends Access, FlowElement, ParameterConnectionEnd, PortConnectionEnd {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered ref DataSubcomponentType dataFeatureClassifier;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+abstract class ParameterConnectionEnd extends ConnectionEnd {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+abstract class PortConnectionEnd extends ConnectionEnd {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+abstract class DataSubcomponentType extends SubcomponentType, FeatureClassifier {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+class DataPort extends Port, Context, ParameterConnectionEnd {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered ref DataSubcomponentType dataFeatureClassifier;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+abstract class Port extends DirectedFeature, PortConnectionEnd, TriggerPort {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered readonly volatile transient derived attr PortCategory[1] category;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+enum PortCategory {
+	data = 0;
+	event = 1;
+	eventData = 2;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+class EventDataPort extends Port, Context, ParameterConnectionEnd {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered ref DataSubcomponentType dataFeatureClassifier;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+class EventPort extends Port {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>
+<p>From package AADLDetails::Features.</p>")
+class Parameter extends DirectedFeature, Context, ParameterConnectionEnd {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered ref DataSubcomponentType dataFeatureClassifier;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+class SubprogramAccess extends Access, CalledSubprogram {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered ref SubprogramSubcomponentType subprogramFeatureClassifier;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+abstract class SubprogramSubcomponentType extends SubcomponentType, FeatureClassifier {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+class SubprogramGroupAccess extends Access, CallContext {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Features.</p>")
+	!ordered ref SubprogramGroupSubcomponentType subprogramGroupFeatureClassifier;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+abstract class SubprogramGroupSubcomponentType extends SubcomponentType, FeatureClassifier {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+class AbstractFeature extends DirectedFeature, TriggerPort {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered ref FeaturePrototype featurePrototype;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Features.</p>")
+	!ordered ref FeatureClassifier abstractFeatureClassifier;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+class FeaturePrototype extends Prototype {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered readonly volatile transient derived attr DirectionType[1] direction;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref ComponentClassifier constrainingClassifier;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered attr Boolean[1] in;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered attr Boolean[1] out;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+class FeatureGroupPrototype extends Prototype, FeatureType {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref FeatureGroupType constrainingFeatureGroupType;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+abstract class Subcomponent extends StructuralFeature, ModalElement, Context, FlowElement, ArrayableElement {
+
+	@union
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!unique !ordered readonly volatile transient derived ref SubcomponentType subcomponentType;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered val PrototypeBinding[*] ownedPrototypeBinding;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered readonly volatile transient derived ref ComponentPrototype prototype;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered val ModeBinding[*] ownedModeBinding;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered attr Boolean[1] allModes;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	val ComponentImplementationReference[*] implementationReference;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered ref Subcomponent refined;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered readonly volatile transient derived ref ComponentClassifier classifier;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+class ModeBinding extends Element {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+	!ordered ref Mode[1] parentMode;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Modes.</p>")
+	!ordered ref Mode derivedMode;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+class FlowImplementation extends ModalPath, ClassifierFeature, Flow {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered attr FlowKind[1] kind;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered ref FlowSpecification[1] specification;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	val FlowSegment[*] ownedFlowSegment;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered val FlowEnd inEnd;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered val FlowEnd outEnd;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+class FlowSegment extends Element {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!unique !ordered ref FlowElement[1] flowElement;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered ref Context context;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Connections.</p>")
+abstract class Connection extends StructuralFeature, ModalPath, FlowElement {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Connections.</p>")
+	!ordered val ConnectedElement destination;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Connections.</p>")
+	!ordered val ConnectedElement source;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Connections.</p>")
+	!ordered attr Boolean[1] bidirectional;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Connections.</p>")
+	!ordered ref Connection refined;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Connections.</p>")
+class ConnectedElement extends Element {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Connections.</p>")
+	!ordered ref Context context;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Connections.</p>")
+	!ordered ref ConnectionEnd[1] connectionEnd;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Connections.</p>")
+	!ordered val ConnectedElement next;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+class ImplementationExtension extends Generalization {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered ref ComponentImplementation[1] extended;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+class Realization extends Generalization {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+	!ordered ref ComponentType[1] implemented;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+class EndToEndFlow extends FlowFeature, ModalPath, EndToEndFlowElement {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered ref EndToEndFlow refined;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered val EndToEndFlowSegment[*] ownedEndToEndFlowSegment;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+class EndToEndFlowSegment extends Element {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!unique ref EndToEndFlowElement[1] flowElement;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Flows.</p>")
+	!ordered ref Context context;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+class AbstractSubcomponent extends Subcomponent, Abstract {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered ref AbstractSubcomponentType abstractSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+abstract class Abstract extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+abstract class AbstractSubcomponentType extends SubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+class AccessConnection extends Connection {
+
+	@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+	!ordered attr AccessCategory[1] accessCategory;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+class ParameterConnection extends Connection {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+class PortConnection extends Connection {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+class FeatureConnection extends Connection {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Connections.</p>")
+class FeatureGroupConnection extends Connection {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+abstract class ProcessorFeature extends StructuralFeature {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+abstract class InternalFeature extends StructuralFeature, FeatureConnectionEnd, PortConnectionEnd, TriggerPort {
+
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered readonly volatile transient derived attr DirectionType[1] direction;
+
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered attr Boolean[1] in;
+
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered attr Boolean[1] out;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+class EventSource extends InternalFeature {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+class EventDataSource extends InternalFeature {
+
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered ref DataClassifier dataClassifier;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+abstract class DataClassifier extends ComponentClassifier, Data, DataSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+abstract class Data extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+class PortProxy extends ProcessorFeature, FeatureConnectionEnd, PortConnectionEnd, TriggerPort {
+
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered readonly volatile transient derived attr DirectionType[1] direction;
+
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered ref DataClassifier dataClassifier;
+
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered attr Boolean[1] in;
+
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered attr Boolean[1] out;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+class SubprogramProxy extends ProcessorFeature, AccessConnectionEnd, CalledSubprogram {
+
+	@GenModel(documentation="<p>From package AADLDetails::Special Features.</p>")
+	!ordered ref SubprogramClassifier subprogramClassifier;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+abstract class SubprogramClassifier extends ComponentClassifier, Subprogram, SubprogramSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+abstract class Subprogram extends NamedElement, CalledSubprogram {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Components.</p>")
+enum ComponentCategory {
+	~abstract = 0;
+	bus = 1;
+	data = 2;
+	device = 3;
+	memory = 4;
+	process = 5;
+	processor = 6;
+	subprogram = 7;
+	subprogramGroup = 8;
+	system = 9;
+	thread = 10;
+	threadGroup = 11;
+	virtualBus = 12;
+	virtualProcessor = 13;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Extensibility.</p>")
+abstract class AnnexLibrary extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Extensibility.</p>")
+class DefaultAnnexLibrary extends AnnexLibrary {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Extensibility.</p>")
+	!ordered attr String[1] sourceText;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Extensibility.</p>")
+	!ordered val AnnexLibrary parsedAnnexLibrary;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Extensibility.</p>")
+class DefaultAnnexSubclause extends AnnexSubclause {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Extensibility.</p>")
+	!ordered attr String[1] sourceText;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Extensibility.</p>")
+	!ordered val AnnexSubclause parsedAnnexSubclause;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+class PublicPackageSection extends PackageSection {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered readonly volatile transient derived ref PrivatePackageSection#publicSection privateSection;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLProperties::Associations.</p>
+<p>From package AADLDetails::NoneSupport.</p>
+<p>From package AADLConstructs::Packaging.</p>")
+abstract class PackageSection extends Namespace {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered val PackageRename[*] ownedPackageRename;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered val ComponentTypeRename[*] ownedComponentTypeRename;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered val Classifier[*] ownedClassifier;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered val FeatureGroupTypeRename[*] ownedFeatureGroupTypeRename;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered val AnnexLibrary[*] ownedAnnexLibrary;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered ref ModelUnit[*] importedUnit;
+
+	@GenModel(documentation="<p>From package AADLDetails::NoneSupport.</p>")
+	!ordered attr Boolean[1] noAnnexes;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered attr Boolean[1] noProperties;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+class PackageRename extends NamedElement {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered ref AadlPackage[1] renamedPackage;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered attr Boolean[1] renameAll;
+}
+
+@"http://www.eclipse.org/uml2/2.0.0/UML"(originalName="Package")
+@ExtendedMetaData(name="Package")
+@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+class AadlPackage extends ModelUnit {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered val PublicPackageSection ownedPublicSection;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered val PrivatePackageSection ownedPrivateSection;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered ref PublicPackageSection publicSection;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered ref PrivatePackageSection privateSection;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::PropertySets.</p>
+<p>From package AADLConstructs::Packaging.</p>")
+abstract class ModelUnit extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+class PrivatePackageSection extends PackageSection {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered readonly volatile transient derived ref PublicPackageSection#privateSection publicSection;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+class ComponentTypeRename extends NamedElement {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered attr ComponentCategory[1] category;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered ref ComponentType[1] renamedComponentType;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+class FeatureGroupTypeRename extends NamedElement {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered ref FeatureGroupType[1] renamedFeatureGroupType;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+class ComponentPrototypeBinding extends PrototypeBinding {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	val ComponentPrototypeActual[+] actual;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+class ComponentPrototypeActual extends ArrayableElement {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered attr ComponentCategory[1] category;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered val PrototypeBinding[*] binding;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref SubcomponentType[1] subcomponentType;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+class FeatureGroupPrototypeBinding extends PrototypeBinding {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered val FeatureGroupPrototypeActual[1] actual;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+class FeatureGroupPrototypeActual extends FeaturePrototypeActual {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered val PrototypeBinding[*] binding;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref FeatureType[1] featureType;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+abstract class FeaturePrototypeActual extends ArrayableElement {
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+class FeaturePrototypeBinding extends PrototypeBinding {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered val FeaturePrototypeActual[1] actual;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+class AccessSpecification extends FeaturePrototypeActual {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered attr AccessType[1] kind;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered attr AccessCategory[1] category;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref ComponentClassifier classifier;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref ComponentPrototype componentPrototype;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+class PortSpecification extends FeaturePrototypeActual {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered readonly volatile transient derived attr DirectionType[1] direction;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered attr PortCategory[1] category;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref ComponentClassifier classifier;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref ComponentPrototype componentPrototype;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered attr Boolean[1] in;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered attr Boolean[1] out;
+}
+
+@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+class FeaturePrototypeReference extends FeaturePrototypeActual {
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered readonly volatile transient derived attr DirectionType[1] direction;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered ref FeaturePrototype[1] prototype;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered attr Boolean[1] in;
+
+	@GenModel(documentation="<p>From package AADLConstructs::Templates.</p>")
+	!ordered attr Boolean[1] out;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Calls.</p>")
+class SubprogramCallSequence extends BehavioralFeature, ModalElement {
+
+	@GenModel(documentation="<p>From package AADLDetails::Calls.</p>")
+	val SubprogramCall[*] ownedSubprogramCall;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Calls.</p>")
+class SubprogramCall extends BehavioralFeature, Context {
+
+	@GenModel(documentation="<p>From package AADLDetails::Calls.</p>")
+	!ordered ref CalledSubprogram calledSubprogram;
+
+	@GenModel(documentation="<p>From package AADLDetails::Calls.</p>")
+	!ordered ref CallContext context;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Calls.</p>")
+abstract class BehavioredImplementation extends ComponentImplementation {
+
+	@GenModel(documentation="Get all calls owned by owned call sequences.
+<p>From package AADLDetails::Calls.</p>")
+	!ordered op SubprogramCall[*] subprogramCalls();
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Calls.</p>")
+	!ordered volatile transient derived ref SubprogramCall[*] subprogramCall;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Calls.</p>")
+	!ordered val SubprogramCallSequence[*] ownedSubprogramCallSequence;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+class AbstractType extends ComponentType, AbstractClassifier, CallContext {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val BusAccess[*] ownedBusAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val DataAccess[*] ownedDataAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+abstract class AbstractClassifier extends ComponentClassifier, Abstract, AbstractSubcomponentType, BusSubcomponentType, DataSubcomponentType, DeviceSubcomponentType, MemorySubcomponentType, ProcessorSubcomponentType, ProcessSubcomponentType, SubprogramGroupSubcomponentType, SubprogramSubcomponentType, SystemSubcomponentType, ThreadGroupSubcomponentType, ThreadSubcomponentType, VirtualBusSubcomponentType, VirtualProcessorSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+abstract class VirtualProcessorSubcomponentType extends SubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+abstract class VirtualBusSubcomponentType extends SubcomponentType, BusFeatureClassifier {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+abstract class ThreadGroupSubcomponentType extends SubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+abstract class ThreadSubcomponentType extends SubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+abstract class SystemSubcomponentType extends SubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+abstract class ProcessSubcomponentType extends SubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+abstract class MemorySubcomponentType extends SubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+abstract class DeviceSubcomponentType extends SubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+abstract class BusSubcomponentType extends SubcomponentType, BusFeatureClassifier {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+abstract class ProcessorSubcomponentType extends SubcomponentType {
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+class AbstractImplementation extends BehavioredImplementation, AbstractClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val BusSubcomponent[*] ownedBusSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val DataSubcomponent[*] ownedDataSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val DeviceSubcomponent[*] ownedDeviceSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val MemorySubcomponent[*] ownedMemorySubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val ProcessSubcomponent[*] ownedProcessSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val ProcessorSubcomponent[*] ownedProcessorSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val SystemSubcomponent[*] ownedSystemSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val SubprogramSubcomponent[*] ownedSubprogramSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val SubprogramGroupSubcomponent[*] ownedSubprogramGroupSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val ThreadSubcomponent[*] ownedThreadSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val ThreadGroupSubcomponent[*] ownedThreadGroupSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val VirtualBusSubcomponent[*] ownedVirtualBusSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+	!ordered val VirtualProcessorSubcomponent[*] ownedVirtualProcessorSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+class BusSubcomponent extends Subcomponent, AccessConnectionEnd, Bus {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+	!ordered ref BusSubcomponentType busSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+abstract class Bus extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+class DataSubcomponent extends Subcomponent, AccessConnectionEnd, Data, ParameterConnectionEnd, PortConnectionEnd {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+	!ordered ref DataSubcomponentType dataSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+class DeviceSubcomponent extends Subcomponent, Device {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+	!ordered ref DeviceSubcomponentType deviceSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+abstract class Device extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+class MemorySubcomponent extends Subcomponent, Memory {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+	!ordered ref MemorySubcomponentType memorySubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+abstract class Memory extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+class ProcessSubcomponent extends Subcomponent, Process {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered ref ProcessSubcomponentType processSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+abstract class Process extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+class ProcessorSubcomponent extends Subcomponent, Processor {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+	!ordered ref ProcessorSubcomponentType processorSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+abstract class Processor extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+class SystemSubcomponent extends Subcomponent, System {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered ref SystemSubcomponentType systemSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+abstract class System extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+class SubprogramSubcomponent extends Subcomponent, AccessConnectionEnd, Subprogram {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+	!ordered ref SubprogramSubcomponentType subprogramSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+class SubprogramGroupSubcomponent extends Subcomponent, AccessConnectionEnd, SubprogramGroup, CallContext {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+	!ordered ref SubprogramGroupSubcomponentType subprogramGroupSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+abstract class SubprogramGroup extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+class ThreadSubcomponent extends Subcomponent, Thread {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+	!ordered ref ThreadSubcomponentType threadSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+abstract class Thread extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+class ThreadGroupSubcomponent extends Subcomponent, ThreadGroup {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered ref ThreadGroupSubcomponentType threadGroupSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+abstract class ThreadGroup extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+class VirtualBusSubcomponent extends Subcomponent, AccessConnectionEnd, VirtualBus {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+	!ordered ref VirtualBusSubcomponentType virtualBusSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+abstract class VirtualBus extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+class VirtualProcessorSubcomponent extends Subcomponent, VirtualProcessor {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+	!ordered ref VirtualProcessorSubcomponentType virtualProcessorSubcomponentType;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+abstract class VirtualProcessor extends NamedElement {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Abstract.</p>")
+class AbstractPrototype extends ComponentPrototype, Abstract, AbstractSubcomponentType, BusSubcomponentType, DataSubcomponentType, DeviceSubcomponentType, MemorySubcomponentType, ProcessorSubcomponentType, ProcessSubcomponentType, SubprogramGroupSubcomponentType, SubprogramSubcomponentType, SystemSubcomponentType, ThreadGroupSubcomponentType, ThreadSubcomponentType, VirtualBusSubcomponentType, VirtualProcessorSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+abstract class BusClassifier extends ComponentClassifier, Bus, BusSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+class BusType extends ComponentType, BusClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+	!ordered val BusAccess[*] ownedBusAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+class BusImplementation extends ComponentImplementation, BusClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+	!ordered val VirtualBusSubcomponent[*] ownedVirtualBusSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Bus.</p>")
+class BusPrototype extends ComponentPrototype, Bus, BusSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+class DataType extends ComponentType, DataClassifier, CallContext {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+	!ordered val DataAccess[*] ownedDataAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+class DataImplementation extends ComponentImplementation, DataClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+	!ordered val DataSubcomponent[*] ownedDataSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+	!ordered val SubprogramSubcomponent[*] ownedSubprogramSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Data.</p>")
+class DataPrototype extends ComponentPrototype, Data, DataSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+abstract class DeviceClassifier extends ComponentClassifier, Device, DeviceSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+class DeviceType extends ComponentType, DeviceClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+	!ordered val BusAccess[*] ownedBusAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+class DeviceImplementation extends ComponentImplementation, DeviceClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+	!ordered val BusSubcomponent[*] ownedBusSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+	!ordered val DataSubcomponent[*] ownedDataSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+	!ordered val VirtualBusSubcomponent[*] ownedVirtualBusSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Device.</p>")
+class DevicePrototype extends ComponentPrototype, Device, DeviceSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+abstract class MemoryClassifier extends ComponentClassifier, Memory, MemorySubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+class MemoryType extends ComponentType, MemoryClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+	!ordered val BusAccess[*] ownedBusAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+class MemoryImplementation extends ComponentImplementation, MemoryClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+	!ordered val BusSubcomponent[*] ownedBusSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+	!ordered val MemorySubcomponent[*] ownedMemorySubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Memory.</p>")
+class MemoryPrototype extends ComponentPrototype, Memory, MemorySubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+class SubprogramType extends ComponentType, SubprogramClassifier, CallContext {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+	!ordered val Parameter[*] ownedParameter;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+	!ordered val DataAccess[*] ownedDataAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+class SubprogramImplementation extends BehavioredImplementation, SubprogramClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+	!ordered val DataSubcomponent[*] ownedDataSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+	!ordered val SubprogramSubcomponent[*] ownedSubprogramSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Subprogram.</p>")
+class SubprogramPrototype extends ComponentPrototype, Subprogram, SubprogramSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+abstract class SubprogramGroupClassifier extends ComponentClassifier, SubprogramGroup, SubprogramGroupSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+class SubprogramGroupType extends ComponentType, SubprogramGroupClassifier, CallContext {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+class SubprogramGroupImplementation extends ComponentImplementation, SubprogramGroupClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+	!ordered val SubprogramSubcomponent[*] ownedSubprogramSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+	!ordered val SubprogramGroupSubcomponent[*] ownedSubprogramGroupSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+	!ordered val DataSubcomponent[*] ownedDataSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::SubprogramGroup.</p>")
+class SubprogramGroupPrototype extends ComponentPrototype, SubprogramGroup, SubprogramGroupSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+abstract class SystemClassifier extends ComponentClassifier, System, SystemSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+class SystemType extends ComponentType, SystemClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val BusAccess[*] ownedBusAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val DataAccess[*] ownedDataAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+class SystemImplementation extends ComponentImplementation, SystemClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val BusSubcomponent[*] ownedBusSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val DataSubcomponent[*] ownedDataSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val DeviceSubcomponent[*] ownedDeviceSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val MemorySubcomponent[*] ownedMemorySubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val ProcessSubcomponent[*] ownedProcessSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val ProcessorSubcomponent[*] ownedProcessorSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val SubprogramSubcomponent[*] ownedSubprogramSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val SubprogramGroupSubcomponent[*] ownedSubprogramGroupSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val SystemSubcomponent[*] ownedSystemSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val VirtualBusSubcomponent[*] ownedVirtualBusSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+	!ordered val VirtualProcessorSubcomponent[*] ownedVirtualProcessorSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::System.</p>")
+class SystemPrototype extends ComponentPrototype, System, SystemSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+abstract class ProcessorClassifier extends ComponentClassifier, Processor, ProcessorSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+class ProcessorType extends ComponentType, ProcessorClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+	!ordered val BusAccess[*] ownedBusAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+class ProcessorImplementation extends ComponentImplementation, ProcessorClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+	!ordered val BusSubcomponent[*] ownedBusSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+	!ordered val MemorySubcomponent[*] ownedMemorySubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+	!ordered val VirtualBusSubcomponent[*] ownedVirtualBusSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+	!ordered val VirtualProcessorSubcomponent[*] ownedVirtualProcessorSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Processor.</p>")
+class ProcessorPrototype extends ComponentPrototype, Processor, ProcessorSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+abstract class ProcessClassifier extends ComponentClassifier, Process, ProcessSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+class ProcessType extends ComponentType, ProcessClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered val DataAccess[*] ownedDataAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+class ProcessImplementation extends ComponentImplementation, ProcessClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered val DataSubcomponent[*] ownedDataSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered val SubprogramSubcomponent[*] ownedSubprogramSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered val SubprogramGroupSubcomponent[*] ownedSubprogramGroupSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered val ThreadSubcomponent[*] ownedThreadSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+	!ordered val ThreadGroupSubcomponent[*] ownedThreadGroupSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Process.</p>")
+class ProcessPrototype extends ComponentPrototype, Process, ProcessSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+abstract class ThreadClassifier extends ComponentClassifier, Thread, ThreadSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+class ThreadType extends ComponentType, ThreadClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+	!ordered val DataAccess[*] ownedDataAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+class ThreadImplementation extends BehavioredImplementation, ThreadClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+	!ordered val SubprogramGroupSubcomponent[*] ownedSubprogramGroupSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+	!ordered val SubprogramSubcomponent[*] ownedSubprogramSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+	!ordered val DataSubcomponent[*] ownedDataSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::Thread.</p>")
+class ThreadPrototype extends ComponentPrototype, Thread, ThreadSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+abstract class ThreadGroupClassifier extends ComponentClassifier, ThreadGroup, ThreadGroupSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+class ThreadGroupType extends ComponentType, ThreadGroupClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered val DataAccess[*] ownedDataAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+class ThreadGroupImplementation extends ComponentImplementation, ThreadGroupClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered val DataSubcomponent[*] ownedDataSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered val ThreadSubcomponent[*] ownedThreadSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered val ThreadGroupSubcomponent[*] ownedThreadGroupSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered val SubprogramSubcomponent[*] ownedSubprogramSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+	!ordered val SubprogramGroupSubcomponent[*] ownedSubprogramGroupSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::ThreadGroup.</p>")
+class ThreadGroupPrototype extends ComponentPrototype, ThreadGroup, ThreadGroupSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+abstract class VirtualBusClassifier extends ComponentClassifier, VirtualBus, VirtualBusSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+class VirtualBusType extends ComponentType, VirtualBusClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+	!ordered val BusAccess[*] ownedBusAccess;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+class VirtualBusImplementation extends ComponentImplementation, VirtualBusClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+	!ordered val VirtualBusSubcomponent[*] ownedVirtualBusSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualBus.</p>")
+class VirtualBusPrototype extends ComponentPrototype, VirtualBus, VirtualBusSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+abstract class VirtualProcessorClassifier extends ComponentClassifier, VirtualProcessor, VirtualProcessorSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+class VirtualProcessorType extends ComponentType, VirtualProcessorClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+	!ordered val DataPort[*] ownedDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+	!ordered val EventDataPort[*] ownedEventDataPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+	!ordered val EventPort[*] ownedEventPort;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+	!ordered val SubprogramAccess[*] ownedSubprogramAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+	!ordered val SubprogramGroupAccess[*] ownedSubprogramGroupAccess;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+	!ordered val BusAccess[*] ownedBusAccess;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+class VirtualProcessorImplementation extends ComponentImplementation, VirtualProcessorClassifier {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+	!ordered val VirtualBusSubcomponent[*] ownedVirtualBusSubcomponent;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+	!ordered val VirtualProcessorSubcomponent[*] ownedVirtualProcessorSubcomponent;
+}
+
+@GenModel(documentation="<p>From package AADLDetails::Components::VirtualProcessor.</p>")
+class VirtualProcessorPrototype extends ComponentPrototype, VirtualProcessor, VirtualProcessorSubcomponentType {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+class BasicPropertyAssociation extends Element {
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered ref BasicProperty[1] property;
+
+	@GenModel(documentation="<p>From package AADLProperties::Associations.</p>")
+	!ordered val PropertyExpression[1] ownedValue;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Constants.</p>")
+class PropertyConstant extends TypedElement, AbstractNamedValue, ArraySizeProperty {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::Constants.</p>")
+	!ordered ref PropertyType referencedPropertyType;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::Constants.</p>")
+	!ordered val PropertyType ownedPropertyType;
+
+	@GenModel(documentation="<p>From package AADLProperties::Constants.</p>")
+	!ordered val PropertyExpression constantValue;
+
+	@redefines
+	@GenModel(documentation="<p>From package AADLProperties::Constants.</p>")
+	!ordered readonly volatile transient derived ref PropertyType[1] propertyType;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class StringLiteral extends PropertyValue {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered attr String[1] value;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+abstract class PropertyValue extends PropertyExpression {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+abstract class NumberValue extends PropertyValue {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered op Real[1] getScaledValue(!ordered UnitLiteral[1] target);
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered op Real[1] getScaledValue();
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered op Real[1] getScaledValue(!ordered String[1] target);
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered ref UnitLiteral unit;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class UnitLiteral extends EnumerationLiteral {
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered op Real[1] getAbsoluteFactor(!ordered UnitLiteral[1] target);
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered ref UnitLiteral baseUnit;
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered val NumberValue factor;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class EnumerationLiteral extends NamedElement, AbstractNamedValue {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class ClassifierValue extends PropertyOwner, PropertyValue {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered ref Classifier[1] classifier;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class ReferenceValue extends ContainedNamedElement, PropertyValue {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class BooleanLiteral extends PropertyValue {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered attr Boolean[1] value;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class RangeValue extends PropertyValue {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered val PropertyExpression[1] minimum;
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered val PropertyExpression[1] maximum;
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered val PropertyExpression delta;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class IntegerLiteral extends NumberValue {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered attr Integer base;
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered attr Integer[1] value;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class RealLiteral extends NumberValue {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered attr Real[1] value;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class Operation extends PropertyExpression {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered attr OperationKind[1] ~op;
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered val PropertyExpression[+] ownedPropertyExpression;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+enum OperationKind {
+	and = 0;
+	or = 1;
+	not = 2;
+	plus = 3;
+	minus = 4;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class RecordValue extends PropertyValue {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered val BasicPropertyAssociation[*] ownedFieldValue;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class ComputedValue extends PropertyValue {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered attr String[1] function;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class ListValue extends PropertyExpression {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	val PropertyExpression[*] ownedListElement;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+class NamedValue extends PropertyValue {
+
+	@GenModel(documentation="<p>From package AADLProperties::Expressions.</p>")
+	!ordered ref AbstractNamedValue[1] namedValue;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::PropertySets.</p>")
+class PropertySet extends Namespace, ModelUnit {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::PropertySets.</p>")
+	!ordered val PropertyType[*] ownedPropertyType;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::PropertySets.</p>")
+	!ordered val Property[*] ownedProperty;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::PropertySets.</p>")
+	!ordered val PropertyConstant[*] ownedPropertyConstant;
+
+	@GenModel(documentation="<p>From package AADLProperties::PropertySets.</p>")
+	!ordered ref ModelUnit[*] importedUnit;
+
+	@GenModel(documentation="<p>From package AADLProperties::PropertySets.</p>")
+	!ordered val AnnexSubclause[*] ownedAnnexSubclause;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::PropertySets.</p>
+<p>From package AADLConstructs::Packaging.</p>")
+class GlobalNamespace extends Namespace {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLConstructs::Packaging.</p>")
+	!ordered volatile transient ref PublicPackageSection[*] ~package;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::PropertySets.</p>")
+	!ordered volatile transient ref PropertySet[*] propertySet;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+abstract class NonListType extends PropertyType {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class AadlBoolean extends NonListType {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class AadlString extends NonListType {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class AadlInteger extends NumberType {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+abstract class NumberType extends NonListType {
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered val UnitsType ownedUnitsType;
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered ref UnitsType referencedUnitsType;
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered val NumericRange range;
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!unique !ordered readonly volatile transient derived ref UnitsType unitsType;
+}
+
+@duplicates
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class UnitsType extends EnumerationType {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class EnumerationType extends Namespace, NonListType {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered val EnumerationLiteral[+] ownedLiteral;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class NumericRange extends Element {
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered val PropertyExpression[1] upperBound;
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered val PropertyExpression[1] lowerBound;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class AadlReal extends NumberType {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class ClassifierType extends NonListType {
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered val MetaclassReference[*] classifierReference;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class RangeType extends NonListType {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered val NumberType ownedNumberType;
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered readonly volatile transient derived ref NumberType[1] numberType;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered ref NumberType referencedNumberType;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class RecordType extends Namespace, NonListType {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered val BasicProperty[*] ownedField;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class RecordField extends BasicProperty {
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class ReferenceType extends NonListType {
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered val MetaclassReference[*] namedElementReference;
+}
+
+@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+class ListType extends PropertyType {
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered val PropertyType ownedElementType;
+
+	@subsets
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered ref PropertyType referencedElementType;
+
+	@GenModel(documentation="<p>From package AADLProperties::Types.</p>")
+	!ordered readonly volatile transient derived ref PropertyType[1] elementType;
+}
+

@@ -1,0 +1,1957 @@
+@namespace(uri="AUIML", prefix="AUIML")
+package AUIML;
+
+class Model {
+	val Agent.Agent agent;
+	val MessageDefinition.MessageDefinition[*] messageDefinition;
+}
+
+@namespace(uri="AUIML.Agent", prefix="Agent")
+package Agent {
+	class Agent {
+		attr String name;
+		val StateMachine.StateMachine machine;
+		val HandlerMachine.MessageHandler[*] handlerList;
+		val Data.AbsData[*] dataList;
+		val Agent[*] agents;
+	}
+
+	@namespace(uri="AUIML.Agent.StateMachine", prefix="StateMachine")
+	package StateMachine {
+		class StateMachine {
+			val State.Initial initial;
+			val State.Named[*] states;
+		}
+
+		@namespace(uri="AUIML.Agent.StateMachine.State", prefix="State")
+		package State {
+			abstract class State {
+				val Transition.Transition[*] transitionList;
+			}
+
+			class Named extends State {
+				attr String name;
+			}
+
+			class Initial extends State {
+			}
+
+			class Final extends Named {
+			}
+
+			@namespace(uri="AUIML.Agent.StateMachine.State.Transition", prefix="Transition")
+			package Transition {
+				class Transition {
+					attr String name;
+					val Trigger.TriggerExpression[1] trigger;
+					val Precondition.PreConditionExpression[1] precondition;
+					val Ruling.Rule[1] rule;
+					val Poscondition.PosConditionExpression[1] poscondition;
+					val Action.ActionExpression[1] action;
+					ref State[1] stateReference;
+				}
+
+				@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Trigger", prefix="Trigger")
+				package Trigger {
+					abstract class TriggerExpressionElement {
+					}
+
+					class Notification extends TriggerExpressionElement {
+						ref MessageDefinition.MessageDefinition message;
+					}
+
+					class DomainEvent extends TriggerExpressionElement {
+						attr String name;
+					}
+
+					class TriggerExpression {
+						val TriggerExpressionElement[1] expression;
+					}
+
+				}
+
+				@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Precondition", prefix="Precondition")
+				package Precondition {
+					abstract class PreConditionExpressionElement {
+					}
+
+					class VariableReference extends PreConditionExpressionElement {
+						ref Ruling.RuleLeftHandSide.MatchModel.MatchExpressions.MatchRegularExpressions.RegularAtribute[1] name;
+					}
+
+					class BinaryOperator extends PreConditionExpressionElement {
+						attr String operator;
+						val PreConditionExpressionElement[1] left;
+						val PreConditionExpressionElement[1] right;
+					}
+
+					class UnaryOperator extends PreConditionExpressionElement {
+						attr String operator;
+						val PreConditionExpressionElement[1] expression;
+					}
+
+					class Literal extends PreConditionExpressionElement {
+						attr String value;
+					}
+
+					class GetData extends PreConditionExpressionElement {
+						attr String field = "name";
+						ref Data.AbsData[1] data;
+					}
+
+					class PreConditionExpression {
+						val PreConditionExpressionElement[1] expression;
+					}
+
+				}
+
+				@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling", prefix="Ruling")
+				package Ruling {
+					class Rule {
+						val RuleLeftHandSide.LeftHandSide[1] leftSide;
+						val RuleRightHandSide.RightHandSide[1] rightSide;
+					}
+
+					@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleLeftHandSide", prefix="RuleLeftHandSide")
+					package RuleLeftHandSide {
+						class LeftHandSide {
+							val MatchSystemLayer[1] system;
+							val MatchUserLayer[1] user;
+							val MatchMessageLayer[1] message;
+						}
+
+						class MatchMessageLayer {
+							val MatchModel.MatchMessageDefinition.MatchMessageDefinition[*] messagesDefinitions;
+						}
+
+						class MatchSystemLayer {
+							val MatchModel.SystemComponent[*] systemComponents;
+						}
+
+						class MatchVisualLayer {
+							val MatchModel.MatchVisualComponent.VisualComponent[*] visualComponents;
+						}
+
+						class MatchTaskLayer {
+							val MatchModel.MatchTaskComponent.TaskComponent[*] taskComponents;
+						}
+
+						class MatchUserLayer {
+							val MatchVisualLayer[1] visual;
+							val MatchTaskLayer[1] task;
+							val MatchModel.UserProfile[1] userProfile;
+						}
+
+						@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel", prefix="MatchModel")
+						package MatchModel {
+							abstract class MatchComponent {
+								val MatchName[1] name;
+								val MatchStateMachine.MatchStateMachine machine;
+								val MatchData.AbsMatchData[*] dataList;
+								val MatchHandlerMachine.MatchMessageHandler[*] handlerList;
+							}
+
+							class SystemComponent extends MatchComponent {
+								val SystemComponent[*] componentSet;
+							}
+
+							class UserProfile extends MatchComponent {
+								val MatchNumberOfCompletedTasks[1] numberOfCompletedTasks;
+								val UserProfile[*] componentSet;
+							}
+
+							class MatchName extends MatchExpressions.MatchRegularExpressions.RegularAtribute {
+							}
+
+							class MatchNumberOfCompletedTasks extends MatchExpressions.MatchNumericExpressions.NumericAttribute {
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchExpressions", prefix="MatchExpressions")
+							package MatchExpressions {
+								@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchExpressions.MatchRegularExpressions", prefix="MatchRegularExpressions")
+								package MatchRegularExpressions {
+									class RegularAtribute {
+										val MatchRegularExpression[1] query;
+									}
+
+									class Literal extends MatchRegularExpression {
+										attr String text;
+									}
+
+									class EndsWith extends MatchRegularExpression {
+										val MatchRegularExpression condition;
+									}
+
+									class StartsWith extends MatchRegularExpression {
+										val MatchRegularExpression condition;
+									}
+
+									abstract class MatchRegularExpression {
+									}
+
+									class VariableReference extends MatchRegularExpression {
+										ref RegularAtribute[1] name;
+									}
+
+									class BinaryOperator extends MatchRegularExpression {
+										attr String operator;
+										val MatchRegularExpression[1] left;
+										val MatchRegularExpression[1] right;
+									}
+
+									class UnaryOperator extends MatchRegularExpression {
+										val MatchRegularExpression[1] expression;
+										attr String operator = "";
+									}
+
+									class Any extends MatchRegularExpression {
+									}
+
+									class And extends BinaryOperator {
+									}
+
+								}
+
+								@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchExpressions.MatchNumericExpressions", prefix="MatchNumericExpressions")
+								package MatchNumericExpressions {
+									class NumericAttribute {
+										val MatchNumericExpression[1] query;
+									}
+
+									class Number extends MatchNumericExpression {
+										attr int value;
+									}
+
+									abstract class MatchNumericExpression {
+									}
+
+									class BinaryOp extends MatchNumericExpression {
+										attr String operator;
+										val MatchNumericExpression[1] left;
+										val MatchNumericExpression[1] right;
+									}
+
+									class UnaryOp extends MatchNumericExpression {
+										val MatchNumericExpression[1] expression;
+										attr String operator = "";
+									}
+
+									class Reference extends MatchNumericExpression {
+										ref NumericAttribute[1] value;
+									}
+
+									class Any extends MatchNumericExpression {
+									}
+
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchStateMachine", prefix="MatchStateMachine")
+							package MatchStateMachine {
+								class MatchStateMachine {
+									val State.Initial[1] initial;
+									val State.MatchNamed[*] states;
+								}
+
+								@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchStateMachine.State", prefix="State")
+								package State {
+									abstract class MatchState {
+										val Transition.MatchTransition[*] transitionList;
+									}
+
+									class MatchNamed extends MatchState {
+										val MatchName[1] name;
+									}
+
+									class Initial extends MatchState {
+									}
+
+									class Final extends MatchNamed {
+									}
+
+									@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchStateMachine.State.Transition", prefix="Transition")
+									package Transition {
+										class MatchTransition {
+											val MatchName[1] name;
+											ref MatchState[1] stateReference;
+											val Trigger.MatchTriggerExpression[1] trigger;
+											val Precondition.MatchPreConditionExpression[1] precondition;
+											val Poscondition.MatchPosConditionExpression[1] poscondition;
+											val Action.MatchActionExpression[1] action;
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchStateMachine.State.Transition.Trigger", prefix="Trigger")
+										package Trigger {
+											abstract class MatchTriggerExpressionElement {
+											}
+
+											class Notification extends MatchTriggerExpressionElement {
+												ref MatchMessageDefinition.MatchMessageDefinition message;
+											}
+
+											class DomainEvent extends MatchTriggerExpressionElement {
+												ref MatchName name;
+											}
+
+											class MatchTriggerExpression {
+												val MatchTriggerExpressionElement[1] expression;
+											}
+
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchStateMachine.State.Transition.Precondition", prefix="Precondition")
+										package Precondition {
+											abstract class MatchPreConditionExpressionElement {
+											}
+
+											class BinaryOperator extends MatchPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+												val MatchPreConditionExpressionElement[1] left;
+												val MatchPreConditionExpressionElement[1] right;
+											}
+
+											class UnaryOperator extends MatchPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+												val MatchPreConditionExpressionElement[1] expression;
+											}
+
+											class Literal extends MatchPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute value;
+											}
+
+											class GetData extends MatchPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+												ref MatchData.AbsMatchData[1] data;
+											}
+
+											class GetState extends MatchPreConditionExpressionElement {
+												ref MatchStateMachine[1] state;
+											}
+
+											class DomainPropertyGet extends MatchPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute name;
+											}
+
+											class Reference extends MatchPreConditionExpressionElement {
+												ref Let of;
+											}
+
+											class Let extends MatchPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute type;
+												ref MatchPreConditionExpressionElement in;
+												ref MatchPreConditionExpressionElement initialization;
+											}
+
+											class MatchPreConditionExpression {
+												val MatchPreConditionExpressionElement[1] expression;
+											}
+
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchStateMachine.State.Transition.Poscondition", prefix="Poscondition")
+										package Poscondition {
+											abstract class MatchPosConditionExpressionElement {
+											}
+
+											class BinaryOperator extends MatchPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+												val MatchPosConditionExpressionElement[1] left;
+												val MatchPosConditionExpressionElement[1] right;
+											}
+
+											class UnaryOperator extends MatchPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+												val MatchPosConditionExpressionElement[1] expression;
+											}
+
+											class Literal extends MatchPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute value;
+											}
+
+											class GetData extends MatchPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+												ref MatchData.AbsMatchData[1] data;
+											}
+
+											class SetData extends MatchPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+												ref MatchData.AbsMatchData[1] data;
+												ref MatchPosConditionExpressionElement[1] value;
+											}
+
+											class GetState extends MatchPosConditionExpressionElement {
+												ref MatchStateMachine[1] state;
+											}
+
+											class DomainPropertyGet extends MatchPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute name;
+											}
+
+											class Reference extends MatchPosConditionExpressionElement {
+												ref Let of;
+											}
+
+											class Let extends MatchPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute type;
+												ref MatchPosConditionExpressionElement in;
+												ref MatchPosConditionExpressionElement initialization;
+											}
+
+											class MatchPosConditionExpression {
+												val MatchPosConditionExpressionElement[1] expression;
+											}
+
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchStateMachine.State.Transition.Action", prefix="Action")
+										package Action {
+											abstract class MatchActionExpressionElement {
+											}
+
+											class BinaryOperator extends MatchActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+												val MatchActionExpressionElement[1] left;
+												val MatchActionExpressionElement[1] right;
+											}
+
+											class UnaryOperator extends MatchActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+												val MatchActionExpressionElement[1] expression;
+											}
+
+											class Literal extends MatchActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute value;
+											}
+
+											class GetData extends MatchActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+												ref MatchData.AbsMatchData data;
+											}
+
+											class EnableRouting extends MatchActionExpressionElement {
+												ref MatchExpressions.MatchNumericExpressions.NumericAttribute value;
+												ref MatchMessageDefinition.MatchMessageDefinition type;
+											}
+
+											class Invocation extends MatchActionExpressionElement {
+												ref MatchMessageDefinition.MatchMessageDefinition type;
+												ref MatchActionExpressionElement[*] actualList;
+												ref MatchExpressions.MatchNumericExpressions.NumericAttribute isTopDown;
+											}
+
+											class GetState extends MatchActionExpressionElement {
+												ref MatchStateMachine[1] state;
+											}
+
+											class DomainPropertyGet extends MatchActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute name;
+											}
+
+											class DomainPropertySet extends MatchActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute name;
+												ref MatchActionExpressionElement[1] value;
+											}
+
+											class Reference extends MatchActionExpressionElement {
+												ref Let of;
+											}
+
+											class Let extends MatchActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute type;
+												ref MatchActionExpressionElement in;
+												ref MatchActionExpressionElement initialization;
+											}
+
+											class MatchActionExpression {
+												val MatchActionExpressionElement[1] expression;
+											}
+
+										}
+
+									}
+
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchMessageDefinition", prefix="MatchMessageDefinition")
+							package MatchMessageDefinition {
+								class MatchMessageDefinition {
+									val MatchMessageName name;
+									val MatchData.Data[*] dataList;
+									val MatchData.Parameter[*] parameterList;
+								}
+
+								class MatchMessageName extends MatchExpressions.MatchRegularExpressions.RegularAtribute {
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchData", prefix="MatchData")
+							package MatchData {
+								abstract class AbsMatchData {
+									val MatchDataName name;
+									val MatchDataType type;
+									val MatchDataInitialValue initvalue;
+								}
+
+								class Parameter extends AbsMatchData {
+								}
+
+								class MatchDataName extends MatchExpressions.MatchRegularExpressions.RegularAtribute {
+								}
+
+								class MatchDataType extends MatchExpressions.MatchRegularExpressions.RegularAtribute {
+								}
+
+								class MatchDataInitialValue extends MatchExpressions.MatchRegularExpressions.RegularAtribute {
+								}
+
+								class Data extends AbsMatchData {
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchHandlerMachine", prefix="MatchHandlerMachine")
+							package MatchHandlerMachine {
+								class MatchMessageHandler {
+									ref MatchMessageDefinition.MatchMessageDefinition message;
+									val MatchHandlerState.Initial initial;
+									val MatchHandlerState.MatchNamedHandler[*] states;
+								}
+
+								@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchHandlerMachine.MatchHandlerState", prefix="MatchHandlerState")
+								package MatchHandlerState {
+									abstract class MatchHandlerState {
+										val MatchHandlerTransition.MatchHandlerTransition[*] transitionList;
+									}
+
+									class MatchNamedHandler extends MatchHandlerState {
+										ref MatchName name;
+									}
+
+									class Initial extends MatchHandlerState {
+									}
+
+									class Final extends MatchNamedHandler {
+									}
+
+									@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchHandlerMachine.MatchHandlerState.MatchHandlerTransition", prefix="MatchHandlerTransition")
+									package MatchHandlerTransition {
+										class MatchHandlerTransition {
+											val MatchName[1] name;
+											val Precondition.MatchHandlerPreConditionExpression[1] precondition;
+											val Poscondition.MatchHandlerPosConditionExpression[1] poscondition;
+											val Action.MatchHandlerActionExpression[1] action;
+											ref MatchHandlerState[1] stateReference;
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchHandlerMachine.MatchHandlerState.MatchHandlerTransition.Precondition", prefix="Precondition")
+										package Precondition {
+											abstract class MatchHandlerPreConditionExpressionElement {
+											}
+
+											class BinaryOperator extends MatchHandlerPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+												val MatchHandlerPreConditionExpressionElement[1] left;
+												val MatchHandlerPreConditionExpressionElement[1] right;
+											}
+
+											class UnaryOperator extends MatchHandlerPreConditionExpressionElement {
+												val MatchHandlerPreConditionExpressionElement[1] expression;
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+											}
+
+											class Literal extends MatchHandlerPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute value;
+											}
+
+											class GetData extends MatchHandlerPreConditionExpressionElement {
+												ref Data.AbsData[1] data;
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+											}
+
+											class GetState extends MatchHandlerPreConditionExpressionElement {
+												ref MatchStateMachine.MatchStateMachine[1] state;
+											}
+
+											class GetMessageData extends MatchHandlerPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+											}
+
+											class GetMessageParameter extends MatchHandlerPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+											}
+
+											class DomainPropertyGet extends MatchHandlerPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute name;
+											}
+
+											class Reference extends MatchHandlerPreConditionExpressionElement {
+												ref Let of;
+											}
+
+											class Let extends MatchHandlerPreConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute type;
+												ref MatchHandlerPreConditionExpressionElement in;
+												ref MatchHandlerPreConditionExpressionElement initialization;
+											}
+
+											class MatchHandlerPreConditionExpression {
+												val MatchHandlerPreConditionExpressionElement[1] expression;
+											}
+
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchHandlerMachine.MatchHandlerState.MatchHandlerTransition.Poscondition", prefix="Poscondition")
+										package Poscondition {
+											abstract class MatchHandlerPosConditionExpressionElement {
+											}
+
+											class BinaryOperator extends MatchHandlerPosConditionExpressionElement {
+												val MatchHandlerPosConditionExpressionElement[1] left;
+												val MatchHandlerPosConditionExpressionElement[1] right;
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+											}
+
+											class UnaryOperator extends MatchHandlerPosConditionExpressionElement {
+												val MatchHandlerPosConditionExpressionElement[1] expression;
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+											}
+
+											class Literal extends MatchHandlerPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute value;
+											}
+
+											class GetData extends MatchHandlerPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+												ref MatchData.AbsMatchData data;
+											}
+
+											class SetData extends MatchHandlerPosConditionExpressionElement {
+												ref MatchHandlerPosConditionExpressionElement[1] value;
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+												ref MatchData.AbsMatchData data;
+											}
+
+											class GetState extends MatchHandlerPosConditionExpressionElement {
+												ref MatchStateMachine.MatchStateMachine[1] state;
+											}
+
+											class GetMessageData extends MatchHandlerPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+											}
+
+											class GetMessageParameter extends MatchHandlerPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+											}
+
+											class SetTopDown extends MatchHandlerPosConditionExpressionElement {
+												ref MatchHandlerPosConditionExpressionElement[1] value;
+											}
+
+											class SetMessageData extends MatchHandlerPosConditionExpressionElement {
+												ref MatchHandlerPosConditionExpressionElement[1] value;
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+											}
+
+											class SetMessageParameter extends MatchHandlerPosConditionExpressionElement {
+												ref MatchHandlerPosConditionExpressionElement[1] value;
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+											}
+
+											class DomainPropertyGet extends MatchHandlerPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute name;
+											}
+
+											class Reference extends MatchHandlerPosConditionExpressionElement {
+												ref Let of;
+											}
+
+											class Let extends MatchHandlerPosConditionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute type;
+												ref MatchHandlerPosConditionExpressionElement in;
+												ref MatchHandlerPosConditionExpressionElement initialization;
+											}
+
+											class MatchHandlerPosConditionExpression {
+												val MatchHandlerPosConditionExpressionElement[1] expression;
+											}
+
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchHandlerMachine.MatchHandlerState.MatchHandlerTransition.Action", prefix="Action")
+										package Action {
+											abstract class MatchHandlerActionExpressionElement {
+											}
+
+											class BinaryOperator extends MatchHandlerActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+												val MatchHandlerActionExpressionElement[1] left;
+												val MatchHandlerActionExpressionElement[1] right;
+											}
+
+											class UnaryOperator extends MatchHandlerActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute operator;
+												val MatchHandlerActionExpressionElement[1] expression;
+											}
+
+											class Literal extends MatchHandlerActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute value;
+											}
+
+											class GetData extends MatchHandlerActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+												ref MatchData.AbsMatchData data;
+											}
+
+											class EnableRouting extends MatchHandlerActionExpressionElement {
+												ref MatchMessageDefinition.MatchMessageDefinition type;
+												ref MatchExpressions.MatchNumericExpressions.NumericAttribute value;
+											}
+
+											class Invocation extends MatchHandlerActionExpressionElement {
+												ref MatchHandlerActionExpressionElement[*] actuaList;
+												ref MatchMessageDefinition.MatchMessageDefinition type;
+												ref MatchExpressions.MatchNumericExpressions.NumericAttribute isTopDown;
+											}
+
+											class GetState extends MatchHandlerActionExpressionElement {
+												ref MatchStateMachine.MatchStateMachine[1] state;
+											}
+
+											class GetMessageData extends MatchHandlerActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+											}
+
+											class GetMessageParameter extends MatchHandlerActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute field;
+											}
+
+											class DomainPropertyGet extends MatchHandlerActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute name;
+											}
+
+											class DomainPropertySet extends MatchHandlerActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute name;
+												ref MatchHandlerActionExpressionElement[1] value;
+											}
+
+											class Reference extends MatchHandlerActionExpressionElement {
+												ref Let of;
+											}
+
+											class Let extends MatchHandlerActionExpressionElement {
+												ref MatchExpressions.MatchRegularExpressions.RegularAtribute type;
+												ref MatchHandlerActionExpressionElement in;
+												ref MatchHandlerActionExpressionElement initialization;
+											}
+
+											class MatchHandlerActionExpression {
+												val MatchHandlerActionExpressionElement[1] expression;
+											}
+
+										}
+
+									}
+
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchVisualComponent", prefix="MatchVisualComponent")
+							package MatchVisualComponent {
+								abstract class MatchGeometryData {
+								}
+
+								class MatchFace {
+									val MatchLabel[1] labelText;
+									val Point3D[3..*] point3D;
+								}
+
+								class GeometryData3D extends MatchGeometryData {
+									val MatchFace[*] face;
+								}
+
+								class GeometryData2D extends MatchGeometryData {
+									val MatchLabel[1] labelText;
+									val Point2D[3..*] point2D;
+								}
+
+								class Point2D extends MatchPoint {
+								}
+
+								class MatchPoint {
+									val MatchYValue[1] yCoordinate;
+									val MatchXValue[1] xCoordinate;
+								}
+
+								class Point3D extends MatchPoint {
+									val MatchZValue[1] zCoordinate;
+								}
+
+								class VisualComponent extends MatchComponent {
+									val MatchGeometryData geometryData;
+									val MatchColorData colorData;
+									val VisualComponent[*] componentSet;
+								}
+
+								class MatchColorData {
+									val MatchColorState disabledColors;
+									val MatchColorState normalColors;
+									val MatchColorState selectedColors;
+								}
+
+								class MatchColorState {
+									val MatchAlphaTransparency alphaTransparency;
+									val MatchColor backgroundColor;
+									val MatchColor foregroundColor;
+								}
+
+								class MatchColor {
+									val MatchRGBColor ambienceColor;
+									val MatchRGBColor specularColor;
+									val MatchRGBColor difuseColor;
+								}
+
+								class MatchAlphaTransparency {
+									val MatchTransparencyValue value;
+								}
+
+								class MatchRGBColor {
+									val MatchRedValue redValue;
+									val MatchGreenValue greenValue;
+									val MatchBlueValue blueValue;
+								}
+
+								class MatchRedValue extends MatchExpressions.MatchNumericExpressions.NumericAttribute {
+								}
+
+								class MatchGreenValue extends MatchExpressions.MatchNumericExpressions.NumericAttribute {
+								}
+
+								class MatchBlueValue extends MatchExpressions.MatchNumericExpressions.NumericAttribute {
+								}
+
+								class MatchTransparencyValue extends MatchExpressions.MatchNumericExpressions.NumericAttribute {
+								}
+
+								class MatchZValue extends MatchExpressions.MatchNumericExpressions.NumericAttribute {
+								}
+
+								class MatchYValue extends MatchExpressions.MatchNumericExpressions.NumericAttribute {
+								}
+
+								class MatchXValue extends MatchExpressions.MatchNumericExpressions.NumericAttribute {
+								}
+
+								class MatchLabel extends MatchExpressions.MatchRegularExpressions.RegularAtribute {
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.MatchModel.MatchTaskComponent", prefix="MatchTaskComponent")
+							package MatchTaskComponent {
+								class MatchGoal {
+									val MatchGoalCondition[1] condition;
+								}
+
+								class TaskComponent extends MatchComponent {
+									val MatchNumberOfGoalsCompleted[1] numberOfGoalsCompleted;
+									val MatchCompletionTime[1] completionTime;
+									val MatchGoal[*] goal;
+									val TaskComponent[*] componentSet;
+								}
+
+								class MatchGoalCondition extends MatchExpressions.MatchRegularExpressions.RegularAtribute {
+								}
+
+								class MatchCompletionTime extends MatchExpressions.MatchNumericExpressions.NumericAttribute {
+								}
+
+								class MatchNumberOfGoalsCompleted extends MatchExpressions.MatchNumericExpressions.NumericAttribute {
+								}
+
+							}
+
+						}
+
+					}
+
+					@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide", prefix="RuleRightHandSide")
+					package RuleRightHandSide {
+						class RightHandSide {
+							val ApplyMessageLayer[1] message;
+							val ApplyUserLayer[1] user;
+						}
+
+						class ApplyMessageLayer {
+							val ApplyModel.ApplyMessageDefinition.ApplyMessageDefinition[*] messagesDefinitions;
+						}
+
+						class ApplyVisualLayer {
+							val ApplyModel.ApplyVisualComponent.VisualComponent[*] visualComponents;
+						}
+
+						class ApplyTaskLayer {
+							val ApplyModel.ApplyTaskComponent.TaskComponent[*] taskComponents;
+						}
+
+						class ApplyUserLayer {
+							val ApplyVisualLayer[1] visual;
+							val ApplyTaskLayer[1] task;
+							val ApplyModel.UserProfile[1] userProfile;
+						}
+
+						@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel", prefix="ApplyModel")
+						package ApplyModel {
+							abstract class ApplyComponent {
+								val ApplyName[1] name;
+								val ApplyStateMachine.ApplyStateMachine machine;
+								val ApplyData.AbsApplyData[*] dataList;
+								val ApplyHandlerMachine.ApplyMessageHandler[*] handlerList;
+							}
+
+							class UserProfile extends ApplyComponent {
+								val ApplyExpressions.ApplyNumericExpressions.ApplyNumericExpression[1] numberOfCompletedTasks;
+								val UserProfile[*] componentSet;
+							}
+
+							class ApplyName extends ApplyExpressions.ApplyRegularExpressions.ApplyRegularAttribute {
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyExpressions", prefix="ApplyExpressions")
+							package ApplyExpressions {
+								@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyExpressions.ApplyRegularExpressions", prefix="ApplyRegularExpressions")
+								package ApplyRegularExpressions {
+									abstract class ApplyRegularExpression {
+									}
+
+									class VariableReference extends ApplyRegularExpression {
+										ref RuleLeftHandSide.MatchModel.MatchExpressions.MatchRegularExpressions.RegularAtribute[1] name;
+									}
+
+									class Literal extends ApplyRegularExpression {
+										attr String text;
+									}
+
+									class ConcatOp extends ApplyRegularExpression {
+										val ApplyRegularExpression[1] leftexpression;
+										val ApplyRegularExpression[1] rightexpression;
+										attr String name;
+									}
+
+									class BinaryOp extends ApplyRegularExpression {
+										val ApplyRegularExpression[1] left;
+										val ApplyRegularExpression[1] right;
+										attr String operator;
+									}
+
+									class UnaryOp extends ApplyRegularExpression {
+										val ApplyRegularExpression expression;
+										attr String operator;
+									}
+
+									class ApplyRegularAttribute {
+										val ApplyRegularExpression[1] query;
+									}
+
+								}
+
+								@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyExpressions.ApplyNumericExpressions", prefix="ApplyNumericExpressions")
+								package ApplyNumericExpressions {
+									abstract class ApplyNumericExpression {
+									}
+
+									class Number extends ApplyNumericExpression {
+										attr int value;
+									}
+
+									class BinaryOp extends ApplyNumericExpression {
+										attr String operator;
+										val ApplyNumericExpression[1] left;
+										val ApplyNumericExpression[1] right;
+									}
+
+									class UnaryOp extends ApplyNumericExpression {
+										val ApplyNumericExpression[1] expression;
+										attr String operator = "";
+									}
+
+									class Any extends ApplyNumericExpression {
+									}
+
+									class Reference extends ApplyNumericExpression {
+										ref RuleLeftHandSide.MatchModel.MatchExpressions.MatchNumericExpressions.NumericAttribute[1] name;
+									}
+
+									class ApplyNumericAttribute {
+										val ApplyNumericExpression[1] query;
+									}
+
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyStateMachine", prefix="ApplyStateMachine")
+							package ApplyStateMachine {
+								class ApplyStateMachine {
+									val State.Initial[1] initial;
+									val State.ApplyNamed[*] states;
+								}
+
+								@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyStateMachine.State", prefix="State")
+								package State {
+									abstract class ApplyState {
+										val Transition.ApplyTransition[*] transitionList;
+									}
+
+									class ApplyNamed extends ApplyState {
+										val ApplyName[1] name;
+									}
+
+									class Initial extends ApplyState {
+									}
+
+									class Final extends ApplyNamed {
+									}
+
+									@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyStateMachine.State.Transition", prefix="Transition")
+									package Transition {
+										class ApplyTransition {
+											val ApplyName[1] name;
+											ref ApplyState[1] stateRef;
+											val Trigger.ApplyTriggerExpression[1] trigger;
+											val Precondition.ApplyPreConditionExpression[1] precondition;
+											val Poscondition.ApplyPosConditionExpression[1] poscondition;
+											val Action.ApplyActionExpression[1] action;
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyStateMachine.State.Transition.Trigger", prefix="Trigger")
+										package Trigger {
+											abstract class ApplyTriggerExpressionElement {
+											}
+
+											class Notification extends ApplyTriggerExpressionElement {
+												ref ApplyMessageDefinition.ApplyMessageDefinition message;
+											}
+
+											class DomainEvent extends ApplyTriggerExpressionElement {
+												ref ApplyName name;
+											}
+
+											class ApplyTriggerExpression {
+												val ApplyTriggerExpressionElement[1] expression;
+											}
+
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyStateMachine.State.Transition.Precondition", prefix="Precondition")
+										package Precondition {
+											abstract class ApplyPreConditionExpressionElement {
+											}
+
+											class BinaryOperator extends ApplyPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+												val ApplyPreConditionExpressionElement[1] left;
+												val ApplyPreConditionExpressionElement[1] right;
+											}
+
+											class UnaryOperator extends ApplyPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+												val ApplyPreConditionExpressionElement[1] expression;
+											}
+
+											class Literal extends ApplyPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression value;
+											}
+
+											class GetData extends ApplyPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+												ref ApplyData.AbsApplyData[1] data;
+											}
+
+											class GetState extends ApplyPreConditionExpressionElement {
+												ref ApplyStateMachine[1] state;
+											}
+
+											class DomainPropertyGet extends ApplyPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression name;
+											}
+
+											class Reference extends ApplyPreConditionExpressionElement {
+												ref Let[1] of;
+											}
+
+											class Let extends ApplyPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression[1] type;
+												ref ApplyPreConditionExpressionElement[1] in;
+												ref ApplyPreConditionExpressionElement[1] initialization;
+											}
+
+											class ApplyPreConditionExpression {
+												val ApplyPreConditionExpressionElement[1] expression;
+											}
+
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyStateMachine.State.Transition.Poscondition", prefix="Poscondition")
+										package Poscondition {
+											abstract class ApplyPosConditionExpressionElement {
+											}
+
+											class BinaryOperator extends ApplyPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+												val ApplyPosConditionExpressionElement[1] left;
+												val ApplyPosConditionExpressionElement[1] right;
+											}
+
+											class UnaryOperator extends ApplyPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+												val ApplyPosConditionExpressionElement[1] expression;
+											}
+
+											class Literal extends ApplyPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression value;
+											}
+
+											class GetData extends ApplyPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+												ref ApplyData.AbsApplyData[1] data;
+											}
+
+											class SetData extends ApplyPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+												ref ApplyData.AbsApplyData[1] data;
+												ref ApplyPosConditionExpressionElement[1] value;
+											}
+
+											class GetState extends ApplyPosConditionExpressionElement {
+												ref ApplyStateMachine[1] state;
+											}
+
+											class DomainPropertyGet extends ApplyPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression name;
+											}
+
+											class Reference extends ApplyPosConditionExpressionElement {
+												ref Let[1] of;
+											}
+
+											class Let extends ApplyPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression[1] type;
+												ref ApplyPosConditionExpressionElement[1] in;
+												ref ApplyPosConditionExpressionElement[1] initialization;
+											}
+
+											class ApplyPosConditionExpression {
+												val ApplyPosConditionExpressionElement[1] expression;
+											}
+
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyStateMachine.State.Transition.Action", prefix="Action")
+										package Action {
+											abstract class ApplyActionExpressionElement {
+											}
+
+											class BinaryOperator extends ApplyActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+												val ApplyActionExpressionElement[1] left;
+												val ApplyActionExpressionElement[1] right;
+											}
+
+											class UnaryOperator extends ApplyActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+												val ApplyActionExpressionElement[1] expression;
+											}
+
+											class Literal extends ApplyActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression value;
+											}
+
+											class GetData extends ApplyActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+												ref ApplyData.AbsApplyData data;
+											}
+
+											class EnableRouting extends ApplyActionExpressionElement {
+												ref ApplyExpressions.ApplyNumericExpressions.ApplyNumericExpression value;
+												ref ApplyMessageDefinition.ApplyMessageDefinition type;
+											}
+
+											class Invocation extends ApplyActionExpressionElement {
+												ref ApplyMessageDefinition.ApplyMessageDefinition type;
+												ref ApplyActionExpressionElement[*] actualList;
+												ref ApplyExpressions.ApplyNumericExpressions.ApplyNumericExpression isTopDown;
+											}
+
+											class GetState extends ApplyActionExpressionElement {
+												ref ApplyStateMachine[1] state;
+											}
+
+											class DomainPropertyGet extends ApplyActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression name;
+											}
+
+											class DomainPropertySet extends ApplyActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression name;
+												ref ApplyActionExpressionElement[1] value;
+											}
+
+											class Reference extends ApplyActionExpressionElement {
+												ref Let[1] of;
+											}
+
+											class Let extends ApplyActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression[1] type;
+												ref ApplyActionExpressionElement[1] in;
+												ref ApplyActionExpressionElement[1] initialization;
+											}
+
+											class ApplyActionExpression {
+												val ApplyActionExpressionElement[1] expression;
+											}
+
+										}
+
+									}
+
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyMessageDefinition", prefix="ApplyMessageDefinition")
+							package ApplyMessageDefinition {
+								class ApplyMessageDefinition {
+									val ApplyName[1] name;
+									val ApplyData.Data[*] dataList;
+									val ApplyData.Parameter[*] parameterList;
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyMessageDefinition.ApplyData", prefix="ApplyData")
+							package ApplyData {
+								abstract class AbsApplyData {
+									val ApplyName[1] name;
+									val ApplyType[1] type;
+									val ApplyInitialValue[1] initialValue;
+								}
+
+								class Parameter extends AbsApplyData {
+								}
+
+								class ApplyType extends ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression {
+								}
+
+								class ApplyInitialValue extends ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression {
+								}
+
+								class Data extends AbsApplyData {
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyHandlerMachine", prefix="ApplyHandlerMachine")
+							package ApplyHandlerMachine {
+								class ApplyMessageHandler {
+									ref ApplyMessageDefinition.ApplyMessageDefinition message;
+									val ApplyHandlerState.Initial initial;
+									val ApplyHandlerState.ApplyNamedHandler[*] states;
+								}
+
+								@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyHandlerMachine.ApplyHandlerState", prefix="ApplyHandlerState")
+								package ApplyHandlerState {
+									abstract class ApplyHandlerState {
+										val ApplyHandlerTransition.ApplyHandlerTransition[*] transitionList;
+									}
+
+									class ApplyNamedHandler extends ApplyHandlerState {
+										ref ApplyName[1] name;
+									}
+
+									class Initial extends ApplyHandlerState {
+									}
+
+									class Final extends ApplyNamedHandler {
+									}
+
+									@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyHandlerMachine.ApplyHandlerState.ApplyHandlerTransition", prefix="ApplyHandlerTransition")
+									package ApplyHandlerTransition {
+										class ApplyHandlerTransition {
+											val Precondition.ApplyHandlerPreConditionExpression[1] precondition;
+											val Poscondition.ApplyHandlerPosConditionExpression[1] poscondition;
+											val Action.ApplyHandlerActionExpression[1] action;
+											ref ApplyHandlerState[1] stateReference;
+											ref ApplyName[1] name;
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyHandlerMachine.ApplyHandlerState.ApplyHandlerTransition.Precondition", prefix="Precondition")
+										package Precondition {
+											abstract class ApplyHandlerPreConditionExpressionElement {
+											}
+
+											class BinaryOperator extends ApplyHandlerPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+												val ApplyHandlerPreConditionExpressionElement[1] left;
+												val ApplyHandlerPreConditionExpressionElement[1] right;
+											}
+
+											class UnaryOperator extends ApplyHandlerPreConditionExpressionElement {
+												val ApplyHandlerPreConditionExpressionElement[1] expression;
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+											}
+
+											class Literal extends ApplyHandlerPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression value;
+											}
+
+											class GetData extends ApplyHandlerPreConditionExpressionElement {
+												ref ApplyData.AbsApplyData[1] data;
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+											}
+
+											class GetState extends ApplyHandlerPreConditionExpressionElement {
+												ref ApplyStateMachine.ApplyStateMachine[1] state;
+											}
+
+											class GetMessageData extends ApplyHandlerPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+											}
+
+											class GetMessageParameter extends ApplyHandlerPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+											}
+
+											class DomainPropertyGet extends ApplyHandlerPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression name;
+											}
+
+											class Reference extends ApplyHandlerPreConditionExpressionElement {
+												ref Let[1] of;
+											}
+
+											class Let extends ApplyHandlerPreConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression[1] type;
+												ref ApplyHandlerPreConditionExpressionElement[1] in;
+												ref ApplyHandlerPreConditionExpressionElement[1] initialization;
+											}
+
+											class ApplyHandlerPreConditionExpression {
+												val Action.ActionExpression[1] expression;
+											}
+
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyHandlerMachine.ApplyHandlerState.ApplyHandlerTransition.Poscondition", prefix="Poscondition")
+										package Poscondition {
+											abstract class ApplyHandlerPosConditionExpressionElement {
+											}
+
+											class BinaryOperator extends ApplyHandlerPosConditionExpressionElement {
+												val ApplyHandlerPosConditionExpressionElement[1] left;
+												val ApplyHandlerPosConditionExpressionElement[1] right;
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+											}
+
+											class UnaryOperator extends ApplyHandlerPosConditionExpressionElement {
+												val ApplyHandlerPosConditionExpressionElement[1] expression;
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+											}
+
+											class Literal extends ApplyHandlerPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression value;
+											}
+
+											class GetData extends ApplyHandlerPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+												ref ApplyData.AbsApplyData data;
+											}
+
+											class SetData extends ApplyHandlerPosConditionExpressionElement {
+												ref ApplyHandlerPosConditionExpressionElement[1] value;
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+												ref ApplyData.AbsApplyData data;
+											}
+
+											class GetState extends ApplyHandlerPosConditionExpressionElement {
+												ref ApplyStateMachine.ApplyStateMachine[1] state;
+											}
+
+											class GetMessageData extends ApplyHandlerPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+											}
+
+											class GetMessageParameter extends ApplyHandlerPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+											}
+
+											class SetTopDown extends ApplyHandlerPosConditionExpressionElement {
+												ref ApplyHandlerPosConditionExpressionElement[1] value;
+											}
+
+											class SetMessageData extends ApplyHandlerPosConditionExpressionElement {
+												ref ApplyHandlerPosConditionExpressionElement[1] value;
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+											}
+
+											class SetMessageParameter extends ApplyHandlerPosConditionExpressionElement {
+												ref ApplyHandlerPosConditionExpressionElement[1] value;
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+											}
+
+											class DomainPropertyGet extends ApplyHandlerPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression name;
+											}
+
+											class Reference extends ApplyHandlerPosConditionExpressionElement {
+												ref Let[1] of;
+											}
+
+											class Let extends ApplyHandlerPosConditionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression[1] type;
+												ref ApplyHandlerPosConditionExpressionElement[1] in;
+												ref ApplyHandlerPosConditionExpressionElement[1] initialization;
+											}
+
+											class ApplyHandlerPosConditionExpression {
+												val ApplyHandlerPosConditionExpressionElement[1] expression;
+											}
+
+										}
+
+										@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyHandlerMachine.ApplyHandlerState.ApplyHandlerTransition.Action", prefix="Action")
+										package Action {
+											abstract class ApplyHandlerActionExpressionElement {
+											}
+
+											class BinaryOperator extends ApplyHandlerActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+												val ApplyHandlerActionExpressionElement[1] left;
+												val ApplyHandlerActionExpressionElement[1] right;
+											}
+
+											class UnaryOperator extends ApplyHandlerActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression operator;
+												val ApplyHandlerActionExpressionElement[1] expression;
+											}
+
+											class Literal extends ApplyHandlerActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression value;
+											}
+
+											class GetData extends ApplyHandlerActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+												ref ApplyData.AbsApplyData data;
+											}
+
+											class EnableRouting extends ApplyHandlerActionExpressionElement {
+												ref ApplyMessageDefinition.ApplyMessageDefinition type;
+												ref ApplyExpressions.ApplyNumericExpressions.ApplyNumericExpression value;
+											}
+
+											class Invocation extends ApplyHandlerActionExpressionElement {
+												ref ApplyHandlerActionExpressionElement[*] actualList;
+												ref ApplyMessageDefinition.ApplyMessageDefinition type;
+												ref ApplyExpressions.ApplyNumericExpressions.ApplyNumericExpression isTopDown;
+											}
+
+											class GetState extends ApplyHandlerActionExpressionElement {
+												ref ApplyStateMachine.ApplyStateMachine[1] state;
+											}
+
+											class GetMessageData extends ApplyHandlerActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+											}
+
+											class GetMessageParameter extends ApplyHandlerActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression field;
+											}
+
+											class DomainPropertyGet extends ApplyHandlerActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression name;
+											}
+
+											class DomainPropertySet extends ApplyHandlerActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression name;
+												ref ApplyHandlerActionExpressionElement[1] value;
+											}
+
+											class Reference extends ApplyHandlerActionExpressionElement {
+												ref Let[1] of;
+											}
+
+											class Let extends ApplyHandlerActionExpressionElement {
+												ref ApplyExpressions.ApplyRegularExpressions.ApplyRegularExpression[1] type;
+												ref ApplyHandlerActionExpressionElement[1] in;
+												ref ApplyHandlerActionExpressionElement[1] initialization;
+											}
+
+											class ApplyHandlerActionExpression {
+												val ApplyHandlerActionExpressionElement[1] expression;
+											}
+
+										}
+
+									}
+
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyVisualComponent", prefix="ApplyVisualComponent")
+							package ApplyVisualComponent {
+								abstract class ApplyGeometryData {
+								}
+
+								class ApplyFace {
+									val ApplyLabel[1] labelText;
+									val Point3D[3..*] point3D;
+								}
+
+								class GeometryData3D extends ApplyGeometryData {
+									val ApplyFace[*] face;
+								}
+
+								class GeometryData2D extends ApplyGeometryData {
+									val ApplyLabel[1] labelText;
+									val Point2D[3..*] point2D;
+								}
+
+								class Point2D extends ApplyPoint {
+								}
+
+								class ApplyPoint {
+									val ApplyYCoordinate[1] yCoordinate;
+									val ApplyXCoordinate[1] xCoordinate;
+								}
+
+								class Point3D extends ApplyPoint {
+									val ApplyZCoordinate[1] zCoordinate;
+								}
+
+								class VisualComponent extends ApplyComponent {
+									val ApplyGeometryData geometryData;
+									val ApplyColorData colorData;
+									val VisualComponent[*] componentSet;
+								}
+
+								class ApplyColorData {
+									val ApplyColorState disabledColors;
+									val ApplyColorState normalColors;
+									val ApplyColorState selectedColors;
+								}
+
+								class ApplyColorState {
+									val ApplyAlphaTransparency alphaTransparency;
+									val ApplyColor backgroundColor;
+									val ApplyColor foregroundColor;
+								}
+
+								class ApplyColor {
+									val ApplyRGBColor ambienceColor;
+									val ApplyRGBColor specularColor;
+									val ApplyRGBColor difuseColor;
+								}
+
+								class ApplyAlphaTransparency {
+									val ApplyTransparency value;
+								}
+
+								class ApplyRGBColor {
+									val ApplyRedValue redValue;
+									val ApplyGreenValue greenValue;
+									val ApplyBlueValue blueValue;
+								}
+
+								class ApplyXCoordinate extends ApplyExpressions.ApplyNumericExpressions.ApplyNumericAttribute {
+								}
+
+								class ApplyYCoordinate extends ApplyExpressions.ApplyNumericExpressions.ApplyNumericAttribute {
+								}
+
+								class ApplyZCoordinate extends ApplyExpressions.ApplyNumericExpressions.ApplyNumericAttribute {
+								}
+
+								class ApplyRedValue extends ApplyExpressions.ApplyNumericExpressions.ApplyNumericAttribute {
+								}
+
+								class ApplyGreenValue extends ApplyExpressions.ApplyNumericExpressions.ApplyNumericAttribute {
+								}
+
+								class ApplyBlueValue extends ApplyExpressions.ApplyNumericExpressions.ApplyNumericAttribute {
+								}
+
+								class ApplyTransparency extends ApplyExpressions.ApplyNumericExpressions.ApplyNumericAttribute {
+								}
+
+								class ApplyLabel extends ApplyExpressions.ApplyRegularExpressions.ApplyRegularAttribute {
+								}
+
+							}
+
+							@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Ruling.RuleRightHandSide.ApplyModel.ApplyTaskComponent", prefix="ApplyTaskComponent")
+							package ApplyTaskComponent {
+								class ApplyGoal {
+									val ApplyCondition[1] condition;
+								}
+
+								class TaskComponent extends ApplyComponent {
+									val ApplyNumberOfGoalsCompleted[1] numberOfGoalsCompleted;
+									val ApplyCompletionTime[1] completionTime;
+									val ApplyGoal[*] goal;
+									val TaskComponent[*] componentSet;
+								}
+
+								class ApplyCondition extends ApplyExpressions.ApplyRegularExpressions.ApplyRegularAttribute {
+								}
+
+								class ApplyCompletionTime extends ApplyExpressions.ApplyNumericExpressions.ApplyNumericAttribute {
+								}
+
+								class ApplyNumberOfGoalsCompleted extends ApplyExpressions.ApplyNumericExpressions.ApplyNumericAttribute {
+								}
+
+							}
+
+						}
+
+					}
+
+				}
+
+				@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Poscondition", prefix="Poscondition")
+				package Poscondition {
+					abstract class PosConditionExpressionElement {
+					}
+
+					class VariableReference extends PosConditionExpressionElement {
+						ref Ruling.RuleLeftHandSide.MatchModel.MatchExpressions.MatchRegularExpressions.RegularAtribute[1] name;
+					}
+
+					class BinaryOperator extends PosConditionExpressionElement {
+						attr String operatorname;
+						val PosConditionExpressionElement[1] left;
+						val PosConditionExpressionElement[1] right;
+					}
+
+					class UnaryOperator extends PosConditionExpressionElement {
+						attr String operator;
+						val PosConditionExpressionElement[1] expression;
+					}
+
+					class Literal extends PosConditionExpressionElement {
+						attr String value;
+					}
+
+					class GetData extends PosConditionExpressionElement {
+						attr String field = "name";
+						ref Data.AbsData[1] data;
+					}
+
+					class SetData extends PosConditionExpressionElement {
+						attr String field = "name";
+						ref Data.AbsData[1] data;
+						val PosConditionExpressionElement[1] value;
+					}
+
+					class PosConditionExpression {
+						val PosConditionExpressionElement[1] expression;
+					}
+
+				}
+
+				@namespace(uri="AUIML.Agent.StateMachine.State.Transition.Action", prefix="Action")
+				package Action {
+					abstract class ActionExpressionElement {
+					}
+
+					class VariableReference extends ActionExpressionElement {
+						ref Ruling.RuleLeftHandSide.MatchModel.MatchExpressions.MatchRegularExpressions.RegularAtribute[1] name;
+					}
+
+					class BinaryOperator extends ActionExpressionElement {
+						attr String operator;
+						val ActionExpressionElement[1] left;
+						val ActionExpressionElement[1] right;
+					}
+
+					class UnaryOperator extends ActionExpressionElement {
+						attr String operator;
+						val ActionExpressionElement[1] expression;
+					}
+
+					class Literal extends ActionExpressionElement {
+						attr String value;
+					}
+
+					class GetData extends ActionExpressionElement {
+						attr String field = "name";
+						ref Data.AbsData[1] data;
+					}
+
+					class EnableRouting extends ActionExpressionElement {
+						attr boolean value = true;
+						ref MessageDefinition.MessageDefinition type;
+					}
+
+					class Invocation extends ActionExpressionElement {
+						ref MessageDefinition.MessageDefinition[1] type;
+						val ActionExpressionElement[*] actualList;
+						attr boolean isTopDown = true;
+					}
+
+					class ActionExpression {
+						val ActionExpressionElement[1] expression;
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+	@namespace(uri="AUIML.Agent.HandlerMachine", prefix="HandlerMachine")
+	package HandlerMachine {
+		class MessageHandler {
+			ref MessageDefinition.MessageDefinition[1] message;
+			val HandlerState.Initial[1] initial;
+			val HandlerState.NamedHandler[*] states;
+		}
+
+		@namespace(uri="AUIML.Agent.HandlerMachine.HandlerState", prefix="HandlerState")
+		package HandlerState {
+			abstract class HandlerState {
+				val Transition.HandlerTransition[*] transitionList;
+			}
+
+			class NamedHandler extends HandlerState {
+				attr String name;
+			}
+
+			class Initial extends HandlerState {
+			}
+
+			class Final extends NamedHandler {
+			}
+
+			@namespace(uri="AUIML.Agent.HandlerMachine.HandlerState.Transition", prefix="Transition")
+			package Transition {
+				class HandlerTransition {
+					val Precondition.HandlerPreConditionExpression[1] precondition;
+					val Poscondition.HandlerPosConditionExpression[1] poscondition;
+					val Action.HandlerActionExpression[1] action;
+					ref HandlerState[1] stateReference;
+					attr String name;
+				}
+
+				@namespace(uri="AUIML.Agent.HandlerMachine.HandlerState.Transition.Precondition", prefix="Precondition")
+				package Precondition {
+					abstract class HandlerPreConditionExpressionElement {
+					}
+
+					class VariableReference extends HandlerPreConditionExpressionElement {
+						ref StateMachine.State.Transition.Ruling.RuleLeftHandSide.MatchModel.MatchExpressions.MatchRegularExpressions.RegularAtribute[1] name;
+					}
+
+					class BinaryOperator extends HandlerPreConditionExpressionElement {
+						attr String operator;
+						val HandlerPreConditionExpressionElement[1] left;
+						val HandlerPreConditionExpressionElement[1] right;
+					}
+
+					class UnaryOperator extends HandlerPreConditionExpressionElement {
+						attr String operator;
+						val HandlerPreConditionExpressionElement[1] expression;
+					}
+
+					class Literal extends HandlerPreConditionExpressionElement {
+						attr String value;
+					}
+
+					class GetData extends HandlerPreConditionExpressionElement {
+						attr String field = "name";
+						ref Data.AbsData[1] data;
+					}
+
+					class GetState extends HandlerPreConditionExpressionElement {
+						ref StateMachine.StateMachine[1] state;
+					}
+
+					class GetMessageData extends HandlerPreConditionExpressionElement {
+						attr String field;
+					}
+
+					class GetMessageParameter extends HandlerPreConditionExpressionElement {
+						attr String field;
+					}
+
+					class HandlerPreConditionExpression {
+						val HandlerPreConditionExpressionElement[1] expression;
+					}
+
+				}
+
+				@namespace(uri="AUIML.Agent.HandlerMachine.HandlerState.Transition.Poscondition", prefix="Poscondition")
+				package Poscondition {
+					abstract class HandlerPosConditionExpressionElement {
+					}
+
+					class VariableReference extends HandlerPosConditionExpressionElement {
+						ref StateMachine.State.Transition.Ruling.RuleLeftHandSide.MatchModel.MatchExpressions.MatchRegularExpressions.RegularAtribute[1] name;
+					}
+
+					class BinaryOperator extends HandlerPosConditionExpressionElement {
+						attr String operator;
+						val HandlerPosConditionExpressionElement[1] left;
+						val HandlerPosConditionExpressionElement[1] right;
+					}
+
+					class UnaryOperator extends HandlerPosConditionExpressionElement {
+						attr String operator;
+						val HandlerPosConditionExpressionElement[1] expression;
+					}
+
+					class Literal extends HandlerPosConditionExpressionElement {
+						attr String value;
+					}
+
+					class GetData extends HandlerPosConditionExpressionElement {
+						attr String field = "name";
+						ref Data.AbsData[1] data;
+					}
+
+					class SetData extends HandlerPosConditionExpressionElement {
+						attr String field = "name";
+						ref Data.AbsData[1] data;
+						val HandlerPosConditionExpressionElement[1] value;
+					}
+
+					class GetState extends HandlerPosConditionExpressionElement {
+						ref StateMachine.StateMachine[1] state;
+					}
+
+					class GetMessageData extends HandlerPosConditionExpressionElement {
+						attr String field;
+					}
+
+					class GetMessageParameter extends HandlerPosConditionExpressionElement {
+						attr String field;
+					}
+
+					class SetTopDown extends HandlerPosConditionExpressionElement {
+						val HandlerPosConditionExpressionElement[1] value;
+					}
+
+					class SetMessageData extends Precondition.HandlerPreConditionExpressionElement {
+						attr String field;
+						val HandlerPosConditionExpressionElement[1] value;
+					}
+
+					class SetMessageParameter extends HandlerPosConditionExpressionElement {
+						attr String field;
+						val HandlerPosConditionExpressionElement[1] value;
+					}
+
+					class HandlerPosConditionExpression {
+						val HandlerPosConditionExpressionElement[1] expression;
+					}
+
+				}
+
+				@namespace(uri="AUIML.Agent.HandlerMachine.HandlerState.Transition.Action", prefix="Action")
+				package Action {
+					abstract class HandlerActionExpressionElement {
+					}
+
+					class VariableReference extends HandlerActionExpressionElement {
+						ref StateMachine.State.Transition.Ruling.RuleLeftHandSide.MatchModel.MatchExpressions.MatchRegularExpressions.RegularAtribute[1] name;
+					}
+
+					class BinaryOperator extends HandlerActionExpressionElement {
+						attr String operator;
+						val HandlerActionExpressionElement[1] left;
+						val HandlerActionExpressionElement[1] right;
+					}
+
+					class UnaryOperator extends HandlerActionExpressionElement {
+						attr String operator;
+						val HandlerActionExpressionElement[1] expression;
+					}
+
+					class Literal extends HandlerActionExpressionElement {
+						attr String value;
+					}
+
+					class GetData extends HandlerActionExpressionElement {
+						attr String field = "name";
+						ref Data.AbsData[1] data;
+					}
+
+					class EnableRouting extends HandlerActionExpressionElement {
+						attr boolean value = true;
+						ref MessageDefinition.MessageDefinition type;
+					}
+
+					class Invocation extends HandlerActionExpressionElement {
+						ref MessageDefinition.MessageDefinition[1] type;
+						val HandlerActionExpressionElement[*] actualList;
+						attr boolean isTopDown;
+					}
+
+					class GetState extends HandlerActionExpressionElement {
+						ref StateMachine.StateMachine[1] state;
+					}
+
+					class GetMessageData extends HandlerActionExpressionElement {
+						attr String field;
+					}
+
+					class GetMessageParameter extends HandlerActionExpressionElement {
+						attr String field;
+					}
+
+					class HandlerActionExpression {
+						val HandlerActionExpressionElement[1] expression;
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+@namespace(uri="AUIML.MessageDefinition", prefix="MessageDefinition")
+package MessageDefinition {
+	class MessageDefinition {
+		attr String name;
+		val Data.Data[*] dataList;
+		val Data.Parameter[*] parameterList;
+	}
+
+}
+
+@namespace(uri="AUIML.Data", prefix="Data")
+package Data {
+	abstract class AbsData {
+		attr String name;
+		attr String type;
+		attr String initialValue;
+	}
+
+	class Parameter extends AbsData {
+	}
+
+	class Data extends AbsData {
+	}
+
+}
+

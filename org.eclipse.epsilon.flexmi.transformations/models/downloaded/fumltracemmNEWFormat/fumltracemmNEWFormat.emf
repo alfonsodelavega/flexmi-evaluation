@@ -1,0 +1,3210 @@
+@namespace(uri="umlTrace", prefix="umlTrace")
+package umlTrace;
+
+import "http://www.eclipse.org/uml2/5.0.0/UML";
+
+class Trace {
+	val State[*] statesTrace;
+	val Steps.Steps[1] steps;
+	val Traced.TracedObjects[1] tracedObjects;
+}
+
+class State {
+	ref Steps.SmallStep#precedingState followingStep;
+	ref Steps.BigStep[*]#startingState startedBigSteps;
+	ref Steps.BigStep[*]#endingState endedBigSteps;
+	!ordered ref Values.Object_types_Value[*]#states object_types_Values;
+	!ordered ref Values.Reference_referent_Value[*]#states reference_referent_Values;
+	!ordered ref Values.IntegerValue_value_IntegerValue_Value[*]#states integerValue_value_IntegerValue_Values;
+	!ordered ref Values.ForkedToken_remainingOffersCount_Value[*]#states forkedToken_remainingOffersCount_Values;
+	!ordered ref Values.ForkedToken_baseToken_Value[*]#states forkedToken_baseToken_Values;
+	!ordered ref Values.ForkedToken_baseTokenIsWithdrawn_Value[*]#states forkedToken_baseTokenIsWithdrawn_Values;
+	!ordered ref Values.ExecutionFactory_builtInTypes_Value[*]#states executionFactory_builtInTypes_Values;
+	!ordered ref Values.ExecutionFactory_primitiveBehaviorPrototypes_Value[*]#states executionFactory_primitiveBehaviorPrototypes_Values;
+	!ordered ref Values.ExecutionFactory_locus_ExecutionFactory_Value[*]#states executionFactory_locus_ExecutionFactory_Values;
+	!ordered ref Values.Locus_factory_Value[*]#states locus_factory_Values;
+	!ordered ref Values.Locus_extensionalValues_Value[*]#states locus_extensionalValues_Values;
+	!ordered ref Values.Locus_executor_Value[*]#states locus_executor_Values;
+	!ordered ref Values.ObjectNodeActivation_offeredTokenCount_Value[*]#states objectNodeActivation_offeredTokenCount_Values;
+	!ordered ref Values.SemanticVisitor_runtimeModelElement_Value[*]#states semanticVisitor_runtimeModelElement_Values;
+	!ordered ref Values.ParameterValue_values_ParameterValue_Value[*]#states parameterValue_values_ParameterValue_Values;
+	!ordered ref Values.ParameterValue_parameter_ParameterValue_Value[*]#states parameterValue_parameter_ParameterValue_Values;
+	!ordered ref Values.ActionActivation_pinActivations_Value[*]#states actionActivation_pinActivations_Values;
+	!ordered ref Values.ActionActivation_firing_Value[*]#states actionActivation_firing_Values;
+	!ordered ref Values.Execution_parameterValues_Value[*]#states execution_parameterValues_Values;
+	!ordered ref Values.Execution_context_Value[*]#states execution_context_Values;
+	!ordered ref Values.Element_semanticVisitor_Value[*]#states element_semanticVisitor_Values;
+	!ordered ref Values.ActivityNodeActivationGroup_nodeActivations_Value[*]#states activityNodeActivationGroup_nodeActivations_Values;
+	!ordered ref Values.ActivityNodeActivationGroup_activityExecution_Value[*]#states activityNodeActivationGroup_activityExecution_Values;
+	!ordered ref Values.ActivityNodeActivationGroup_edgeInstances_Value[*]#states activityNodeActivationGroup_edgeInstances_Values;
+	!ordered ref Values.Executor_locus_Executor_Value[*]#states executor_locus_Executor_Values;
+	!ordered ref Values.PrimitiveValue_type_Value[*]#states primitiveValue_type_Values;
+	!ordered ref Values.Evaluation_specification_Evaluation_Value[*]#states evaluation_specification_Evaluation_Values;
+	!ordered ref Values.Evaluation_locus_Evaluation_Value[*]#states evaluation_locus_Evaluation_Values;
+	!ordered ref Values.BooleanValue_value_BooleanValue_Value[*]#states booleanValue_value_BooleanValue_Values;
+	!ordered ref Values.ObjectToken_value_Value[*]#states objectToken_value_Values;
+	!ordered ref Values.CallActionActivation_callExecutions_Value[*]#states callActionActivation_callExecutions_Values;
+	!ordered ref Values.CompoundValue_featureValues_Value[*]#states compoundValue_featureValues_Values;
+	!ordered ref Values.Token_holder_Value[*]#states token_holder_Values;
+	!ordered ref Values.Offer_offeredTokens_Value[*]#states offer_offeredTokens_Values;
+	!ordered ref Values.FeatureValue_values_FeatureValue_Value[*]#states featureValue_values_FeatureValue_Values;
+	!ordered ref Values.FeatureValue_feature_Value[*]#states featureValue_feature_Values;
+	!ordered ref Values.FeatureValue_position_Value[*]#states featureValue_position_Values;
+	!ordered ref Values.PinActivation_actionActivation_Value[*]#states pinActivation_actionActivation_Values;
+	!ordered ref Values.PinActivation_count_temp_Value[*]#states pinActivation_count_temp_Values;
+	!ordered ref Values.ActivityEdgeInstance_group_ActivityEdgeInstance_Value[*]#states activityEdgeInstance_group_ActivityEdgeInstance_Values;
+	!ordered ref Values.ActivityEdgeInstance_offers_Value[*]#states activityEdgeInstance_offers_Values;
+	!ordered ref Values.ActivityEdgeInstance_target_Value[*]#states activityEdgeInstance_target_Values;
+	!ordered ref Values.ActivityEdgeInstance_edge_ActivityEdgeInstance_Value[*]#states activityEdgeInstance_edge_ActivityEdgeInstance_Values;
+	!ordered ref Values.ActivityEdgeInstance_source_Value[*]#states activityEdgeInstance_source_Values;
+	!ordered ref Values.InputParameterValues_name_Value[*]#states inputParameterValues_name_Values;
+	!ordered ref Values.InputParameterValues_parameterValues_Value[*]#states inputParameterValues_parameterValues_Values;
+	!ordered ref Values.ActivityNodeActivation_heldTokens_Value[*]#states activityNodeActivation_heldTokens_Values;
+	!ordered ref Values.ActivityNodeActivation_node_ActivityNodeActivation_Value[*]#states activityNodeActivation_node_ActivityNodeActivation_Values;
+	!ordered ref Values.ActivityNodeActivation_running_Value[*]#states activityNodeActivation_running_Values;
+	!ordered ref Values.ActivityNodeActivation_isRunning_Value[*]#states activityNodeActivation_isRunning_Values;
+	!ordered ref Values.ActivityNodeActivation_outgoingEdges_Value[*]#states activityNodeActivation_outgoingEdges_Values;
+	!ordered ref Values.ActivityNodeActivation_incomingEdges_Value[*]#states activityNodeActivation_incomingEdges_Values;
+	!ordered ref Values.ActivityNodeActivation_group_ActivityNodeActivation_Value[*]#states activityNodeActivation_group_ActivityNodeActivation_Values;
+	!ordered ref Values.ExtensionalValue_locus_ExtensionalValue_Value[*]#states extensionalValue_locus_ExtensionalValue_Values;
+	!ordered ref Values.ActivityExecution_activationGroup_Value[*]#states activityExecution_activationGroup_Values;
+	!ordered ref Values.ExecutionEnvironment_locus_ExecutionEnvironment_Value[*]#states executionEnvironment_locus_ExecutionEnvironment_Values;
+}
+
+@namespace(uri="umlTrace_Steps", prefix="events")
+package Steps {
+	abstract class SmallStep {
+		ref State[1]#followingStep precedingState;
+	}
+
+	class Steps {
+	}
+
+	abstract class BigStep {
+		ref State[1]#startedBigSteps startingState;
+		ref State#endedBigSteps endingState;
+	}
+
+}
+
+@namespace(uri="umlTrace_Values", prefix="states")
+package Values {
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Object/types")
+	class Object_types_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Object/types")
+		ref Traced.uml.TracedClass[*] types;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedObject[1]#typesTrace parent;
+		ref State[+]#object_types_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Reference/referent")
+	class Reference_referent_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Reference/referent")
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedObject[1] referent;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedReference[1]#referentTrace parent;
+		ref State[+]#reference_referent_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/IntegerValue/value_IntegerValue")
+	class IntegerValue_value_IntegerValue_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/IntegerValue/value_IntegerValue")
+		attr int[1] value_IntegerValue;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedIntegerValue[1]#value_IntegerValueTrace parent;
+		ref State[+]#integerValue_value_IntegerValue_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ForkedToken/remainingOffersCount")
+	class ForkedToken_remainingOffersCount_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ForkedToken/remainingOffersCount")
+		attr int[1] remainingOffersCount;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedForkedToken[1]#remainingOffersCountTrace parent;
+		ref State[+]#forkedToken_remainingOffersCount_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ForkedToken/baseToken")
+	class ForkedToken_baseToken_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ForkedToken/baseToken")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedToken[1] baseToken;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedForkedToken[1]#baseTokenTrace parent;
+		ref State[+]#forkedToken_baseToken_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ForkedToken/baseTokenIsWithdrawn")
+	class ForkedToken_baseTokenIsWithdrawn_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ForkedToken/baseTokenIsWithdrawn")
+		attr boolean[1] baseTokenIsWithdrawn;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedForkedToken[1]#baseTokenIsWithdrawnTrace parent;
+		ref State[+]#forkedToken_baseTokenIsWithdrawn_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/ExecutionFactory/builtInTypes")
+	class ExecutionFactory_builtInTypes_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/ExecutionFactory/builtInTypes")
+		ref Traced.uml.TracedPrimitiveType[*] builtInTypes;
+		ref Traced.fumlConfiguration.Loci.TracedExecutionFactory[1]#builtInTypesTrace parent;
+		ref State[+]#executionFactory_builtInTypes_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/ExecutionFactory/primitiveBehaviorPrototypes")
+	class ExecutionFactory_primitiveBehaviorPrototypes_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/ExecutionFactory/primitiveBehaviorPrototypes")
+		ref Traced.fumlConfiguration.CommonBehaviors.BasicBehaviors.TracedOpaqueBehaviorExecution[*] primitiveBehaviorPrototypes;
+		ref Traced.fumlConfiguration.Loci.TracedExecutionFactory[1]#primitiveBehaviorPrototypesTrace parent;
+		ref State[+]#executionFactory_primitiveBehaviorPrototypes_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/ExecutionFactory/locus_ExecutionFactory")
+	class ExecutionFactory_locus_ExecutionFactory_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/ExecutionFactory/locus_ExecutionFactory")
+		ref Traced.fumlConfiguration.Loci.TracedLocus locus_ExecutionFactory;
+		ref Traced.fumlConfiguration.Loci.TracedExecutionFactory[1]#locus_ExecutionFactoryTrace parent;
+		ref State[+]#executionFactory_locus_ExecutionFactory_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/Locus/factory")
+	class Locus_factory_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/Locus/factory")
+		ref Traced.fumlConfiguration.Loci.TracedExecutionFactory factory;
+		ref Traced.fumlConfiguration.Loci.TracedLocus[1]#factoryTrace parent;
+		ref State[+]#locus_factory_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/Locus/extensionalValues")
+	class Locus_extensionalValues_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/Locus/extensionalValues")
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedExtensionalValue[*] extensionalValues;
+		ref Traced.fumlConfiguration.Loci.TracedLocus[1]#extensionalValuesTrace parent;
+		ref State[+]#locus_extensionalValues_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/Locus/executor")
+	class Locus_executor_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/Locus/executor")
+		ref Traced.fumlConfiguration.Loci.TracedExecutor executor;
+		ref Traced.fumlConfiguration.Loci.TracedLocus[1]#executorTrace parent;
+		ref State[+]#locus_executor_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ObjectNodeActivation/offeredTokenCount")
+	class ObjectNodeActivation_offeredTokenCount_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ObjectNodeActivation/offeredTokenCount")
+		attr int[1] offeredTokenCount;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedObjectNodeActivation[1]#offeredTokenCountTrace parent;
+		ref State[+]#objectNodeActivation_offeredTokenCount_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/SemanticVisitor/runtimeModelElement")
+	class SemanticVisitor_runtimeModelElement_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/SemanticVisitor/runtimeModelElement")
+		ref Traced.uml.TracedElement runtimeModelElement;
+		ref Traced.fumlConfiguration.Loci.TracedSemanticVisitor[1]#runtimeModelElementTrace parent;
+		ref State[+]#semanticVisitor_runtimeModelElement_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//CommonBehaviors/BasicBehaviors/ParameterValue/values_ParameterValue")
+	class ParameterValue_values_ParameterValue_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//CommonBehaviors/BasicBehaviors/ParameterValue/values_ParameterValue")
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedValue[*] values_ParameterValue;
+		ref Traced.fumlConfiguration.CommonBehaviors.BasicBehaviors.TracedParameterValue[1]#values_ParameterValueTrace parent;
+		ref State[+]#parameterValue_values_ParameterValue_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//CommonBehaviors/BasicBehaviors/ParameterValue/parameter_ParameterValue")
+	class ParameterValue_parameter_ParameterValue_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//CommonBehaviors/BasicBehaviors/ParameterValue/parameter_ParameterValue")
+		ref Traced.uml.TracedParameter[1] parameter_ParameterValue;
+		ref Traced.fumlConfiguration.CommonBehaviors.BasicBehaviors.TracedParameterValue[1]#parameter_ParameterValueTrace parent;
+		ref State[+]#parameterValue_parameter_ParameterValue_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/ActionActivation/pinActivations")
+	class ActionActivation_pinActivations_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/ActionActivation/pinActivations")
+		ref Traced.fumlConfiguration.Actions.BasicActions.TracedPinActivation[*] pinActivations;
+		ref Traced.fumlConfiguration.Actions.BasicActions.TracedActionActivation[1]#pinActivationsTrace parent;
+		ref State[+]#actionActivation_pinActivations_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/ActionActivation/firing")
+	class ActionActivation_firing_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/ActionActivation/firing")
+		attr boolean[1] firing;
+		ref Traced.fumlConfiguration.Actions.BasicActions.TracedActionActivation[1]#firingTrace parent;
+		ref State[+]#actionActivation_firing_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//CommonBehaviors/BasicBehaviors/Execution/parameterValues")
+	class Execution_parameterValues_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//CommonBehaviors/BasicBehaviors/Execution/parameterValues")
+		ref Traced.fumlConfiguration.CommonBehaviors.BasicBehaviors.TracedParameterValue[*] parameterValues;
+		ref Traced.fumlConfiguration.CommonBehaviors.BasicBehaviors.TracedExecution[1]#parameterValuesTrace parent;
+		ref State[+]#execution_parameterValues_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//CommonBehaviors/BasicBehaviors/Execution/context")
+	class Execution_context_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//CommonBehaviors/BasicBehaviors/Execution/context")
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedObject[1] context;
+		ref Traced.fumlConfiguration.CommonBehaviors.BasicBehaviors.TracedExecution[1]#contextTrace parent;
+		ref State[+]#execution_context_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//ElementConfiguration/semanticVisitor")
+	class Element_semanticVisitor_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//ElementConfiguration/semanticVisitor")
+		ref Traced.fumlConfiguration.Loci.TracedSemanticVisitor[*] semanticVisitor;
+		ref Traced.uml.TracedElement[1]#semanticVisitorTrace parent;
+		ref State[+]#element_semanticVisitor_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivationGroup/nodeActivations")
+	class ActivityNodeActivationGroup_nodeActivations_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivationGroup/nodeActivations")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation[*] nodeActivations;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivationGroup[1]#nodeActivationsTrace parent;
+		ref State[+]#activityNodeActivationGroup_nodeActivations_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivationGroup/activityExecution")
+	class ActivityNodeActivationGroup_activityExecution_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivationGroup/activityExecution")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityExecution activityExecution;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivationGroup[1]#activityExecutionTrace parent;
+		ref State[+]#activityNodeActivationGroup_activityExecution_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivationGroup/edgeInstances")
+	class ActivityNodeActivationGroup_edgeInstances_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivationGroup/edgeInstances")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityEdgeInstance[*] edgeInstances;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivationGroup[1]#edgeInstancesTrace parent;
+		ref State[+]#activityNodeActivationGroup_edgeInstances_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/Executor/locus_Executor")
+	class Executor_locus_Executor_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/Executor/locus_Executor")
+		ref Traced.fumlConfiguration.Loci.TracedLocus locus_Executor;
+		ref Traced.fumlConfiguration.Loci.TracedExecutor[1]#locus_ExecutorTrace parent;
+		ref State[+]#executor_locus_Executor_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/PrimitiveValue/type")
+	class PrimitiveValue_type_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/PrimitiveValue/type")
+		ref Traced.uml.TracedPrimitiveType[1] type;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedPrimitiveValue[1]#typeTrace parent;
+		ref State[+]#primitiveValue_type_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Evaluation/specification_Evaluation")
+	class Evaluation_specification_Evaluation_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Evaluation/specification_Evaluation")
+		ref Traced.uml.TracedValueSpecification[1] specification_Evaluation;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedEvaluation[1]#specification_EvaluationTrace parent;
+		ref State[+]#evaluation_specification_Evaluation_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Evaluation/locus_Evaluation")
+	class Evaluation_locus_Evaluation_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Evaluation/locus_Evaluation")
+		ref Traced.fumlConfiguration.Loci.TracedLocus[1] locus_Evaluation;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedEvaluation[1]#locus_EvaluationTrace parent;
+		ref State[+]#evaluation_locus_Evaluation_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/BooleanValue/value_BooleanValue")
+	class BooleanValue_value_BooleanValue_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/BooleanValue/value_BooleanValue")
+		attr boolean[1] value_BooleanValue;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedBooleanValue[1]#value_BooleanValueTrace parent;
+		ref State[+]#booleanValue_value_BooleanValue_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ObjectToken/value")
+	class ObjectToken_value_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ObjectToken/value")
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedValue value;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedObjectToken[1]#valueTrace parent;
+		ref State[+]#objectToken_value_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/CallActionActivation/callExecutions")
+	class CallActionActivation_callExecutions_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/CallActionActivation/callExecutions")
+		ref Traced.fumlConfiguration.CommonBehaviors.BasicBehaviors.TracedExecution[*] callExecutions;
+		ref Traced.fumlConfiguration.Actions.BasicActions.TracedCallActionActivation[1]#callExecutionsTrace parent;
+		ref State[+]#callActionActivation_callExecutions_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/CompoundValue/featureValues")
+	class CompoundValue_featureValues_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/CompoundValue/featureValues")
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedFeatureValue[*] featureValues;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedCompoundValue[1]#featureValuesTrace parent;
+		ref State[+]#compoundValue_featureValues_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/Token/holder")
+	class Token_holder_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/Token/holder")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation holder;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedToken[1]#holderTrace parent;
+		ref State[+]#token_holder_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/Offer/offeredTokens")
+	class Offer_offeredTokens_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/Offer/offeredTokens")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedToken[*] offeredTokens;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedOffer[1]#offeredTokensTrace parent;
+		ref State[+]#offer_offeredTokens_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/FeatureValue/values_FeatureValue")
+	class FeatureValue_values_FeatureValue_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/FeatureValue/values_FeatureValue")
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedValue[*] values_FeatureValue;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedFeatureValue[1]#values_FeatureValueTrace parent;
+		ref State[+]#featureValue_values_FeatureValue_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/FeatureValue/feature")
+	class FeatureValue_feature_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/FeatureValue/feature")
+		ref Traced.uml.TracedStructuralFeature[1] feature;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedFeatureValue[1]#featureTrace parent;
+		ref State[+]#featureValue_feature_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/FeatureValue/position")
+	class FeatureValue_position_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/FeatureValue/position")
+		attr int position;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedFeatureValue[1]#positionTrace parent;
+		ref State[+]#featureValue_position_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/PinActivation/actionActivation")
+	class PinActivation_actionActivation_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/PinActivation/actionActivation")
+		ref Traced.fumlConfiguration.Actions.BasicActions.TracedActionActivation actionActivation;
+		ref Traced.fumlConfiguration.Actions.BasicActions.TracedPinActivation[1]#actionActivationTrace parent;
+		ref State[+]#pinActivation_actionActivation_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/PinActivation/count_temp")
+	class PinActivation_count_temp_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/PinActivation/count_temp")
+		attr int count_temp;
+		ref Traced.fumlConfiguration.Actions.BasicActions.TracedPinActivation[1]#count_tempTrace parent;
+		ref State[+]#pinActivation_count_temp_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityEdgeInstance/group_ActivityEdgeInstance")
+	class ActivityEdgeInstance_group_ActivityEdgeInstance_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityEdgeInstance/group_ActivityEdgeInstance")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivationGroup[1] group_ActivityEdgeInstance;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityEdgeInstance[1]#group_ActivityEdgeInstanceTrace parent;
+		ref State[+]#activityEdgeInstance_group_ActivityEdgeInstance_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityEdgeInstance/offers")
+	class ActivityEdgeInstance_offers_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityEdgeInstance/offers")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedOffer[*] offers;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityEdgeInstance[1]#offersTrace parent;
+		ref State[+]#activityEdgeInstance_offers_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityEdgeInstance/target")
+	class ActivityEdgeInstance_target_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityEdgeInstance/target")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation[1] target;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityEdgeInstance[1]#targetTrace parent;
+		ref State[+]#activityEdgeInstance_target_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityEdgeInstance/edge_ActivityEdgeInstance")
+	class ActivityEdgeInstance_edge_ActivityEdgeInstance_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityEdgeInstance/edge_ActivityEdgeInstance")
+		ref Traced.uml.TracedActivityEdge edge_ActivityEdgeInstance;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityEdgeInstance[1]#edge_ActivityEdgeInstanceTrace parent;
+		ref State[+]#activityEdgeInstance_edge_ActivityEdgeInstance_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityEdgeInstance/source")
+	class ActivityEdgeInstance_source_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityEdgeInstance/source")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation[1] source;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityEdgeInstance[1]#sourceTrace parent;
+		ref State[+]#activityEdgeInstance_source_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Input/InputParameterValues/name")
+	class InputParameterValues_name_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Input/InputParameterValues/name")
+		attr String name;
+		ref Traced.fumlConfiguration.Input.TracedInputParameterValues[1]#nameTrace parent;
+		ref State[+]#inputParameterValues_name_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Input/InputParameterValues/parameterValues")
+	class InputParameterValues_parameterValues_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Input/InputParameterValues/parameterValues")
+		ref Traced.fumlConfiguration.CommonBehaviors.BasicBehaviors.TracedParameterValue[*] parameterValues;
+		ref Traced.fumlConfiguration.Input.TracedInputParameterValues[1]#parameterValuesTrace parent;
+		ref State[+]#inputParameterValues_parameterValues_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/heldTokens")
+	class ActivityNodeActivation_heldTokens_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/heldTokens")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedToken[*] heldTokens;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation[1]#heldTokensTrace parent;
+		ref State[+]#activityNodeActivation_heldTokens_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/node_ActivityNodeActivation")
+	class ActivityNodeActivation_node_ActivityNodeActivation_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/node_ActivityNodeActivation")
+		ref Traced.uml.TracedActivityNode node_ActivityNodeActivation;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation[1]#node_ActivityNodeActivationTrace parent;
+		ref State[+]#activityNodeActivation_node_ActivityNodeActivation_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/running")
+	class ActivityNodeActivation_running_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/running")
+		attr boolean[1] running;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation[1]#runningTrace parent;
+		ref State[+]#activityNodeActivation_running_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/isRunning.1")
+	class ActivityNodeActivation_isRunning_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/isRunning.1")
+		attr boolean[1] isRunning;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation[1]#isRunningTrace parent;
+		ref State[+]#activityNodeActivation_isRunning_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/outgoingEdges")
+	class ActivityNodeActivation_outgoingEdges_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/outgoingEdges")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityEdgeInstance[*] outgoingEdges;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation[1]#outgoingEdgesTrace parent;
+		ref State[+]#activityNodeActivation_outgoingEdges_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/incomingEdges")
+	class ActivityNodeActivation_incomingEdges_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/incomingEdges")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityEdgeInstance[*] incomingEdges;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation[1]#incomingEdgesTrace parent;
+		ref State[+]#activityNodeActivation_incomingEdges_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/group_ActivityNodeActivation")
+	class ActivityNodeActivation_group_ActivityNodeActivation_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation/group_ActivityNodeActivation")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivationGroup group_ActivityNodeActivation;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation[1]#group_ActivityNodeActivationTrace parent;
+		ref State[+]#activityNodeActivation_group_ActivityNodeActivation_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/ExtensionalValue/locus_ExtensionalValue")
+	class ExtensionalValue_locus_ExtensionalValue_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/ExtensionalValue/locus_ExtensionalValue")
+		ref Traced.fumlConfiguration.Loci.TracedLocus locus_ExtensionalValue;
+		ref Traced.fumlConfiguration.Classes.Kernel.TracedExtensionalValue[1]#locus_ExtensionalValueTrace parent;
+		ref State[+]#extensionalValue_locus_ExtensionalValue_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityExecution/activationGroup")
+	class ActivityExecution_activationGroup_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityExecution/activationGroup")
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivationGroup[1] activationGroup;
+		ref Traced.fumlConfiguration.Activities.IntermediateActivities.TracedActivityExecution[1]#activationGroupTrace parent;
+		ref State[+]#activityExecution_activationGroup_Values states;
+	}
+
+	@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/ExecutionEnvironment/locus_ExecutionEnvironment")
+	class ExecutionEnvironment_locus_ExecutionEnvironment_Value {
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/ExecutionEnvironment/locus_ExecutionEnvironment")
+		ref Traced.fumlConfiguration.Loci.TracedLocus[1] locus_ExecutionEnvironment;
+		ref Traced.fumlConfiguration.Loci.TracedExecutionEnvironment[1]#locus_ExecutionEnvironmentTrace parent;
+		ref State[+]#executionEnvironment_locus_ExecutionEnvironment_Values states;
+	}
+
+}
+
+@namespace(uri="umlTrace_Traced", prefix="tracedclasses")
+package Traced {
+	class TracedObjects {
+		!ordered val fumlConfiguration.Classes.Kernel.TracedObject[*] kernel_tracedObjects;
+		!ordered val uml.TracedConnector[*] uml_tracedConnectors;
+		!ordered val uml.TracedOpaqueAction[*] uml_tracedOpaqueActions;
+		!ordered val uml.TracedDataType[*] uml_tracedDataTypes;
+		!ordered val uml.TracedCommunicationPath[*] uml_tracedCommunicationPaths;
+		!ordered val fumlConfiguration.Classes.Kernel.TracedReference[*] kernel_tracedReferences;
+		!ordered val uml.TracedProperty[*] uml_tracedPropertys;
+		!ordered val uml.TracedContinuation[*] uml_tracedContinuations;
+		!ordered val uml.TracedRemoveStructuralFeatureValueAction[*] uml_tracedRemoveStructuralFeatureValueActions;
+		!ordered val uml.TracedSendSignalAction[*] uml_tracedSendSignalActions;
+		!ordered val fumlConfiguration.Classes.Kernel.TracedIntegerValue[*] kernel_tracedIntegerValues;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedForkedToken[*] intermediateActivities_tracedForkedTokens;
+		!ordered val uml.TracedOpaqueBehavior[*] uml_tracedOpaqueBehaviors;
+		!ordered val fumlConfiguration.Loci.TracedExecutionFactory[*] loci_tracedExecutionFactorys;
+		!ordered val fumlConfiguration.Loci.TracedLocus[*] loci_tracedLocuss;
+		!ordered val uml.TracedArtifact[*] uml_tracedArtifacts;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedJoinNodeActivation[*] intermediateActivities_tracedJoinNodeActivations;
+		!ordered val uml.TracedTimeConstraint[*] uml_tracedTimeConstraints;
+		!ordered val uml.TracedInterfaceRealization[*] uml_tracedInterfaceRealizations;
+		!ordered val uml.TracedActivityFinalNode[*] uml_tracedActivityFinalNodes;
+		!ordered val uml.TracedDurationObservation[*] uml_tracedDurationObservations;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedInitialNodeActivation[*] intermediateActivities_tracedInitialNodeActivations;
+		!ordered val uml.TracedAcceptEventAction[*] uml_tracedAcceptEventActions;
+		!ordered val uml.TracedEnumerationLiteral[*] uml_tracedEnumerationLiterals;
+		!ordered val uml.TracedAddStructuralFeatureValueAction[*] uml_tracedAddStructuralFeatureValueActions;
+		!ordered val uml.TracedReadLinkAction[*] uml_tracedReadLinkActions;
+		!ordered val uml.TracedExpression[*] uml_tracedExpressions;
+		!ordered val uml.TracedConsiderIgnoreFragment[*] uml_tracedConsiderIgnoreFragments;
+		!ordered val uml.TracedDataStoreNode[*] uml_tracedDataStoreNodes;
+		!ordered val uml.TracedFlowFinalNode[*] uml_tracedFlowFinalNodes;
+		!ordered val uml.TracedInformationItem[*] uml_tracedInformationItems;
+		!ordered val uml.TracedCollaboration[*] uml_tracedCollaborations;
+		!ordered val uml.TracedTemplateSignature[*] uml_tracedTemplateSignatures;
+		!ordered val uml.TracedBroadcastSignalAction[*] uml_tracedBroadcastSignalActions;
+		!ordered val uml.TracedDeployment[*] uml_tracedDeployments;
+		!ordered val uml.TracedPort[*] uml_tracedPorts;
+		!ordered val uml.TracedTimeInterval[*] uml_tracedTimeIntervals;
+		!ordered val uml.TracedExtension[*] uml_tracedExtensions;
+		!ordered val fumlConfiguration.Loci.TracedSemanticVisitor[*] loci_tracedSemanticVisitors;
+		!ordered val uml.TracedTimeEvent[*] uml_tracedTimeEvents;
+		!ordered val fumlConfiguration.CommonBehaviors.BasicBehaviors.TracedParameterValue[*] basicBehaviors_tracedParameterValues;
+		!ordered val uml.TracedProtocolTransition[*] uml_tracedProtocolTransitions;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedActivityFinalNodeActivation[*] intermediateActivities_tracedActivityFinalNodeActivations;
+		!ordered val uml.TracedPackage[*] uml_tracedPackages;
+		!ordered val uml.TracedConstraint[*] uml_tracedConstraints;
+		!ordered val uml.TracedGeneralizationSet[*] uml_tracedGeneralizationSets;
+		!ordered val uml.TracedReduceAction[*] uml_tracedReduceActions;
+		!ordered val uml.TracedInputPin[*] uml_tracedInputPins;
+		!ordered val uml.TracedSequenceNode[*] uml_tracedSequenceNodes;
+		!ordered val uml.TracedInteractionConstraint[*] uml_tracedInteractionConstraints;
+		!ordered val uml.TracedComponentRealization[*] uml_tracedComponentRealizations;
+		!ordered val uml.TracedAssociationClass[*] uml_tracedAssociationClasss;
+		!ordered val uml.TracedSlot[*] uml_tracedSlots;
+		!ordered val uml.TracedSignalEvent[*] uml_tracedSignalEvents;
+		!ordered val uml.TracedExtensionPoint[*] uml_tracedExtensionPoints;
+		!ordered val uml.TracedJoinNode[*] uml_tracedJoinNodes;
+		!ordered val fumlConfiguration.Actions.BasicActions.TracedOutputPinActivation[*] basicActions_tracedOutputPinActivations;
+		!ordered val uml.TracedStartObjectBehaviorAction[*] uml_tracedStartObjectBehaviorActions;
+		!ordered val uml.TracedElementImport[*] uml_tracedElementImports;
+		!ordered val uml.TracedCreateObjectAction[*] uml_tracedCreateObjectActions;
+		!ordered val uml.TracedExecutionEnvironment[*] uml_tracedExecutionEnvironments;
+		!ordered val uml.TracedOccurrenceSpecification[*] uml_tracedOccurrenceSpecifications;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivationGroup[*] intermediateActivities_tracedActivityNodeActivationGroups;
+		!ordered val fumlConfiguration.Actions.IntermediateActions.TracedValueSpecificationActionActivation[*] intermediateActions_tracedValueSpecificationActionActivations;
+		!ordered val uml.TracedStringExpression[*] uml_tracedStringExpressions;
+		!ordered val fumlConfiguration.Loci.TracedExecutor[*] loci_tracedExecutors;
+		!ordered val fumlConfiguration.Actions.IntermediateActions.TracedReadStructuralFeatureActionActivation[*] intermediateActions_tracedReadStructuralFeatureActionActivations;
+		!ordered val uml.TracedStereotype[*] uml_tracedStereotypes;
+		!ordered val uml.TracedInterface[*] uml_tracedInterfaces;
+		!ordered val uml.TracedConditionalNode[*] uml_tracedConditionalNodes;
+		!ordered val uml.TracedReadLinkObjectEndAction[*] uml_tracedReadLinkObjectEndActions;
+		!ordered val uml.TracedAnyReceiveEvent[*] uml_tracedAnyReceiveEvents;
+		!ordered val uml.TracedComponent[*] uml_tracedComponents;
+		!ordered val uml.TracedExtensionEnd[*] uml_tracedExtensionEnds;
+		!ordered val uml.TracedStateMachine[*] uml_tracedStateMachines;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedMergeNodeActivation[*] intermediateActivities_tracedMergeNodeActivations;
+		!ordered val uml.TracedInteraction[*] uml_tracedInteractions;
+		!ordered val uml.TracedLiteralString[*] uml_tracedLiteralStrings;
+		!ordered val uml.TracedRealization[*] uml_tracedRealizations;
+		!ordered val uml.TracedStartClassifierBehaviorAction[*] uml_tracedStartClassifierBehaviorActions;
+		!ordered val uml.TracedCallEvent[*] uml_tracedCallEvents;
+		!ordered val uml.TracedConnectableElementTemplateParameter[*] uml_tracedConnectableElementTemplateParameters;
+		!ordered val uml.TracedSendObjectAction[*] uml_tracedSendObjectActions;
+		!ordered val uml.TracedLifeline[*] uml_tracedLifelines;
+		!ordered val uml.TracedTimeObservation[*] uml_tracedTimeObservations;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedControlToken[*] intermediateActivities_tracedControlTokens;
+		!ordered val uml.TracedCreateLinkObjectAction[*] uml_tracedCreateLinkObjectActions;
+		!ordered val uml.TracedExpansionRegion[*] uml_tracedExpansionRegions;
+		!ordered val fumlConfiguration.Classes.Kernel.TracedBooleanValue[*] kernel_tracedBooleanValues;
+		!ordered val uml.TracedLoopNode[*] uml_tracedLoopNodes;
+		!ordered val uml.TracedPrimitiveType[*] uml_tracedPrimitiveTypes;
+		!ordered val uml.TracedProtocolConformance[*] uml_tracedProtocolConformances;
+		!ordered val uml.TracedEnumeration[*] uml_tracedEnumerations;
+		!ordered val uml.TracedCollaborationUse[*] uml_tracedCollaborationUses;
+		!ordered val uml.TracedActivityPartition[*] uml_tracedActivityPartitions;
+		!ordered val uml.TracedLinkEndDestructionData[*] uml_tracedLinkEndDestructionDatas;
+		!ordered val uml.TracedDurationInterval[*] uml_tracedDurationIntervals;
+		!ordered val uml.TracedInclude[*] uml_tracedIncludes;
+		!ordered val uml.TracedDestructionOccurrenceSpecification[*] uml_tracedDestructionOccurrenceSpecifications;
+		!ordered val uml.TracedState[*] uml_tracedStates;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedObjectToken[*] intermediateActivities_tracedObjectTokens;
+		!ordered val fumlConfiguration.Actions.BasicActions.TracedCallBehaviorActionActivation[*] basicActions_tracedCallBehaviorActionActivations;
+		!ordered val fumlConfiguration.Actions.IntermediateActions.TracedAddStructuralFeatureValueActionActivation[*] intermediateActions_tracedAddStructuralFeatureValueActionActivations;
+		!ordered val uml.TracedClassifierTemplateParameter[*] uml_tracedClassifierTemplateParameters;
+		!ordered val uml.TracedActivityParameterNode[*] uml_tracedActivityParameterNodes;
+		!ordered val fumlConfiguration.PrimitiveBehaviors.IntegerFunctions.TracedIntegerLessFunctionBehaviorExecution[*] integerFunctions_tracedIntegerLessFunctionBehaviorExecutions;
+		!ordered val uml.TracedParameterSet[*] uml_tracedParameterSets;
+		!ordered val uml.TracedDuration[*] uml_tracedDurations;
+		!ordered val uml.TracedClass[*] uml_tracedClasss;
+		!ordered val uml.TracedUsage[*] uml_tracedUsages;
+		!ordered val uml.TracedLiteralUnlimitedNatural[*] uml_tracedLiteralUnlimitedNaturals;
+		!ordered val uml.TracedStructuredActivityNode[*] uml_tracedStructuredActivityNodes;
+		!ordered val uml.TracedAbstraction[*] uml_tracedAbstractions;
+		!ordered val fumlConfiguration.Actions.BasicActions.TracedOpaqueActionActivation[*] basicActions_tracedOpaqueActionActivations;
+		!ordered val fumlConfiguration.Classes.Kernel.TracedLiteralBooleanEvaluation[*] kernel_tracedLiteralBooleanEvaluations;
+		!ordered val uml.TracedReadStructuralFeatureAction[*] uml_tracedReadStructuralFeatureActions;
+		!ordered val uml.TracedMergeNode[*] uml_tracedMergeNodes;
+		!ordered val uml.TracedRedefinableTemplateSignature[*] uml_tracedRedefinableTemplateSignatures;
+		!ordered val uml.TracedCreateLinkAction[*] uml_tracedCreateLinkActions;
+		!ordered val uml.TracedGeneralization[*] uml_tracedGeneralizations;
+		!ordered val uml.TracedPartDecomposition[*] uml_tracedPartDecompositions;
+		!ordered val uml.TracedOperationTemplateParameter[*] uml_tracedOperationTemplateParameters;
+		!ordered val uml.TracedReadLinkObjectEndQualifierAction[*] uml_tracedReadLinkObjectEndQualifierActions;
+		!ordered val uml.TracedTemplateParameterSubstitution[*] uml_tracedTemplateParameterSubstitutions;
+		!ordered val uml.TracedExtend[*] uml_tracedExtends;
+		!ordered val uml.TracedReadVariableAction[*] uml_tracedReadVariableActions;
+		!ordered val uml.TracedMessage[*] uml_tracedMessages;
+		!ordered val uml.TracedLiteralBoolean[*] uml_tracedLiteralBooleans;
+		!ordered val uml.TracedQualifierValue[*] uml_tracedQualifierValues;
+		!ordered val uml.TracedInitialNode[*] uml_tracedInitialNodes;
+		!ordered val uml.TracedLiteralInteger[*] uml_tracedLiteralIntegers;
+		!ordered val uml.TracedClearVariableAction[*] uml_tracedClearVariableActions;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedDecisionNodeActivation[*] intermediateActivities_tracedDecisionNodeActivations;
+		!ordered val uml.TracedProfileApplication[*] uml_tracedProfileApplications;
+		!ordered val uml.TracedTemplateParameter[*] uml_tracedTemplateParameters;
+		!ordered val uml.TracedConnectorEnd[*] uml_tracedConnectorEnds;
+		!ordered val uml.TracedMessageOccurrenceSpecification[*] uml_tracedMessageOccurrenceSpecifications;
+		!ordered val uml.TracedDurationConstraint[*] uml_tracedDurationConstraints;
+		!ordered val uml.TracedImage[*] uml_tracedImages;
+		!ordered val uml.TracedParameter[*] uml_tracedParameters;
+		!ordered val uml.TracedActionInputPin[*] uml_tracedActionInputPins;
+		!ordered val uml.TracedTrigger[*] uml_tracedTriggers;
+		!ordered val uml.TracedCallOperationAction[*] uml_tracedCallOperationActions;
+		!ordered val uml.TracedProfile[*] uml_tracedProfiles;
+		!ordered val uml.TracedInterval[*] uml_tracedIntervals;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedForkNodeActivation[*] intermediateActivities_tracedForkNodeActivations;
+		!ordered val uml.TracedIntervalConstraint[*] uml_tracedIntervalConstraints;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedToken[*] intermediateActivities_tracedTokens;
+		!ordered val uml.TracedInstanceSpecification[*] uml_tracedInstanceSpecifications;
+		!ordered val uml.TracedValuePin[*] uml_tracedValuePins;
+		!ordered val fumlConfiguration.PrimitiveBehaviors.IntegerFunctions.TracedIntegerGreaterFunctionBehaviorExecution[*] integerFunctions_tracedIntegerGreaterFunctionBehaviorExecutions;
+		!ordered val uml.TracedReadIsClassifiedObjectAction[*] uml_tracedReadIsClassifiedObjectActions;
+		!ordered val uml.TracedProtocolStateMachine[*] uml_tracedProtocolStateMachines;
+		!ordered val uml.TracedOutputPin[*] uml_tracedOutputPins;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedOffer[*] intermediateActivities_tracedOffers;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedActivityParameterNodeActivation[*] intermediateActivities_tracedActivityParameterNodeActivations;
+		!ordered val uml.TracedDecisionNode[*] uml_tracedDecisionNodes;
+		!ordered val uml.TracedValueSpecificationAction[*] uml_tracedValueSpecificationActions;
+		!ordered val uml.TracedRegion[*] uml_tracedRegions;
+		!ordered val uml.TracedInterruptibleActivityRegion[*] uml_tracedInterruptibleActivityRegions;
+		!ordered val uml.TracedDestroyLinkAction[*] uml_tracedDestroyLinkActions;
+		!ordered val uml.TracedFinalState[*] uml_tracedFinalStates;
+		!ordered val fumlConfiguration.PrimitiveBehaviors.IntegerFunctions.TracedIntegerPlusFunctionBehaviorExecution[*] integerFunctions_tracedIntegerPlusFunctionBehaviorExecutions;
+		!ordered val uml.TracedInteractionOperand[*] uml_tracedInteractionOperands;
+		!ordered val uml.TracedInformationFlow[*] uml_tracedInformationFlows;
+		!ordered val uml.TracedPseudostate[*] uml_tracedPseudostates;
+		!ordered val uml.TracedUseCase[*] uml_tracedUseCases;
+		!ordered val uml.TracedReplyAction[*] uml_tracedReplyActions;
+		!ordered val fumlConfiguration.Actions.IntermediateActions.TracedCreateObjectActionActivation[*] intermediateActions_tracedCreateObjectActionActivations;
+		!ordered val uml.TracedCombinedFragment[*] uml_tracedCombinedFragments;
+		!ordered val uml.TracedClause[*] uml_tracedClauses;
+		!ordered val uml.TracedInstanceValue[*] uml_tracedInstanceValues;
+		!ordered val uml.TracedDependency[*] uml_tracedDependencys;
+		!ordered val uml.TracedTimeExpression[*] uml_tracedTimeExpressions;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedActivityEdgeInstance[*] intermediateActivities_tracedActivityEdgeInstances;
+		!ordered val uml.TracedManifestation[*] uml_tracedManifestations;
+		!ordered val uml.TracedReadExtentAction[*] uml_tracedReadExtentActions;
+		!ordered val fumlConfiguration.Actions.BasicActions.TracedInputPinActivation[*] basicActions_tracedInputPinActivations;
+		!ordered val uml.TracedTransition[*] uml_tracedTransitions;
+		!ordered val uml.TracedLinkEndData[*] uml_tracedLinkEndDatas;
+		!ordered val fumlConfiguration.Input.TracedInputParameterValues[*] input_tracedInputParameterValuess;
+		!ordered val uml.TracedNode[*] uml_tracedNodes;
+		!ordered val uml.TracedPackageMerge[*] uml_tracedPackageMerges;
+		!ordered val uml.TracedModel[*] uml_tracedModels;
+		!ordered val uml.TracedObjectFlow[*] uml_tracedObjectFlows;
+		!ordered val uml.TracedChangeEvent[*] uml_tracedChangeEvents;
+		!ordered val uml.TracedDestroyObjectAction[*] uml_tracedDestroyObjectActions;
+		!ordered val uml.TracedForkNode[*] uml_tracedForkNodes;
+		!ordered val uml.TracedSignal[*] uml_tracedSignals;
+		!ordered val uml.TracedComment[*] uml_tracedComments;
+		!ordered val uml.TracedLiteralNull[*] uml_tracedLiteralNulls;
+		!ordered val uml.TracedExpansionNode[*] uml_tracedExpansionNodes;
+		!ordered val uml.TracedReception[*] uml_tracedReceptions;
+		!ordered val uml.TracedRaiseExceptionAction[*] uml_tracedRaiseExceptionActions;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedActivityNodeActivation[*] intermediateActivities_tracedActivityNodeActivations;
+		!ordered val uml.TracedAddVariableValueAction[*] uml_tracedAddVariableValueActions;
+		!ordered val uml.TracedClearAssociationAction[*] uml_tracedClearAssociationActions;
+		!ordered val uml.TracedTestIdentityAction[*] uml_tracedTestIdentityActions;
+		!ordered val uml.TracedControlFlow[*] uml_tracedControlFlows;
+		!ordered val uml.TracedOperation[*] uml_tracedOperations;
+		!ordered val uml.TracedPackageImport[*] uml_tracedPackageImports;
+		!ordered val uml.TracedExecutionOccurrenceSpecification[*] uml_tracedExecutionOccurrenceSpecifications;
+		!ordered val uml.TracedExceptionHandler[*] uml_tracedExceptionHandlers;
+		!ordered val uml.TracedVariable[*] uml_tracedVariables;
+		!ordered val uml.TracedInteractionUse[*] uml_tracedInteractionUses;
+		!ordered val uml.TracedAssociation[*] uml_tracedAssociations;
+		!ordered val uml.TracedStateInvariant[*] uml_tracedStateInvariants;
+		!ordered val uml.TracedLiteralReal[*] uml_tracedLiteralReals;
+		!ordered val uml.TracedRemoveVariableValueAction[*] uml_tracedRemoveVariableValueActions;
+		!ordered val uml.TracedDevice[*] uml_tracedDevices;
+		!ordered val uml.TracedSubstitution[*] uml_tracedSubstitutions;
+		!ordered val uml.TracedGate[*] uml_tracedGates;
+		!ordered val uml.TracedGeneralOrdering[*] uml_tracedGeneralOrderings;
+		!ordered val uml.TracedCallBehaviorAction[*] uml_tracedCallBehaviorActions;
+		!ordered val uml.TracedReclassifyObjectAction[*] uml_tracedReclassifyObjectActions;
+		!ordered val uml.TracedActivity[*] uml_tracedActivitys;
+		!ordered val uml.TracedConnectionPointReference[*] uml_tracedConnectionPointReferences;
+		!ordered val uml.TracedActionExecutionSpecification[*] uml_tracedActionExecutionSpecifications;
+		!ordered val uml.TracedReadSelfAction[*] uml_tracedReadSelfActions;
+		!ordered val uml.TracedAcceptCallAction[*] uml_tracedAcceptCallActions;
+		!ordered val uml.TracedLinkEndCreationData[*] uml_tracedLinkEndCreationDatas;
+		!ordered val fumlConfiguration.Activities.IntermediateActivities.TracedActivityExecution[*] intermediateActivities_tracedActivityExecutions;
+		!ordered val uml.TracedTemplateBinding[*] uml_tracedTemplateBindings;
+		!ordered val uml.TracedClearStructuralFeatureAction[*] uml_tracedClearStructuralFeatureActions;
+		!ordered val fumlConfiguration.Loci.TracedExecutionEnvironment[*] loci_tracedExecutionEnvironments;
+		!ordered val fumlConfiguration.Classes.Kernel.TracedLiteralIntegerEvaluation[*] kernel_tracedLiteralIntegerEvaluations;
+		!ordered val uml.TracedOpaqueExpression[*] uml_tracedOpaqueExpressions;
+		!ordered val uml.TracedFunctionBehavior[*] uml_tracedFunctionBehaviors;
+		!ordered val uml.TracedDeploymentSpecification[*] uml_tracedDeploymentSpecifications;
+		!ordered val uml.TracedActor[*] uml_tracedActors;
+		!ordered val uml.TracedBehaviorExecutionSpecification[*] uml_tracedBehaviorExecutionSpecifications;
+		!ordered val uml.TracedUnmarshallAction[*] uml_tracedUnmarshallActions;
+		!ordered val uml.TracedCentralBufferNode[*] uml_tracedCentralBufferNodes;
+	}
+
+	@namespace(uri="umlTrace_fumlConfiguration", prefix="")
+	package fumlConfiguration {
+		@namespace(uri="umlTrace_Classes", prefix="")
+		package Classes {
+			@namespace(uri="umlTrace_Kernel", prefix="")
+			package Kernel {
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Object")
+				class TracedObject extends TracedExtensionalValue {
+					val Values.Object_types_Value[*]#parent typesTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Reference")
+				class TracedReference extends TracedStructuredValue {
+					val Values.Reference_referent_Value[*]#parent referentTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/IntegerValue")
+				class TracedIntegerValue extends TracedPrimitiveValue {
+					val Values.IntegerValue_value_IntegerValue_Value[*]#parent value_IntegerValueTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/LiteralEvaluation")
+				abstract class TracedLiteralEvaluation extends TracedEvaluation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Value")
+				abstract class TracedValue extends Loci.TracedSemanticVisitor {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/PrimitiveValue")
+				abstract class TracedPrimitiveValue extends TracedValue {
+					val Values.PrimitiveValue_type_Value[*]#parent typeTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/Evaluation")
+				abstract class TracedEvaluation extends Loci.TracedSemanticVisitor {
+					val Values.Evaluation_specification_Evaluation_Value[*]#parent specification_EvaluationTrace;
+					val Values.Evaluation_locus_Evaluation_Value[*]#parent locus_EvaluationTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/BooleanValue")
+				class TracedBooleanValue extends TracedPrimitiveValue {
+					val Values.BooleanValue_value_BooleanValue_Value[*]#parent value_BooleanValueTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/LiteralBooleanEvaluation")
+				class TracedLiteralBooleanEvaluation extends TracedLiteralEvaluation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/StructuredValue")
+				abstract class TracedStructuredValue extends TracedValue {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/CompoundValue")
+				abstract class TracedCompoundValue extends TracedStructuredValue {
+					val Values.CompoundValue_featureValues_Value[*]#parent featureValuesTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/FeatureValue")
+				abstract class TracedFeatureValue {
+					val Values.FeatureValue_values_FeatureValue_Value[*]#parent values_FeatureValueTrace;
+					val Values.FeatureValue_feature_Value[*]#parent featureTrace;
+					val Values.FeatureValue_position_Value[*]#parent positionTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/ExtensionalValue")
+				abstract class TracedExtensionalValue extends TracedCompoundValue {
+					val Values.ExtensionalValue_locus_ExtensionalValue_Value[*]#parent locus_ExtensionalValueTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Classes/Kernel/LiteralIntegerEvaluation")
+				class TracedLiteralIntegerEvaluation extends TracedLiteralEvaluation {
+				}
+
+			}
+
+		}
+
+		@namespace(uri="umlTrace_CommonBehaviors", prefix="")
+		package CommonBehaviors {
+			@namespace(uri="umlTrace_BasicBehaviors", prefix="")
+			package BasicBehaviors {
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//CommonBehaviors/BasicBehaviors/OpaqueBehaviorExecution")
+				abstract class TracedOpaqueBehaviorExecution extends TracedExecution {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//CommonBehaviors/BasicBehaviors/ParameterValue")
+				class TracedParameterValue {
+					val Values.ParameterValue_values_ParameterValue_Value[*]#parent values_ParameterValueTrace;
+					val Values.ParameterValue_parameter_ParameterValue_Value[*]#parent parameter_ParameterValueTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//CommonBehaviors/BasicBehaviors/Execution")
+				abstract class TracedExecution extends Classes.Kernel.TracedObject {
+					val Values.Execution_parameterValues_Value[*]#parent parameterValuesTrace;
+					val Values.Execution_context_Value[*]#parent contextTrace;
+				}
+
+			}
+
+		}
+
+		@namespace(uri="umlTrace_Activities", prefix="")
+		package Activities {
+			@namespace(uri="umlTrace_IntermediateActivities", prefix="")
+			package IntermediateActivities {
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ForkedToken")
+				class TracedForkedToken extends TracedToken {
+					val Values.ForkedToken_remainingOffersCount_Value[*]#parent remainingOffersCountTrace;
+					val Values.ForkedToken_baseToken_Value[*]#parent baseTokenTrace;
+					val Values.ForkedToken_baseTokenIsWithdrawn_Value[*]#parent baseTokenIsWithdrawnTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/JoinNodeActivation")
+				class TracedJoinNodeActivation extends TracedControlNodeActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/InitialNodeActivation")
+				class TracedInitialNodeActivation extends TracedControlNodeActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ObjectNodeActivation")
+				abstract class TracedObjectNodeActivation extends TracedActivityNodeActivation {
+					val Values.ObjectNodeActivation_offeredTokenCount_Value[*]#parent offeredTokenCountTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityFinalNodeActivation")
+				class TracedActivityFinalNodeActivation extends TracedControlNodeActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivationGroup")
+				class TracedActivityNodeActivationGroup {
+					val Values.ActivityNodeActivationGroup_nodeActivations_Value[*]#parent nodeActivationsTrace;
+					val Values.ActivityNodeActivationGroup_activityExecution_Value[*]#parent activityExecutionTrace;
+					val Values.ActivityNodeActivationGroup_edgeInstances_Value[*]#parent edgeInstancesTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/MergeNodeActivation")
+				class TracedMergeNodeActivation extends TracedControlNodeActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ControlToken")
+				class TracedControlToken extends TracedToken {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ObjectToken")
+				class TracedObjectToken extends TracedToken {
+					val Values.ObjectToken_value_Value[*]#parent valueTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/DecisionNodeActivation")
+				class TracedDecisionNodeActivation extends TracedControlNodeActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ForkNodeActivation")
+				class TracedForkNodeActivation extends TracedControlNodeActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/Token")
+				class TracedToken {
+					val Values.Token_holder_Value[*]#parent holderTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/Offer")
+				class TracedOffer {
+					val Values.Offer_offeredTokens_Value[*]#parent offeredTokensTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityParameterNodeActivation")
+				class TracedActivityParameterNodeActivation extends TracedObjectNodeActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityEdgeInstance")
+				class TracedActivityEdgeInstance {
+					val Values.ActivityEdgeInstance_group_ActivityEdgeInstance_Value[*]#parent group_ActivityEdgeInstanceTrace;
+					val Values.ActivityEdgeInstance_offers_Value[*]#parent offersTrace;
+					val Values.ActivityEdgeInstance_target_Value[*]#parent targetTrace;
+					val Values.ActivityEdgeInstance_edge_ActivityEdgeInstance_Value[*]#parent edge_ActivityEdgeInstanceTrace;
+					val Values.ActivityEdgeInstance_source_Value[*]#parent sourceTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityNodeActivation")
+				class TracedActivityNodeActivation extends Loci.TracedSemanticVisitor {
+					val Values.ActivityNodeActivation_heldTokens_Value[*]#parent heldTokensTrace;
+					val Values.ActivityNodeActivation_node_ActivityNodeActivation_Value[*]#parent node_ActivityNodeActivationTrace;
+					val Values.ActivityNodeActivation_running_Value[*]#parent runningTrace;
+					val Values.ActivityNodeActivation_isRunning_Value[*]#parent isRunningTrace;
+					val Values.ActivityNodeActivation_outgoingEdges_Value[*]#parent outgoingEdgesTrace;
+					val Values.ActivityNodeActivation_incomingEdges_Value[*]#parent incomingEdgesTrace;
+					val Values.ActivityNodeActivation_group_ActivityNodeActivation_Value[*]#parent group_ActivityNodeActivationTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ControlNodeActivation")
+				abstract class TracedControlNodeActivation extends TracedActivityNodeActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Activities/IntermediateActivities/ActivityExecution")
+				class TracedActivityExecution extends CommonBehaviors.BasicBehaviors.TracedExecution {
+					val Values.ActivityExecution_activationGroup_Value[*]#parent activationGroupTrace;
+				}
+
+			}
+
+		}
+
+		@namespace(uri="umlTrace_Loci", prefix="")
+		package Loci {
+			@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/ExecutionFactory")
+			class TracedExecutionFactory {
+				val Values.ExecutionFactory_builtInTypes_Value[*]#parent builtInTypesTrace;
+				val Values.ExecutionFactory_primitiveBehaviorPrototypes_Value[*]#parent primitiveBehaviorPrototypesTrace;
+				val Values.ExecutionFactory_locus_ExecutionFactory_Value[*]#parent locus_ExecutionFactoryTrace;
+			}
+
+			@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/Locus")
+			class TracedLocus {
+				val Values.Locus_factory_Value[*]#parent factoryTrace;
+				val Values.Locus_extensionalValues_Value[*]#parent extensionalValuesTrace;
+				val Values.Locus_executor_Value[*]#parent executorTrace;
+			}
+
+			@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/SemanticVisitor")
+			class TracedSemanticVisitor {
+				val Values.SemanticVisitor_runtimeModelElement_Value[*]#parent runtimeModelElementTrace;
+			}
+
+			@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/Executor")
+			class TracedExecutor {
+				val Values.Executor_locus_Executor_Value[*]#parent locus_ExecutorTrace;
+			}
+
+			@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Loci/ExecutionEnvironment")
+			class TracedExecutionEnvironment {
+				val Values.ExecutionEnvironment_locus_ExecutionEnvironment_Value[*]#parent locus_ExecutionEnvironmentTrace;
+			}
+
+		}
+
+		@namespace(uri="umlTrace_Actions", prefix="")
+		package Actions {
+			@namespace(uri="umlTrace_IntermediateActions", prefix="")
+			package IntermediateActions {
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/IntermediateActions/StructuralFeatureActionActivation")
+				abstract class TracedStructuralFeatureActionActivation extends BasicActions.TracedActionActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/IntermediateActions/ValueSpecificationActionActivation")
+				class TracedValueSpecificationActionActivation extends BasicActions.TracedActionActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation")
+				class TracedReadStructuralFeatureActionActivation extends TracedStructuralFeatureActionActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation")
+				class TracedAddStructuralFeatureValueActionActivation extends TracedWriteStructuralFeatureActionActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/IntermediateActions/CreateObjectActionActivation")
+				class TracedCreateObjectActionActivation extends BasicActions.TracedActionActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/IntermediateActions/WriteStructuralFeatureActionActivation")
+				abstract class TracedWriteStructuralFeatureActionActivation extends TracedStructuralFeatureActionActivation {
+				}
+
+			}
+
+			@namespace(uri="umlTrace_BasicActions", prefix="")
+			package BasicActions {
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/ActionActivation")
+				abstract class TracedActionActivation extends Activities.IntermediateActivities.TracedActivityNodeActivation {
+					val Values.ActionActivation_pinActivations_Value[*]#parent pinActivationsTrace;
+					val Values.ActionActivation_firing_Value[*]#parent firingTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/OutputPinActivation")
+				class TracedOutputPinActivation extends TracedPinActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/CallBehaviorActionActivation")
+				class TracedCallBehaviorActionActivation extends TracedCallActionActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/OpaqueActionActivation")
+				class TracedOpaqueActionActivation extends TracedActionActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/CallActionActivation")
+				abstract class TracedCallActionActivation extends TracedInvocationActionActivation {
+					val Values.CallActionActivation_callExecutions_Value[*]#parent callExecutionsTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/PinActivation")
+				abstract class TracedPinActivation extends Activities.IntermediateActivities.TracedObjectNodeActivation {
+					val Values.PinActivation_actionActivation_Value[*]#parent actionActivationTrace;
+					val Values.PinActivation_count_temp_Value[*]#parent count_tempTrace;
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/InputPinActivation")
+				class TracedInputPinActivation extends TracedPinActivation {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Actions/BasicActions/InvocationActionActivation")
+				abstract class TracedInvocationActionActivation extends TracedActionActivation {
+				}
+
+			}
+
+		}
+
+		@namespace(uri="umlTrace_PrimitiveBehaviors", prefix="")
+		package PrimitiveBehaviors {
+			@namespace(uri="umlTrace_IntegerFunctions", prefix="")
+			package IntegerFunctions {
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution")
+				class TracedIntegerLessFunctionBehaviorExecution extends CommonBehaviors.BasicBehaviors.TracedOpaqueBehaviorExecution {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//PrimitiveBehaviors/IntegerFunctions/IntegerGreaterFunctionBehaviorExecution")
+				class TracedIntegerGreaterFunctionBehaviorExecution extends CommonBehaviors.BasicBehaviors.TracedOpaqueBehaviorExecution {
+				}
+
+				@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//PrimitiveBehaviors/IntegerFunctions/IntegerPlusFunctionBehaviorExecution")
+				class TracedIntegerPlusFunctionBehaviorExecution extends CommonBehaviors.BasicBehaviors.TracedOpaqueBehaviorExecution {
+				}
+
+			}
+
+		}
+
+		@namespace(uri="umlTrace_Input", prefix="")
+		package Input {
+			@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//Input/InputParameterValues")
+			class TracedInputParameterValues {
+				val Values.InputParameterValues_name_Value[*]#parent nameTrace;
+				val Values.InputParameterValues_parameterValues_Value[*]#parent parameterValuesTrace;
+			}
+
+		}
+
+	}
+
+	@namespace(uri="umlTrace_uml", prefix="")
+	package uml {
+		abstract class TracedStructuralFeature extends TracedFeature, TracedTypedElement, TracedMultiplicityElement {
+		}
+
+		class TracedConnector extends TracedFeature {
+			!ordered ref TracedBehavior[*] contract;
+
+			@subsets
+			ref TracedConnectorEnd[2..*] end;
+
+			@subsets
+			!ordered ref TracedConnector[*] redefinedConnector;
+			!ordered ref TracedAssociation type;
+			ref uml.Connector originalObject;
+		}
+
+		class TracedOpaqueAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedInputPin[*] inputValue;
+
+			@subsets
+			!ordered ref TracedOutputPin[*] outputValue;
+			ref uml.OpaqueAction originalObject;
+		}
+
+		class TracedDataType extends TracedClassifier {
+
+			@subsets
+			ref TracedProperty[*] ownedAttribute;
+
+			@subsets
+			ref TracedOperation[*] ownedOperation;
+			ref uml.DataType originalObject_DataType;
+		}
+
+		class TracedCommunicationPath extends TracedAssociation {
+		}
+
+		abstract class TracedLinkAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedLinkEndData[2..*] endData;
+
+			@subsets
+			!ordered ref TracedInputPin[+] inputValue;
+		}
+
+		class TracedProperty extends TracedStructuralFeature, TracedConnectableElement, TracedDeploymentTarget {
+
+			@subsets
+			!ordered ref TracedDataType ~datatype;
+
+			@subsets
+			!ordered ref TracedInterface ~interface;
+
+			@subsets
+			!ordered ref TracedProperty associationEnd;
+
+			@subsets
+			ref TracedProperty[*] qualifier;
+
+			@subsets
+			!ordered readonly volatile transient ref TracedClass ~class;
+
+			@subsets
+			!ordered ref TracedValueSpecification defaultValue;
+			!ordered volatile transient derived ref TracedProperty opposite;
+
+			@subsets
+			!ordered ref TracedAssociation owningAssociation;
+
+			@subsets
+			!ordered ref TracedProperty[*] redefinedProperty;
+			!ordered ref TracedProperty[*] subsettedProperty;
+			!ordered ref TracedAssociation association;
+			ref uml.Property originalObject_Property;
+		}
+
+		class TracedContinuation extends TracedInteractionFragment {
+			ref uml.Continuation originalObject;
+		}
+
+		class TracedRemoveStructuralFeatureValueAction extends TracedWriteStructuralFeatureAction {
+
+			@subsets
+			!ordered ref TracedInputPin removeAt;
+			ref uml.RemoveStructuralFeatureValueAction originalObject;
+		}
+
+		class TracedSendSignalAction extends TracedInvocationAction {
+			!ordered ref TracedSignal[1] signal;
+
+			@subsets
+			!ordered ref TracedInputPin[1] target;
+			ref uml.SendSignalAction originalObject;
+		}
+
+		class TracedOpaqueBehavior extends TracedBehavior {
+		}
+
+		class TracedArtifact extends TracedClassifier, TracedDeployedArtifact {
+
+			@subsets
+			!ordered ref TracedManifestation[*] manifestation;
+
+			@subsets
+			!ordered ref TracedArtifact[*] nestedArtifact;
+
+			@subsets
+			ref TracedProperty[*] ownedAttribute;
+
+			@subsets
+			ref TracedOperation[*] ownedOperation;
+			ref uml.Artifact originalObject_Artifact;
+		}
+
+		class TracedTimeConstraint extends TracedIntervalConstraint {
+		}
+
+		class TracedInterfaceRealization extends TracedRealization {
+
+			@subsets
+			!ordered ref TracedInterface[1] contract;
+
+			@subsets
+			!ordered ref TracedBehavioredClassifier[1] implementingClassifier;
+		}
+
+		abstract class TracedObjectNode extends TracedActivityNode, TracedTypedElement {
+			!ordered ref TracedState[*] inState;
+			!ordered ref TracedBehavior selection;
+
+			@subsets
+			!ordered ref TracedValueSpecification upperBound;
+		}
+
+		class TracedActivityFinalNode extends TracedFinalNode {
+			ref uml.ActivityFinalNode originalObject;
+		}
+
+		class TracedDurationObservation extends TracedObservation {
+			ref TracedNamedElement[1..2] event;
+			ref uml.DurationObservation originalObject;
+		}
+
+		class TracedAcceptEventAction extends TracedAction {
+
+			@subsets
+			ref TracedOutputPin[*] result;
+
+			@subsets
+			!ordered ref TracedTrigger[+] trigger;
+			ref uml.AcceptEventAction originalObject_AcceptEventAction;
+		}
+
+		class TracedEnumerationLiteral extends TracedInstanceSpecification {
+
+			@subsets
+			!ordered ref TracedEnumeration[1] enumeration;
+		}
+
+		class TracedAddStructuralFeatureValueAction extends TracedWriteStructuralFeatureAction {
+
+			@subsets
+			!ordered ref TracedInputPin insertAt;
+			ref uml.AddStructuralFeatureValueAction originalObject;
+		}
+
+		class TracedReadLinkAction extends TracedLinkAction {
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+			ref uml.ReadLinkAction originalObject;
+		}
+
+		class TracedExpression extends TracedValueSpecification {
+
+			@subsets
+			ref TracedValueSpecification[*] operand;
+			ref uml.Expression originalObject_Expression;
+		}
+
+		class TracedConsiderIgnoreFragment extends TracedCombinedFragment {
+			!ordered ref TracedNamedElement[*] message;
+		}
+
+		class TracedDataStoreNode extends TracedCentralBufferNode {
+		}
+
+		class TracedFlowFinalNode extends TracedFinalNode {
+			ref uml.FlowFinalNode originalObject;
+		}
+
+		abstract class TracedInteractionFragment extends TracedNamedElement {
+			!ordered ref TracedLifeline[*] covered;
+
+			@subsets
+			!ordered ref TracedInteractionOperand enclosingOperand;
+
+			@subsets
+			!ordered ref TracedInteraction enclosingInteraction;
+
+			@subsets
+			!ordered ref TracedGeneralOrdering[*] generalOrdering;
+		}
+
+		abstract class TracedClassifier extends TracedNamespace, TracedRedefinableElement, TracedType, TracedTemplateableElement {
+
+			@union
+			@subsets
+			!ordered readonly volatile transient derived ref TracedFeature[*] feature;
+
+			@union
+			@subsets
+			readonly volatile transient derived ref TracedProperty[*] attribute;
+
+			@subsets
+			!ordered ref TracedCollaborationUse[*] collaborationUse;
+			!ordered volatile transient derived ref TracedClassifier[*] general;
+
+			@subsets
+			!ordered ref TracedGeneralization[*] generalization;
+			!ordered ref TracedGeneralizationSet[*] powertypeExtent;
+
+			@subsets
+			!ordered readonly volatile transient derived ref TracedNamedElement[*] inheritedMember;
+
+			@subsets
+			!ordered ref TracedUseCase[*] ownedUseCase;
+			!ordered ref TracedUseCase[*] useCase;
+
+			@subsets
+			!ordered ref TracedClassifier[*] redefinedClassifier;
+
+			@subsets
+			!ordered ref TracedCollaborationUse representation;
+
+			@subsets
+			!ordered ref TracedSubstitution[*] substitution;
+		}
+
+		class TracedInformationItem extends TracedClassifier {
+			!ordered ref TracedClassifier[*] represented;
+			ref uml.InformationItem originalObject;
+		}
+
+		class TracedCollaboration extends TracedStructuredClassifier, TracedBehavioredClassifier {
+
+			@subsets
+			!ordered ref TracedConnectableElement[*] collaborationRole;
+			ref uml.Collaboration originalObject;
+		}
+
+		abstract class TracedMessageEnd extends TracedNamedElement {
+			!ordered ref TracedMessage message;
+		}
+
+		class TracedTemplateSignature extends TracedElement {
+			ref TracedTemplateParameter[+] parameter;
+
+			@subsets
+			!ordered ref TracedTemplateableElement[1] template;
+
+			@subsets
+			ref TracedTemplateParameter[*] ownedParameter;
+			ref uml.TemplateSignature originalObject_TemplateSignature;
+		}
+
+		class TracedBroadcastSignalAction extends TracedInvocationAction {
+			!ordered ref TracedSignal[1] signal;
+			ref uml.BroadcastSignalAction originalObject;
+		}
+
+		class TracedDeployment extends TracedDependency {
+
+			@subsets
+			!ordered ref TracedDeploymentSpecification[*] configuration;
+
+			@subsets
+			!ordered ref TracedDeployedArtifact[*] deployedArtifact;
+
+			@subsets
+			!ordered ref TracedDeploymentTarget[1] location;
+		}
+
+		class TracedPort extends TracedProperty {
+			!ordered ref TracedProtocolStateMachine protocol;
+			!ordered readonly volatile transient derived ref TracedInterface[*] provided;
+
+			@subsets
+			!ordered ref TracedPort[*] redefinedPort;
+			!ordered readonly volatile transient derived ref TracedInterface[*] required;
+		}
+
+		class TracedTimeInterval extends TracedInterval {
+		}
+
+		abstract class TracedAction extends TracedExecutableNode {
+			!ordered readonly volatile transient derived ref TracedClassifier context;
+
+			@union
+			@subsets
+			readonly volatile transient derived ref TracedInputPin[*] input;
+
+			@subsets
+			!ordered ref TracedConstraint[*] localPostcondition;
+
+			@subsets
+			!ordered ref TracedConstraint[*] localPrecondition;
+
+			@union
+			@subsets
+			readonly volatile transient derived ref TracedOutputPin[*] output;
+		}
+
+		class TracedExtension extends TracedAssociation {
+			!ordered readonly volatile transient derived ref TracedClass[1] metaclass;
+		}
+
+		abstract class TracedDirectedRelationship extends TracedRelationship {
+
+			@union
+			@subsets
+			!ordered readonly volatile transient derived ref TracedElement[+] source;
+
+			@union
+			@subsets
+			!ordered readonly volatile transient derived ref TracedElement[+] target;
+		}
+
+		class TracedTimeEvent extends TracedEvent {
+
+			@subsets
+			!ordered ref TracedTimeExpression[1] when;
+			ref uml.TimeEvent originalObject;
+		}
+
+		abstract class TracedPackageableElement extends TracedNamedElement, TracedParameterableElement {
+		}
+
+		abstract class TracedType extends TracedPackageableElement {
+
+			@subsets
+			!ordered volatile transient derived ref TracedPackage ~package;
+		}
+
+		class TracedProtocolTransition extends TracedTransition {
+
+			@subsets
+			!ordered ref TracedConstraint postCondition;
+
+			@subsets
+			!ordered ref TracedConstraint preCondition;
+			!ordered readonly volatile transient derived ref TracedOperation[*] referred;
+		}
+
+		class TracedPackage extends TracedNamespace, TracedPackageableElement, TracedTemplateableElement {
+
+			@subsets
+			!ordered volatile transient derived ref TracedPackage[*] nestedPackage;
+
+			@subsets
+			!ordered volatile transient derived ref TracedPackage nestingPackage;
+
+			@subsets
+			!ordered readonly volatile transient derived ref TracedStereotype[*] ownedStereotype;
+
+			@subsets
+			!ordered volatile transient derived ref TracedType[*] ownedType;
+
+			@subsets
+			!ordered ref TracedPackageMerge[*] packageMerge;
+
+			@subsets
+			!ordered ref TracedPackageableElement[*] packagedElement;
+
+			@subsets
+			!ordered ref TracedProfileApplication[*] profileApplication;
+			ref uml.Package originalObject_Package;
+		}
+
+		abstract class TracedBehavioredClassifier extends TracedClassifier {
+
+			@subsets
+			!ordered ref TracedBehavior classifierBehavior;
+
+			@subsets
+			!ordered ref TracedInterfaceRealization[*] interfaceRealization;
+
+			@subsets
+			!ordered ref TracedBehavior[*] ownedBehavior;
+		}
+
+		abstract class TracedStructuralFeatureAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedInputPin[1] object;
+			!ordered ref TracedStructuralFeature[1] structuralFeature;
+		}
+
+		class TracedConstraint extends TracedPackageableElement {
+			ref TracedElement[*] constrainedElement;
+
+			@subsets
+			!ordered ref TracedNamespace context;
+
+			@subsets
+			!ordered ref TracedValueSpecification[1] specification;
+			ref uml.Constraint originalObject_Constraint;
+		}
+
+		abstract class TracedMultiplicityElement extends TracedElement {
+
+			@subsets
+			!ordered ref TracedValueSpecification lowerValue;
+
+			@subsets
+			!ordered ref TracedValueSpecification upperValue;
+		}
+
+		abstract class TracedLiteralSpecification extends TracedValueSpecification {
+		}
+
+		class TracedGeneralizationSet extends TracedPackageableElement {
+			!ordered ref TracedClassifier powertype;
+			!ordered ref TracedGeneralization[*] generalization;
+			ref uml.GeneralizationSet originalObject;
+		}
+
+		class TracedReduceAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedInputPin[1] collection;
+			!ordered ref TracedBehavior[1] reducer;
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+			ref uml.ReduceAction originalObject;
+		}
+
+		class TracedInputPin extends TracedPin {
+			ref uml.InputPin originalObject_InputPin;
+		}
+
+		class TracedSequenceNode extends TracedStructuredActivityNode {
+
+			@redefines
+			ref TracedExecutableNode[*] executableNode;
+		}
+
+		abstract class TracedFeature extends TracedRedefinableElement {
+
+			@union
+			!ordered readonly volatile transient derived ref TracedClassifier[*] featuringClassifier;
+		}
+
+		class TracedInteractionConstraint extends TracedConstraint {
+
+			@subsets
+			!ordered ref TracedValueSpecification maxint;
+
+			@subsets
+			!ordered ref TracedValueSpecification minint;
+		}
+
+		abstract class TracedWriteStructuralFeatureAction extends TracedStructuralFeatureAction {
+
+			@subsets
+			!ordered ref TracedOutputPin result;
+
+			@subsets
+			!ordered ref TracedInputPin value;
+		}
+
+		@"http://www.modelexecution.org/trace/XMOF"(executionMetamodelElement="//ElementConfiguration")
+		abstract class TracedElement extends ecore.TracedEModelElement {
+
+			@subsets
+			!ordered ref TracedComment[*] ownedComment;
+
+			@union
+			!ordered readonly volatile transient derived ref TracedElement[*] ownedElement;
+
+			@union
+			!ordered readonly volatile transient derived ref TracedElement owner;
+			val Values.Element_semanticVisitor_Value[*]#parent semanticVisitorTrace;
+		}
+
+		class TracedComponentRealization extends TracedRealization {
+
+			@subsets
+			!ordered ref TracedClassifier[+] realizingClassifier;
+
+			@subsets
+			!ordered ref TracedComponent abstraction;
+		}
+
+		class TracedAssociationClass extends TracedClass, TracedAssociation {
+		}
+
+		class TracedSlot extends TracedElement {
+			!ordered ref TracedStructuralFeature[1] definingFeature;
+
+			@subsets
+			ref TracedValueSpecification[*] value;
+
+			@subsets
+			!ordered ref TracedInstanceSpecification[1] owningInstance;
+			ref uml.Slot originalObject;
+		}
+
+		class TracedSignalEvent extends TracedMessageEvent {
+			!ordered ref TracedSignal[1] signal;
+			ref uml.SignalEvent originalObject;
+		}
+
+		class TracedExtensionPoint extends TracedRedefinableElement {
+
+			@subsets
+			!ordered ref TracedUseCase[1] useCase;
+			ref uml.ExtensionPoint originalObject;
+		}
+
+		class TracedJoinNode extends TracedControlNode {
+
+			@subsets
+			!ordered ref TracedValueSpecification joinSpec;
+			ref uml.JoinNode originalObject;
+		}
+
+		class TracedStartObjectBehaviorAction extends TracedCallAction {
+
+			@subsets
+			!ordered ref TracedInputPin[1] object;
+			ref uml.StartObjectBehaviorAction originalObject;
+		}
+
+		class TracedElementImport extends TracedDirectedRelationship {
+
+			@subsets
+			!ordered ref TracedPackageableElement[1] importedElement;
+
+			@subsets
+			!ordered ref TracedNamespace[1] importingNamespace;
+			ref uml.ElementImport originalObject;
+		}
+
+		class TracedCreateObjectAction extends TracedAction {
+			!ordered ref TracedClassifier[1] classifier;
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+			ref uml.CreateObjectAction originalObject;
+		}
+
+		class TracedExecutionEnvironment extends TracedNode {
+		}
+
+		class TracedOccurrenceSpecification extends TracedInteractionFragment {
+			!ordered ref TracedGeneralOrdering[*] toAfter;
+			!ordered ref TracedGeneralOrdering[*] toBefore;
+			ref uml.OccurrenceSpecification originalObject_OccurrenceSpecification;
+		}
+
+		class TracedStringExpression extends TracedExpression, TracedTemplateableElement {
+
+			@subsets
+			!ordered ref TracedStringExpression owningExpression;
+
+			@subsets
+			ref TracedStringExpression[*] subExpression;
+		}
+
+		abstract class TracedDeployedArtifact extends TracedNamedElement {
+		}
+
+		class TracedStereotype extends TracedClass {
+
+			@subsets
+			!ordered ref TracedImage[*] icon;
+			!ordered readonly volatile transient derived ref TracedProfile[1] profile;
+		}
+
+		class TracedInterface extends TracedClassifier {
+
+			@subsets
+			ref TracedClassifier[*] nestedClassifier;
+
+			@subsets
+			ref TracedProperty[*] ownedAttribute;
+
+			@subsets
+			!ordered ref TracedReception[*] ownedReception;
+
+			@subsets
+			!ordered ref TracedProtocolStateMachine protocol;
+
+			@subsets
+			!ordered ref TracedInterface[*] redefinedInterface;
+
+			@subsets
+			ref TracedOperation[*] ownedOperation;
+			ref uml.Interface originalObject;
+		}
+
+		class TracedConditionalNode extends TracedStructuredActivityNode {
+
+			@subsets
+			!ordered ref TracedClause[+] clause;
+
+			@redefines
+			ref TracedOutputPin[*] result;
+		}
+
+		class TracedReadLinkObjectEndAction extends TracedAction {
+			!ordered ref TracedProperty[1] end;
+
+			@subsets
+			!ordered ref TracedInputPin[1] object;
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+			ref uml.ReadLinkObjectEndAction originalObject;
+		}
+
+		class TracedAnyReceiveEvent extends TracedMessageEvent {
+			ref uml.AnyReceiveEvent originalObject;
+		}
+
+		abstract class TracedNamedElement extends TracedElement {
+			!ordered readonly volatile transient derived ref TracedDependency[*] clientDependency;
+
+			@subsets
+			!ordered ref TracedStringExpression nameExpression;
+
+			@union
+			@subsets
+			!ordered readonly volatile transient derived ref TracedNamespace namespace;
+		}
+
+		class TracedComponent extends TracedClass {
+
+			@subsets
+			!ordered ref TracedPackageableElement[*] packagedElement;
+			!ordered readonly volatile transient derived ref TracedInterface[*] provided;
+
+			@subsets
+			!ordered ref TracedComponentRealization[*] realization;
+			!ordered readonly volatile transient derived ref TracedInterface[*] required;
+		}
+
+		class TracedExtensionEnd extends TracedProperty {
+		}
+
+		class TracedStateMachine extends TracedBehavior {
+
+			@subsets
+			!ordered ref TracedPseudostate[*] connectionPoint;
+			!ordered ref TracedState[*] submachineState;
+
+			@subsets
+			!ordered ref TracedRegion[+] region;
+
+			@redefines
+			!ordered ref TracedStateMachine[*] extendedStateMachine;
+		}
+
+		abstract class TracedValueSpecification extends TracedPackageableElement, TracedTypedElement {
+		}
+
+		class TracedInteraction extends TracedBehavior, TracedInteractionFragment {
+
+			@subsets
+			!ordered ref TracedLifeline[*] lifeline;
+
+			@subsets
+			ref TracedInteractionFragment[*] fragment;
+
+			@subsets
+			!ordered ref TracedAction[*] action;
+
+			@subsets
+			!ordered ref TracedGate[*] formalGate;
+
+			@subsets
+			!ordered ref TracedMessage[*] message;
+		}
+
+		class TracedLiteralString extends TracedLiteralSpecification {
+			ref uml.LiteralString originalObject;
+		}
+
+		class TracedRealization extends TracedAbstraction {
+		}
+
+		class TracedStartClassifierBehaviorAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedInputPin[1] object;
+			ref uml.StartClassifierBehaviorAction originalObject;
+		}
+
+		abstract class TracedMessageEvent extends TracedEvent {
+		}
+
+		class TracedCallEvent extends TracedMessageEvent {
+			!ordered ref TracedOperation[1] operation;
+			ref uml.CallEvent originalObject;
+		}
+
+		class TracedConnectableElementTemplateParameter extends TracedTemplateParameter {
+		}
+
+		abstract class TracedRelationship extends TracedElement {
+
+			@union
+			!ordered readonly volatile transient derived ref TracedElement[+] relatedElement;
+		}
+
+		class TracedSendObjectAction extends TracedInvocationAction {
+
+			@redefines
+			!ordered ref TracedInputPin[1] request;
+
+			@subsets
+			!ordered ref TracedInputPin[1] target;
+			ref uml.SendObjectAction originalObject;
+		}
+
+		class TracedLifeline extends TracedNamedElement {
+			!ordered ref TracedPartDecomposition decomposedAs;
+
+			@subsets
+			!ordered ref TracedInteraction[1] interaction;
+			!ordered ref TracedConnectableElement represents;
+
+			@subsets
+			!ordered ref TracedValueSpecification selector;
+			!ordered ref TracedInteractionFragment[*] coveredBy;
+			ref uml.Lifeline originalObject;
+		}
+
+		abstract class TracedExecutionSpecification extends TracedInteractionFragment {
+			!ordered ref TracedOccurrenceSpecification[1] finish;
+			!ordered ref TracedOccurrenceSpecification[1] start;
+		}
+
+		class TracedTimeObservation extends TracedObservation {
+			!ordered ref TracedNamedElement[1] event;
+			ref uml.TimeObservation originalObject;
+		}
+
+		class TracedCreateLinkObjectAction extends TracedCreateLinkAction {
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+		}
+
+		class TracedExpansionRegion extends TracedStructuredActivityNode {
+			!ordered ref TracedExpansionNode[*] outputElement;
+			!ordered ref TracedExpansionNode[+] inputElement;
+		}
+
+		abstract class TracedWriteVariableAction extends TracedVariableAction {
+
+			@subsets
+			!ordered ref TracedInputPin value;
+		}
+
+		class TracedLoopNode extends TracedStructuredActivityNode {
+			ref TracedOutputPin[*] bodyOutput;
+			!ordered ref TracedExecutableNode[*] bodyPart;
+			!ordered ref TracedOutputPin[1] decider;
+
+			@subsets
+			ref TracedOutputPin[*] loopVariable;
+
+			@redefines
+			ref TracedInputPin[*] loopVariableInput;
+
+			@redefines
+			ref TracedOutputPin[*] result;
+			!ordered ref TracedExecutableNode[*] setupPart;
+			!ordered ref TracedExecutableNode[+] test;
+		}
+
+		class TracedPrimitiveType extends TracedDataType {
+		}
+
+		class TracedProtocolConformance extends TracedDirectedRelationship {
+
+			@subsets
+			!ordered ref TracedProtocolStateMachine[1] generalMachine;
+
+			@subsets
+			!ordered ref TracedProtocolStateMachine[1] specificMachine;
+			ref uml.ProtocolConformance originalObject;
+		}
+
+		class TracedEnumeration extends TracedDataType {
+
+			@subsets
+			ref TracedEnumerationLiteral[*] ownedLiteral;
+		}
+
+		class TracedCollaborationUse extends TracedNamedElement {
+
+			@subsets
+			!ordered ref TracedDependency[*] roleBinding;
+			!ordered ref TracedCollaboration[1] type;
+			ref uml.CollaborationUse originalObject;
+		}
+
+		class TracedActivityPartition extends TracedActivityGroup {
+
+			@subsets
+			!ordered ref TracedActivityNode[*] node;
+			!ordered ref TracedElement represents;
+
+			@subsets
+			!ordered ref TracedActivityPartition[*] subpartition;
+
+			@subsets
+			!ordered ref TracedActivityPartition superPartition;
+
+			@subsets
+			!ordered ref TracedActivityEdge[*] edge;
+			ref uml.ActivityPartition originalObject;
+		}
+
+		abstract class TracedVariableAction extends TracedAction {
+			!ordered ref TracedVariable[1] variable;
+		}
+
+		class TracedLinkEndDestructionData extends TracedLinkEndData {
+			!ordered ref TracedInputPin destroyAt;
+		}
+
+		class TracedDurationInterval extends TracedInterval {
+		}
+
+		class TracedInclude extends TracedNamedElement, TracedDirectedRelationship {
+
+			@subsets
+			!ordered ref TracedUseCase[1] addition;
+
+			@subsets
+			!ordered ref TracedUseCase[1] includingCase;
+			ref uml.Include originalObject;
+		}
+
+		abstract class TracedActivityNode extends TracedRedefinableElement, uml.ActivityContent {
+
+			@subsets
+			!ordered volatile transient derived ref TracedActivity activity;
+
+			@union
+			!ordered readonly volatile transient derived ref TracedActivityGroup[*] inGroup;
+
+			@subsets
+			!ordered ref TracedInterruptibleActivityRegion[*] inInterruptibleRegion;
+
+			@subsets
+			!ordered ref TracedStructuredActivityNode inStructuredNode;
+			!ordered ref TracedActivityEdge[*] incoming;
+			!ordered ref TracedActivityEdge[*] outgoing;
+
+			@subsets
+			!ordered ref TracedActivityNode[*] redefinedNode;
+
+			@subsets
+			!ordered ref TracedActivityPartition[*] inPartition;
+		}
+
+		class TracedDestructionOccurrenceSpecification extends TracedMessageOccurrenceSpecification {
+		}
+
+		class TracedState extends TracedNamespace, TracedRedefinableElement, TracedVertex {
+
+			@subsets
+			!ordered ref TracedConnectionPointReference[*] connection;
+
+			@subsets
+			!ordered ref TracedPseudostate[*] connectionPoint;
+
+			@subsets
+			!ordered ref TracedTrigger[*] deferrableTrigger;
+
+			@subsets
+			!ordered ref TracedBehavior doActivity;
+
+			@subsets
+			!ordered ref TracedBehavior entry;
+
+			@subsets
+			!ordered ref TracedBehavior exit;
+
+			@subsets
+			!ordered ref TracedState redefinedState;
+
+			@subsets
+			!ordered ref TracedConstraint stateInvariant;
+			!ordered ref TracedStateMachine submachine;
+
+			@subsets
+			!ordered ref TracedRegion[*] region;
+			ref uml.State originalObject_State;
+		}
+
+		abstract class TracedCallAction extends TracedInvocationAction {
+
+			@subsets
+			ref TracedOutputPin[*] result;
+		}
+
+		abstract class TracedTemplateableElement extends TracedElement {
+
+			@subsets
+			!ordered ref TracedTemplateBinding[*] templateBinding;
+
+			@subsets
+			!ordered ref TracedTemplateSignature ownedTemplateSignature;
+		}
+
+		abstract class TracedBehavior extends TracedClass {
+			!ordered ref TracedBehavioralFeature specification;
+
+			@subsets
+			!ordered readonly volatile transient derived ref TracedBehavioredClassifier context;
+
+			@subsets
+			ref TracedParameter[*] ownedParameter;
+
+			@subsets
+			!ordered ref TracedParameterSet[*] ownedParameterSet;
+
+			@subsets
+			!ordered ref TracedConstraint[*] postcondition;
+
+			@subsets
+			!ordered ref TracedConstraint[*] precondition;
+
+			@subsets
+			!ordered ref TracedBehavior[*] redefinedBehavior;
+		}
+
+		class TracedClassifierTemplateParameter extends TracedTemplateParameter {
+			!ordered ref TracedClassifier[*] constrainingClassifier;
+		}
+
+		class TracedActivityParameterNode extends TracedObjectNode {
+			!ordered ref TracedParameter[1] parameter;
+			ref uml.ActivityParameterNode originalObject;
+		}
+
+		class TracedParameterSet extends TracedNamedElement {
+
+			@subsets
+			!ordered ref TracedConstraint[*] condition;
+			!ordered ref TracedParameter[+] parameter;
+			ref uml.ParameterSet originalObject;
+		}
+
+		class TracedDuration extends TracedValueSpecification {
+
+			@subsets
+			!ordered ref TracedValueSpecification expr;
+			!ordered ref TracedObservation[*] observation;
+			ref uml.Duration originalObject;
+		}
+
+		class TracedClass extends TracedEncapsulatedClassifier, TracedBehavioredClassifier {
+
+			@subsets
+			ref TracedOperation[*] ownedOperation;
+			!ordered readonly volatile transient derived ref TracedExtension[*] extension;
+
+			@subsets
+			ref TracedClassifier[*] nestedClassifier;
+
+			@subsets
+			!ordered ref TracedReception[*] ownedReception;
+
+			@redefines
+			!ordered volatile transient derived ref TracedClass[*] superClass;
+			ref uml.Class originalObject_Class;
+		}
+
+		class TracedUsage extends TracedDependency {
+		}
+
+		class TracedLiteralUnlimitedNatural extends TracedLiteralSpecification {
+			ref uml.LiteralUnlimitedNatural originalObject;
+		}
+
+		class TracedStructuredActivityNode extends TracedAction, TracedNamespace, TracedActivityGroup {
+
+			@subsets
+			!ordered ref TracedActivityEdge[*] edge;
+
+			@subsets
+			!ordered ref TracedInputPin[*] structuredNodeInput;
+
+			@subsets
+			!ordered ref TracedOutputPin[*] structuredNodeOutput;
+
+			@subsets
+			!ordered ref TracedVariable[*] variable;
+
+			@subsets
+			!ordered ref TracedActivityNode[*] node;
+			ref uml.StructuredActivityNode originalObject_StructuredActivityNode;
+		}
+
+		class TracedAbstraction extends TracedDependency {
+
+			@subsets
+			!ordered ref TracedOpaqueExpression mapping;
+		}
+
+		class TracedReadStructuralFeatureAction extends TracedStructuralFeatureAction {
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+			ref uml.ReadStructuralFeatureAction originalObject;
+		}
+
+		class TracedMergeNode extends TracedControlNode {
+			ref uml.MergeNode originalObject;
+		}
+
+		class TracedRedefinableTemplateSignature extends TracedRedefinableElement, TracedTemplateSignature {
+
+			@subsets
+			!ordered ref TracedRedefinableTemplateSignature[*] extendedSignature;
+
+			@subsets
+			!ordered readonly volatile transient derived ref TracedTemplateParameter[*] inheritedParameter;
+
+			@redefines
+			@subsets
+			!ordered readonly volatile transient ref TracedClassifier[1] classifier;
+		}
+
+		class TracedCreateLinkAction extends TracedWriteLinkAction {
+			ref uml.CreateLinkAction originalObject_CreateLinkAction;
+		}
+
+		class TracedGeneralization extends TracedDirectedRelationship {
+
+			@subsets
+			!ordered ref TracedClassifier[1] general;
+			!ordered ref TracedGeneralizationSet[*] generalizationSet;
+
+			@subsets
+			!ordered ref TracedClassifier[1] specific;
+			ref uml.Generalization originalObject;
+		}
+
+		class TracedPartDecomposition extends TracedInteractionUse {
+		}
+
+		abstract class TracedTypedElement extends TracedNamedElement {
+			!ordered ref TracedType type;
+		}
+
+		class TracedOperationTemplateParameter extends TracedTemplateParameter {
+		}
+
+		class TracedReadLinkObjectEndQualifierAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedInputPin[1] object;
+			!ordered ref TracedProperty[1] qualifier;
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+			ref uml.ReadLinkObjectEndQualifierAction originalObject;
+		}
+
+		class TracedTemplateParameterSubstitution extends TracedElement {
+			!ordered ref TracedParameterableElement[1] actual;
+			!ordered ref TracedTemplateParameter[1] formal;
+
+			@subsets
+			!ordered ref TracedParameterableElement ownedActual;
+
+			@subsets
+			!ordered ref TracedTemplateBinding[1] templateBinding;
+			ref uml.TemplateParameterSubstitution originalObject;
+		}
+
+		class TracedExtend extends TracedNamedElement, TracedDirectedRelationship {
+
+			@subsets
+			!ordered ref TracedConstraint condition;
+
+			@subsets
+			!ordered ref TracedUseCase[1] extendedCase;
+			ref TracedExtensionPoint[+] extensionLocation;
+
+			@subsets
+			!ordered ref TracedUseCase[1] extension;
+			ref uml.Extend originalObject;
+		}
+
+		class TracedReadVariableAction extends TracedVariableAction {
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+			ref uml.ReadVariableAction originalObject;
+		}
+
+		class TracedMessage extends TracedNamedElement {
+
+			@subsets
+			ref TracedValueSpecification[*] argument;
+			!ordered ref TracedConnector connector;
+
+			@subsets
+			!ordered ref TracedInteraction[1] interaction;
+			!ordered ref TracedMessageEnd receiveEvent;
+			!ordered ref TracedMessageEnd sendEvent;
+			!ordered ref TracedNamedElement signature;
+			ref uml.Message originalObject;
+		}
+
+		class TracedLiteralBoolean extends TracedLiteralSpecification {
+			ref uml.LiteralBoolean originalObject;
+		}
+
+		class TracedQualifierValue extends TracedElement {
+			!ordered ref TracedProperty[1] qualifier;
+			!ordered ref TracedInputPin[1] value;
+			ref uml.QualifierValue originalObject;
+		}
+
+		class TracedInitialNode extends TracedControlNode {
+			ref uml.InitialNode originalObject;
+		}
+
+		class TracedLiteralInteger extends TracedLiteralSpecification {
+			ref uml.LiteralInteger originalObject;
+		}
+
+		class TracedClearVariableAction extends TracedVariableAction {
+			ref uml.ClearVariableAction originalObject;
+		}
+
+		class TracedProfileApplication extends TracedDirectedRelationship {
+
+			@subsets
+			!ordered ref TracedProfile[1] appliedProfile;
+
+			@subsets
+			!ordered ref TracedPackage[1] applyingPackage;
+			ref uml.ProfileApplication originalObject;
+		}
+
+		abstract class TracedParameterableElement extends TracedElement {
+
+			@subsets
+			!ordered ref TracedTemplateParameter owningTemplateParameter;
+			!ordered ref TracedTemplateParameter templateParameter;
+		}
+
+		class TracedTemplateParameter extends TracedElement {
+			!ordered ref TracedParameterableElement default;
+
+			@subsets
+			!ordered ref TracedParameterableElement ownedDefault;
+			!ordered ref TracedParameterableElement[1] parameteredElement;
+
+			@subsets
+			!ordered ref TracedTemplateSignature[1] signature;
+
+			@subsets
+			!ordered ref TracedParameterableElement ownedParameteredElement;
+			ref uml.TemplateParameter originalObject_TemplateParameter;
+		}
+
+		class TracedConnectorEnd extends TracedMultiplicityElement {
+			!ordered readonly volatile transient derived ref TracedProperty definingEnd;
+			!ordered ref TracedProperty partWithPort;
+			!ordered ref TracedConnectableElement[1] role;
+			ref uml.ConnectorEnd originalObject;
+		}
+
+		class TracedMessageOccurrenceSpecification extends TracedOccurrenceSpecification, TracedMessageEnd {
+		}
+
+		class TracedDurationConstraint extends TracedIntervalConstraint {
+		}
+
+		class TracedImage extends TracedElement {
+			ref uml.Image originalObject;
+		}
+
+		abstract class TracedEncapsulatedClassifier extends TracedStructuredClassifier {
+
+			@subsets
+			!ordered readonly volatile transient derived ref TracedPort[*] ownedPort;
+		}
+
+		class TracedParameter extends TracedConnectableElement, TracedMultiplicityElement {
+
+			@subsets
+			!ordered ref TracedValueSpecification defaultValue;
+
+			@subsets
+			!ordered readonly volatile transient ref TracedOperation operation;
+			!ordered ref TracedParameterSet[*] parameterSet;
+			ref uml.Parameter originalObject;
+		}
+
+		class TracedActionInputPin extends TracedInputPin {
+
+			@subsets
+			!ordered ref TracedAction[1] fromAction;
+		}
+
+		class TracedTrigger extends TracedNamedElement {
+			!ordered ref TracedEvent[1] event;
+			!ordered ref TracedPort[*] port;
+			ref uml.Trigger originalObject;
+		}
+
+		class TracedCallOperationAction extends TracedCallAction {
+			!ordered ref TracedOperation[1] operation;
+
+			@subsets
+			!ordered ref TracedInputPin[1] target;
+			ref uml.CallOperationAction originalObject;
+		}
+
+		class TracedProfile extends TracedPackage {
+
+			@subsets
+			!ordered ref TracedElementImport[*] metaclassReference;
+
+			@subsets
+			!ordered ref TracedPackageImport[*] metamodelReference;
+		}
+
+		class TracedInterval extends TracedValueSpecification {
+			!ordered ref TracedValueSpecification[1] max;
+			!ordered ref TracedValueSpecification[1] min;
+			ref uml.Interval originalObject_Interval;
+		}
+
+		class TracedIntervalConstraint extends TracedConstraint {
+		}
+
+		class TracedInstanceSpecification extends TracedDeploymentTarget, TracedPackageableElement, TracedDeployedArtifact {
+			!ordered ref TracedClassifier[*] classifier;
+
+			@subsets
+			!ordered ref TracedSlot[*] slot;
+
+			@subsets
+			!ordered ref TracedValueSpecification specification;
+			ref uml.InstanceSpecification originalObject_InstanceSpecification;
+		}
+
+		class TracedValuePin extends TracedInputPin {
+
+			@subsets
+			!ordered ref TracedValueSpecification[1] value;
+		}
+
+		class TracedReadIsClassifiedObjectAction extends TracedAction {
+			!ordered ref TracedClassifier[1] classifier;
+
+			@subsets
+			!ordered ref TracedInputPin[1] object;
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+			ref uml.ReadIsClassifiedObjectAction originalObject;
+		}
+
+		class TracedProtocolStateMachine extends TracedStateMachine {
+
+			@subsets
+			!ordered ref TracedProtocolConformance[*] conformance;
+		}
+
+		class TracedOutputPin extends TracedPin {
+			ref uml.OutputPin originalObject;
+		}
+
+		class TracedDecisionNode extends TracedControlNode {
+			!ordered ref TracedBehavior decisionInput;
+			!ordered ref TracedObjectFlow decisionInputFlow;
+			ref uml.DecisionNode originalObject;
+		}
+
+		class TracedValueSpecificationAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+
+			@subsets
+			!ordered ref TracedValueSpecification[1] value;
+			ref uml.ValueSpecificationAction originalObject;
+		}
+
+		class TracedRegion extends TracedNamespace, TracedRedefinableElement {
+
+			@subsets
+			!ordered ref TracedRegion extendedRegion;
+
+			@subsets
+			!ordered ref TracedState state;
+
+			@subsets
+			!ordered ref TracedStateMachine stateMachine;
+
+			@subsets
+			!ordered ref TracedTransition[*] transition;
+
+			@subsets
+			!ordered ref TracedVertex[*] subvertex;
+			ref uml.Region originalObject;
+		}
+
+		class TracedInterruptibleActivityRegion extends TracedActivityGroup {
+			!ordered ref TracedActivityEdge[*] interruptingEdge;
+
+			@subsets
+			!ordered ref TracedActivityNode[*] node;
+			ref uml.InterruptibleActivityRegion originalObject;
+		}
+
+		class TracedDestroyLinkAction extends TracedWriteLinkAction {
+			ref uml.DestroyLinkAction originalObject;
+		}
+
+		class TracedFinalState extends TracedState {
+		}
+
+		abstract class TracedActivityGroup extends TracedNamedElement, uml.ActivityContent {
+
+			@union
+			!ordered readonly volatile transient derived ref TracedActivityEdge[*] containedEdge;
+
+			@union
+			!ordered readonly volatile transient derived ref TracedActivityNode[*] containedNode;
+
+			@subsets
+			!ordered volatile transient derived ref TracedActivity inActivity;
+
+			@union
+			@subsets
+			!ordered readonly volatile transient derived ref TracedActivityGroup[*] subgroup;
+
+			@union
+			@subsets
+			!ordered readonly volatile transient derived ref TracedActivityGroup superGroup;
+		}
+
+		class TracedInteractionOperand extends TracedNamespace, TracedInteractionFragment {
+
+			@subsets
+			ref TracedInteractionFragment[*] fragment;
+
+			@subsets
+			!ordered ref TracedInteractionConstraint guard;
+			ref uml.InteractionOperand originalObject;
+		}
+
+		abstract class TracedActivityEdge extends TracedRedefinableElement {
+
+			@subsets
+			!ordered ref TracedActivity activity;
+
+			@subsets
+			!ordered ref TracedValueSpecification guard;
+
+			@subsets
+			!ordered ref TracedActivityPartition[*] inPartition;
+			!ordered ref TracedInterruptibleActivityRegion interrupts;
+
+			@subsets
+			!ordered ref TracedStructuredActivityNode inStructuredNode;
+			!ordered ref TracedActivityNode[1] target;
+			!ordered ref TracedActivityNode[1] source;
+
+			@subsets
+			!ordered ref TracedActivityEdge[*] redefinedEdge;
+
+			@subsets
+			!ordered ref TracedValueSpecification weight;
+
+			@union
+			!ordered readonly volatile transient derived ref TracedActivityGroup[*] inGroup;
+		}
+
+		class TracedInformationFlow extends TracedPackageableElement, TracedDirectedRelationship {
+			!ordered ref TracedClassifier[+] conveyed;
+
+			@subsets
+			!ordered ref TracedNamedElement[+] informationSource;
+
+			@subsets
+			!ordered ref TracedNamedElement[+] informationTarget;
+			!ordered ref TracedRelationship[*] realization;
+			!ordered ref TracedActivityEdge[*] realizingActivityEdge;
+			!ordered ref TracedConnector[*] realizingConnector;
+			!ordered ref TracedMessage[*] realizingMessage;
+			ref uml.InformationFlow originalObject;
+		}
+
+		class TracedPseudostate extends TracedVertex {
+
+			@subsets
+			!ordered ref TracedState state;
+
+			@subsets
+			!ordered ref TracedStateMachine stateMachine;
+			ref uml.Pseudostate originalObject;
+		}
+
+		abstract class TracedControlNode extends TracedActivityNode {
+		}
+
+		class TracedUseCase extends TracedBehavioredClassifier {
+
+			@subsets
+			!ordered ref TracedExtend[*] extend;
+
+			@subsets
+			!ordered ref TracedExtensionPoint[*] extensionPoint;
+
+			@subsets
+			!ordered ref TracedInclude[*] include;
+			!ordered ref TracedClassifier[*] subject;
+			ref uml.UseCase originalObject;
+		}
+
+		class TracedReplyAction extends TracedAction {
+			!ordered ref TracedTrigger[1] replyToCall;
+
+			@subsets
+			ref TracedInputPin[*] replyValue;
+
+			@subsets
+			!ordered ref TracedInputPin[1] returnInformation;
+			ref uml.ReplyAction originalObject;
+		}
+
+		class TracedCombinedFragment extends TracedInteractionFragment {
+
+			@subsets
+			!ordered ref TracedGate[*] cfragmentGate;
+
+			@subsets
+			ref TracedInteractionOperand[+] operand;
+			ref uml.CombinedFragment originalObject_CombinedFragment;
+		}
+
+		abstract class TracedWriteLinkAction extends TracedLinkAction {
+		}
+
+		class TracedClause extends TracedElement {
+			!ordered ref TracedExecutableNode[*] body;
+			ref TracedOutputPin[*] bodyOutput;
+			!ordered ref TracedOutputPin[1] decider;
+			!ordered ref TracedClause[*] predecessorClause;
+			!ordered ref TracedClause[*] successorClause;
+			!ordered ref TracedExecutableNode[+] test;
+			ref uml.Clause originalObject;
+		}
+
+		class TracedInstanceValue extends TracedValueSpecification {
+			!ordered ref TracedInstanceSpecification[1] instance;
+			ref uml.InstanceValue originalObject;
+		}
+
+		class TracedDependency extends TracedPackageableElement, TracedDirectedRelationship {
+
+			@subsets
+			!ordered ref TracedNamedElement[+] client;
+
+			@subsets
+			!ordered ref TracedNamedElement[+] supplier;
+			ref uml.Dependency originalObject_Dependency;
+		}
+
+		class TracedTimeExpression extends TracedValueSpecification {
+
+			@subsets
+			!ordered ref TracedValueSpecification expr;
+			!ordered ref TracedObservation[*] observation;
+			ref uml.TimeExpression originalObject;
+		}
+
+		class TracedManifestation extends TracedAbstraction {
+
+			@subsets
+			!ordered ref TracedPackageableElement[1] utilizedElement;
+		}
+
+		class TracedReadExtentAction extends TracedAction {
+			!ordered ref TracedClassifier[1] classifier;
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+			ref uml.ReadExtentAction originalObject;
+		}
+
+		class TracedTransition extends TracedNamespace, TracedRedefinableElement {
+
+			@subsets
+			!ordered ref TracedBehavior effect;
+
+			@subsets
+			!ordered ref TracedConstraint guard;
+
+			@subsets
+			!ordered ref TracedTransition redefinedTransition;
+			!ordered ref TracedVertex[1] source;
+			!ordered ref TracedVertex[1] target;
+
+			@subsets
+			!ordered ref TracedTrigger[*] trigger;
+
+			@subsets
+			!ordered ref TracedRegion[1] container;
+			ref uml.Transition originalObject_Transition;
+		}
+
+		class TracedLinkEndData extends TracedElement {
+			!ordered ref TracedProperty[1] end;
+
+			@subsets
+			!ordered ref TracedQualifierValue[*] qualifier;
+			!ordered ref TracedInputPin value;
+			ref uml.LinkEndData originalObject_LinkEndData;
+		}
+
+		class TracedNode extends TracedClass, TracedDeploymentTarget {
+
+			@subsets
+			!ordered ref TracedNode[*] nestedNode;
+		}
+
+		class TracedPackageMerge extends TracedDirectedRelationship {
+
+			@subsets
+			!ordered ref TracedPackage[1] mergedPackage;
+
+			@subsets
+			!ordered ref TracedPackage[1] receivingPackage;
+			ref uml.PackageMerge originalObject;
+		}
+
+		class TracedModel extends TracedPackage {
+		}
+
+		class TracedObjectFlow extends TracedActivityEdge {
+			!ordered ref TracedBehavior selection;
+			!ordered ref TracedBehavior transformation;
+			ref uml.ObjectFlow originalObject;
+		}
+
+		abstract class TracedEvent extends TracedPackageableElement {
+		}
+
+		class TracedChangeEvent extends TracedEvent {
+
+			@subsets
+			!ordered ref TracedValueSpecification[1] changeExpression;
+			ref uml.ChangeEvent originalObject;
+		}
+
+		abstract class TracedRedefinableElement extends TracedNamedElement {
+
+			@union
+			!ordered readonly volatile transient derived ref TracedRedefinableElement[*] redefinedElement;
+
+			@union
+			!ordered readonly volatile transient derived ref TracedClassifier[*] redefinitionContext;
+		}
+
+		class TracedDestroyObjectAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedInputPin[1] target;
+			ref uml.DestroyObjectAction originalObject;
+		}
+
+		class TracedForkNode extends TracedControlNode {
+			ref uml.ForkNode originalObject;
+		}
+
+		abstract class TracedFinalNode extends TracedControlNode {
+		}
+
+		class TracedSignal extends TracedClassifier {
+
+			@subsets
+			ref TracedProperty[*] ownedAttribute;
+			ref uml.Signal originalObject;
+		}
+
+		class TracedComment extends TracedElement {
+			!ordered ref TracedElement[*] annotatedElement;
+			ref uml.Comment originalObject;
+		}
+
+		abstract class TracedStructuredClassifier extends TracedClassifier {
+
+			@subsets
+			ref TracedProperty[*] ownedAttribute;
+
+			@subsets
+			!ordered ref TracedConnector[*] ownedConnector;
+			!ordered readonly volatile transient derived ref TracedProperty[*] part;
+
+			@union
+			@subsets
+			!ordered readonly volatile transient derived ref TracedConnectableElement[*] role;
+		}
+
+		class TracedLiteralNull extends TracedLiteralSpecification {
+			ref uml.LiteralNull originalObject;
+		}
+
+		class TracedExpansionNode extends TracedObjectNode {
+			!ordered ref TracedExpansionRegion regionAsInput;
+			!ordered ref TracedExpansionRegion regionAsOutput;
+			ref uml.ExpansionNode originalObject;
+		}
+
+		class TracedReception extends TracedBehavioralFeature {
+			!ordered ref TracedSignal[1] signal;
+			ref uml.Reception originalObject;
+		}
+
+		class TracedRaiseExceptionAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedInputPin[1] exception;
+			ref uml.RaiseExceptionAction originalObject;
+		}
+
+		abstract class TracedBehavioralFeature extends TracedNamespace, TracedFeature {
+			!ordered ref TracedBehavior[*] method;
+
+			@subsets
+			ref TracedParameter[*] ownedParameter;
+
+			@subsets
+			!ordered ref TracedParameterSet[*] ownedParameterSet;
+			!ordered ref TracedType[*] raisedException;
+		}
+
+		class TracedAddVariableValueAction extends TracedWriteVariableAction {
+
+			@subsets
+			!ordered ref TracedInputPin insertAt;
+			ref uml.AddVariableValueAction originalObject;
+		}
+
+		class TracedClearAssociationAction extends TracedAction {
+			!ordered ref TracedAssociation[1] association;
+
+			@subsets
+			!ordered ref TracedInputPin[1] object;
+			ref uml.ClearAssociationAction originalObject;
+		}
+
+		abstract class TracedPin extends TracedObjectNode, TracedMultiplicityElement {
+		}
+
+		class TracedTestIdentityAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedInputPin[1] first;
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+
+			@subsets
+			!ordered ref TracedInputPin[1] second;
+			ref uml.TestIdentityAction originalObject;
+		}
+
+		class TracedControlFlow extends TracedActivityEdge {
+			ref uml.ControlFlow originalObject;
+		}
+
+		class TracedOperation extends TracedBehavioralFeature, TracedParameterableElement, TracedTemplateableElement {
+
+			@subsets
+			!ordered ref TracedConstraint bodyCondition;
+
+			@subsets
+			!ordered ref TracedClass ~class;
+
+			@subsets
+			!ordered ref TracedDataType ~datatype;
+
+			@subsets
+			!ordered ref TracedInterface ~interface;
+
+			@subsets
+			!ordered ref TracedConstraint[*] postcondition;
+
+			@subsets
+			!ordered ref TracedConstraint[*] precondition;
+
+			@subsets
+			!ordered ref TracedOperation[*] redefinedOperation;
+			!ordered readonly volatile transient derived ref TracedType type;
+			ref uml.Operation originalObject;
+		}
+
+		abstract class TracedConnectableElement extends TracedTypedElement, TracedParameterableElement {
+			!ordered readonly volatile transient derived ref TracedConnectorEnd[*] end;
+		}
+
+		abstract class TracedVertex extends TracedNamedElement {
+
+			@subsets
+			!ordered ref TracedRegion container;
+			!ordered readonly volatile transient derived ref TracedTransition[*] incoming;
+			!ordered readonly volatile transient derived ref TracedTransition[*] outgoing;
+		}
+
+		abstract class TracedObservation extends TracedPackageableElement {
+		}
+
+		abstract class TracedNamespace extends TracedNamedElement {
+
+			@subsets
+			!ordered ref TracedConstraint[*] ownedRule;
+
+			@subsets
+			!ordered ref TracedElementImport[*] elementImport;
+
+			@subsets
+			!ordered ref TracedPackageImport[*] packageImport;
+
+			@union
+			@subsets
+			!ordered readonly volatile transient derived ref TracedNamedElement[*] ownedMember;
+
+			@subsets
+			!ordered readonly volatile transient derived ref TracedPackageableElement[*] importedMember;
+
+			@union
+			!ordered readonly volatile transient derived ref TracedNamedElement[*] member;
+		}
+
+		class TracedPackageImport extends TracedDirectedRelationship {
+
+			@subsets
+			!ordered ref TracedPackage[1] importedPackage;
+
+			@subsets
+			!ordered ref TracedNamespace[1] importingNamespace;
+			ref uml.PackageImport originalObject;
+		}
+
+		class TracedExecutionOccurrenceSpecification extends TracedOccurrenceSpecification {
+			!ordered ref TracedExecutionSpecification[1] execution;
+		}
+
+		class TracedExceptionHandler extends TracedElement {
+			!ordered ref TracedObjectNode[1] exceptionInput;
+			!ordered ref TracedClassifier[+] exceptionType;
+			!ordered ref TracedExecutableNode[1] handlerBody;
+
+			@subsets
+			!ordered ref TracedExecutableNode[1] protectedNode;
+			ref uml.ExceptionHandler originalObject;
+		}
+
+		class TracedVariable extends TracedConnectableElement, TracedMultiplicityElement {
+
+			@subsets
+			!ordered ref TracedActivity activityScope;
+
+			@subsets
+			!ordered ref TracedStructuredActivityNode scope;
+			ref uml.Variable originalObject;
+		}
+
+		class TracedInteractionUse extends TracedInteractionFragment {
+
+			@subsets
+			!ordered ref TracedGate[*] actualGate;
+
+			@subsets
+			ref TracedValueSpecification[*] argument;
+			!ordered ref TracedInteraction[1] refersTo;
+
+			@subsets
+			!ordered ref TracedValueSpecification returnValue;
+			!ordered ref TracedProperty returnValueRecipient;
+			ref uml.InteractionUse originalObject_InteractionUse;
+		}
+
+		class TracedAssociation extends TracedClassifier, TracedRelationship {
+
+			@subsets
+			!ordered readonly volatile transient derived ref TracedType[+] endType;
+
+			@subsets
+			ref TracedProperty[2..*] memberEnd;
+
+			@subsets
+			ref TracedProperty[*] ownedEnd;
+
+			@subsets
+			!ordered ref TracedProperty[*] navigableOwnedEnd;
+			ref uml.Association originalObject_Association;
+		}
+
+		class TracedStateInvariant extends TracedInteractionFragment {
+
+			@subsets
+			!ordered ref TracedConstraint[1] invariant;
+			ref uml.StateInvariant originalObject;
+		}
+
+		class TracedLiteralReal extends TracedLiteralSpecification {
+			ref uml.LiteralReal originalObject;
+		}
+
+		abstract class TracedInvocationAction extends TracedAction {
+
+			@subsets
+			ref TracedInputPin[*] argument;
+			!ordered ref TracedPort onPort;
+		}
+
+		class TracedRemoveVariableValueAction extends TracedWriteVariableAction {
+
+			@subsets
+			!ordered ref TracedInputPin removeAt;
+			ref uml.RemoveVariableValueAction originalObject;
+		}
+
+		class TracedDevice extends TracedNode {
+		}
+
+		class TracedSubstitution extends TracedRealization {
+
+			@subsets
+			!ordered ref TracedClassifier[1] contract;
+
+			@subsets
+			!ordered ref TracedClassifier[1] substitutingClassifier;
+		}
+
+		class TracedGate extends TracedMessageEnd {
+			ref uml.Gate originalObject;
+		}
+
+		abstract class TracedDeploymentTarget extends TracedNamedElement {
+			!ordered readonly volatile transient derived ref TracedPackageableElement[*] deployedElement;
+
+			@subsets
+			!ordered ref TracedDeployment[*] deployment;
+		}
+
+		class TracedGeneralOrdering extends TracedNamedElement {
+			!ordered ref TracedOccurrenceSpecification[1] after;
+			!ordered ref TracedOccurrenceSpecification[1] before;
+			ref uml.GeneralOrdering originalObject;
+		}
+
+		class TracedCallBehaviorAction extends TracedCallAction {
+			!ordered ref TracedBehavior[1] behavior;
+			ref uml.CallBehaviorAction originalObject;
+		}
+
+		class TracedReclassifyObjectAction extends TracedAction {
+			!ordered ref TracedClassifier[*] newClassifier;
+
+			@subsets
+			!ordered ref TracedInputPin[1] object;
+			!ordered ref TracedClassifier[*] oldClassifier;
+			ref uml.ReclassifyObjectAction originalObject;
+		}
+
+		class TracedActivity extends TracedBehavior {
+
+			@ExtendedMetaData(name="group", kind="element")
+			@subsets
+			!ordered ref TracedActivityGroup[*] ownedGroup;
+
+			@subsets
+			!ordered ref TracedActivityEdge[*] edge;
+
+			@ExtendedMetaData(kind="attribute")
+			@"http://www.eclipse.org/emf/CDO"(persistent="true", filter="ownedNode")
+			@subsets
+			!ordered volatile transient derived ref TracedActivityNode[*] node;
+
+			@subsets
+			!ordered ref TracedVariable[*] variable;
+
+			@ExtendedMetaData(kind="attribute")
+			@"http://www.eclipse.org/emf/CDO"(persistent="true", filter="ownedGroup")
+			@subsets
+			!ordered volatile transient derived ref TracedActivityGroup[*] group;
+
+			@ExtendedMetaData(name="node", kind="element")
+			@subsets
+			!ordered ref TracedActivityNode[*] ownedNode;
+
+			@subsets
+			!ordered ref TracedActivityPartition[*] partition;
+
+			@subsets
+			!ordered ref TracedStructuredActivityNode[*] structuredNode;
+		}
+
+		class TracedConnectionPointReference extends TracedVertex {
+			!ordered ref TracedPseudostate[*] entry;
+			!ordered ref TracedPseudostate[*] exit;
+
+			@subsets
+			!ordered ref TracedState state;
+			ref uml.ConnectionPointReference originalObject;
+		}
+
+		class TracedActionExecutionSpecification extends TracedExecutionSpecification {
+			!ordered ref TracedAction[1] action;
+			ref uml.ActionExecutionSpecification originalObject;
+		}
+
+		class TracedReadSelfAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedOutputPin[1] result;
+			ref uml.ReadSelfAction originalObject;
+		}
+
+		class TracedAcceptCallAction extends TracedAcceptEventAction {
+
+			@subsets
+			!ordered ref TracedOutputPin[1] returnInformation;
+		}
+
+		class TracedLinkEndCreationData extends TracedLinkEndData {
+			!ordered ref TracedInputPin insertAt;
+		}
+
+		class TracedTemplateBinding extends TracedDirectedRelationship {
+
+			@subsets
+			!ordered ref TracedTemplateParameterSubstitution[*] parameterSubstitution;
+
+			@subsets
+			!ordered ref TracedTemplateSignature[1] signature;
+
+			@subsets
+			!ordered ref TracedTemplateableElement[1] boundElement;
+			ref uml.TemplateBinding originalObject;
+		}
+
+		class TracedClearStructuralFeatureAction extends TracedStructuralFeatureAction {
+
+			@subsets
+			!ordered ref TracedOutputPin result;
+			ref uml.ClearStructuralFeatureAction originalObject;
+		}
+
+		class TracedOpaqueExpression extends TracedValueSpecification {
+			!ordered ref TracedBehavior behavior;
+			!ordered readonly volatile transient derived ref TracedParameter result;
+			ref uml.OpaqueExpression originalObject;
+		}
+
+		class TracedFunctionBehavior extends TracedOpaqueBehavior {
+		}
+
+		class TracedDeploymentSpecification extends TracedArtifact {
+
+			@subsets
+			!ordered ref TracedDeployment deployment;
+		}
+
+		class TracedActor extends TracedBehavioredClassifier {
+			ref uml.Actor originalObject;
+		}
+
+		class TracedBehaviorExecutionSpecification extends TracedExecutionSpecification {
+			!ordered ref TracedBehavior behavior;
+			ref uml.BehaviorExecutionSpecification originalObject;
+		}
+
+		abstract class TracedExecutableNode extends TracedActivityNode {
+
+			@subsets
+			!ordered ref TracedExceptionHandler[*] handler;
+		}
+
+		class TracedUnmarshallAction extends TracedAction {
+
+			@subsets
+			!ordered ref TracedInputPin[1] object;
+
+			@subsets
+			ref TracedOutputPin[+] result;
+			!ordered ref TracedClassifier[1] unmarshallType;
+			ref uml.UnmarshallAction originalObject;
+		}
+
+		class TracedCentralBufferNode extends TracedObjectNode {
+			ref uml.CentralBufferNode originalObject_CentralBufferNode;
+		}
+
+	}
+
+	@namespace(uri="umlTrace_ecore", prefix="")
+	package ecore {
+		abstract class TracedEModelElement {
+			!resolve ref ecore.EAnnotation[*] eAnnotations;
+		}
+
+	}
+
+}
+

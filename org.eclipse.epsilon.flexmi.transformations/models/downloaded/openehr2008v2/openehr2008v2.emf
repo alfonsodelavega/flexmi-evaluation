@@ -1,0 +1,1695 @@
+@namespace(uri="http://schemas.openehr.org/v1", prefix="openehr")
+package openehr;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@ExtendedMetaData(name="ACCESS_GROUP_REF", kind="elementOnly")
+class ACCESSGROUPREF extends OBJECTREF {
+}
+
+@ExtendedMetaData(name="ACTION", kind="elementOnly")
+class ACTION extends CAREENTRY {
+
+	@ExtendedMetaData(kind="element", name="time", namespace="##targetNamespace")
+	!resolve val DVDATETIME[1] time;
+
+	@ExtendedMetaData(kind="element", name="description", namespace="##targetNamespace")
+	!resolve val ITEMSTRUCTURE[1] description;
+
+	@ExtendedMetaData(kind="element", name="ism_transition", namespace="##targetNamespace")
+	!resolve val ISMTRANSITION[1] ismTransition;
+
+	@ExtendedMetaData(kind="element", name="instruction_details", namespace="##targetNamespace")
+	!resolve val INSTRUCTIONDETAILS instructionDetails;
+}
+
+@ExtendedMetaData(name="ACTIVITY", kind="elementOnly")
+class ACTIVITY extends LOCATABLE {
+
+	@ExtendedMetaData(kind="element", name="description", namespace="##targetNamespace")
+	!resolve val ITEMSTRUCTURE[1] description;
+
+	@ExtendedMetaData(kind="element", name="timing", namespace="##targetNamespace")
+	!resolve val DVPARSABLE[1] timing;
+
+	@ExtendedMetaData(kind="element", name="action_archetype_id", namespace="##targetNamespace")
+	attr type.String[1] actionArchetypeId;
+}
+
+@ExtendedMetaData(name="ADMIN_ENTRY", kind="elementOnly")
+class ADMINENTRY extends ENTRY {
+
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	!resolve val ITEMSTRUCTURE[1] data;
+}
+
+@ExtendedMetaData(name="ARCHETYPE", kind="elementOnly")
+class ARCHETYPE extends AUTHOREDRESOURCE {
+
+	@ExtendedMetaData(kind="element", name="uid", namespace="##targetNamespace")
+	!resolve val HIEROBJECTID uid;
+
+	@ExtendedMetaData(kind="element", name="archetype_id", namespace="##targetNamespace")
+	!resolve val ARCHETYPEID[1] archetypeId;
+
+	@ExtendedMetaData(kind="element", name="adl_version", namespace="##targetNamespace")
+	attr type.String adlVersion;
+
+	@ExtendedMetaData(kind="element", name="concept", namespace="##targetNamespace")
+	attr type.String[1] concept;
+
+	@ExtendedMetaData(kind="element", name="parent_archetype_id", namespace="##targetNamespace")
+	!resolve val ARCHETYPEID parentArchetypeId;
+
+	@ExtendedMetaData(kind="element", name="definition", namespace="##targetNamespace")
+	!resolve val CCOMPLEXOBJECT[1] definition;
+
+	@ExtendedMetaData(kind="element", name="invariants", namespace="##targetNamespace")
+	!resolve val ASSERTION[*] invariants;
+
+	@ExtendedMetaData(kind="element", name="ontology", namespace="##targetNamespace")
+	!resolve val ARCHETYPEONTOLOGY[1] ontology;
+}
+
+@ExtendedMetaData(name="ARCHETYPE_CONSTRAINT", kind="empty")
+abstract class ARCHETYPECONSTRAINT {
+}
+
+@ExtendedMetaData(name="ARCHETYPED", kind="elementOnly")
+class ARCHETYPED {
+
+	@ExtendedMetaData(kind="element", name="archetype_id", namespace="##targetNamespace")
+	!resolve val ARCHETYPEID[1] archetypeId;
+
+	@ExtendedMetaData(kind="element", name="template_id", namespace="##targetNamespace")
+	!resolve val TEMPLATEID templateId;
+
+	@ExtendedMetaData(kind="element", name="rm_version", namespace="##targetNamespace")
+	attr type.String[1] rmVersion;
+}
+
+@ExtendedMetaData(name="ARCHETYPE_ID", kind="elementOnly")
+class ARCHETYPEID extends OBJECTID {
+}
+
+@ExtendedMetaData(name="ARCHETYPE_INTERNAL_REF", kind="elementOnly")
+class ARCHETYPEINTERNALREF extends COBJECT {
+
+	@ExtendedMetaData(kind="element", name="target_path", namespace="##targetNamespace")
+	attr type.String[1] targetPath;
+}
+
+@ExtendedMetaData(name="archetypeNodeId", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="([a-zA-Z][\w_]*-[\w][\w_]*-[\w][\w_]*\.[\w][\w_]*(-[\w][\w_]*)*\.v\d+(\.\d)*)|(at(0\.[0-9]{1,4}|[0-9]{4})(\.[0-9]{1,3})*)")
+datatype ArchetypeNodeId : java.lang.String;
+
+@ExtendedMetaData(name="ARCHETYPE_ONTOLOGY", kind="elementOnly")
+class ARCHETYPEONTOLOGY {
+
+	@ExtendedMetaData(kind="element", name="term_definitions", namespace="##targetNamespace")
+	!resolve val CodeDefinitionSet[+] termDefinitions;
+
+	@ExtendedMetaData(kind="element", name="constraint_definitions", namespace="##targetNamespace")
+	!resolve val CodeDefinitionSet[*] constraintDefinitions;
+
+	@ExtendedMetaData(kind="element", name="term_bindings", namespace="##targetNamespace")
+	!resolve val TermBindingSet[*] termBindings;
+
+	@ExtendedMetaData(kind="element", name="constraint_bindings", namespace="##targetNamespace")
+	!resolve val ConstraintBindingSet[*] constraintBindings;
+}
+
+@ExtendedMetaData(name="ARCHETYPE_SLOT", kind="elementOnly")
+class ARCHETYPESLOT extends COBJECT {
+
+	@ExtendedMetaData(kind="element", name="includes", namespace="##targetNamespace")
+	!resolve val ASSERTION[*] includes;
+
+	@ExtendedMetaData(kind="element", name="excludes", namespace="##targetNamespace")
+	!resolve val ASSERTION[*] excludes;
+}
+
+@ExtendedMetaData(name="ARCHETYPE_TERM", kind="elementOnly")
+class ARCHETYPETERM {
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val StringDictionaryItem[+] items;
+
+	@ExtendedMetaData(kind="attribute", name="code")
+	attr type.String[1] code;
+}
+
+@ExtendedMetaData(name="ASSERTION", kind="elementOnly")
+class ASSERTION {
+
+	@ExtendedMetaData(kind="element", name="tag", namespace="##targetNamespace")
+	attr type.String tag;
+
+	@ExtendedMetaData(kind="element", name="string_expression", namespace="##targetNamespace")
+	attr type.String stringExpression;
+
+	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
+	!resolve val EXPRITEM[1] expression;
+
+	@ExtendedMetaData(kind="element", name="variables", namespace="##targetNamespace")
+	!resolve val ASSERTIONVARIABLE[*] variables;
+}
+
+@ExtendedMetaData(name="ASSERTION_VARIABLE", kind="elementOnly")
+class ASSERTIONVARIABLE {
+
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String[1] name;
+
+	@ExtendedMetaData(kind="element", name="definition", namespace="##targetNamespace")
+	attr type.String[1] definition;
+}
+
+@ExtendedMetaData(name="atCode", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="at(0\.[0-9]{1,4}|[0-9]{4})(\.[0-9]{1,3})*")
+datatype AtCode : java.lang.String;
+
+@ExtendedMetaData(name="ATTESTATION", kind="elementOnly")
+class ATTESTATION extends AUDITDETAILS {
+
+	@ExtendedMetaData(kind="element", name="attested_view", namespace="##targetNamespace")
+	!resolve val DVMULTIMEDIA attestedView;
+
+	@ExtendedMetaData(kind="element", name="proof", namespace="##targetNamespace")
+	attr type.String proof;
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val DVEHRURI[*] items;
+
+	@ExtendedMetaData(kind="element", name="reason", namespace="##targetNamespace")
+	!resolve val DVTEXT[1] reason;
+
+	@ExtendedMetaData(kind="element", name="is_pending", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] isPending = "false";
+}
+
+@ExtendedMetaData(name="AUDIT_DETAILS", kind="elementOnly")
+class AUDITDETAILS {
+
+	@ExtendedMetaData(kind="element", name="system_id", namespace="##targetNamespace")
+	attr type.String[1] systemId;
+
+	@ExtendedMetaData(kind="element", name="committer", namespace="##targetNamespace")
+	!resolve val PARTYPROXY[1] committer;
+
+	@ExtendedMetaData(kind="element", name="time_committed", namespace="##targetNamespace")
+	!resolve val DVDATETIME[1] timeCommitted;
+
+	@ExtendedMetaData(kind="element", name="change_type", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT[1] changeType;
+
+	@ExtendedMetaData(kind="element", name="description", namespace="##targetNamespace")
+	!resolve val DVTEXT description;
+}
+
+@ExtendedMetaData(name="AUTHORED_RESOURCE", kind="elementOnly")
+abstract class AUTHOREDRESOURCE {
+
+	@ExtendedMetaData(kind="element", name="original_language", namespace="##targetNamespace")
+	!resolve val CODEPHRASE[1] originalLanguage;
+
+	@ExtendedMetaData(kind="element", name="is_controlled", namespace="##targetNamespace")
+	unsettable attr type.Boolean isControlled;
+
+	@ExtendedMetaData(kind="element", name="description", namespace="##targetNamespace")
+	!resolve val RESOURCEDESCRIPTION description;
+
+	@ExtendedMetaData(kind="element", name="translations", namespace="##targetNamespace")
+	!resolve val TRANSLATIONDETAILS[*] translations;
+
+	@ExtendedMetaData(kind="element", name="revision_history", namespace="##targetNamespace")
+	!resolve val REVISIONHISTORY revisionHistory;
+}
+
+@ExtendedMetaData(name="CARDINALITY", kind="elementOnly")
+class CARDINALITY {
+
+	@ExtendedMetaData(kind="element", name="is_ordered", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] isOrdered;
+
+	@ExtendedMetaData(kind="element", name="is_unique", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] isUnique;
+
+	@ExtendedMetaData(kind="element", name="interval", namespace="##targetNamespace")
+	!resolve val IntervalOfInteger[1] interval;
+}
+
+@ExtendedMetaData(name="CARE_ENTRY", kind="elementOnly")
+abstract class CAREENTRY extends ENTRY {
+
+	@ExtendedMetaData(kind="element", name="protocol", namespace="##targetNamespace")
+	!resolve val ITEMSTRUCTURE protocol;
+
+	@ExtendedMetaData(kind="element", name="guideline_id", namespace="##targetNamespace")
+	!resolve val OBJECTREF guidelineId;
+}
+
+@ExtendedMetaData(name="C_ATTRIBUTE", kind="elementOnly")
+abstract class CATTRIBUTE extends ARCHETYPECONSTRAINT {
+
+	@ExtendedMetaData(kind="element", name="rm_attribute_name", namespace="##targetNamespace")
+	attr type.String[1] rmAttributeName;
+
+	@ExtendedMetaData(kind="element", name="existence", namespace="##targetNamespace")
+	!resolve val IntervalOfInteger[1] existence;
+
+	@ExtendedMetaData(kind="element", name="children", namespace="##targetNamespace")
+	!resolve val COBJECT[*] children;
+}
+
+@ExtendedMetaData(name="C_BOOLEAN", kind="elementOnly")
+class CBOOLEAN extends CPRIMITIVE {
+
+	@ExtendedMetaData(kind="element", name="true_valid", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] trueValid;
+
+	@ExtendedMetaData(kind="element", name="false_valid", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] falseValid;
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	unsettable attr type.Boolean assumedValue;
+}
+
+@ExtendedMetaData(name="C_CODE_PHRASE", kind="elementOnly")
+class CCODEPHRASE extends CDOMAINTYPE {
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	!resolve val CODEPHRASE assumedValue;
+
+	@ExtendedMetaData(kind="element", name="terminology_id", namespace="##targetNamespace")
+	!resolve val TERMINOLOGYID terminologyId;
+
+	@ExtendedMetaData(kind="element", name="code_list", namespace="##targetNamespace")
+	!unique attr type.String[*] codeList;
+}
+
+@ExtendedMetaData(name="C_COMPLEX_OBJECT", kind="elementOnly")
+class CCOMPLEXOBJECT extends CDEFINEDOBJECT {
+
+	@ExtendedMetaData(kind="element", name="attributes", namespace="##targetNamespace")
+	!resolve val CATTRIBUTE[*] attributes;
+}
+
+@ExtendedMetaData(name="C_DATE", kind="elementOnly")
+class CDATE extends CPRIMITIVE {
+
+	@ExtendedMetaData(kind="element", name="pattern", namespace="##targetNamespace")
+	attr DateConstraintPattern pattern;
+
+	@ExtendedMetaData(kind="element", name="timezone_validity", namespace="##targetNamespace")
+	unsettable attr VALIDITYKIND timezoneValidity;
+
+	@ExtendedMetaData(kind="element", name="range", namespace="##targetNamespace")
+	!resolve val IntervalOfDate range;
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	attr Iso8601Date assumedValue;
+}
+
+@ExtendedMetaData(name="C_DATE_TIME", kind="elementOnly")
+class CDATETIME extends CPRIMITIVE {
+
+	@ExtendedMetaData(kind="element", name="pattern", namespace="##targetNamespace")
+	attr DateTimeConstraintPattern pattern;
+
+	@ExtendedMetaData(kind="element", name="timezone_validity", namespace="##targetNamespace")
+	unsettable attr VALIDITYKIND timezoneValidity;
+
+	@ExtendedMetaData(kind="element", name="range", namespace="##targetNamespace")
+	!resolve val IntervalOfDateTime range;
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	attr Iso8601DateTime assumedValue;
+}
+
+@ExtendedMetaData(name="C_DEFINED_OBJECT", kind="elementOnly")
+class CDEFINEDOBJECT extends COBJECT {
+}
+
+@ExtendedMetaData(name="C_DOMAIN_TYPE", kind="elementOnly")
+abstract class CDOMAINTYPE extends CDEFINEDOBJECT {
+}
+
+@ExtendedMetaData(name="C_DURATION", kind="elementOnly")
+class CDURATION extends CPRIMITIVE {
+
+	@ExtendedMetaData(kind="element", name="pattern", namespace="##targetNamespace")
+	attr DurationConstraintPattern pattern;
+
+	@ExtendedMetaData(kind="element", name="range", namespace="##targetNamespace")
+	!resolve val IntervalOfDuration range;
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	attr Iso8601Duration assumedValue;
+}
+
+@ExtendedMetaData(name="C_DV_ORDINAL", kind="elementOnly")
+class CDVORDINAL extends CDOMAINTYPE {
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	!resolve val DVORDINAL assumedValue;
+
+	@ExtendedMetaData(kind="element", name="list", namespace="##targetNamespace")
+	!resolve val DVORDINAL[*] list;
+}
+
+@ExtendedMetaData(name="C_DV_QUANTITY", kind="elementOnly")
+class CDVQUANTITY extends CDOMAINTYPE {
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	!resolve val DVQUANTITY assumedValue;
+
+	@ExtendedMetaData(kind="element", name="property", namespace="##targetNamespace")
+	!resolve val CODEPHRASE property;
+
+	@ExtendedMetaData(kind="element", name="list", namespace="##targetNamespace")
+	!resolve val CQUANTITYITEM[*] list;
+}
+
+@ExtendedMetaData(name="C_DV_STATE", kind="elementOnly")
+class CDVSTATE extends CDOMAINTYPE {
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	!resolve val DVSTATE assumedValue;
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	!resolve val STATEMACHINE[1] value;
+}
+
+@ExtendedMetaData(name="C_INTEGER", kind="elementOnly")
+class CINTEGER extends CPRIMITIVE {
+
+	@ExtendedMetaData(kind="element", name="list", namespace="##targetNamespace")
+	!unique attr type.Int[*] list;
+
+	@ExtendedMetaData(kind="element", name="range", namespace="##targetNamespace")
+	!resolve val IntervalOfInteger range;
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	unsettable attr type.Int assumedValue;
+}
+
+@ExtendedMetaData(name="CLUSTER", kind="elementOnly")
+class CLUSTER extends ITEM {
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val ITEM[+] items;
+}
+
+@ExtendedMetaData(name="C_MULTIPLE_ATTRIBUTE", kind="elementOnly")
+class CMULTIPLEATTRIBUTE extends CATTRIBUTE {
+
+	@ExtendedMetaData(kind="element", name="cardinality", namespace="##targetNamespace")
+	!resolve val CARDINALITY[1] cardinality;
+}
+
+@ExtendedMetaData(name="C_OBJECT", kind="elementOnly")
+abstract class COBJECT extends ARCHETYPECONSTRAINT {
+
+	@ExtendedMetaData(kind="element", name="rm_type_name", namespace="##targetNamespace")
+	attr type.String[1] rmTypeName;
+
+	@ExtendedMetaData(kind="element", name="occurrences", namespace="##targetNamespace")
+	!resolve val IntervalOfInteger[1] occurrences;
+
+	@ExtendedMetaData(kind="element", name="node_id", namespace="##targetNamespace")
+	attr type.String[1] nodeId;
+}
+
+@ExtendedMetaData(name="CodeDefinitionSet", kind="elementOnly")
+class CodeDefinitionSet {
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val ARCHETYPETERM[*] items;
+
+	@ExtendedMetaData(kind="attribute", name="language")
+	attr type.String[1] language;
+}
+
+@ExtendedMetaData(name="CODE_PHRASE", kind="elementOnly")
+class CODEPHRASE {
+
+	@ExtendedMetaData(kind="element", name="terminology_id", namespace="##targetNamespace")
+	!resolve val TERMINOLOGYID[1] terminologyId;
+
+	@ExtendedMetaData(kind="element", name="code_string", namespace="##targetNamespace")
+	attr type.String[1] codeString;
+}
+
+@ExtendedMetaData(name="COMPOSITION", kind="elementOnly")
+class COMPOSITION extends LOCATABLE {
+
+	@ExtendedMetaData(kind="element", name="language", namespace="##targetNamespace")
+	!resolve val CODEPHRASE[1] language;
+
+	@ExtendedMetaData(kind="element", name="territory", namespace="##targetNamespace")
+	!resolve val CODEPHRASE[1] territory;
+
+	@ExtendedMetaData(kind="element", name="category", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT[1] category;
+
+	@ExtendedMetaData(kind="element", name="composer", namespace="##targetNamespace")
+	!resolve val PARTYPROXY[1] composer;
+
+	@ExtendedMetaData(kind="element", name="context", namespace="##targetNamespace")
+	!resolve val EVENTCONTEXT context;
+
+	@ExtendedMetaData(kind="element", name="content", namespace="##targetNamespace")
+	!resolve val CONTENTITEM[*] content;
+}
+
+@ExtendedMetaData(name="CONSTRAINT_BINDING_ITEM", kind="elementOnly")
+class CONSTRAINTBINDINGITEM {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	attr type.AnyURI[1] value;
+
+	@ExtendedMetaData(kind="attribute", name="code")
+	attr type.String[1] code;
+}
+
+@ExtendedMetaData(name="ConstraintBindingSet", kind="elementOnly")
+class ConstraintBindingSet {
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val CONSTRAINTBINDINGITEM[*] items;
+
+	@ExtendedMetaData(kind="attribute", name="terminology")
+	attr type.String[1] terminology;
+}
+
+@ExtendedMetaData(name="CONSTRAINT_REF", kind="elementOnly")
+class CONSTRAINTREF extends COBJECT {
+
+	@ExtendedMetaData(kind="element", name="reference", namespace="##targetNamespace")
+	attr type.String[1] reference;
+}
+
+@ExtendedMetaData(name="CONTENT_ITEM", kind="elementOnly")
+abstract class CONTENTITEM extends LOCATABLE {
+}
+
+@ExtendedMetaData(name="C_PRIMITIVE", kind="empty")
+abstract class CPRIMITIVE {
+}
+
+@ExtendedMetaData(name="C_PRIMITIVE_OBJECT", kind="elementOnly")
+class CPRIMITIVEOBJECT extends CDEFINEDOBJECT {
+
+	@ExtendedMetaData(kind="element", name="item", namespace="##targetNamespace")
+	!resolve val CPRIMITIVE item;
+}
+
+@ExtendedMetaData(name="C_QUANTITY_ITEM", kind="elementOnly")
+class CQUANTITYITEM {
+
+	@ExtendedMetaData(kind="element", name="magnitude", namespace="##targetNamespace")
+	!resolve val IntervalOfReal magnitude;
+
+	@ExtendedMetaData(kind="element", name="precision", namespace="##targetNamespace")
+	!resolve val IntervalOfInteger precision;
+
+	@ExtendedMetaData(kind="element", name="units", namespace="##targetNamespace")
+	attr type.String[1] units;
+}
+
+@ExtendedMetaData(name="C_REAL", kind="elementOnly")
+class CREAL extends CPRIMITIVE {
+
+	@ExtendedMetaData(kind="element", name="list", namespace="##targetNamespace")
+	!unique attr type.Float[*] list;
+
+	@ExtendedMetaData(kind="element", name="range", namespace="##targetNamespace")
+	!resolve val IntervalOfReal range;
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	unsettable attr type.Float assumedValue;
+}
+
+@ExtendedMetaData(name="C_SINGLE_ATTRIBUTE", kind="elementOnly")
+class CSINGLEATTRIBUTE extends CATTRIBUTE {
+}
+
+@ExtendedMetaData(name="C_STRING", kind="elementOnly")
+class CSTRING extends CPRIMITIVE {
+
+	@ExtendedMetaData(kind="element", name="pattern", namespace="##targetNamespace")
+	attr type.String pattern;
+
+	@ExtendedMetaData(kind="element", name="list", namespace="##targetNamespace")
+	!unique attr type.String[*] list;
+
+	@ExtendedMetaData(kind="element", name="list_open", namespace="##targetNamespace")
+	unsettable attr type.Boolean listOpen;
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	attr type.String assumedValue;
+}
+
+@ExtendedMetaData(name="C_TIME", kind="elementOnly")
+class CTIME extends CPRIMITIVE {
+
+	@ExtendedMetaData(kind="element", name="pattern", namespace="##targetNamespace")
+	attr TimeConstraintPattern pattern;
+
+	@ExtendedMetaData(kind="element", name="timezone_validity", namespace="##targetNamespace")
+	unsettable attr VALIDITYKIND timezoneValidity;
+
+	@ExtendedMetaData(kind="element", name="range", namespace="##targetNamespace")
+	!resolve val IntervalOfTime range;
+
+	@ExtendedMetaData(kind="element", name="assumed_value", namespace="##targetNamespace")
+	attr Iso8601Time assumedValue;
+}
+
+@ExtendedMetaData(name="DATA_VALUE", kind="empty")
+abstract class DATAVALUE {
+}
+
+@ExtendedMetaData(name="DateConstraintPattern", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="[yY][yY][yY][yY]-[mM?X][mM?X]-[dD?X][dD?X]")
+datatype DateConstraintPattern : java.lang.String;
+
+@ExtendedMetaData(name="DateTimeConstraintPattern", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="[yY][yY][yY][yY]-[mM?][mM?]-[dD?X][dD?X][T][hH?X][hH?X]:[mM?X][mM?X]:[sS?X][sS?X]")
+datatype DateTimeConstraintPattern : java.lang.String;
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@ExtendedMetaData(kind="element", name="archetype", namespace="##targetNamespace")
+	volatile transient derived !resolve val ARCHETYPE[0..?] archetype;
+
+	@ExtendedMetaData(kind="element", name="composition", namespace="##targetNamespace")
+	volatile transient derived !resolve val COMPOSITION[0..?] composition;
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	volatile transient derived !resolve val LOCATABLE[0..?] items;
+
+	@ExtendedMetaData(kind="element", name="version", namespace="##targetNamespace")
+	volatile transient derived !resolve val VERSION[0..?] version;
+}
+
+@ExtendedMetaData(name="DurationConstraintPattern", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="(P[yY]?[mM]?[wW]?[dD]?T[hH]?[mM]?[sS]?)|(P[yY]?[mM]?[wW]?[dD]?)")
+datatype DurationConstraintPattern : java.lang.String;
+
+@ExtendedMetaData(name="DV_AMOUNT", kind="elementOnly")
+class DVAMOUNT extends DVQUANTIFIED {
+
+	@ExtendedMetaData(kind="element", name="accuracy", namespace="##targetNamespace")
+	unsettable attr type.Float accuracy = "-1.0";
+
+	@ExtendedMetaData(kind="element", name="accuracy_is_percent", namespace="##targetNamespace")
+	unsettable attr type.Boolean accuracyIsPercent;
+}
+
+@ExtendedMetaData(name="DV_BOOLEAN", kind="elementOnly")
+class DVBOOLEAN extends DATAVALUE {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] value;
+}
+
+@ExtendedMetaData(name="DV_CODED_TEXT", kind="elementOnly")
+class DVCODEDTEXT extends DVTEXT {
+
+	@ExtendedMetaData(kind="element", name="defining_code", namespace="##targetNamespace")
+	!resolve val CODEPHRASE[1] definingCode;
+}
+
+@ExtendedMetaData(name="DV_COUNT", kind="elementOnly")
+class DVCOUNT extends DVAMOUNT {
+
+	@ExtendedMetaData(kind="element", name="magnitude", namespace="##targetNamespace")
+	unsettable attr type.Long[1] magnitude;
+}
+
+@ExtendedMetaData(name="DV_DATE", kind="elementOnly")
+class DVDATE extends DVTEMPORAL {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	attr Iso8601Date[1] value;
+}
+
+@ExtendedMetaData(name="DV_DATE_TIME", kind="elementOnly")
+class DVDATETIME extends DVTEMPORAL {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	attr Iso8601DateTime[1] value;
+}
+
+@ExtendedMetaData(name="DV_DURATION", kind="elementOnly")
+class DVDURATION extends DVAMOUNT {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	attr Iso8601Duration[1] value;
+}
+
+@ExtendedMetaData(name="DV_EHR_URI", kind="elementOnly")
+class DVEHRURI extends DVURI {
+}
+
+@ExtendedMetaData(name="DV_ENCAPSULATED", kind="elementOnly")
+abstract class DVENCAPSULATED extends DATAVALUE {
+
+	@ExtendedMetaData(kind="element", name="charset", namespace="##targetNamespace")
+	!resolve val CODEPHRASE charset;
+
+	@ExtendedMetaData(kind="element", name="language", namespace="##targetNamespace")
+	!resolve val CODEPHRASE language;
+}
+
+@ExtendedMetaData(name="DV_GENERAL_TIME_SPECIFICATION", kind="elementOnly")
+class DVGENERALTIMESPECIFICATION extends DVTIMESPECIFICATION {
+}
+
+@ExtendedMetaData(name="DV_IDENTIFIER", kind="elementOnly")
+class DVIDENTIFIER extends DATAVALUE {
+
+	@ExtendedMetaData(kind="element", name="issuer", namespace="##targetNamespace")
+	attr type.String[1] issuer;
+
+	@ExtendedMetaData(kind="element", name="assigner", namespace="##targetNamespace")
+	attr type.String[1] assigner;
+
+	@ExtendedMetaData(kind="element", name="id", namespace="##targetNamespace")
+	attr type.String[1] ~id;
+
+	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
+	attr type.String[1] type;
+}
+
+@ExtendedMetaData(name="DV_INTERVAL", kind="elementOnly")
+class DVINTERVAL extends DATAVALUE {
+
+	@ExtendedMetaData(kind="element", name="lower", namespace="##targetNamespace")
+	!resolve val DVORDERED lower;
+
+	@ExtendedMetaData(kind="element", name="upper", namespace="##targetNamespace")
+	!resolve val DVORDERED upper;
+
+	@ExtendedMetaData(kind="element", name="lower_included", namespace="##targetNamespace")
+	unsettable attr type.Boolean lowerIncluded;
+
+	@ExtendedMetaData(kind="element", name="upper_included", namespace="##targetNamespace")
+	unsettable attr type.Boolean upperIncluded;
+
+	@ExtendedMetaData(kind="element", name="lower_unbounded", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] lowerUnbounded;
+
+	@ExtendedMetaData(kind="element", name="upper_unbounded", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] upperUnbounded;
+}
+
+@ExtendedMetaData(name="DV_MULTIMEDIA", kind="elementOnly")
+class DVMULTIMEDIA extends DVENCAPSULATED {
+
+	@ExtendedMetaData(kind="element", name="alternate_text", namespace="##targetNamespace")
+	attr type.String alternateText;
+
+	@ExtendedMetaData(kind="element", name="uri", namespace="##targetNamespace")
+	!resolve val DVURI uri;
+
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	attr type.Base64Binary data;
+
+	@ExtendedMetaData(kind="element", name="media_type", namespace="##targetNamespace")
+	!resolve val CODEPHRASE[1] mediaType;
+
+	@ExtendedMetaData(kind="element", name="compression_algorithm", namespace="##targetNamespace")
+	!resolve val CODEPHRASE compressionAlgorithm;
+
+	@ExtendedMetaData(kind="element", name="integrity_check", namespace="##targetNamespace")
+	attr type.Base64Binary integrityCheck;
+
+	@ExtendedMetaData(kind="element", name="integrity_check_algorithm", namespace="##targetNamespace")
+	!resolve val CODEPHRASE integrityCheckAlgorithm;
+
+	@ExtendedMetaData(kind="element", name="size", namespace="##targetNamespace")
+	unsettable attr type.Int[1] size;
+
+	@ExtendedMetaData(kind="element", name="thumbnail", namespace="##targetNamespace")
+	!resolve val DVMULTIMEDIA thumbnail;
+}
+
+@ExtendedMetaData(name="DV_ORDERED", kind="elementOnly")
+abstract class DVORDERED extends DATAVALUE {
+
+	@ExtendedMetaData(kind="element", name="normal_range", namespace="##targetNamespace")
+	!resolve val DVINTERVAL normalRange;
+
+	@ExtendedMetaData(kind="element", name="other_reference_ranges", namespace="##targetNamespace")
+	!resolve val REFERENCERANGE[*] otherReferenceRanges;
+
+	@ExtendedMetaData(kind="element", name="normal_status", namespace="##targetNamespace")
+	!resolve val CODEPHRASE normalStatus;
+}
+
+@ExtendedMetaData(name="DV_ORDINAL", kind="elementOnly")
+class DVORDINAL extends DVORDERED {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	unsettable attr type.Int[1] value;
+
+	@ExtendedMetaData(kind="element", name="symbol", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT[1] symbol;
+}
+
+@ExtendedMetaData(name="DV_PARAGRAPH", kind="elementOnly")
+class DVPARAGRAPH extends DATAVALUE {
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val DVTEXT[+] items;
+}
+
+@ExtendedMetaData(name="DV_PARSABLE", kind="elementOnly")
+class DVPARSABLE extends DVENCAPSULATED {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	attr type.String[1] value;
+
+	@ExtendedMetaData(kind="element", name="formalism", namespace="##targetNamespace")
+	attr type.String[1] formalism;
+}
+
+@ExtendedMetaData(name="DV_PERIODIC_TIME_SPECIFICATION", kind="elementOnly")
+class DVPERIODICTIMESPECIFICATION extends DVTIMESPECIFICATION {
+}
+
+@ExtendedMetaData(name="DV_PROPORTION", kind="elementOnly")
+class DVPROPORTION extends DVAMOUNT {
+
+	@ExtendedMetaData(kind="element", name="numerator", namespace="##targetNamespace")
+	unsettable attr type.Float[1] numerator;
+
+	@ExtendedMetaData(kind="element", name="denominator", namespace="##targetNamespace")
+	unsettable attr type.Float[1] denominator;
+
+	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
+	unsettable attr PROPORTIONKIND[1] type;
+
+	@ExtendedMetaData(kind="element", name="precision", namespace="##targetNamespace")
+	unsettable attr type.Int precision = "-1";
+}
+
+@ExtendedMetaData(name="DV_QUANTIFIED", kind="elementOnly")
+abstract class DVQUANTIFIED extends DVORDERED {
+
+	@ExtendedMetaData(kind="element", name="magnitude_status", namespace="##targetNamespace")
+	attr type.String magnitudeStatus;
+}
+
+@ExtendedMetaData(name="DV_QUANTITY", kind="elementOnly")
+class DVQUANTITY extends DVAMOUNT {
+
+	@ExtendedMetaData(kind="element", name="magnitude", namespace="##targetNamespace")
+	unsettable attr type.Double[1] magnitude;
+
+	@ExtendedMetaData(kind="element", name="units", namespace="##targetNamespace")
+	attr type.String[1] units;
+
+	@ExtendedMetaData(kind="element", name="precision", namespace="##targetNamespace")
+	unsettable attr type.Int precision = "-1";
+}
+
+@ExtendedMetaData(name="DV_STATE", kind="elementOnly")
+class DVSTATE extends DATAVALUE {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT[1] value;
+
+	@ExtendedMetaData(kind="element", name="is_terminal", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] isTerminal;
+}
+
+@ExtendedMetaData(name="DV_TEMPORAL", kind="elementOnly")
+class DVTEMPORAL extends DVQUANTIFIED {
+
+	@ExtendedMetaData(kind="element", name="accuracy", namespace="##targetNamespace")
+	!resolve val DVDURATION accuracy;
+}
+
+@ExtendedMetaData(name="DV_TEXT", kind="elementOnly")
+class DVTEXT extends DATAVALUE {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	attr type.String[1] value;
+
+	@ExtendedMetaData(kind="element", name="hyperlink", namespace="##targetNamespace")
+	!resolve val DVURI hyperlink;
+
+	@ExtendedMetaData(kind="element", name="formatting", namespace="##targetNamespace")
+	attr type.String formatting;
+
+	@ExtendedMetaData(kind="element", name="mappings", namespace="##targetNamespace")
+	!resolve val TERMMAPPING[*] mappings;
+
+	@ExtendedMetaData(kind="element", name="language", namespace="##targetNamespace")
+	!resolve val CODEPHRASE language;
+
+	@ExtendedMetaData(kind="element", name="encoding", namespace="##targetNamespace")
+	!resolve val CODEPHRASE encoding;
+}
+
+@ExtendedMetaData(name="DV_TIME", kind="elementOnly")
+class DVTIME extends DVTEMPORAL {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	attr Iso8601Time[1] value;
+}
+
+@ExtendedMetaData(name="DV_TIME_SPECIFICATION", kind="elementOnly")
+abstract class DVTIMESPECIFICATION extends DATAVALUE {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	!resolve val DVPARSABLE[1] value;
+}
+
+@ExtendedMetaData(name="DV_URI", kind="elementOnly")
+class DVURI extends DATAVALUE {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	attr type.AnyURI value;
+}
+
+@ExtendedMetaData(name="ELEMENT", kind="elementOnly")
+class ELEMENT extends ITEM {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	!resolve val DATAVALUE value;
+
+	@ExtendedMetaData(kind="element", name="null_flavour", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT nullFlavour;
+}
+
+@ExtendedMetaData(name="ENTRY", kind="elementOnly")
+abstract class ENTRY extends CONTENTITEM {
+
+	@ExtendedMetaData(kind="element", name="language", namespace="##targetNamespace")
+	!resolve val CODEPHRASE[1] language;
+
+	@ExtendedMetaData(kind="element", name="encoding", namespace="##targetNamespace")
+	!resolve val CODEPHRASE[1] encoding;
+
+	@ExtendedMetaData(kind="element", name="subject", namespace="##targetNamespace")
+	!resolve val PARTYPROXY[1] subject;
+
+	@ExtendedMetaData(kind="element", name="provider", namespace="##targetNamespace")
+	!resolve val PARTYPROXY provider;
+
+	@ExtendedMetaData(kind="element", name="other_participations", namespace="##targetNamespace")
+	!resolve val PARTICIPATION[*] otherParticipations;
+
+	@ExtendedMetaData(kind="element", name="work_flow_id", namespace="##targetNamespace")
+	!resolve val OBJECTREF workFlowId;
+}
+
+@ExtendedMetaData(name="EVALUATION", kind="elementOnly")
+class EVALUATION extends CAREENTRY {
+
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	!resolve val ITEMSTRUCTURE[1] data;
+}
+
+@ExtendedMetaData(name="EVENT", kind="elementOnly")
+abstract class EVENT extends LOCATABLE {
+
+	@ExtendedMetaData(kind="element", name="time", namespace="##targetNamespace")
+	!resolve val DVDATETIME[1] time;
+
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	!resolve val ITEMSTRUCTURE[1] data;
+
+	@ExtendedMetaData(kind="element", name="state", namespace="##targetNamespace")
+	!resolve val ITEMSTRUCTURE state;
+}
+
+@ExtendedMetaData(name="EVENT_CONTEXT", kind="elementOnly")
+class EVENTCONTEXT {
+
+	@ExtendedMetaData(kind="element", name="start_time", namespace="##targetNamespace")
+	!resolve val DVDATETIME[1] startTime;
+
+	@ExtendedMetaData(kind="element", name="end_time", namespace="##targetNamespace")
+	!resolve val DVDATETIME endTime;
+
+	@ExtendedMetaData(kind="element", name="location", namespace="##targetNamespace")
+	attr type.String location;
+
+	@ExtendedMetaData(kind="element", name="setting", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT[1] setting;
+
+	@ExtendedMetaData(kind="element", name="other_context", namespace="##targetNamespace")
+	!resolve val ITEMSTRUCTURE otherContext;
+
+	@ExtendedMetaData(kind="element", name="health_care_facility", namespace="##targetNamespace")
+	!resolve val PARTYIDENTIFIED healthCareFacility;
+
+	@ExtendedMetaData(kind="element", name="participations", namespace="##targetNamespace")
+	!resolve val PARTICIPATION[*] participations;
+}
+
+@ExtendedMetaData(name="EXPR_BINARY_OPERATOR", kind="elementOnly")
+class EXPRBINARYOPERATOR extends EXPROPERATOR {
+
+	@ExtendedMetaData(kind="element", name="left_operand", namespace="##targetNamespace")
+	!resolve val EXPRITEM[1] leftOperand;
+
+	@ExtendedMetaData(kind="element", name="right_operand", namespace="##targetNamespace")
+	!resolve val EXPRITEM[1] rightOperand;
+}
+
+@ExtendedMetaData(name="EXPR_ITEM", kind="elementOnly")
+abstract class EXPRITEM {
+
+	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
+	attr type.String[1] type;
+}
+
+@ExtendedMetaData(name="EXPR_LEAF", kind="elementOnly")
+class EXPRLEAF extends EXPRITEM {
+
+	@ExtendedMetaData(kind="element", name="item", namespace="##targetNamespace")
+	!resolve val EObject[1] item;
+
+	@ExtendedMetaData(kind="element", name="reference_type", namespace="##targetNamespace")
+	attr type.String[1] referenceType;
+}
+
+@ExtendedMetaData(name="EXPR_OPERATOR", kind="elementOnly")
+abstract class EXPROPERATOR extends EXPRITEM {
+
+	@ExtendedMetaData(kind="element", name="operator", namespace="##targetNamespace")
+	unsettable attr OPERATORKIND[1] operator;
+
+	@ExtendedMetaData(kind="element", name="precedence_overridden", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] precedenceOverridden;
+}
+
+@ExtendedMetaData(name="EXPR_UNARY_OPERATOR", kind="elementOnly")
+class EXPRUNARYOPERATOR extends EXPROPERATOR {
+
+	@ExtendedMetaData(kind="element", name="operand", namespace="##targetNamespace")
+	!resolve val EXPRITEM[1] operand;
+}
+
+@ExtendedMetaData(name="FEEDER_AUDIT", kind="elementOnly")
+class FEEDERAUDIT {
+
+	@ExtendedMetaData(kind="element", name="originating_system_item_ids", namespace="##targetNamespace")
+	!resolve val DVIDENTIFIER[*] originatingSystemItemIds;
+
+	@ExtendedMetaData(kind="element", name="feeder_system_item_ids", namespace="##targetNamespace")
+	!resolve val DVIDENTIFIER[*] feederSystemItemIds;
+
+	@ExtendedMetaData(kind="element", name="original_content", namespace="##targetNamespace")
+	!resolve val DVENCAPSULATED originalContent;
+
+	@ExtendedMetaData(kind="element", name="originating_system_audit", namespace="##targetNamespace")
+	!resolve val FEEDERAUDITDETAILS[1] originatingSystemAudit;
+
+	@ExtendedMetaData(kind="element", name="feeder_system_audit", namespace="##targetNamespace")
+	!resolve val FEEDERAUDITDETAILS feederSystemAudit;
+}
+
+@ExtendedMetaData(name="FEEDER_AUDIT_DETAILS", kind="elementOnly")
+class FEEDERAUDITDETAILS {
+
+	@ExtendedMetaData(kind="element", name="system_id", namespace="##targetNamespace")
+	attr type.String[1] systemId;
+
+	@ExtendedMetaData(kind="element", name="location", namespace="##targetNamespace")
+	!resolve val PARTYIDENTIFIED location;
+
+	@ExtendedMetaData(kind="element", name="provider", namespace="##targetNamespace")
+	!resolve val PARTYIDENTIFIED provider;
+
+	@ExtendedMetaData(kind="element", name="subject", namespace="##targetNamespace")
+	!resolve val PARTYPROXY subject;
+
+	@ExtendedMetaData(kind="element", name="time", namespace="##targetNamespace")
+	!resolve val DVDATETIME time;
+
+	@ExtendedMetaData(kind="element", name="version_id", namespace="##targetNamespace")
+	attr type.String versionId;
+}
+
+@ExtendedMetaData(name="FOLDER", kind="elementOnly")
+class FOLDER extends LOCATABLE {
+
+	@ExtendedMetaData(kind="element", name="folders", namespace="##targetNamespace")
+	!resolve val FOLDER[*] folders;
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val OBJECTREF[*] items;
+}
+
+@ExtendedMetaData(name="GENERIC_ENTRY", kind="elementOnly")
+class GENERICENTRY extends CONTENTITEM {
+
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	!resolve val ITEMTREE[1] data;
+}
+
+@ExtendedMetaData(name="GENERIC_ID", kind="elementOnly")
+class GENERICID extends OBJECTID {
+
+	@ExtendedMetaData(kind="element", name="scheme", namespace="##targetNamespace")
+	attr type.String[1] scheme;
+}
+
+@ExtendedMetaData(name="HIER_OBJECT_ID", kind="elementOnly")
+class HIEROBJECTID extends UIDBASEDID {
+}
+
+@ExtendedMetaData(name="HISTORY", kind="elementOnly")
+class HISTORY extends LOCATABLE {
+
+	@ExtendedMetaData(kind="element", name="origin", namespace="##targetNamespace")
+	!resolve val DVDATETIME[1] origin;
+
+	@ExtendedMetaData(kind="element", name="period", namespace="##targetNamespace")
+	!resolve val DVDURATION period;
+
+	@ExtendedMetaData(kind="element", name="duration", namespace="##targetNamespace")
+	!resolve val DVDURATION duration;
+
+	@ExtendedMetaData(kind="element", name="events", namespace="##targetNamespace")
+	!resolve val EVENT[*] events;
+
+	@ExtendedMetaData(kind="element", name="summary", namespace="##targetNamespace")
+	!resolve val ITEMSTRUCTURE summary;
+}
+
+@ExtendedMetaData(name="IMPORTED_VERSION", kind="elementOnly")
+class IMPORTEDVERSION extends VERSION {
+
+	@ExtendedMetaData(kind="element", name="item", namespace="##targetNamespace")
+	!resolve val ORIGINALVERSION[1] item;
+}
+
+@ExtendedMetaData(name="INSTRUCTION", kind="elementOnly")
+class INSTRUCTION extends CAREENTRY {
+
+	@ExtendedMetaData(kind="element", name="narrative", namespace="##targetNamespace")
+	!resolve val DVTEXT[1] narrative;
+
+	@ExtendedMetaData(kind="element", name="expiry_time", namespace="##targetNamespace")
+	!resolve val DVDATETIME expiryTime;
+
+	@ExtendedMetaData(kind="element", name="wf_definition", namespace="##targetNamespace")
+	!resolve val DVPARSABLE wfDefinition;
+
+	@ExtendedMetaData(kind="element", name="activities", namespace="##targetNamespace")
+	!resolve val ACTIVITY[*] activities;
+}
+
+@ExtendedMetaData(name="INSTRUCTION_DETAILS", kind="elementOnly")
+class INSTRUCTIONDETAILS {
+
+	@ExtendedMetaData(kind="element", name="instruction_id", namespace="##targetNamespace")
+	!resolve val LOCATABLEREF[1] instructionId;
+
+	@ExtendedMetaData(kind="element", name="activity_id", namespace="##targetNamespace")
+	attr AtCode[1] activityId;
+
+	@ExtendedMetaData(kind="element", name="wf_details", namespace="##targetNamespace")
+	!resolve val ITEMSTRUCTURE wfDetails;
+}
+
+@ExtendedMetaData(name="Interval", kind="elementOnly")
+abstract class Interval {
+
+	@ExtendedMetaData(kind="element", name="lower_included", namespace="##targetNamespace")
+	unsettable attr type.Boolean lowerIncluded;
+
+	@ExtendedMetaData(kind="element", name="upper_included", namespace="##targetNamespace")
+	unsettable attr type.Boolean upperIncluded;
+
+	@ExtendedMetaData(kind="element", name="lower_unbounded", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] lowerUnbounded;
+
+	@ExtendedMetaData(kind="element", name="upper_unbounded", namespace="##targetNamespace")
+	unsettable attr type.Boolean[1] upperUnbounded;
+}
+
+@ExtendedMetaData(name="INTERVAL_EVENT", kind="elementOnly")
+class INTERVALEVENT extends EVENT {
+
+	@ExtendedMetaData(kind="element", name="width", namespace="##targetNamespace")
+	!resolve val DVDURATION[1] width;
+
+	@ExtendedMetaData(kind="element", name="sample_count", namespace="##targetNamespace")
+	unsettable attr type.Int sampleCount;
+
+	@ExtendedMetaData(kind="element", name="math_function", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT[1] mathFunction;
+}
+
+@ExtendedMetaData(name="IntervalOfDate", kind="elementOnly")
+class IntervalOfDate extends Interval {
+
+	@ExtendedMetaData(kind="element", name="lower", namespace="##targetNamespace")
+	attr Iso8601Date lower;
+
+	@ExtendedMetaData(kind="element", name="upper", namespace="##targetNamespace")
+	attr Iso8601Date upper;
+}
+
+@ExtendedMetaData(name="IntervalOfDateTime", kind="elementOnly")
+class IntervalOfDateTime extends Interval {
+
+	@ExtendedMetaData(kind="element", name="lower", namespace="##targetNamespace")
+	attr Iso8601DateTime lower;
+
+	@ExtendedMetaData(kind="element", name="upper", namespace="##targetNamespace")
+	attr Iso8601DateTime upper;
+}
+
+@ExtendedMetaData(name="IntervalOfDuration", kind="elementOnly")
+class IntervalOfDuration extends Interval {
+
+	@ExtendedMetaData(kind="element", name="lower", namespace="##targetNamespace")
+	attr Iso8601Duration lower;
+
+	@ExtendedMetaData(kind="element", name="upper", namespace="##targetNamespace")
+	attr Iso8601Duration upper;
+}
+
+@ExtendedMetaData(name="IntervalOfInteger", kind="elementOnly")
+class IntervalOfInteger extends Interval {
+
+	@ExtendedMetaData(kind="element", name="lower", namespace="##targetNamespace")
+	unsettable attr type.Int lower;
+
+	@ExtendedMetaData(kind="element", name="upper", namespace="##targetNamespace")
+	unsettable attr type.Int upper;
+}
+
+@ExtendedMetaData(name="IntervalOfReal", kind="elementOnly")
+class IntervalOfReal extends Interval {
+
+	@ExtendedMetaData(kind="element", name="lower", namespace="##targetNamespace")
+	unsettable attr type.Float lower;
+
+	@ExtendedMetaData(kind="element", name="upper", namespace="##targetNamespace")
+	unsettable attr type.Float upper;
+}
+
+@ExtendedMetaData(name="IntervalOfTime", kind="elementOnly")
+class IntervalOfTime extends Interval {
+
+	@ExtendedMetaData(kind="element", name="lower", namespace="##targetNamespace")
+	attr Iso8601Time lower;
+
+	@ExtendedMetaData(kind="element", name="upper", namespace="##targetNamespace")
+	attr Iso8601Time upper;
+}
+
+@ExtendedMetaData(name="ISM_TRANSITION", kind="elementOnly")
+class ISMTRANSITION {
+
+	@ExtendedMetaData(kind="element", name="current_state", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT[1] currentState;
+
+	@ExtendedMetaData(kind="element", name="transition", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT transition;
+
+	@ExtendedMetaData(kind="element", name="careflow_step", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT careflowStep;
+}
+
+@ExtendedMetaData(name="Iso8601Date", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="\d{4}((((0[1-9])|(1[0-2]))((0[1-9])|([12]\d)|(3[01]))?)?|(\-(((0[1-9])|(1[0-2]))(\-((0[1-9])|([12]\d)|(3[01])))?)?)?)")
+datatype Iso8601Date : java.lang.String;
+
+@ExtendedMetaData(name="Iso8601DateTime", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="\d{4}((0[1-9]|1[0-2])((0[1-9]|[12]\d|3[01])(T?([01]\d|2[0-3])([0-5]\d([0-5]\d([,.]\d+)?)?)?(Z|([+\-]((0\d)|(1[0-2]))(00|30)?))?)?)?)?|\d{4}(\-(0[1-9]|1[0-2])(\-(0[1-9]|[12]\d|3[01])(T([01]\d|2[0-3])(:[0-5]\d(:[0-5]\d([,.]\d+)?)?)?(Z|([+\-]((0\d)|(1[0-2]))(:(00|30))?))?)?)?)?")
+datatype Iso8601DateTime : java.lang.String;
+
+@ExtendedMetaData(name="Iso8601Duration", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="P(\d+Y)?(\d+M)?(\d+W)?(\d+D)?(T(\d+H)?(\d+M)?(\d+(\.\d+)?S)?)?")
+datatype Iso8601Duration : java.lang.String;
+
+@ExtendedMetaData(name="Iso8601Time", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="([01]\d|2[0-3])([0-5]\d([0-5]\d([,.]\d+)?)?)?(Z|([+\-]((0\d)|(1[0-2]))(00|30)?))?|([01]\d|2[0-3])(:[0-5]\d(:[0-5]\d([,.]\d+)?)?)?(Z|([+\-]((0\d)|(1[0-2]))(:(00|30))?))?")
+datatype Iso8601Time : java.lang.String;
+
+@ExtendedMetaData(name="ITEM", kind="elementOnly")
+abstract class ITEM extends LOCATABLE {
+}
+
+@ExtendedMetaData(name="ITEM_LIST", kind="elementOnly")
+class ITEMLIST extends ITEMSTRUCTURE {
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val ELEMENT[*] items;
+}
+
+@ExtendedMetaData(name="ITEM_SINGLE", kind="elementOnly")
+class ITEMSINGLE extends ITEMSTRUCTURE {
+
+	@ExtendedMetaData(kind="element", name="item", namespace="##targetNamespace")
+	!resolve val ELEMENT[1] item;
+}
+
+@ExtendedMetaData(name="ITEM_STRUCTURE", kind="elementOnly")
+abstract class ITEMSTRUCTURE extends LOCATABLE {
+}
+
+@ExtendedMetaData(name="ITEM_TABLE", kind="elementOnly")
+class ITEMTABLE extends ITEMSTRUCTURE {
+
+	@ExtendedMetaData(kind="element", name="rows", namespace="##targetNamespace")
+	!resolve val CLUSTER[*] rows;
+}
+
+@ExtendedMetaData(name="ITEM_TREE", kind="elementOnly")
+class ITEMTREE extends ITEMSTRUCTURE {
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val ITEM[*] items;
+}
+
+@ExtendedMetaData(name="LINK", kind="elementOnly")
+class LINK {
+
+	@ExtendedMetaData(kind="element", name="meaning", namespace="##targetNamespace")
+	!resolve val DVTEXT[1] meaning;
+
+	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
+	!resolve val DVTEXT[1] type;
+
+	@ExtendedMetaData(kind="element", name="target", namespace="##targetNamespace")
+	!resolve val DVEHRURI[1] target;
+}
+
+@ExtendedMetaData(name="LOCATABLE", kind="elementOnly")
+abstract class LOCATABLE {
+
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	!resolve val DVTEXT[1] name;
+
+	@ExtendedMetaData(kind="element", name="uid", namespace="##targetNamespace")
+	!resolve val UIDBASEDID uid;
+
+	@ExtendedMetaData(kind="element", name="links", namespace="##targetNamespace")
+	!resolve val LINK[*] links;
+
+	@ExtendedMetaData(kind="element", name="archetype_details", namespace="##targetNamespace")
+	!resolve val ARCHETYPED archetypeDetails;
+
+	@ExtendedMetaData(kind="element", name="feeder_audit", namespace="##targetNamespace")
+	!resolve val FEEDERAUDIT feederAudit;
+
+	@ExtendedMetaData(kind="attribute", name="archetype_node_id")
+	attr ArchetypeNodeId[1] archetypeNodeId;
+}
+
+@ExtendedMetaData(name="LOCATABLE_REF", kind="elementOnly")
+class LOCATABLEREF extends OBJECTREF {
+
+	@ExtendedMetaData(kind="element", name="path", namespace="##targetNamespace")
+	attr type.String path;
+}
+
+@ExtendedMetaData(name="matchString", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="\? < > =")
+datatype MatchString : java.lang.String;
+
+@ExtendedMetaData(name="NON_TERMINAL_STATE", kind="elementOnly")
+class NONTERMINALSTATE extends STATE {
+
+	@ExtendedMetaData(kind="element", name="transitions", namespace="##targetNamespace")
+	!resolve val TRANSITION[+] transitions;
+}
+
+@ExtendedMetaData(name="OBJECT_ID", kind="elementOnly")
+abstract class OBJECTID {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	attr type.Token[1] value;
+}
+
+@ExtendedMetaData(name="OBJECT_REF", kind="elementOnly")
+class OBJECTREF {
+
+	@ExtendedMetaData(kind="element", name="id", namespace="##targetNamespace")
+	!resolve val OBJECTID[1] ~id;
+
+	@ExtendedMetaData(kind="element", name="namespace", namespace="##targetNamespace")
+	attr type.Token[1] namespace;
+
+	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
+	attr type.Token[1] type;
+}
+
+@ExtendedMetaData(name="OBJECT_VERSION_ID", kind="elementOnly")
+class OBJECTVERSIONID extends UIDBASEDID {
+}
+
+@ExtendedMetaData(name="OBSERVATION", kind="elementOnly")
+class OBSERVATION extends CAREENTRY {
+
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	!resolve val HISTORY[1] data;
+
+	@ExtendedMetaData(kind="element", name="state", namespace="##targetNamespace")
+	!resolve val HISTORY state;
+}
+
+@ExtendedMetaData(name="OPERATOR_KIND")
+enum OPERATORKIND {
+	_2001 = 0;
+	_2002 = 1;
+	_2003 = 2;
+	_2004 = 3;
+	_2005 = 4;
+	_2006 = 5;
+	_2007 = 6;
+	_2010 = 7;
+	_2011 = 8;
+	_2012 = 9;
+	_2013 = 10;
+	_2014 = 11;
+	_2015 = 12;
+	_2016 = 13;
+	_2020 = 14;
+	_2021 = 15;
+	_2022 = 16;
+	_2023 = 17;
+	_2024 = 18;
+}
+
+@ExtendedMetaData(name="OPERATOR_KIND:Object", baseType="OPERATOR_KIND")
+datatype OPERATORKINDObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="ORIGINAL_VERSION", kind="elementOnly")
+class ORIGINALVERSION extends VERSION {
+
+	@ExtendedMetaData(kind="element", name="uid", namespace="##targetNamespace")
+	!resolve val OBJECTVERSIONID[1] uid;
+
+	@ExtendedMetaData(kind="element", name="data", namespace="##targetNamespace")
+	!resolve val EObject data;
+
+	@ExtendedMetaData(kind="element", name="preceding_version_uid", namespace="##targetNamespace")
+	!resolve val OBJECTVERSIONID precedingVersionUid;
+
+	@ExtendedMetaData(kind="element", name="other_input_version_uids", namespace="##targetNamespace")
+	!resolve val OBJECTVERSIONID[*] otherInputVersionUids;
+
+	@ExtendedMetaData(kind="element", name="attestations", namespace="##targetNamespace")
+	!resolve val ATTESTATION[*] attestations;
+
+	@ExtendedMetaData(kind="element", name="lifecycle_state", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT[1] lifecycleState;
+}
+
+@ExtendedMetaData(name="PARTICIPATION", kind="elementOnly")
+class PARTICIPATION {
+
+	@ExtendedMetaData(kind="element", name="function", namespace="##targetNamespace")
+	!resolve val DVTEXT[1] function;
+
+	@ExtendedMetaData(kind="element", name="performer", namespace="##targetNamespace")
+	!resolve val PARTYPROXY[1] performer;
+
+	@ExtendedMetaData(kind="element", name="time", namespace="##targetNamespace")
+	!resolve val DVINTERVAL time;
+
+	@ExtendedMetaData(kind="element", name="mode", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT[1] mode;
+}
+
+@ExtendedMetaData(name="PARTY_IDENTIFIED", kind="elementOnly")
+class PARTYIDENTIFIED extends PARTYPROXY {
+
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@ExtendedMetaData(kind="element", name="identifiers", namespace="##targetNamespace")
+	!resolve val DVIDENTIFIER[*] identifiers;
+}
+
+@ExtendedMetaData(name="PARTY_PROXY", kind="elementOnly")
+abstract class PARTYPROXY {
+
+	@ExtendedMetaData(kind="element", name="external_ref", namespace="##targetNamespace")
+	!resolve val PARTYREF externalRef;
+}
+
+@ExtendedMetaData(name="PARTY_REF", kind="elementOnly")
+class PARTYREF extends OBJECTREF {
+}
+
+@ExtendedMetaData(name="PARTY_RELATED", kind="elementOnly")
+class PARTYRELATED extends PARTYIDENTIFIED {
+
+	@ExtendedMetaData(kind="element", name="relationship", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT[1] relationship;
+}
+
+@ExtendedMetaData(name="PARTY_SELF", kind="elementOnly")
+class PARTYSELF extends PARTYPROXY {
+}
+
+@ExtendedMetaData(name="POINT_EVENT", kind="elementOnly")
+class POINTEVENT extends EVENT {
+}
+
+@ExtendedMetaData(name="PROPORTION_KIND")
+enum PROPORTIONKIND {
+	_0 = 0;
+	_1 = 1;
+	_2 = 2;
+	_3 = 3;
+	_4 = 4;
+}
+
+@ExtendedMetaData(name="PROPORTION_KIND:Object", baseType="PROPORTION_KIND")
+datatype PROPORTIONKINDObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="REFERENCE_RANGE", kind="elementOnly")
+class REFERENCERANGE {
+
+	@ExtendedMetaData(kind="element", name="meaning", namespace="##targetNamespace")
+	!resolve val DVTEXT[1] meaning;
+
+	@ExtendedMetaData(kind="element", name="range", namespace="##targetNamespace")
+	!resolve val DVINTERVAL[1] range;
+}
+
+@ExtendedMetaData(name="RESOURCE_DESCRIPTION", kind="elementOnly")
+class RESOURCEDESCRIPTION {
+
+	@ExtendedMetaData(kind="element", name="original_author", namespace="##targetNamespace")
+	!resolve val StringDictionaryItem[+] originalAuthor;
+
+	@ExtendedMetaData(kind="element", name="other_contributors", namespace="##targetNamespace")
+	!unique attr type.String[*] otherContributors;
+
+	@ExtendedMetaData(kind="element", name="lifecycle_state", namespace="##targetNamespace")
+	attr type.String[1] lifecycleState;
+
+	@ExtendedMetaData(kind="element", name="resource_package_uri", namespace="##targetNamespace")
+	attr type.String resourcePackageUri;
+
+	@ExtendedMetaData(kind="element", name="other_details", namespace="##targetNamespace")
+	!resolve val StringDictionaryItem[*] otherDetails;
+
+	@ExtendedMetaData(kind="element", name="details", namespace="##targetNamespace")
+	!resolve val RESOURCEDESCRIPTIONITEM[+] details;
+
+	@ExtendedMetaData(kind="element", name="parent_resource", namespace="##targetNamespace")
+	!resolve val AUTHOREDRESOURCE parentResource;
+}
+
+@ExtendedMetaData(name="RESOURCE_DESCRIPTION_ITEM", kind="elementOnly")
+class RESOURCEDESCRIPTIONITEM {
+
+	@ExtendedMetaData(kind="element", name="language", namespace="##targetNamespace")
+	!resolve val CODEPHRASE[1] language;
+
+	@ExtendedMetaData(kind="element", name="purpose", namespace="##targetNamespace")
+	attr type.String[1] purpose;
+
+	@ExtendedMetaData(kind="element", name="keywords", namespace="##targetNamespace")
+	!unique attr type.String[*] keywords;
+
+	@ExtendedMetaData(kind="element", name="use", namespace="##targetNamespace")
+	attr type.String use;
+
+	@ExtendedMetaData(kind="element", name="misuse", namespace="##targetNamespace")
+	attr type.String misuse;
+
+	@ExtendedMetaData(kind="element", name="copyright", namespace="##targetNamespace")
+	attr type.String copyright;
+
+	@ExtendedMetaData(kind="element", name="original_resource_uri", namespace="##targetNamespace")
+	!resolve val StringDictionaryItem[*] originalResourceUri;
+
+	@ExtendedMetaData(kind="element", name="other_details", namespace="##targetNamespace")
+	!resolve val StringDictionaryItem[*] otherDetails;
+}
+
+@ExtendedMetaData(name="REVISION_HISTORY", kind="elementOnly")
+class REVISIONHISTORY {
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val REVISIONHISTORYITEM[*] items;
+}
+
+@ExtendedMetaData(name="REVISION_HISTORY_ITEM", kind="elementOnly")
+class REVISIONHISTORYITEM {
+
+	@ExtendedMetaData(kind="element", name="version_id", namespace="##targetNamespace")
+	!resolve val OBJECTVERSIONID[1] versionId;
+
+	@ExtendedMetaData(kind="element", name="audits", namespace="##targetNamespace")
+	!resolve val AUDITDETAILS[+] audits;
+}
+
+@ExtendedMetaData(name="SECTION", kind="elementOnly")
+class SECTION extends CONTENTITEM {
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val CONTENTITEM[*] items;
+}
+
+@ExtendedMetaData(name="STATE", kind="elementOnly")
+abstract class STATE {
+
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String[1] name;
+}
+
+@ExtendedMetaData(name="STATE_MACHINE", kind="elementOnly")
+class STATEMACHINE {
+
+	@ExtendedMetaData(kind="element", name="states", namespace="##targetNamespace")
+	!resolve val STATE[+] states;
+}
+
+@ExtendedMetaData(name="StringDictionaryItem", kind="simple")
+class StringDictionaryItem {
+
+	@ExtendedMetaData(name=":0", kind="simple")
+	attr type.String value;
+
+	@ExtendedMetaData(kind="attribute", name="id")
+	attr type.String[1] ~id;
+}
+
+@ExtendedMetaData(name="TEMPLATE_ID", kind="elementOnly")
+class TEMPLATEID extends OBJECTID {
+}
+
+@ExtendedMetaData(name="TERM_BINDING_ITEM", kind="elementOnly")
+class TERMBINDINGITEM {
+
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	!resolve val CODEPHRASE[1] value;
+
+	@ExtendedMetaData(kind="attribute", name="code")
+	attr type.String[1] code;
+}
+
+@ExtendedMetaData(name="TermBindingSet", kind="elementOnly")
+class TermBindingSet {
+
+	@ExtendedMetaData(kind="element", name="items", namespace="##targetNamespace")
+	!resolve val TERMBINDINGITEM[*] items;
+
+	@ExtendedMetaData(kind="attribute", name="terminology")
+	attr type.String[1] terminology;
+}
+
+@ExtendedMetaData(name="TERMINAL_STATE", kind="elementOnly")
+class TERMINALSTATE extends STATE {
+}
+
+@ExtendedMetaData(name="TERMINOLOGY_ID", kind="elementOnly")
+class TERMINOLOGYID extends OBJECTID {
+}
+
+@ExtendedMetaData(name="TERM_MAPPING", kind="elementOnly")
+class TERMMAPPING {
+
+	@ExtendedMetaData(kind="element", name="match", namespace="##targetNamespace")
+	unsettable attr MatchString[1] match = "?";
+
+	@ExtendedMetaData(kind="element", name="purpose", namespace="##targetNamespace")
+	!resolve val DVCODEDTEXT purpose;
+
+	@ExtendedMetaData(kind="element", name="target", namespace="##targetNamespace")
+	!resolve val CODEPHRASE[1] target;
+}
+
+@ExtendedMetaData(name="TimeConstraintPattern", baseType="http://www.eclipse.org/emf/2003/XMLType#string", pattern="[hH][hH]:[mM?X][mM?X]:[sS?X][sS?X]")
+datatype TimeConstraintPattern : java.lang.String;
+
+@ExtendedMetaData(name="TRANSITION", kind="elementOnly")
+class TRANSITION {
+
+	@ExtendedMetaData(kind="element", name="event", namespace="##targetNamespace")
+	attr type.String[1] event;
+
+	@ExtendedMetaData(kind="element", name="action", namespace="##targetNamespace")
+	attr type.String action;
+
+	@ExtendedMetaData(kind="element", name="guard", namespace="##targetNamespace")
+	attr type.String guard;
+
+	@ExtendedMetaData(kind="element", name="next_state", namespace="##targetNamespace")
+	!resolve val STATE nextState;
+}
+
+@ExtendedMetaData(name="TRANSLATION_DETAILS", kind="elementOnly")
+class TRANSLATIONDETAILS {
+
+	@ExtendedMetaData(kind="element", name="language", namespace="##targetNamespace")
+	!resolve val CODEPHRASE[1] language;
+
+	@ExtendedMetaData(kind="element", name="author", namespace="##targetNamespace")
+	!resolve val StringDictionaryItem[+] author;
+
+	@ExtendedMetaData(kind="element", name="accreditation", namespace="##targetNamespace")
+	attr type.String accreditation;
+
+	@ExtendedMetaData(kind="element", name="other_details", namespace="##targetNamespace")
+	!resolve val StringDictionaryItem[*] otherDetails;
+}
+
+@ExtendedMetaData(name="UID_BASED_ID", kind="elementOnly")
+abstract class UIDBASEDID extends OBJECTID {
+}
+
+@ExtendedMetaData(name="VALIDITY_KIND")
+enum VALIDITYKIND {
+	_1001 = 0;
+	_1002 = 1;
+	_1003 = 2;
+}
+
+@ExtendedMetaData(name="VALIDITY_KIND:Object", baseType="VALIDITY_KIND")
+datatype VALIDITYKINDObject : org.eclipse.emf.common.util.Enumerator;
+
+@ExtendedMetaData(name="VERSION", kind="elementOnly")
+abstract class VERSION {
+
+	@ExtendedMetaData(kind="element", name="contribution", namespace="##targetNamespace")
+	!resolve val OBJECTREF[1] contribution;
+
+	@ExtendedMetaData(kind="element", name="commit_audit", namespace="##targetNamespace")
+	!resolve val AUDITDETAILS[1] commitAudit;
+
+	@ExtendedMetaData(kind="element", name="signature", namespace="##targetNamespace")
+	attr type.String signature;
+}
+

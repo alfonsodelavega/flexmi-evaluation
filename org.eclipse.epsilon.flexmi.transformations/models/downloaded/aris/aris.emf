@@ -1,0 +1,2687 @@
+@namespace(uri="http://orvia.org/aris4eclipse/", prefix="aris")
+package aris;
+
+abstract class IdElement {
+	attr String ~id;
+}
+
+abstract class NamedElement {
+	attr String name;
+}
+
+abstract class Object extends IdElement, NamedElement {
+}
+
+abstract class Connection extends IdElement {
+	ref Object[1] sourceObject;
+	ref Object[1] targetObject;
+}
+
+abstract class Symbol extends IdElement {
+	attr String position = "0;0";
+	ref Object[1] object;
+}
+
+class Line extends IdElement {
+	ref Symbol[1] sourceSymbol;
+	ref Symbol[1] targetSymbol;
+	ref Connection[1] connection;
+	attr String[*] pointlist = "0;0";
+}
+
+abstract class Model extends IdElement, NamedElement {
+	val Symbol[*] containSymbols;
+	val Line[*] containLines;
+}
+
+class Assignment {
+	ref Object[1] object;
+	ref Model[1] model;
+}
+
+class Group extends IdElement, NamedElement {
+	val Group[*] containSubgroups;
+	val Connection[*] containConnections;
+	val Object[*] containObjects;
+	val Model[*] containModels;
+	val Assignment[*] containAssignments;
+}
+
+@namespace(uri="http://orvia.org/aris4eclipse/model/", prefix="am")
+package model {
+	class OT_APPL_SYS extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+	}
+
+	class OT_APPL_SYS_TYPE extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_TRANS_CODE;
+		attr String AT_SAPSRV;
+		attr String AT_SAP_CUSTOMIZING_VIEW;
+		attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		attr String AT_SOLAR_AREA_ID;
+	}
+
+	class OT_GRP extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_DEACT;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_DEF_IMP;
+		attr String AT_SOLAR_ORIGINAL_NAME;
+		attr String AT_SOLAR_AREA_ID;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_SOLAR_END_USR_ROLE_TYPE;
+	}
+
+	class OT_ORG_UNIT extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_SOLAR_ORIGINAL_NAME;
+		attr String AT_SOLAR_AREA_ID;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_SOLAR_END_USR_ROLE_TYPE;
+	}
+
+	class OT_PERS_TYPE extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_COST_RATE_1;
+		attr String AT_TXT;
+		attr String AT_DEF_IMP;
+		attr String AT_ACT_GROUP;
+		attr String AT_SOLAR_ORIGINAL_NAME;
+		attr String AT_SOLAR_AREA_ID;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_SOLAR_END_USR_ROLE_TYPE;
+	}
+
+	class OT_PERS extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_SOLAR_ORIGINAL_NAME;
+		attr String AT_SOLAR_AREA_ID;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_SOLAR_END_USR_ROLE_TYPE;
+	}
+
+	class OT_SYS_ORG_UNIT extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_TXT;
+		attr String AT_DEF_IMP;
+		attr String AT_SOLAR_ORIGINAL_NAME;
+		attr String AT_SOLAR_AREA_ID;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_SOLAR_END_USR_ROLE_TYPE;
+	}
+
+	class OT_SYS_ORG_UNIT_TYPE extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_APPL;
+		attr String AT_TXT;
+		attr String AT_DEF_IMP;
+		attr String AT_SAP_DEVL_CLS;
+		attr String AT_SOLAR_SAP_COMPONENT;
+		attr String AT_SOLAR_ORIGINAL_NAME;
+		attr String AT_SOLAR_AREA_ID;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_FOR_SAP_NW_PARTNER_PROD;
+		attr String AT_FOR_SAP_NW_PROD_AVAILABILITY;
+		attr String AT_FOR_SAP_NW_PROJ_STATUS;
+		attr String AT_SOLAR_KEYWORDS;
+		attr String AT_SOLAR_SOURCE_ID;
+		attr String AT_SOLAR_SOLUTION_ID;
+	}
+
+	class OT_ORG_UNIT_TYPE extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_SOLAR_ORIGINAL_NAME;
+		attr String AT_SOLAR_AREA_ID;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_SOLAR_END_USR_ROLE_TYPE;
+	}
+
+	class OT_CLST extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_SYN;
+		attr String AT_STOR_TYPE;
+		attr String AT_TXT;
+		attr String AT_DEF_IMP;
+		attr String AT_SOLAR_SAP_COMPONENT;
+		attr String AT_SOLAR_ORIGINAL_NAME;
+		attr String AT_SOLAR_AREA_ID;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_FOR_SAP_NW_PARTNER_PROD;
+		attr String AT_FOR_SAP_NW_PROD_AVAILABILITY;
+		attr String AT_FOR_SAP_NW_PROJ_STATUS;
+		attr String AT_SOLAR_KEYWORDS;
+		attr String AT_SOLAR_SOURCE_ID;
+		attr String AT_SOLAR_SOLUTION_ID;
+	}
+
+	class OT_POS extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_SOLAR_ORIGINAL_NAME;
+		attr String AT_SOLAR_AREA_ID;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_SOLAR_END_USR_ROLE_TYPE;
+	}
+
+	class OT_ENT_TYPE extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_SYN;
+		attr String AT_APPL;
+		attr String AT_INT_CNSTR;
+		attr String AT_STOR_TYPE;
+		attr String AT_SAP_DEVL_CLS;
+		attr String AT_TXT;
+		attr String AT_DEF_IMP;
+		attr String AT_TRANSIENT;
+		attr String AT_SOLAR_SAP_COMPONENT;
+		attr String AT_SOLAR_ORIGINAL_NAME;
+		attr String AT_SOLAR_AREA_ID;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_FOR_SAP_NW_PARTNER_PROD;
+		attr String AT_FOR_SAP_NW_PROD_AVAILABILITY;
+		attr String AT_FOR_SAP_NW_PROJ_STATUS;
+		attr String AT_SOLAR_KEYWORDS;
+		attr String AT_SOLAR_SOURCE_ID;
+		attr String AT_SOLAR_SOLUTION_ID;
+	}
+
+	class OT_RULE extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_OP_TYPE;
+		attr String AT_SAP_DEVL_CLS;
+		attr String AT_TXT;
+		attr String AT_DEF_IMP;
+		attr String AT_SAP_BLOCK_MODE;
+		attr String AT_SAP_XI_END_CONDITION;
+		attr String AT_IS_COMP;
+	}
+
+	class OT_OBJECTIVE extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_FOR_SAP_NW_OBJECTIVE_CAT;
+	}
+
+	class OT_EVT extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_SYN;
+		attr String AT_SAP_DEVL_CLS;
+		attr String AT_TXT;
+		attr String AT_DEF_IMP;
+		attr String AT_AUTO_EVENT;
+		attr String AT_SAP_CREATOR;
+		attr String AT_SAP_TIME_GEN;
+		attr String AT_SAP_LAST_USR;
+		attr String AT_SAP_LAST_CHG;
+		attr String AT_SAP_ORIGIN_LAN;
+		attr String AT_CREATE_R3;
+		attr String AT_LAST_CHG_R3;
+		attr String AT_SAP_XI_MESSAGE;
+	}
+
+	class OT_IS_FUNC extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+	}
+
+	class OT_BUTTON extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ENTRY_POINT;
+		attr String AT_SAP_INVISIBLE_IN_NAVIG_AREA;
+		attr String AT_SAP_MERGE_ID;
+		attr String AT_SAP_INITIAL_STATE_OF_NAVIG_PANEL;
+		attr String AT_SAP_LAUNCH_IN_NEW_WINDOW;
+		attr String AT_SAP_TEMPLATE_ID;
+		attr String AT_SAP_SRC_PORTAL_ID;
+		attr String AT_SAP_SYSTEM;
+		attr String AT_SAP_APPL_PARAM;
+		attr String AT_SAP_IAC;
+		attr String AT_SAP_GUI_TYPE;
+		attr String AT_TRANS_CODE;
+		attr String AT_SAP_APPL_NAMESPACE;
+		attr String AT_SAP_CUSTOMER_NAMESPACE;
+		attr String AT_SAP_BSP_DEF_TYPE;
+		attr String AT_SAP_BSP_START_PAGE;
+		attr String AT_SAP_WEB_DYNPRO_DEF_TYPE;
+		attr String AT_SAP_APPL_NAME;
+		attr String AT_SAP_NAMESPACE;
+	}
+
+	class OT_FUNC extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_DEACT;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_SYN;
+		attr String AT_TRANS_CODE;
+		attr String AT_SAP_FUNC_TYPE;
+		attr String AT_SAP_DEVL_CLS;
+		attr String AT_TXT;
+		attr String AT_DEF_IMP;
+		attr String AT_TIME_CODE;
+		attr String AT_ONLINE;
+		attr String AT_AUTO_CRTL;
+		attr String AT_BATCH_CRTL;
+		attr String AT_REQUIREMENT;
+		attr String AT_SAP_DGR_COVER;
+		attr String AT_SAP_CREATOR;
+		attr String AT_SAP_TIME_GEN;
+		attr String AT_SAP_LAST_USR;
+		attr String AT_SAP_LAST_CHG;
+		attr String AT_SAP_ORIGIN_LAN;
+		attr String AT_CREATE_R3;
+		attr String AT_LAST_CHG_R3;
+		attr String AT_SAP_DOM;
+		attr String AT_SAP_EXT_HELP;
+		attr String AT_SAPSRV;
+		attr String AT_SAP_CUSTOMIZING_VIEW;
+		attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		attr String AT_SOLAR_SAP_COMPONENT;
+		attr String AT_SOLAR_CONTEXT;
+		attr String AT_SOLAR_ORIGINAL_NAME;
+		attr String AT_SOLAR_SOLUTION_NAME;
+		attr String AT_SOLAR_ENTERPRISE_AREA;
+		attr String AT_SOLAR_AREA_ID;
+		attr String AT_SAP_XI_WAIT_UNTIL;
+		attr String AT_SAP_XI_TIMESPAN;
+		attr String AT_SAP_XI_ASSIGN;
+		attr String AT_SAP_XI_CONTROL_TYPE;
+		attr String AT_SAP_XI_INTERFACE_MAPPING;
+		attr String AT_SAP_XI_MESSAGE;
+		attr String AT_SAP_XI_SEND_CONTEXT;
+		attr String AT_SAP_XI_SEND_MODE;
+		attr String AT_SAP_XI_ACKNOWLEDGEMENT_TYPE;
+		attr String AT_SAP_XI_ACKNOWLEDGEMENT;
+		attr String AT_SAP_XI_SYNCH_IFACE;
+		attr String AT_SAP_XI_SYCH_REQUEST_MESSAGE;
+		attr String AT_SAP_XI_SYCH_RESPONSE_MESSAGE;
+		attr String AT_SAP_XI_RECEIVER_BY;
+		attr String AT_SAP_RECEIVER_LIST;
+		attr String AT_SAP_RESPONSE_MESSAGE;
+		attr String AT_SAP_XI_RECEIVER;
+		attr String AT_SAP_XI_SOURCE_MESSAGE;
+		attr String AT_SAP_XI_TARGET_MESSAGE;
+		attr String AT_SAP_XI_ALERT_MESSAGE;
+		attr String AT_SAP_XI_EXCEPTION;
+		attr String AT_SAP_XI_ALERT_TYPE;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_FOR_SAP_NW_PARTNER_PROD;
+		attr String AT_FOR_SAP_NW_PROD_AVAILABILITY;
+		attr String AT_FOR_SAP_NW_PROJ_STATUS;
+		attr String AT_SOLAR_PROJ_TYPE;
+		attr String AT_SOLAR_SOURCE_ID;
+		attr String AT_SOLAR_KEYWORDS;
+		attr String AT_SOLAR_TEST_SRC_ID;
+		attr String AT_SOLAR_SOLUTION_ID;
+	}
+
+	class OT_KPI extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_FOR_SAP_NW_CALCULATION;
+	}
+
+	class OT_INFO_CARR extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_TXT;
+		attr String AT_SAP_EXT_HELP;
+		attr String AT_SAP_BLUEPRINT_REL;
+		attr String AT_SAP_DOC_TYPE;
+		attr String AT_SAP_CREATOR;
+		attr String AT_SAP_TIME_GEN;
+		attr String AT_SAP_LAST_USR;
+		attr String AT_SAP_LAST_CHG;
+		attr String AT_SAP_ORIGIN_LAN;
+		attr String AT_SAP_STATUS;
+		attr String AT_SAP_TECH_NAME;
+		attr String AT_SAP_PRIO;
+		attr String AT_SAP_OWNER;
+		attr String AT_SOLAR_AREA_ID;
+	}
+
+	class OT_SCRN extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_TRANS_CODE;
+		attr String AT_SAPSRV;
+		attr String AT_SAP_EXT_HELP;
+		attr String AT_SAP_CUSTOMIZING_VIEW;
+		attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		attr String AT_SOLAR_SAP_COMPONENT;
+		attr String AT_SOLAR_DEFAULT_TRANSACTION;
+		attr String AT_SOLAR_TRANSACTION_TYPE;
+		attr String AT_SOLAR_ORIGIN;
+		attr String AT_SAP_PORTAL_ID;
+		attr String AT_SAP_TEMPLATE_ID;
+		attr String AT_SAP_SRC_PORTAL_ID;
+		attr String AT_SAP_MERGE_ID;
+		attr String AT_SAP_IVIEW_TYPE;
+		attr String AT_SAP_SYSTEM;
+		attr String AT_SAP_APPL_PARAM;
+		attr String AT_SAP_IAC;
+		attr String AT_SAP_GUI_TYPE;
+		attr String AT_SAP_APPL_NAMESPACE;
+		attr String AT_SAP_CUSTOMER_NAMESPACE;
+		attr String AT_SAP_BSP_DEF_TYPE;
+		attr String AT_SAP_BSP_START_PAGE;
+		attr String AT_SAP_WEB_DYNPRO_DEF_TYPE;
+		attr String AT_SAP_APPL_NAME;
+		attr String AT_SAP_NAMESPACE;
+	}
+
+	class OT_LOOP_START extends Object {
+		attr String AT_NAME_FULL;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_PROC_CODE;
+		attr String AT_AUTH;
+		attr String AT_SHORT_DESC;
+		attr String AT_TITL1;
+		attr String AT_EXT_1;
+		attr String AT_PARM_1;
+		attr String AT_TITL2;
+		attr String AT_EXT_2;
+		attr String AT_PARM_2;
+		attr String AT_TITL3;
+		attr String AT_EXT_3;
+		attr String AT_PARM_3;
+		attr String AT_TITL4;
+		attr String AT_LINK;
+		attr String AT_PARM_4;
+		attr String AT_CREAT_TIME_STMP;
+		attr String AT_CREATOR;
+		attr String AT_HIER_NUM;
+		attr String AT_LAST_CHNG_2;
+		attr String AT_LUSER;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_ID;
+		attr String AT_SAP_ID2;
+		attr String AT_SAP_XI_PATH_CONDITION;
+	}
+
+	class CT_READ_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_IS_INP_FOR extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_PARM;
+		attr String AT_PROB;
+		attr String AT_FRQ_CYCLE;
+		attr String AT_IS_MULTI_TRIGG;
+		attr String AT_TRANS_TIME;
+		attr String AT_IS_STEREOTYPE;
+		attr String AT_IS_COMP;
+	}
+
+	class CT_IS_DP_RESP_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_IS_EVAL_BY_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_FRQ_CYCLE;
+	}
+
+	class CT_MUST_BE_INFO_ON_CNC_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_IS_TECH_RESP_3 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_HAS_CONSLT_ROLE_IN_2 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_CONS_OF_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_MUST_INFO_ABT_RES extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_EXEC_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_IS_GRANT_BY extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_DECD_ON extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_MEASURED_BY extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_CALLS_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_EXEC_2 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_MAX_PROC_TIME;
+	}
+
+	class CT_HAS_OUT extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_PARM;
+		attr String AT_OPRT;
+		attr String AT_FRQ_CYCLE;
+		attr String AT_IS_MULTI_TRIGG;
+		attr String AT_IS_STEREOTYPE;
+		attr String AT_IS_COMP;
+	}
+
+	class CT_REPR extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_PROV_INP_FOR extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_DEL extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_OPRT;
+	}
+
+	class CT_IS_TECH_RESP_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_ARCH extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_OPRT;
+	}
+
+	class CT_CRT_OUT_TO extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_IS_REPR_BY extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_MUST_BE_INFO_ABT_2 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_HAS_CONSLT_ROLE_IN_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_LNK_2 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_FRQ_CYCLE;
+	}
+
+	class CT_SUCCEED extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_IS_SUPERIOR_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_SOLAR_CORRES extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_IS_PREDEC_OF_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_XI_SYNCHRONOUS_CALL;
+	}
+
+	class CT_SUPP_3 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_LEADS_TO_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_FRQ_CYCLE;
+	}
+
+	class CT_LEADS_TO_2 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_FRQ_CYCLE;
+	}
+
+	class CT_MUST_INFO_ABT_RES_OF extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_CONTAINS_2 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_CAN_SUPP_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_IS_CHCKD_BY extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_MUST_BE_INFO_ON_CNC_2 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_ACTIV_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_FRQ_CYCLE;
+	}
+
+	class CT_IS_DP_RESP_2 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_CRT_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_FRQ_CYCLE;
+	}
+
+	class CT_CAN_BE_USER extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_DISTR extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_OPRT;
+	}
+
+	class CT_AGREES extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_CAN_BE_ASSIG extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_USE_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_CRT_5 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_OPRT;
+	}
+
+	class CT_SAP_NW_IS_DESCRIBED_BY extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_IS_ASSIG_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_CHNG extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_OPRT;
+	}
+
+	class CT_CONTR_TO_2 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_MAX_PROC_TIME;
+	}
+
+	class CT_SAP_XI_OCCURS_BEFORE extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_SAP_XI_PATH_TYPE;
+		attr String AT_SAP_XI_EXCEPTION_EXPRESSION;
+		attr String AT_SAP_XI_PATH_CONDITION;
+	}
+
+	class CT_CAN_ACS extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_SAP_NW_CHANGES extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_MUST_BE_INFO_ABT_1 extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_DECID_ON extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+	}
+
+	class CT_CONFLICTS extends Connection {
+		attr String AT_CXN_ROLE;
+		attr String AT_DESC;
+		attr String AT_REM;
+		attr String AT_MOD_CODE;
+		attr String AT_CONFLIKT_TYPE;
+		attr String AT_CONFLIKT_CLS;
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_SAP_ALLOC_DGM/", prefix="MT_SAP_ALLOC_DGM")
+	package MT_SAP_ALLOC_DGM_Package {
+		class MT_SAP_ALLOC_DGM extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		}
+
+		abstract class MT_SAP_ALLOC_DGM_Symbol extends Symbol {
+		}
+
+		abstract class MT_SAP_ALLOC_DGM_Line extends Line {
+		}
+
+		class ST_ENT_TYPE extends MT_SAP_ALLOC_DGM_Symbol {
+		}
+
+		class ST_CLST extends MT_SAP_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SYS_ORG_UNIT_TYPE_1 extends MT_SAP_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SYS_ORG_UNIT_TYPE_2 extends MT_SAP_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SCRN extends MT_SAP_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SAP_GENERAL_DOC extends MT_SAP_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SAP_PROJ_DOC extends MT_SAP_ALLOC_DGM_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_APPL_SYS_DGM/", prefix="MT_APPL_SYS_DGM")
+	package MT_APPL_SYS_DGM_Package {
+		class MT_APPL_SYS_DGM extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		}
+
+		abstract class MT_APPL_SYS_DGM_Symbol extends Symbol {
+		}
+
+		abstract class MT_APPL_SYS_DGM_Line extends Line {
+		}
+
+		class ST_APPL_SYS extends MT_APPL_SYS_DGM_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_PRCS_SLCT_DIA/", prefix="MT_PRCS_SLCT_DIA")
+	package MT_PRCS_SLCT_DIA_Package {
+		class MT_PRCS_SLCT_DIA extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		}
+
+		abstract class MT_PRCS_SLCT_DIA_Symbol extends Symbol {
+		}
+
+		abstract class MT_PRCS_SLCT_DIA_Line extends Line {
+		}
+
+		class ST_SCENARIO extends MT_PRCS_SLCT_DIA_Symbol {
+		}
+
+		class ST_PRCS_1 extends MT_PRCS_SLCT_DIA_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER/", prefix="MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER")
+	package MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER_Package {
+		class MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		}
+
+		abstract class MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER_Symbol extends Symbol {
+		}
+
+		abstract class MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER_Line extends Line {
+		}
+
+		class ST_SOLAR_FUNC extends MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER_Symbol {
+		}
+
+		class ST_FUNC extends MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER_Symbol {
+		}
+
+		class ST_SOLAR_SL_OCC extends MT_SOLAR_FUNCTION_MAP_SAP_TO_CUSTOMER_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_EEPC_ROW/", prefix="MT_EEPC_ROW")
+	package MT_EEPC_ROW_Package {
+		class MT_EEPC_ROW extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+			attr String AT_SAP_DOM;
+		}
+
+		abstract class MT_EEPC_ROW_Symbol extends Symbol {
+		}
+
+		abstract class MT_EEPC_ROW_Line extends Line {
+		}
+
+		class ST_EV extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_FUNC extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_PRCS_IF extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_FUNC_ACT extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_FUNC_TRG extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_SYS_FUNC_ACT extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_SYS_FUNC_TRG extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_SOLAR_FUNC extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_SOLAR_SL_OCC extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_OPR_AND_1 extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_OPR_XOR_1 extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_OPR_OR_1 extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_OPR_RULE extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_OR_AND extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_XOR_AND extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_AND_OR extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_XOR_OR extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_AND_XOR extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_OR_XOR extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_CLST extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_ENT_TYPE extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_SAP_GENERAL_DOC extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_SAP_PROJ_DOC extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_APPL_SYS_TYPE extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_APPL_SYS extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_SOLAR_FUNC_SHORTCUT extends MT_EEPC_ROW_Symbol {
+		}
+
+		class ST_SAP_NETWEAV_SCENARIO_CONFIG_VARIANT extends MT_EEPC_ROW_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP/", prefix="MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP")
+	package MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP_Package {
+		class MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		}
+
+		abstract class MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP_Symbol extends Symbol {
+		}
+
+		abstract class MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP_Line extends Line {
+		}
+
+		class ST_SOLAR_FUNC extends MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP_Symbol {
+		}
+
+		class ST_FUNC extends MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP_Symbol {
+		}
+
+		class ST_SOLAR_SL_OCC extends MT_SOLAR_FUNCTION_MAP_CUSTOMER_TO_SAP_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_EERM/", prefix="MT_EERM")
+	package MT_EERM_Package {
+		class MT_EERM extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		}
+
+		abstract class MT_EERM_Symbol extends Symbol {
+		}
+
+		abstract class MT_EERM_Line extends Line {
+		}
+
+		class ST_ENT_TYPE extends MT_EERM_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_VAL_ADD_CHN_DGM/", prefix="MT_VAL_ADD_CHN_DGM")
+	package MT_VAL_ADD_CHN_DGM_Package {
+		class MT_VAL_ADD_CHN_DGM extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		}
+
+		abstract class MT_VAL_ADD_CHN_DGM_Symbol extends Symbol {
+		}
+
+		abstract class MT_VAL_ADD_CHN_DGM_Line extends Line {
+		}
+
+		class ST_VAL_ADD_CHN_SML_2 extends MT_VAL_ADD_CHN_DGM_Symbol {
+		}
+
+		class ST_VAL_ADD_CHN_SML_1 extends MT_VAL_ADD_CHN_DGM_Symbol {
+		}
+
+		class ST_SOLAR_VAC extends MT_VAL_ADD_CHN_DGM_Symbol {
+		}
+
+		class ST_SOLAR_SL_VAC_OCC extends MT_VAL_ADD_CHN_DGM_Symbol {
+		}
+
+		class ST_SOLAR_VAC_SHORTCUT extends MT_VAL_ADD_CHN_DGM_Symbol {
+		}
+
+		class ST_ORG_UNIT_TYPE_1 extends MT_VAL_ADD_CHN_DGM_Symbol {
+		}
+
+		class ST_ORG_UNIT_TYPE_2 extends MT_VAL_ADD_CHN_DGM_Symbol {
+		}
+
+		class ST_CLST extends MT_VAL_ADD_CHN_DGM_Symbol {
+		}
+
+		class ST_APPL_SYS_TYPE extends MT_VAL_ADD_CHN_DGM_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_EEPC/", prefix="MT_EEPC")
+	package MT_EEPC_Package {
+		class MT_EEPC extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+			attr String AT_ONLINE;
+			attr String AT_AUTO_CRTL;
+			attr String AT_BATCH_CRTL;
+			attr String AT_REQUIREMENT;
+			attr String AT_SAP_DGR_COVER;
+			attr String AT_SAP_CREATOR;
+			attr String AT_SAP_TIME_GEN;
+			attr String AT_SAP_LAST_USR;
+			attr String AT_SAP_LAST_CHG;
+			attr String AT_SAP_ORIGIN_LAN;
+			attr String AT_CREATE_R3;
+			attr String AT_LAST_CHG_R3;
+			attr String AT_SAP_DOM;
+		}
+
+		abstract class MT_EEPC_Symbol extends Symbol {
+		}
+
+		abstract class MT_EEPC_Line extends Line {
+		}
+
+		class ST_EV extends MT_EEPC_Symbol {
+		}
+
+		class ST_FUNC extends MT_EEPC_Symbol {
+		}
+
+		class ST_PRCS_IF extends MT_EEPC_Symbol {
+		}
+
+		class ST_FUNC_ACT extends MT_EEPC_Symbol {
+		}
+
+		class ST_FUNC_TRG extends MT_EEPC_Symbol {
+		}
+
+		class ST_SYS_FUNC_ACT extends MT_EEPC_Symbol {
+		}
+
+		class ST_SYS_FUNC_TRG extends MT_EEPC_Symbol {
+		}
+
+		class ST_SOLAR_FUNC extends MT_EEPC_Symbol {
+		}
+
+		class ST_SOLAR_SL_OCC extends MT_EEPC_Symbol {
+		}
+
+		class ST_SOLAR_FUNC_SHORTCUT extends MT_EEPC_Symbol {
+		}
+
+		class ST_OPR_AND_1 extends MT_EEPC_Symbol {
+		}
+
+		class ST_OPR_XOR_1 extends MT_EEPC_Symbol {
+		}
+
+		class ST_OPR_OR_1 extends MT_EEPC_Symbol {
+		}
+
+		class ST_OPR_RULE extends MT_EEPC_Symbol {
+		}
+
+		class ST_OR_AND extends MT_EEPC_Symbol {
+		}
+
+		class ST_XOR_AND extends MT_EEPC_Symbol {
+		}
+
+		class ST_AND_OR extends MT_EEPC_Symbol {
+		}
+
+		class ST_XOR_OR extends MT_EEPC_Symbol {
+		}
+
+		class ST_AND_XOR extends MT_EEPC_Symbol {
+		}
+
+		class ST_OR_XOR extends MT_EEPC_Symbol {
+		}
+
+		class ST_SAP_GENERAL_DOC extends MT_EEPC_Symbol {
+		}
+
+		class ST_SAP_PROJ_DOC extends MT_EEPC_Symbol {
+		}
+
+		class ST_APPL_SYS extends MT_EEPC_Symbol {
+		}
+
+		class ST_APPL_SYS_TYPE extends MT_EEPC_Symbol {
+		}
+
+		class ST_OP_1 extends MT_EEPC_Symbol {
+		}
+
+		class ST_IS_FUNC extends MT_EEPC_Symbol {
+		}
+
+		class ST_CLST extends MT_EEPC_Symbol {
+		}
+
+		class ST_ENT_TYPE extends MT_EEPC_Symbol {
+		}
+
+		class ST_SAP_NETWEAV_SCENARIO_CONFIG_VARIANT extends MT_EEPC_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_FUNC_ALLOC_DGM/", prefix="MT_FUNC_ALLOC_DGM")
+	package MT_FUNC_ALLOC_DGM_Package {
+		class MT_FUNC_ALLOC_DGM extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+			attr String AT_SAP_DOM;
+		}
+
+		abstract class MT_FUNC_ALLOC_DGM_Symbol extends Symbol {
+		}
+
+		abstract class MT_FUNC_ALLOC_DGM_Line extends Line {
+		}
+
+		class ST_FUNC extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SOLAR_FUNC extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SOLAR_SL_OCC extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SYS_ORG_UNIT_TYPE_1 extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_ENT_TYPE extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SYS_ORG_UNIT_TYPE_2 extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_EMPL_TYPE extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SCRN extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_DOC extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SAP_GENERAL_DOC extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SAP_PROJ_DOC extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_APPL_SYS_TYPE extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_OBJCTV extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_KPI extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_CLST extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_ORG_UNIT_TYPE_1 extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_ORG_UNIT_TYPE_2 extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_ORG_UNIT_1 extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_ORG_UNIT_2 extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SYS_ORG_UNIT_1 extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SYS_ORG_UNIT_2 extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_POS_TYPE extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_PERS_INT extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_PERS_EXT extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_GRP extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_SAP_NETWEAV_SCENARIO_CONFIG_VARIANT extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+		class ST_POS extends MT_FUNC_ALLOC_DGM_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_EEPC_COLUMN/", prefix="MT_EEPC_COLUMN")
+	package MT_EEPC_COLUMN_Package {
+		class MT_EEPC_COLUMN extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+			attr String AT_SAP_DOM;
+		}
+
+		abstract class MT_EEPC_COLUMN_Symbol extends Symbol {
+		}
+
+		abstract class MT_EEPC_COLUMN_Line extends Line {
+		}
+
+		class ST_EV extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_FUNC extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_PRCS_IF extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_FUNC_ACT extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_FUNC_TRG extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_SYS_FUNC_ACT extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_SYS_FUNC_TRG extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_SOLAR_FUNC extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_SOLAR_SL_OCC extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_SOLAR_FUNC_SHORTCUT extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_OPR_AND_1 extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_OPR_XOR_1 extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_OPR_OR_1 extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_OPR_RULE extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_OR_AND extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_XOR_AND extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_AND_OR extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_XOR_OR extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_AND_XOR extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_OR_XOR extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_SAP_GENERAL_DOC extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_SAP_PROJ_DOC extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_APPL_SYS extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_APPL_SYS_TYPE extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_CLST extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_ENT_TYPE extends MT_EEPC_COLUMN_Symbol {
+		}
+
+		class ST_SAP_NETWEAV_SCENARIO_CONFIG_VARIANT extends MT_EEPC_COLUMN_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_SCREEN_NAV/", prefix="MT_SCREEN_NAV")
+	package MT_SCREEN_NAV_Package {
+		class MT_SCREEN_NAV extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+			attr String AT_SAP_PORTAL_ID;
+		}
+
+		abstract class MT_SCREEN_NAV_Symbol extends Symbol {
+		}
+
+		abstract class MT_SCREEN_NAV_Line extends Line {
+		}
+
+		class ST_SOLAR_IVIEW extends MT_SCREEN_NAV_Symbol {
+		}
+
+		class ST_SOLAR_PAGE extends MT_SCREEN_NAV_Symbol {
+		}
+
+		class ST_SOLAR_WORKSET extends MT_SCREEN_NAV_Symbol {
+		}
+
+		class ST_SOLAR_ROLE extends MT_SCREEN_NAV_Symbol {
+		}
+
+		class ST_BUTTON extends MT_SCREEN_NAV_Symbol {
+		}
+
+		class ST_EMPL_TYPE extends MT_SCREEN_NAV_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_RAD/", prefix="MT_RAD")
+	package MT_RAD_Package {
+		class MT_RAD extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		}
+
+		abstract class MT_RAD_Symbol extends Symbol {
+		}
+
+		abstract class MT_RAD_Line extends Line {
+		}
+
+		class ST_EMPL_TYPE extends MT_RAD_Symbol {
+		}
+
+		class ST_SCRN extends MT_RAD_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP/", prefix="MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP")
+	package MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Package {
+		class MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		}
+
+		abstract class MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol extends Symbol {
+		}
+
+		abstract class MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Line extends Line {
+		}
+
+		class ST_ORG_UNIT_TYPE_1 extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_ORG_UNIT_TYPE_2 extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_POS_TYPE extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_EMPL_TYPE extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_SYS_ORG_UNIT_1 extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_SYS_ORG_UNIT_2 extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_ORG_UNIT_1 extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_ORG_UNIT_2 extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_GRP extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_POS extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_PERS_INT extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_PERS_EXT extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+		class ST_SOLAR_ROLE extends MT_SOLAR_ORG_ELEM_MAP_CUST_TO_SAP_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_SAP_INTERGATION_PROCESS/", prefix="MT_SAP_INTERGATION_PROCESS")
+	package MT_SAP_INTERGATION_PROCESS_Package {
+		class MT_SAP_INTERGATION_PROCESS extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		}
+
+		abstract class MT_SAP_INTERGATION_PROCESS_Symbol extends Symbol {
+		}
+
+		abstract class MT_SAP_INTERGATION_PROCESS_Line extends Line {
+		}
+
+		class ST_SAP_XI_PROC_START extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_RECEIVE extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_SEND extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_WAIT extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_BLOCK_START extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_BLOCK_END extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_PARALLEL_START extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_PARALLEL_END extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_CONTROL extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_RECEIVER_DETERM extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_ASSIGN extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_TRANSFORMATION extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_SWITCH_START extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_SWITCH_END extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_EMPTY extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_LOOP_END extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_PROC_END extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+		class ST_SAP_XI_LOOP_START extends MT_SAP_INTERGATION_PROCESS_Symbol {
+		}
+
+	}
+
+	@namespace(uri="http://orvia.org/aris4eclipse/model/MT_SCEN_DGM/", prefix="MT_SCEN_DGM")
+	package MT_SCEN_DGM_Package {
+		class MT_SCEN_DGM extends Model {
+			attr String AT_DESC;
+			attr String AT_SYN;
+			attr String AT_NAME_FULL;
+			attr String AT_REM;
+			attr String AT_LNG;
+			attr String AT_CREAT_TIME_STMP;
+			attr String AT_CREATOR;
+			attr String AT_TITL1;
+			attr String AT_EXT_1;
+			attr String AT_PARM_1;
+			attr String AT_TITL2;
+			attr String AT_EXT_2;
+			attr String AT_PARM_2;
+			attr String AT_TITL3;
+			attr String AT_EXT_3;
+			attr String AT_PARM_3;
+			attr String AT_TITL4;
+			attr String AT_LINK;
+			attr String AT_PARM_4;
+			attr String AT_SAFE_CLS;
+			attr String AT_AUTH;
+			attr String AT_LAST_CHNG_2;
+			attr String AT_LUSER;
+			attr String AT_MOD_CODE;
+			attr String AT_CICO_MODE;
+			attr String AT_CICO_TRNSF_STAT;
+			attr String AT_CICO_ORD_NAME;
+			attr String AT_SAP_ID;
+			attr String AT_SAP_ID2;
+			attr String AT_CICO_ORD_ID;
+			attr String AT_SAP_FLTR_ID;
+			attr String AT_SAP_DEVL_CLS;
+			attr String AT_SAP_ID_ORG_MOD;
+			attr String AT_SAP_MOD_TYPE;
+			attr String AT_SAP_VAR_TYPE;
+			attr String AT_TRANS_CODE;
+			attr String AT_SAPSRV;
+			attr String AT_SAP_CUSTOMIZING_VIEW;
+			attr String AT_SAP_CUSTOMIZING_TRANSACTION;
+		}
+
+		abstract class MT_SCEN_DGM_Symbol extends Symbol {
+		}
+
+		abstract class MT_SCEN_DGM_Line extends Line {
+		}
+
+		class ST_BUS_PROC extends MT_SCEN_DGM_Symbol {
+		}
+
+		class ST_EMPL_ROLE extends MT_SCEN_DGM_Symbol {
+		}
+
+		class ST_BUS_DOC extends MT_SCEN_DGM_Symbol {
+		}
+
+		class ST_BUS_PART extends MT_SCEN_DGM_Symbol {
+		}
+
+	}
+
+}
+

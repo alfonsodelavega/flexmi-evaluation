@@ -1,0 +1,1911 @@
+@namespace(uri="http://maven.apache.org/POM/4.0.0", prefix="")
+package pom;
+
+import "http://www.eclipse.org/emf/2003/XMLType";
+
+@GenModel(documentation="4.0.0
+
+        The conditions within the build runtime environment which will trigger
+        the automatic inclusion of the build profile.
+      ")
+@ExtendedMetaData(name="Activation", kind="elementOnly")
+class Activation {
+
+	@GenModel(documentation="4.0.0
+Flag specifying whether this profile is active by default.")
+	@ExtendedMetaData(kind="element", name="activeByDefault", namespace="##targetNamespace")
+	unsettable attr type.Boolean activeByDefault = "false";
+
+	@GenModel(documentation="4.0.0
+
+            Specifies that this profile will be activated when a matching JDK is detected. For example, &lt;code&gt;1.4&lt;/code&gt;
+            only activates on JDKs versioned 1.4, while &lt;code&gt;!1.4&lt;/code&gt; matches any JDK that is not version 1.4.
+          ")
+	@ExtendedMetaData(kind="element", name="jdk", namespace="##targetNamespace")
+	attr type.String jdk;
+
+	@GenModel(documentation="4.0.0
+
+            Specifies that this profile will be activated when matching operating system attributes are detected.
+          ")
+	@ExtendedMetaData(kind="element", name="os", namespace="##targetNamespace")
+	!resolve val ActivationOS os;
+
+	@GenModel(documentation="4.0.0
+
+            Specifies that this profile will be activated when this system property is specified.
+          ")
+	@ExtendedMetaData(kind="element", name="property", namespace="##targetNamespace")
+	!resolve val ActivationProperty property;
+
+	@GenModel(documentation="4.0.0
+
+             Specifies that this profile will be activated based on existence of a file.
+             ")
+	@ExtendedMetaData(kind="element", name="file", namespace="##targetNamespace")
+	!resolve val ActivationFile file;
+}
+
+@GenModel(documentation="4.0.0
+
+        This is the file specification used to activate the profile. The missing value will be the location
+        of a file that needs to exist, and if it doesn't the profile will be activated.  On the other hand exists will test
+        for the existence of the file and if it is there the profile will be activated.
+      ")
+@ExtendedMetaData(name="ActivationFile", kind="elementOnly")
+class ActivationFile {
+
+	@GenModel(documentation="4.0.0
+The name of the file that must be missing to activate the profile.")
+	@ExtendedMetaData(kind="element", name="missing", namespace="##targetNamespace")
+	attr type.String missing;
+
+	@GenModel(documentation="4.0.0
+The name of the file that must exist to activate the profile.")
+	@ExtendedMetaData(kind="element", name="exists", namespace="##targetNamespace")
+	attr type.String exists;
+}
+
+@GenModel(documentation="4.0.0
+
+        This is an activator which will detect an operating system's attributes in order to activate
+        its profile.
+      ")
+@ExtendedMetaData(name="ActivationOS", kind="elementOnly")
+class ActivationOS {
+
+	@GenModel(documentation="4.0.0
+The name of the operating system to be used to activate the profile. This must be an exact match
+          of the &lt;code&gt;${os.name}&lt;/code&gt; Java property, such as &lt;code&gt;Windows XP&lt;/code&gt;.")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@GenModel(documentation="4.0.0
+
+            The general family of the OS to be used to activate the profile, such as &lt;code&gt;windows&lt;/code&gt; or &lt;code&gt;unix&lt;/code&gt;.")
+	@ExtendedMetaData(kind="element", name="family", namespace="##targetNamespace")
+	attr type.String family;
+
+	@GenModel(documentation="4.0.0
+The architecture of the operating system to be used to activate the profile.")
+	@ExtendedMetaData(kind="element", name="arch", namespace="##targetNamespace")
+	attr type.String arch;
+
+	@GenModel(documentation="4.0.0
+The version of the operating system to be used to activate the profile.")
+	@ExtendedMetaData(kind="element", name="version", namespace="##targetNamespace")
+	attr type.String version;
+}
+
+@GenModel(documentation="4.0.0
+
+        This is the property specification used to activate a profile. If the value field is empty,
+        then the existence of the named property will activate the profile, otherwise it does a case-sensitive
+        match against the property value as well.
+      ")
+@ExtendedMetaData(name="ActivationProperty", kind="elementOnly")
+class ActivationProperty {
+
+	@GenModel(documentation="4.0.0
+The name of the property to be used to activate a profile.")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@GenModel(documentation="4.0.0
+The value of the property required to activate a profile.")
+	@ExtendedMetaData(kind="element", name="value", namespace="##targetNamespace")
+	attr type.String value;
+}
+
+@GenModel(documentation="3.0.0+")
+@ExtendedMetaData(name="Build", kind="elementOnly")
+class Build {
+
+	@GenModel(documentation="3.0.0+
+
+            This element specifies a directory containing the source
+            of the project. The generated build system will compile
+            the source in this directory when the project is built.
+            The path given is relative to the project descriptor.
+          ")
+	@ExtendedMetaData(kind="element", name="sourceDirectory", namespace="##targetNamespace")
+	attr type.String sourceDirectory;
+
+	@GenModel(documentation="4.0.0
+
+            This element specifies a directory containing the script sources
+            of the project. This directory is meant to be different from the
+            sourceDirectory, in that its contents will be copied to the output
+            directory in most cases (since scripts are interpreted rather than
+            compiled).
+          ")
+	@ExtendedMetaData(kind="element", name="scriptSourceDirectory", namespace="##targetNamespace")
+	attr type.String scriptSourceDirectory;
+
+	@GenModel(documentation="4.0.0
+
+            This element specifies a directory containing the unit test
+            source of the project. The generated build system will
+            compile these directories when the project is being tested.
+            The path given is relative to the project descriptor.
+          ")
+	@ExtendedMetaData(kind="element", name="testSourceDirectory", namespace="##targetNamespace")
+	attr type.String testSourceDirectory;
+
+	@GenModel(documentation="4.0.0
+
+            The directory where compiled application classes are placed.
+          ")
+	@ExtendedMetaData(kind="element", name="outputDirectory", namespace="##targetNamespace")
+	attr type.String outputDirectory;
+
+	@GenModel(documentation="4.0.0
+
+            The directory where compiled test classes are placed.
+          ")
+	@ExtendedMetaData(kind="element", name="testOutputDirectory", namespace="##targetNamespace")
+	attr type.String testOutputDirectory;
+
+	@GenModel(documentation="4.0.0
+A set of build extensions to use from this project.")
+	@ExtendedMetaData(kind="element", name="extensions", namespace="##targetNamespace")
+	!resolve val ExtensionsType extensions;
+
+	@GenModel(documentation="3.0.0+
+
+            The default goal (or phase in Maven 2) to execute when none is specified for the project.
+          ")
+	@ExtendedMetaData(kind="element", name="defaultGoal", namespace="##targetNamespace")
+	attr type.String defaultGoal;
+
+	@GenModel(documentation="3.0.0+
+
+            This element describes all of the classpath resources such as properties files associated with a
+            project. These resources are often included in the final package.
+          ")
+	@ExtendedMetaData(kind="element", name="resources", namespace="##targetNamespace")
+	!resolve val ResourcesType resources;
+
+	@GenModel(documentation="4.0.0
+
+            This element describes all of the classpath resources such as properties files associated with a
+            project's unit tests.
+          ")
+	@ExtendedMetaData(kind="element", name="testResources", namespace="##targetNamespace")
+	!resolve val TestResourcesType testResources;
+
+	@GenModel(documentation="4.0.0
+
+            The directory where all files generated by the build are placed.
+          ")
+	@ExtendedMetaData(kind="element", name="directory", namespace="##targetNamespace")
+	attr type.String directory;
+
+	@GenModel(documentation="4.0.0
+
+            The filename (excluding the extension, and with no path information) that the produced artifact
+            will be called. The default value is &lt;code&gt;${artifactId}-${version}&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="finalName", namespace="##targetNamespace")
+	attr type.String finalName;
+
+	@GenModel(documentation="4.0.0
+
+          The list of filter properties files that are used when filtering is enabled.
+          ")
+	@ExtendedMetaData(kind="element", name="filters", namespace="##targetNamespace")
+	!resolve val FiltersType filters;
+
+	@GenModel(documentation="4.0.0
+
+            Default plugin information to be made available for reference by 
+            projects derived from this one. This plugin configuration will not
+            be resolved or bound to the lifecycle unless referenced. Any local
+            configuration for a given plugin will override the plugin's entire
+            definition here.
+          ")
+	@ExtendedMetaData(kind="element", name="pluginManagement", namespace="##targetNamespace")
+	!resolve val PluginManagement pluginManagement;
+
+	@GenModel(documentation="4.0.0
+
+            The list of plugins to use.
+          ")
+	@ExtendedMetaData(kind="element", name="plugins", namespace="##targetNamespace")
+	!resolve val PluginsType plugins;
+}
+
+@GenModel(documentation="3.0.0+")
+@ExtendedMetaData(name="BuildBase", kind="elementOnly")
+class BuildBase {
+
+	@GenModel(documentation="3.0.0+
+
+            The default goal (or phase in Maven 2) to execute when none is specified for the project.
+          ")
+	@ExtendedMetaData(kind="element", name="defaultGoal", namespace="##targetNamespace")
+	attr type.String defaultGoal;
+
+	@GenModel(documentation="3.0.0+
+
+            This element describes all of the classpath resources such as properties files associated with a
+            project. These resources are often included in the final package.
+          ")
+	@ExtendedMetaData(kind="element", name="resources", namespace="##targetNamespace")
+	!resolve val ResourcesType resources;
+
+	@GenModel(documentation="4.0.0
+
+            This element describes all of the classpath resources such as properties files associated with a
+            project's unit tests.
+          ")
+	@ExtendedMetaData(kind="element", name="testResources", namespace="##targetNamespace")
+	!resolve val TestResourcesType testResources;
+
+	@GenModel(documentation="4.0.0
+
+            The directory where all files generated by the build are placed.
+          ")
+	@ExtendedMetaData(kind="element", name="directory", namespace="##targetNamespace")
+	attr type.String directory;
+
+	@GenModel(documentation="4.0.0
+
+            The filename (excluding the extension, and with no path information) that the produced artifact
+            will be called. The default value is &lt;code&gt;${artifactId}-${version}&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="finalName", namespace="##targetNamespace")
+	attr type.String finalName;
+
+	@GenModel(documentation="4.0.0
+
+          The list of filter properties files that are used when filtering is enabled.
+          ")
+	@ExtendedMetaData(kind="element", name="filters", namespace="##targetNamespace")
+	!resolve val FiltersType filters;
+
+	@GenModel(documentation="4.0.0
+
+            Default plugin information to be made available for reference by 
+            projects derived from this one. This plugin configuration will not
+            be resolved or bound to the lifecycle unless referenced. Any local
+            configuration for a given plugin will override the plugin's entire
+            definition here.
+          ")
+	@ExtendedMetaData(kind="element", name="pluginManagement", namespace="##targetNamespace")
+	!resolve val PluginManagement pluginManagement;
+
+	@GenModel(documentation="4.0.0
+
+            The list of plugins to use.
+          ")
+	@ExtendedMetaData(kind="element", name="plugins", namespace="##targetNamespace")
+	!resolve val PluginsType plugins;
+}
+
+@GenModel(documentation="4.0.0")
+@ExtendedMetaData(name="CiManagement", kind="elementOnly")
+class CiManagement {
+
+	@GenModel(documentation="4.0.0
+
+            The name of the continuous integration system, e.g. &lt;code&gt;continuum&lt;/code&gt;.")
+	@ExtendedMetaData(kind="element", name="system", namespace="##targetNamespace")
+	attr type.String system;
+
+	@GenModel(documentation="4.0.0
+
+            URL for the continuous integration system used by the project if it has a web interface.")
+	@ExtendedMetaData(kind="element", name="url", namespace="##targetNamespace")
+	attr type.String url;
+
+	@GenModel(documentation="4.0.0
+
+            Configuration for notifying developers/users when a build is 
+            unsuccessful, including user information and notification mode.
+          ")
+	@ExtendedMetaData(kind="element", name="notifiers", namespace="##targetNamespace")
+	!resolve val NotifiersType notifiers;
+}
+
+@ExtendedMetaData(name="configuration_._type", kind="elementOnly")
+class ConfigurationType {
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##any", name=":0", processing="skip")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+}
+
+@GenModel(documentation="3.0.0+
+
+        Description of a person who has contributed to the project, but who does
+        not have commit privileges. Usually, these contributions come in the
+        form of patches submitted.
+      ")
+@ExtendedMetaData(name="Contributor", kind="elementOnly")
+class Contributor {
+
+	@GenModel(documentation="3.0.0+
+The full name of the contributor.")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@GenModel(documentation="3.0.0+
+The email address of the contributor.")
+	@ExtendedMetaData(kind="element", name="email", namespace="##targetNamespace")
+	attr type.String email;
+
+	@GenModel(documentation="3.0.0+
+The URL for the homepage of the contributor.")
+	@ExtendedMetaData(kind="element", name="url", namespace="##targetNamespace")
+	attr type.String url;
+
+	@GenModel(documentation="3.0.0+
+The organization to which the contributor belongs.")
+	@ExtendedMetaData(kind="element", name="organization", namespace="##targetNamespace")
+	attr type.String organization;
+
+	@GenModel(documentation="3.0.0+
+The URL of the organization.")
+	@ExtendedMetaData(kind="element", name="organizationUrl", namespace="##targetNamespace")
+	attr type.String organizationUrl;
+
+	@GenModel(documentation="3.0.0+
+
+            The roles the contributor plays in the project.  Each role is
+            described by a &lt;code&gt;role&lt;/code&gt; element, the body of which is a
+            role name. This can also be used to describe the contribution.
+          ")
+	@ExtendedMetaData(kind="element", name="roles", namespace="##targetNamespace")
+	!resolve val RolesType roles;
+
+	@GenModel(documentation="3.0.0+
+
+            The timezone the contributor is in. This is a number in the range -11 to 12.
+          ")
+	@ExtendedMetaData(kind="element", name="timezone", namespace="##targetNamespace")
+	attr type.String timezone;
+
+	@GenModel(documentation="3.0.0+
+
+            Properties about the contributor, such as an instant messenger handle.
+          ")
+	@ExtendedMetaData(kind="element", name="properties", namespace="##targetNamespace")
+	!resolve val PropertiesType properties;
+}
+
+@ExtendedMetaData(name="contributors_._type", kind="elementOnly")
+class ContributorsType {
+
+	@ExtendedMetaData(kind="element", name="contributor", namespace="##targetNamespace")
+	!resolve val Contributor[*] contributor;
+}
+
+@ExtendedMetaData(name="dependencies_._type", kind="elementOnly")
+class DependenciesType {
+
+	@ExtendedMetaData(kind="element", name="dependency", namespace="##targetNamespace")
+	!resolve val Dependency[*] dependency;
+}
+
+@GenModel(documentation="3.0.0+")
+@ExtendedMetaData(name="Dependency", kind="elementOnly")
+class Dependency {
+
+	@GenModel(documentation="3.0.0+
+
+            The project group that produced the dependency, e.g.
+            &lt;code&gt;org.apache.maven&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="groupId", namespace="##targetNamespace")
+	attr type.String groupId;
+
+	@GenModel(documentation="3.0.0+
+
+            The unique id for an artifact produced by the project group, e.g.
+            &lt;code&gt;maven-artifact&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="artifactId", namespace="##targetNamespace")
+	attr type.String artifactId;
+
+	@GenModel(documentation="3.0.0+
+
+            The version of the dependency, e.g. &lt;code&gt;3.2.1&lt;/code&gt;. In Maven 2, this can also be
+            specified as a range of versions.
+          ")
+	@ExtendedMetaData(kind="element", name="version", namespace="##targetNamespace")
+	attr type.String version;
+
+	@GenModel(documentation="4.0.0
+
+            The type of dependency. This defaults to &lt;code&gt;jar&lt;/code&gt;. While it usually represents the extension on
+            the filename of the dependency, that is not always the case. A type can be mapped to a different
+            extension and a classifier.
+            The type often correspongs to the packaging used, though this is also not always the case.
+            Some examples are &lt;code&gt;jar&lt;/code&gt;, &lt;code&gt;war&lt;/code&gt;, &lt;code&gt;ejb-client&lt;/code&gt; and &lt;code&gt;test-jar&lt;/code&gt;.
+            New types can be defined by plugins that set
+            &lt;code&gt;extensions&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;, so this is not a complete list.
+          ")
+	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
+	unsettable attr type.String type = "jar";
+
+	@GenModel(documentation="4.0.0
+
+            The classifier of the dependency. This allows distinguishing two artifacts that belong to the same POM but
+            were built differently, and is appended to the filename after the version. For example,
+            &lt;code&gt;jdk14&lt;/code&gt; and &lt;code&gt;jdk15&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="classifier", namespace="##targetNamespace")
+	attr type.String classifier;
+
+	@GenModel(documentation="4.0.0
+
+            The scope of the dependency - &lt;code&gt;compile&lt;/code&gt;, &lt;code&gt;runtime&lt;/code&gt;, &lt;code&gt;test&lt;/code&gt;,
+            &lt;code&gt;system&lt;/code&gt;, and &lt;code&gt;provided&lt;/code&gt;. Used to
+            calculate the various classpaths used for compilation, testing, and so on. It also assists in determining
+            which artifacts to include in a distribution of this project. For more information, see
+            &lt;a href=\"http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html\"&gt;the
+            dependency mechanism&lt;/a&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="scope", namespace="##targetNamespace")
+	attr type.String scope;
+
+	@GenModel(documentation="4.0.0
+
+            FOR SYSTEM SCOPE ONLY. Note that use of this property is &lt;b&gt;discouraged&lt;/b&gt; and may be replaced in later
+            versions. This specifies the path on the filesystem for this dependency.
+            Requires an absolute path for the value, not relative.
+            Use a property that gives the machine specific absolute path,
+            e.g. &lt;code&gt;${java.home}&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="systemPath", namespace="##targetNamespace")
+	attr type.String systemPath;
+
+	@GenModel(documentation="4.0.0
+
+            Lists a set of artifacts that should be excluded from this dependency's artifact list when it comes to
+            calculating transitive dependencies.
+          ")
+	@ExtendedMetaData(kind="element", name="exclusions", namespace="##targetNamespace")
+	!resolve val ExclusionsType exclusions;
+
+	@GenModel(documentation="4.0.0
+
+            Indicates the dependency is optional for use of this library. While the version of the dependency will be
+            taken into account for dependency calculation if the library is used elsewhere, it will not be passed on
+            transitively.
+          ")
+	@ExtendedMetaData(kind="element", name="optional", namespace="##targetNamespace")
+	unsettable attr type.Boolean optional = "false";
+}
+
+@GenModel(documentation="4.0.0
+
+        Section for management of default dependency information for use in a group of POMs.
+      ")
+@ExtendedMetaData(name="DependencyManagement", kind="elementOnly")
+class DependencyManagement {
+
+	@GenModel(documentation="4.0.0
+
+            The dependencies specified here are not used until they
+            are referenced in a POM within the group. This allows the
+            specification of a \"standard\" version for a particular
+            dependency.
+          ")
+	@ExtendedMetaData(kind="element", name="dependencies", namespace="##targetNamespace")
+	!resolve val DependenciesType dependencies;
+}
+
+@GenModel(documentation="4.0.0
+
+        Repository contains the information needed for deploying to the remote repoistory.
+      ")
+@ExtendedMetaData(name="DeploymentRepository", kind="elementOnly")
+class DeploymentRepository {
+
+	@GenModel(documentation="4.0.0
+Whether to assign snapshots a unique version comprised of the timestamp and build number, or to
+            use the same version each time")
+	@ExtendedMetaData(kind="element", name="uniqueVersion", namespace="##targetNamespace")
+	unsettable attr type.Boolean uniqueVersion = "true";
+
+	@GenModel(documentation="4.0.0
+
+            A unique identifier for a repository. This is used to match the repository to configuration in
+            the &lt;code&gt;settings.xml&lt;/code&gt; file, for example.
+          ")
+	@ExtendedMetaData(kind="element", name="id", namespace="##targetNamespace")
+	attr type.String ~id;
+
+	@GenModel(documentation="4.0.0
+
+            Human readable name of the repository.
+          ")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@GenModel(documentation="4.0.0
+
+             The url of the repository, in the form &lt;code&gt;protocol://hostname/path&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="url", namespace="##targetNamespace")
+	attr type.String url;
+
+	@GenModel(documentation="4.0.0
+
+            The type of layout this repository uses for locating and storing artifacts - can be &lt;code&gt;legacy&lt;/code&gt; or
+            &lt;code&gt;default&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="layout", namespace="##targetNamespace")
+	unsettable attr type.String layout = "default";
+}
+
+@GenModel(documentation="3.0.0+
+
+        Information about one of the committers on this project.
+      ")
+@ExtendedMetaData(name="Developer", kind="elementOnly")
+class Developer {
+
+	@GenModel(documentation="3.0.0+
+The unique ID of the developer in the SCM.")
+	@ExtendedMetaData(kind="element", name="id", namespace="##targetNamespace")
+	attr type.String ~id;
+
+	@GenModel(documentation="3.0.0+
+The full name of the contributor.")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@GenModel(documentation="3.0.0+
+The email address of the contributor.")
+	@ExtendedMetaData(kind="element", name="email", namespace="##targetNamespace")
+	attr type.String email;
+
+	@GenModel(documentation="3.0.0+
+The URL for the homepage of the contributor.")
+	@ExtendedMetaData(kind="element", name="url", namespace="##targetNamespace")
+	attr type.String url;
+
+	@GenModel(documentation="3.0.0+
+The organization to which the contributor belongs.")
+	@ExtendedMetaData(kind="element", name="organization", namespace="##targetNamespace")
+	attr type.String organization;
+
+	@GenModel(documentation="3.0.0+
+The URL of the organization.")
+	@ExtendedMetaData(kind="element", name="organizationUrl", namespace="##targetNamespace")
+	attr type.String organizationUrl;
+
+	@GenModel(documentation="3.0.0+
+
+            The roles the contributor plays in the project.  Each role is
+            described by a &lt;code&gt;role&lt;/code&gt; element, the body of which is a
+            role name. This can also be used to describe the contribution.
+          ")
+	@ExtendedMetaData(kind="element", name="roles", namespace="##targetNamespace")
+	!resolve val RolesType roles;
+
+	@GenModel(documentation="3.0.0+
+
+            The timezone the contributor is in. This is a number in the range -11 to 12.
+          ")
+	@ExtendedMetaData(kind="element", name="timezone", namespace="##targetNamespace")
+	attr type.String timezone;
+
+	@GenModel(documentation="3.0.0+
+
+            Properties about the contributor, such as an instant messenger handle.
+          ")
+	@ExtendedMetaData(kind="element", name="properties", namespace="##targetNamespace")
+	!resolve val PropertiesType properties;
+}
+
+@ExtendedMetaData(name="developers_._type", kind="elementOnly")
+class DevelopersType {
+
+	@ExtendedMetaData(kind="element", name="developer", namespace="##targetNamespace")
+	!resolve val Developer[*] developer;
+}
+
+@GenModel(documentation="4.0.0
+
+        This elements describes all that pertains to distribution for a project.
+        It is primarily used for deployment of artifacts and the site
+        produced by the build.
+      ")
+@ExtendedMetaData(name="DistributionManagement", kind="elementOnly")
+class DistributionManagement {
+
+	@GenModel(documentation="4.0.0
+
+            Information needed to deploy the artifacts generated by the project to a remote repository.
+          ")
+	@ExtendedMetaData(kind="element", name="repository", namespace="##targetNamespace")
+	!resolve val DeploymentRepository repository;
+
+	@GenModel(documentation="4.0.0
+
+            Where to deploy snapshots of artifacts to. If not given, it defaults to the &lt;code&gt;repository&lt;/code&gt; element.
+          ")
+	@ExtendedMetaData(kind="element", name="snapshotRepository", namespace="##targetNamespace")
+	!resolve val DeploymentRepository snapshotRepository;
+
+	@GenModel(documentation="4.0.0
+
+            Information needed for deploying the web site of the project.
+          ")
+	@ExtendedMetaData(kind="element", name="site", namespace="##targetNamespace")
+	!resolve val Site site;
+
+	@GenModel(documentation="4.0.0+
+
+            The URL of the project's download page. If not given users will be referred to the homepage given by
+            &lt;code&gt;url&lt;/code&gt;. This is given to assist in locating artifacts that are not in the repository due to
+            licensing restrictions.
+          ")
+	@ExtendedMetaData(kind="element", name="downloadUrl", namespace="##targetNamespace")
+	attr type.String downloadUrl;
+
+	@GenModel(documentation="4.0.0
+
+            Relocation information of the artifact if it has been moved to a new group ID and/or artifact ID.
+          ")
+	@ExtendedMetaData(kind="element", name="relocation", namespace="##targetNamespace")
+	!resolve val Relocation relocation;
+
+	@GenModel(documentation="4.0.0
+
+            Gives the status of this artifact in the remote repository. This must not be set in your local
+            project, as it is updated by tools placing it in the reposiory. Valid values are: &lt;code&gt;none&lt;/code&gt; (default),
+            &lt;code&gt;converted&lt;/code&gt; (repository manager converted this from an Maven 1 POM), &lt;code&gt;partner&lt;/code&gt;
+            (directly synced from a partner Maven 2 repository), &lt;code&gt;deployed&lt;/code&gt; (was deployed from a Maven 2
+            instance), &lt;code&gt;verified&lt;/code&gt; (has been hand verified as correct and final).
+          ")
+	@ExtendedMetaData(kind="element", name="status", namespace="##targetNamespace")
+	attr type.String status;
+}
+
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	!unique attr ecore.EFeatureMapEntry[*] mixed;
+
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xMLNSPrefixMap;
+
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	transient !resolve val ecore.EStringToStringMapEntry[*] xSISchemaLocation;
+
+	@GenModel(documentation="3.0.0+
+
+         The &lt;code&gt;&amp;lt;project&amp;gt;&lt;/code&gt; element is the root of the descriptor.
+         The following table lists all of the possible child elements.
+      ")
+	@ExtendedMetaData(kind="element", name="project", namespace="##targetNamespace")
+	volatile transient derived !resolve val Model[0..?] project;
+}
+
+@ExtendedMetaData(name="excludes_._type", kind="elementOnly")
+class ExcludesType {
+
+	@ExtendedMetaData(kind="element", name="exclude", namespace="##targetNamespace")
+	!unique attr type.String[*] exclude;
+}
+
+@GenModel(documentation="4.0.0")
+@ExtendedMetaData(name="Exclusion", kind="elementOnly")
+class Exclusion {
+
+	@GenModel(documentation="4.0.0
+The artifact ID of the project to exclude.")
+	@ExtendedMetaData(kind="element", name="artifactId", namespace="##targetNamespace")
+	attr type.String artifactId;
+
+	@GenModel(documentation="4.0.0
+The group ID of the project to exclude.")
+	@ExtendedMetaData(kind="element", name="groupId", namespace="##targetNamespace")
+	attr type.String groupId;
+}
+
+@ExtendedMetaData(name="exclusions_._type", kind="elementOnly")
+class ExclusionsType {
+
+	@ExtendedMetaData(kind="element", name="exclusion", namespace="##targetNamespace")
+	!resolve val Exclusion[*] exclusion;
+}
+
+@ExtendedMetaData(name="execution_._goals_._type", kind="elementOnly")
+class ExecutionGoalsType {
+
+	@ExtendedMetaData(kind="element", name="goal", namespace="##targetNamespace")
+	!unique attr type.String[*] goal;
+}
+
+@ExtendedMetaData(name="executions_._type", kind="elementOnly")
+class ExecutionsType {
+
+	@ExtendedMetaData(kind="element", name="execution", namespace="##targetNamespace")
+	!resolve val PluginExecution[*] execution;
+}
+
+@GenModel(documentation="4.0.0
+Describes a build extension to utilise.")
+@ExtendedMetaData(name="Extension", kind="elementOnly")
+class Extension {
+
+	@GenModel(documentation="4.0.0
+The group ID of the extension's artifact.")
+	@ExtendedMetaData(kind="element", name="groupId", namespace="##targetNamespace")
+	attr type.String groupId;
+
+	@GenModel(documentation="4.0.0
+The artifact ID of the extension.")
+	@ExtendedMetaData(kind="element", name="artifactId", namespace="##targetNamespace")
+	attr type.String artifactId;
+
+	@GenModel(documentation="4.0.0
+The version of the extension.")
+	@ExtendedMetaData(kind="element", name="version", namespace="##targetNamespace")
+	attr type.String version;
+}
+
+@ExtendedMetaData(name="extensions_._type", kind="elementOnly")
+class ExtensionsType {
+
+	@ExtendedMetaData(kind="element", name="extension", namespace="##targetNamespace")
+	!resolve val Extension[*] extension;
+}
+
+@ExtendedMetaData(name="filters_._type", kind="elementOnly")
+class FiltersType {
+
+	@ExtendedMetaData(kind="element", name="filter", namespace="##targetNamespace")
+	!unique attr type.String[*] filter;
+}
+
+@ExtendedMetaData(name="goals_._type", kind="elementOnly")
+class GoalsType {
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##any", name=":0", processing="skip")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+}
+
+@ExtendedMetaData(name="includes_._type", kind="elementOnly")
+class IncludesType {
+
+	@ExtendedMetaData(kind="element", name="include", namespace="##targetNamespace")
+	!unique attr type.String[*] include;
+}
+
+@GenModel(documentation="4.0.0
+
+        Information about the issue tracking (or bug tracking) system used to manage this project.
+      ")
+@ExtendedMetaData(name="IssueManagement", kind="elementOnly")
+class IssueManagement {
+
+	@GenModel(documentation="4.0.0
+The name of the issue management system, e.g. Bugzilla")
+	@ExtendedMetaData(kind="element", name="system", namespace="##targetNamespace")
+	attr type.String system;
+
+	@GenModel(documentation="4.0.0
+URL for the issue management system used by the project.")
+	@ExtendedMetaData(kind="element", name="url", namespace="##targetNamespace")
+	attr type.String url;
+}
+
+@GenModel(documentation="3.0.0+
+
+        Describes the licenses for this project.  This is used to generate
+        the license page of the project's web site, as well as being taken into consideration in other reporting and
+        validation. The licenses listed for the project are that of the project itself, and not of dependencies.
+      ")
+@ExtendedMetaData(name="License", kind="elementOnly")
+class License {
+
+	@GenModel(documentation="3.0.0+
+The full legal name of the license.")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@GenModel(documentation="3.0.0+
+The official url for the license text.")
+	@ExtendedMetaData(kind="element", name="url", namespace="##targetNamespace")
+	attr type.String url;
+
+	@GenModel(documentation="3.0.0+
+
+              The primary method by which this project may be distributed.
+            &lt;dl&gt;
+              &lt;dt&gt;repo&lt;/dt&gt;
+              &lt;dd&gt;may be downloaded from the Maven repository&lt;/dd&gt;
+              &lt;dt&gt;manual&lt;/dt&gt;
+              &lt;dd&gt;user must manually download and install the dependency.&lt;/dd&gt;
+            &lt;/dl&gt;
+          ")
+	@ExtendedMetaData(kind="element", name="distribution", namespace="##targetNamespace")
+	attr type.String distribution;
+
+	@GenModel(documentation="3.0.0+
+
+            Addendum information pertaining to this license.
+          ")
+	@ExtendedMetaData(kind="element", name="comments", namespace="##targetNamespace")
+	attr type.String comments;
+}
+
+@ExtendedMetaData(name="licenses_._type", kind="elementOnly")
+class LicensesType {
+
+	@ExtendedMetaData(kind="element", name="license", namespace="##targetNamespace")
+	!resolve val License[*] license;
+}
+
+@GenModel(documentation="3.0.0+
+
+        This element describes all of the mailing lists associated with
+        a project. The auto-generated site references this information.
+      ")
+@ExtendedMetaData(name="MailingList", kind="elementOnly")
+class MailingList {
+
+	@GenModel(documentation="3.0.0+
+The name of the mailing list.")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@GenModel(documentation="3.0.0+
+
+            The email address or link that can be used to subscribe to the mailing list.
+            If this is an email address, a
+            &lt;code&gt;mailto:&lt;/code&gt; link will automatically be created when
+            the documentation is created.
+          ")
+	@ExtendedMetaData(kind="element", name="subscribe", namespace="##targetNamespace")
+	attr type.String subscribe;
+
+	@GenModel(documentation="3.0.0+
+
+            The email address or link that can be used to unsubscribe to
+            the mailing list.  If this is an email address, a
+            &lt;code&gt;mailto:&lt;/code&gt; link will automatically be created
+            when the documentation is created.
+          ")
+	@ExtendedMetaData(kind="element", name="unsubscribe", namespace="##targetNamespace")
+	attr type.String unsubscribe;
+
+	@GenModel(documentation="3.0.0+
+
+            The email address or link that can be used to post to
+            the mailing list.  If this is an email address, a
+            &lt;code&gt;mailto:&lt;/code&gt; link will automatically be created
+            when the documentation is created.
+          ")
+	@ExtendedMetaData(kind="element", name="post", namespace="##targetNamespace")
+	attr type.String post;
+
+	@GenModel(documentation="3.0.0+
+
+            The link to a URL where you can browse the mailing list archive.
+          ")
+	@ExtendedMetaData(kind="element", name="archive", namespace="##targetNamespace")
+	attr type.String archive;
+
+	@GenModel(documentation="3.0.0+
+
+            The link to alternate URLs where you can browse the list archive.
+          ")
+	@ExtendedMetaData(kind="element", name="otherArchives", namespace="##targetNamespace")
+	!resolve val OtherArchivesType otherArchives;
+}
+
+@ExtendedMetaData(name="mailingLists_._type", kind="elementOnly")
+class MailingListsType {
+
+	@ExtendedMetaData(kind="element", name="mailingList", namespace="##targetNamespace")
+	!resolve val MailingList[*] mailingList;
+}
+
+@GenModel(documentation="3.0.0+
+
+         The &lt;code&gt;&amp;lt;project&amp;gt;&lt;/code&gt; element is the root of the descriptor.
+         The following table lists all of the possible child elements.
+      ")
+@ExtendedMetaData(name="Model", kind="elementOnly")
+class Model {
+
+	@GenModel(documentation="4.0.0
+
+            The location of the parent project, if one exists. Values from the
+            parent project will be the default for this project if they are
+            left unspecified. The location is given as a group ID, artifact ID and version.
+          ")
+	@ExtendedMetaData(kind="element", name="parent", namespace="##targetNamespace")
+	!resolve val Parent parent;
+
+	@GenModel(documentation="4.0.0
+Declares to which version of project descriptor this POM conforms.")
+	@ExtendedMetaData(kind="element", name="modelVersion", namespace="##targetNamespace")
+	attr type.String modelVersion;
+
+	@GenModel(documentation="3.0.0+
+
+            A universally unique identifier for a project. It is normal to
+            use a fully-qualified package name to distinguish it from other projects with a similar name
+            (eg. &lt;code&gt;org.apache.maven&lt;/code&gt;).
+          ")
+	@ExtendedMetaData(kind="element", name="groupId", namespace="##targetNamespace")
+	attr type.String groupId;
+
+	@GenModel(documentation="3.0.0+
+
+            The identifier for this artifact that is unique within the group given by the group ID.
+            An artifact is something that is either produced or used by a project. Examples of artifacts produced by
+            Maven for a project include: JARs, source and binary distributions, and WARs.
+          ")
+	@ExtendedMetaData(kind="element", name="artifactId", namespace="##targetNamespace")
+	attr type.String artifactId;
+
+	@GenModel(documentation="4.0.0
+
+            The type of artifact this project produces, for example &lt;code&gt;jar&lt;/code&gt;
+              &lt;code&gt;war&lt;/code&gt;
+              &lt;code&gt;ear&lt;/code&gt;
+              &lt;code&gt;pom&lt;/code&gt;.
+            Plugins can create their own packaging, and
+            therefore their own packaging types,
+            so this list does not contain all possible types.
+          ")
+	@ExtendedMetaData(kind="element", name="packaging", namespace="##targetNamespace")
+	unsettable attr type.String packaging = "jar";
+
+	@GenModel(documentation="3.0.0+
+
+            The full name of the project.
+          ")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@GenModel(documentation="4.0.0
+
+            The current version of the artifact produced by this project.
+          ")
+	@ExtendedMetaData(kind="element", name="version", namespace="##targetNamespace")
+	attr type.String version;
+
+	@GenModel(documentation="3.0.0+
+
+            A detailed description of the project, used by Maven whenever it needs to describe the project,
+            such as on the web site. While this element can be specified as CDATA to enable
+            the use of HTML tags within the description, it is discouraged to allow plain text representation.
+            If you need to modify the index page of the generated web site, you are able to specify your own instead
+            of adjusting this text.
+          ")
+	@ExtendedMetaData(kind="element", name="description", namespace="##targetNamespace")
+	attr type.String description;
+
+	@GenModel(documentation="3.0.0+
+
+             The URL to the project's homepage.
+          ")
+	@ExtendedMetaData(kind="element", name="url", namespace="##targetNamespace")
+	attr type.String url;
+
+	@GenModel(documentation="4.0.0
+
+            Describes the prerequisites in the build environment for this project.
+          ")
+	@ExtendedMetaData(kind="element", name="prerequisites", namespace="##targetNamespace")
+	!resolve val Prerequisites prerequisites;
+
+	@GenModel(documentation="4.0.0
+The project's issue management system information.")
+	@ExtendedMetaData(kind="element", name="issueManagement", namespace="##targetNamespace")
+	!resolve val IssueManagement issueManagement;
+
+	@GenModel(documentation="4.0.0
+The project's continuous integration information.")
+	@ExtendedMetaData(kind="element", name="ciManagement", namespace="##targetNamespace")
+	!resolve val CiManagement ciManagement;
+
+	@GenModel(documentation="3.0.0+
+
+            The year of the project's inception, specified with 4 digits.
+            This value is used when generating copyright notices as well as being informational.
+          ")
+	@ExtendedMetaData(kind="element", name="inceptionYear", namespace="##targetNamespace")
+	attr type.String inceptionYear;
+
+	@GenModel(documentation="3.0.0+
+
+            Contains information about a project's mailing lists.
+          ")
+	@ExtendedMetaData(kind="element", name="mailingLists", namespace="##targetNamespace")
+	!resolve val MailingListsType mailingLists;
+
+	@GenModel(documentation="3.0.0+
+
+            Describes the committers of a project.
+          ")
+	@ExtendedMetaData(kind="element", name="developers", namespace="##targetNamespace")
+	!resolve val DevelopersType developers;
+
+	@GenModel(documentation="3.0.0+
+
+            Describes the contributors to a project that are not yet committers.
+          ")
+	@ExtendedMetaData(kind="element", name="contributors", namespace="##targetNamespace")
+	!resolve val ContributorsType contributors;
+
+	@GenModel(documentation="3.0.0+
+
+            This element describes all of the licenses for this project.  
+            Each license is described by a &lt;code&gt;license&lt;/code&gt; element, which 
+            is then described by additional elements.
+            Projects should only list the license(s) that applies to the project 
+            and not the licenses that apply to dependencies.
+            If multiple licenses are listed, it is assumed that the user can select any of them, not that they
+            must accept all.
+          ")
+	@ExtendedMetaData(kind="element", name="licenses", namespace="##targetNamespace")
+	!resolve val LicensesType licenses;
+
+	@GenModel(documentation="4.0.0
+
+            Specification for the SCM used by the project, such as CVS, Subversion, etc.")
+	@ExtendedMetaData(kind="element", name="scm", namespace="##targetNamespace")
+	!resolve val Scm scm;
+
+	@GenModel(documentation="3.0.0+
+
+            This element describes various attributes of the organization to
+            which the project belongs.  These attributes are utilized when
+            documentation is created (for copyright notices and links).
+          ")
+	@ExtendedMetaData(kind="element", name="organization", namespace="##targetNamespace")
+	!resolve val Organization organization;
+
+	@GenModel(documentation="3.0.0+
+Information required to build the project.")
+	@ExtendedMetaData(kind="element", name="build", namespace="##targetNamespace")
+	!resolve val Build build;
+
+	@GenModel(documentation="4.0.0
+
+            A listing of project-local build profiles which will modify the build process when activated.
+          ")
+	@ExtendedMetaData(kind="element", name="profiles", namespace="##targetNamespace")
+	!resolve val ProfilesType profiles;
+
+	@GenModel(documentation="4.0.0
+
+            The modules (sometimes called subprojects) to build as a part of this project.
+            Each module listed is a relative path to the directory containing the module.
+          ")
+	@ExtendedMetaData(kind="element", name="modules", namespace="##targetNamespace")
+	!resolve val ModulesType modules;
+
+	@GenModel(documentation="4.0.0
+The lists of the remote repositories for discovering dependencies and
+          extensions.")
+	@ExtendedMetaData(kind="element", name="repositories", namespace="##targetNamespace")
+	!resolve val RepositoriesType repositories;
+
+	@GenModel(documentation="4.0.0
+
+            The lists of the remote repositories for discovering plugins for builds and reports.")
+	@ExtendedMetaData(kind="element", name="pluginRepositories", namespace="##targetNamespace")
+	!resolve val PluginRepositoriesType pluginRepositories;
+
+	@GenModel(documentation="3.0.0+
+
+              This element describes all of the dependencies associated with a
+              project.
+              These dependencies are used to construct a classpath for your 
+              project during the build process. They are automatically downloaded from the
+              repositories defined in this project.
+              See &lt;a href=\"http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html\"&gt;the
+              dependency mechanism&lt;/a&gt; for more information.
+          ")
+	@ExtendedMetaData(kind="element", name="dependencies", namespace="##targetNamespace")
+	!resolve val DependenciesType dependencies;
+
+	@GenModel(documentation="4.0.0
+
+            &lt;b&gt;Deprecated&lt;/b&gt;. Now ignored by Maven.
+          ")
+	@ExtendedMetaData(kind="element", name="reports", namespace="##targetNamespace")
+	!resolve val ReportsType reports;
+
+	@GenModel(documentation="4.0.0
+
+            This element includes the specification of report plugins to use to generate the reports on the
+            Maven-generated site.  These reports will be run when a user executes &lt;code&gt;mvn site&lt;/code&gt;.  All of the
+            reports will be included in the navigation bar for browsing.
+          ")
+	@ExtendedMetaData(kind="element", name="reporting", namespace="##targetNamespace")
+	!resolve val Reporting reporting;
+
+	@GenModel(documentation="4.0.0
+
+            Default dependency information for projects that inherit from
+            this one. The dependencies in this section are not immediately resolved.
+            Instead, when a POM derived from this one declares a dependency 
+            described by a matching groupId and artifactId, the version and other values from this
+            section are used for that dependency if they were not already specified.
+          ")
+	@ExtendedMetaData(kind="element", name="dependencyManagement", namespace="##targetNamespace")
+	!resolve val DependencyManagement dependencyManagement;
+
+	@GenModel(documentation="4.0.0
+Distribution information for a project that enables deployment of the site
+          and artifacts to remote web servers and repositories respectively.")
+	@ExtendedMetaData(kind="element", name="distributionManagement", namespace="##targetNamespace")
+	!resolve val DistributionManagement distributionManagement;
+
+	@GenModel(documentation="4.0.0
+
+             Properties that can be used throughout the POM as a substitution, and are used as filters in resources
+             if enabled. The format is &lt;code&gt;&amp;lt;name&amp;gt;value&amp;lt;/name&amp;gt;&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="properties", namespace="##targetNamespace")
+	!resolve val PropertiesType properties;
+}
+
+@ExtendedMetaData(name="modules_._type", kind="elementOnly")
+class ModulesType {
+
+	@ExtendedMetaData(kind="element", name="module", namespace="##targetNamespace")
+	!unique attr type.String[*] module;
+}
+
+@GenModel(documentation="4.0.0
+
+        Configures one method for notifying users/developers when a build breaks.
+      ")
+@ExtendedMetaData(name="Notifier", kind="elementOnly")
+class Notifier {
+
+	@GenModel(documentation="4.0.0
+The mechanism used to deliver notifications.")
+	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
+	unsettable attr type.String type = "mail";
+
+	@GenModel(documentation="4.0.0
+Whether to send notifications on error.")
+	@ExtendedMetaData(kind="element", name="sendOnError", namespace="##targetNamespace")
+	unsettable attr type.Boolean sendOnError = "true";
+
+	@GenModel(documentation="4.0.0
+Whether to send notifications on failure.")
+	@ExtendedMetaData(kind="element", name="sendOnFailure", namespace="##targetNamespace")
+	unsettable attr type.Boolean sendOnFailure = "true";
+
+	@GenModel(documentation="4.0.0
+Whether to send notifications on success.")
+	@ExtendedMetaData(kind="element", name="sendOnSuccess", namespace="##targetNamespace")
+	unsettable attr type.Boolean sendOnSuccess = "true";
+
+	@GenModel(documentation="4.0.0
+Whether to send notifications on warning.")
+	@ExtendedMetaData(kind="element", name="sendOnWarning", namespace="##targetNamespace")
+	unsettable attr type.Boolean sendOnWarning = "true";
+
+	@GenModel(documentation="4.0.0
+
+            &lt;b&gt;Deprecated&lt;/b&gt;. Where to send the notification to - eg email address.
+          ")
+	@ExtendedMetaData(kind="element", name="address", namespace="##targetNamespace")
+	attr type.String address;
+
+	@GenModel(documentation="0.0.0+
+Extended configuration specific to this notifier goes here.")
+	@ExtendedMetaData(kind="element", name="configuration", namespace="##targetNamespace")
+	!resolve val ConfigurationType configuration;
+}
+
+@ExtendedMetaData(name="notifiers_._type", kind="elementOnly")
+class NotifiersType {
+
+	@ExtendedMetaData(kind="element", name="notifier", namespace="##targetNamespace")
+	!resolve val Notifier[*] notifier;
+}
+
+@GenModel(documentation="3.0.0+
+Specifies the organization that produces this project.")
+@ExtendedMetaData(name="Organization", kind="elementOnly")
+class Organization {
+
+	@GenModel(documentation="3.0.0+
+The full name of the organization.")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@GenModel(documentation="3.0.0+
+The URL to the organization's home page.")
+	@ExtendedMetaData(kind="element", name="url", namespace="##targetNamespace")
+	attr type.String url;
+}
+
+@ExtendedMetaData(name="otherArchives_._type", kind="elementOnly")
+class OtherArchivesType {
+
+	@ExtendedMetaData(kind="element", name="otherArchive", namespace="##targetNamespace")
+	!unique attr type.String[*] otherArchive;
+}
+
+@GenModel(documentation="4.0.0")
+@ExtendedMetaData(name="Parent", kind="elementOnly")
+class Parent {
+
+	@GenModel(documentation="4.0.0
+The artifact id of the parent project to inherit from.")
+	@ExtendedMetaData(kind="element", name="artifactId", namespace="##targetNamespace")
+	attr type.String artifactId;
+
+	@GenModel(documentation="4.0.0
+The group id of the parent project to inherit from.")
+	@ExtendedMetaData(kind="element", name="groupId", namespace="##targetNamespace")
+	attr type.String groupId;
+
+	@GenModel(documentation="4.0.0
+The version of the parent project to inherit.")
+	@ExtendedMetaData(kind="element", name="version", namespace="##targetNamespace")
+	attr type.String version;
+
+	@GenModel(documentation="4.0.0
+
+            The relative path of the parent &lt;code&gt;pom.xml&lt;/code&gt; file within the check out.
+            The default value is &lt;code&gt;../pom.xml&lt;/code&gt;.
+            Maven looks for the parent pom first in the reactor of currently building projects, then in this location on
+            the filesystem, then the local repository, and lastly in the remote repo.
+            &lt;code&gt;relativePath&lt;/code&gt; allows you to select a different location,
+            for example when your structure is flat, or deeper without an intermediate parent pom.
+            However, the group ID, artifact ID and version are still required,
+            and must match the file in the location given or it will revert to the repository for the POM.
+            This feature is only for enhancing the development in a local checkout of that project.
+          ")
+	@ExtendedMetaData(kind="element", name="relativePath", namespace="##targetNamespace")
+	unsettable attr type.String relativePath = "../pom.xml";
+}
+
+@GenModel(documentation="4.0.0")
+@ExtendedMetaData(name="Plugin", kind="elementOnly")
+class Plugin {
+
+	@GenModel(documentation="4.0.0
+The group ID of the plugin in the repository.")
+	@ExtendedMetaData(kind="element", name="groupId", namespace="##targetNamespace")
+	unsettable attr type.String groupId = "org.apache.maven.plugins";
+
+	@GenModel(documentation="4.0.0
+The artifact ID of the plugin in the repository.")
+	@ExtendedMetaData(kind="element", name="artifactId", namespace="##targetNamespace")
+	attr type.String artifactId;
+
+	@GenModel(documentation="4.0.0
+The version (or valid range of verisons) of the plugin to be used.")
+	@ExtendedMetaData(kind="element", name="version", namespace="##targetNamespace")
+	attr type.String version;
+
+	@GenModel(documentation="4.0.0
+Whether to load Maven extensions (such as packaging and type handlers) from this
+            plugin. For performance reasons, this should only be enabled when necessary.")
+	@ExtendedMetaData(kind="element", name="extensions", namespace="##targetNamespace")
+	unsettable attr type.Boolean extensions = "false";
+
+	@GenModel(documentation="4.0.0
+Multiple specifications of a set of goals to execute during the build lifecycle, each having
+            (possibly) different
+            configuration.")
+	@ExtendedMetaData(kind="element", name="executions", namespace="##targetNamespace")
+	!resolve val ExecutionsType executions;
+
+	@GenModel(documentation="4.0.0
+Additional dependencies that this project needs to introduce to the plugin's
+            classloader.")
+	@ExtendedMetaData(kind="element", name="dependencies", namespace="##targetNamespace")
+	!resolve val DependenciesType dependencies;
+
+	@GenModel(documentation="4.0.0
+
+            &lt;b&gt;Deprecated&lt;/b&gt;. Unused by Maven.
+          ")
+	@ExtendedMetaData(kind="element", name="goals", namespace="##targetNamespace")
+	!resolve val GoalsType goals;
+
+	@GenModel(documentation="4.0.0
+
+            Whether any configuration should be propagated to child POMs.")
+	@ExtendedMetaData(kind="element", name="inherited", namespace="##targetNamespace")
+	attr type.String inherited;
+
+	@GenModel(documentation="0.0.0+")
+	@ExtendedMetaData(kind="element", name="configuration", namespace="##targetNamespace")
+	!resolve val ConfigurationType configuration;
+}
+
+@GenModel(documentation="4.0.0")
+@ExtendedMetaData(name="PluginExecution", kind="elementOnly")
+class PluginExecution {
+
+	@GenModel(documentation="4.0.0
+The identifier of this execution for labelling the goals during the build, and for matching
+            exections to merge during inheritance.")
+	@ExtendedMetaData(kind="element", name="id", namespace="##targetNamespace")
+	unsettable attr type.String ~id = "default";
+
+	@GenModel(documentation="4.0.0
+The build lifecycle phase to bind the goals in this execution to. If omitted, the goals will
+            be bound to the default specified in their metadata.")
+	@ExtendedMetaData(kind="element", name="phase", namespace="##targetNamespace")
+	attr type.String phase;
+
+	@GenModel(documentation="4.0.0
+The goals to execute with the given configuration.")
+	@ExtendedMetaData(kind="element", name="goals", namespace="##targetNamespace")
+	!resolve val ExecutionGoalsType goals;
+
+	@GenModel(documentation="4.0.0
+
+            Whether any configuration should be propagated to child POMs.")
+	@ExtendedMetaData(kind="element", name="inherited", namespace="##targetNamespace")
+	attr type.String inherited;
+
+	@GenModel(documentation="0.0.0+")
+	@ExtendedMetaData(kind="element", name="configuration", namespace="##targetNamespace")
+	!resolve val ConfigurationType configuration;
+}
+
+@GenModel(documentation="4.0.0
+
+        Section for management of default plugin information for use in a group of POMs.
+      ")
+@ExtendedMetaData(name="PluginManagement", kind="elementOnly")
+class PluginManagement {
+
+	@GenModel(documentation="4.0.0
+
+            The list of plugins to use.
+          ")
+	@ExtendedMetaData(kind="element", name="plugins", namespace="##targetNamespace")
+	!resolve val PluginsType plugins;
+}
+
+@ExtendedMetaData(name="pluginRepositories_._type", kind="elementOnly")
+class PluginRepositoriesType {
+
+	@ExtendedMetaData(kind="element", name="pluginRepository", namespace="##targetNamespace")
+	!resolve val Repository[*] pluginRepository;
+}
+
+@ExtendedMetaData(name="plugins_._type", kind="elementOnly")
+class PluginsType {
+
+	@ExtendedMetaData(kind="element", name="plugin", namespace="##targetNamespace")
+	!resolve val Plugin[*] plugin;
+}
+
+@GenModel(documentation="4.0.0
+Describes the prerequisites a project can have.")
+@ExtendedMetaData(name="Prerequisites", kind="elementOnly")
+class Prerequisites {
+
+	@GenModel(documentation="4.0.0
+The minimum version of Maven required to build the project, or to use this plugin.")
+	@ExtendedMetaData(kind="element", name="maven", namespace="##targetNamespace")
+	unsettable attr type.String maven = "2.0";
+}
+
+@GenModel(documentation="4.0.0
+
+        Modifications to the build process which is activated based on environmental parameters or command line arguments.
+      ")
+@ExtendedMetaData(name="Profile", kind="elementOnly")
+class Profile {
+
+	@GenModel(documentation="4.0.0
+The identifier of this build profile. This used both for command line activation, and identifies
+            identical profiles to merge with during inheritance.")
+	@ExtendedMetaData(kind="element", name="id", namespace="##targetNamespace")
+	attr type.String ~id;
+
+	@GenModel(documentation="4.0.0
+The conditional logic which will automatically
+            trigger the inclusion of this profile.")
+	@ExtendedMetaData(kind="element", name="activation", namespace="##targetNamespace")
+	!resolve val Activation activation;
+
+	@GenModel(documentation="4.0.0
+Information required to build the project.")
+	@ExtendedMetaData(kind="element", name="build", namespace="##targetNamespace")
+	!resolve val BuildBase build;
+
+	@GenModel(documentation="4.0.0
+
+            The modules (sometimes called subprojects) to build as a part of this project.
+            Each module listed is a relative path to the directory containing the module.
+          ")
+	@ExtendedMetaData(kind="element", name="modules", namespace="##targetNamespace")
+	!resolve val ModulesType modules;
+
+	@GenModel(documentation="4.0.0
+The lists of the remote repositories for discovering dependencies and
+          extensions.")
+	@ExtendedMetaData(kind="element", name="repositories", namespace="##targetNamespace")
+	!resolve val RepositoriesType repositories;
+
+	@GenModel(documentation="4.0.0
+
+            The lists of the remote repositories for discovering plugins for builds and reports.")
+	@ExtendedMetaData(kind="element", name="pluginRepositories", namespace="##targetNamespace")
+	!resolve val PluginRepositoriesType pluginRepositories;
+
+	@GenModel(documentation="3.0.0+
+
+              This element describes all of the dependencies associated with a
+              project.
+              These dependencies are used to construct a classpath for your 
+              project during the build process. They are automatically downloaded from the
+              repositories defined in this project.
+              See &lt;a href=\"http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html\"&gt;the
+              dependency mechanism&lt;/a&gt; for more information.
+          ")
+	@ExtendedMetaData(kind="element", name="dependencies", namespace="##targetNamespace")
+	!resolve val DependenciesType dependencies;
+
+	@GenModel(documentation="4.0.0
+
+            &lt;b&gt;Deprecated&lt;/b&gt;. Now ignored by Maven.
+          ")
+	@ExtendedMetaData(kind="element", name="reports", namespace="##targetNamespace")
+	!resolve val ReportsType reports;
+
+	@GenModel(documentation="4.0.0
+
+            This element includes the specification of report plugins to use to generate the reports on the
+            Maven-generated site.  These reports will be run when a user executes &lt;code&gt;mvn site&lt;/code&gt;.  All of the
+            reports will be included in the navigation bar for browsing.
+          ")
+	@ExtendedMetaData(kind="element", name="reporting", namespace="##targetNamespace")
+	!resolve val Reporting reporting;
+
+	@GenModel(documentation="4.0.0
+
+            Default dependency information for projects that inherit from
+            this one. The dependencies in this section are not immediately resolved.
+            Instead, when a POM derived from this one declares a dependency 
+            described by a matching groupId and artifactId, the version and other values from this
+            section are used for that dependency if they were not already specified.
+          ")
+	@ExtendedMetaData(kind="element", name="dependencyManagement", namespace="##targetNamespace")
+	!resolve val DependencyManagement dependencyManagement;
+
+	@GenModel(documentation="4.0.0
+Distribution information for a project that enables deployment of the site
+          and artifacts to remote web servers and repositories respectively.")
+	@ExtendedMetaData(kind="element", name="distributionManagement", namespace="##targetNamespace")
+	!resolve val DistributionManagement distributionManagement;
+
+	@GenModel(documentation="4.0.0
+
+             Properties that can be used throughout the POM as a substitution, and are used as filters in resources
+             if enabled. The format is &lt;code&gt;&amp;lt;name&amp;gt;value&amp;lt;/name&amp;gt;&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="properties", namespace="##targetNamespace")
+	!resolve val PropertiesType properties;
+}
+
+@ExtendedMetaData(name="profiles_._type", kind="elementOnly")
+class ProfilesType {
+
+	@ExtendedMetaData(kind="element", name="profile", namespace="##targetNamespace")
+	!resolve val Profile[*] profile;
+}
+
+@ExtendedMetaData(name="properties_._type", kind="elementOnly")
+class PropertiesType {
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##any", name=":0", processing="skip")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+}
+
+@GenModel(documentation="4.0.0
+Describes where an artifact has moved to. If any of the values are omitted, it is assumed to be the
+        same as it was before.")
+@ExtendedMetaData(name="Relocation", kind="elementOnly")
+class Relocation {
+
+	@GenModel(documentation="4.0.0
+The group ID the artifact has moved to.")
+	@ExtendedMetaData(kind="element", name="groupId", namespace="##targetNamespace")
+	attr type.String groupId;
+
+	@GenModel(documentation="4.0.0
+The new artifact ID of the artifact.")
+	@ExtendedMetaData(kind="element", name="artifactId", namespace="##targetNamespace")
+	attr type.String artifactId;
+
+	@GenModel(documentation="4.0.0
+The new version of the artifact.")
+	@ExtendedMetaData(kind="element", name="version", namespace="##targetNamespace")
+	attr type.String version;
+
+	@GenModel(documentation="4.0.0
+An additional message to show the user about the move, such as the reason.")
+	@ExtendedMetaData(kind="element", name="message", namespace="##targetNamespace")
+	attr type.String message;
+}
+
+@GenModel(documentation="4.0.0
+Section for management of reports and their configuration.")
+@ExtendedMetaData(name="Reporting", kind="elementOnly")
+class Reporting {
+
+	@GenModel(documentation="4.0.0
+If true, then the default reports are not included in the site generation. This includes the
+            reports in the \"Project Info\" menu.")
+	@ExtendedMetaData(kind="element", name="excludeDefaults", namespace="##targetNamespace")
+	unsettable attr type.Boolean excludeDefaults = "false";
+
+	@GenModel(documentation="4.0.0
+
+            Where to store all of the generated reports. The default is
+            &lt;code&gt;${project.build.directory}/site&lt;/code&gt;
+            .
+          ")
+	@ExtendedMetaData(kind="element", name="outputDirectory", namespace="##targetNamespace")
+	attr type.String outputDirectory;
+
+	@GenModel(documentation="4.0.0
+The reporting plugins to use and their configuration.")
+	@ExtendedMetaData(kind="element", name="plugins", namespace="##targetNamespace")
+	!resolve val ReportingPluginsType plugins;
+}
+
+@GenModel(documentation="4.0.0")
+@ExtendedMetaData(name="ReportPlugin", kind="elementOnly")
+class ReportPlugin {
+
+	@GenModel(documentation="4.0.0
+The group ID of the reporting plugin in the repository.")
+	@ExtendedMetaData(kind="element", name="groupId", namespace="##targetNamespace")
+	unsettable attr type.String groupId = "org.apache.maven.plugins";
+
+	@GenModel(documentation="4.0.0
+The artifact ID of the reporting plugin in the repository.")
+	@ExtendedMetaData(kind="element", name="artifactId", namespace="##targetNamespace")
+	attr type.String artifactId;
+
+	@GenModel(documentation="4.0.0
+The version of the reporting plugin to be used.")
+	@ExtendedMetaData(kind="element", name="version", namespace="##targetNamespace")
+	attr type.String version;
+
+	@GenModel(documentation="4.0.0
+Whether the configuration in this plugin should be made available to projects that
+            inherit from this one.")
+	@ExtendedMetaData(kind="element", name="inherited", namespace="##targetNamespace")
+	attr type.String inherited;
+
+	@GenModel(documentation="4.0.0
+The configuration of the reporting plugin.")
+	@ExtendedMetaData(kind="element", name="configuration", namespace="##targetNamespace")
+	!resolve val ConfigurationType configuration;
+
+	@GenModel(documentation="4.0.0
+Multiple specifications of a set of reports, each having (possibly) different
+            configuration. This is the reporting parallel to an &lt;code&gt;execution&lt;/code&gt; in the build.")
+	@ExtendedMetaData(kind="element", name="reportSets", namespace="##targetNamespace")
+	!resolve val ReportSetsType reportSets;
+}
+
+@ExtendedMetaData(name="reporting_._plugins_._type", kind="elementOnly")
+class ReportingPluginsType {
+
+	@ExtendedMetaData(kind="element", name="plugin", namespace="##targetNamespace")
+	!resolve val ReportPlugin[*] plugin;
+}
+
+@GenModel(documentation="4.0.0
+Represents a set of reports and configuration to be used to generate them.")
+@ExtendedMetaData(name="ReportSet", kind="elementOnly")
+class ReportSet {
+
+	@GenModel(documentation="0.0.0+
+The unique id for this report set, to be used during POM inheritance.")
+	@ExtendedMetaData(kind="element", name="id", namespace="##targetNamespace")
+	unsettable attr type.String ~id = "default";
+
+	@GenModel(documentation="4.0.0
+Configuration of the report to be used when generating this set.")
+	@ExtendedMetaData(kind="element", name="configuration", namespace="##targetNamespace")
+	!resolve val ConfigurationType configuration;
+
+	@GenModel(documentation="4.0.0
+
+            Whether any configuration should be propagated to child POMs.")
+	@ExtendedMetaData(kind="element", name="inherited", namespace="##targetNamespace")
+	attr type.String inherited;
+
+	@GenModel(documentation="4.0.0
+
+            The list of reports from this plugin which should be generated from this set.
+          ")
+	@ExtendedMetaData(kind="element", name="reports", namespace="##targetNamespace")
+	!resolve val ReportSetReportsType reports;
+}
+
+@ExtendedMetaData(name="report_._set_._reports_._type", kind="elementOnly")
+class ReportSetReportsType {
+
+	@ExtendedMetaData(kind="element", name="report", namespace="##targetNamespace")
+	!unique attr type.String[*] report;
+}
+
+@ExtendedMetaData(name="reportSets_._type", kind="elementOnly")
+class ReportSetsType {
+
+	@ExtendedMetaData(kind="element", name="reportSet", namespace="##targetNamespace")
+	!resolve val ReportSet[*] reportSet;
+}
+
+@ExtendedMetaData(name="reports_._type", kind="elementOnly")
+class ReportsType {
+
+	@ExtendedMetaData(kind="elementWildcard", wildcards="##any", name=":0", processing="skip")
+	!unique attr ecore.EFeatureMapEntry[*] any;
+}
+
+@ExtendedMetaData(name="repositories_._type", kind="elementOnly")
+class RepositoriesType {
+
+	@ExtendedMetaData(kind="element", name="repository", namespace="##targetNamespace")
+	!resolve val Repository[*] repository;
+}
+
+@GenModel(documentation="4.0.0
+
+        A repository contains the information needed for establishing connections with remote repoistory.
+      ")
+@ExtendedMetaData(name="Repository", kind="elementOnly")
+class Repository {
+
+	@GenModel(documentation="4.0.0
+How to handle downloading of releases from this repository.")
+	@ExtendedMetaData(kind="element", name="releases", namespace="##targetNamespace")
+	!resolve val RepositoryPolicy releases;
+
+	@GenModel(documentation="4.0.0
+How to handle downloading of snapshots from this repository.")
+	@ExtendedMetaData(kind="element", name="snapshots", namespace="##targetNamespace")
+	!resolve val RepositoryPolicy snapshots;
+
+	@GenModel(documentation="4.0.0
+
+            A unique identifier for a repository. This is used to match the repository to configuration in
+            the &lt;code&gt;settings.xml&lt;/code&gt; file, for example.
+          ")
+	@ExtendedMetaData(kind="element", name="id", namespace="##targetNamespace")
+	attr type.String ~id;
+
+	@GenModel(documentation="4.0.0
+
+            Human readable name of the repository.
+          ")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@GenModel(documentation="4.0.0
+
+             The url of the repository, in the form &lt;code&gt;protocol://hostname/path&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="url", namespace="##targetNamespace")
+	attr type.String url;
+
+	@GenModel(documentation="4.0.0
+
+            The type of layout this repository uses for locating and storing artifacts - can be &lt;code&gt;legacy&lt;/code&gt; or
+            &lt;code&gt;default&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="layout", namespace="##targetNamespace")
+	unsettable attr type.String layout = "default";
+}
+
+@GenModel(documentation="4.0.0
+Download policy")
+@ExtendedMetaData(name="RepositoryPolicy", kind="elementOnly")
+class RepositoryPolicy {
+
+	@GenModel(documentation="4.0.0
+Whether to use this repository for downloading this type of artifact.")
+	@ExtendedMetaData(kind="element", name="enabled", namespace="##targetNamespace")
+	unsettable attr type.Boolean enabled = "true";
+
+	@GenModel(documentation="4.0.0
+
+            The frequency for downloading updates - can be
+            &lt;code&gt;always,&lt;/code&gt;
+            &lt;code&gt;daily&lt;/code&gt;
+            (default),
+            &lt;code&gt;interval:XXX&lt;/code&gt;
+            (in minutes) or
+            &lt;code&gt;never&lt;/code&gt;
+            (only if it doesn't exist locally).
+          ")
+	@ExtendedMetaData(kind="element", name="updatePolicy", namespace="##targetNamespace")
+	attr type.String updatePolicy;
+
+	@GenModel(documentation="4.0.0
+
+            What to do when verification of an artifact checksum fails. Valid values are
+            &lt;code&gt;ignore&lt;/code&gt;
+            ,
+            &lt;code&gt;fail&lt;/code&gt;
+            or
+            &lt;code&gt;warn&lt;/code&gt;
+            (the default).
+          ")
+	@ExtendedMetaData(kind="element", name="checksumPolicy", namespace="##targetNamespace")
+	attr type.String checksumPolicy;
+}
+
+@GenModel(documentation="3.0.0+
+
+        This element describes all of the classpath resources associated with a project or
+        unit tests.
+      ")
+@ExtendedMetaData(name="Resource", kind="elementOnly")
+class Resource {
+
+	@GenModel(documentation="3.0.0+
+
+            Describe the resource target path. For example, if you want that 
+            resource to appear in a specific package
+            (&lt;code&gt;org.apache.maven.messages&lt;/code&gt;), you must specify this 
+            element with this value: &lt;code&gt;org/apache/maven/messages&lt;/code&gt;.
+            This is not required if you simply put the resources in that directory structure at the source, however.
+          ")
+	@ExtendedMetaData(kind="element", name="targetPath", namespace="##targetNamespace")
+	attr type.String targetPath;
+
+	@GenModel(documentation="3.0.0+
+
+            Whether resources are filtered to replace tokens with parameterised values or not.
+            The values are taken from the &lt;code&gt;properties&lt;/code&gt; element and from the properties in the files listed
+            in the &lt;code&gt;filters&lt;/code&gt; element.
+          ")
+	@ExtendedMetaData(kind="element", name="filtering", namespace="##targetNamespace")
+	unsettable attr type.Boolean filtering = "false";
+
+	@GenModel(documentation="3.0.0+
+
+            Describe the directory where the resources are stored.
+            The path is relative to the POM.
+          ")
+	@ExtendedMetaData(kind="element", name="directory", namespace="##targetNamespace")
+	attr type.String directory;
+
+	@GenModel(documentation="3.0.0+
+A list of patterns to include, e.g. &lt;code&gt;**&amp;#47;*.xml&lt;/code&gt;.")
+	@ExtendedMetaData(kind="element", name="includes", namespace="##targetNamespace")
+	!resolve val IncludesType includes;
+
+	@GenModel(documentation="3.0.0+
+A list of patterns to exclude, e.g. &lt;code&gt;**&amp;#47;*.xml&lt;/code&gt;")
+	@ExtendedMetaData(kind="element", name="excludes", namespace="##targetNamespace")
+	!resolve val ExcludesType excludes;
+}
+
+@ExtendedMetaData(name="resources_._type", kind="elementOnly")
+class ResourcesType {
+
+	@ExtendedMetaData(kind="element", name="resource", namespace="##targetNamespace")
+	!resolve val Resource[*] resource;
+}
+
+@ExtendedMetaData(name="roles_._type", kind="elementOnly")
+class RolesType {
+
+	@ExtendedMetaData(kind="element", name="role", namespace="##targetNamespace")
+	!unique attr type.String[*] role;
+}
+
+@GenModel(documentation="4.0.0")
+@ExtendedMetaData(name="Scm", kind="elementOnly")
+class Scm {
+
+	@GenModel(documentation="4.0.0
+
+              The source control management system URL
+              that describes the repository and how to connect to the
+              repository. For more information, see the
+              &lt;a href=\"http://maven.apache.org/scm/scm-url-format.html\"&gt;URL format&lt;/a&gt;
+              and &lt;a href=\"http://maven.apache.org/scm/scms-overview.html\"&gt;list of supported SCMs&lt;/a&gt;.
+              This connection is read-only.
+          ")
+	@ExtendedMetaData(kind="element", name="connection", namespace="##targetNamespace")
+	attr type.String connection;
+
+	@GenModel(documentation="4.0.0
+
+            Just like &lt;code&gt;connection&lt;/code&gt;, but for developers, i.e. this scm connection
+            will not be read only.
+          ")
+	@ExtendedMetaData(kind="element", name="developerConnection", namespace="##targetNamespace")
+	attr type.String developerConnection;
+
+	@GenModel(documentation="4.0.0
+
+            The tag of current code. By default, it's set to HEAD during development.
+          ")
+	@ExtendedMetaData(kind="element", name="tag", namespace="##targetNamespace")
+	unsettable attr type.String tag = "HEAD";
+
+	@GenModel(documentation="4.0.0
+
+            The URL to the project's browsable SCM repository, such as ViewVC or Fisheye.")
+	@ExtendedMetaData(kind="element", name="url", namespace="##targetNamespace")
+	attr type.String url;
+}
+
+@GenModel(documentation="4.0.0
+
+         Contains the information needed for deploying websites.
+      ")
+@ExtendedMetaData(name="Site", kind="elementOnly")
+class Site {
+
+	@GenModel(documentation="4.0.0
+
+            A unique identifier for a deployment locataion. This is used to match the site to configuration in
+            the &lt;code&gt;settings.xml&lt;/code&gt; file, for example.
+          ")
+	@ExtendedMetaData(kind="element", name="id", namespace="##targetNamespace")
+	attr type.String ~id;
+
+	@GenModel(documentation="4.0.0
+
+            Human readable name of the deployment location.
+          ")
+	@ExtendedMetaData(kind="element", name="name", namespace="##targetNamespace")
+	attr type.String name;
+
+	@GenModel(documentation="4.0.0
+
+             The url of the location where website is deployed, in the form &lt;code&gt;protocol://hostname/path&lt;/code&gt;.
+          ")
+	@ExtendedMetaData(kind="element", name="url", namespace="##targetNamespace")
+	attr type.String url;
+}
+
+@ExtendedMetaData(name="testResources_._type", kind="elementOnly")
+class TestResourcesType {
+
+	@ExtendedMetaData(kind="element", name="testResource", namespace="##targetNamespace")
+	!resolve val Resource[*] testResource;
+}
+

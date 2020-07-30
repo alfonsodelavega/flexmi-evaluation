@@ -1,0 +1,3117 @@
+<?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<?import http://www.eclipse.org/emf/2002/Ecore?>
+<package name="Model" nsURI="http:///ru.croc.ctp.jxfw.ecore" nsPrefix="Model.xtend">
+	<EEnum name="SourceDataStateEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="true"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="CREATED">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Создан"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="RECEIVED" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отправлен"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="LOADING" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Ожидает загрузки"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="DECLINED" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отправлен на доработку"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="ACCEPTED" value="4">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Принят"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="STORED_IN_EA" value="5">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Помещен в ЭА"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="STORED_IN_EA_ADDITIONAL" value="6">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Помещен в ЭА-доп"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="LOADING_TO_EA" value="7">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Ожидает выгрузки в ЭА"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="READY_FOR_CSOD" value="8">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Готов к выгрузке в ЦСОД"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="UNLOADED_TO_CSOD" value="9">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Выгружено в ЦСОД"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="REMOVED" value="99">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Удален"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="ActiveEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="ACTIVE" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Активно"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="DISABLED" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отключено"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="ActualEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="ACTUAL" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Актуально"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="OUT_OF_DATE" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Устарело"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="ReportPeriodStateEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="OPEN" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Открытый"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="REPORTS_COLLECTED" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Завершен сбор отчетов"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="RU_FINISH" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Завершена обработка РУ"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="FU_FINISH" value="4">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Завершена обработка ФУ"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="CLOSED" value="5">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Закрытый"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="RoutingStateEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="NOT_ACTUAL" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Не актуальная"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="PREPARING" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Подготовка"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="ACTUAL" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Актуальная"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="LevelEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="FEDERAL" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ФУ"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="REGIONAL" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="РУ"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="FEDERAL_REGIONAL" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ФУ/РУ"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="DepartmentTypeEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="CA" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ЦА"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="TOGS" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="OTHER" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отдел"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="StatusEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="NOT_STARTED" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Не начат"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="IN_PROGRESS" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Выполняется"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="AWAITING_USER" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Ожидает пользователя"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="FINISHED" value="4">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Завершен"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="ERROR" value="5">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Завершен с ошибками"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="INTERRUPTED" value="6">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Прерван"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="NOT_ACTUAL" value="7">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Данные не актуальны"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="WAITING_FOR_START" value="8">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Ожидает запуска"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="ParamTypeEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="TEXT" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Текстовое поле"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="DROPBOX" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Выпадающий список"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="CHECKBOX" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Чек-бокс"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="DATE" value="4">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Дата"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="ModuleTypeEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="DATA" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Модуль данных"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="CONVEYER" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Модуль обработки"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="UI" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Модуль UI"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="LevelTwoEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="FEDERAL" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Федеральный уровень"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="REGIONAL" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Региональный уровень"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="PermissionTypeEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="READ" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Чтение"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="FULL" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Полный"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="SeveritylEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="EMERGENCY">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Системный сбой"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="ALERT" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Фатальная ошибка"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="CRITICAL" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Критическая ошибка"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="ERROR" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Ошибка"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="WARNING" value="4">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Предупреждение"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="NOTICE" value="5">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Уведомление"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="INFORMATIONAL" value="6">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Информационное сообщение"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="DEBUG" value="7">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отладочное сообщение"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="ProcessTypeEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="PROCESS">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Процесс"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="OPERATION" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Операция"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="PriorityEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="LOWEST" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Минимальный"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="LOW" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Низкий"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="NORMAL" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Средний"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="HIGH" value="4">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Высокий"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="HIGHEST" value="5">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наивысший"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="OperationStatuslEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="NOT_STARTED" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Ожидает запуска"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="STARTED" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Запущен в обработку"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="ERROR" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Ошибка"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="FINISHED" value="4">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Получен результат"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<EEnum name="ReportCollectViewStatusEnum">
+		<EAnnotation source="http://www.croc.ru/ctp/model/enumType">
+			<EStringToStringMapEntry key="isFlags" value="false"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EEnumLiteral name="RECEIVED" value="1">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Получен"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="COMING" value="2">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Ожидается получение"/>
+			</EAnnotation>
+		</EEnumLiteral>
+		<EEnumLiteral name="REVISION" value="3">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отправлен на доработку"/>
+			</EAnnotation>
+		</EEnumLiteral>
+	</EEnum>
+	<class name="SourceData">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="dataId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ver" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="status" unsettable="true" type="//SourceDataStateEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Статус"/>
+			</EAnnotation>
+		</attr>
+		<attr name="json" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="xml" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="flk" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="flkSummary" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Результат парсинга ФЛК с указанием кол-ва предупредительных и обязательных контролей"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="MicroData">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Микро данные"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="togs" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="templateCode" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код шаблона"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodYear" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Год отчетного периода"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="3"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodCode" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код отчетного периода"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="4"/>
+			</EAnnotation>
+		</attr>
+		<attr name="okpo" type="//ELongObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ОКПО"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="5"/>
+			</EAnnotation>
+		</attr>
+		<attr name="dataId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="6"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ver" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="7"/>
+			</EAnnotation>
+		</attr>
+		<attr name="templateVersion" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Дата шаблона"/>
+			</EAnnotation>
+		</attr>
+		<attr name="data" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Данные"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="MicroDataActual">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Микроданные.Витрина"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="togs" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Номер ТОГС"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="tplCode" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код шаблона формы"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="pYear" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Год отчетного периода"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="3"/>
+			</EAnnotation>
+		</attr>
+		<attr name="pCode" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код отчетного периода"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="4"/>
+			</EAnnotation>
+		</attr>
+		<attr name="okpo" type="//ELongObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ОКПО респондента, приславшего отчет"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="5"/>
+			</EAnnotation>
+		</attr>
+		<attr name="dataId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Уникальный идентификатор первичных данных (всех версий), ссылка на source_data.data_id"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="6"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isCanceled" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Означает, что последняя версия отчета отправлена на доработку"/>
+			</EAnnotation>
+		</attr>
+		<attr name="data" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Json с параметрами"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="RoutingListMap">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Микроданные.Соответствие"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="togs" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Номер ТОГС"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="tplCode" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код шаблона формы"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodYear" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Год отчетного периода"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="3"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodCode" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код отчетного периода"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="4"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isClosed" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Признак зафиксированного/утвержденного списка респондентов"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="5"/>
+			</EAnnotation>
+		</attr>
+		<attr name="listId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор списка респондентов"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="InitialReportRegistry">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Ведомость приема отчетов ДСЭСД"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="name" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя ведомости"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ver" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия ведомости"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="reportId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор отчета"/>
+			</EAnnotation>
+		</attr>
+		<attr name="result" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Результат обработки"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="EconomicalDescription">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Экономическое описание"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Описание"/>
+			</EAnnotation>
+		</attr>
+		<attr name="status" unsettable="true" type="//ActiveEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Статус"/>
+			</EAnnotation>
+		</attr>
+		<attr name="speeoVer" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия СПЭЭО"/>
+			</EAnnotation>
+		</attr>
+		<attr name="actual" unsettable="true" type="//ActualEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Актуальность"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="EconomicalDescriptionVersion">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Версия экономического описания"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="economicalDescription" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Экономическое описание"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Описание"/>
+			</EAnnotation>
+		</attr>
+		<attr name="status" unsettable="true" type="//ActiveEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Статус"/>
+			</EAnnotation>
+		</attr>
+		<attr name="speeoVer" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия СПЭЭО"/>
+			</EAnnotation>
+		</attr>
+		<attr name="actual" unsettable="true" type="//ActualEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Актуальность"/>
+			</EAnnotation>
+		</attr>
+		<attr name="loadDate" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Время загрузки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="settings" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Настройки"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Development">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Разработка в составе ЭЭО"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="economicalDescriptionVer" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия ЭЭО"/>
+			</EAnnotation>
+		</attr>
+		<attr name="economicalDescriptionVerName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия СПЭЭО - наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="actual" unsettable="true" type="//ActualEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Актуальность"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ReportPeriod">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Отчетный период наблюдения"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="development" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Разработка"/>
+			</EAnnotation>
+		</attr>
+		<attr name="reportPeriodCatalog" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Запись справочника отчетных периодов"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sequenceNumber" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Порядковый номер"/>
+			</EAnnotation>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Описание"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="status" unsettable="true" type="//ReportPeriodStateEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Статус"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Routing">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Техкарта"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="development" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отчетный период наблюдения"/>
+			</EAnnotation>
+		</attr>
+		<attr name="reportPeriod" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Разработка"/>
+			</EAnnotation>
+		</attr>
+		<attr name="reportPeriodCatalog" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Запись справочника отчетных   периодов"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Описание"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="routingVersion" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия"/>
+			</EAnnotation>
+		</attr>
+		<attr name="status" unsettable="true" type="//RoutingStateEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Статус"/>
+			</EAnnotation>
+		</attr>
+		<attr name="settings" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Настройки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isDeleted" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Признак логического удаления"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ProcessMetaView">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Метаописание процесса обработки"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="routing" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Техкарта - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="orderNumber" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Индекс сортировки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="settings" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Параметры"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование процесса в тех. карте"/>
+			</EAnnotation>
+		</attr>
+		<attr name="accessLevel" unsettable="true" type="//LevelEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Доступно на уровне"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ProcessStepMetaView">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Метаописание шага процесса обработки"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processMetaView" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Метаописание процесса обработки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="routing" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Техкарта - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="orderNumber" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Индекс сортировки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="settings" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Параметры"/>
+			</EAnnotation>
+		</attr>
+		<attr name="stepName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование шага в тех карте"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ProcessView">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Процесс обработки"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processMetaView" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Метаописание процесса обработки - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="routing" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия Техкарты - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="department" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС/ЦА - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="departmentShortName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС/ЦА – номер"/>
+			</EAnnotation>
+		</attr>
+		<attr name="departmentType" unsettable="true" type="//DepartmentTypeEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Тип подразделения"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lastComment" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Комментарий"/>
+			</EAnnotation>
+		</attr>
+		<attr name="orderNumber" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Индекс сортировки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование процесса в тех. карте"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processObjectId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processInstanceId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор экземпляра процесса"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ProcessStepView">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Шаг процесса обработки"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processStepMetaView" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Метаописание шага процесса обработки - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processView" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Процесс - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="routing" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Техкарта - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="department" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС/ЦА - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="departmentShortName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС/ЦА – номер"/>
+			</EAnnotation>
+		</attr>
+		<attr name="departmentType" unsettable="true" type="//DepartmentTypeEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Тип подразделения"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lastComment" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Комментарий"/>
+			</EAnnotation>
+		</attr>
+		<attr name="orderNumber" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Индекс сортировки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="status" unsettable="true" type="//StatusEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Статус"/>
+			</EAnnotation>
+		</attr>
+		<attr name="statusChangeDate" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Время изменения статуса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="changeUser" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Пользователь, изменивший статус -   идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="changeUserFio" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Пользователь, изменивший статус -   ФИО"/>
+			</EAnnotation>
+		</attr>
+		<attr name="moduleUi" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код модуля UI - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="settings" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Параметры"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование процесса в тех. карте"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processObjectId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processInstanceId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор экземпляра процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="stepName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование шага в тех карте"/>
+			</EAnnotation>
+		</attr>
+		<attr name="resultDataId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор данных"/>
+			</EAnnotation>
+		</attr>
+		<attr name="result" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Результаты шага"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="CommentHistory">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="История комментариев"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectType" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Процесс - идентификатор"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="commentDate" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Дата и время изменения"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="3"/>
+			</EAnnotation>
+		</attr>
+		<attr name="user" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Пользователь - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="userFio" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Пользователь – Фамилия И.О."/>
+			</EAnnotation>
+		</attr>
+		<attr name="comment" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Комментарий"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="SystemParam">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Общесистемный параметр"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Описание"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isGroup" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Признак «Группа»"/>
+			</EAnnotation>
+		</attr>
+		<attr name="group" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Группа параметров"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код записи"/>
+			</EAnnotation>
+		</attr>
+		<attr name="paramType" unsettable="true" type="//ParamTypeEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Тип параметра"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isEditable" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Признак «редактируемое»"/>
+			</EAnnotation>
+		</attr>
+		<attr name="valueText" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Значение – текст"/>
+			</EAnnotation>
+		</attr>
+		<attr name="valueCombo" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Значение – выпадающий список"/>
+			</EAnnotation>
+		</attr>
+		<attr name="valueBool" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Значение – чек-бокс"/>
+			</EAnnotation>
+		</attr>
+		<attr name="valueDateTime" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Значение – дата"/>
+			</EAnnotation>
+		</attr>
+		<attr name="availableValues" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Перечень доступных значений"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Module">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Модуль обработки"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование модуля"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ID модуля"/>
+			</EAnnotation>
+		</attr>
+		<attr name="moduleType" unsettable="true" type="//ModuleTypeEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Тип модуля"/>
+			</EAnnotation>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Описание"/>
+			</EAnnotation>
+		</attr>
+		<attr name="level" unsettable="true" type="//LevelEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Уровень доступа для модуля"/>
+			</EAnnotation>
+		</attr>
+		<attr name="moduleVersion" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия"/>
+			</EAnnotation>
+		</attr>
+		<attr name="moduleVersionDate" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Дата создания версии"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isActual" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Актуальность"/>
+			</EAnnotation>
+		</attr>
+		<attr name="params" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Параметры модуля"/>
+			</EAnnotation>
+		</attr>
+		<attr name="moduleDataId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Бинарные данные модуля"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ReportPeriodCatalog">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Справочник отчетных периодов"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ID элемента"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sequenceNumber" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Порядковый номер"/>
+			</EAnnotation>
+		</attr>
+		<attr name="year" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Год"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodicity" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Периодичность - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodicityCode" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Периодичность - код"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodicityName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Периодичность - наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodNum" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Номер периода в рамках года"/>
+			</EAnnotation>
+		</attr>
+		<attr name="closed" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Признак 'закрыт'"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Periodicity">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Таблица периодичность"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="coded" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ID элемента"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="AdCopyDepartment">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Подразделение ActiveDirectory"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="activeDirectoryId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ID AD Росстата"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование подразделения"/>
+			</EAnnotation>
+		</attr>
+		<attr name="shortName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="№ ТОГС/ЦОДФУ"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isArchiveInAd" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Архивный"/>
+			</EAnnotation>
+		</attr>
+		<attr name="parentAdCopyDepartment" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Вышестоящее подразделение"/>
+			</EAnnotation>
+		</attr>
+		<attr name="departmentType" unsettable="true" type="//DepartmentTypeEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Тип подразделения"/>
+			</EAnnotation>
+		</attr>
+		<attr name="distinguishedName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="togsNum" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="level" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="AdCopyUser">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Пользователь  ActiveDirectory"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="activeDirectoryId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ID AD Росстата"/>
+			</EAnnotation>
+		</attr>
+		<attr name="login" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Логин"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lastName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Фамилия"/>
+			</EAnnotation>
+		</attr>
+		<attr name="firstName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя"/>
+			</EAnnotation>
+		</attr>
+		<attr name="middleName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отчество"/>
+			</EAnnotation>
+		</attr>
+		<attr name="email" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Адрес электронной почты"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isArchiveInAd" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Архивный"/>
+			</EAnnotation>
+		</attr>
+		<attr name="adCopyDevision" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отдел/подразделение"/>
+			</EAnnotation>
+		</attr>
+		<attr name="adCopyDepartment" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС/ФУ"/>
+			</EAnnotation>
+		</attr>
+		<attr name="distinguishedName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="togsNum" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="position" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Должность"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Department">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Подразделение"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="activeDirectoryId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ID AD Росстата"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование подразделения"/>
+			</EAnnotation>
+		</attr>
+		<attr name="shortName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="№ ТОГС/ЦОДФУ"/>
+			</EAnnotation>
+		</attr>
+		<attr name="togsNum" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isArchiveInAD" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Архивный в АД"/>
+			</EAnnotation>
+		</attr>
+		<attr name="logicDeleted" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Удалено"/>
+			</EAnnotation>
+		</attr>
+		<attr name="parentDepartment" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Вышестоящее подразделение"/>
+			</EAnnotation>
+		</attr>
+		<attr name="departmentType" unsettable="true" type="//DepartmentTypeEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Тип подразделения"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="User">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Пользователь"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="activeDirectoryId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ID AD Росстата"/>
+			</EAnnotation>
+		</attr>
+		<attr name="login" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор пользователя"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lastName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Фамилия"/>
+			</EAnnotation>
+		</attr>
+		<attr name="firstName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя"/>
+			</EAnnotation>
+		</attr>
+		<attr name="middleName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отчество"/>
+			</EAnnotation>
+		</attr>
+		<attr name="email" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Адрес электронной почты"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isArchiveInAd" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Архивный в АД"/>
+			</EAnnotation>
+		</attr>
+		<attr name="logicDeleted" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Удалено"/>
+			</EAnnotation>
+		</attr>
+		<attr name="devision" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отдел/подразделение"/>
+			</EAnnotation>
+		</attr>
+		<attr name="devisionName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Отдел/подразделение – наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="department" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС/ФУ"/>
+			</EAnnotation>
+		</attr>
+		<attr name="departmentName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС/ФУ - наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="position" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Должность"/>
+			</EAnnotation>
+		</attr>
+		<ref name="userRoles" upperBound="-1" type="Role">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/relation_column">
+				<EStringToStringMapEntry key="lazyLoad" value="true"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="UserRight">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Право"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isGroup" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Признак «Группирующий элемент»"/>
+			</EAnnotation>
+		</attr>
+		<attr name="groupId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Группа прав"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Описание"/>
+			</EAnnotation>
+		</attr>
+		<ref name="roles" upperBound="-1" type="Role">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/relation_column">
+				<EStringToStringMapEntry key="lazyLoad" value="true"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="Role">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Роль"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование роли"/>
+			</EAnnotation>
+		</attr>
+		<attr name="level" unsettable="true" type="//LevelTwoEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Уровень роли"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код роли"/>
+			</EAnnotation>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Описание роли"/>
+			</EAnnotation>
+		</attr>
+		<ref name="userRights" upperBound="-1" type="UserRight">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Перечень прав пользователя"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/relation_column">
+				<EStringToStringMapEntry key="lazyLoad" value="true"/>
+			</EAnnotation>
+		</ref>
+		<ref name="roleUsers" upperBound="-1" type="User">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Перечень ролей пользователя"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/relation_column">
+				<EStringToStringMapEntry key="lazyLoad" value="true"/>
+			</EAnnotation>
+		</ref>
+	</class>
+	<class name="Role_UserRights">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Связь роли и права"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="role" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор роли"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="userRight" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор права"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="userRightName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование права"/>
+			</EAnnotation>
+		</attr>
+		<attr name="userRightCode" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код права"/>
+			</EAnnotation>
+		</attr>
+		<attr name="rightLevel" unsettable="true" type="//PermissionTypeEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Уровень доступа"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="User_Role">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Связь роли и пользователя"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="role" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор роли"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="user" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор пользователя"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="roleName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование роли"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Notification">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Уведомление"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="notification" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование события"/>
+			</EAnnotation>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Описание события"/>
+			</EAnnotation>
+		</attr>
+		<attr name="mailSubject" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Тема письма"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="AuditEvent">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="eventClass" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="eventClassName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="occurred" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="initiator" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="initiatorName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="severity" unsettable="true" type="//SeveritylEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="host" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="sourceSystem" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="sourceModule" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="parameters" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="eventType" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="eventTypeName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="Message">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="severity" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="count" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="receiver" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="subject" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="body" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="sent" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="AuditEventClass">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="eventClass" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="title" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="defaultSeverity" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="sendNotification" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="templateSubject" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="templateBody" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="defaultReceivers" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="AuditEventType">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="eventType" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="title" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="Parameter">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="name" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="value" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="EoMetadataPart">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="eoId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="type" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="data" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="development" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="3"/>
+			</EAnnotation>
+		</attr>
+		<attr name="dataRef" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="EoValueType">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="eoId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="extId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="parentId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="orderNum" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="customColumns" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="SecretCodeRef">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="eoId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="dictionaryCode" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="extId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="orderNum" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="customColumns" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="FormTemplatesContent">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Шаблоны форм (содержимое)"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="devId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор разработки, к которой привязан шаблон"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="tmplCode" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код шаблона"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="tmplVer" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия шаблона"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="3"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя шаблона"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodicity" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Тип периодичности шаблона."/>
+			</EAnnotation>
+		</attr>
+		<attr name="eoVerId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор версии ЭО, к которой привязан шаблон"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="FormTemplates">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Шаблоны форм"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="tmplCode" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код шаблона"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="tmplVer" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия шаблона"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя шаблона"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodicity" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Тип периодичности шаблона."/>
+			</EAnnotation>
+		</attr>
+		<attr name="xmlBody" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Содержимое шаблона"/>
+			</EAnnotation>
+		</attr>
+		<attr name="xmlBinding" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Содержимое привязки шаблона"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ProcessLog">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Управление конвейером обработки"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="creationTime" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Дата и время события"/>
+			</EAnnotation>
+		</attr>
+		<attr name="user" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя пользователя, который стал инициатором события"/>
+			</EAnnotation>
+		</attr>
+		<attr name="comment" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Комментарий пользователя"/>
+			</EAnnotation>
+		</attr>
+		<attr name="history" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Историческая запись"/>
+			</EAnnotation>
+		</attr>
+		<attr name="economicDescriptionId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="идентификатор Экономического описания"/>
+			</EAnnotation>
+		</attr>
+		<attr name="developmentId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="идентификатор Разработки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="routing_id" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="идентификатор Версии техкарты"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="идентификатор Периода разработки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="level" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="уровень разработки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processType" unsettable="true" type="//ProcessTypeEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Тип процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processObjectId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processInstanceId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор экземпляра процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="stepName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="имя шага процесса "/>
+			</EAnnotation>
+		</attr>
+		<attr name="status" unsettable="true" type="//StatusEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="статус экземпляра процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="statusDate" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Дата и время изменения статуса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="priority" unsettable="true" type="//PriorityEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Приоритет "/>
+			</EAnnotation>
+		</attr>
+		<attr name="queueNumber" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Номер очереди"/>
+			</EAnnotation>
+		</attr>
+		<attr name="context" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Контекст экземпляра процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="settings" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="OperationLogView">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Записи конвейера обработки"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sequenceNumber" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="№ в очереди"/>
+			</EAnnotation>
+		</attr>
+		<attr name="department" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор ТОГС/ФУ"/>
+			</EAnnotation>
+		</attr>
+		<attr name="department_type" unsettable="true" type="//DepartmentTypeEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор ТОГС/ФУ"/>
+			</EAnnotation>
+		</attr>
+		<attr name="departmentShortName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="№ ТОГС/ЦОДФУ"/>
+			</EAnnotation>
+		</attr>
+		<attr name="development" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Разработка – идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="developmentName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Разработка – наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="reportPeriod" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Период разработки – идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="reportPeriodName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Период разработки – наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="reportPeriodStatus" unsettable="true" type="//ReportPeriodStateEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Период разработки – статус"/>
+			</EAnnotation>
+		</attr>
+		<attr name="module" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Модуль обработки – идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="moduleName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Модуль обработки – наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="process" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Процесс - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Процесс - наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processInstanceId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор экземпляра процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="step" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Шаг – идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="stepName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Шаг – наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="taskName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Операция - наименование"/>
+			</EAnnotation>
+		</attr>
+		<attr name="createDate" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Дата постановки в очередь"/>
+			</EAnnotation>
+		</attr>
+		<attr name="runDate" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Дата и время фактического запуска"/>
+			</EAnnotation>
+		</attr>
+		<attr name="resultDate" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Дата и время получения результата"/>
+			</EAnnotation>
+		</attr>
+		<attr name="dataVer" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Номер версии сформированных данных"/>
+			</EAnnotation>
+		</attr>
+		<attr name="priority" unsettable="true" type="//PriorityEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Приоритет"/>
+			</EAnnotation>
+		</attr>
+		<attr name="userFio" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Сотрудник – ФИО"/>
+			</EAnnotation>
+		</attr>
+		<attr name="user" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Сотрудник – идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="status" unsettable="true" type="//OperationStatuslEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Статус"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="EoOkved">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Справочник 'ОКВЭД'"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="eoId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия экономического описания"/>
+			</EAnnotation>
+		</attr>
+		<attr name="extId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор записи в НСИ"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя"/>
+			</EAnnotation>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Описание"/>
+			</EAnnotation>
+		</attr>
+		<attr name="parentId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Ссылка на иерархию"/>
+			</EAnnotation>
+		</attr>
+		<attr name="orderNum" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код для сортировки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="customColumns" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Дополнительные колонки"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="EoDimensions">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Справочник 'Признак показателя'"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="eoId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия экономического описания"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя"/>
+			</EAnnotation>
+		</attr>
+		<attr name="dictionary" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Справочник"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ReportCollectView">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Контроль сбора сводов"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processStepMetaView" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Метаописание шага процесса обработки - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processView" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Процесс - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="routing" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Техкарта - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="processStepView" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Шаг - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sourceResultDataId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор данных"/>
+			</EAnnotation>
+		</attr>
+		<attr name="department" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС - идентификатор"/>
+			</EAnnotation>
+		</attr>
+		<attr name="departmentShortName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС – номер"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование свода"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isFixed" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="утвержден"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lastComment" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Комментарий"/>
+			</EAnnotation>
+		</attr>
+		<attr name="status" unsettable="true" type="//ReportCollectViewStatusEnum">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Статус получения"/>
+			</EAnnotation>
+		</attr>
+		<attr name="dataVersion" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия свода"/>
+			</EAnnotation>
+		</attr>
+		<attr name="hasNewVersion" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наличие новой версии"/>
+			</EAnnotation>
+		</attr>
+		<attr name="receiveDate" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Дата поступления"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sourceProcessId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Наименование процесса в тех. карте"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sourceProcessObjectId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="sourceProcessInstanceId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор экземпляра процесса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="aggregateType" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Тип свода"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="ApprovedRespondents">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Респонденты. Утвержденные TBD"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="routingId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="идентификатор версии техкарты"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="tplCode" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ID критерия"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="togs" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ТОГС"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="3"/>
+			</EAnnotation>
+		</attr>
+		<attr name="okpo" type="//ELongObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ОКПО респондента"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="4"/>
+			</EAnnotation>
+		</attr>
+		<attr name="osrId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ID респондента в ОСР"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="LogEntry">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Записи лога"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="key" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Первичный ключ"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="appStartTime" unsettable="true" type="//ELongObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Время инициализации логгера"/>
+			</EAnnotation>
+		</attr>
+		<attr name="appName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя приложения"/>
+			</EAnnotation>
+		</attr>
+		<attr name="className" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя класса"/>
+			</EAnnotation>
+		</attr>
+		<attr name="fileName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя файла"/>
+			</EAnnotation>
+		</attr>
+		<attr name="level" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Уровень записи"/>
+			</EAnnotation>
+		</attr>
+		<attr name="lineNumber" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Номер строки в файле"/>
+			</EAnnotation>
+		</attr>
+		<attr name="logTimestamp" unsettable="true" type="//ELongObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Время создания записи"/>
+			</EAnnotation>
+		</attr>
+		<attr name="loggerClassName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя логгера"/>
+			</EAnnotation>
+		</attr>
+		<attr name="hostIp" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Адрес хоста"/>
+			</EAnnotation>
+		</attr>
+		<attr name="hostName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя хоста"/>
+			</EAnnotation>
+		</attr>
+		<attr name="message" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Сообщение"/>
+			</EAnnotation>
+		</attr>
+		<attr name="methodName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя метода"/>
+			</EAnnotation>
+		</attr>
+		<attr name="ndc" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Контекст"/>
+			</EAnnotation>
+		</attr>
+		<attr name="threadName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя потока"/>
+			</EAnnotation>
+		</attr>
+		<attr name="throwableStrRep" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Исключение и стектрейс"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="RespondentMicrodata">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Респонденты. Микроданные TBD"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="listId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="идентификатор списка"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="tplCode" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор критерия загрузки каталога респондентов из ОСР"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="okpo" type="//ELongObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ОКПО респондента"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="3"/>
+			</EAnnotation>
+		</attr>
+		<attr name="microdata" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="микроданные"/>
+			</EAnnotation>
+		</attr>
+		<attr name="respAttributes" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="кортеж атрибутов"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="Stage">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Этапы"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="stageType" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="metadata" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="Operation">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Операции"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="operType" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="metadata" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="binaryId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="EoOpercode">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Справочник 'Операционный код'"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор объекта"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="eoId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Версия экономического описания"/>
+			</EAnnotation>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Код"/>
+			</EAnnotation>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Имя"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="RespondentCatalog">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+			<EStringToStringMapEntry key="ru" value="Респонденты. Атрибуты каталога"/>
+		</EAnnotation>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="listId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="идентификатор списка респондентов"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="tplCode" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="ID критерия"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="2"/>
+			</EAnnotation>
+		</attr>
+		<attr name="routingId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="идентификатор версии техкарты"/>
+			</EAnnotation>
+		</attr>
+		<attr name="togsNum" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Номер ТОГСа"/>
+			</EAnnotation>
+		</attr>
+		<attr name="creationDate" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="дата создания"/>
+			</EAnnotation>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="4"/>
+			</EAnnotation>
+		</attr>
+		<attr name="economicDescriptionId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор версии ЭО"/>
+			</EAnnotation>
+		</attr>
+		<attr name="developmentId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор разработки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="periodId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор периода разработки"/>
+			</EAnnotation>
+		</attr>
+		<attr name="departmentId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="Идентификатор подразделения"/>
+			</EAnnotation>
+		</attr>
+		<attr name="isFixed" unsettable="true" type="//EBooleanObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="утвержден для сбора"/>
+			</EAnnotation>
+		</attr>
+		<attr name="fixDate" unsettable="true" type="//EZonedDateTime">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n">
+				<EStringToStringMapEntry key="ru" value="дата утверждения для сбора"/>
+			</EAnnotation>
+		</attr>
+	</class>
+	<class name="AggregateType">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="eoId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="extId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="parentId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="orderNum" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="customColumns" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="Section">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="eoId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="extId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="code" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="name" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="description" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="parentId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="orderNum" unsettable="true" type="//EIntegerObject">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="customColumns" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+	<class name="Togs">
+		<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		<EAnnotation source="http://www.croc.ru/ctp/model/objectProperties"/>
+		<attr name="objectId" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+			<EAnnotation source="http://www.croc.ru/ctp/model/attributeProperties">
+				<EStringToStringMapEntry key="complexKeyOrder" value="1"/>
+			</EAnnotation>
+		</attr>
+		<attr name="fullName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="shortName" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="codeAd" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="codeNsi" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="parentNsi" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+		<attr name="parentId" unsettable="true" type="//EString">
+			<EAnnotation source="http://www.croc.ru/ctp/model/i18n"/>
+		</attr>
+	</class>
+</package>		<type name="EZonedDateTime" instanceClassName="java.time.ZonedDateTime"/>		<type name="EPeriod" instanceClassName="java.time.Period"/>		<type name="EZonedDateTime" instanceClassName="java.time.ZonedDateTime"/>		<type name="EPeriod" instanceClassName="java.time.Period"/>

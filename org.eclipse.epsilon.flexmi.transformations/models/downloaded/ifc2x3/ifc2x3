@@ -1,0 +1,5574 @@
+@namespace(uri="http://IFC2X3.ecore_pointcut", prefix="IFC2X3_pc")
+package IFC2X3_pc;
+
+datatype INTEGER : java.lang.Integer;
+
+class Ifc2DCompositeCurve extends IfcCompositeCurve {
+}
+
+class IfcActionRequest extends IfcControl {
+	unsettable attr STRING[1] requestID;
+}
+
+class IfcActor extends IfcObject {
+	ref IfcActorSelect theActor;
+	!ordered ref IfcRelAssignsToActor[*]#relatingActor isActingUpon;
+}
+
+class IfcActorRole {
+	unsettable attr IfcRoleEnum[1] role;
+	unsettable attr STRING userDefinedRole;
+	unsettable attr STRING description;
+}
+
+class IfcActuatorType extends IfcDistributionControlElementType {
+	unsettable attr IfcActuatorTypeEnum[1] predefinedType;
+}
+
+class IfcAddress extends IfcObjectReferenceSelect {
+	unsettable attr IfcAddressTypeEnum purpose;
+	unsettable attr STRING description;
+	unsettable attr STRING userDefinedPurpose;
+	!ordered ref IfcPerson[*]#addresses ofPerson;
+	!ordered ref IfcOrganization[*]#addresses ofOrganization;
+}
+
+class IfcAirTerminalBoxType extends IfcFlowControllerType {
+	unsettable attr IfcAirTerminalBoxTypeEnum[1] predefinedType;
+}
+
+class IfcAirTerminalType extends IfcFlowTerminalType {
+	unsettable attr IfcAirTerminalTypeEnum[1] predefinedType;
+}
+
+class IfcAirToAirHeatRecoveryType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcAirToAirHeatRecoveryTypeEnum[1] predefinedType;
+}
+
+class IfcAlarmType extends IfcDistributionControlElementType {
+	unsettable attr IfcAlarmTypeEnum[1] predefinedType;
+}
+
+class IfcAngularDimension extends IfcDimensionCurveDirectedCallout {
+}
+
+class IfcAnnotation extends IfcProduct {
+}
+
+class IfcAnnotationCurveOccurrence extends IfcDraughtingCalloutElement, IfcAnnotationOccurrence {
+	!ordered ref IfcTerminatorSymbol[0..2]#annotatedCurve annotatedBySymbols;
+}
+
+class IfcAnnotationFillArea extends IfcGeometricRepresentationItem {
+	ref IfcCurve outerBoundary;
+	!ordered ref IfcCurve[*] innerBoundaries;
+}
+
+class IfcAnnotationFillAreaOccurrence extends IfcAnnotationOccurrence {
+	ref IfcPoint fillStyleTarget;
+	unsettable attr IfcGlobalOrLocalEnum globalOrLocal;
+}
+
+class IfcAnnotationOccurrence extends IfcStyledItem {
+}
+
+class IfcAnnotationSurface extends IfcGeometricRepresentationItem {
+	ref IfcGeometricRepresentationItem item;
+	ref IfcTextureCoordinate#annotatedSurface textureCoordinates;
+}
+
+class IfcAnnotationSurfaceOccurrence extends IfcAnnotationOccurrence {
+}
+
+class IfcAnnotationSymbolOccurrence extends IfcDraughtingCalloutElement, IfcAnnotationOccurrence {
+}
+
+class IfcAnnotationTextOccurrence extends IfcDraughtingCalloutElement, IfcAnnotationOccurrence {
+}
+
+class IfcApplication {
+	ref IfcOrganization applicationDeveloper;
+	unsettable attr STRING[1] version;
+	unsettable attr STRING[1] applicationFullName;
+	unsettable attr STRING[1] applicationIdentifier;
+}
+
+class IfcAppliedValue extends IfcObjectReferenceSelect {
+	unsettable attr STRING name;
+	unsettable attr STRING description;
+	val IfcAppliedValueSelect appliedValue;
+	ref IfcMeasureWithUnit unitBasis;
+	ref IfcDateTimeSelect applicableDate;
+	ref IfcDateTimeSelect fixedUntilDate;
+	!ordered ref IfcReferencesValueDocument[*]#referencingValues valuesReferenced;
+	!ordered ref IfcAppliedValueRelationship[*]#componentOfTotal valueOfComponents;
+	!ordered ref IfcAppliedValueRelationship[*]#components isComponentIn;
+}
+
+class IfcAppliedValueRelationship {
+	ref IfcAppliedValue#valueOfComponents componentOfTotal;
+	!ordered ref IfcAppliedValue[*]#isComponentIn components;
+	unsettable attr IfcArithmeticOperatorEnum[1] arithmeticOperator;
+	unsettable attr STRING name;
+	unsettable attr STRING description;
+}
+
+class IfcApproval {
+	unsettable attr STRING description;
+	ref IfcDateTimeSelect approvalDateTime;
+	unsettable attr STRING approvalStatus;
+	unsettable attr STRING approvalLevel;
+	unsettable attr STRING approvalQualifier;
+	unsettable attr STRING[1] name;
+	unsettable attr STRING[1] identifier;
+	!ordered ref IfcApprovalActorRelationship[*]#approval actors;
+	!ordered ref IfcApprovalRelationship[*]#relatedApproval isRelatedWith;
+	!ordered ref IfcApprovalRelationship[*]#relatingApproval relates;
+}
+
+class IfcApprovalActorRelationship {
+	ref IfcActorSelect actor;
+	ref IfcApproval#actors approval;
+	ref IfcActorRole role;
+}
+
+class IfcApprovalPropertyRelationship {
+	!ordered ref IfcProperty[*] approvedProperties;
+	ref IfcApproval approval;
+}
+
+class IfcApprovalRelationship {
+	ref IfcApproval#isRelatedWith relatedApproval;
+	ref IfcApproval#relates relatingApproval;
+	unsettable attr STRING description;
+	unsettable attr STRING[1] name;
+}
+
+class IfcArbitraryClosedProfileDef extends IfcProfileDef {
+	ref IfcCurve outerCurve;
+}
+
+class IfcArbitraryOpenProfileDef extends IfcProfileDef {
+	ref IfcBoundedCurve curve;
+}
+
+class IfcArbitraryProfileDefWithVoids extends IfcArbitraryClosedProfileDef {
+	!ordered ref IfcCurve[*] innerCurves;
+}
+
+class IfcAsset extends IfcGroup {
+	unsettable attr STRING[1] assetID;
+	ref IfcCostValue originalValue;
+	ref IfcCostValue currentValue;
+	ref IfcCostValue totalReplacementCost;
+	ref IfcActorSelect owner;
+	ref IfcActorSelect user;
+	ref IfcPerson responsiblePerson;
+	ref IfcCalendarDate incorporationDate;
+	ref IfcCostValue depreciatedValue;
+}
+
+class IfcAsymmetricIShapeProfileDef extends IfcIShapeProfileDef {
+	unsettable attr REAL[1] topFlangeWidth;
+	unsettable attr REAL topFlangeThickness;
+	unsettable attr REAL topFlangeFilletRadius;
+	unsettable attr REAL centreOfGravityInY;
+}
+
+class IfcAxis1Placement extends IfcPlacement {
+	ref IfcDirection axis;
+}
+
+class IfcAxis2Placement2D extends IfcAxis2Placement, IfcPlacement {
+	ref IfcDirection refDirection;
+}
+
+class IfcAxis2Placement3D extends IfcAxis2Placement, IfcPlacement {
+	ref IfcDirection axis;
+	ref IfcDirection refDirection;
+}
+
+class IfcBSplineCurve extends IfcBoundedCurve {
+	unsettable attr INTEGER[1] degree;
+	ref IfcCartesianPoint[*] controlPointsList;
+	unsettable attr IfcBSplineCurveForm[1] curveForm;
+	unsettable attr Boolean[1] closedCurve;
+	unsettable attr Boolean[1] selfIntersect;
+}
+
+class IfcBeam extends IfcBuildingElement {
+}
+
+class IfcBeamType extends IfcBuildingElementType {
+	unsettable attr IfcBeamTypeEnum[1] predefinedType;
+}
+
+class IfcBezierCurve extends IfcBSplineCurve {
+}
+
+class IfcBlobTexture extends IfcSurfaceTexture {
+	unsettable attr STRING[1] rasterFormat;
+	unsettable attr BOOLEAN[1] rasterCode;
+}
+
+class IfcBlock extends IfcCsgPrimitive3D {
+	unsettable attr REAL[1] xLength;
+	unsettable attr REAL[1] yLength;
+	unsettable attr REAL[1] zLength;
+}
+
+class IfcBoilerType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcBoilerTypeEnum[1] predefinedType;
+}
+
+class IfcBooleanClippingResult extends IfcBooleanResult {
+}
+
+class IfcBooleanResult extends IfcBooleanOperand, IfcCsgSelect, IfcGeometricRepresentationItem {
+	unsettable attr IfcBooleanOperator[1] operator;
+	ref IfcBooleanOperand firstOperand;
+	ref IfcBooleanOperand secondOperand;
+}
+
+class IfcBoundaryCondition {
+	unsettable attr STRING name;
+}
+
+class IfcBoundaryEdgeCondition extends IfcBoundaryCondition {
+	unsettable attr REAL linearStiffnessByLengthX;
+	unsettable attr REAL linearStiffnessByLengthY;
+	unsettable attr REAL linearStiffnessByLengthZ;
+	unsettable attr REAL rotationalStiffnessByLengthX;
+	unsettable attr REAL rotationalStiffnessByLengthY;
+	unsettable attr REAL rotationalStiffnessByLengthZ;
+}
+
+class IfcBoundaryFaceCondition extends IfcBoundaryCondition {
+	unsettable attr REAL linearStiffnessByAreaX;
+	unsettable attr REAL linearStiffnessByAreaY;
+	unsettable attr REAL linearStiffnessByAreaZ;
+}
+
+class IfcBoundaryNodeCondition extends IfcBoundaryCondition {
+	unsettable attr REAL linearStiffnessX;
+	unsettable attr REAL linearStiffnessY;
+	unsettable attr REAL linearStiffnessZ;
+	unsettable attr REAL rotationalStiffnessX;
+	unsettable attr REAL rotationalStiffnessY;
+	unsettable attr REAL rotationalStiffnessZ;
+}
+
+class IfcBoundaryNodeConditionWarping extends IfcBoundaryNodeCondition {
+	unsettable attr REAL warpingStiffness;
+}
+
+class IfcBoundedCurve extends IfcCurveOrEdgeCurve, IfcCurve {
+}
+
+class IfcBoundedSurface extends IfcSurface {
+}
+
+class IfcBoundingBox extends IfcGeometricRepresentationItem {
+	ref IfcCartesianPoint corner;
+	unsettable attr REAL[1] xDim;
+	unsettable attr REAL[1] yDim;
+	unsettable attr REAL[1] zDim;
+}
+
+class IfcBoxedHalfSpace extends IfcHalfSpaceSolid {
+	ref IfcBoundingBox enclosure;
+}
+
+class IfcBuilding extends IfcSpatialStructureElement {
+	unsettable attr REAL elevationOfRefHeight;
+	unsettable attr REAL elevationOfTerrain;
+	ref IfcPostalAddress buildingAddress;
+}
+
+class IfcBuildingElement extends IfcElement {
+}
+
+class IfcBuildingElementComponent extends IfcBuildingElement {
+}
+
+class IfcBuildingElementPart extends IfcBuildingElementComponent {
+}
+
+class IfcBuildingElementProxy extends IfcBuildingElement {
+	unsettable attr IfcElementCompositionEnum compositionType;
+}
+
+class IfcBuildingElementProxyType extends IfcBuildingElementType {
+	unsettable attr IfcBuildingElementProxyTypeEnum[1] predefinedType;
+}
+
+class IfcBuildingElementType extends IfcElementType {
+}
+
+class IfcBuildingStorey extends IfcSpatialStructureElement {
+	unsettable attr REAL elevation;
+}
+
+class IfcCShapeProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] depth;
+	unsettable attr REAL[1] width;
+	unsettable attr REAL[1] wallThickness;
+	unsettable attr REAL[1] girth;
+	unsettable attr REAL internalFilletRadius;
+	unsettable attr REAL centreOfGravityInX;
+}
+
+class IfcCableCarrierFittingType extends IfcFlowFittingType {
+	unsettable attr IfcCableCarrierFittingTypeEnum[1] predefinedType;
+}
+
+class IfcCableCarrierSegmentType extends IfcFlowSegmentType {
+	unsettable attr IfcCableCarrierSegmentTypeEnum[1] predefinedType;
+}
+
+class IfcCableSegmentType extends IfcFlowSegmentType {
+	unsettable attr IfcCableSegmentTypeEnum[1] predefinedType;
+}
+
+class IfcCalendarDate extends IfcDateTimeSelect, IfcObjectReferenceSelect {
+	unsettable attr INTEGER[1] dayComponent;
+	unsettable attr INTEGER[1] monthComponent;
+	unsettable attr INTEGER[1] yearComponent;
+}
+
+class IfcCartesianPoint extends IfcPoint {
+	!unique unsettable attr REAL[1..3] coordinates;
+}
+
+class IfcCartesianTransformationOperator extends IfcGeometricRepresentationItem {
+	ref IfcDirection axis1;
+	ref IfcDirection axis2;
+	ref IfcCartesianPoint localOrigin;
+	unsettable attr REAL scale;
+}
+
+class IfcCartesianTransformationOperator2D extends IfcCartesianTransformationOperator {
+}
+
+class IfcCartesianTransformationOperator2DnonUniform extends IfcCartesianTransformationOperator2D {
+	unsettable attr REAL scale2;
+}
+
+class IfcCartesianTransformationOperator3D extends IfcCartesianTransformationOperator {
+	ref IfcDirection axis3;
+}
+
+class IfcCartesianTransformationOperator3DnonUniform extends IfcCartesianTransformationOperator3D {
+	unsettable attr REAL scale2;
+	unsettable attr REAL scale3;
+}
+
+class IfcCenterLineProfileDef extends IfcArbitraryOpenProfileDef {
+	unsettable attr REAL[1] thickness;
+}
+
+class IfcChamferEdgeFeature extends IfcEdgeFeature {
+	unsettable attr REAL width;
+	unsettable attr REAL height;
+}
+
+class IfcChillerType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcChillerTypeEnum[1] predefinedType;
+}
+
+class IfcCircle extends IfcConic {
+	unsettable attr REAL[1] radius;
+}
+
+class IfcCircleHollowProfileDef extends IfcCircleProfileDef {
+	unsettable attr REAL[1] wallThickness;
+}
+
+class IfcCircleProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] radius;
+}
+
+class IfcClassification {
+	unsettable attr STRING[1] source;
+	unsettable attr STRING[1] edition;
+	ref IfcCalendarDate editionDate;
+	unsettable attr STRING[1] name;
+	!ordered ref IfcClassificationItem[*]#itemOf contains;
+}
+
+class IfcClassificationItem {
+	ref IfcClassificationNotationFacet notation;
+	ref IfcClassification#contains itemOf;
+	unsettable attr STRING[1] title;
+	!ordered ref IfcClassificationItemRelationship#relatedItems isClassifiedItemIn;
+	!ordered ref IfcClassificationItemRelationship#relatingItem isClassifyingItemIn;
+}
+
+class IfcClassificationItemRelationship {
+	ref IfcClassificationItem#isClassifyingItemIn relatingItem;
+	!ordered ref IfcClassificationItem[*]#isClassifiedItemIn relatedItems;
+}
+
+class IfcClassificationNotation extends IfcClassificationNotationSelect {
+	!ordered ref IfcClassificationNotationFacet[*] notationFacets;
+}
+
+class IfcClassificationNotationFacet {
+	unsettable attr STRING[1] notationValue;
+}
+
+class IfcClassificationReference extends IfcClassificationNotationSelect, IfcExternalReference {
+	ref IfcClassification referencedSource;
+}
+
+class IfcClosedShell extends IfcShell, IfcConnectedFaceSet {
+}
+
+class IfcCoilType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcCoilTypeEnum[1] predefinedType;
+}
+
+class IfcColourRgb extends IfcColourSpecification {
+	unsettable attr REAL[1] red;
+	unsettable attr REAL[1] green;
+	unsettable attr REAL[1] blue;
+}
+
+class IfcColourSpecification extends IfcColour {
+	unsettable attr STRING name;
+}
+
+class IfcColumn extends IfcBuildingElement {
+}
+
+class IfcColumnType extends IfcBuildingElementType {
+	unsettable attr IfcColumnTypeEnum[1] predefinedType;
+}
+
+class IfcComplexProperty extends IfcProperty {
+	unsettable attr STRING[1] usageName;
+	!ordered ref IfcProperty[*]#partOfComplex hasProperties;
+}
+
+class IfcCompositeCurve extends IfcBoundedCurve {
+	ref IfcCompositeCurveSegment[*]#usingCurves segments;
+	unsettable attr Boolean[1] selfIntersect;
+}
+
+class IfcCompositeCurveSegment extends IfcGeometricRepresentationItem {
+	unsettable attr IfcTransitionCode[1] transition;
+	unsettable attr BOOLEAN[1] sameSense;
+	ref IfcCurve parentCurve;
+	!ordered ref IfcCompositeCurve[*]#segments usingCurves;
+}
+
+class IfcCompositeProfileDef extends IfcProfileDef {
+	!ordered ref IfcProfileDef[*] profiles;
+	unsettable attr STRING label;
+}
+
+class IfcCompressorType extends IfcFlowMovingDeviceType {
+	unsettable attr IfcCompressorTypeEnum[1] predefinedType;
+}
+
+class IfcCondenserType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcCondenserTypeEnum[1] predefinedType;
+}
+
+class IfcCondition extends IfcGroup {
+}
+
+class IfcConditionCriterion extends IfcControl {
+	val IfcConditionCriterionSelect criterion;
+	ref IfcDateTimeSelect criterionDateTime;
+}
+
+class IfcConic extends IfcCurve {
+	ref IfcAxis2Placement position;
+}
+
+class IfcConnectedFaceSet extends IfcTopologicalRepresentationItem {
+	!ordered ref IfcFace[*] cfsFaces;
+}
+
+class IfcConnectionCurveGeometry extends IfcConnectionGeometry {
+	ref IfcCurveOrEdgeCurve curveOnRelatingElement;
+	ref IfcCurveOrEdgeCurve curveOnRelatedElement;
+}
+
+class IfcConnectionGeometry {
+}
+
+class IfcConnectionPointEccentricity extends IfcConnectionPointGeometry {
+	unsettable attr REAL eccentricityInX;
+	unsettable attr REAL eccentricityInY;
+	unsettable attr REAL eccentricityInZ;
+}
+
+class IfcConnectionPointGeometry extends IfcConnectionGeometry {
+	ref IfcPointOrVertexPoint pointOnRelatingElement;
+	ref IfcPointOrVertexPoint pointOnRelatedElement;
+}
+
+class IfcConnectionPortGeometry extends IfcConnectionGeometry {
+	ref IfcAxis2Placement locationAtRelatingElement;
+	ref IfcAxis2Placement locationAtRelatedElement;
+	ref IfcProfileDef profileOfPort;
+}
+
+class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry {
+	ref IfcSurfaceOrFaceSurface surfaceOnRelatingElement;
+	ref IfcSurfaceOrFaceSurface surfaceOnRelatedElement;
+}
+
+class IfcConstraint {
+	unsettable attr STRING[1] name;
+	unsettable attr STRING description;
+	unsettable attr IfcConstraintEnum[1] constraintGrade;
+	unsettable attr STRING constraintSource;
+	ref IfcActorSelect creatingActor;
+	ref IfcDateTimeSelect creationTime;
+	unsettable attr STRING userDefinedGrade;
+	!ordered ref IfcConstraintClassificationRelationship[*]#classifiedConstraint classifiedAs;
+	!ordered ref IfcConstraintRelationship[*]#relatingConstraint relatesConstraints;
+	!ordered ref IfcConstraintRelationship[*]#relatedConstraints isRelatedWith;
+	!ordered ref IfcPropertyConstraintRelationship[*]#relatingConstraint propertiesForConstraint;
+	!ordered ref IfcConstraintAggregationRelationship[*]#relatingConstraint aggregates;
+	!ordered ref IfcConstraintAggregationRelationship[*]#relatedConstraints isAggregatedIn;
+}
+
+class IfcConstraintAggregationRelationship {
+	unsettable attr STRING name;
+	unsettable attr STRING description;
+	ref IfcConstraint#aggregates relatingConstraint;
+	ref IfcConstraint[*]#isAggregatedIn relatedConstraints;
+	unsettable attr IfcLogicalOperatorEnum[1] logicalAggregator;
+}
+
+class IfcConstraintClassificationRelationship {
+	ref IfcConstraint#classifiedAs classifiedConstraint;
+	!ordered ref IfcClassificationNotationSelect[*] relatedClassifications;
+}
+
+class IfcConstraintRelationship {
+	unsettable attr STRING name;
+	unsettable attr STRING description;
+	ref IfcConstraint#relatesConstraints relatingConstraint;
+	!ordered ref IfcConstraint[*]#isRelatedWith relatedConstraints;
+}
+
+class IfcConstructionEquipmentResource extends IfcConstructionResource {
+}
+
+class IfcConstructionMaterialResource extends IfcConstructionResource {
+	!ordered ref IfcActorSelect[*] suppliers;
+	unsettable attr REAL usageRatio;
+}
+
+class IfcConstructionProductResource extends IfcConstructionResource {
+}
+
+class IfcConstructionResource extends IfcResource {
+	unsettable attr STRING resourceIdentifier;
+	unsettable attr STRING resourceGroup;
+	unsettable attr IfcResourceConsumptionEnum resourceConsumption;
+	ref IfcMeasureWithUnit baseQuantity;
+}
+
+class IfcContextDependentUnit extends IfcNamedUnit {
+	unsettable attr STRING[1] name;
+}
+
+class IfcControl extends IfcObject {
+	!ordered ref IfcRelAssignsToControl[*]#relatingControl controls;
+}
+
+class IfcControllerType extends IfcDistributionControlElementType {
+	unsettable attr IfcControllerTypeEnum[1] predefinedType;
+}
+
+class IfcConversionBasedUnit extends IfcNamedUnit {
+	unsettable attr STRING[1] name;
+	ref IfcMeasureWithUnit conversionFactor;
+}
+
+class IfcCooledBeamType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcCooledBeamTypeEnum[1] predefinedType;
+}
+
+class IfcCoolingTowerType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcCoolingTowerTypeEnum[1] predefinedType;
+}
+
+class IfcCoordinatedUniversalTimeOffset {
+	unsettable attr INTEGER[1] hourOffset;
+	unsettable attr INTEGER minuteOffset;
+	unsettable attr IfcAheadOrBehind[1] sense;
+}
+
+class IfcCostItem extends IfcControl {
+}
+
+class IfcCostSchedule extends IfcControl {
+	ref IfcActorSelect submittedBy;
+	ref IfcActorSelect preparedBy;
+	ref IfcDateTimeSelect submittedOn;
+	unsettable attr STRING status;
+	!ordered ref IfcActorSelect[*] targetUsers;
+	ref IfcDateTimeSelect updateDate;
+	unsettable attr STRING[1] iD;
+	unsettable attr IfcCostScheduleTypeEnum[1] predefinedType;
+}
+
+class IfcCostValue extends IfcAppliedValue {
+	unsettable attr STRING[1] costType;
+	unsettable attr STRING condition;
+}
+
+class IfcCovering extends IfcBuildingElement {
+	unsettable attr IfcCoveringTypeEnum predefinedType;
+	!ordered ref IfcRelCoversSpaces#relatedCoverings coversSpaces;
+	!ordered ref IfcRelCoversBldgElements#relatedCoverings covers;
+}
+
+class IfcCoveringType extends IfcBuildingElementType {
+	unsettable attr IfcCoveringTypeEnum[1] predefinedType;
+}
+
+class IfcCraneRailAShapeProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] overallHeight;
+	unsettable attr REAL[1] baseWidth2;
+	unsettable attr REAL radius;
+	unsettable attr REAL[1] headWidth;
+	unsettable attr REAL[1] headDepth2;
+	unsettable attr REAL[1] headDepth3;
+	unsettable attr REAL[1] webThickness;
+	unsettable attr REAL[1] baseWidth4;
+	unsettable attr REAL[1] baseDepth1;
+	unsettable attr REAL[1] baseDepth2;
+	unsettable attr REAL[1] baseDepth3;
+	unsettable attr REAL centreOfGravityInY;
+}
+
+class IfcCraneRailFShapeProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] overallHeight;
+	unsettable attr REAL[1] headWidth;
+	unsettable attr REAL radius;
+	unsettable attr REAL[1] headDepth2;
+	unsettable attr REAL[1] headDepth3;
+	unsettable attr REAL[1] webThickness;
+	unsettable attr REAL[1] baseDepth1;
+	unsettable attr REAL[1] baseDepth2;
+	unsettable attr REAL centreOfGravityInY;
+}
+
+class IfcCrewResource extends IfcConstructionResource {
+}
+
+class IfcCsgPrimitive3D extends IfcBooleanOperand, IfcCsgSelect, IfcGeometricRepresentationItem {
+	ref IfcAxis2Placement3D position;
+}
+
+class IfcCsgSolid extends IfcSolidModel {
+	ref IfcCsgSelect treeRootExpression;
+}
+
+class IfcCurrencyRelationship {
+	ref IfcMonetaryUnit relatingMonetaryUnit;
+	ref IfcMonetaryUnit relatedMonetaryUnit;
+	unsettable attr REAL[1] exchangeRate;
+	ref IfcDateAndTime rateDateTime;
+	ref IfcLibraryInformation rateSource;
+}
+
+class IfcCurtainWall extends IfcBuildingElement {
+}
+
+class IfcCurtainWallType extends IfcBuildingElementType {
+	unsettable attr IfcCurtainWallTypeEnum[1] predefinedType;
+}
+
+class IfcCurve extends IfcGeometricSetSelect, IfcGeometricRepresentationItem {
+}
+
+class IfcCurveBoundedPlane extends IfcBoundedSurface {
+	ref IfcPlane basisSurface;
+	ref IfcCurve outerBoundary;
+	!ordered ref IfcCurve[*] innerBoundaries;
+}
+
+class IfcCurveStyle extends IfcPresentationStyle {
+	ref IfcCurveFontOrScaledCurveFontSelect curveFont;
+	val IfcSizeSelect curveWidth;
+	ref IfcColour curveColour;
+}
+
+class IfcCurveStyleFont extends IfcCurveStyleFontSelect {
+	unsettable attr STRING name;
+	ref IfcCurveStyleFontPattern[*] patternList;
+}
+
+class IfcCurveStyleFontAndScaling extends IfcCurveFontOrScaledCurveFontSelect {
+	unsettable attr STRING name;
+	ref IfcCurveStyleFontSelect curveFont;
+	unsettable attr REAL[1] curveFontScaling;
+}
+
+class IfcCurveStyleFontPattern {
+	unsettable attr REAL[1] visibleSegmentLength;
+	unsettable attr REAL[1] invisibleSegmentLength;
+}
+
+class IfcDamperType extends IfcFlowControllerType {
+	unsettable attr IfcDamperTypeEnum[1] predefinedType;
+}
+
+class IfcDateAndTime extends IfcDateTimeSelect, IfcObjectReferenceSelect {
+	ref IfcCalendarDate dateComponent;
+	ref IfcLocalTime timeComponent;
+}
+
+class IfcDefinedSymbol extends IfcGeometricRepresentationItem {
+	ref IfcDefinedSymbolSelect definition;
+	ref IfcCartesianTransformationOperator2D target;
+}
+
+class IfcDerivedProfileDef extends IfcProfileDef {
+	ref IfcProfileDef parentProfile;
+	ref IfcCartesianTransformationOperator2D operator;
+	unsettable attr STRING label;
+}
+
+class IfcDerivedUnit extends IfcUnit {
+	!ordered ref IfcDerivedUnitElement[*] elements;
+	unsettable attr IfcDerivedUnitEnum[1] unitType;
+	unsettable attr STRING userDefinedType;
+}
+
+class IfcDerivedUnitElement {
+	ref IfcNamedUnit unit;
+	unsettable attr INTEGER[1] exponent;
+}
+
+class IfcDiameterDimension extends IfcDimensionCurveDirectedCallout {
+}
+
+class IfcDimensionCalloutRelationship extends IfcDraughtingCalloutRelationship {
+}
+
+class IfcDimensionCurve extends IfcAnnotationCurveOccurrence {
+}
+
+class IfcDimensionCurveDirectedCallout extends IfcDraughtingCallout {
+}
+
+class IfcDimensionCurveTerminator extends IfcTerminatorSymbol {
+	unsettable attr IfcDimensionExtentUsage[1] role;
+}
+
+class IfcDimensionPair extends IfcDraughtingCalloutRelationship {
+}
+
+class IfcDimensionalExponents {
+	unsettable attr INTEGER[1] lengthExponent;
+	unsettable attr INTEGER[1] massExponent;
+	unsettable attr INTEGER[1] timeExponent;
+	unsettable attr INTEGER[1] electricCurrentExponent;
+	unsettable attr INTEGER[1] thermodynamicTemperatureExponent;
+	unsettable attr INTEGER[1] amountOfSubstanceExponent;
+	unsettable attr INTEGER[1] luminousIntensityExponent;
+}
+
+class IfcDirection extends IfcVectorOrDirection, IfcGeometricRepresentationItem {
+	!unique unsettable attr REAL[2..3] directionRatios;
+}
+
+class IfcDiscreteAccessory extends IfcElementComponent {
+}
+
+class IfcDiscreteAccessoryType extends IfcElementComponentType {
+}
+
+class IfcDistributionChamberElement extends IfcDistributionFlowElement {
+}
+
+class IfcDistributionChamberElementType extends IfcDistributionFlowElementType {
+	unsettable attr IfcDistributionChamberElementTypeEnum[1] predefinedType;
+}
+
+class IfcDistributionControlElement extends IfcDistributionElement {
+	unsettable attr STRING controlElementId;
+	!ordered ref IfcRelFlowControlElements#relatedControlElements assignedToFlowElement;
+}
+
+class IfcDistributionControlElementType extends IfcDistributionElementType {
+}
+
+class IfcDistributionElement extends IfcElement {
+}
+
+class IfcDistributionElementType extends IfcElementType {
+}
+
+class IfcDistributionFlowElement extends IfcDistributionElement {
+	!ordered ref IfcRelFlowControlElements#relatingFlowElement hasControlElements;
+}
+
+class IfcDistributionFlowElementType extends IfcDistributionElementType {
+}
+
+class IfcDistributionPort extends IfcPort {
+	unsettable attr IfcFlowDirectionEnum flowDirection;
+}
+
+class IfcDocumentElectronicFormat {
+	unsettable attr STRING fileExtension;
+	unsettable attr STRING mimeContentType;
+	unsettable attr STRING mimeSubtype;
+}
+
+class IfcDocumentInformation extends IfcDocumentSelect {
+	unsettable attr STRING[1] documentId;
+	unsettable attr STRING[1] name;
+	unsettable attr STRING description;
+	!ordered ref IfcDocumentReference[*]#referenceToDocument documentReferences;
+	unsettable attr STRING purpose;
+	unsettable attr STRING intendedUse;
+	unsettable attr STRING scope;
+	unsettable attr STRING revision;
+	ref IfcActorSelect documentOwner;
+	!ordered ref IfcActorSelect[*] editors;
+	ref IfcDateAndTime creationTime;
+	ref IfcDateAndTime lastRevisionTime;
+	ref IfcDocumentElectronicFormat electronicFormat;
+	ref IfcCalendarDate validFrom;
+	ref IfcCalendarDate validUntil;
+	unsettable attr IfcDocumentConfidentialityEnum confidentiality;
+	unsettable attr IfcDocumentStatusEnum status;
+	!ordered ref IfcDocumentInformationRelationship[*]#relatedDocuments isPointedTo;
+	!ordered ref IfcDocumentInformationRelationship#relatingDocument isPointer;
+}
+
+class IfcDocumentInformationRelationship {
+	ref IfcDocumentInformation#isPointer relatingDocument;
+	!ordered ref IfcDocumentInformation[*]#isPointedTo relatedDocuments;
+	unsettable attr STRING relationshipType;
+}
+
+class IfcDocumentReference extends IfcDocumentSelect, IfcExternalReference {
+	!ordered ref IfcDocumentInformation#documentReferences referenceToDocument;
+}
+
+class IfcDoor extends IfcBuildingElement {
+	unsettable attr REAL overallHeight;
+	unsettable attr REAL overallWidth;
+}
+
+class IfcDoorLiningProperties extends IfcPropertySetDefinition {
+	unsettable attr REAL liningDepth;
+	unsettable attr REAL liningThickness;
+	unsettable attr REAL thresholdDepth;
+	unsettable attr REAL thresholdThickness;
+	unsettable attr REAL transomThickness;
+	unsettable attr REAL transomOffset;
+	unsettable attr REAL liningOffset;
+	unsettable attr REAL thresholdOffset;
+	unsettable attr REAL casingThickness;
+	unsettable attr REAL casingDepth;
+	ref IfcShapeAspect shapeAspectStyle;
+}
+
+class IfcDoorPanelProperties extends IfcPropertySetDefinition {
+	unsettable attr REAL panelDepth;
+	unsettable attr IfcDoorPanelOperationEnum[1] panelOperation;
+	unsettable attr REAL panelWidth;
+	unsettable attr IfcDoorPanelPositionEnum[1] panelPosition;
+	ref IfcShapeAspect shapeAspectStyle;
+}
+
+class IfcDoorStyle extends IfcTypeProduct {
+	unsettable attr IfcDoorStyleOperationEnum[1] operationType;
+	unsettable attr IfcDoorStyleConstructionEnum[1] constructionType;
+	unsettable attr BOOLEAN[1] parameterTakesPrecedence;
+	unsettable attr BOOLEAN[1] sizeable;
+}
+
+class IfcDraughtingCallout extends IfcGeometricRepresentationItem {
+	!ordered ref IfcDraughtingCalloutElement[*] contents;
+	!ordered ref IfcDraughtingCalloutRelationship[*]#relatedDraughtingCallout isRelatedFromCallout;
+	!ordered ref IfcDraughtingCalloutRelationship[*]#relatingDraughtingCallout isRelatedToCallout;
+}
+
+class IfcDraughtingCalloutRelationship {
+	unsettable attr STRING name;
+	unsettable attr STRING description;
+	ref IfcDraughtingCallout#isRelatedToCallout relatingDraughtingCallout;
+	ref IfcDraughtingCallout#isRelatedFromCallout relatedDraughtingCallout;
+}
+
+class IfcDraughtingPreDefinedColour extends IfcPreDefinedColour {
+}
+
+class IfcDraughtingPreDefinedCurveFont extends IfcPreDefinedCurveFont {
+}
+
+class IfcDraughtingPreDefinedTextFont extends IfcPreDefinedTextFont {
+}
+
+class IfcDuctFittingType extends IfcFlowFittingType {
+	unsettable attr IfcDuctFittingTypeEnum[1] predefinedType;
+}
+
+class IfcDuctSegmentType extends IfcFlowSegmentType {
+	unsettable attr IfcDuctSegmentTypeEnum[1] predefinedType;
+}
+
+class IfcDuctSilencerType extends IfcFlowTreatmentDeviceType {
+	unsettable attr IfcDuctSilencerTypeEnum[1] predefinedType;
+}
+
+class IfcEdge extends IfcTopologicalRepresentationItem {
+	ref IfcVertex edgeStart;
+	ref IfcVertex edgeEnd;
+}
+
+class IfcEdgeCurve extends IfcCurveOrEdgeCurve, IfcEdge {
+	ref IfcCurve edgeGeometry;
+	unsettable attr BOOLEAN[1] sameSense;
+}
+
+class IfcEdgeFeature extends IfcFeatureElementSubtraction {
+	unsettable attr REAL featureLength;
+}
+
+class IfcEdgeLoop extends IfcLoop {
+	ref IfcOrientedEdge[*] edgeList;
+}
+
+class IfcElectricApplianceType extends IfcFlowTerminalType {
+	unsettable attr IfcElectricApplianceTypeEnum[1] predefinedType;
+}
+
+class IfcElectricDistributionPoint extends IfcFlowController {
+	unsettable attr IfcElectricDistributionPointFunctionEnum[1] distributionPointFunction;
+	unsettable attr STRING userDefinedFunction;
+}
+
+class IfcElectricFlowStorageDeviceType extends IfcFlowStorageDeviceType {
+	unsettable attr IfcElectricFlowStorageDeviceTypeEnum[1] predefinedType;
+}
+
+class IfcElectricGeneratorType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcElectricGeneratorTypeEnum[1] predefinedType;
+}
+
+class IfcElectricHeaterType extends IfcFlowTerminalType {
+	unsettable attr IfcElectricHeaterTypeEnum[1] predefinedType;
+}
+
+class IfcElectricMotorType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcElectricMotorTypeEnum[1] predefinedType;
+}
+
+class IfcElectricTimeControlType extends IfcFlowControllerType {
+	unsettable attr IfcElectricTimeControlTypeEnum[1] predefinedType;
+}
+
+class IfcElectricalBaseProperties extends IfcEnergyProperties {
+	unsettable attr IfcElectricCurrentEnum electricCurrentType;
+	unsettable attr REAL[1] inputVoltage;
+	unsettable attr REAL[1] inputFrequency;
+	unsettable attr REAL fullLoadCurrent;
+	unsettable attr REAL minimumCircuitCurrent;
+	unsettable attr REAL maximumPowerInput;
+	unsettable attr REAL ratedPowerInput;
+	unsettable attr INTEGER[1] inputPhase;
+}
+
+class IfcElectricalCircuit extends IfcSystem {
+}
+
+class IfcElectricalElement extends IfcElement {
+}
+
+class IfcElement extends IfcStructuralActivityAssignmentSelect, IfcProduct {
+	unsettable attr STRING tag;
+	!ordered ref IfcRelFillsElement#relatedBuildingElement fillsVoids;
+	!ordered ref IfcRelConnectsElements[*]#relatingElement connectedTo;
+	!ordered ref IfcRelCoversBldgElements[*]#relatingBuildingElement hasCoverings;
+	!ordered ref IfcRelProjectsElement[*]#relatingElement hasProjections;
+	!ordered ref IfcRelConnectsStructuralElement[*]#relatingElement hasStructuralMember;
+	!ordered ref IfcRelConnectsPortToElement[*]#relatedElement hasPorts;
+	!ordered ref IfcRelVoidsElement[*]#relatingBuildingElement hasOpenings;
+	!ordered ref IfcRelConnectsWithRealizingElements[*]#realizingElements isConnectionRealization;
+	!ordered ref IfcRelSpaceBoundary[*]#relatedBuildingElement providesBoundaries;
+	!ordered ref IfcRelConnectsElements[*]#relatedElement connectedFrom;
+}
+
+class IfcElementAssembly extends IfcElement {
+	unsettable attr IfcAssemblyPlaceEnum assemblyPlace;
+	unsettable attr IfcElementAssemblyTypeEnum[1] predefinedType;
+}
+
+class IfcElementComponent extends IfcElement {
+}
+
+class IfcElementComponentType extends IfcElementType {
+}
+
+class IfcElementQuantity extends IfcPropertySetDefinition {
+	unsettable attr STRING methodOfMeasurement;
+	!ordered ref IfcPhysicalQuantity[*] quantities;
+}
+
+class IfcElementType extends IfcTypeProduct {
+	unsettable attr STRING elementType;
+}
+
+class IfcElementarySurface extends IfcSurface {
+	ref IfcAxis2Placement3D position;
+}
+
+class IfcEllipse extends IfcConic {
+	unsettable attr REAL[1] semiAxis1;
+	unsettable attr REAL[1] semiAxis2;
+}
+
+class IfcEllipseProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] semiAxis1;
+	unsettable attr REAL[1] semiAxis2;
+}
+
+class IfcEnergyConversionDevice extends IfcDistributionFlowElement {
+}
+
+class IfcEnergyConversionDeviceType extends IfcDistributionFlowElementType {
+}
+
+class IfcEnergyProperties extends IfcPropertySetDefinition {
+	unsettable attr IfcEnergySequenceEnum energySequence;
+	unsettable attr STRING userDefinedEnergySequence;
+}
+
+class IfcEnvironmentalImpactValue extends IfcAppliedValue {
+	unsettable attr STRING[1] impactType;
+	unsettable attr IfcEnvironmentalImpactCategoryEnum[1] category;
+	unsettable attr STRING userDefinedCategory;
+}
+
+class IfcEquipmentElement extends IfcElement {
+}
+
+class IfcEquipmentStandard extends IfcControl {
+}
+
+class IfcEvaporativeCoolerType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcEvaporativeCoolerTypeEnum[1] predefinedType;
+}
+
+class IfcEvaporatorType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcEvaporatorTypeEnum[1] predefinedType;
+}
+
+class IfcExtendedMaterialProperties extends IfcMaterialProperties {
+	!ordered ref IfcProperty[*] extendedProperties;
+	unsettable attr STRING description;
+	unsettable attr STRING[1] name;
+}
+
+class IfcExternalReference extends IfcLightDistributionDataSourceSelect, IfcObjectReferenceSelect {
+	unsettable attr STRING location;
+	unsettable attr STRING itemReference;
+	unsettable attr STRING name;
+}
+
+class IfcExternallyDefinedHatchStyle extends IfcFillStyleSelect, IfcExternalReference {
+}
+
+class IfcExternallyDefinedSurfaceStyle extends IfcSurfaceStyleElementSelect, IfcExternalReference {
+}
+
+class IfcExternallyDefinedSymbol extends IfcDefinedSymbolSelect, IfcExternalReference {
+}
+
+class IfcExternallyDefinedTextFont extends IfcTextFontSelect, IfcExternalReference {
+}
+
+class IfcExtrudedAreaSolid extends IfcSweptAreaSolid {
+	ref IfcDirection extrudedDirection;
+	unsettable attr REAL[1] depth;
+}
+
+class IfcFace extends IfcTopologicalRepresentationItem {
+	!ordered ref IfcFaceBound[*] bounds;
+}
+
+class IfcFaceBasedSurfaceModel extends IfcSurfaceOrFaceSurface, IfcGeometricRepresentationItem {
+	!ordered ref IfcConnectedFaceSet[*] fbsmFaces;
+}
+
+class IfcFaceBound extends IfcTopologicalRepresentationItem {
+	ref IfcLoop bound;
+	unsettable attr BOOLEAN[1] orientation;
+}
+
+class IfcFaceOuterBound extends IfcFaceBound {
+}
+
+class IfcFaceSurface extends IfcSurfaceOrFaceSurface, IfcFace {
+	ref IfcSurface faceSurface;
+	unsettable attr BOOLEAN[1] sameSense;
+}
+
+class IfcFacetedBrep extends IfcManifoldSolidBrep {
+}
+
+class IfcFacetedBrepWithVoids extends IfcManifoldSolidBrep {
+	!ordered ref IfcClosedShell[*] voids;
+}
+
+class IfcFailureConnectionCondition extends IfcStructuralConnectionCondition {
+	unsettable attr REAL tensionFailureX;
+	unsettable attr REAL tensionFailureY;
+	unsettable attr REAL tensionFailureZ;
+	unsettable attr REAL compressionFailureX;
+	unsettable attr REAL compressionFailureY;
+	unsettable attr REAL compressionFailureZ;
+}
+
+class IfcFanType extends IfcFlowMovingDeviceType {
+	unsettable attr IfcFanTypeEnum[1] predefinedType;
+}
+
+class IfcFastener extends IfcElementComponent {
+}
+
+class IfcFastenerType extends IfcElementComponentType {
+}
+
+class IfcFeatureElement extends IfcElement {
+}
+
+class IfcFeatureElementAddition extends IfcFeatureElement {
+	ref IfcRelProjectsElement#relatedFeatureElement projectsElements;
+}
+
+class IfcFeatureElementSubtraction extends IfcFeatureElement {
+	ref IfcRelVoidsElement#relatedOpeningElement voidsElements;
+}
+
+class IfcFillAreaStyle extends IfcPresentationStyle {
+	!ordered ref IfcFillStyleSelect[*] fillStyles;
+}
+
+class IfcFillAreaStyleHatching extends IfcFillStyleSelect, IfcGeometricRepresentationItem {
+	ref IfcCurveStyle hatchLineAppearance;
+	val IfcHatchLineDistanceSelect startOfNextHatchLine;
+	ref IfcCartesianPoint pointOfReferenceHatchLine;
+	ref IfcCartesianPoint patternStart;
+	unsettable attr REAL[1] hatchLineAngle;
+}
+
+class IfcFillAreaStyleTileSymbolWithStyle extends IfcFillAreaStyleTileShapeSelect, IfcGeometricRepresentationItem {
+	ref IfcAnnotationSymbolOccurrence symbol;
+}
+
+class IfcFillAreaStyleTiles extends IfcFillStyleSelect, IfcGeometricRepresentationItem {
+	ref IfcOneDirectionRepeatFactor tilingPattern;
+	!ordered ref IfcFillAreaStyleTileShapeSelect[*] tiles;
+	unsettable attr REAL[1] tilingScale;
+}
+
+class IfcFilterType extends IfcFlowTreatmentDeviceType {
+	unsettable attr IfcFilterTypeEnum[1] predefinedType;
+}
+
+class IfcFireSuppressionTerminalType extends IfcFlowTerminalType {
+	unsettable attr IfcFireSuppressionTerminalTypeEnum[1] predefinedType;
+}
+
+class IfcFlowController extends IfcDistributionFlowElement {
+}
+
+class IfcFlowControllerType extends IfcDistributionFlowElementType {
+}
+
+class IfcFlowFitting extends IfcDistributionFlowElement {
+}
+
+class IfcFlowFittingType extends IfcDistributionFlowElementType {
+}
+
+class IfcFlowInstrumentType extends IfcDistributionControlElementType {
+	unsettable attr IfcFlowInstrumentTypeEnum[1] predefinedType;
+}
+
+class IfcFlowMeterType extends IfcFlowControllerType {
+	unsettable attr IfcFlowMeterTypeEnum[1] predefinedType;
+}
+
+class IfcFlowMovingDevice extends IfcDistributionFlowElement {
+}
+
+class IfcFlowMovingDeviceType extends IfcDistributionFlowElementType {
+}
+
+class IfcFlowSegment extends IfcDistributionFlowElement {
+}
+
+class IfcFlowSegmentType extends IfcDistributionFlowElementType {
+}
+
+class IfcFlowStorageDevice extends IfcDistributionFlowElement {
+}
+
+class IfcFlowStorageDeviceType extends IfcDistributionFlowElementType {
+}
+
+class IfcFlowTerminal extends IfcDistributionFlowElement {
+}
+
+class IfcFlowTerminalType extends IfcDistributionFlowElementType {
+}
+
+class IfcFlowTreatmentDevice extends IfcDistributionFlowElement {
+}
+
+class IfcFlowTreatmentDeviceType extends IfcDistributionFlowElementType {
+}
+
+class IfcFluidFlowProperties extends IfcPropertySetDefinition {
+	unsettable attr IfcPropertySourceEnum[1] propertySource;
+	ref IfcTimeSeries flowConditionTimeSeries;
+	ref IfcTimeSeries velocityTimeSeries;
+	ref IfcTimeSeries flowrateTimeSeries;
+	ref IfcMaterial fluid;
+	ref IfcTimeSeries pressureTimeSeries;
+	unsettable attr STRING userDefinedPropertySource;
+	unsettable attr REAL temperatureSingleValue;
+	unsettable attr REAL wetBulbTemperatureSingleValue;
+	ref IfcTimeSeries wetBulbTemperatureTimeSeries;
+	ref IfcTimeSeries temperatureTimeSeries;
+	val IfcDerivedMeasureValue flowrateSingleValue;
+	unsettable attr REAL flowConditionSingleValue;
+	unsettable attr REAL velocitySingleValue;
+	unsettable attr REAL pressureSingleValue;
+}
+
+class IfcFooting extends IfcBuildingElement {
+	unsettable attr IfcFootingTypeEnum[1] predefinedType;
+}
+
+class IfcFuelProperties extends IfcMaterialProperties {
+	unsettable attr REAL combustionTemperature;
+	unsettable attr REAL carbonContent;
+	unsettable attr REAL lowerHeatingValue;
+	unsettable attr REAL higherHeatingValue;
+}
+
+class IfcFurnishingElement extends IfcElement {
+}
+
+class IfcFurnishingElementType extends IfcElementType {
+}
+
+class IfcFurnitureStandard extends IfcControl {
+}
+
+class IfcFurnitureType extends IfcFurnishingElementType {
+	unsettable attr IfcAssemblyPlaceEnum[1] assemblyPlace;
+}
+
+class IfcGasTerminalType extends IfcFlowTerminalType {
+	unsettable attr IfcGasTerminalTypeEnum[1] predefinedType;
+}
+
+class IfcGeneralMaterialProperties extends IfcMaterialProperties {
+	unsettable attr REAL molecularWeight;
+	unsettable attr REAL porosity;
+	unsettable attr REAL massDensity;
+}
+
+class IfcGeneralProfileProperties extends IfcProfileProperties {
+	unsettable attr REAL physicalWeight;
+	unsettable attr REAL perimeter;
+	unsettable attr REAL minimumPlateThickness;
+	unsettable attr REAL maximumPlateThickness;
+	unsettable attr REAL crossSectionArea;
+}
+
+class IfcGeometricCurveSet extends IfcGeometricSet {
+}
+
+class IfcGeometricRepresentationContext extends IfcRepresentationContext {
+	unsettable attr INTEGER[1] coordinateSpaceDimension;
+	unsettable attr REAL precision;
+	ref IfcAxis2Placement worldCoordinateSystem;
+	ref IfcDirection trueNorth;
+	!ordered ref IfcGeometricRepresentationSubContext[*]#parentContext hasSubContexts;
+}
+
+class IfcGeometricRepresentationItem extends IfcRepresentationItem {
+}
+
+class IfcGeometricRepresentationSubContext extends IfcGeometricRepresentationContext {
+	ref IfcGeometricRepresentationContext#hasSubContexts parentContext;
+	unsettable attr REAL targetScale;
+	unsettable attr IfcGeometricProjectionEnum[1] targetView;
+	unsettable attr STRING userDefinedTargetView;
+}
+
+class IfcGeometricSet extends IfcGeometricRepresentationItem {
+	!ordered ref IfcGeometricSetSelect[*] elements;
+}
+
+class IfcGrid extends IfcProduct {
+	ref IfcGridAxis[*]#partOfU uAxes;
+	ref IfcGridAxis[*]#partOfV vAxes;
+	ref IfcGridAxis[*]#partOfW wAxes;
+}
+
+class IfcGridAxis {
+	unsettable attr STRING axisTag;
+	ref IfcCurve axisCurve;
+	unsettable attr BOOLEAN[1] sameSense;
+	!ordered ref IfcGrid#wAxes partOfW;
+	!ordered ref IfcGrid#vAxes partOfV;
+	!ordered ref IfcGrid#uAxes partOfU;
+	!ordered ref IfcVirtualGridIntersection[*]#intersectingAxes hasIntersections;
+}
+
+class IfcGridPlacement extends IfcObjectPlacement {
+	ref IfcVirtualGridIntersection placementLocation;
+	ref IfcVirtualGridIntersection placementRefDirection;
+}
+
+class IfcGroup extends IfcObject {
+	ref IfcRelAssignsToGroup#relatingGroup isGroupedBy;
+}
+
+class IfcHalfSpaceSolid extends IfcBooleanOperand, IfcGeometricRepresentationItem {
+	ref IfcSurface baseSurface;
+	unsettable attr BOOLEAN[1] agreementFlag;
+}
+
+class IfcHeatExchangerType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcHeatExchangerTypeEnum[1] predefinedType;
+}
+
+class IfcHumidifierType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcHumidifierTypeEnum[1] predefinedType;
+}
+
+class IfcHygroscopicMaterialProperties extends IfcMaterialProperties {
+	unsettable attr REAL upperVaporResistanceFactor;
+	unsettable attr REAL lowerVaporResistanceFactor;
+	unsettable attr REAL isothermalMoistureCapacity;
+	unsettable attr REAL vaporPermeability;
+	unsettable attr REAL moistureDiffusivity;
+}
+
+class IfcIShapeProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] overallWidth;
+	unsettable attr REAL[1] overallDepth;
+	unsettable attr REAL[1] webThickness;
+	unsettable attr REAL[1] flangeThickness;
+	unsettable attr REAL filletRadius;
+}
+
+class IfcImageTexture extends IfcSurfaceTexture {
+	unsettable attr STRING[1] urlReference;
+}
+
+class IfcInventory extends IfcGroup {
+	unsettable attr IfcInventoryTypeEnum[1] inventoryType;
+	ref IfcActorSelect jurisdiction;
+	!ordered ref IfcPerson[*] responsiblePersons;
+	ref IfcCalendarDate lastUpdateDate;
+	ref IfcCostValue currentValue;
+	ref IfcCostValue originalValue;
+}
+
+class IfcIrregularTimeSeries extends IfcTimeSeries {
+	ref IfcIrregularTimeSeriesValue[*] values;
+}
+
+class IfcIrregularTimeSeriesValue {
+	ref IfcDateTimeSelect timeStamp;
+	val IfcValue[*] listValues;
+}
+
+class IfcJunctionBoxType extends IfcFlowFittingType {
+	unsettable attr IfcJunctionBoxTypeEnum[1] predefinedType;
+}
+
+class IfcLShapeProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] depth;
+	unsettable attr REAL width;
+	unsettable attr REAL[1] thickness;
+	unsettable attr REAL filletRadius;
+	unsettable attr REAL edgeRadius;
+	unsettable attr REAL legSlope;
+	unsettable attr REAL centreOfGravityInX;
+	unsettable attr REAL centreOfGravityInY;
+}
+
+class IfcLaborResource extends IfcConstructionResource {
+	unsettable attr STRING skillSet;
+}
+
+class IfcLampType extends IfcFlowTerminalType {
+	unsettable attr IfcLampTypeEnum[1] predefinedType;
+}
+
+class IfcLibraryInformation extends IfcLibrarySelect {
+	unsettable attr STRING[1] name;
+	unsettable attr STRING version;
+	ref IfcOrganization publisher;
+	ref IfcCalendarDate versionDate;
+	!ordered ref IfcLibraryReference[*]#referenceIntoLibrary libraryReference;
+}
+
+class IfcLibraryReference extends IfcLibrarySelect, IfcExternalReference {
+	!ordered ref IfcLibraryInformation#libraryReference referenceIntoLibrary;
+}
+
+class IfcLightDistributionData {
+	unsettable attr REAL[1] mainPlaneAngle;
+	!unique unsettable attr REAL[+] secondaryPlaneAngle;
+	!unique unsettable attr REAL[+] luminousIntensity;
+}
+
+class IfcLightFixtureType extends IfcFlowTerminalType {
+	unsettable attr IfcLightFixtureTypeEnum[1] predefinedType;
+}
+
+class IfcLightIntensityDistribution extends IfcLightDistributionDataSourceSelect {
+	unsettable attr IfcLightDistributionCurveEnum[1] lightDistributionCurve;
+	ref IfcLightDistributionData[*] distributionData;
+}
+
+class IfcLightSource extends IfcGeometricRepresentationItem {
+	unsettable attr STRING name;
+	ref IfcColourRgb lightColour;
+	unsettable attr REAL ambientIntensity;
+	unsettable attr REAL intensity;
+}
+
+class IfcLightSourceAmbient extends IfcLightSource {
+}
+
+class IfcLightSourceDirectional extends IfcLightSource {
+	ref IfcDirection orientation;
+}
+
+class IfcLightSourceGoniometric extends IfcLightSource {
+	ref IfcAxis2Placement3D position;
+	ref IfcColourRgb colourAppearance;
+	unsettable attr REAL[1] colourTemperature;
+	unsettable attr REAL[1] luminousFlux;
+	unsettable attr IfcLightEmissionSourceEnum[1] lightEmissionSource;
+	ref IfcLightDistributionDataSourceSelect lightDistributionDataSource;
+}
+
+class IfcLightSourcePositional extends IfcLightSource {
+	ref IfcCartesianPoint position;
+	unsettable attr REAL[1] radius;
+	unsettable attr REAL[1] constantAttenuation;
+	unsettable attr REAL[1] distanceAttenuation;
+	unsettable attr REAL[1] quadricAttenuation;
+}
+
+class IfcLightSourceSpot extends IfcLightSourcePositional {
+	ref IfcDirection orientation;
+	unsettable attr REAL concentrationExponent;
+	unsettable attr REAL[1] spreadAngle;
+	unsettable attr REAL[1] beamWidthAngle;
+}
+
+class IfcLine extends IfcCurve {
+	ref IfcCartesianPoint pnt;
+	ref IfcVector dir;
+}
+
+class IfcLinearDimension extends IfcDimensionCurveDirectedCallout {
+}
+
+class IfcLocalPlacement extends IfcObjectPlacement {
+	ref IfcObjectPlacement#referencedByPlacements placementRelTo;
+	ref IfcAxis2Placement relativePlacement;
+}
+
+class IfcLocalTime extends IfcDateTimeSelect, IfcObjectReferenceSelect {
+	unsettable attr INTEGER[1] hourComponent;
+	unsettable attr INTEGER minuteComponent;
+	unsettable attr REAL secondComponent;
+	ref IfcCoordinatedUniversalTimeOffset zone;
+	unsettable attr INTEGER daylightSavingOffset;
+}
+
+class IfcLoop extends IfcTopologicalRepresentationItem {
+}
+
+class IfcManifoldSolidBrep extends IfcSolidModel {
+	ref IfcClosedShell outer;
+}
+
+class IfcMappedItem extends IfcRepresentationItem {
+	ref IfcRepresentationMap#mapUsage mappingSource;
+	ref IfcCartesianTransformationOperator mappingTarget;
+}
+
+class IfcMaterial extends IfcMaterialSelect, IfcObjectReferenceSelect {
+	unsettable attr STRING[1] name;
+	!ordered ref IfcMaterialDefinitionRepresentation#representedMaterial hasRepresentation;
+	!ordered ref IfcMaterialClassificationRelationship#classifiedMaterial classifiedAs;
+}
+
+class IfcMaterialClassificationRelationship {
+	!ordered ref IfcClassificationNotationSelect[*] materialClassifications;
+	ref IfcMaterial#classifiedAs classifiedMaterial;
+}
+
+class IfcMaterialDefinitionRepresentation extends IfcProductRepresentation {
+	ref IfcMaterial#hasRepresentation representedMaterial;
+}
+
+class IfcMaterialLayer extends IfcMaterialSelect, IfcObjectReferenceSelect {
+	ref IfcMaterial material;
+	unsettable attr REAL[1] layerThickness;
+	unsettable attr Boolean isVentilated;
+	ref IfcMaterialLayerSet#materialLayers toMaterialLayerSet;
+}
+
+class IfcMaterialLayerSet extends IfcMaterialSelect {
+	ref IfcMaterialLayer[*]#toMaterialLayerSet materialLayers;
+	unsettable attr STRING layerSetName;
+}
+
+class IfcMaterialLayerSetUsage extends IfcMaterialSelect {
+	ref IfcMaterialLayerSet forLayerSet;
+	unsettable attr IfcLayerSetDirectionEnum[1] layerSetDirection;
+	unsettable attr IfcDirectionSenseEnum[1] directionSense;
+	unsettable attr REAL[1] offsetFromReferenceLine;
+}
+
+class IfcMaterialList extends IfcMaterialSelect, IfcObjectReferenceSelect {
+	ref IfcMaterial[*] materials;
+}
+
+class IfcMaterialProperties {
+	ref IfcMaterial material;
+}
+
+class IfcMeasureWithUnit {
+	val IfcValue valueComponent;
+	ref IfcUnit unitComponent;
+}
+
+class IfcMechanicalConcreteMaterialProperties extends IfcMechanicalMaterialProperties {
+	unsettable attr REAL compressiveStrength;
+	unsettable attr REAL maxAggregateSize;
+	unsettable attr STRING admixturesDescription;
+	unsettable attr STRING workability;
+	unsettable attr REAL protectivePoreRatio;
+	unsettable attr STRING waterImpermeability;
+}
+
+class IfcMechanicalFastener extends IfcFastener {
+	unsettable attr REAL nominalDiameter;
+	unsettable attr REAL nominalLength;
+}
+
+class IfcMechanicalFastenerType extends IfcFastenerType {
+}
+
+class IfcMechanicalMaterialProperties extends IfcMaterialProperties {
+	unsettable attr REAL dynamicViscosity;
+	unsettable attr REAL youngModulus;
+	unsettable attr REAL shearModulus;
+	unsettable attr REAL poissonRatio;
+	unsettable attr REAL thermalExpansionCoefficient;
+}
+
+class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterialProperties {
+	unsettable attr REAL yieldStress;
+	unsettable attr REAL ultimateStress;
+	unsettable attr REAL ultimateStrain;
+	unsettable attr REAL hardeningModule;
+	unsettable attr REAL proportionalStress;
+	unsettable attr REAL plasticStrain;
+	!ordered ref IfcRelaxation[*] relaxations;
+}
+
+class IfcMember extends IfcBuildingElement {
+}
+
+class IfcMemberType extends IfcBuildingElementType {
+	unsettable attr IfcMemberTypeEnum[1] predefinedType;
+}
+
+class IfcMetric extends IfcConstraint {
+	unsettable attr IfcBenchmarkEnum[1] benchmark;
+	unsettable attr STRING valueSource;
+	val IfcMetricValueSelect dataValue;
+}
+
+class IfcMonetaryUnit extends IfcUnit {
+	unsettable attr IfcCurrencyEnum[1] currency;
+}
+
+class IfcMotorConnectionType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcMotorConnectionTypeEnum[1] predefinedType;
+}
+
+class IfcMove extends IfcTask {
+	ref IfcSpatialStructureElement moveFrom;
+	ref IfcSpatialStructureElement moveTo;
+	!unique unsettable attr STRING[*] punchList;
+}
+
+class IfcNamedUnit extends IfcUnit {
+	ref IfcDimensionalExponents dimensions;
+	unsettable attr IfcUnitEnum[1] unitType;
+}
+
+class IfcObject extends IfcObjectDefinition {
+	unsettable attr STRING objectType;
+	!ordered ref IfcRelDefines[*]#relatedObjects isDefinedBy;
+}
+
+class IfcObjectDefinition extends IfcRoot {
+	!ordered ref IfcRelAssigns[*]#relatedObjects hasAssignments;
+	!ordered ref IfcRelDecomposes[*]#relatingObject isDecomposedBy;
+	!ordered ref IfcRelDecomposes#relatedObjects decomposes;
+}
+
+class IfcObjectPlacement {
+	!ordered ref IfcProduct#objectPlacement placesObject;
+	!ordered ref IfcLocalPlacement[*]#placementRelTo referencedByPlacements;
+}
+
+class IfcObjective extends IfcConstraint {
+	ref IfcMetric benchmarkValues;
+	ref IfcMetric resultValues;
+	unsettable attr IfcObjectiveEnum[1] objectiveQualifier;
+	unsettable attr STRING userDefinedQualifier;
+}
+
+class IfcOccupant extends IfcActor {
+	unsettable attr IfcOccupantTypeEnum[1] predefinedType;
+}
+
+class IfcOffsetCurve2D extends IfcCurve {
+	ref IfcCurve basisCurve;
+	unsettable attr REAL[1] distance;
+	unsettable attr Boolean[1] selfIntersect;
+}
+
+class IfcOffsetCurve3D extends IfcCurve {
+	ref IfcCurve basisCurve;
+	unsettable attr REAL[1] distance;
+	unsettable attr Boolean[1] selfIntersect;
+	ref IfcDirection refDirection;
+}
+
+class IfcOneDirectionRepeatFactor extends IfcGeometricRepresentationItem {
+	ref IfcVector repeatFactor;
+}
+
+class IfcOpenShell extends IfcShell, IfcConnectedFaceSet {
+}
+
+class IfcOpeningElement extends IfcFeatureElementSubtraction {
+	!ordered ref IfcRelFillsElement[*]#relatingOpeningElement hasFillings;
+}
+
+class IfcOpticalMaterialProperties extends IfcMaterialProperties {
+	unsettable attr REAL visibleTransmittance;
+	unsettable attr REAL solarTransmittance;
+	unsettable attr REAL thermalIrTransmittance;
+	unsettable attr REAL thermalIrEmissivityBack;
+	unsettable attr REAL thermalIrEmissivityFront;
+	unsettable attr REAL visibleReflectanceBack;
+	unsettable attr REAL visibleReflectanceFront;
+	unsettable attr REAL solarReflectanceFront;
+	unsettable attr REAL solarReflectanceBack;
+}
+
+class IfcOrderAction extends IfcTask {
+	unsettable attr STRING[1] actionID;
+}
+
+class IfcOrganization extends IfcActorSelect, IfcObjectReferenceSelect {
+	unsettable attr STRING ~id;
+	unsettable attr STRING[1] name;
+	unsettable attr STRING description;
+	ref IfcActorRole[*] roles;
+	ref IfcAddress[*]#ofOrganization addresses;
+	!ordered ref IfcOrganizationRelationship[*]#relatedOrganizations isRelatedBy;
+	!ordered ref IfcOrganizationRelationship[*]#relatingOrganization relates;
+	!ordered ref IfcPersonAndOrganization[*]#theOrganization engages;
+}
+
+class IfcOrganizationRelationship {
+	unsettable attr STRING[1] name;
+	unsettable attr STRING description;
+	ref IfcOrganization#relates relatingOrganization;
+	!ordered ref IfcOrganization[*]#isRelatedBy relatedOrganizations;
+}
+
+class IfcOrientedEdge extends IfcEdge {
+	ref IfcEdge edgeElement;
+	unsettable attr BOOLEAN[1] orientation;
+}
+
+class IfcOutletType extends IfcFlowTerminalType {
+	unsettable attr IfcOutletTypeEnum[1] predefinedType;
+}
+
+class IfcOwnerHistory {
+	ref IfcPersonAndOrganization owningUser;
+	ref IfcApplication owningApplication;
+	unsettable attr IfcStateEnum state;
+	unsettable attr IfcChangeActionEnum[1] changeAction;
+	unsettable attr INTEGER lastModifiedDate;
+	ref IfcPersonAndOrganization lastModifyingUser;
+	ref IfcApplication lastModifyingApplication;
+	unsettable attr INTEGER[1] creationDate;
+}
+
+class IfcParameterizedProfileDef extends IfcProfileDef {
+	ref IfcAxis2Placement2D position;
+}
+
+class IfcPath extends IfcTopologicalRepresentationItem {
+	ref IfcOrientedEdge[*] edgeList;
+}
+
+class IfcPerformanceHistory extends IfcControl {
+	unsettable attr STRING[1] lifeCyclePhase;
+}
+
+class IfcPermeableCoveringProperties extends IfcPropertySetDefinition {
+	unsettable attr IfcPermeableCoveringOperationEnum[1] operationType;
+	unsettable attr IfcWindowPanelPositionEnum[1] panelPosition;
+	unsettable attr REAL frameDepth;
+	unsettable attr REAL frameThickness;
+	ref IfcShapeAspect shapeAspectStyle;
+}
+
+class IfcPermit extends IfcControl {
+	unsettable attr STRING[1] permitID;
+}
+
+class IfcPerson extends IfcActorSelect, IfcObjectReferenceSelect {
+	unsettable attr STRING ~id;
+	unsettable attr STRING familyName;
+	unsettable attr STRING givenName;
+	!unique unsettable attr STRING[*] middleNames;
+	!unique unsettable attr STRING[*] prefixTitles;
+	!unique unsettable attr STRING[*] suffixTitles;
+	ref IfcActorRole[*] roles;
+	ref IfcAddress[*]#ofPerson addresses;
+	!ordered ref IfcPersonAndOrganization[*]#thePerson engagedIn;
+}
+
+class IfcPersonAndOrganization extends IfcActorSelect, IfcObjectReferenceSelect {
+	ref IfcPerson#engagedIn thePerson;
+	ref IfcOrganization#engages theOrganization;
+	ref IfcActorRole[*] roles;
+}
+
+class IfcPhysicalComplexQuantity extends IfcPhysicalQuantity {
+	!ordered ref IfcPhysicalQuantity[*]#partOfComplex hasQuantities;
+	unsettable attr STRING[1] discrimination;
+	unsettable attr STRING quality;
+	unsettable attr STRING usage;
+}
+
+class IfcPhysicalQuantity {
+	unsettable attr STRING[1] name;
+	unsettable attr STRING description;
+	!ordered ref IfcPhysicalComplexQuantity#hasQuantities partOfComplex;
+}
+
+class IfcPhysicalSimpleQuantity extends IfcPhysicalQuantity {
+	ref IfcNamedUnit unit;
+}
+
+class IfcPile extends IfcBuildingElement {
+	unsettable attr IfcPileTypeEnum[1] predefinedType;
+	unsettable attr IfcPileConstructionEnum constructionType;
+}
+
+class IfcPipeFittingType extends IfcFlowFittingType {
+	unsettable attr IfcPipeFittingTypeEnum[1] predefinedType;
+}
+
+class IfcPipeSegmentType extends IfcFlowSegmentType {
+	unsettable attr IfcPipeSegmentTypeEnum[1] predefinedType;
+}
+
+class IfcPixelTexture extends IfcSurfaceTexture {
+	unsettable attr INTEGER[1] width;
+	unsettable attr INTEGER[1] height;
+	unsettable attr INTEGER[1] colourComponents;
+	!unique unsettable attr BINARY[+] pixel;
+}
+
+class IfcPlacement extends IfcGeometricRepresentationItem {
+	ref IfcCartesianPoint location;
+}
+
+class IfcPlanarBox extends IfcPlanarExtent {
+	ref IfcAxis2Placement placement;
+}
+
+class IfcPlanarExtent extends IfcGeometricRepresentationItem {
+	unsettable attr REAL[1] sizeInX;
+	unsettable attr REAL[1] sizeInY;
+}
+
+class IfcPlane extends IfcElementarySurface {
+}
+
+class IfcPlate extends IfcBuildingElement {
+}
+
+class IfcPlateType extends IfcBuildingElementType {
+	unsettable attr IfcPlateTypeEnum[1] predefinedType;
+}
+
+class IfcPoint extends IfcGeometricSetSelect, IfcPointOrVertexPoint, IfcGeometricRepresentationItem {
+}
+
+class IfcPointOnCurve extends IfcPoint {
+	ref IfcCurve basisCurve;
+	unsettable attr REAL[1] pointParameter;
+}
+
+class IfcPointOnSurface extends IfcPoint {
+	ref IfcSurface basisSurface;
+	unsettable attr REAL[1] pointParameterU;
+	unsettable attr REAL[1] pointParameterV;
+}
+
+class IfcPolyLoop extends IfcLoop {
+	ref IfcCartesianPoint[*] polygon;
+}
+
+class IfcPolygonalBoundedHalfSpace extends IfcHalfSpaceSolid {
+	ref IfcAxis2Placement3D position;
+	ref IfcBoundedCurve polygonalBoundary;
+}
+
+class IfcPolyline extends IfcBoundedCurve {
+	ref IfcCartesianPoint[*] points;
+}
+
+class IfcPort extends IfcProduct {
+	ref IfcRelConnectsPortToElement#relatingPort containedIn;
+	!ordered ref IfcRelConnectsPorts#relatedPort connectedFrom;
+	!ordered ref IfcRelConnectsPorts#relatingPort connectedTo;
+}
+
+class IfcPostalAddress extends IfcAddress {
+	unsettable attr STRING internalLocation;
+	!unique unsettable attr STRING[*] addressLines;
+	unsettable attr STRING postalBox;
+	unsettable attr STRING town;
+	unsettable attr STRING region;
+	unsettable attr STRING postalCode;
+	unsettable attr STRING country;
+}
+
+class IfcPreDefinedColour extends IfcColour, IfcPreDefinedItem {
+}
+
+class IfcPreDefinedCurveFont extends IfcCurveStyleFontSelect, IfcPreDefinedItem {
+}
+
+class IfcPreDefinedDimensionSymbol extends IfcPreDefinedSymbol {
+}
+
+class IfcPreDefinedItem {
+	unsettable attr STRING[1] name;
+}
+
+class IfcPreDefinedPointMarkerSymbol extends IfcPreDefinedSymbol {
+}
+
+class IfcPreDefinedSymbol extends IfcDefinedSymbolSelect, IfcPreDefinedItem {
+}
+
+class IfcPreDefinedTerminatorSymbol extends IfcPreDefinedSymbol {
+}
+
+class IfcPreDefinedTextFont extends IfcTextFontSelect, IfcPreDefinedItem {
+}
+
+class IfcPresentationLayerAssignment {
+	unsettable attr STRING[1] name;
+	unsettable attr STRING description;
+	!ordered ref IfcLayeredItem[*]#layerAssignments assignedItems;
+	unsettable attr STRING identifier;
+}
+
+class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignment {
+	unsettable attr Boolean[1] layerOn;
+	unsettable attr Boolean[1] layerFrozen;
+	unsettable attr Boolean[1] layerBlocked;
+	!ordered val IfcPresentationStyleSelect[*] layerStyles;
+}
+
+class IfcPresentationStyle {
+	unsettable attr STRING name;
+}
+
+class IfcPresentationStyleAssignment {
+	!ordered val IfcPresentationStyleSelect[*] styles;
+}
+
+class IfcProcedure extends IfcProcess {
+	unsettable attr STRING[1] procedureID;
+	unsettable attr IfcProcedureTypeEnum[1] procedureType;
+	unsettable attr STRING userDefinedProcedureType;
+}
+
+class IfcProcess extends IfcObject {
+	!ordered ref IfcRelAssignsToProcess[*]#relatingProcess operatesOn;
+	!ordered ref IfcRelSequence[*]#relatedProcess isSuccessorFrom;
+	!ordered ref IfcRelSequence[*]#relatingProcess isPredecessorTo;
+}
+
+class IfcProduct extends IfcObject {
+	ref IfcObjectPlacement#placesObject objectPlacement;
+	ref IfcProductRepresentation#shapeOfProduct representation;
+	!ordered ref IfcRelAssignsToProduct[*]#relatingProduct referencedBy;
+	!ordered ref IfcRelReferencedInSpatialStructure[*]#relatedElements referencedInStructures;
+	!ordered ref IfcRelContainedInSpatialStructure#relatedElements containedInStructure;
+}
+
+class IfcProductDefinitionShape extends IfcProductRepresentation {
+	!ordered ref IfcShapeAspect[*]#partOfProductDefinitionShape hasShapeAspects;
+}
+
+class IfcProductRepresentation {
+	unsettable attr STRING name;
+	unsettable attr STRING description;
+	ref IfcRepresentation[*]#ofProductRepresentation representations;
+	!ordered ref IfcProduct#representation shapeOfProduct;
+}
+
+class IfcProductsOfCombustionProperties extends IfcMaterialProperties {
+	unsettable attr REAL specificHeatCapacity;
+	unsettable attr REAL n20Content;
+	unsettable attr REAL cOContent;
+	unsettable attr REAL cO2Content;
+}
+
+class IfcProfileDef {
+	unsettable attr IfcProfileTypeEnum[1] profileType;
+	unsettable attr STRING profileName;
+}
+
+class IfcProfileProperties {
+	unsettable attr STRING profileName;
+	ref IfcProfileDef profileDefinition;
+}
+
+class IfcProject extends IfcObject {
+	unsettable attr STRING longName;
+	unsettable attr STRING phase;
+	!ordered ref IfcRepresentationContext[*] representationContexts;
+	ref IfcUnitAssignment unitsInContext;
+}
+
+class IfcProjectOrder extends IfcControl {
+	unsettable attr STRING[1] iD;
+	unsettable attr IfcProjectOrderTypeEnum[1] predefinedType;
+	unsettable attr STRING status;
+}
+
+class IfcProjectOrderRecord extends IfcControl {
+	ref IfcRelAssignsToProjectOrder[*] records;
+	unsettable attr IfcProjectOrderRecordTypeEnum[1] predefinedType;
+}
+
+class IfcProjectionCurve extends IfcAnnotationCurveOccurrence {
+}
+
+class IfcProjectionElement extends IfcFeatureElementAddition {
+}
+
+class IfcProperty {
+	unsettable attr STRING[1] name;
+	unsettable attr STRING description;
+	!ordered ref IfcPropertyDependencyRelationship[*]#dependingProperty propertyForDependance;
+	!ordered ref IfcPropertyDependencyRelationship[*]#dependantProperty propertyDependsOn;
+	!ordered ref IfcComplexProperty#hasProperties partOfComplex;
+}
+
+class IfcPropertyBoundedValue extends IfcSimpleProperty {
+	val IfcValue upperBoundValue;
+	val IfcValue lowerBoundValue;
+	ref IfcUnit unit;
+}
+
+class IfcPropertyConstraintRelationship {
+	ref IfcConstraint#propertiesForConstraint relatingConstraint;
+	!ordered ref IfcProperty[*] relatedProperties;
+	unsettable attr STRING name;
+	unsettable attr STRING description;
+}
+
+class IfcPropertyDefinition extends IfcRoot {
+}
+
+class IfcPropertyDependencyRelationship {
+	ref IfcProperty#propertyForDependance dependingProperty;
+	ref IfcProperty#propertyDependsOn dependantProperty;
+	unsettable attr STRING name;
+	unsettable attr STRING description;
+	unsettable attr STRING expression;
+}
+
+class IfcPropertyEnumeratedValue extends IfcSimpleProperty {
+	val IfcValue[*] enumerationValues;
+	ref IfcPropertyEnumeration enumerationReference;
+}
+
+class IfcPropertyEnumeration {
+	unsettable attr STRING[1] name;
+	val IfcValue[*] enumerationValues;
+	ref IfcUnit unit;
+}
+
+class IfcPropertyListValue extends IfcSimpleProperty {
+	val IfcValue[*] listValues;
+	ref IfcUnit unit;
+}
+
+class IfcPropertyReferenceValue extends IfcSimpleProperty {
+	unsettable attr STRING usageName;
+	ref IfcObjectReferenceSelect propertyReference;
+}
+
+class IfcPropertySet extends IfcPropertySetDefinition {
+	!ordered ref IfcProperty[*] hasProperties;
+}
+
+class IfcPropertySetDefinition extends IfcPropertyDefinition {
+	!ordered ref IfcRelDefinesByProperties[0..123]#relatingPropertyDefinition propertyDefinitionOf;
+	!ordered ref IfcTypeObject#hasPropertySets definesType;
+}
+
+class IfcPropertySingleValue extends IfcSimpleProperty {
+	val IfcValue nominalValue;
+	ref IfcUnit unit;
+}
+
+class IfcPropertyTableValue extends IfcSimpleProperty {
+	val IfcValue[*] definingValues;
+	val IfcValue[*] definedValues;
+	unsettable attr STRING expression;
+	ref IfcUnit definingUnit;
+	ref IfcUnit definedUnit;
+}
+
+class IfcProtectiveDeviceType extends IfcFlowControllerType {
+	unsettable attr IfcProtectiveDeviceTypeEnum[1] predefinedType;
+}
+
+class IfcProxy extends IfcProduct {
+	unsettable attr IfcObjectTypeEnum[1] proxyType;
+	unsettable attr STRING tag;
+}
+
+class IfcPumpType extends IfcFlowMovingDeviceType {
+	unsettable attr IfcPumpTypeEnum[1] predefinedType;
+}
+
+class IfcQuantityArea extends IfcPhysicalSimpleQuantity {
+	unsettable attr REAL[1] areaValue;
+}
+
+class IfcQuantityCount extends IfcPhysicalSimpleQuantity {
+	unsettable attr NUMBER[1] countValue;
+}
+
+class IfcQuantityLength extends IfcPhysicalSimpleQuantity {
+	unsettable attr REAL[1] lengthValue;
+}
+
+class IfcQuantityTime extends IfcPhysicalSimpleQuantity {
+	unsettable attr REAL[1] timeValue;
+}
+
+class IfcQuantityVolume extends IfcPhysicalSimpleQuantity {
+	unsettable attr REAL[1] volumeValue;
+}
+
+class IfcQuantityWeight extends IfcPhysicalSimpleQuantity {
+	unsettable attr REAL[1] weightValue;
+}
+
+class IfcRadiusDimension extends IfcDimensionCurveDirectedCallout {
+}
+
+class IfcRailing extends IfcBuildingElement {
+	unsettable attr IfcRailingTypeEnum predefinedType;
+}
+
+class IfcRailingType extends IfcBuildingElementType {
+	unsettable attr IfcRailingTypeEnum[1] predefinedType;
+}
+
+class IfcRamp extends IfcBuildingElement {
+	unsettable attr IfcRampTypeEnum[1] shapeType;
+}
+
+class IfcRampFlight extends IfcBuildingElement {
+}
+
+class IfcRampFlightType extends IfcBuildingElementType {
+	unsettable attr IfcRampFlightTypeEnum[1] predefinedType;
+}
+
+class IfcRationalBezierCurve extends IfcBezierCurve {
+	!unique unsettable attr REAL[2..*] weightsData;
+}
+
+class IfcRectangleHollowProfileDef extends IfcRectangleProfileDef {
+	unsettable attr REAL[1] wallThickness;
+	unsettable attr REAL innerFilletRadius;
+	unsettable attr REAL outerFilletRadius;
+}
+
+class IfcRectangleProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] xDim;
+	unsettable attr REAL[1] yDim;
+}
+
+class IfcRectangularPyramid extends IfcCsgPrimitive3D {
+	unsettable attr REAL[1] xLength;
+	unsettable attr REAL[1] yLength;
+	unsettable attr REAL[1] height;
+}
+
+class IfcRectangularTrimmedSurface extends IfcBoundedSurface {
+	ref IfcSurface basisSurface;
+	unsettable attr REAL[1] u1;
+	unsettable attr REAL[1] v1;
+	unsettable attr REAL[1] u2;
+	unsettable attr REAL[1] v2;
+	unsettable attr BOOLEAN[1] usense;
+	unsettable attr BOOLEAN[1] vsense;
+}
+
+class IfcReferencesValueDocument {
+	ref IfcDocumentSelect referencedDocument;
+	!ordered ref IfcAppliedValue[*]#valuesReferenced referencingValues;
+	unsettable attr STRING name;
+	unsettable attr STRING description;
+}
+
+class IfcRegularTimeSeries extends IfcTimeSeries {
+	unsettable attr REAL[1] timeStep;
+	ref IfcTimeSeriesValue[*] values;
+}
+
+class IfcReinforcementBarProperties {
+	unsettable attr REAL[1] totalCrossSectionArea;
+	unsettable attr STRING[1] steelGrade;
+	unsettable attr IfcReinforcingBarSurfaceEnum barSurface;
+	unsettable attr REAL effectiveDepth;
+	unsettable attr REAL nominalBarDiameter;
+	unsettable attr NUMBER barCount;
+}
+
+class IfcReinforcementDefinitionProperties extends IfcPropertySetDefinition {
+	unsettable attr STRING definitionType;
+	ref IfcSectionReinforcementProperties[*] reinforcementSectionDefinitions;
+}
+
+class IfcReinforcingBar extends IfcReinforcingElement {
+	unsettable attr REAL[1] nominalDiameter;
+	unsettable attr REAL[1] crossSectionArea;
+	unsettable attr REAL barLength;
+	unsettable attr IfcReinforcingBarRoleEnum[1] barRole;
+	unsettable attr IfcReinforcingBarSurfaceEnum barSurface;
+}
+
+class IfcReinforcingElement extends IfcBuildingElementComponent {
+	unsettable attr STRING steelGrade;
+}
+
+class IfcReinforcingMesh extends IfcReinforcingElement {
+	unsettable attr REAL meshLength;
+	unsettable attr REAL meshWidth;
+	unsettable attr REAL[1] longitudinalBarNominalDiameter;
+	unsettable attr REAL[1] transverseBarNominalDiameter;
+	unsettable attr REAL[1] longitudinalBarCrossSectionArea;
+	unsettable attr REAL[1] transverseBarCrossSectionArea;
+	unsettable attr REAL[1] longitudinalBarSpacing;
+	unsettable attr REAL[1] transverseBarSpacing;
+}
+
+class IfcRelAggregates extends IfcRelDecomposes {
+}
+
+class IfcRelAssigns extends IfcRelationship {
+	!ordered ref IfcObjectDefinition[*]#hasAssignments relatedObjects;
+	unsettable attr IfcObjectTypeEnum relatedObjectsType;
+}
+
+class IfcRelAssignsTasks extends IfcRelAssignsToControl {
+	ref IfcScheduleTimeControl#scheduleTimeControlAssigned timeForTask;
+}
+
+class IfcRelAssignsToActor extends IfcRelAssigns {
+	ref IfcActor#isActingUpon relatingActor;
+	ref IfcActorRole actingRole;
+}
+
+class IfcRelAssignsToControl extends IfcRelAssigns {
+	ref IfcControl#controls relatingControl;
+}
+
+class IfcRelAssignsToGroup extends IfcRelAssigns {
+	ref IfcGroup#isGroupedBy relatingGroup;
+}
+
+class IfcRelAssignsToProcess extends IfcRelAssigns {
+	ref IfcProcess#operatesOn relatingProcess;
+	ref IfcMeasureWithUnit quantityInProcess;
+}
+
+class IfcRelAssignsToProduct extends IfcRelAssigns {
+	ref IfcProduct#referencedBy relatingProduct;
+}
+
+class IfcRelAssignsToProjectOrder extends IfcRelAssignsToControl {
+}
+
+class IfcRelAssignsToResource extends IfcRelAssigns {
+	ref IfcResource#resourceOf relatingResource;
+}
+
+class IfcRelAssociates extends IfcRelationship {
+	!ordered ref IfcRoot[*]#hasAssociations relatedObjects;
+}
+
+class IfcRelAssociatesAppliedValue extends IfcRelAssociates {
+	ref IfcAppliedValue relatingAppliedValue;
+}
+
+class IfcRelAssociatesApproval extends IfcRelAssociates {
+	ref IfcApproval relatingApproval;
+}
+
+class IfcRelAssociatesClassification extends IfcRelAssociates {
+	ref IfcClassificationNotationSelect relatingClassification;
+}
+
+class IfcRelAssociatesConstraint extends IfcRelAssociates {
+	unsettable attr STRING[1] intent;
+	ref IfcConstraint relatingConstraint;
+}
+
+class IfcRelAssociatesDocument extends IfcRelAssociates {
+	ref IfcDocumentSelect relatingDocument;
+}
+
+class IfcRelAssociatesLibrary extends IfcRelAssociates {
+	ref IfcLibrarySelect relatingLibrary;
+}
+
+class IfcRelAssociatesMaterial extends IfcRelAssociates {
+	ref IfcMaterialSelect relatingMaterial;
+}
+
+class IfcRelAssociatesProfileProperties extends IfcRelAssociates {
+	ref IfcProfileProperties relatingProfileProperties;
+	ref IfcShapeAspect profileSectionLocation;
+	val IfcOrientationSelect profileOrientation;
+}
+
+class IfcRelConnects extends IfcRelationship {
+}
+
+class IfcRelConnectsElements extends IfcRelConnects {
+	ref IfcConnectionGeometry connectionGeometry;
+	ref IfcElement#connectedTo relatingElement;
+	ref IfcElement#connectedFrom relatedElement;
+}
+
+class IfcRelConnectsPathElements extends IfcRelConnectsElements {
+	!unique unsettable attr INTEGER[*] relatingPriorities;
+	!unique unsettable attr INTEGER[*] relatedPriorities;
+	unsettable attr IfcConnectionTypeEnum[1] relatedConnectionType;
+	unsettable attr IfcConnectionTypeEnum[1] relatingConnectionType;
+}
+
+class IfcRelConnectsPortToElement extends IfcRelConnects {
+	ref IfcPort#containedIn relatingPort;
+	ref IfcElement#hasPorts relatedElement;
+}
+
+class IfcRelConnectsPorts extends IfcRelConnects {
+	ref IfcPort#connectedTo relatingPort;
+	ref IfcPort#connectedFrom relatedPort;
+	ref IfcElement realizingElement;
+}
+
+class IfcRelConnectsStructuralActivity extends IfcRelConnects {
+	ref IfcStructuralActivityAssignmentSelect#assignedStructuralActivity relatingElement;
+	ref IfcStructuralActivity#assignedToStructuralItem relatedStructuralActivity;
+}
+
+class IfcRelConnectsStructuralElement extends IfcRelConnects {
+	ref IfcElement#hasStructuralMember relatingElement;
+	ref IfcStructuralMember#referencesElement relatedStructuralMember;
+}
+
+class IfcRelConnectsStructuralMember extends IfcRelConnects {
+	ref IfcStructuralMember#connectedBy relatingStructuralMember;
+	ref IfcStructuralConnection#connectsStructuralMembers relatedStructuralConnection;
+	ref IfcBoundaryCondition appliedCondition;
+	ref IfcStructuralConnectionCondition additionalConditions;
+	unsettable attr REAL supportedLength;
+	ref IfcAxis2Placement3D conditionCoordinateSystem;
+}
+
+class IfcRelConnectsWithEccentricity extends IfcRelConnectsStructuralMember {
+	ref IfcConnectionGeometry connectionConstraint;
+}
+
+class IfcRelConnectsWithRealizingElements extends IfcRelConnectsElements {
+	!ordered ref IfcElement[*]#isConnectionRealization realizingElements;
+	unsettable attr STRING connectionType;
+}
+
+class IfcRelContainedInSpatialStructure extends IfcRelConnects {
+	!ordered ref IfcProduct[*]#containedInStructure relatedElements;
+	ref IfcSpatialStructureElement#containsElements relatingStructure;
+}
+
+class IfcRelCoversBldgElements extends IfcRelConnects {
+	ref IfcElement#hasCoverings relatingBuildingElement;
+	!ordered ref IfcCovering[*]#covers relatedCoverings;
+}
+
+class IfcRelCoversSpaces extends IfcRelConnects {
+	ref IfcSpace#hasCoverings relatedSpace;
+	!ordered ref IfcCovering[*]#coversSpaces relatedCoverings;
+}
+
+class IfcRelDecomposes extends IfcRelationship {
+	ref IfcObjectDefinition#isDecomposedBy relatingObject;
+	!ordered ref IfcObjectDefinition[*]#decomposes relatedObjects;
+}
+
+class IfcRelDefines extends IfcRelationship {
+	!ordered ref IfcObject[*]#isDefinedBy relatedObjects;
+}
+
+class IfcRelDefinesByProperties extends IfcRelDefines {
+	ref IfcPropertySetDefinition#propertyDefinitionOf relatingPropertyDefinition;
+}
+
+class IfcRelDefinesByType extends IfcRelDefines {
+	ref IfcTypeObject#objectTypeOf relatingType;
+}
+
+class IfcRelFillsElement extends IfcRelConnects {
+	ref IfcOpeningElement#hasFillings relatingOpeningElement;
+	ref IfcElement#fillsVoids relatedBuildingElement;
+}
+
+class IfcRelFlowControlElements extends IfcRelConnects {
+	!ordered ref IfcDistributionControlElement[*]#assignedToFlowElement relatedControlElements;
+	ref IfcDistributionFlowElement#hasControlElements relatingFlowElement;
+}
+
+class IfcRelInteractionRequirements extends IfcRelConnects {
+	unsettable attr NUMBER dailyInteraction;
+	unsettable attr REAL importanceRating;
+	ref IfcSpatialStructureElement locationOfInteraction;
+	ref IfcSpaceProgram#hasInteractionReqsFrom relatedSpaceProgram;
+	ref IfcSpaceProgram#hasInteractionReqsTo relatingSpaceProgram;
+}
+
+class IfcRelNests extends IfcRelDecomposes {
+}
+
+class IfcRelOccupiesSpaces extends IfcRelAssignsToActor {
+}
+
+class IfcRelOverridesProperties extends IfcRelDefinesByProperties {
+	!ordered ref IfcProperty[*] overridingProperties;
+}
+
+class IfcRelProjectsElement extends IfcRelConnects {
+	ref IfcElement#hasProjections relatingElement;
+	ref IfcFeatureElementAddition#projectsElements relatedFeatureElement;
+}
+
+class IfcRelReferencedInSpatialStructure extends IfcRelConnects {
+	!ordered ref IfcProduct[*]#referencedInStructures relatedElements;
+	ref IfcSpatialStructureElement#referencesElements relatingStructure;
+}
+
+class IfcRelSchedulesCostItems extends IfcRelAssignsToControl {
+}
+
+class IfcRelSequence extends IfcRelConnects {
+	ref IfcProcess#isPredecessorTo relatingProcess;
+	ref IfcProcess#isSuccessorFrom relatedProcess;
+	unsettable attr REAL[1] timeLag;
+	unsettable attr IfcSequenceEnum[1] sequenceType;
+}
+
+class IfcRelServicesBuildings extends IfcRelConnects {
+	ref IfcSystem#servicesBuildings relatingSystem;
+	!ordered ref IfcSpatialStructureElement[*]#servicedBySystems relatedBuildings;
+}
+
+class IfcRelSpaceBoundary extends IfcRelConnects {
+	ref IfcSpace#boundedBy relatingSpace;
+	ref IfcElement#providesBoundaries relatedBuildingElement;
+	ref IfcConnectionGeometry connectionGeometry;
+	unsettable attr IfcPhysicalOrVirtualEnum[1] physicalOrVirtualBoundary;
+	unsettable attr IfcInternalOrExternalEnum[1] internalOrExternalBoundary;
+}
+
+class IfcRelVoidsElement extends IfcRelConnects {
+	ref IfcElement#hasOpenings relatingBuildingElement;
+	ref IfcFeatureElementSubtraction#voidsElements relatedOpeningElement;
+}
+
+class IfcRelationship extends IfcRoot {
+}
+
+class IfcRelaxation {
+	unsettable attr REAL[1] relaxationValue;
+	unsettable attr REAL[1] initialStress;
+}
+
+class IfcRepresentation extends IfcLayeredItem {
+	ref IfcRepresentationContext#representationsInContext contextOfItems;
+	unsettable attr STRING representationIdentifier;
+	unsettable attr STRING representationType;
+	!ordered ref IfcRepresentationItem[*] items;
+	!ordered ref IfcRepresentationMap#mappedRepresentation representationMap;
+	!ordered ref IfcProductRepresentation#representations ofProductRepresentation;
+}
+
+class IfcRepresentationContext {
+	unsettable attr STRING contextIdentifier;
+	unsettable attr STRING contextType;
+	!ordered ref IfcRepresentation[*]#contextOfItems representationsInContext;
+}
+
+class IfcRepresentationItem extends IfcLayeredItem {
+	!ordered ref IfcStyledItem#item styledByItem;
+}
+
+class IfcRepresentationMap {
+	ref IfcAxis2Placement mappingOrigin;
+	ref IfcRepresentation#representationMap mappedRepresentation;
+	!ordered ref IfcMappedItem[*]#mappingSource mapUsage;
+}
+
+class IfcResource extends IfcObject {
+	!ordered ref IfcRelAssignsToResource[*]#relatingResource resourceOf;
+}
+
+class IfcRevolvedAreaSolid extends IfcSweptAreaSolid {
+	ref IfcAxis1Placement axis;
+	unsettable attr REAL[1] angle;
+}
+
+class IfcRibPlateProfileProperties extends IfcProfileProperties {
+	unsettable attr REAL thickness;
+	unsettable attr REAL ribHeight;
+	unsettable attr REAL ribWidth;
+	unsettable attr REAL ribSpacing;
+	unsettable attr IfcRibPlateDirectionEnum[1] direction;
+}
+
+class IfcRightCircularCone extends IfcCsgPrimitive3D {
+	unsettable attr REAL[1] height;
+	unsettable attr REAL[1] bottomRadius;
+}
+
+class IfcRightCircularCylinder extends IfcCsgPrimitive3D {
+	unsettable attr REAL[1] height;
+	unsettable attr REAL[1] radius;
+}
+
+class IfcRoof extends IfcBuildingElement {
+	unsettable attr IfcRoofTypeEnum[1] shapeType;
+}
+
+class IfcRoot {
+	unsettable id attr STRING[1] globalId;
+	ref IfcOwnerHistory ownerHistory;
+	unsettable attr STRING name;
+	unsettable attr STRING description;
+	!ordered ref IfcRelAssociates[*]#relatedObjects hasAssociations;
+}
+
+class IfcRoundedEdgeFeature extends IfcEdgeFeature {
+	unsettable attr REAL radius;
+}
+
+class IfcRoundedRectangleProfileDef extends IfcRectangleProfileDef {
+	unsettable attr REAL[1] roundingRadius;
+}
+
+class IfcSIUnit extends IfcNamedUnit {
+	unsettable attr IfcSIPrefix prefix;
+	unsettable attr IfcSIUnitName[1] name;
+}
+
+class IfcSanitaryTerminalType extends IfcFlowTerminalType {
+	unsettable attr IfcSanitaryTerminalTypeEnum[1] predefinedType;
+}
+
+class IfcScheduleTimeControl extends IfcControl {
+	ref IfcDateTimeSelect actualStart;
+	ref IfcDateTimeSelect earlyStart;
+	ref IfcDateTimeSelect lateStart;
+	ref IfcDateTimeSelect scheduleStart;
+	ref IfcDateTimeSelect actualFinish;
+	ref IfcDateTimeSelect earlyFinish;
+	ref IfcDateTimeSelect lateFinish;
+	ref IfcDateTimeSelect scheduleFinish;
+	unsettable attr REAL scheduleDuration;
+	unsettable attr REAL actualDuration;
+	unsettable attr REAL remainingTime;
+	unsettable attr REAL freeFloat;
+	unsettable attr REAL totalFloat;
+	unsettable attr BOOLEAN isCritical;
+	ref IfcDateTimeSelect statusTime;
+	unsettable attr REAL startFloat;
+	unsettable attr REAL finishFloat;
+	unsettable attr REAL completion;
+	ref IfcRelAssignsTasks#timeForTask scheduleTimeControlAssigned;
+}
+
+class IfcSectionProperties {
+	unsettable attr IfcSectionTypeEnum[1] sectionType;
+	ref IfcProfileDef startProfile;
+	ref IfcProfileDef endProfile;
+}
+
+class IfcSectionReinforcementProperties {
+	unsettable attr REAL[1] longitudinalStartPosition;
+	unsettable attr REAL[1] longitudinalEndPosition;
+	unsettable attr REAL transversePosition;
+	unsettable attr IfcReinforcingBarRoleEnum[1] reinforcementRole;
+	ref IfcSectionProperties sectionDefinition;
+	!ordered ref IfcReinforcementBarProperties[*] crossSectionReinforcementDefinitions;
+}
+
+class IfcSectionedSpine extends IfcGeometricRepresentationItem {
+	ref IfcCompositeCurve spineCurve;
+	ref IfcProfileDef[*] crossSections;
+	ref IfcAxis2Placement3D[*] crossSectionPositions;
+}
+
+class IfcSensorType extends IfcDistributionControlElementType {
+	unsettable attr IfcSensorTypeEnum[1] predefinedType;
+}
+
+class IfcServiceLife extends IfcControl {
+	unsettable attr IfcServiceLifeTypeEnum[1] serviceLifeType;
+	unsettable attr REAL[1] serviceLifeDuration;
+}
+
+class IfcServiceLifeFactor extends IfcPropertySetDefinition {
+	unsettable attr IfcServiceLifeFactorTypeEnum[1] predefinedType;
+	val IfcMeasureValue upperValue;
+	val IfcMeasureValue mostUsedValue;
+	val IfcMeasureValue lowerValue;
+}
+
+class IfcShapeAspect {
+	ref IfcShapeModel[*]#ofShapeAspect shapeRepresentations;
+	unsettable attr STRING name;
+	unsettable attr STRING description;
+	unsettable attr Boolean[1] productDefinitional;
+	ref IfcProductDefinitionShape#hasShapeAspects partOfProductDefinitionShape;
+}
+
+class IfcShapeModel extends IfcRepresentation {
+	!ordered ref IfcShapeAspect#shapeRepresentations ofShapeAspect;
+}
+
+class IfcShapeRepresentation extends IfcShapeModel {
+}
+
+class IfcShellBasedSurfaceModel extends IfcGeometricRepresentationItem {
+	!ordered ref IfcShell[*] sbsmBoundary;
+}
+
+class IfcSimpleProperty extends IfcProperty {
+}
+
+class IfcSite extends IfcSpatialStructureElement {
+	!unique unsettable attr INTEGER[0..3] refLatitude;
+	!unique unsettable attr INTEGER[0..3] refLongitude;
+	unsettable attr REAL refElevation;
+	unsettable attr STRING landTitleNumber;
+	ref IfcPostalAddress siteAddress;
+}
+
+class IfcSlab extends IfcBuildingElement {
+	unsettable attr IfcSlabTypeEnum predefinedType;
+}
+
+class IfcSlabType extends IfcBuildingElementType {
+	unsettable attr IfcSlabTypeEnum[1] predefinedType;
+}
+
+class IfcSlippageConnectionCondition extends IfcStructuralConnectionCondition {
+	unsettable attr REAL slippageX;
+	unsettable attr REAL slippageY;
+	unsettable attr REAL slippageZ;
+}
+
+class IfcSolidModel extends IfcBooleanOperand, IfcGeometricRepresentationItem {
+}
+
+class IfcSoundProperties extends IfcPropertySetDefinition {
+	unsettable attr BOOLEAN[1] isAttenuating;
+	unsettable attr IfcSoundScaleEnum soundScale;
+	ref IfcSoundValue[0..8] soundValues;
+}
+
+class IfcSoundValue extends IfcPropertySetDefinition {
+	ref IfcTimeSeries soundLevelTimeSeries;
+	unsettable attr REAL[1] frequency;
+	val IfcDerivedMeasureValue soundLevelSingleValue;
+}
+
+class IfcSpace extends IfcSpatialStructureElement {
+	unsettable attr IfcInternalOrExternalEnum[1] interiorOrExteriorSpace;
+	unsettable attr REAL elevationWithFlooring;
+	!ordered ref IfcRelCoversSpaces[*]#relatedSpace hasCoverings;
+	!ordered ref IfcRelSpaceBoundary[*]#relatingSpace boundedBy;
+}
+
+class IfcSpaceHeaterType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcSpaceHeaterTypeEnum[1] predefinedType;
+}
+
+class IfcSpaceProgram extends IfcControl {
+	unsettable attr STRING[1] spaceProgramIdentifier;
+	unsettable attr REAL maxRequiredArea;
+	unsettable attr REAL minRequiredArea;
+	ref IfcSpatialStructureElement requestedLocation;
+	unsettable attr REAL[1] standardRequiredArea;
+	!ordered ref IfcRelInteractionRequirements[*]#relatedSpaceProgram hasInteractionReqsFrom;
+	!ordered ref IfcRelInteractionRequirements[*]#relatingSpaceProgram hasInteractionReqsTo;
+}
+
+class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition {
+	unsettable attr REAL applicableValueRatio;
+	unsettable attr IfcThermalLoadSourceEnum[1] thermalLoadSource;
+	unsettable attr IfcPropertySourceEnum[1] propertySource;
+	unsettable attr STRING sourceDescription;
+	unsettable attr REAL[1] maximumValue;
+	unsettable attr REAL minimumValue;
+	ref IfcTimeSeries thermalLoadTimeSeriesValues;
+	unsettable attr STRING userDefinedThermalLoadSource;
+	unsettable attr STRING userDefinedPropertySource;
+	unsettable attr IfcThermalLoadTypeEnum[1] thermalLoadType;
+}
+
+class IfcSpaceType extends IfcSpatialStructureElementType {
+	unsettable attr IfcSpaceTypeEnum[1] predefinedType;
+}
+
+class IfcSpatialStructureElement extends IfcProduct {
+	unsettable attr STRING longName;
+	unsettable attr IfcElementCompositionEnum[1] compositionType;
+	!ordered ref IfcRelReferencedInSpatialStructure[*]#relatingStructure referencesElements;
+	!ordered ref IfcRelServicesBuildings[*]#relatedBuildings servicedBySystems;
+	!ordered ref IfcRelContainedInSpatialStructure[*]#relatingStructure containsElements;
+}
+
+class IfcSpatialStructureElementType extends IfcElementType {
+}
+
+class IfcSphere extends IfcCsgPrimitive3D {
+	unsettable attr REAL[1] radius;
+}
+
+class IfcStackTerminalType extends IfcFlowTerminalType {
+	unsettable attr IfcStackTerminalTypeEnum[1] predefinedType;
+}
+
+class IfcStair extends IfcBuildingElement {
+	unsettable attr IfcStairTypeEnum[1] shapeType;
+}
+
+class IfcStairFlight extends IfcBuildingElement {
+	unsettable attr INTEGER numberOfRiser;
+	unsettable attr INTEGER numberOfTreads;
+	unsettable attr REAL riserHeight;
+	unsettable attr REAL treadLength;
+}
+
+class IfcStairFlightType extends IfcBuildingElementType {
+	unsettable attr IfcStairFlightTypeEnum[1] predefinedType;
+}
+
+class IfcStructuralAction extends IfcStructuralActivity {
+	unsettable attr BOOLEAN[1] destabilizingLoad;
+	ref IfcStructuralReaction#causes causedBy;
+}
+
+class IfcStructuralActivity extends IfcProduct {
+	ref IfcStructuralLoad appliedLoad;
+	unsettable attr IfcGlobalOrLocalEnum[1] globalOrLocal;
+	ref IfcRelConnectsStructuralActivity#relatedStructuralActivity assignedToStructuralItem;
+}
+
+class IfcStructuralAnalysisModel extends IfcSystem {
+	unsettable attr IfcAnalysisModelTypeEnum[1] predefinedType;
+	ref IfcAxis2Placement3D orientationOf2DPlane;
+	!ordered ref IfcStructuralLoadGroup[*]#loadGroupFor loadedBy;
+	!ordered ref IfcStructuralResultGroup[*]#resultGroupFor hasResults;
+}
+
+class IfcStructuralConnection extends IfcStructuralItem {
+	ref IfcBoundaryCondition appliedCondition;
+	!ordered ref IfcRelConnectsStructuralMember[*]#relatedStructuralConnection connectsStructuralMembers;
+}
+
+class IfcStructuralConnectionCondition {
+	unsettable attr STRING name;
+}
+
+class IfcStructuralCurveConnection extends IfcStructuralConnection {
+}
+
+class IfcStructuralCurveMember extends IfcStructuralMember {
+	unsettable attr IfcStructuralCurveTypeEnum[1] predefinedType;
+}
+
+class IfcStructuralCurveMemberVarying extends IfcStructuralCurveMember {
+}
+
+class IfcStructuralItem extends IfcStructuralActivityAssignmentSelect, IfcProduct {
+}
+
+class IfcStructuralLinearAction extends IfcStructuralAction {
+	unsettable attr IfcProjectedOrTrueLengthEnum[1] projectedOrTrue;
+}
+
+class IfcStructuralLinearActionVarying extends IfcStructuralLinearAction {
+	ref IfcShapeAspect varyingAppliedLoadLocation;
+	ref IfcStructuralLoad[*] subsequentAppliedLoads;
+}
+
+class IfcStructuralLoad {
+	unsettable attr STRING name;
+}
+
+class IfcStructuralLoadGroup extends IfcGroup {
+	unsettable attr IfcLoadGroupTypeEnum[1] predefinedType;
+	unsettable attr IfcActionTypeEnum[1] actionType;
+	unsettable attr IfcActionSourceTypeEnum[1] actionSource;
+	unsettable attr REAL coefficient;
+	unsettable attr STRING purpose;
+	!ordered ref IfcStructuralResultGroup#resultForLoadGroup sourceOfResultGroup;
+	!ordered ref IfcStructuralAnalysisModel[*]#loadedBy loadGroupFor;
+}
+
+class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic {
+	unsettable attr REAL linearForceX;
+	unsettable attr REAL linearForceY;
+	unsettable attr REAL linearForceZ;
+	unsettable attr REAL linearMomentX;
+	unsettable attr REAL linearMomentY;
+	unsettable attr REAL linearMomentZ;
+}
+
+class IfcStructuralLoadPlanarForce extends IfcStructuralLoadStatic {
+	unsettable attr REAL planarForceX;
+	unsettable attr REAL planarForceY;
+	unsettable attr REAL planarForceZ;
+}
+
+class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStatic {
+	unsettable attr REAL displacementX;
+	unsettable attr REAL displacementY;
+	unsettable attr REAL displacementZ;
+	unsettable attr REAL rotationalDisplacementRX;
+	unsettable attr REAL rotationalDisplacementRY;
+	unsettable attr REAL rotationalDisplacementRZ;
+}
+
+class IfcStructuralLoadSingleDisplacementDistortion extends IfcStructuralLoadSingleDisplacement {
+	unsettable attr REAL distortion;
+}
+
+class IfcStructuralLoadSingleForce extends IfcStructuralLoadStatic {
+	unsettable attr REAL forceX;
+	unsettable attr REAL forceY;
+	unsettable attr REAL forceZ;
+	unsettable attr REAL momentX;
+	unsettable attr REAL momentY;
+	unsettable attr REAL momentZ;
+}
+
+class IfcStructuralLoadSingleForceWarping extends IfcStructuralLoadSingleForce {
+	unsettable attr REAL warpingMoment;
+}
+
+class IfcStructuralLoadStatic extends IfcStructuralLoad {
+}
+
+class IfcStructuralLoadTemperature extends IfcStructuralLoadStatic {
+	unsettable attr REAL deltaT_Constant;
+	unsettable attr REAL deltaT_Y;
+	unsettable attr REAL deltaT_Z;
+}
+
+class IfcStructuralMember extends IfcStructuralItem {
+	!ordered ref IfcRelConnectsStructuralElement[*]#relatedStructuralMember referencesElement;
+	!ordered ref IfcRelConnectsStructuralMember[*]#relatingStructuralMember connectedBy;
+}
+
+class IfcStructuralPlanarAction extends IfcStructuralAction {
+	unsettable attr IfcProjectedOrTrueLengthEnum[1] projectedOrTrue;
+}
+
+class IfcStructuralPlanarActionVarying extends IfcStructuralPlanarAction {
+	ref IfcShapeAspect varyingAppliedLoadLocation;
+	ref IfcStructuralLoad[*] subsequentAppliedLoads;
+}
+
+class IfcStructuralPointAction extends IfcStructuralAction {
+}
+
+class IfcStructuralPointConnection extends IfcStructuralConnection {
+}
+
+class IfcStructuralPointReaction extends IfcStructuralReaction {
+}
+
+class IfcStructuralProfileProperties extends IfcGeneralProfileProperties {
+	unsettable attr REAL torsionalConstantX;
+	unsettable attr REAL momentOfInertiaYZ;
+	unsettable attr REAL momentOfInertiaY;
+	unsettable attr REAL momentOfInertiaZ;
+	unsettable attr REAL warpingConstant;
+	unsettable attr REAL shearCentreZ;
+	unsettable attr REAL shearCentreY;
+	unsettable attr REAL shearDeformationAreaZ;
+	unsettable attr REAL shearDeformationAreaY;
+	unsettable attr REAL maximumSectionModulusY;
+	unsettable attr REAL minimumSectionModulusY;
+	unsettable attr REAL maximumSectionModulusZ;
+	unsettable attr REAL minimumSectionModulusZ;
+	unsettable attr REAL torsionalSectionModulus;
+	unsettable attr REAL centreOfGravityInX;
+	unsettable attr REAL centreOfGravityInY;
+}
+
+class IfcStructuralReaction extends IfcStructuralActivity {
+	!ordered ref IfcStructuralAction[*]#causedBy causes;
+}
+
+class IfcStructuralResultGroup extends IfcGroup {
+	unsettable attr IfcAnalysisTheoryTypeEnum[1] theoryType;
+	ref IfcStructuralLoadGroup#sourceOfResultGroup resultForLoadGroup;
+	unsettable attr BOOLEAN[1] isLinear;
+	!ordered ref IfcStructuralAnalysisModel#hasResults resultGroupFor;
+}
+
+class IfcStructuralSteelProfileProperties extends IfcStructuralProfileProperties {
+	unsettable attr REAL shearAreaZ;
+	unsettable attr REAL shearAreaY;
+	unsettable attr REAL plasticShapeFactorY;
+	unsettable attr REAL plasticShapeFactorZ;
+}
+
+class IfcStructuralSurfaceConnection extends IfcStructuralConnection {
+}
+
+class IfcStructuralSurfaceMember extends IfcStructuralMember {
+	unsettable attr IfcStructuralSurfaceTypeEnum[1] predefinedType;
+	unsettable attr REAL thickness;
+}
+
+class IfcStructuralSurfaceMemberVarying extends IfcStructuralSurfaceMember {
+	!unique unsettable attr REAL[2..*] subsequentThickness;
+	ref IfcShapeAspect varyingThicknessLocation;
+}
+
+class IfcStructuredDimensionCallout extends IfcDraughtingCallout {
+}
+
+class IfcStyleModel extends IfcRepresentation {
+}
+
+class IfcStyledItem extends IfcRepresentationItem {
+	ref IfcRepresentationItem#styledByItem item;
+	!ordered ref IfcPresentationStyleAssignment[*] styles;
+	unsettable attr STRING name;
+}
+
+class IfcStyledRepresentation extends IfcStyleModel {
+}
+
+class IfcSubContractResource extends IfcConstructionResource {
+	ref IfcActorSelect subContractor;
+	unsettable attr STRING jobDescription;
+}
+
+class IfcSubedge extends IfcEdge {
+	ref IfcEdge parentEdge;
+}
+
+class IfcSurface extends IfcGeometricSetSelect, IfcSurfaceOrFaceSurface, IfcGeometricRepresentationItem {
+}
+
+class IfcSurfaceCurveSweptAreaSolid extends IfcSweptAreaSolid {
+	ref IfcCurve directrix;
+	unsettable attr REAL[1] startParam;
+	unsettable attr REAL[1] endParam;
+	ref IfcSurface referenceSurface;
+}
+
+class IfcSurfaceOfLinearExtrusion extends IfcSweptSurface {
+	ref IfcDirection extrudedDirection;
+	unsettable attr REAL[1] depth;
+}
+
+class IfcSurfaceOfRevolution extends IfcSweptSurface {
+	ref IfcAxis1Placement axisPosition;
+}
+
+class IfcSurfaceStyle extends IfcPresentationStyle {
+	unsettable attr IfcSurfaceSide[1] side;
+	!ordered ref IfcSurfaceStyleElementSelect[0..5] styles;
+}
+
+class IfcSurfaceStyleLighting extends IfcSurfaceStyleElementSelect {
+	ref IfcColourRgb diffuseTransmissionColour;
+	ref IfcColourRgb diffuseReflectionColour;
+	ref IfcColourRgb transmissionColour;
+	ref IfcColourRgb reflectanceColour;
+}
+
+class IfcSurfaceStyleRefraction extends IfcSurfaceStyleElementSelect {
+	unsettable attr REAL refractionIndex;
+	unsettable attr REAL dispersionFactor;
+}
+
+class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading {
+	unsettable attr REAL transparency;
+	val IfcColourOrFactor diffuseColour;
+	val IfcColourOrFactor transmissionColour;
+	val IfcColourOrFactor diffuseTransmissionColour;
+	val IfcColourOrFactor reflectionColour;
+	val IfcColourOrFactor specularColour;
+	val IfcSpecularHighlightSelect specularHighlight;
+	unsettable attr IfcReflectanceMethodEnum[1] reflectanceMethod;
+}
+
+class IfcSurfaceStyleShading extends IfcSurfaceStyleElementSelect {
+	ref IfcColourRgb surfaceColour;
+}
+
+class IfcSurfaceStyleWithTextures extends IfcSurfaceStyleElementSelect {
+	ref IfcSurfaceTexture[*] textures;
+}
+
+class IfcSurfaceTexture {
+	unsettable attr BOOLEAN[1] repeatS;
+	unsettable attr BOOLEAN[1] repeatT;
+	unsettable attr IfcSurfaceTextureEnum[1] textureType;
+	ref IfcCartesianTransformationOperator2D textureTransform;
+}
+
+class IfcSweptAreaSolid extends IfcSolidModel {
+	ref IfcProfileDef sweptArea;
+	ref IfcAxis2Placement3D position;
+}
+
+class IfcSweptDiskSolid extends IfcSolidModel {
+	ref IfcCurve directrix;
+	unsettable attr REAL[1] radius;
+	unsettable attr REAL innerRadius;
+	unsettable attr REAL[1] startParam;
+	unsettable attr REAL[1] endParam;
+}
+
+class IfcSweptSurface extends IfcSurface {
+	ref IfcProfileDef sweptCurve;
+	ref IfcAxis2Placement3D position;
+}
+
+class IfcSwitchingDeviceType extends IfcFlowControllerType {
+	unsettable attr IfcSwitchingDeviceTypeEnum[1] predefinedType;
+}
+
+class IfcSymbolStyle extends IfcPresentationStyle {
+	ref IfcSymbolStyleSelect styleOfSymbol;
+}
+
+class IfcSystem extends IfcGroup {
+	!ordered ref IfcRelServicesBuildings#relatingSystem servicesBuildings;
+}
+
+class IfcSystemFurnitureElementType extends IfcFurnishingElementType {
+}
+
+class IfcTShapeProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] depth;
+	unsettable attr REAL[1] flangeWidth;
+	unsettable attr REAL[1] webThickness;
+	unsettable attr REAL[1] flangeThickness;
+	unsettable attr REAL filletRadius;
+	unsettable attr REAL flangeEdgeRadius;
+	unsettable attr REAL webEdgeRadius;
+	unsettable attr REAL webSlope;
+	unsettable attr REAL flangeSlope;
+	unsettable attr REAL centreOfGravityInY;
+}
+
+class IfcTable {
+	unsettable attr STRING[1] name;
+	ref IfcTableRow[*]#ofTable rows;
+}
+
+class IfcTableRow {
+	val IfcValue[*] rowCells;
+	unsettable attr BOOLEAN[1] isHeading;
+	ref IfcTable#rows ofTable;
+}
+
+class IfcTankType extends IfcFlowStorageDeviceType {
+	unsettable attr IfcTankTypeEnum[1] predefinedType;
+}
+
+class IfcTask extends IfcProcess {
+	unsettable attr STRING[1] taskId;
+	unsettable attr STRING status;
+	unsettable attr STRING workMethod;
+	unsettable attr BOOLEAN[1] isMilestone;
+	unsettable attr INTEGER priority;
+}
+
+class IfcTelecomAddress extends IfcAddress {
+	!unique unsettable attr STRING[*] telephoneNumbers;
+	!unique unsettable attr STRING[*] facsimileNumbers;
+	unsettable attr STRING pagerNumber;
+	!unique unsettable attr STRING[*] electronicMailAddresses;
+	unsettable attr STRING wWWHomePageURL;
+}
+
+class IfcTendon extends IfcReinforcingElement {
+	unsettable attr IfcTendonTypeEnum[1] predefinedType;
+	unsettable attr REAL[1] nominalDiameter;
+	unsettable attr REAL[1] crossSectionArea;
+	unsettable attr REAL tensionForce;
+	unsettable attr REAL preStress;
+	unsettable attr REAL frictionCoefficient;
+	unsettable attr REAL anchorageSlip;
+	unsettable attr REAL minCurvatureRadius;
+}
+
+class IfcTendonAnchor extends IfcReinforcingElement {
+}
+
+class IfcTerminatorSymbol extends IfcAnnotationSymbolOccurrence {
+	ref IfcAnnotationCurveOccurrence#annotatedBySymbols annotatedCurve;
+}
+
+class IfcTextLiteral extends IfcGeometricRepresentationItem {
+	unsettable attr STRING[1] literal;
+	ref IfcAxis2Placement placement;
+	unsettable attr IfcTextPath[1] path;
+}
+
+class IfcTextLiteralWithExtent extends IfcTextLiteral {
+	ref IfcPlanarExtent extent;
+	unsettable attr STRING[1] boxAlignment;
+}
+
+class IfcTextStyle extends IfcPresentationStyle {
+	ref IfcCharacterStyleSelect textCharacterAppearance;
+	ref IfcTextStyleSelect textStyle;
+	ref IfcTextFontSelect textFontStyle;
+}
+
+class IfcTextStyleFontModel extends IfcPreDefinedTextFont {
+	!unique unsettable attr STRING[*] fontFamily;
+	unsettable attr STRING fontStyle;
+	unsettable attr STRING fontVariant;
+	unsettable attr STRING fontWeight;
+	val IfcSizeSelect fontSize;
+}
+
+class IfcTextStyleForDefinedFont extends IfcCharacterStyleSelect {
+	ref IfcColour colour;
+	ref IfcColour backgroundColour;
+}
+
+class IfcTextStyleTextModel extends IfcTextStyleSelect {
+	val IfcSizeSelect textIndent;
+	unsettable attr STRING textAlign;
+	unsettable attr STRING textDecoration;
+	val IfcSizeSelect letterSpacing;
+	val IfcSizeSelect wordSpacing;
+	unsettable attr STRING textTransform;
+	val IfcSizeSelect lineHeight;
+}
+
+class IfcTextStyleWithBoxCharacteristics extends IfcTextStyleSelect {
+	unsettable attr REAL boxHeight;
+	unsettable attr REAL boxWidth;
+	unsettable attr REAL boxSlantAngle;
+	unsettable attr REAL boxRotateAngle;
+	val IfcSizeSelect characterSpacing;
+}
+
+class IfcTextureCoordinate {
+	!ordered ref IfcAnnotationSurface#textureCoordinates annotatedSurface;
+}
+
+class IfcTextureCoordinateGenerator extends IfcTextureCoordinate {
+	unsettable attr STRING[1] mode;
+	val IfcSimpleValue[*] parameter;
+}
+
+class IfcTextureMap extends IfcTextureCoordinate {
+	!ordered ref IfcVertexBasedTextureMap[*] textureMaps;
+}
+
+class IfcTextureVertex {
+	!unique unsettable attr REAL[2] coordinates;
+}
+
+class IfcThermalMaterialProperties extends IfcMaterialProperties {
+	unsettable attr REAL specificHeatCapacity;
+	unsettable attr REAL boilingPoint;
+	unsettable attr REAL freezingPoint;
+	unsettable attr REAL thermalConductivity;
+}
+
+class IfcTimeSeries extends IfcObjectReferenceSelect {
+	unsettable attr STRING[1] name;
+	unsettable attr STRING description;
+	ref IfcDateTimeSelect startTime;
+	ref IfcDateTimeSelect endTime;
+	unsettable attr IfcTimeSeriesDataTypeEnum[1] timeSeriesDataType;
+	unsettable attr IfcDataOriginEnum[1] dataOrigin;
+	unsettable attr STRING userDefinedDataOrigin;
+	ref IfcUnit unit;
+	!ordered ref IfcTimeSeriesReferenceRelationship#referencedTimeSeries documentedBy;
+}
+
+class IfcTimeSeriesReferenceRelationship {
+	ref IfcTimeSeries#documentedBy referencedTimeSeries;
+	!ordered ref IfcDocumentSelect[*] timeSeriesReferences;
+}
+
+class IfcTimeSeriesSchedule extends IfcControl {
+	ref IfcDateTimeSelect[*] applicableDates;
+	unsettable attr IfcTimeSeriesScheduleTypeEnum[1] timeSeriesScheduleType;
+	ref IfcTimeSeries timeSeries;
+}
+
+class IfcTimeSeriesValue {
+	val IfcValue[*] listValues;
+}
+
+class IfcTopologicalRepresentationItem extends IfcRepresentationItem {
+}
+
+class IfcTopologyRepresentation extends IfcShapeModel {
+}
+
+class IfcTransformerType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcTransformerTypeEnum[1] predefinedType;
+}
+
+class IfcTransportElement extends IfcElement {
+	unsettable attr IfcTransportElementTypeEnum operationType;
+	unsettable attr REAL capacityByWeight;
+	unsettable attr NUMBER capacityByNumber;
+}
+
+class IfcTransportElementType extends IfcElementType {
+	unsettable attr IfcTransportElementTypeEnum[1] predefinedType;
+}
+
+class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] bottomXDim;
+	unsettable attr REAL[1] topXDim;
+	unsettable attr REAL[1] yDim;
+	unsettable attr REAL[1] topXOffset;
+}
+
+class IfcTrimmedCurve extends IfcBoundedCurve {
+	ref IfcCurve basisCurve;
+	!ordered val IfcTrimmingSelect[0..2] trim1;
+	!ordered val IfcTrimmingSelect[0..2] trim2;
+	unsettable attr BOOLEAN[1] senseAgreement;
+	unsettable attr IfcTrimmingPreference[1] masterRepresentation;
+}
+
+class IfcTubeBundleType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcTubeBundleTypeEnum[1] predefinedType;
+}
+
+class IfcTwoDirectionRepeatFactor extends IfcOneDirectionRepeatFactor {
+	ref IfcVector secondRepeatFactor;
+}
+
+class IfcTypeObject extends IfcObjectDefinition {
+	unsettable attr STRING applicableOccurrence;
+	!ordered ref IfcPropertySetDefinition[*]#definesType hasPropertySets;
+	!ordered ref IfcRelDefinesByType#relatingType objectTypeOf;
+}
+
+class IfcTypeProduct extends IfcTypeObject {
+	ref IfcRepresentationMap[*] representationMaps;
+	unsettable attr STRING tag;
+}
+
+class IfcUShapeProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] depth;
+	unsettable attr REAL[1] flangeWidth;
+	unsettable attr REAL[1] webThickness;
+	unsettable attr REAL[1] flangeThickness;
+	unsettable attr REAL filletRadius;
+	unsettable attr REAL edgeRadius;
+	unsettable attr REAL flangeSlope;
+	unsettable attr REAL centreOfGravityInX;
+}
+
+class IfcUnitAssignment {
+	!ordered ref IfcUnit[*] units;
+}
+
+class IfcUnitaryEquipmentType extends IfcEnergyConversionDeviceType {
+	unsettable attr IfcUnitaryEquipmentTypeEnum[1] predefinedType;
+}
+
+class IfcValveType extends IfcFlowControllerType {
+	unsettable attr IfcValveTypeEnum[1] predefinedType;
+}
+
+class IfcVector extends IfcVectorOrDirection, IfcGeometricRepresentationItem {
+	ref IfcDirection orientation;
+	unsettable attr REAL[1] magnitude;
+}
+
+class IfcVertex extends IfcTopologicalRepresentationItem {
+}
+
+class IfcVertexBasedTextureMap {
+	ref IfcTextureVertex[*] textureVertices;
+	ref IfcCartesianPoint[*] texturePoints;
+}
+
+class IfcVertexLoop extends IfcLoop {
+	ref IfcVertex loopVertex;
+}
+
+class IfcVertexPoint extends IfcPointOrVertexPoint, IfcVertex {
+	ref IfcPoint vertexGeometry;
+}
+
+class IfcVibrationIsolatorType extends IfcDiscreteAccessoryType {
+	unsettable attr IfcVibrationIsolatorTypeEnum[1] predefinedType;
+}
+
+class IfcVirtualElement extends IfcElement {
+}
+
+class IfcVirtualGridIntersection {
+	ref IfcGridAxis[0..2]#hasIntersections intersectingAxes;
+	!unique unsettable attr REAL[2..3] offsetDistances;
+}
+
+class IfcWall extends IfcBuildingElement {
+}
+
+class IfcWallStandardCase extends IfcWall {
+}
+
+class IfcWallType extends IfcBuildingElementType {
+	unsettable attr IfcWallTypeEnum[1] predefinedType;
+}
+
+class IfcWasteTerminalType extends IfcFlowTerminalType {
+	unsettable attr IfcWasteTerminalTypeEnum[1] predefinedType;
+}
+
+class IfcWaterProperties extends IfcMaterialProperties {
+	unsettable attr BOOLEAN isPotable;
+	unsettable attr REAL hardness;
+	unsettable attr REAL alkalinityConcentration;
+	unsettable attr REAL acidityConcentration;
+	unsettable attr REAL impuritiesContent;
+	unsettable attr REAL pHLevel;
+	unsettable attr REAL dissolvedSolidsContent;
+}
+
+class IfcWindow extends IfcBuildingElement {
+	unsettable attr REAL overallHeight;
+	unsettable attr REAL overallWidth;
+}
+
+class IfcWindowLiningProperties extends IfcPropertySetDefinition {
+	unsettable attr REAL liningDepth;
+	unsettable attr REAL liningThickness;
+	unsettable attr REAL transomThickness;
+	unsettable attr REAL mullionThickness;
+	unsettable attr REAL firstTransomOffset;
+	unsettable attr REAL secondTransomOffset;
+	unsettable attr REAL firstMullionOffset;
+	unsettable attr REAL secondMullionOffset;
+	ref IfcShapeAspect shapeAspectStyle;
+}
+
+class IfcWindowPanelProperties extends IfcPropertySetDefinition {
+	unsettable attr IfcWindowPanelOperationEnum[1] operationType;
+	unsettable attr IfcWindowPanelPositionEnum[1] panelPosition;
+	unsettable attr REAL frameDepth;
+	unsettable attr REAL frameThickness;
+	ref IfcShapeAspect shapeAspectStyle;
+}
+
+class IfcWindowStyle extends IfcTypeProduct {
+	unsettable attr IfcWindowStyleConstructionEnum[1] constructionType;
+	unsettable attr IfcWindowStyleOperationEnum[1] operationType;
+	unsettable attr BOOLEAN[1] parameterTakesPrecedence;
+	unsettable attr BOOLEAN[1] sizeable;
+}
+
+class IfcWorkControl extends IfcControl {
+	unsettable attr STRING[1] identifier;
+	ref IfcDateTimeSelect creationDate;
+	!ordered ref IfcPerson[*] creators;
+	unsettable attr STRING purpose;
+	unsettable attr REAL duration;
+	unsettable attr REAL totalFloat;
+	ref IfcDateTimeSelect startTime;
+	ref IfcDateTimeSelect finishTime;
+	unsettable attr IfcWorkControlTypeEnum workControlType;
+	unsettable attr STRING userDefinedControlType;
+}
+
+class IfcWorkPlan extends IfcWorkControl {
+}
+
+class IfcWorkSchedule extends IfcWorkControl {
+}
+
+class IfcZShapeProfileDef extends IfcParameterizedProfileDef {
+	unsettable attr REAL[1] depth;
+	unsettable attr REAL[1] flangeWidth;
+	unsettable attr REAL[1] webThickness;
+	unsettable attr REAL[1] flangeThickness;
+	unsettable attr REAL filletRadius;
+	unsettable attr REAL edgeRadius;
+}
+
+class IfcZone extends IfcGroup {
+}
+
+datatype REAL : java.lang.Double;
+
+datatype BOOLEAN : java.lang.Boolean;
+
+datatype LOGICAL : java.lang.Boolean;
+
+datatype NUMBER : java.lang.Double;
+
+datatype STRING : java.lang.String;
+
+datatype BINARY : byte;
+
+enum IfcActionSourceTypeEnum {
+	DEAD_LOAD_G = 0;
+	COMPLETION_G1 = 1;
+	LIVE_LOAD_Q = 2;
+	SNOW_S = 3;
+	WIND_W = 4;
+	PRESTRESSING_P = 5;
+	SETTLEMENT_U = 6;
+	TEMPERATURE_T = 7;
+	EARTHQUAKE_E = 8;
+	FIRE = 9;
+	IMPULSE = 10;
+	IMPACT = 11;
+	TRANSPORT = 12;
+	ERECTION = 13;
+	PROPPING = 14;
+	SYSTEM_IMPERFECTION = 15;
+	SHRINKAGE = 16;
+	CREEP = 17;
+	LACK_OF_FIT = 18;
+	BUOYANCY = 19;
+	ICE = 20;
+	CURRENT = 21;
+	WAVE = 22;
+	RAIN = 23;
+	BRAKES = 24;
+	USERDEFINED = 25;
+	NOTDEFINED = 26;
+}
+
+enum IfcActionTypeEnum {
+	PERMANENT_G = 0;
+	VARIABLE_Q = 1;
+	EXTRAORDINARY_A = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcActuatorTypeEnum {
+	ELECTRICACTUATOR = 0;
+	HANDOPERATEDACTUATOR = 1;
+	HYDRAULICACTUATOR = 2;
+	PNEUMATICACTUATOR = 3;
+	THERMOSTATICACTUATOR = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcAddressTypeEnum {
+	OFFICE = 0;
+	SITE = 1;
+	HOME = 2;
+	DISTRIBUTIONPOINT = 3;
+	USERDEFINED = 4;
+}
+
+enum IfcAheadOrBehind {
+	AHEAD = 0;
+	BEHIND = 1;
+}
+
+enum IfcAirTerminalBoxTypeEnum {
+	CONSTANTFLOW = 0;
+	VARIABLEFLOWPRESSUREDEPENDANT = 1;
+	VARIABLEFLOWPRESSUREINDEPENDANT = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcAirTerminalTypeEnum {
+	GRILLE = 0;
+	REGISTER = 1;
+	DIFFUSER = 2;
+	EYEBALL = 3;
+	IRIS = 4;
+	LINEARGRILLE = 5;
+	LINEARDIFFUSER = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcAirToAirHeatRecoveryTypeEnum {
+	FIXEDPLATECOUNTERFLOWEXCHANGER = 0;
+	FIXEDPLATECROSSFLOWEXCHANGER = 1;
+	FIXEDPLATEPARALLELFLOWEXCHANGER = 2;
+	ROTARYWHEEL = 3;
+	RUNAROUNDCOILLOOP = 4;
+	HEATPIPE = 5;
+	TWINTOWERENTHALPYRECOVERYLOOPS = 6;
+	THERMOSIPHONSEALEDTUBEHEATEXCHANGERS = 7;
+	THERMOSIPHONCOILTYPEHEATEXCHANGERS = 8;
+	USERDEFINED = 9;
+	NOTDEFINED = 10;
+}
+
+enum IfcAlarmTypeEnum {
+	BELL = 0;
+	BREAKGLASSBUTTON = 1;
+	LIGHT = 2;
+	MANUALPULLBOX = 3;
+	SIREN = 4;
+	WHISTLE = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcAnalysisModelTypeEnum {
+	IN_PLANE_LOADING_2D = 0;
+	OUT_PLANE_LOADING_2D = 1;
+	LOADING_3D = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcAnalysisTheoryTypeEnum {
+	FIRST_ORDER_THEORY = 0;
+	SECOND_ORDER_THEORY = 1;
+	THIRD_ORDER_THEORY = 2;
+	FULL_NONLINEAR_THEORY = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcArithmeticOperatorEnum {
+	ADD = 0;
+	DIVIDE = 1;
+	MULTIPLY = 2;
+	SUBTRACT = 3;
+}
+
+enum IfcAssemblyPlaceEnum {
+	SITE = 0;
+	FACTORY = 1;
+	NOTDEFINED = 2;
+}
+
+enum IfcBSplineCurveForm {
+	POLYLINE_FORM = 0;
+	CIRCULAR_ARC = 1;
+	ELLIPTIC_ARC = 2;
+	PARABOLIC_ARC = 3;
+	HYPERBOLIC_ARC = 4;
+	UNSPECIFIED = 5;
+}
+
+enum IfcBeamTypeEnum {
+	BEAM = 0;
+	JOIST = 1;
+	LINTEL = 2;
+	T_BEAM = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcBenchmarkEnum {
+	GREATERTHAN = 0;
+	GREATERTHANOREQUALTO = 1;
+	LESSTHAN = 2;
+	LESSTHANOREQUALTO = 3;
+	EQUALTO = 4;
+	NOTEQUALTO = 5;
+}
+
+enum IfcBoilerTypeEnum {
+	WATER = 0;
+	STEAM = 1;
+	USERDEFINED = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcBooleanOperator {
+	UNION = 0;
+	INTERSECTION = 1;
+	DIFFERENCE = 2;
+}
+
+enum IfcBuildingElementProxyTypeEnum {
+	USERDEFINED = 0;
+	NOTDEFINED = 1;
+}
+
+enum IfcCableCarrierFittingTypeEnum {
+	BEND = 0;
+	CROSS = 1;
+	REDUCER = 2;
+	TEE = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcCableCarrierSegmentTypeEnum {
+	CABLELADDERSEGMENT = 0;
+	CABLETRAYSEGMENT = 1;
+	CABLETRUNKINGSEGMENT = 2;
+	CONDUITSEGMENT = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcCableSegmentTypeEnum {
+	CABLESEGMENT = 0;
+	CONDUCTORSEGMENT = 1;
+	USERDEFINED = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcChangeActionEnum {
+	NOCHANGE = 0;
+	MODIFIED = 1;
+	ADDED = 2;
+	DELETED = 3;
+	MODIFIEDADDED = 4;
+	MODIFIEDDELETED = 5;
+}
+
+enum IfcChillerTypeEnum {
+	AIRCOOLED = 0;
+	WATERCOOLED = 1;
+	HEATRECOVERY = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcCoilTypeEnum {
+	DXCOOLINGCOIL = 0;
+	WATERCOOLINGCOIL = 1;
+	STEAMHEATINGCOIL = 2;
+	WATERHEATINGCOIL = 3;
+	ELECTRICHEATINGCOIL = 4;
+	GASHEATINGCOIL = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcColumnTypeEnum {
+	COLUMN = 0;
+	USERDEFINED = 1;
+	NOTDEFINED = 2;
+}
+
+enum IfcCompressorTypeEnum {
+	DYNAMIC = 0;
+	RECIPROCATING = 1;
+	ROTARY = 2;
+	SCROLL = 3;
+	TROCHOIDAL = 4;
+	SINGLESTAGE = 5;
+	BOOSTER = 6;
+	OPENTYPE = 7;
+	HERMETIC = 8;
+	SEMIHERMETIC = 9;
+	WELDEDSHELLHERMETIC = 10;
+	ROLLINGPISTON = 11;
+	ROTARYVANE = 12;
+	SINGLESCREW = 13;
+	TWINSCREW = 14;
+	USERDEFINED = 15;
+	NOTDEFINED = 16;
+}
+
+enum IfcCondenserTypeEnum {
+	WATERCOOLEDSHELLTUBE = 0;
+	WATERCOOLEDSHELLCOIL = 1;
+	WATERCOOLEDTUBEINTUBE = 2;
+	WATERCOOLEDBRAZEDPLATE = 3;
+	AIRCOOLED = 4;
+	EVAPORATIVECOOLED = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcConnectionTypeEnum {
+	ATPATH = 0;
+	ATSTART = 1;
+	ATEND = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcConstraintEnum {
+	HARD = 0;
+	SOFT = 1;
+	ADVISORY = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcControllerTypeEnum {
+	FLOATING = 0;
+	PROPORTIONAL = 1;
+	PROPORTIONALINTEGRAL = 2;
+	PROPORTIONALINTEGRALDERIVATIVE = 3;
+	TIMEDTWOPOSITION = 4;
+	TWOPOSITION = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcCooledBeamTypeEnum {
+	ACTIVE = 0;
+	PASSIVE = 1;
+	USERDEFINED = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcCoolingTowerTypeEnum {
+	NATURALDRAFT = 0;
+	MECHANICALINDUCEDDRAFT = 1;
+	MECHANICALFORCEDDRAFT = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcCostScheduleTypeEnum {
+	BUDGET = 0;
+	COSTPLAN = 1;
+	ESTIMATE = 2;
+	TENDER = 3;
+	PRICEDBILLOFQUANTITIES = 4;
+	UNPRICEDBILLOFQUANTITIES = 5;
+	SCHEDULEOFRATES = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcCoveringTypeEnum {
+	CEILING = 0;
+	FLOORING = 1;
+	CLADDING = 2;
+	ROOFING = 3;
+	INSULATION = 4;
+	MEMBRANE = 5;
+	SLEEVING = 6;
+	WRAPPING = 7;
+	USERDEFINED = 8;
+	NOTDEFINED = 9;
+}
+
+enum IfcCurrencyEnum {
+	AED = 0;
+	AES = 1;
+	ATS = 2;
+	AUD = 3;
+	BBD = 4;
+	BEG = 5;
+	BGL = 6;
+	BHD = 7;
+	BMD = 8;
+	BND = 9;
+	BRL = 10;
+	BSD = 11;
+	BWP = 12;
+	BZD = 13;
+	CAD = 14;
+	CBD = 15;
+	CHF = 16;
+	CLP = 17;
+	CNY = 18;
+	CYS = 19;
+	CZK = 20;
+	DDP = 21;
+	DEM = 22;
+	DKK = 23;
+	EGL = 24;
+	EST = 25;
+	EUR = 26;
+	FAK = 27;
+	FIM = 28;
+	FJD = 29;
+	FKP = 30;
+	FRF = 31;
+	GBP = 32;
+	GIP = 33;
+	GMD = 34;
+	GRX = 35;
+	HKD = 36;
+	HUF = 37;
+	ICK = 38;
+	IDR = 39;
+	ILS = 40;
+	INR = 41;
+	IRP = 42;
+	ITL = 43;
+	JMD = 44;
+	JOD = 45;
+	JPY = 46;
+	KES = 47;
+	KRW = 48;
+	KWD = 49;
+	KYD = 50;
+	LKR = 51;
+	LUF = 52;
+	MTL = 53;
+	MUR = 54;
+	MXN = 55;
+	MYR = 56;
+	NLG = 57;
+	NZD = 58;
+	OMR = 59;
+	PGK = 60;
+	PHP = 61;
+	PKR = 62;
+	PLN = 63;
+	PTN = 64;
+	QAR = 65;
+	RUR = 66;
+	SAR = 67;
+	SCR = 68;
+	SEK = 69;
+	SGD = 70;
+	SKP = 71;
+	THB = 72;
+	TRL = 73;
+	TTD = 74;
+	TWD = 75;
+	USD = 76;
+	VEB = 77;
+	VND = 78;
+	XEU = 79;
+	ZAR = 80;
+	ZWD = 81;
+	NOK = 82;
+}
+
+enum IfcCurtainWallTypeEnum {
+	USERDEFINED = 0;
+	NOTDEFINED = 1;
+}
+
+enum IfcDamperTypeEnum {
+	CONTROLDAMPER = 0;
+	FIREDAMPER = 1;
+	SMOKEDAMPER = 2;
+	FIRESMOKEDAMPER = 3;
+	BACKDRAFTDAMPER = 4;
+	RELIEFDAMPER = 5;
+	BLASTDAMPER = 6;
+	GRAVITYDAMPER = 7;
+	GRAVITYRELIEFDAMPER = 8;
+	BALANCINGDAMPER = 9;
+	FUMEHOODEXHAUST = 10;
+	USERDEFINED = 11;
+	NOTDEFINED = 12;
+}
+
+enum IfcDataOriginEnum {
+	MEASURED = 0;
+	PREDICTED = 1;
+	SIMULATED = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcDerivedUnitEnum {
+	ANGULARVELOCITYUNIT = 0;
+	COMPOUNDPLANEANGLEUNIT = 1;
+	DYNAMICVISCOSITYUNIT = 2;
+	HEATFLUXDENSITYUNIT = 3;
+	INTEGERCOUNTRATEUNIT = 4;
+	ISOTHERMALMOISTURECAPACITYUNIT = 5;
+	KINEMATICVISCOSITYUNIT = 6;
+	LINEARVELOCITYUNIT = 7;
+	MASSDENSITYUNIT = 8;
+	MASSFLOWRATEUNIT = 9;
+	MOISTUREDIFFUSIVITYUNIT = 10;
+	MOLECULARWEIGHTUNIT = 11;
+	SPECIFICHEATCAPACITYUNIT = 12;
+	THERMALADMITTANCEUNIT = 13;
+	THERMALCONDUCTANCEUNIT = 14;
+	THERMALRESISTANCEUNIT = 15;
+	THERMALTRANSMITTANCEUNIT = 16;
+	VAPORPERMEABILITYUNIT = 17;
+	VOLUMETRICFLOWRATEUNIT = 18;
+	ROTATIONALFREQUENCYUNIT = 19;
+	TORQUEUNIT = 20;
+	MOMENTOFINERTIAUNIT = 21;
+	LINEARMOMENTUNIT = 22;
+	LINEARFORCEUNIT = 23;
+	PLANARFORCEUNIT = 24;
+	MODULUSOFELASTICITYUNIT = 25;
+	SHEARMODULUSUNIT = 26;
+	LINEARSTIFFNESSUNIT = 27;
+	ROTATIONALSTIFFNESSUNIT = 28;
+	MODULUSOFSUBGRADEREACTIONUNIT = 29;
+	ACCELERATIONUNIT = 30;
+	CURVATUREUNIT = 31;
+	HEATINGVALUEUNIT = 32;
+	IONCONCENTRATIONUNIT = 33;
+	LUMINOUSINTENSITYDISTRIBUTIONUNIT = 34;
+	MASSPERLENGTHUNIT = 35;
+	MODULUSOFLINEARSUBGRADEREACTIONUNIT = 36;
+	MODULUSOFROTATIONALSUBGRADEREACTIONUNIT = 37;
+	PHUNIT = 38;
+	ROTATIONALMASSUNIT = 39;
+	SECTIONAREAINTEGRALUNIT = 40;
+	SECTIONMODULUSUNIT = 41;
+	SOUNDPOWERUNIT = 42;
+	SOUNDPRESSUREUNIT = 43;
+	TEMPERATUREGRADIENTUNIT = 44;
+	THERMALEXPANSIONCOEFFICIENTUNIT = 45;
+	WARPINGCONSTANTUNIT = 46;
+	WARPINGMOMENTUNIT = 47;
+	USERDEFINED = 48;
+}
+
+enum IfcDimensionExtentUsage {
+	ORIGIN = 0;
+	TARGET = 1;
+}
+
+enum IfcDirectionSenseEnum {
+	POSITIVE = 0;
+	NEGATIVE = 1;
+}
+
+enum IfcDistributionChamberElementTypeEnum {
+	FORMEDDUCT = 0;
+	INSPECTIONCHAMBER = 1;
+	INSPECTIONPIT = 2;
+	MANHOLE = 3;
+	METERCHAMBER = 4;
+	SUMP = 5;
+	TRENCH = 6;
+	VALVECHAMBER = 7;
+	USERDEFINED = 8;
+	NOTDEFINED = 9;
+}
+
+enum IfcDocumentConfidentialityEnum {
+	PUBLIC = 0;
+	RESTRICTED = 1;
+	CONFIDENTIAL = 2;
+	PERSONAL = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcDocumentStatusEnum {
+	DRAFT = 0;
+	FINALDRAFT = 1;
+	FINAL = 2;
+	REVISION = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcDoorPanelOperationEnum {
+	SWINGING = 0;
+	DOUBLE_ACTING = 1;
+	SLIDING = 2;
+	FOLDING = 3;
+	REVOLVING = 4;
+	ROLLINGUP = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcDoorPanelPositionEnum {
+	LEFT = 0;
+	MIDDLE = 1;
+	RIGHT = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcDoorStyleConstructionEnum {
+	ALUMINIUM = 0;
+	HIGH_GRADE_STEEL = 1;
+	STEEL = 2;
+	WOOD = 3;
+	ALUMINIUM_WOOD = 4;
+	ALUMINIUM_PLASTIC = 5;
+	PLASTIC = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcDoorStyleOperationEnum {
+	SINGLE_SWING_LEFT = 0;
+	SINGLE_SWING_RIGHT = 1;
+	DOUBLE_DOOR_SINGLE_SWING = 2;
+	DOUBLE_DOOR_SINGLE_SWING_OPPOSITE_LEFT = 3;
+	DOUBLE_DOOR_SINGLE_SWING_OPPOSITE_RIGHT = 4;
+	DOUBLE_SWING_LEFT = 5;
+	DOUBLE_SWING_RIGHT = 6;
+	DOUBLE_DOOR_DOUBLE_SWING = 7;
+	SLIDING_TO_LEFT = 8;
+	SLIDING_TO_RIGHT = 9;
+	DOUBLE_DOOR_SLIDING = 10;
+	FOLDING_TO_LEFT = 11;
+	FOLDING_TO_RIGHT = 12;
+	DOUBLE_DOOR_FOLDING = 13;
+	REVOLVING = 14;
+	ROLLINGUP = 15;
+	USERDEFINED = 16;
+	NOTDEFINED = 17;
+}
+
+enum IfcDuctFittingTypeEnum {
+	BEND = 0;
+	CONNECTOR = 1;
+	ENTRY = 2;
+	EXIT = 3;
+	JUNCTION = 4;
+	OBSTRUCTION = 5;
+	TRANSITION = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcDuctSegmentTypeEnum {
+	RIGIDSEGMENT = 0;
+	FLEXIBLESEGMENT = 1;
+	USERDEFINED = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcDuctSilencerTypeEnum {
+	FLATOVAL = 0;
+	RECTANGULAR = 1;
+	ROUND = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcElectricApplianceTypeEnum {
+	COMPUTER = 0;
+	DIRECTWATERHEATER = 1;
+	DISHWASHER = 2;
+	ELECTRICCOOKER = 3;
+	ELECTRICHEATER = 4;
+	FACSIMILE = 5;
+	FREESTANDINGFAN = 6;
+	FREEZER = 7;
+	FRIDGE_FREEZER = 8;
+	HANDDRYER = 9;
+	INDIRECTWATERHEATER = 10;
+	MICROWAVE = 11;
+	PHOTOCOPIER = 12;
+	PRINTER = 13;
+	REFRIGERATOR = 14;
+	RADIANTHEATER = 15;
+	SCANNER = 16;
+	TELEPHONE = 17;
+	TUMBLEDRYER = 18;
+	TV = 19;
+	VENDINGMACHINE = 20;
+	WASHINGMACHINE = 21;
+	WATERHEATER = 22;
+	WATERCOOLER = 23;
+	USERDEFINED = 24;
+	NOTDEFINED = 25;
+}
+
+enum IfcElectricCurrentEnum {
+	ALTERNATING = 0;
+	DIRECT = 1;
+	NOTDEFINED = 2;
+}
+
+enum IfcElectricDistributionPointFunctionEnum {
+	ALARMPANEL = 0;
+	CONSUMERUNIT = 1;
+	CONTROLPANEL = 2;
+	DISTRIBUTIONBOARD = 3;
+	GASDETECTORPANEL = 4;
+	INDICATORPANEL = 5;
+	MIMICPANEL = 6;
+	MOTORCONTROLCENTRE = 7;
+	SWITCHBOARD = 8;
+	USERDEFINED = 9;
+	NOTDEFINED = 10;
+}
+
+enum IfcElectricFlowStorageDeviceTypeEnum {
+	BATTERY = 0;
+	CAPACITORBANK = 1;
+	HARMONICFILTER = 2;
+	INDUCTORBANK = 3;
+	UPS = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcElectricGeneratorTypeEnum {
+	USERDEFINED = 0;
+	NOTDEFINED = 1;
+}
+
+enum IfcElectricHeaterTypeEnum {
+	ELECTRICPOINTHEATER = 0;
+	ELECTRICCABLEHEATER = 1;
+	ELECTRICMATHEATER = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcElectricMotorTypeEnum {
+	DC = 0;
+	INDUCTION = 1;
+	POLYPHASE = 2;
+	RELUCTANCESYNCHRONOUS = 3;
+	SYNCHRONOUS = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcElectricTimeControlTypeEnum {
+	TIMECLOCK = 0;
+	TIMEDELAY = 1;
+	RELAY = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcElementAssemblyTypeEnum {
+	ACCESSORY_ASSEMBLY = 0;
+	ARCH = 1;
+	BEAM_GRID = 2;
+	BRACED_FRAME = 3;
+	GIRDER = 4;
+	REINFORCEMENT_UNIT = 5;
+	RIGID_FRAME = 6;
+	SLAB_FIELD = 7;
+	TRUSS = 8;
+	USERDEFINED = 9;
+	NOTDEFINED = 10;
+}
+
+enum IfcElementCompositionEnum {
+	COMPLEX = 0;
+	ELEMENT = 1;
+	PARTIAL = 2;
+}
+
+enum IfcEnergySequenceEnum {
+	PRIMARY = 0;
+	SECONDARY = 1;
+	TERTIARY = 2;
+	AUXILIARY = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcEnvironmentalImpactCategoryEnum {
+	COMBINEDVALUE = 0;
+	DISPOSAL = 1;
+	EXTRACTION = 2;
+	INSTALLATION = 3;
+	MANUFACTURE = 4;
+	TRANSPORTATION = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcEvaporativeCoolerTypeEnum {
+	DIRECTEVAPORATIVERANDOMMEDIAAIRCOOLER = 0;
+	DIRECTEVAPORATIVERIGIDMEDIAAIRCOOLER = 1;
+	DIRECTEVAPORATIVESLINGERSPACKAGEDAIRCOOLER = 2;
+	DIRECTEVAPORATIVEPACKAGEDROTARYAIRCOOLER = 3;
+	DIRECTEVAPORATIVEAIRWASHER = 4;
+	INDIRECTEVAPORATIVEPACKAGEAIRCOOLER = 5;
+	INDIRECTEVAPORATIVEWETCOIL = 6;
+	INDIRECTEVAPORATIVECOOLINGTOWERORCOILCOOLER = 7;
+	INDIRECTDIRECTCOMBINATION = 8;
+	USERDEFINED = 9;
+	NOTDEFINED = 10;
+}
+
+enum IfcEvaporatorTypeEnum {
+	DIRECTEXPANSIONSHELLANDTUBE = 0;
+	DIRECTEXPANSIONTUBEINTUBE = 1;
+	DIRECTEXPANSIONBRAZEDPLATE = 2;
+	FLOODEDSHELLANDTUBE = 3;
+	SHELLANDCOIL = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcFanTypeEnum {
+	CENTRIFUGALFORWARDCURVED = 0;
+	CENTRIFUGALRADIAL = 1;
+	CENTRIFUGALBACKWARDINCLINEDCURVED = 2;
+	CENTRIFUGALAIRFOIL = 3;
+	TUBEAXIAL = 4;
+	VANEAXIAL = 5;
+	PROPELLORAXIAL = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcFilterTypeEnum {
+	AIRPARTICLEFILTER = 0;
+	ODORFILTER = 1;
+	OILFILTER = 2;
+	STRAINER = 3;
+	WATERFILTER = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcFireSuppressionTerminalTypeEnum {
+	BREECHINGINLET = 0;
+	FIREHYDRANT = 1;
+	HOSEREEL = 2;
+	SPRINKLER = 3;
+	SPRINKLERDEFLECTOR = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcFlowDirectionEnum {
+	SOURCE = 0;
+	SINK = 1;
+	SOURCEANDSINK = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcFlowInstrumentTypeEnum {
+	PRESSUREGAUGE = 0;
+	THERMOMETER = 1;
+	AMMETER = 2;
+	FREQUENCYMETER = 3;
+	POWERFACTORMETER = 4;
+	PHASEANGLEMETER = 5;
+	VOLTMETER_PEAK = 6;
+	VOLTMETER_RMS = 7;
+	USERDEFINED = 8;
+	NOTDEFINED = 9;
+}
+
+enum IfcFlowMeterTypeEnum {
+	ELECTRICMETER = 0;
+	ENERGYMETER = 1;
+	FLOWMETER = 2;
+	GASMETER = 3;
+	OILMETER = 4;
+	WATERMETER = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcFootingTypeEnum {
+	FOOTING_BEAM = 0;
+	PAD_FOOTING = 1;
+	PILE_CAP = 2;
+	STRIP_FOOTING = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcGasTerminalTypeEnum {
+	GASAPPLIANCE = 0;
+	GASBOOSTER = 1;
+	GASBURNER = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcGeometricProjectionEnum {
+	GRAPH_VIEW = 0;
+	SKETCH_VIEW = 1;
+	MODEL_VIEW = 2;
+	PLAN_VIEW = 3;
+	REFLECTED_PLAN_VIEW = 4;
+	SECTION_VIEW = 5;
+	ELEVATION_VIEW = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcGlobalOrLocalEnum {
+	GLOBAL_COORDS = 0;
+	LOCAL_COORDS = 1;
+}
+
+enum IfcHeatExchangerTypeEnum {
+	PLATE = 0;
+	SHELLANDTUBE = 1;
+	USERDEFINED = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcHumidifierTypeEnum {
+	STEAMINJECTION = 0;
+	ADIABATICAIRWASHER = 1;
+	ADIABATICPAN = 2;
+	ADIABATICWETTEDELEMENT = 3;
+	ADIABATICATOMIZING = 4;
+	ADIABATICULTRASONIC = 5;
+	ADIABATICRIGIDMEDIA = 6;
+	ADIABATICCOMPRESSEDAIRNOZZLE = 7;
+	ASSISTEDELECTRIC = 8;
+	ASSISTEDNATURALGAS = 9;
+	ASSISTEDPROPANE = 10;
+	ASSISTEDBUTANE = 11;
+	ASSISTEDSTEAM = 12;
+	USERDEFINED = 13;
+	NOTDEFINED = 14;
+}
+
+enum IfcInternalOrExternalEnum {
+	INTERNAL = 0;
+	EXTERNAL = 1;
+	NOTDEFINED = 2;
+}
+
+enum IfcInventoryTypeEnum {
+	ASSETINVENTORY = 0;
+	SPACEINVENTORY = 1;
+	FURNITUREINVENTORY = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcJunctionBoxTypeEnum {
+	USERDEFINED = 0;
+	NOTDEFINED = 1;
+}
+
+enum IfcLampTypeEnum {
+	COMPACTFLUORESCENT = 0;
+	FLUORESCENT = 1;
+	HIGHPRESSUREMERCURY = 2;
+	HIGHPRESSURESODIUM = 3;
+	METALHALIDE = 4;
+	TUNGSTENFILAMENT = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcLayerSetDirectionEnum {
+	AXIS1 = 0;
+	AXIS2 = 1;
+	AXIS3 = 2;
+}
+
+enum IfcLightDistributionCurveEnum {
+	TYPE_A = 0;
+	TYPE_B = 1;
+	TYPE_C = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcLightEmissionSourceEnum {
+	COMPACTFLUORESCENT = 0;
+	FLUORESCENT = 1;
+	HIGHPRESSUREMERCURY = 2;
+	HIGHPRESSURESODIUM = 3;
+	LIGHTEMITTINGDIODE = 4;
+	LOWPRESSURESODIUM = 5;
+	LOWVOLTAGEHALOGEN = 6;
+	MAINVOLTAGEHALOGEN = 7;
+	METALHALIDE = 8;
+	TUNGSTENFILAMENT = 9;
+	NOTDEFINED = 10;
+}
+
+enum IfcLightFixtureTypeEnum {
+	POINTSOURCE = 0;
+	DIRECTIONSOURCE = 1;
+	USERDEFINED = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcLoadGroupTypeEnum {
+	LOAD_GROUP = 0;
+	LOAD_CASE = 1;
+	LOAD_COMBINATION_GROUP = 2;
+	LOAD_COMBINATION = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcLogicalOperatorEnum {
+	LOGICALAND = 0;
+	LOGICALOR = 1;
+}
+
+enum IfcMemberTypeEnum {
+	BRACE = 0;
+	CHORD = 1;
+	COLLAR = 2;
+	MEMBER = 3;
+	MULLION = 4;
+	PLATE = 5;
+	POST = 6;
+	PURLIN = 7;
+	RAFTER = 8;
+	STRINGER = 9;
+	STRUT = 10;
+	STUD = 11;
+	USERDEFINED = 12;
+	NOTDEFINED = 13;
+}
+
+enum IfcMotorConnectionTypeEnum {
+	BELTDRIVE = 0;
+	COUPLING = 1;
+	DIRECTDRIVE = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcNullStyle {
+	NULL = 0;
+}
+
+enum IfcObjectTypeEnum {
+	PRODUCT = 0;
+	PROCESS = 1;
+	CONTROL = 2;
+	RESOURCE = 3;
+	ACTOR = 4;
+	GROUP = 5;
+	PROJECT = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcObjectiveEnum {
+	CODECOMPLIANCE = 0;
+	DESIGNINTENT = 1;
+	HEALTHANDSAFETY = 2;
+	REQUIREMENT = 3;
+	SPECIFICATION = 4;
+	TRIGGERCONDITION = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcOccupantTypeEnum {
+	ASSIGNEE = 0;
+	ASSIGNOR = 1;
+	LESSEE = 2;
+	LESSOR = 3;
+	LETTINGAGENT = 4;
+	OWNER = 5;
+	TENANT = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcOutletTypeEnum {
+	AUDIOVISUALOUTLET = 0;
+	COMMUNICATIONSOUTLET = 1;
+	POWEROUTLET = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcPermeableCoveringOperationEnum {
+	GRILL = 0;
+	LOUVER = 1;
+	SCREEN = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcPhysicalOrVirtualEnum {
+	PHYSICAL = 0;
+	VIRTUAL = 1;
+	NOTDEFINED = 2;
+}
+
+enum IfcPileConstructionEnum {
+	CAST_IN_PLACE = 0;
+	COMPOSITE = 1;
+	PRECAST_CONCRETE = 2;
+	PREFAB_STEEL = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcPileTypeEnum {
+	COHESION = 0;
+	FRICTION = 1;
+	SUPPORT = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcPipeFittingTypeEnum {
+	BEND = 0;
+	CONNECTOR = 1;
+	ENTRY = 2;
+	EXIT = 3;
+	JUNCTION = 4;
+	OBSTRUCTION = 5;
+	TRANSITION = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcPipeSegmentTypeEnum {
+	FLEXIBLESEGMENT = 0;
+	RIGIDSEGMENT = 1;
+	GUTTER = 2;
+	SPOOL = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcPlateTypeEnum {
+	CURTAIN_PANEL = 0;
+	SHEET = 1;
+	USERDEFINED = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcProcedureTypeEnum {
+	ADVICE_CAUTION = 0;
+	ADVICE_NOTE = 1;
+	ADVICE_WARNING = 2;
+	CALIBRATION = 3;
+	DIAGNOSTIC = 4;
+	SHUTDOWN = 5;
+	STARTUP = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcProfileTypeEnum {
+	CURVE = 0;
+	AREA = 1;
+}
+
+enum IfcProjectOrderRecordTypeEnum {
+	CHANGE = 0;
+	MAINTENANCE = 1;
+	MOVE = 2;
+	PURCHASE = 3;
+	WORK = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcProjectOrderTypeEnum {
+	CHANGEORDER = 0;
+	MAINTENANCEWORKORDER = 1;
+	MOVEORDER = 2;
+	PURCHASEORDER = 3;
+	WORKORDER = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcProjectedOrTrueLengthEnum {
+	PROJECTED_LENGTH = 0;
+	TRUE_LENGTH = 1;
+}
+
+enum IfcPropertySourceEnum {
+	DESIGN = 0;
+	DESIGNMAXIMUM = 1;
+	DESIGNMINIMUM = 2;
+	SIMULATED = 3;
+	ASBUILT = 4;
+	COMMISSIONING = 5;
+	MEASURED = 6;
+	USERDEFINED = 7;
+	NOTKNOWN = 8;
+}
+
+enum IfcProtectiveDeviceTypeEnum {
+	FUSEDISCONNECTOR = 0;
+	CIRCUITBREAKER = 1;
+	EARTHFAILUREDEVICE = 2;
+	RESIDUALCURRENTCIRCUITBREAKER = 3;
+	RESIDUALCURRENTSWITCH = 4;
+	VARISTOR = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcPumpTypeEnum {
+	CIRCULATOR = 0;
+	ENDSUCTION = 1;
+	SPLITCASE = 2;
+	VERTICALINLINE = 3;
+	VERTICALTURBINE = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcRailingTypeEnum {
+	HANDRAIL = 0;
+	GUARDRAIL = 1;
+	BALUSTRADE = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcRampFlightTypeEnum {
+	STRAIGHT = 0;
+	SPIRAL = 1;
+	USERDEFINED = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcRampTypeEnum {
+	STRAIGHT_RUN_RAMP = 0;
+	TWO_STRAIGHT_RUN_RAMP = 1;
+	QUARTER_TURN_RAMP = 2;
+	TWO_QUARTER_TURN_RAMP = 3;
+	HALF_TURN_RAMP = 4;
+	SPIRAL_RAMP = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcReflectanceMethodEnum {
+	BLINN = 0;
+	FLAT = 1;
+	GLASS = 2;
+	MATT = 3;
+	METAL = 4;
+	MIRROR = 5;
+	PHONG = 6;
+	PLASTIC = 7;
+	STRAUSS = 8;
+	NOTDEFINED = 9;
+}
+
+enum IfcReinforcingBarRoleEnum {
+	MAIN = 0;
+	SHEAR = 1;
+	LIGATURE = 2;
+	STUD = 3;
+	PUNCHING = 4;
+	EDGE = 5;
+	RING = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcReinforcingBarSurfaceEnum {
+	PLAIN = 0;
+	TEXTURED = 1;
+}
+
+enum IfcResourceConsumptionEnum {
+	CONSUMED = 0;
+	PARTIALLYCONSUMED = 1;
+	NOTCONSUMED = 2;
+	OCCUPIED = 3;
+	PARTIALLYOCCUPIED = 4;
+	NOTOCCUPIED = 5;
+	USERDEFINED = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcRibPlateDirectionEnum {
+	DIRECTION_X = 0;
+	DIRECTION_Y = 1;
+}
+
+enum IfcRoleEnum {
+	SUPPLIER = 0;
+	MANUFACTURER = 1;
+	CONTRACTOR = 2;
+	SUBCONTRACTOR = 3;
+	ARCHITECT = 4;
+	STRUCTURALENGINEER = 5;
+	COSTENGINEER = 6;
+	CLIENT = 7;
+	BUILDINGOWNER = 8;
+	BUILDINGOPERATOR = 9;
+	MECHANICALENGINEER = 10;
+	ELECTRICALENGINEER = 11;
+	PROJECTMANAGER = 12;
+	FACILITIESMANAGER = 13;
+	CIVILENGINEER = 14;
+	COMISSIONINGENGINEER = 15;
+	ENGINEER = 16;
+	OWNER = 17;
+	CONSULTANT = 18;
+	CONSTRUCTIONMANAGER = 19;
+	FIELDCONSTRUCTIONMANAGER = 20;
+	RESELLER = 21;
+	USERDEFINED = 22;
+}
+
+enum IfcRoofTypeEnum {
+	FLAT_ROOF = 0;
+	SHED_ROOF = 1;
+	GABLE_ROOF = 2;
+	HIP_ROOF = 3;
+	HIPPED_GABLE_ROOF = 4;
+	GAMBREL_ROOF = 5;
+	MANSARD_ROOF = 6;
+	BARREL_ROOF = 7;
+	RAINBOW_ROOF = 8;
+	BUTTERFLY_ROOF = 9;
+	PAVILION_ROOF = 10;
+	DOME_ROOF = 11;
+	FREEFORM = 12;
+	NOTDEFINED = 13;
+}
+
+enum IfcSIPrefix {
+	EXA = 0;
+	PETA = 1;
+	TERA = 2;
+	GIGA = 3;
+	MEGA = 4;
+	KILO = 5;
+	HECTO = 6;
+	DECA = 7;
+	DECI = 8;
+	CENTI = 9;
+	MILLI = 10;
+	MICRO = 11;
+	NANO = 12;
+	PICO = 13;
+	FEMTO = 14;
+	ATTO = 15;
+}
+
+enum IfcSIUnitName {
+	AMPERE = 0;
+	BECQUEREL = 1;
+	CANDELA = 2;
+	COULOMB = 3;
+	CUBIC_METRE = 4;
+	DEGREE_CELSIUS = 5;
+	FARAD = 6;
+	GRAM = 7;
+	GRAY = 8;
+	HENRY = 9;
+	HERTZ = 10;
+	JOULE = 11;
+	KELVIN = 12;
+	LUMEN = 13;
+	LUX = 14;
+	METRE = 15;
+	MOLE = 16;
+	NEWTON = 17;
+	OHM = 18;
+	PASCAL = 19;
+	RADIAN = 20;
+	SECOND = 21;
+	SIEMENS = 22;
+	SIEVERT = 23;
+	SQUARE_METRE = 24;
+	STERADIAN = 25;
+	TESLA = 26;
+	VOLT = 27;
+	WATT = 28;
+	WEBER = 29;
+}
+
+enum IfcSanitaryTerminalTypeEnum {
+	BATH = 0;
+	BIDET = 1;
+	CISTERN = 2;
+	SHOWER = 3;
+	SINK = 4;
+	SANITARYFOUNTAIN = 5;
+	TOILETPAN = 6;
+	URINAL = 7;
+	WASHHANDBASIN = 8;
+	WCSEAT = 9;
+	USERDEFINED = 10;
+	NOTDEFINED = 11;
+}
+
+enum IfcSectionTypeEnum {
+	UNIFORM = 0;
+	TAPERED = 1;
+}
+
+enum IfcSensorTypeEnum {
+	CO2SENSOR = 0;
+	FIRESENSOR = 1;
+	FLOWSENSOR = 2;
+	GASSENSOR = 3;
+	HEATSENSOR = 4;
+	HUMIDITYSENSOR = 5;
+	LIGHTSENSOR = 6;
+	MOISTURESENSOR = 7;
+	MOVEMENTSENSOR = 8;
+	PRESSURESENSOR = 9;
+	SMOKESENSOR = 10;
+	SOUNDSENSOR = 11;
+	TEMPERATURESENSOR = 12;
+	USERDEFINED = 13;
+	NOTDEFINED = 14;
+}
+
+enum IfcSequenceEnum {
+	START_START = 0;
+	START_FINISH = 1;
+	FINISH_START = 2;
+	FINISH_FINISH = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcServiceLifeFactorTypeEnum {
+	A_QUALITYOFCOMPONENTS = 0;
+	B_DESIGNLEVEL = 1;
+	C_WORKEXECUTIONLEVEL = 2;
+	D_INDOORENVIRONMENT = 3;
+	E_OUTDOORENVIRONMENT = 4;
+	F_INUSECONDITIONS = 5;
+	G_MAINTENANCELEVEL = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcServiceLifeTypeEnum {
+	ACTUALSERVICELIFE = 0;
+	EXPECTEDSERVICELIFE = 1;
+	OPTIMISTICREFERENCESERVICELIFE = 2;
+	PESSIMISTICREFERENCESERVICELIFE = 3;
+	REFERENCESERVICELIFE = 4;
+}
+
+enum IfcSlabTypeEnum {
+	FLOOR = 0;
+	ROOF = 1;
+	LANDING = 2;
+	BASESLAB = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcSoundScaleEnum {
+	DBA = 0;
+	DBB = 1;
+	DBC = 2;
+	NC = 3;
+	NR = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcSpaceHeaterTypeEnum {
+	SECTIONALRADIATOR = 0;
+	PANELRADIATOR = 1;
+	TUBULARRADIATOR = 2;
+	CONVECTOR = 3;
+	BASEBOARDHEATER = 4;
+	FINNEDTUBEUNIT = 5;
+	UNITHEATER = 6;
+	USERDEFINED = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcSpaceTypeEnum {
+	USERDEFINED = 0;
+	NOTDEFINED = 1;
+}
+
+enum IfcStackTerminalTypeEnum {
+	BIRDCAGE = 0;
+	COWL = 1;
+	RAINWATERHOPPER = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcStairFlightTypeEnum {
+	STRAIGHT = 0;
+	WINDER = 1;
+	SPIRAL = 2;
+	CURVED = 3;
+	FREEFORM = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcStairTypeEnum {
+	STRAIGHT_RUN_STAIR = 0;
+	TWO_STRAIGHT_RUN_STAIR = 1;
+	QUARTER_WINDING_STAIR = 2;
+	QUARTER_TURN_STAIR = 3;
+	HALF_WINDING_STAIR = 4;
+	HALF_TURN_STAIR = 5;
+	TWO_QUARTER_WINDING_STAIR = 6;
+	TWO_QUARTER_TURN_STAIR = 7;
+	THREE_QUARTER_WINDING_STAIR = 8;
+	THREE_QUARTER_TURN_STAIR = 9;
+	SPIRAL_STAIR = 10;
+	DOUBLE_RETURN_STAIR = 11;
+	CURVED_RUN_STAIR = 12;
+	TWO_CURVED_RUN_STAIR = 13;
+	USERDEFINED = 14;
+	NOTDEFINED = 15;
+}
+
+enum IfcStateEnum {
+	READWRITE = 0;
+	READONLY = 1;
+	LOCKED = 2;
+	READWRITELOCKED = 3;
+	READONLYLOCKED = 4;
+}
+
+enum IfcStructuralCurveTypeEnum {
+	RIGID_JOINED_MEMBER = 0;
+	PIN_JOINED_MEMBER = 1;
+	CABLE = 2;
+	TENSION_MEMBER = 3;
+	COMPRESSION_MEMBER = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcStructuralSurfaceTypeEnum {
+	BENDING_ELEMENT = 0;
+	MEMBRANE_ELEMENT = 1;
+	SHELL = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcSurfaceSide {
+	POSITIVE = 0;
+	NEGATIVE = 1;
+	BOTH = 2;
+}
+
+enum IfcSurfaceTextureEnum {
+	BUMP = 0;
+	OPACITY = 1;
+	REFLECTION = 2;
+	SELFILLUMINATION = 3;
+	SHININESS = 4;
+	SPECULAR = 5;
+	TEXTURE = 6;
+	TRANSPARENCYMAP = 7;
+	NOTDEFINED = 8;
+}
+
+enum IfcSwitchingDeviceTypeEnum {
+	CONTACTOR = 0;
+	EMERGENCYSTOP = 1;
+	STARTER = 2;
+	SWITCHDISCONNECTOR = 3;
+	TOGGLESWITCH = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcTankTypeEnum {
+	PREFORMED = 0;
+	SECTIONAL = 1;
+	EXPANSION = 2;
+	PRESSUREVESSEL = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcTendonTypeEnum {
+	STRAND = 0;
+	WIRE = 1;
+	BAR = 2;
+	COATED = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcTextPath {
+	LEFT = 0;
+	RIGHT = 1;
+	UP = 2;
+	DOWN = 3;
+}
+
+enum IfcThermalLoadSourceEnum {
+	PEOPLE = 0;
+	LIGHTING = 1;
+	EQUIPMENT = 2;
+	VENTILATIONINDOORAIR = 3;
+	VENTILATIONOUTSIDEAIR = 4;
+	RECIRCULATEDAIR = 5;
+	EXHAUSTAIR = 6;
+	AIREXCHANGERATE = 7;
+	DRYBULBTEMPERATURE = 8;
+	RELATIVEHUMIDITY = 9;
+	INFILTRATION = 10;
+	USERDEFINED = 11;
+	NOTDEFINED = 12;
+}
+
+enum IfcThermalLoadTypeEnum {
+	SENSIBLE = 0;
+	LATENT = 1;
+	RADIANT = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcTimeSeriesDataTypeEnum {
+	CONTINUOUS = 0;
+	DISCRETE = 1;
+	DISCRETEBINARY = 2;
+	PIECEWISEBINARY = 3;
+	PIECEWISECONSTANT = 4;
+	PIECEWISECONTINUOUS = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcTimeSeriesScheduleTypeEnum {
+	ANNUAL = 0;
+	MONTHLY = 1;
+	WEEKLY = 2;
+	DAILY = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcTransformerTypeEnum {
+	CURRENT = 0;
+	FREQUENCY = 1;
+	VOLTAGE = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcTransitionCode {
+	DISCONTINUOUS = 0;
+	CONTINUOUS = 1;
+	CONTSAMEGRADIENT = 2;
+	CONTSAMEGRADIENTSAMECURVATURE = 3;
+}
+
+enum IfcTransportElementTypeEnum {
+	ELEVATOR = 0;
+	ESCALATOR = 1;
+	MOVINGWALKWAY = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+enum IfcTrimmingPreference {
+	CARTESIAN = 0;
+	PARAMETER = 1;
+	UNSPECIFIED = 2;
+}
+
+enum IfcTubeBundleTypeEnum {
+	FINNED = 0;
+	USERDEFINED = 1;
+	NOTDEFINED = 2;
+}
+
+enum IfcUnitEnum {
+	ABSORBEDDOSEUNIT = 0;
+	AMOUNTOFSUBSTANCEUNIT = 1;
+	AREAUNIT = 2;
+	DOSEEQUIVALENTUNIT = 3;
+	ELECTRICCAPACITANCEUNIT = 4;
+	ELECTRICCHARGEUNIT = 5;
+	ELECTRICCONDUCTANCEUNIT = 6;
+	ELECTRICCURRENTUNIT = 7;
+	ELECTRICRESISTANCEUNIT = 8;
+	ELECTRICVOLTAGEUNIT = 9;
+	ENERGYUNIT = 10;
+	FORCEUNIT = 11;
+	FREQUENCYUNIT = 12;
+	ILLUMINANCEUNIT = 13;
+	INDUCTANCEUNIT = 14;
+	LENGTHUNIT = 15;
+	LUMINOUSFLUXUNIT = 16;
+	LUMINOUSINTENSITYUNIT = 17;
+	MAGNETICFLUXDENSITYUNIT = 18;
+	MAGNETICFLUXUNIT = 19;
+	MASSUNIT = 20;
+	PLANEANGLEUNIT = 21;
+	POWERUNIT = 22;
+	PRESSUREUNIT = 23;
+	RADIOACTIVITYUNIT = 24;
+	SOLIDANGLEUNIT = 25;
+	THERMODYNAMICTEMPERATUREUNIT = 26;
+	TIMEUNIT = 27;
+	VOLUMEUNIT = 28;
+	USERDEFINED = 29;
+}
+
+enum IfcUnitaryEquipmentTypeEnum {
+	AIRHANDLER = 0;
+	AIRCONDITIONINGUNIT = 1;
+	SPLITSYSTEM = 2;
+	ROOFTOPUNIT = 3;
+	USERDEFINED = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcValveTypeEnum {
+	AIRRELEASE = 0;
+	ANTIVACUUM = 1;
+	CHANGEOVER = 2;
+	CHECK = 3;
+	COMMISSIONING = 4;
+	DIVERTING = 5;
+	DRAWOFFCOCK = 6;
+	DOUBLECHECK = 7;
+	DOUBLEREGULATING = 8;
+	FAUCET = 9;
+	FLUSHING = 10;
+	GASCOCK = 11;
+	GASTAP = 12;
+	ISOLATING = 13;
+	MIXING = 14;
+	PRESSUREREDUCING = 15;
+	PRESSURERELIEF = 16;
+	REGULATING = 17;
+	SAFETYCUTOFF = 18;
+	STEAMTRAP = 19;
+	STOPCOCK = 20;
+	USERDEFINED = 21;
+	NOTDEFINED = 22;
+}
+
+enum IfcVibrationIsolatorTypeEnum {
+	COMPRESSION = 0;
+	SPRING = 1;
+	USERDEFINED = 2;
+	NOTDEFINED = 3;
+}
+
+enum IfcWallTypeEnum {
+	STANDARD = 0;
+	POLYGONAL = 1;
+	SHEAR = 2;
+	ELEMENTEDWALL = 3;
+	PLUMBINGWALL = 4;
+	USERDEFINED = 5;
+	NOTDEFINED = 6;
+}
+
+enum IfcWasteTerminalTypeEnum {
+	FLOORTRAP = 0;
+	FLOORWASTE = 1;
+	GULLYSUMP = 2;
+	GULLYTRAP = 3;
+	GREASEINTERCEPTOR = 4;
+	OILINTERCEPTOR = 5;
+	PETROLINTERCEPTOR = 6;
+	ROOFDRAIN = 7;
+	WASTEDISPOSALUNIT = 8;
+	WASTETRAP = 9;
+	USERDEFINED = 10;
+	NOTDEFINED = 11;
+}
+
+enum IfcWindowPanelOperationEnum {
+	SIDEHUNGRIGHTHAND = 0;
+	SIDEHUNGLEFTHAND = 1;
+	TILTANDTURNRIGHTHAND = 2;
+	TILTANDTURNLEFTHAND = 3;
+	TOPHUNG = 4;
+	BOTTOMHUNG = 5;
+	PIVOTHORIZONTAL = 6;
+	PIVOTVERTICAL = 7;
+	SLIDINGHORIZONTAL = 8;
+	SLIDINGVERTICAL = 9;
+	REMOVABLECASEMENT = 10;
+	FIXEDCASEMENT = 11;
+	OTHEROPERATION = 12;
+	NOTDEFINED = 13;
+}
+
+enum IfcWindowPanelPositionEnum {
+	LEFT = 0;
+	MIDDLE = 1;
+	RIGHT = 2;
+	BOTTOM = 3;
+	TOP = 4;
+	NOTDEFINED = 5;
+}
+
+enum IfcWindowStyleConstructionEnum {
+	ALUMINIUM = 0;
+	HIGH_GRADE_STEEL = 1;
+	STEEL = 2;
+	WOOD = 3;
+	ALUMINIUM_WOOD = 4;
+	PLASTIC = 5;
+	OTHER_CONSTRUCTION = 6;
+	NOTDEFINED = 7;
+}
+
+enum IfcWindowStyleOperationEnum {
+	SINGLE_PANEL = 0;
+	DOUBLE_PANEL_VERTICAL = 1;
+	DOUBLE_PANEL_HORIZONTAL = 2;
+	TRIPLE_PANEL_VERTICAL = 3;
+	TRIPLE_PANEL_BOTTOM = 4;
+	TRIPLE_PANEL_TOP = 5;
+	TRIPLE_PANEL_LEFT = 6;
+	TRIPLE_PANEL_RIGHT = 7;
+	TRIPLE_PANEL_HORIZONTAL = 8;
+	USERDEFINED = 9;
+	NOTDEFINED = 10;
+}
+
+enum IfcWorkControlTypeEnum {
+	ACTUAL = 0;
+	BASELINE = 1;
+	PLANNED = 2;
+	USERDEFINED = 3;
+	NOTDEFINED = 4;
+}
+
+class IfcVectorOrDirection {
+}
+
+class IfcValue {
+	unsettable attr REAL ifcVolumetricFlowRateMeasurevalue;
+	unsettable attr INTEGER ifcTimeStampvalue;
+	unsettable attr REAL ifcThermalTransmittanceMeasurevalue;
+	unsettable attr REAL ifcThermalResistanceMeasurevalue;
+	unsettable attr REAL ifcThermalAdmittanceMeasurevalue;
+	unsettable attr REAL ifcPressureMeasurevalue;
+	unsettable attr REAL ifcPowerMeasurevalue;
+	unsettable attr REAL ifcMassFlowRateMeasurevalue;
+	unsettable attr REAL ifcMassDensityMeasurevalue;
+	unsettable attr REAL ifcLinearVelocityMeasurevalue;
+	unsettable attr REAL ifcKinematicViscosityMeasurevalue;
+	unsettable attr INTEGER ifcIntegerCountRateMeasurevalue;
+	unsettable attr REAL ifcHeatFluxDensityMeasurevalue;
+	unsettable attr REAL ifcFrequencyMeasurevalue;
+	unsettable attr REAL ifcEnergyMeasurevalue;
+	unsettable attr REAL ifcElectricVoltageMeasurevalue;
+	unsettable attr REAL ifcDynamicViscosityMeasurevalue;
+	unsettable attr REAL ifcAngularVelocityMeasurevalue;
+	unsettable attr REAL ifcThermalConductivityMeasurevalue;
+	unsettable attr REAL ifcMolecularWeightMeasurevalue;
+	unsettable attr REAL ifcVaporPermeabilityMeasurevalue;
+	unsettable attr REAL ifcMoistureDiffusivityMeasurevalue;
+	unsettable attr REAL ifcIsothermalMoistureCapacityMeasurevalue;
+	unsettable attr REAL ifcSpecificHeatCapacityMeasurevalue;
+	unsettable attr REAL ifcMonetaryMeasurevalue;
+	unsettable attr REAL ifcMagneticFluxDensityMeasurevalue;
+	unsettable attr REAL ifcMagneticFluxMeasurevalue;
+	unsettable attr REAL ifcLuminousFluxMeasurevalue;
+	unsettable attr REAL ifcForceMeasurevalue;
+	unsettable attr REAL ifcInductanceMeasurevalue;
+	unsettable attr REAL ifcIlluminanceMeasurevalue;
+	unsettable attr REAL ifcElectricResistanceMeasurevalue;
+	unsettable attr REAL ifcElectricConductanceMeasurevalue;
+	unsettable attr REAL ifcElectricChargeMeasurevalue;
+	unsettable attr REAL ifcDoseEquivalentMeasurevalue;
+	unsettable attr REAL ifcElectricCapacitanceMeasurevalue;
+	unsettable attr REAL ifcAbsorbedDoseMeasurevalue;
+	unsettable attr REAL ifcRadioActivityMeasurevalue;
+	unsettable attr REAL ifcRotationalFrequencyMeasurevalue;
+	unsettable attr REAL ifcTorqueMeasurevalue;
+	unsettable attr REAL ifcAccelerationMeasurevalue;
+	unsettable attr REAL ifcLinearForceMeasurevalue;
+	unsettable attr REAL ifcLinearStiffnessMeasurevalue;
+	unsettable attr REAL ifcModulusOfSubgradeReactionMeasurevalue;
+	unsettable attr REAL ifcModulusOfElasticityMeasurevalue;
+	unsettable attr REAL ifcMomentOfInertiaMeasurevalue;
+	unsettable attr REAL ifcPlanarForceMeasurevalue;
+	unsettable attr REAL ifcRotationalStiffnessMeasurevalue;
+	unsettable attr REAL ifcShearModulusMeasurevalue;
+	unsettable attr REAL ifcLinearMomentMeasurevalue;
+	unsettable attr REAL ifcLuminousIntensityDistributionMeasurevalue;
+	unsettable attr REAL ifcCurvatureMeasurevalue;
+	unsettable attr REAL ifcMassPerLengthMeasurevalue;
+	unsettable attr REAL ifcModulusOfLinearSubgradeReactionMeasurevalue;
+	unsettable attr REAL ifcModulusOfRotationalSubgradeReactionMeasurevalue;
+	unsettable attr REAL ifcRotationalMassMeasurevalue;
+	unsettable attr REAL ifcSectionalAreaIntegralMeasurevalue;
+	unsettable attr REAL ifcSectionModulusMeasurevalue;
+	unsettable attr REAL ifcTemperatureGradientMeasurevalue;
+	unsettable attr REAL ifcThermalExpansionCoefficientMeasurevalue;
+	unsettable attr REAL ifcWarpingConstantMeasurevalue;
+	unsettable attr REAL ifcWarpingMomentMeasurevalue;
+	unsettable attr REAL ifcSoundPowerMeasurevalue;
+	unsettable attr REAL ifcSoundPressureMeasurevalue;
+	unsettable attr REAL ifcHeatingValueMeasurevalue;
+	unsettable attr REAL ifcPHMeasurevalue;
+	unsettable attr REAL ifcIonConcentrationMeasurevalue;
+	unsettable attr INTEGER ifcIntegervalue;
+	unsettable attr REAL ifcRealvalue;
+	unsettable attr BOOLEAN ifcBooleanvalue;
+	unsettable attr STRING ifcIdentifiervalue;
+	unsettable attr STRING ifcTextvalue;
+	unsettable attr STRING ifcLabelvalue;
+	unsettable attr Boolean ifcLogicalvalue;
+	unsettable attr REAL ifcVolumeMeasurevalue;
+	unsettable attr REAL ifcTimeMeasurevalue;
+	unsettable attr REAL ifcThermodynamicTemperatureMeasurevalue;
+	unsettable attr REAL ifcSolidAngleMeasurevalue;
+	unsettable attr REAL ifcPositiveRatioMeasurevalue;
+	unsettable attr REAL ifcRatioMeasurevalue;
+	unsettable attr REAL ifcPositivePlaneAngleMeasurevalue;
+	unsettable attr REAL ifcPlaneAngleMeasurevalue;
+	unsettable attr REAL ifcParameterValuevalue;
+	unsettable attr NUMBER ifcNumericMeasurevalue;
+	unsettable attr REAL ifcMassMeasurevalue;
+	unsettable attr REAL ifcPositiveLengthMeasurevalue;
+	unsettable attr REAL ifcLengthMeasurevalue;
+	unsettable attr REAL ifcElectricCurrentMeasurevalue;
+	unsettable attr STRING ifcDescriptiveMeasurevalue;
+	unsettable attr NUMBER ifcCountMeasurevalue;
+	unsettable attr REAL ifcContextDependentMeasurevalue;
+	unsettable attr REAL ifcAreaMeasurevalue;
+	unsettable attr REAL ifcAmountOfSubstanceMeasurevalue;
+	unsettable attr REAL ifcLuminousIntensityMeasurevalue;
+	unsettable attr REAL ifcNormalisedRatioMeasurevalue;
+}
+
+class IfcUnit {
+}
+
+class IfcTrimmingSelect {
+	unsettable attr REAL ifcParameterValuevalue;
+	ref IfcCartesianPoint ifcCartesianPointvalue;
+}
+
+class IfcTextStyleSelect {
+}
+
+class IfcTextFontSelect {
+}
+
+class IfcSymbolStyleSelect {
+}
+
+class IfcSurfaceStyleElementSelect {
+}
+
+class IfcSurfaceOrFaceSurface {
+}
+
+class IfcStructuralActivityAssignmentSelect {
+	!ordered ref IfcRelConnectsStructuralActivity[*]#relatingElement assignedStructuralActivity;
+}
+
+class IfcSpecularHighlightSelect {
+	unsettable attr REAL ifcSpecularRoughnessvalue;
+	unsettable attr REAL ifcSpecularExponentvalue;
+}
+
+class IfcSizeSelect {
+	unsettable attr REAL ifcPositiveRatioMeasurevalue;
+	unsettable attr REAL ifcNormalisedRatioMeasurevalue;
+	unsettable attr REAL ifcPositiveLengthMeasurevalue;
+	unsettable attr STRING ifcDescriptiveMeasurevalue;
+	unsettable attr REAL ifcLengthMeasurevalue;
+	unsettable attr REAL ifcRatioMeasurevalue;
+}
+
+class IfcSimpleValue {
+	unsettable attr Boolean ifcLogicalvalue;
+	unsettable attr STRING ifcLabelvalue;
+	unsettable attr STRING ifcTextvalue;
+	unsettable attr STRING ifcIdentifiervalue;
+	unsettable attr BOOLEAN ifcBooleanvalue;
+	unsettable attr REAL ifcRealvalue;
+	unsettable attr INTEGER ifcIntegervalue;
+}
+
+class IfcShell {
+}
+
+class IfcPresentationStyleSelect {
+	unsettable attr IfcNullStyle ifcNullStylevalue;
+	ref IfcSurfaceStyle ifcSurfaceStylevalue;
+	ref IfcTextStyle ifcTextStylevalue;
+	ref IfcFillAreaStyle ifcFillAreaStylevalue;
+	ref IfcSymbolStyle ifcSymbolStylevalue;
+	ref IfcCurveStyle ifcCurveStylevalue;
+}
+
+class IfcPointOrVertexPoint {
+}
+
+class IfcOrientationSelect {
+	unsettable attr REAL ifcPlaneAngleMeasurevalue;
+	ref IfcDirection ifcDirectionvalue;
+}
+
+class IfcObjectReferenceSelect {
+}
+
+class IfcMetricValueSelect {
+	ref IfcDateTimeSelect ifcDateTimeSelectvalue;
+	unsettable attr STRING ifcTextvalue;
+	ref IfcCostValue ifcCostValuevalue;
+	ref IfcTimeSeries ifcTimeSeriesvalue;
+	ref IfcTable ifcTablevalue;
+	ref IfcMeasureWithUnit ifcMeasureWithUnitvalue;
+}
+
+class IfcMeasureValue {
+	unsettable attr REAL ifcNormalisedRatioMeasurevalue;
+	unsettable attr REAL ifcLuminousIntensityMeasurevalue;
+	unsettable attr REAL ifcAmountOfSubstanceMeasurevalue;
+	unsettable attr REAL ifcAreaMeasurevalue;
+	unsettable attr REAL ifcContextDependentMeasurevalue;
+	unsettable attr NUMBER ifcCountMeasurevalue;
+	unsettable attr STRING ifcDescriptiveMeasurevalue;
+	unsettable attr REAL ifcElectricCurrentMeasurevalue;
+	unsettable attr REAL ifcLengthMeasurevalue;
+	unsettable attr REAL ifcPositiveLengthMeasurevalue;
+	unsettable attr REAL ifcMassMeasurevalue;
+	unsettable attr NUMBER ifcNumericMeasurevalue;
+	unsettable attr REAL ifcParameterValuevalue;
+	unsettable attr REAL ifcPlaneAngleMeasurevalue;
+	unsettable attr REAL ifcPositivePlaneAngleMeasurevalue;
+	unsettable attr REAL ifcRatioMeasurevalue;
+	unsettable attr REAL ifcPositiveRatioMeasurevalue;
+	unsettable attr REAL ifcSolidAngleMeasurevalue;
+	unsettable attr REAL ifcThermodynamicTemperatureMeasurevalue;
+	unsettable attr REAL ifcTimeMeasurevalue;
+	unsettable attr REAL ifcVolumeMeasurevalue;
+}
+
+class IfcMaterialSelect {
+}
+
+class IfcLightDistributionDataSourceSelect {
+}
+
+class IfcLibrarySelect {
+}
+
+class IfcLayeredItem {
+	!ordered ref IfcPresentationLayerAssignment[*]#assignedItems layerAssignments;
+}
+
+class IfcHatchLineDistanceSelect {
+	unsettable attr REAL ifcPositiveLengthMeasurevalue;
+	ref IfcOneDirectionRepeatFactor ifcOneDirectionRepeatFactorvalue;
+}
+
+class IfcGeometricSetSelect {
+}
+
+class IfcFillStyleSelect {
+}
+
+class IfcFillAreaStyleTileShapeSelect {
+}
+
+class IfcDraughtingCalloutElement {
+}
+
+class IfcDocumentSelect {
+}
+
+class IfcDerivedMeasureValue {
+	unsettable attr REAL ifcIonConcentrationMeasurevalue;
+	unsettable attr REAL ifcPHMeasurevalue;
+	unsettable attr REAL ifcHeatingValueMeasurevalue;
+	unsettable attr REAL ifcSoundPressureMeasurevalue;
+	unsettable attr REAL ifcSoundPowerMeasurevalue;
+	unsettable attr REAL ifcWarpingMomentMeasurevalue;
+	unsettable attr REAL ifcWarpingConstantMeasurevalue;
+	unsettable attr REAL ifcThermalExpansionCoefficientMeasurevalue;
+	unsettable attr REAL ifcTemperatureGradientMeasurevalue;
+	unsettable attr REAL ifcSectionModulusMeasurevalue;
+	unsettable attr REAL ifcSectionalAreaIntegralMeasurevalue;
+	unsettable attr REAL ifcRotationalMassMeasurevalue;
+	unsettable attr REAL ifcModulusOfRotationalSubgradeReactionMeasurevalue;
+	unsettable attr REAL ifcModulusOfLinearSubgradeReactionMeasurevalue;
+	unsettable attr REAL ifcMassPerLengthMeasurevalue;
+	unsettable attr REAL ifcCurvatureMeasurevalue;
+	unsettable attr REAL ifcLuminousIntensityDistributionMeasurevalue;
+	unsettable attr REAL ifcLinearMomentMeasurevalue;
+	unsettable attr REAL ifcShearModulusMeasurevalue;
+	unsettable attr REAL ifcRotationalStiffnessMeasurevalue;
+	unsettable attr REAL ifcPlanarForceMeasurevalue;
+	unsettable attr REAL ifcMomentOfInertiaMeasurevalue;
+	unsettable attr REAL ifcModulusOfElasticityMeasurevalue;
+	unsettable attr REAL ifcModulusOfSubgradeReactionMeasurevalue;
+	unsettable attr REAL ifcLinearStiffnessMeasurevalue;
+	unsettable attr REAL ifcLinearForceMeasurevalue;
+	unsettable attr REAL ifcAccelerationMeasurevalue;
+	unsettable attr REAL ifcTorqueMeasurevalue;
+	unsettable attr REAL ifcRotationalFrequencyMeasurevalue;
+	unsettable attr REAL ifcRadioActivityMeasurevalue;
+	unsettable attr REAL ifcAbsorbedDoseMeasurevalue;
+	unsettable attr REAL ifcElectricCapacitanceMeasurevalue;
+	unsettable attr REAL ifcDoseEquivalentMeasurevalue;
+	unsettable attr REAL ifcElectricChargeMeasurevalue;
+	unsettable attr REAL ifcElectricConductanceMeasurevalue;
+	unsettable attr REAL ifcElectricResistanceMeasurevalue;
+	unsettable attr REAL ifcIlluminanceMeasurevalue;
+	unsettable attr REAL ifcInductanceMeasurevalue;
+	unsettable attr REAL ifcForceMeasurevalue;
+	unsettable attr REAL ifcLuminousFluxMeasurevalue;
+	unsettable attr REAL ifcMagneticFluxMeasurevalue;
+	unsettable attr REAL ifcMagneticFluxDensityMeasurevalue;
+	unsettable attr REAL ifcMonetaryMeasurevalue;
+	unsettable attr REAL ifcSpecificHeatCapacityMeasurevalue;
+	unsettable attr REAL ifcIsothermalMoistureCapacityMeasurevalue;
+	unsettable attr REAL ifcMoistureDiffusivityMeasurevalue;
+	unsettable attr REAL ifcVaporPermeabilityMeasurevalue;
+	unsettable attr REAL ifcMolecularWeightMeasurevalue;
+	unsettable attr REAL ifcThermalConductivityMeasurevalue;
+	unsettable attr REAL ifcAngularVelocityMeasurevalue;
+	unsettable attr REAL ifcDynamicViscosityMeasurevalue;
+	unsettable attr REAL ifcElectricVoltageMeasurevalue;
+	unsettable attr REAL ifcEnergyMeasurevalue;
+	unsettable attr REAL ifcFrequencyMeasurevalue;
+	unsettable attr REAL ifcHeatFluxDensityMeasurevalue;
+	unsettable attr INTEGER ifcIntegerCountRateMeasurevalue;
+	unsettable attr REAL ifcKinematicViscosityMeasurevalue;
+	unsettable attr REAL ifcLinearVelocityMeasurevalue;
+	unsettable attr REAL ifcMassDensityMeasurevalue;
+	unsettable attr REAL ifcMassFlowRateMeasurevalue;
+	unsettable attr REAL ifcPowerMeasurevalue;
+	unsettable attr REAL ifcPressureMeasurevalue;
+	unsettable attr REAL ifcThermalAdmittanceMeasurevalue;
+	unsettable attr REAL ifcThermalResistanceMeasurevalue;
+	unsettable attr REAL ifcThermalTransmittanceMeasurevalue;
+	unsettable attr INTEGER ifcTimeStampvalue;
+	unsettable attr REAL ifcVolumetricFlowRateMeasurevalue;
+}
+
+class IfcDefinedSymbolSelect {
+}
+
+class IfcDateTimeSelect {
+}
+
+class IfcCurveStyleFontSelect extends IfcCurveFontOrScaledCurveFontSelect {
+}
+
+class IfcCurveOrEdgeCurve {
+}
+
+class IfcCurveFontOrScaledCurveFontSelect {
+}
+
+class IfcCsgSelect {
+}
+
+class IfcConditionCriterionSelect {
+	unsettable attr STRING ifcLabelvalue;
+	ref IfcMeasureWithUnit ifcMeasureWithUnitvalue;
+}
+
+class IfcColourOrFactor {
+	unsettable attr REAL ifcNormalisedRatioMeasurevalue;
+	ref IfcColourRgb ifcColourRgbvalue;
+}
+
+class IfcColour extends IfcFillStyleSelect, IfcSymbolStyleSelect {
+}
+
+class IfcClassificationNotationSelect {
+}
+
+class IfcCharacterStyleSelect {
+}
+
+class IfcBooleanOperand {
+}
+
+class IfcAxis2Placement {
+}
+
+class IfcAppliedValueSelect {
+	unsettable attr REAL ifcMonetaryMeasurevalue;
+	unsettable attr REAL ifcRatioMeasurevalue;
+	ref IfcMeasureWithUnit ifcMeasureWithUnitvalue;
+}
+
+class IfcActorSelect {
+}
+
+class Pointcut {
+	val EObject[*] children;
+}
+

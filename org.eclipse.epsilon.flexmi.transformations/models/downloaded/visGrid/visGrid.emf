@@ -1,0 +1,1983 @@
+@namespace(uri="http://tcd.ie", prefix="ie.tcd.gmf.visGrid")
+package visGrid;
+
+class Climate extends Connection {
+	attr String city = "";
+	attr String tmyfile = "";
+	attr String temperature = "";
+	attr String humidity = "";
+	attr String solar_flux = "";
+	attr String solar_direct = "";
+	attr String wind_speed = "";
+	attr String wind_dir = "";
+	attr String wind_gust = "";
+	attr String record__low = "";
+	attr String record__low_day = "";
+	attr String record__high = "";
+	attr String record__high_day = "";
+	attr String record__solar = "";
+	attr String rainfall = "";
+	attr String snowdepth = "";
+	attr String interpolate = "";
+	attr String solar_horiz = "";
+	attr String solar_north = "";
+	attr String solar_northeast = "";
+	attr String solar_east = "";
+	attr String solar_southeast = "";
+	attr String solar_south = "";
+	attr String solar_southwest = "";
+	attr String solar_west = "";
+	attr String solar_northwest = "";
+	attr String solar_raw = "";
+	attr String reader = "";
+}
+
+class Csv_reader extends Connection {
+	attr String index;
+	attr String city_name;
+	attr String state_name;
+	attr String lat_deg;
+	attr String lat_min;
+	attr String long_deg;
+	attr String long_min;
+	attr String low_temp;
+	attr String high_temp;
+	attr String peak_solar;
+	attr String status;
+	attr String timefmt;
+	attr String timezone;
+	attr String columns;
+	attr String filename;
+}
+
+class Diesel_dg extends Connection {
+	attr String Gen_mode;
+	attr String Gen_status;
+	attr String Rated_kVA;
+	attr String Rated_kV;
+	attr String Rs;
+	attr String Xs;
+	attr String Rg;
+	attr String Xg;
+	attr String voltage_A;
+	attr String voltage_B;
+	attr String voltage_C;
+	attr String current_A;
+	attr String current_B;
+	attr String current_C;
+	attr String EfA;
+	attr String EfB;
+	attr String EfC;
+	attr String power_A;
+	attr String power_B;
+	attr String power_C;
+	attr String power_A_sch;
+	attr String power_B_sch;
+	attr String power_C_sch;
+	attr String EfA_sch;
+	attr String EfB_sch;
+	attr String EfC_sch;
+	attr String SlackBus;
+	attr String phases;
+}
+
+class Energy_storage extends Connection {
+	attr String generator_mode;
+	attr String generator_status;
+	attr String power_type;
+	attr String Rinternal;
+	attr String V_Max;
+	attr String I_Max;
+	attr String E_Max;
+	attr String Energy;
+	attr String efficiency;
+	attr String Rated_kVA;
+	attr String V_Out;
+	attr String I_Out;
+	attr String VA_Out;
+	attr String V_In;
+	attr String I_In;
+	attr String V_Internal;
+	attr String I_Internal;
+	attr String I_Prev;
+	attr String phases;
+}
+
+class Inverter extends Connection {
+	attr String inverter_type;
+	attr String generator_status;
+	attr String generator_mode;
+	attr String V_In;
+	attr String I_In;
+	attr String VA_In;
+	attr String Vdc;
+	attr String phaseA_V_Out;
+	attr String phaseB_V_Out;
+	attr String phaseC_V_Out;
+	attr String phaseA_I_Out;
+	attr String phaseB_I_Out;
+	attr String phaseC_I_Out;
+	attr String power_A;
+	attr String power_B;
+	attr String power_C;
+	attr String P_Out;
+	attr String Q_Out;
+	attr String power_factor;
+	attr String phases;
+}
+
+class Dc_dc_converter extends Connection {
+	attr String dc_dc_converter_type;
+	attr String generator_mode;
+	attr String V_Out;
+	attr String I_Out;
+	attr String Vdc;
+	attr String VA_Out;
+	attr String P_Out;
+	attr String Q_Out;
+	attr String service_ratio;
+	attr String V_In;
+	attr String I_In;
+	attr String VA_In;
+	attr String phases;
+}
+
+class Auction extends Connection {
+	attr String type;
+	attr String unit;
+	attr String period;
+	attr String latency;
+	attr String market_id;
+	attr String last__Q;
+	attr String last__P;
+	attr String next__Q;
+	attr String next__P;
+	attr String avg24;
+	attr String std24;
+	attr String avg72;
+	attr String std72;
+	attr String avg168;
+	attr String std168;
+	attr String network;
+	attr String verbose;
+}
+
+class Controller extends Connection {
+	attr String simple_mode;
+	attr String bid_mode;
+	attr String ramp_low;
+	attr String ramp_high;
+	attr String Tmin;
+	attr String Tmax;
+	attr String target;
+	attr String setpoint;
+	attr String demand;
+	attr String load;
+	attr String total;
+	attr String market;
+	attr String bid_price;
+	attr String bid_quant;
+	attr String set_temp;
+	attr String base_setpoint;
+}
+
+class Controller2 extends Connection {
+	attr String input_state;
+	attr String input_setpoint;
+	attr String input_chained;
+	attr String observation;
+	attr String mean_observation;
+	attr String stdev_observation;
+	attr String expectation;
+	attr String setpoint;
+	attr String sensitivity;
+	attr String period;
+	attr String expectation_prop;
+	attr String expectation_obj;
+	attr String setpoint_prop;
+	attr String state_prop;
+	attr String observation_obj;
+	attr String observation_prop;
+	attr String mean_observation_prop;
+	attr String stdev_observation_prop;
+	attr String cycle_length;
+	attr String base_setpoint;
+	attr String ramp_high;
+	attr String ramp_low;
+	attr String range_high;
+	attr String range_low;
+	attr String prob_off;
+	attr String output_state;
+	attr String output_setpoint;
+	attr String control_mode;
+}
+
+class Capbank extends Connection {
+	attr String KVARrated;
+	attr String Vrated;
+	attr String state;
+	attr String CTlink;
+	attr String PTnode;
+	attr String VARopen;
+	attr String VARclose;
+	attr String Vopen;
+	attr String Vclose;
+}
+
+class Comm extends Connection {
+	attr String latency;
+	attr String reliability;
+	attr String bitrate;
+	attr String timeout;
+}
+
+class Capacitor extends Connection {
+	attr String pt_phase;
+	attr String phases_connected;
+	attr String switchA;
+	attr String switchB;
+	attr String switchC;
+	attr String control;
+	attr String voltage_set_high;
+	attr String voltage_set_low;
+	attr String VAr_set_high;
+	attr String VAr_set_low;
+	attr String current_set_low;
+	attr String current_set_high;
+	attr String capacitor_A;
+	attr String capacitor_B;
+	attr String capacitor_C;
+	attr String cap_nominal_voltage;
+	attr String time_delay;
+	attr String dwell_time;
+	attr String lockout_time;
+	attr String remote_sense;
+	attr String remote_sense_B;
+	attr String control_level;
+	attr String bustype;
+	attr String busflags;
+	attr String reference_bus;
+	attr String maximum_voltage_error;
+	attr String voltage_A;
+	attr String voltage_B;
+	attr String voltage_C;
+	attr String voltage_AB;
+	attr String voltage_BC;
+	attr String voltage_CA;
+	attr String current_A;
+	attr String current_B;
+	attr String current_C;
+	attr String power_A;
+	attr String power_B;
+	attr String power_C;
+	attr String shunt_A;
+	attr String shunt_B;
+	attr String shunt_C;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Line extends Connection {
+	attr String configuration;
+	attr String length;
+	attr String status;
+	attr String from;
+	attr String to;
+	attr String power_in;
+	attr String power_out;
+	attr String power_losses;
+	attr String power_in_A;
+	attr String power_in_B;
+	attr String power_in_C;
+	attr String power_out_A;
+	attr String power_out_B;
+	attr String power_out_C;
+	attr String power_losses_A;
+	attr String power_losses_B;
+	attr String power_losses_C;
+	attr String flow_direction;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Line_spacing extends Connection {
+	attr String distance_AB;
+	attr String distance_BC;
+	attr String distance_AC;
+	attr String distance_AN;
+	attr String distance_BN;
+	attr String distance_CN;
+}
+
+class Overhead_line extends Connection {
+	attr String configuration;
+	attr String length;
+	attr String status;
+	attr String from;
+	attr String to;
+	attr String power_in;
+	attr String power_out;
+	attr String power_losses;
+	attr String power_in_A;
+	attr String power_in_B;
+	attr String power_in_C;
+	attr String power_out_A;
+	attr String power_out_B;
+	attr String power_out_C;
+	attr String power_losses_A;
+	attr String power_losses_B;
+	attr String power_losses_C;
+	attr String flow_direction;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Underground_line extends Connection {
+	attr String configuration;
+	attr String length;
+	attr String status;
+	attr String from;
+	attr String to;
+	attr String power_in;
+	attr String power_out;
+	attr String power_losses;
+	attr String power_in_A;
+	attr String power_in_B;
+	attr String power_in_C;
+	attr String power_out_A;
+	attr String power_out_B;
+	attr String power_out_C;
+	attr String power_losses_A;
+	attr String power_losses_B;
+	attr String power_losses_C;
+	attr String flow_direction;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Overhead_line_conductor extends Connection {
+	attr String geometric_mean_radius;
+	attr String resistance;
+	attr String rating__summer__continuous;
+	attr String rating__summer__emergency;
+	attr String rating__winter__continuous;
+	attr String rating__winter__emergency;
+}
+
+class Underground_line_conductor extends Connection {
+	attr String outer_diameter;
+	attr String conductor_gmr;
+	attr String conductor_diameter;
+	attr String conductor_resistance;
+	attr String neutral_gmr;
+	attr String neutral_diameter;
+	attr String neutral_resistance;
+	attr String neutral_strands;
+	attr String shield_gmr;
+	attr String shield_resistance;
+	attr String rating__summer__continuous;
+	attr String rating__summer__emergency;
+	attr String rating__winter__continuous;
+	attr String rating__winter__emergency;
+}
+
+class Line_configuration extends Connection {
+	attr String conductor_A;
+	attr String conductor_B;
+	attr String conductor_C;
+	attr String conductor_N;
+	attr String spacing;
+}
+
+class Transformer_configuration extends Connection {
+	attr String connect_type;
+	attr String install_type;
+	attr String primary_voltage;
+	attr String secondary_voltage;
+	attr String power_rating;
+	attr String powerA_rating;
+	attr String powerB_rating;
+	attr String powerC_rating;
+	attr String resistance;
+	attr String reactance;
+	attr String impedance;
+	attr String resistance1;
+	attr String reactance1;
+	attr String impedance1;
+	attr String resistance2;
+	attr String reactance2;
+	attr String impedance2;
+	attr String shunt_resistance;
+	attr String shunt_reactance;
+	attr String shunt_impedance;
+}
+
+class Load extends Connection {
+	attr String load_class;
+	attr String constant_power_A;
+	attr String constant_power_B;
+	attr String constant_power_C;
+	attr String constant_power_A_real;
+	attr String constant_power_B_real;
+	attr String constant_power_C_real;
+	attr String constant_power_A_reac;
+	attr String constant_power_B_reac;
+	attr String constant_power_C_reac;
+	attr String constant_current_A;
+	attr String constant_current_B;
+	attr String constant_current_C;
+	attr String constant_current_A_real;
+	attr String constant_current_B_real;
+	attr String constant_current_C_real;
+	attr String constant_current_A_reac;
+	attr String constant_current_B_reac;
+	attr String constant_current_C_reac;
+	attr String constant_impedance_A;
+	attr String constant_impedance_B;
+	attr String constant_impedance_C;
+	attr String constant_impedance_A_real;
+	attr String constant_impedance_B_real;
+	attr String constant_impedance_C_real;
+	attr String constant_impedance_A_reac;
+	attr String constant_impedance_B_reac;
+	attr String constant_impedance_C_reac;
+	attr String measured_voltage_A;
+	attr String measured_voltage_B;
+	attr String measured_voltage_C;
+	attr String measured_voltage_AB;
+	attr String measured_voltage_BC;
+	attr String measured_voltage_CA;
+	attr String bustype;
+	attr String busflags;
+	attr String reference_bus;
+	attr String maximum_voltage_error;
+	attr String voltage_A;
+	attr String voltage_B;
+	attr String voltage_C;
+	attr String voltage_AB;
+	attr String voltage_BC;
+	attr String voltage_CA;
+	attr String current_A;
+	attr String current_B;
+	attr String current_C;
+	attr String power_A;
+	attr String power_B;
+	attr String power_C;
+	attr String shunt_A;
+	attr String shunt_B;
+	attr String shunt_C;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Regulator_configuration extends Connection {
+	attr String connect_type;
+	attr String band_center;
+	attr String band_width;
+	attr String time_delay;
+	attr String dwell_time;
+	attr String raise_taps;
+	attr String lower_taps;
+	attr String current_transducer_ratio;
+	attr String power_transducer_ratio;
+	attr String compensator_r_setting_A;
+	attr String compensator_r_setting_B;
+	attr String compensator_r_setting_C;
+	attr String compensator_x_setting_A;
+	attr String compensator_x_setting_B;
+	attr String compensator_x_setting_C;
+	attr String CT_phase;
+	attr String PT_phase;
+	attr String regulation;
+	attr String control_level;
+	attr String Control;
+	attr String Type;
+	attr String tap_pos_A;
+	attr String tap_pos_B;
+	attr String tap_pos_C;
+}
+
+class Triplex_node extends Connection {
+	attr String bustype;
+	attr String busflags;
+	attr String reference_bus;
+	attr String maximum_voltage_error;
+	attr String voltage_1;
+	attr String voltage_2;
+	attr String voltage_N;
+	attr String voltage_12;
+	attr String voltage_1N;
+	attr String voltage_2N;
+	attr String current_1;
+	attr String current_2;
+	attr String current_N;
+	attr String current_1_real;
+	attr String current_2_real;
+	attr String current_N_real;
+	attr String current_1_reac;
+	attr String current_2_reac;
+	attr String current_N_reac;
+	attr String current_12;
+	attr String current_12_real;
+	attr String current_12_reac;
+	attr String residential_nominal_current_1;
+	attr String residential_nominal_current_2;
+	attr String residential_nominal_current_12;
+	attr String residential_nominal_current_1_real;
+	attr String residential_nominal_current_1_imag;
+	attr String residential_nominal_current_2_real;
+	attr String residential_nominal_current_2_imag;
+	attr String residential_nominal_current_12_real;
+	attr String residential_nominal_current_12_imag;
+	attr String power_1;
+	attr String power_2;
+	attr String power_12;
+	attr String power_1_real;
+	attr String power_2_real;
+	attr String power_12_real;
+	attr String power_1_reac;
+	attr String power_2_reac;
+	attr String power_12_reac;
+	attr String shunt_1;
+	attr String shunt_2;
+	attr String shunt_12;
+	attr String impedance_1;
+	attr String impedance_2;
+	attr String impedance_12;
+	attr String impedance_1_real;
+	attr String impedance_2_real;
+	attr String impedance_12_real;
+	attr String impedance_1_reac;
+	attr String impedance_2_reac;
+	attr String impedance_12_reac;
+	attr String house_present;
+	attr String NR_mode;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Triplex_meter extends Connection {
+	attr String measured_real_energy;
+	attr String measured_reactive_energy;
+	attr String measured_power;
+	attr String indiv_measured_power_1;
+	attr String indiv_measured_power_2;
+	attr String indiv_measured_power_N;
+	attr String measured_demand;
+	attr String measured_real_power;
+	attr String measured_reactive_power;
+	attr String measured_voltage_1;
+	attr String measured_voltage_2;
+	attr String measured_voltage_N;
+	attr String measured_current_1;
+	attr String measured_current_2;
+	attr String measured_current_N;
+	attr String monthly_bill;
+	attr String previous_monthly_bill;
+	attr String previous_monthly_energy;
+	attr String monthly_fee;
+	attr String monthly_energy;
+	attr String bill_mode;
+	attr String power_market;
+	attr String bill_day;
+	attr String price;
+	attr String first_tier_price;
+	attr String first_tier_energy;
+	attr String second_tier_price;
+	attr String second_tier_energy;
+	attr String third_tier_price;
+	attr String third_tier_energy;
+	attr String bustype;
+	attr String busflags;
+	attr String reference_bus;
+	attr String maximum_voltage_error;
+	attr String voltage_1;
+	attr String voltage_2;
+	attr String voltage_N;
+	attr String voltage_12;
+	attr String voltage_1N;
+	attr String voltage_2N;
+	attr String current_1;
+	attr String current_2;
+	attr String current_N;
+	attr String current_1_real;
+	attr String current_2_real;
+	attr String current_N_real;
+	attr String current_1_reac;
+	attr String current_2_reac;
+	attr String current_N_reac;
+	attr String current_12;
+	attr String current_12_real;
+	attr String current_12_reac;
+	attr String residential_nominal_current_1;
+	attr String residential_nominal_current_2;
+	attr String residential_nominal_current_12;
+	attr String residential_nominal_current_1_real;
+	attr String residential_nominal_current_1_imag;
+	attr String residential_nominal_current_2_real;
+	attr String residential_nominal_current_2_imag;
+	attr String residential_nominal_current_12_real;
+	attr String residential_nominal_current_12_imag;
+	attr String power_1;
+	attr String power_2;
+	attr String power_12;
+	attr String power_1_real;
+	attr String power_2_real;
+	attr String power_12_real;
+	attr String power_1_reac;
+	attr String power_2_reac;
+	attr String power_12_reac;
+	attr String shunt_1;
+	attr String shunt_2;
+	attr String shunt_12;
+	attr String impedance_1;
+	attr String impedance_2;
+	attr String impedance_12;
+	attr String impedance_1_real;
+	attr String impedance_2_real;
+	attr String impedance_12_real;
+	attr String impedance_1_reac;
+	attr String impedance_2_reac;
+	attr String impedance_12_reac;
+	attr String house_present;
+	attr String NR_mode;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Triplex_line extends Connection {
+	attr String configuration;
+	attr String length;
+	attr String status;
+	attr String from;
+	attr String to;
+	attr String power_in;
+	attr String power_out;
+	attr String power_losses;
+	attr String power_in_A;
+	attr String power_in_B;
+	attr String power_in_C;
+	attr String power_out_A;
+	attr String power_out_B;
+	attr String power_out_C;
+	attr String power_losses_A;
+	attr String power_losses_B;
+	attr String power_losses_C;
+	attr String flow_direction;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Triplex_line_configuration extends Connection {
+	attr String conductor_1;
+	attr String conductor_2;
+	attr String conductor_N;
+	attr String insulation_thickness;
+	attr String diameter;
+	attr String spacing;
+}
+
+class Triplex_line_conductor extends Connection {
+	attr String resistance;
+	attr String geometric_mean_radius;
+	attr String rating__summer__continuous;
+	attr String rating__summer__emergency;
+	attr String rating__winter__continuous;
+	attr String rating__winter__emergency;
+}
+
+class Switch extends Connection {
+	attr String status;
+	attr String from;
+	attr String to;
+	attr String power_in;
+	attr String power_out;
+	attr String power_losses;
+	attr String power_in_A;
+	attr String power_in_B;
+	attr String power_in_C;
+	attr String power_out_A;
+	attr String power_out_B;
+	attr String power_out_C;
+	attr String power_losses_A;
+	attr String power_losses_B;
+	attr String power_losses_C;
+	attr String flow_direction;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Substation extends Connection {
+	attr String distribution_energy;
+	attr String distribution_power;
+	attr String distribution_demand;
+	attr String distribution_voltage_A;
+	attr String distribution_voltage_B;
+	attr String distribution_voltage_C;
+	attr String distribution_current_A;
+	attr String distribution_current_B;
+	attr String distribution_current_C;
+	attr String Network_Node_Base_Power;
+	attr String Network_Node_Base_Voltage;
+	attr String bustype;
+	attr String busflags;
+	attr String reference_bus;
+	attr String maximum_voltage_error;
+	attr String voltage_A;
+	attr String voltage_B;
+	attr String voltage_C;
+	attr String voltage_AB;
+	attr String voltage_BC;
+	attr String voltage_CA;
+	attr String current_A;
+	attr String current_B;
+	attr String current_C;
+	attr String power_A;
+	attr String power_B;
+	attr String power_C;
+	attr String shunt_A;
+	attr String shunt_B;
+	attr String shunt_C;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Pqload extends Connection {
+	attr String weather;
+	attr String T_nominal;
+	attr String Zp_T;
+	attr String Zp_H;
+	attr String Zp_S;
+	attr String Zp_W;
+	attr String Zp_R;
+	attr String Zp;
+	attr String Zq_T;
+	attr String Zq_H;
+	attr String Zq_S;
+	attr String Zq_W;
+	attr String Zq_R;
+	attr String Zq;
+	attr String Im_T;
+	attr String Im_H;
+	attr String Im_S;
+	attr String Im_W;
+	attr String Im_R;
+	attr String Im;
+	attr String Ia_T;
+	attr String Ia_H;
+	attr String Ia_S;
+	attr String Ia_W;
+	attr String Ia_R;
+	attr String Ia;
+	attr String Pp_T;
+	attr String Pp_H;
+	attr String Pp_S;
+	attr String Pp_W;
+	attr String Pp_R;
+	attr String Pp;
+	attr String Pq_T;
+	attr String Pq_H;
+	attr String Pq_S;
+	attr String Pq_W;
+	attr String Pq_R;
+	attr String Pq;
+	attr String input_temp;
+	attr String input_humid;
+	attr String input_solar;
+	attr String input_wind;
+	attr String input_rain;
+	attr String output_imped_p;
+	attr String output_imped_q;
+	attr String output_current_m;
+	attr String output_current_a;
+	attr String output_power_p;
+	attr String output_power_q;
+	attr String output_impedance;
+	attr String output_current;
+	attr String output_power;
+	attr String load_class;
+	attr String constant_power_A;
+	attr String constant_power_B;
+	attr String constant_power_C;
+	attr String constant_power_A_real;
+	attr String constant_power_B_real;
+	attr String constant_power_C_real;
+	attr String constant_power_A_reac;
+	attr String constant_power_B_reac;
+	attr String constant_power_C_reac;
+	attr String constant_current_A;
+	attr String constant_current_B;
+	attr String constant_current_C;
+	attr String constant_current_A_real;
+	attr String constant_current_B_real;
+	attr String constant_current_C_real;
+	attr String constant_current_A_reac;
+	attr String constant_current_B_reac;
+	attr String constant_current_C_reac;
+	attr String constant_impedance_A;
+	attr String constant_impedance_B;
+	attr String constant_impedance_C;
+	attr String constant_impedance_A_real;
+	attr String constant_impedance_B_real;
+	attr String constant_impedance_C_real;
+	attr String constant_impedance_A_reac;
+	attr String constant_impedance_B_reac;
+	attr String constant_impedance_C_reac;
+	attr String measured_voltage_A;
+	attr String measured_voltage_B;
+	attr String measured_voltage_C;
+	attr String measured_voltage_AB;
+	attr String measured_voltage_BC;
+	attr String measured_voltage_CA;
+	attr String bustype;
+	attr String busflags;
+	attr String reference_bus;
+	attr String maximum_voltage_error;
+	attr String voltage_A;
+	attr String voltage_B;
+	attr String voltage_C;
+	attr String voltage_AB;
+	attr String voltage_BC;
+	attr String voltage_CA;
+	attr String current_A;
+	attr String current_B;
+	attr String current_C;
+	attr String power_A;
+	attr String power_B;
+	attr String power_C;
+	attr String shunt_A;
+	attr String shunt_B;
+	attr String shunt_C;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Voltdump extends Connection {
+	attr String group;
+	attr String runtime;
+	attr String filename;
+	attr String runcount;
+}
+
+class Series_reactor extends Connection {
+	attr String phase_A_impedance;
+	attr String phase_A_resistance;
+	attr String phase_A_reactance;
+	attr String phase_B_impedance;
+	attr String phase_B_resistance;
+	attr String phase_B_reactance;
+	attr String phase_C_impedance;
+	attr String phase_C_resistance;
+	attr String phase_C_reactance;
+	attr String rated_current_limit;
+	attr String status;
+	attr String from;
+	attr String to;
+	attr String power_in;
+	attr String power_out;
+	attr String power_losses;
+	attr String power_in_A;
+	attr String power_in_B;
+	attr String power_in_C;
+	attr String power_out_A;
+	attr String power_out_B;
+	attr String power_out_C;
+	attr String power_losses_A;
+	attr String power_losses_B;
+	attr String power_losses_C;
+	attr String flow_direction;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Restoration extends Connection {
+	attr String configuration_file;
+	attr String reconfig_attempts;
+	attr String reconfig_iteration_limit;
+}
+
+class Frequency_gen extends Connection {
+	attr String Frequency_Mode;
+	attr String Frequency;
+	attr String FreqChange;
+	attr String Deadband;
+	attr String Tolerance;
+	attr String M;
+	attr String D;
+	attr String Rated_power;
+	attr String Gen_power;
+	attr String Load_power;
+	attr String Gov_delay;
+	attr String Ramp_rate;
+	attr String Low_Freq_OI;
+	attr String High_Freq_OI;
+	attr String avg24;
+	attr String std24;
+	attr String avg168;
+	attr String std168;
+	attr String Num_Resp_Eqs;
+}
+
+class Volt_var_control extends Connection {
+	attr String qualification_time;
+}
+
+class Fault_check extends Connection {
+}
+
+class Motor extends Connection {
+	attr String bustype;
+	attr String busflags;
+	attr String reference_bus;
+	attr String maximum_voltage_error;
+	attr String voltage_A;
+	attr String voltage_B;
+	attr String voltage_C;
+	attr String voltage_AB;
+	attr String voltage_BC;
+	attr String voltage_CA;
+	attr String current_A;
+	attr String current_B;
+	attr String current_C;
+	attr String power_A;
+	attr String power_B;
+	attr String power_C;
+	attr String shunt_A;
+	attr String shunt_B;
+	attr String shunt_C;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Billdump extends Connection {
+	attr String group;
+	attr String runtime;
+	attr String filename;
+	attr String runcount;
+}
+
+class Residential_enduse extends Connection {
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class House_a extends Connection {
+	attr String floor_area;
+	attr String gross_wall_area;
+	attr String ceiling_height;
+	attr String aspect_ratio;
+	attr String envelope_UA;
+	attr String window_wall_ratio;
+	attr String glazing_shgc;
+	attr String airchange_per_hour;
+	attr String solar_gain;
+	attr String heat_cool_gain;
+	attr String thermostat_deadband;
+	attr String heating_setpoint;
+	attr String cooling_setpoint;
+	attr String design_heating_capacity;
+	attr String design_cooling_capacity;
+	attr String heating_COP;
+	attr String cooling_COP;
+	attr String COP_coeff;
+	attr String air_temperature;
+	attr String outside_temp;
+	attr String mass_temperature;
+	attr String mass_heat_coeff;
+	attr String outdoor_temperature;
+	attr String house_thermal_mass;
+	attr String heat_mode;
+	attr String hc_mode;
+	attr String houseload;
+	attr String houseload__energy;
+	attr String houseload__power;
+	attr String houseload__peak_demand;
+	attr String houseload__heatgain;
+	attr String houseload__heatgain_fraction;
+	attr String houseload__current_fraction;
+	attr String houseload__impedance_fraction;
+	attr String houseload__power_fraction;
+	attr String houseload__power_factor;
+	attr String houseload__constant_power;
+	attr String houseload__constant_current;
+	attr String houseload__constant_admittance;
+	attr String houseload__voltage_factor;
+	attr String houseload__configuration;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class House extends Connection {
+	attr String weather;
+	attr String floor_area;
+	attr String gross_wall_area;
+	attr String ceiling_height;
+	attr String aspect_ratio;
+	attr String envelope_UA;
+	attr String window_wall_ratio;
+	attr String number_of_doors;
+	attr String exterior_wall_fraction;
+	attr String interior_exterior_wall_ratio;
+	attr String exterior_ceiling_fraction;
+	attr String exterior_floor_fraction;
+	attr String window_shading;
+	attr String window_exterior_transmission_coefficient;
+	attr String solar_heatgain_factor;
+	attr String airchange_per_hour;
+	attr String airchange_UA;
+	attr String internal_gain;
+	attr String solar_gain;
+	attr String heat_cool_gain;
+	attr String thermostat_deadband;
+	attr String thermostat_cycle_time;
+	attr String thermostat_last_cycle_time;
+	attr String heating_setpoint;
+	attr String cooling_setpoint;
+	attr String design_heating_setpoint;
+	attr String design_cooling_setpoint;
+	attr String design_heating_capacity;
+	attr String design_cooling_capacity;
+	attr String adj_heating_cap;
+	attr String sys_rated_cap;
+	attr String cooling_design_temperature;
+	attr String heating_design_temperature;
+	attr String design_peak_solar;
+	attr String design_internal_gains;
+	attr String air_heat_fraction;
+	attr String auxiliary_heat_capacity;
+	attr String aux_heat_deadband;
+	attr String aux_heat_temperature_lockout;
+	attr String aux_heat_time_delay;
+	attr String cooling_supply_air_temp;
+	attr String heating_supply_air_temp;
+	attr String duct_pressure_drop;
+	attr String fan_design_power;
+	attr String fan_low_power_fraction;
+	attr String fan_power;
+	attr String fan_design_airflow;
+	attr String fan_impedance_fraction;
+	attr String fan_power_fraction;
+	attr String fan_current_fraction;
+	attr String fan_power_factor;
+	attr String heating_demand;
+	attr String cooling_demand;
+	attr String heating_COP;
+	attr String cooling_COP;
+	attr String adj_heating_cop;
+	attr String air_temperature;
+	attr String outdoor_temperature;
+	attr String mass_heat_capacity;
+	attr String mass_heat_coeff;
+	attr String mass_temperature;
+	attr String air_volume;
+	attr String air_mass;
+	attr String air_heat_capacity;
+	attr String latent_load_fraction;
+	attr String total_thermal_mass_per_floor_area;
+	attr String interior_surface_heat_transfer_coeff;
+	attr String number_of_stories;
+	attr String system_type;
+	attr String auxiliary_strategy;
+	attr String system_mode;
+	attr String heating_system_type;
+	attr String cooling_system_type;
+	attr String auxiliary_system_type;
+	attr String fan_type;
+	attr String thermal_integrity_level;
+	attr String glass_type;
+	attr String window_frame;
+	attr String glazing_treatment;
+	attr String glazing_layers;
+	attr String motor_model;
+	attr String motor_efficiency;
+	attr String hvac_motor_efficiency;
+	attr String hvac_motor_loss_power_factor;
+	attr String Rroof;
+	attr String Rwall;
+	attr String Rfloor;
+	attr String Rwindows;
+	attr String Rdoors;
+	attr String hvac_breaker_rating;
+	attr String hvac_power_factor;
+	attr String hvac_load;
+	attr String panel;
+	attr String panel__energy;
+	attr String panel__power;
+	attr String panel__peak_demand;
+	attr String panel__heatgain;
+	attr String panel__heatgain_fraction;
+	attr String panel__current_fraction;
+	attr String panel__impedance_fraction;
+	attr String panel__power_fraction;
+	attr String panel__power_factor;
+	attr String panel__constant_power;
+	attr String panel__constant_current;
+	attr String panel__constant_admittance;
+	attr String panel__voltage_factor;
+	attr String panel__configuration;
+	attr String design_internal_gain_density;
+	attr String a;
+	attr String b;
+	attr String c;
+	attr String d;
+	attr String c1;
+	attr String c2;
+	attr String A3;
+	attr String A4;
+	attr String k1;
+	attr String k2;
+	attr String r1;
+	attr String r2;
+	attr String Teq;
+	attr String Tevent;
+	attr String Qi;
+	attr String Qa;
+	attr String Qm;
+	attr String Qh;
+	attr String dTair;
+	attr String sol_inc;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Waterheater extends Connection {
+	attr String tank_volume;
+	attr String tank_UA;
+	attr String tank_diameter;
+	attr String water_demand;
+	attr String heating_element_capacity;
+	attr String inlet_water_temperature;
+	attr String heat_mode;
+	attr String location;
+	attr String tank_setpoint;
+	attr String thermostat_deadband;
+	attr String temperature;
+	attr String height;
+	attr String demand;
+	attr String actual_load;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Lights extends Connection {
+	attr String type;
+	attr String placement;
+	attr String installed_power;
+	attr String power_density;
+	attr String curtailment;
+	attr String demand;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Refrigerator extends Connection {
+	attr String size;
+	attr String rated_capacity;
+	attr String temperature;
+	attr String setpoint;
+	attr String deadband;
+	attr String next_time;
+	attr String output;
+	attr String event_temp;
+	attr String UA;
+	attr String state;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Clotheswasher extends Connection {
+	attr String motor_power;
+	attr String circuit_split;
+	attr String queue;
+	attr String demand;
+	attr String energy_meter;
+	attr String stall_voltage;
+	attr String start_voltage;
+	attr String stall_impedance;
+	attr String trip_delay;
+	attr String reset_delay;
+	attr String state;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Dishwasher extends Connection {
+	attr String installed_power;
+	attr String demand;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Occupantload extends Connection {
+	attr String number_of_occupants;
+	attr String occupancy_fraction;
+	attr String heatgain_per_person;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Plugload extends Connection {
+	attr String circuit_split;
+	attr String demand;
+	attr String installed_power;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Microwave extends Connection {
+	attr String installed_power;
+	attr String standby_power;
+	attr String circuit_split;
+	attr String state;
+	attr String cycle_length;
+	attr String runtime;
+	attr String state_time;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Range extends Connection {
+	attr String installed_power;
+	attr String circuit_split;
+	attr String demand;
+	attr String energy_meter;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Freezer extends Connection {
+	attr String size;
+	attr String rated_capacity;
+	attr String temperature;
+	attr String setpoint;
+	attr String deadband;
+	attr String next_time;
+	attr String output;
+	attr String event_temp;
+	attr String UA;
+	attr String state;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Dryer extends Connection {
+	attr String motor_power;
+	attr String coil_power;
+	attr String circuit_split;
+	attr String demand;
+	attr String queue;
+	attr String stall_voltage;
+	attr String start_voltage;
+	attr String stall_impedance;
+	attr String trip_delay;
+	attr String reset_delay;
+	attr String state;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Evcharger extends Connection {
+	attr String charger_type;
+	attr String vehicle_type;
+	attr String state;
+	attr String p_go_home;
+	attr String p_go_work;
+	attr String work_dist;
+	attr String capacity;
+	attr String charge;
+	attr String charge_at_work;
+	attr String charge_throttle;
+	attr String demand_profile;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class ZIPload extends Connection {
+	attr String heat_fraction;
+	attr String base_power;
+	attr String power_pf;
+	attr String current_pf;
+	attr String impedance_pf;
+	attr String is_240;
+	attr String breaker_val;
+	attr String shape;
+	attr String load;
+	attr String energy;
+	attr String power;
+	attr String peak_demand;
+	attr String heatgain;
+	attr String heatgain_fraction;
+	attr String current_fraction;
+	attr String impedance_fraction;
+	attr String power_fraction;
+	attr String power_factor;
+	attr String constant_power;
+	attr String constant_current;
+	attr String constant_admittance;
+	attr String voltage_factor;
+	attr String configuration;
+	attr String override;
+}
+
+class Player extends Connection {
+	attr String property;
+	attr String file;
+	attr String filetype;
+	attr String loop;
+}
+
+class Shaper extends Connection {
+	attr String file;
+	attr String filetype;
+	attr String group;
+	attr String property;
+	attr String magnitude;
+	attr String events;
+}
+
+class Recorder extends Connection {
+	attr String property;
+	attr String trigger;
+	attr String file;
+	attr String limit;
+	attr String plotcommands;
+	attr String xdata;
+	attr String columns;
+	attr String interval;
+	attr String output;
+}
+
+class Collector extends Connection {
+	attr String property;
+	attr String trigger;
+	attr String file;
+	attr String limit;
+	attr String group;
+	attr String interval;
+}
+
+class Histogram extends Connection {
+	attr String filename;
+	attr String group;
+	attr String bins;
+	attr String property;
+	attr String min;
+	attr String max;
+	attr String samplerate;
+	attr String countrate;
+	attr String bin_count;
+	attr String limit;
+}
+
+class Weather extends Connection {
+	attr String temperature;
+	attr String humidity;
+	attr String solar_dir;
+	attr String solar_diff;
+	attr String wind_speed;
+	attr String rainfall;
+	attr String snowdepth;
+	attr String month;
+	attr String day;
+	attr String hour;
+	attr String minute;
+	attr String second;
+}
+
+class Office extends Connection {
+	attr String floor_area;
+	attr String floor_height;
+	attr String exterior_ua;
+	attr String interior_ua;
+	attr String interior_mass;
+	attr String glazing;
+	attr String glazing__north;
+	attr String glazing__northeast;
+	attr String glazing__east;
+	attr String glazing__southeast;
+	attr String glazing__south;
+	attr String glazing__southwest;
+	attr String glazing__west;
+	attr String glazing__northwest;
+	attr String glazing__horizontal;
+	attr String glazing__coefficient;
+	attr String occupancy;
+	attr String occupants;
+	attr String schedule;
+	attr String air_temperature;
+	attr String mass_temperature;
+	attr String temperature_change;
+	attr String outdoor_temperature;
+	attr String Qh;
+	attr String Qs;
+	attr String Qi;
+	attr String Qz;
+	attr String hvac_mode;
+	attr String hvac__cooling__balance_temperature;
+	attr String hvac__cooling__capacity;
+	attr String hvac__cooling__capacity_perF;
+	attr String hvac__cooling__design_temperature;
+	attr String hvac__cooling__efficiency;
+	attr String hvac__cooling__cop;
+	attr String hvac__heating__balance_temperature;
+	attr String hvac__heating__capacity;
+	attr String hvac__heating__capacity_perF;
+	attr String hvac__heating__design_temperature;
+	attr String hvac__heating__efficiency;
+	attr String hvac__heating__cop;
+	attr String lights__capacity;
+	attr String lights__fraction;
+	attr String plugs__capacity;
+	attr String plugs__fraction;
+	attr String demand;
+	attr String total_load;
+	attr String energy;
+	attr String power_factor;
+	attr String power;
+	attr String current;
+	attr String admittance;
+	attr String hvac__demand;
+	attr String hvac__load;
+	attr String hvac__energy;
+	attr String hvac__power_factor;
+	attr String lights__demand;
+	attr String lights__load;
+	attr String lights__energy;
+	attr String lights__power_factor;
+	attr String lights__heatgain_fraction;
+	attr String lights__heatgain;
+	attr String plugs__demand;
+	attr String plugs__load;
+	attr String plugs__energy;
+	attr String plugs__power_factor;
+	attr String plugs__heatgain_fraction;
+	attr String plugs__heatgain;
+	attr String cooling_setpoint;
+	attr String heating_setpoint;
+	attr String thermostat_deadband;
+	attr String control__ventilation_fraction;
+	attr String control__lighting_fraction;
+	attr String ACH;
+}
+
+class Multizone extends Connection {
+	attr String from;
+	attr String to;
+	attr String ua;
+}
+
+class Windturb_dg extends Connection {
+	attr String Gen_status;
+	attr String Gen_type;
+	attr String Gen_mode;
+	attr String Turbine_Model;
+	attr String Rated_VA;
+	attr String Rated_V;
+	attr String Pconv;
+	attr String WSadj;
+	attr String Wind_Speed;
+	attr String pf;
+	attr String GenElecEff;
+	attr String TotalRealPow;
+	attr String TotalReacPow;
+	attr String voltage_A;
+	attr String voltage_B;
+	attr String voltage_C;
+	attr String current_A;
+	attr String current_B;
+	attr String current_C;
+	attr String EfA;
+	attr String EfB;
+	attr String EfC;
+	attr String Vrotor_A;
+	attr String Vrotor_B;
+	attr String Vrotor_C;
+	attr String Irotor_A;
+	attr String Irotor_B;
+	attr String Irotor_C;
+	attr String phases;
+}
+
+class Power_electronics extends Connection {
+	attr String generator_mode;
+	attr String generator_status;
+	attr String converter_type;
+	attr String switch_type;
+	attr String filter_type;
+	attr String filter_implementation;
+	attr String filter_frequency;
+	attr String power_type;
+	attr String Rated_kW;
+	attr String Max_P;
+	attr String Min_P;
+	attr String Rated_kVA;
+	attr String Rated_kV;
+	attr String phases;
+}
+
+class Rectifier extends Connection {
+	attr String rectifier_type;
+	attr String generator_mode;
+	attr String V_Out;
+	attr String I_Out;
+	attr String VA_Out;
+	attr String P_Out;
+	attr String Q_Out;
+	attr String Vdc;
+	attr String phaseA_V_In;
+	attr String phaseB_V_In;
+	attr String phaseC_V_In;
+	attr String phaseA_I_In;
+	attr String phaseB_I_In;
+	attr String phaseC_I_In;
+	attr String power_A_In;
+	attr String power_B_In;
+	attr String power_C_In;
+	attr String phases;
+}
+
+class Microturbine extends Connection {
+	attr String generator_mode;
+	attr String generator_status;
+	attr String power_type;
+	attr String Rinternal;
+	attr String Rload;
+	attr String V_Max;
+	attr String I_Max;
+	attr String frequency;
+	attr String Max_Frequency;
+	attr String Min_Frequency;
+	attr String Fuel_Used;
+	attr String Heat_Out;
+	attr String KV;
+	attr String Power_Angle;
+	attr String Max_P;
+	attr String Min_P;
+	attr String phaseA_V_Out;
+	attr String phaseB_V_Out;
+	attr String phaseC_V_Out;
+	attr String phaseA_I_Out;
+	attr String phaseB_I_Out;
+	attr String phaseC_I_Out;
+	attr String power_A_Out;
+	attr String power_B_Out;
+	attr String power_C_Out;
+	attr String VA_Out;
+	attr String pf_Out;
+	attr String E_A_Internal;
+	attr String E_B_Internal;
+	attr String E_C_Internal;
+	attr String efficiency;
+	attr String Rated_kVA;
+	attr String phases;
+}
+
+class Battery extends Connection {
+	attr String generator_mode;
+	attr String generator_status;
+	attr String rfb_size;
+	attr String power_type;
+	attr String power_set_high;
+	attr String power_set_low;
+	attr String Rinternal;
+	attr String V_Max;
+	attr String I_Max;
+	attr String E_Max;
+	attr String Energy;
+	attr String efficiency;
+	attr String base_efficiency;
+	attr String Rated_kVA;
+	attr String V_Out;
+	attr String I_Out;
+	attr String VA_Out;
+	attr String V_In;
+	attr String I_In;
+	attr String V_Internal;
+	attr String I_Internal;
+	attr String I_Prev;
+	attr String phases;
+}
+
+class Solar extends Connection {
+	attr String generator_mode;
+	attr String generator_status;
+	attr String panel_type;
+	attr String power_type;
+	attr String noct;
+	attr String Tcell;
+	attr String Tambient;
+	attr String Insolation;
+	attr String Rinternal;
+	attr String Rated_Insolation;
+	attr String V_Max;
+	attr String Voc_Max;
+	attr String Voc;
+	attr String efficiency;
+	attr String area;
+	attr String Rated_kVA;
+	attr String V_Out;
+	attr String I_Out;
+	attr String VA_Out;
+	attr String phases;
+}
+
+class Stubauction extends Connection {
+	attr String unit;
+	attr String period;
+	attr String last__P;
+	attr String next__P;
+	attr String avg24;
+	attr String std24;
+	attr String avg72;
+	attr String std72;
+	attr String avg168;
+	attr String std168;
+	attr String verbose;
+}
+
+class Link extends Connection {
+	attr String Y;
+	attr String I;
+	attr String B;
+	attr String from;
+	attr String to;
+}
+
+class Fuse extends Connection {
+	attr String TimeConstant;
+	attr String SetCurrent;
+	attr String SetBase;
+	attr String SetScale;
+	attr String SetCurve;
+	attr String TresetAvg;
+	attr String TresetStd;
+	attr String State;
+}
+
+class Relay extends Connection {
+	attr String Curve;
+	attr String TimeDial;
+	attr String SetCurrent;
+	attr String State;
+}
+
+class Regulator extends Connection {
+	attr String Type;
+	attr String Vmax;
+	attr String Vmin;
+	attr String Vstep;
+	attr String CTlink;
+	attr String PTbus;
+	attr String TimeDelay;
+}
+
+class Transformer extends Connection {
+	attr String Type;
+	attr String Sbase;
+	attr String Vbase;
+	attr String Zpu;
+	attr String Vprimary;
+	attr String Vsecondary;
+}
+
+class Meter extends Connection {
+	attr String type;
+	attr String demand;
+	attr String meter;
+	attr String line1_current;
+	attr String line2_current;
+	attr String line3_current;
+	attr String line1_admittance;
+	attr String line2_admittance;
+	attr String line3_admittance;
+	attr String line1_power;
+	attr String line2_power;
+	attr String line3_power;
+	attr String line1_volts;
+	attr String line2_volts;
+	attr String line3_volts;
+}
+
+class Generator extends Connection {
+	attr String Pdesired_MW;
+	attr String Qdesired_MVAR;
+	attr String Qcontrolled;
+	attr String Pmax_MW;
+	attr String Qmin_MVAR;
+	attr String Qmax_MVAR;
+	attr String QVa;
+	attr String QVb;
+	attr String QVc;
+	attr String state;
+}
+
+class Plc extends Connection {
+	attr String source;
+	attr String network;
+}
+
+class Node extends Connection {
+	attr String bustype;
+	attr String busflags;
+	attr String reference_bus;
+	attr String maximum_voltage_error;
+	attr String voltage_A;
+	attr String voltage_B;
+	attr String voltage_C;
+	attr String voltage_AB;
+	attr String voltage_BC;
+	attr String voltage_CA;
+	attr String current_A;
+	attr String current_B;
+	attr String current_C;
+	attr String power_A;
+	attr String power_B;
+	attr String power_C;
+	attr String shunt_A;
+	attr String shunt_B;
+	attr String shunt_C;
+	attr String phases;
+	attr String nominal_voltage;
+}
+
+class Connection {
+	ref Connection[*] connections;
+	attr String name;
+	ref Connection[*] parent;
+}
+
+class Grid {
+	val Connection[*] connections;
+	val Time[*] time;
+}
+
+class Time {
+	attr String SimulatorTime;
+	attr String Realtime;
+}
+

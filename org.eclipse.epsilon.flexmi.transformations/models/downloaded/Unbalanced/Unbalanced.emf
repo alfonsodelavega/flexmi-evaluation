@@ -1,0 +1,1680 @@
+@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile", prefix="cim")
+package CIM14;
+
+@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile/CDPSM", prefix="cdpsm")
+package CDPSM {
+	@"http://rwl.github.com/enerate"(mapPackage="true")
+	@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile/CDPSM/Unbalanced", prefix="unbal")
+	package Unbalanced {
+		abstract class Element {
+			id attr String UUID;
+		}
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Product of the RMS value of the voltage and the RMS value of the current")
+		@GenModel(Documentation="Product of the RMS value of the voltage and the RMS value of the current")
+		datatype ApparentPower : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Factor by which voltage must be multiplied to give corresponding power lost from a circuit. Real part of admittance.")
+		@GenModel(Documentation="Factor by which voltage must be multiplied to give corresponding power lost from a circuit. Real part of admittance.")
+		datatype Conductance : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Ratio of voltage to current.")
+		@GenModel(Documentation="Ratio of voltage to current.")
+		datatype Impedance : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Imaginary part of admittance.")
+		@GenModel(Documentation="Imaginary part of admittance.")
+		datatype Susceptance : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Product of RMS value of the voltage and the RMS value of the quadrature component of the current.")
+		@GenModel(Documentation="Product of RMS value of the voltage and the RMS value of the quadrature component of the current.")
+		datatype ReactivePower : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Electrical current (positive flow is out of the ConductingEquipment into the ConnectivityNode)")
+		@GenModel(Documentation="Electrical current (positive flow is out of the ConductingEquipment into the ConnectivityNode)")
+		datatype CurrentFlow : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Measurement of angle in degrees")
+		@GenModel(Documentation="Measurement of angle in degrees")
+		datatype AngleDegrees : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Product of RMS value of the voltage and the RMS value of the in-phase component of the current")
+		@GenModel(Documentation="Product of RMS value of the voltage and the RMS value of the in-phase component of the current")
+		datatype ActivePower : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Active power in kilowatts.")
+		@GenModel(Documentation="Active power in kilowatts.")
+		datatype KWActivePower : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Electrical voltage.")
+		@GenModel(Documentation="Electrical voltage.")
+		datatype Voltage : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Unit of length.")
+		@GenModel(Documentation="Unit of length.")
+		datatype Length : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Resistance (real part of impedance).")
+		@GenModel(Documentation="Resistance (real part of impedance).")
+		datatype Resistance : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Phase angle in radians")
+		@GenModel(Documentation="Phase angle in radians")
+		datatype AngleRadians : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Normally 0 - 100 on a defined base")
+		@GenModel(Documentation="Normally 0 - 100 on a defined base")
+		datatype PerCent : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Reactance (imaginary part of impedance), at rated frequency.")
+		@GenModel(Documentation="Reactance (imaginary part of impedance), at rated frequency.")
+		datatype Reactance : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Time, in seconds")
+		@GenModel(Documentation="Time, in seconds")
+		datatype Seconds : float;
+
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#float")
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Value of temperature in degrees Celsius.")
+		@GenModel(Documentation="Value of temperature in degrees Celsius.")
+		datatype Temperature : float;
+
+		@"http://cimphony.com/rdf/2010/serialisation"(CIMDatePattern="HH:mm:ss.SSSZ")
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#time")
+		datatype CIMTime : java.util.Date;
+
+		@"http://cimphony.com/rdf/2010/serialisation"(CIMDatePattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#dateTime")
+		datatype CIMDateTime : java.util.Date;
+
+		@"http://cimphony.com/rdf/2010/serialisation"(CIMDatePattern="HH:mm:ss.SSS")
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#duration")
+		datatype CIMDuration : java.util.Date;
+
+		@"http://cimphony.com/rdf/2010/serialisation"(CIMDatePattern="yyyy")
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#gYear")
+		datatype CIMGYear : java.util.Date;
+
+		@"http://cimphony.com/rdf/2010/serialisation"(CIMDatePattern="yyyy-MM-dd")
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#date")
+		datatype CIMDate : java.util.Date;
+
+		@"http://cimphony.com/rdf/2010/serialisation"(CIMDatePattern="dd")
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#gMonthDay")
+		datatype CIMGMonthDay : java.util.Date;
+
+		@"http://cimphony.com/rdf/2010/serialisation"(CIMDatePattern="MM")
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#gMonth")
+		datatype CIMGMonth : java.util.Date;
+
+		@"http://cimphony.com/rdf/2010/serialisation"(CIMDatePattern="DD")
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#gDay")
+		datatype CIMGDay : java.util.Date;
+
+		@"http://cimphony.com/rdf/2010/serialisation"(CIMDatePattern="MM")
+		@ExtendedMetaData(baseType="http://www.w3.org/2001/XMLSchema#gYearMonth")
+		datatype CIMGYearMonth : java.util.Date;
+
+		@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The IEC 61968 subpackages of the CIM are developed, standardized and maintained by IEC TC57 Working Group 14: System Interfaces for Distribution Management (WG14).
+Currently, normative parts of the model support the needs of information exchange defined in IEC 61968-9: \"Interfaces for Meter Reading and Control\" and in IEC 61968-13: \"CIM RDF Model exchange format for distribution.\"")
+		@GenModel(Documentation="The IEC 61968 subpackages of the CIM are developed, standardized and maintained by IEC TC57 Working Group 14: System Interfaces for Distribution Management (WG14).
+Currently, normative parts of the model support the needs of information exchange defined in IEC 61968-9: \"Interfaces for Meter Reading and Control\" and in IEC 61968-13: \"CIM RDF Model exchange format for distribution.\"")
+		@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#IEC61968", prefix="cimIEC61968")
+		package IEC61968 {
+			@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="This package contains the information classes that extend IEC61970::Wires package with power system resources required for distribution network modelling, including unbalanced networks.")
+			@GenModel(Documentation="This package contains the information classes that extend IEC61970::Wires package with power system resources required for distribution network modelling, including unbalanced networks.")
+			@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#WiresExt", prefix="cimWiresExt")
+			package WiresExt {
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Conducting connection point of a distribution / unbalanced transformer winding instance.
+This class differs from Wires::TransformerWinding as follows:
+- the eight Pi model attributes are moved into separate class, that can be optionally referred to from several winding instances.
+- the three grounding attributes can differ per winding instance, even for windings that use the same TransformerInfo, so they are kept on DistributionTransformerWinding.
+- 'windingType' attribute is replaced by 'sequenceNumber' attribute on WindingInfo class.
+- all the other attributes come from the WindingInfo (and its relationships). TransformerInfo is associated to the DistributionTransformer as referenceable data, so it can be defined once and referred to from instances, instead of being specified with each instance.")
+				@GenModel(Documentation="Conducting connection point of a distribution / unbalanced transformer winding instance.
+This class differs from Wires::TransformerWinding as follows:
+- the eight Pi model attributes are moved into separate class, that can be optionally referred to from several winding instances.
+- the three grounding attributes can differ per winding instance, even for windings that use the same TransformerInfo, so they are kept on DistributionTransformerWinding.
+- 'windingType' attribute is replaced by 'sequenceNumber' attribute on WindingInfo class.
+- all the other attributes come from the WindingInfo (and its relationships). TransformerInfo is associated to the DistributionTransformer as referenceable data, so it can be defined once and referred to from instances, instead of being specified with each instance.")
+				class DistributionTransformerWinding extends IEC61970.Core.ConductingEquipment {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Data for this winding.")
+					@GenModel(Documentation="Data for this winding.")
+					ref AssetModels.WindingInfo[1]#Windings WindingInfo;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="(for Yn and Zn connections) Resistance part of neutral impedance where 'grounded' is true.")
+					@GenModel(Documentation="(for Yn and Zn connections) Resistance part of neutral impedance where 'grounded' is true.")
+					unsettable attr Resistance rground;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Transformer this winding belongs to.")
+					@GenModel(Documentation="Transformer this winding belongs to.")
+					ref DistributionTransformer[1]#Windings Transformer;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="(for Yn and Zn connections) Reactive part of neutral impedance where 'grounded' is true.")
+					@GenModel(Documentation="(for Yn and Zn connections) Reactive part of neutral impedance where 'grounded' is true.")
+					unsettable attr Reactance xground;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Ratio tap changer associated with this winding.")
+					@GenModel(Documentation="Ratio tap changer associated with this winding.")
+					ref IEC61970.Wires.RatioTapChanger#Winding RatioTapChanger;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="(accurate for 2- or 3-winding transformers only) Pi-model impedances of this winding.")
+					@GenModel(Documentation="(accurate for 2- or 3-winding transformers only) Pi-model impedances of this winding.")
+					ref WindingPiImpedance#Windings PiImpedance;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="(for Yn and Zn connections) True if the neutral is solidly grounded.")
+					@GenModel(Documentation="(for Yn and Zn connections) True if the neutral is solidly grounded.")
+					unsettable attr boolean[1] grounded;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Extends ACLineSegment with references to a library of standard types from which electrical parameters can be calculated, as follows:
+- calculate electrical parameters from asset data, using associated ConductorInfo, with values then multiplied by Conductor.length to produce a matrix model.
+- calculate unbalanced electrical parameters from associated PerLengthPhaseImpedance, then multiplied by Conductor.length to produce a matrix model.
+- calculate transposed electrical parameters from associated PerLengthSequenceImpedance, then multiplied by Conductor.length to produce a sequence model.
+For symmetrical, transposed 3ph lines, it is sufficient to use inherited ACLineSegment attributes, which describe sequence impedances and admittances for the entire length of the segment.
+
+Known issue: Attributes expressing impedances and admittances in PerLengthSequenceImpedance and PhaseImpedanceData use Resistance, etc., which describe pre-calculated, full length of segment, while we should have a longitudinal unit, per length. Taking 'r' as example, its 'unit'=Ohm, but the value is effectively in Ohm/m, so the value needs to be multiplied by Conductor.length. This is against the whole idea of unit data types and is semantically wrong, but base CIM does not have the required data types at this moment. Until the revision of unit modelling in CIM, applications need to deduce and locally handle appending \"/m\" for units and ensure they multiply the values by Conductor.length.")
+				@"http://langdale.com.au/2005/UML"("Profile documentation"="At least one of the Associations must exist.")
+				@GenModel(Documentation="Extends ACLineSegment with references to a library of standard types from which electrical parameters can be calculated, as follows:
+- calculate electrical parameters from asset data, using associated ConductorInfo, with values then multiplied by Conductor.length to produce a matrix model.
+- calculate unbalanced electrical parameters from associated PerLengthPhaseImpedance, then multiplied by Conductor.length to produce a matrix model.
+- calculate transposed electrical parameters from associated PerLengthSequenceImpedance, then multiplied by Conductor.length to produce a sequence model.
+For symmetrical, transposed 3ph lines, it is sufficient to use inherited ACLineSegment attributes, which describe sequence impedances and admittances for the entire length of the segment.
+
+Known issue: Attributes expressing impedances and admittances in PerLengthSequenceImpedance and PhaseImpedanceData use Resistance, etc., which describe pre-calculated, full length of segment, while we should have a longitudinal unit, per length. Taking 'r' as example, its 'unit'=Ohm, but the value is effectively in Ohm/m, so the value needs to be multiplied by Conductor.length. This is against the whole idea of unit data types and is semantically wrong, but base CIM does not have the required data types at this moment. Until the revision of unit modelling in CIM, applications need to deduce and locally handle appending \"/m\" for units and ensure they multiply the values by Conductor.length.", "Profile documentation"="At least one of the Associations must exist.")
+				class DistributionLineSegment extends IEC61970.Wires.ACLineSegment {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Conductor data of this conductor segment.")
+					@GenModel(Documentation="Conductor data of this conductor segment.")
+					ref AssetModels.ConductorInfo#ConductorSegments ConductorInfo;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Sequence impedance of this conductor segment; used for balanced model.")
+					@GenModel(Documentation="Sequence impedance of this conductor segment; used for balanced model.")
+					ref PerLengthSequenceImpedance#ConductorSegments SequenceImpedance;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Phase impedance of this conductor segment; used for unbalanced model.")
+					@GenModel(Documentation="Phase impedance of this conductor segment; used for unbalanced model.")
+					ref PerLengthPhaseImpedance#ConductorSegments PhaseImpedance;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Transformer Pi-model impedance that accurately reflects impedance for transformers with 2 or 3 windings. For transformers with 4 or more windings, you must use TransformerInfo.")
+				@GenModel(Documentation="Transformer Pi-model impedance that accurately reflects impedance for transformers with 2 or 3 windings. For transformers with 4 or more windings, you must use TransformerInfo.")
+				class WindingPiImpedance extends IEC61970.Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Positive sequence series reactance of the winding.  For a two winding transformer, the full reactance of the transformer should be entered on the primary (high voltage) winding.")
+					@GenModel(Documentation="Positive sequence series reactance of the winding.  For a two winding transformer, the full reactance of the transformer should be entered on the primary (high voltage) winding.")
+					unsettable attr Reactance[1] x;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Magnetizing branch conductance (G mag).")
+					@GenModel(Documentation="Magnetizing branch conductance (G mag).")
+					unsettable attr Conductance[1] g;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Zero sequence series resistance of the winding.")
+					@GenModel(Documentation="Zero sequence series resistance of the winding.")
+					unsettable attr Resistance r0;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="DC resistance of the winding.")
+					@GenModel(Documentation="DC resistance of the winding.")
+					unsettable attr Resistance[1] r;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Magnetizing branch susceptance (B mag).  The value can be positive or negative.")
+					@GenModel(Documentation="Magnetizing branch susceptance (B mag).  The value can be positive or negative.")
+					unsettable attr Susceptance[1] b;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All windings having this Pi impedance.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All windings having this Pi impedance.", "Profile documentation"="")
+					ref DistributionTransformerWinding[*]#PiImpedance Windings;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Zero sequence magnetizing branch conductance.")
+					@GenModel(Documentation="Zero sequence magnetizing branch conductance.")
+					unsettable attr Conductance g0;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Zero sequence series reactance of the winding.")
+					@GenModel(Documentation="Zero sequence series reactance of the winding.")
+					unsettable attr Reactance x0;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Zero sequence magnetizing branch susceptance.")
+					@GenModel(Documentation="Zero sequence magnetizing branch susceptance.")
+					unsettable attr Susceptance b0;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Additional ratio tap changer parameters common to distribution line regulators. 'tculControlMode' would always be 'volt'.
+If 'monitoredPhase' is not specified, then if the controlled DistributionTransformerWinding is single-phase, the PT primary is assumed to be connected across that winding, which is the normal case. If the controlled winding is three-phase, then the 'monitoredPhase' is assumed to be 'AN', unless otherwise specified.
+Whenever 'ctRatio' and 'ptRatio' are specified, it's customary to specify the R and X in \"volts\" referred to the PT secondary circuit, otherwise R and X are in feeder primary ohms.
+If 'ptRatio' is not specified, then 'targetVoltage', 'limitVoltage', and 'bandVoltage' are on the feeder primary base, phase-neutral or phase-phase depending on the 'monitoredPhase'. Otherwise, these attributes are all on the PT secondary base.")
+				@GenModel(Documentation="Additional ratio tap changer parameters common to distribution line regulators. 'tculControlMode' would always be 'volt'.
+If 'monitoredPhase' is not specified, then if the controlled DistributionTransformerWinding is single-phase, the PT primary is assumed to be connected across that winding, which is the normal case. If the controlled winding is three-phase, then the 'monitoredPhase' is assumed to be 'AN', unless otherwise specified.
+Whenever 'ctRatio' and 'ptRatio' are specified, it's customary to specify the R and X in \"volts\" referred to the PT secondary circuit, otherwise R and X are in feeder primary ohms.
+If 'ptRatio' is not specified, then 'targetVoltage', 'limitVoltage', and 'bandVoltage' are on the feeder primary base, phase-neutral or phase-phase depending on the 'monitoredPhase'. Otherwise, these attributes are all on the PT secondary base.")
+				class DistributionTapChanger extends IEC61970.Wires.RatioTapChanger {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Line drop compensator resistance setting for normal (forward) power flow.")
+					@GenModel(Documentation="Line drop compensator resistance setting for normal (forward) power flow.")
+					unsettable attr Resistance[1] lineDropR;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Phase voltage controlling this regulator, measured at regulator location.")
+					@GenModel(Documentation="Phase voltage controlling this regulator, measured at regulator location.")
+					unsettable attr IEC61970.Core.PhaseCode[1] monitoredPhase;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="If true, the line drop compensation is to be applied.")
+					@GenModel(Documentation="If true, the line drop compensation is to be applied.")
+					unsettable attr boolean[1] lineDropCompensation;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Built-in voltage transducer ratio.")
+					@GenModel(Documentation="Built-in voltage transducer ratio.")
+					unsettable attr float[1] ptRatio;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Built-in current transducer ratio.")
+					@GenModel(Documentation="Built-in current transducer ratio.")
+					unsettable attr float[1] ctRatio;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Line drop compensator resistance setting for reverse power flow.")
+					@GenModel(Documentation="Line drop compensator resistance setting for reverse power flow.")
+					unsettable attr Resistance[1] reverseLineDropR;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Maximum allowed regulated voltage on the PT secondary base, regardless of line drop compensation. Sometimes referred to as first-house protection.")
+					@GenModel(Documentation="Maximum allowed regulated voltage on the PT secondary base, regardless of line drop compensation. Sometimes referred to as first-house protection.")
+					unsettable attr Voltage[1] limitVoltage;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Line drop compensator reactance setting for reverse power flow.")
+					@GenModel(Documentation="Line drop compensator reactance setting for reverse power flow.")
+					unsettable attr Reactance[1] reverseLineDropX;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Voltage range (max - min) on the PT secondary base, centered on 'targetVoltage'.")
+					@GenModel(Documentation="Voltage range (max - min) on the PT secondary base, centered on 'targetVoltage'.")
+					unsettable attr Voltage[1] bandVoltage;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Target voltage on the PT secondary base.")
+					@GenModel(Documentation="Target voltage on the PT secondary base.")
+					unsettable attr Voltage[1] targetVoltage;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Line drop compensator reactance setting for normal (forward) power flow.")
+					@GenModel(Documentation="Line drop compensator reactance setting for normal (forward) power flow.")
+					unsettable attr Reactance[1] lineDropX;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Sequence impedance and admittance parameters per unit length, for transposed lines of 1, 2, or 3 phases. For 1-phase lines, define x=x0=xself. For 2-phase lines, define x=xs-xm and x0=xs+xm.")
+				@GenModel(Documentation="Sequence impedance and admittance parameters per unit length, for transposed lines of 1, 2, or 3 phases. For 1-phase lines, define x=x0=xself. For 2-phase lines, define x=xs-xm and x0=xs+xm.")
+				class PerLengthSequenceImpedance extends IEC61970.Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Positive sequence series reactance, per unit of length.")
+					@GenModel(Documentation="Positive sequence series reactance, per unit of length.")
+					unsettable attr Reactance[1] x;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Zero sequence series resistance, per unit of length.")
+					@GenModel(Documentation="Zero sequence series resistance, per unit of length.")
+					unsettable attr Resistance r0;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Zero sequence series reactance, per unit of length.")
+					@GenModel(Documentation="Zero sequence series reactance, per unit of length.")
+					unsettable attr Reactance x0;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Zero sequence shunt (charging) susceptance, per unit of length.")
+					@GenModel(Documentation="Zero sequence shunt (charging) susceptance, per unit of length.")
+					unsettable attr Susceptance b0ch;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Positive sequence series resistance, per unit of length.")
+					@GenModel(Documentation="Positive sequence series resistance, per unit of length.")
+					unsettable attr Resistance[1] r;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Positive sequence shunt (charging) susceptance, per unit of length.")
+					@GenModel(Documentation="Positive sequence shunt (charging) susceptance, per unit of length.")
+					unsettable attr Susceptance bch;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All conductor segments described by this sequence impedance.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All conductor segments described by this sequence impedance.", "Profile documentation"="")
+					ref DistributionLineSegment[*]#SequenceImpedance ConductorSegments;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="An assembly of transformers that are connected together. For three-phase transformers, there would be one transformer per bank. For banks of single-phase transformers, there will be more than one transformer per bank, and they need not be identical.")
+				@GenModel(Documentation="An assembly of transformers that are connected together. For three-phase transformers, there would be one transformer per bank. For banks of single-phase transformers, there will be more than one transformer per bank, and they need not be identical.")
+				class TransformerBank extends IEC61970.Core.Equipment {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All transformers that belong to this bank.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All transformers that belong to this bank.", "Profile documentation"="")
+					ref DistributionTransformer[*]#TransformerBank Transformers;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Vector group of the bank for protective relaying, e.g., Dyn1. For unbalanced transformers, this may not be simply determined from the constituent winding connections.")
+					@GenModel(Documentation="Vector group of the bank for protective relaying, e.g., Dyn1. For unbalanced transformers, this may not be simply determined from the constituent winding connections.")
+					unsettable attr String[1] vectorGroup;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Impedance and admittance parameters per unit length for n-wire unbalanced lines, in matrix form.")
+				@GenModel(Documentation="Impedance and admittance parameters per unit length for n-wire unbalanced lines, in matrix form.")
+				class PerLengthPhaseImpedance extends IEC61970.Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All data that belong to this conductor phase impedance.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All data that belong to this conductor phase impedance.", "Profile documentation"="")
+					ref PhaseImpedanceData[*]#PhaseImpedance PhaseImpedanceData;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All conductor segments described by this phase impedance.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All conductor segments described by this phase impedance.", "Profile documentation"="")
+					ref DistributionLineSegment[*]#PhaseImpedance ConductorSegments;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Number of phase, neutral, and other wires retained. Constrains the number of matrix elements and the phase codes that can be used with this matrix.")
+					@GenModel(Documentation="Number of phase, neutral, and other wires retained. Constrains the number of matrix elements and the phase codes that can be used with this matrix.")
+					unsettable attr int[1] conductorCount;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="An assembly of two or more coupled windings that transform electrical power between voltage levels. Supports both balanced and unbalanced winding connections.
+This class differs from Wires::PowerTransformer as follows:
+- it is part of a TransformerBank
+- it draws parameters exclusively from TransformerInfo and its associated classes.")
+				@GenModel(Documentation="An assembly of two or more coupled windings that transform electrical power between voltage levels. Supports both balanced and unbalanced winding connections.
+This class differs from Wires::PowerTransformer as follows:
+- it is part of a TransformerBank
+- it draws parameters exclusively from TransformerInfo and its associated classes.")
+				class DistributionTransformer extends IEC61970.Core.Equipment {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Transformer data.")
+					@GenModel(Documentation="Transformer data.")
+					ref AssetModels.TransformerInfo[1]#Transformers TransformerInfo;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All windings of this transformer.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All windings of this transformer.", "Profile documentation"="")
+					ref DistributionTransformerWinding[*]#Transformer Windings;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Bank this transformer belongs to.")
+					@GenModel(Documentation="Bank this transformer belongs to.")
+					ref TransformerBank[1]#Transformers TransformerBank;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Triplet of resistance, reactance, and susceptance matrix element values.")
+				@GenModel(Documentation="Triplet of resistance, reactance, and susceptance matrix element values.")
+				class PhaseImpedanceData extends Element {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Reactance matrix element value, per length of unit.")
+					@GenModel(Documentation="Reactance matrix element value, per length of unit.")
+					unsettable attr Reactance[1] x;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Column-wise element index, assuming a symmetrical matrix. Ranges from 1 to N + N*(N-1)/2.")
+					@GenModel(Documentation="Column-wise element index, assuming a symmetrical matrix. Ranges from 1 to N + N*(N-1)/2.")
+					unsettable attr int[1] sequenceNumber;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Conductor phase impedance to which this data belongs.")
+					@GenModel(Documentation="Conductor phase impedance to which this data belongs.")
+					ref PerLengthPhaseImpedance[1]#PhaseImpedanceData PhaseImpedance;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Susceptance matrix element value, per length of unit.")
+					@GenModel(Documentation="Susceptance matrix element value, per length of unit.")
+					unsettable attr Susceptance[1] b;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Resistance matrix element value, per length of unit.")
+					@GenModel(Documentation="Resistance matrix element value, per length of unit.")
+					unsettable attr Resistance[1] r;
+				}
+
+			}
+
+			@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="This package is an extension of Assets package and contains the core information classes that support asset management and different network and work planning applications with specialized documentation classes describing assets of a particular product model made by a manufacturer. There are typically many instances of an asset associated with a single asset model. It also contains \"lightweight\" *Info classes, which hold model attributes that can be referenced by not only Assets but also by ConductingEquipments.")
+			@GenModel(Documentation="This package is an extension of Assets package and contains the core information classes that support asset management and different network and work planning applications with specialized documentation classes describing assets of a particular product model made by a manufacturer. There are typically many instances of an asset associated with a single asset model. It also contains \"lightweight\" *Info classes, which hold model attributes that can be referenced by not only Assets but also by ConductingEquipments.")
+			@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#AssetModels", prefix="cimAssetModels")
+			package AssetModels {
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Set of transformer data, from an equipment library.")
+				@GenModel(Documentation="Set of transformer data, from an equipment library.")
+				class TransformerInfo extends IEC61970.Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All transformers that can be described with this transformer data.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All transformers that can be described with this transformer data.", "Profile documentation"="")
+					ref WiresExt.DistributionTransformer[*]#TransformerInfo Transformers;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Data for all the windings described by this transformer data.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="Data for all the windings described by this transformer data.", "Profile documentation"="")
+					ref WindingInfo[*]#TransformerInfo WindingInfos;
+				}
+
+				enum CableOuterJacketKind {
+					insulating = 0;
+					other = 1;
+					semiconducting = 2;
+					polyethylene = 3;
+					none = 4;
+					linearLowDensityPolyethylene = 5;
+					pvc = 6;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="For short-circuit tests, specifies the winding and tap for all short-circuited windings. 
+For open-circuit tests, specifies the winding, tap, induced voltage, and induced angle for any non-excited windings that were measured during the test. This won't apply if only the exciting current and no-load losses were measured.")
+				@GenModel(Documentation="For short-circuit tests, specifies the winding and tap for all short-circuited windings. 
+For open-circuit tests, specifies the winding, tap, induced voltage, and induced angle for any non-excited windings that were measured during the test. This won't apply if only the exciting current and no-load losses were measured.")
+				class ToWindingSpec extends IEC61970.Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Tap step number for the \"to\" winding of the test pair.")
+					@GenModel(Documentation="Tap step number for the \"to\" winding of the test pair.")
+					unsettable attr int[1] toTapStep;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="(if open-circuit test) Voltage measured at the open-circuited \"to\" winding, with the \"from\" winding set to the \"from\" winding's rated voltage and all other windings open-circuited.")
+					@GenModel(Documentation="(if open-circuit test) Voltage measured at the open-circuited \"to\" winding, with the \"from\" winding set to the \"from\" winding's rated voltage and all other windings open-circuited.")
+					unsettable attr Voltage voltage;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All open-circuit tests in which this winding was measured.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All open-circuit tests in which this winding was measured.", "Profile documentation"="")
+					ref OpenCircuitTest[*]#MeasuredWindingSpecs OpenCircuitTests;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="(if open-circuit test) Phase shift measured at the open-circuited \"to\" winding, with the \"from\" winding set to the \"from\" winding's rated voltage and all other windings open-circuited.")
+					@GenModel(Documentation="(if open-circuit test) Phase shift measured at the open-circuited \"to\" winding, with the \"from\" winding set to the \"from\" winding's rated voltage and all other windings open-circuited.")
+					unsettable attr AngleDegrees phaseShift;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All short-circuit tests in which this winding was short-circuited.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All short-circuit tests in which this winding was short-circuited.", "Profile documentation"="")
+					ref ShortCircuitTest[*]#ShortedWindingSpecs ShortCircuitTests;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Winding short-circuited in a short-circuit test, or measured for induced voltage and angle in an open-circuit test.")
+					@GenModel(Documentation="Winding short-circuited in a short-circuit test, or measured for induced voltage and angle in an open-circuit test.")
+					ref WindingInfo[1]#ToWindingSpecs ToWinding;
+				}
+
+				enum CableShieldMaterialKind {
+					other = 0;
+					lead = 1;
+					steel = 2;
+					aluminum = 3;
+					copper = 4;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Identification, spacing and configuration of the wires of a Conductor, with reference to their type.")
+				@GenModel(Documentation="Identification, spacing and configuration of the wires of a Conductor, with reference to their type.")
+				class WireArrangement extends IEC61970.Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Signed horizontal distance from the first wire to a common reference point.")
+					@GenModel(Documentation="Signed horizontal distance from the first wire to a common reference point.")
+					unsettable attr Length[1] mountingPointX;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Height above ground of the first wire.")
+					@GenModel(Documentation="Height above ground of the first wire.")
+					unsettable attr Length[1] mountingPointY;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Position number on the structure corresponding to this wire. For example, use 1..3 for phases and 4 for the neutral on a 3-phase structure. The individual phase assignments matter; for example, ABC will produce a different set of unbalanced line parameters, by phase, than BAC.")
+					@GenModel(Documentation="Position number on the structure corresponding to this wire. For example, use 1..3 for phases and 4 for the neutral on a 3-phase structure. The individual phase assignments matter; for example, ABC will produce a different set of unbalanced line parameters, by phase, than BAC.")
+					unsettable attr int[1] position;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Conductor data this wire arrangement belongs to.")
+					@GenModel(Documentation="Conductor data this wire arrangement belongs to.")
+					ref ConductorInfo[1]#WireArrangements ConductorInfo;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Wire type used for this wire arrangement.")
+					@GenModel(Documentation="Wire type used for this wire arrangement.")
+					ref WireType[1]#WireArrangements WireType;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Cable data.")
+				@GenModel(Documentation="Cable data.")
+				abstract class CableInfo extends ConductorInfo {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Maximum nominal design operating temperature.")
+					@GenModel(Documentation="Maximum nominal design operating temperature.")
+					unsettable attr Temperature[1] nominalTemperature;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Diameter over the outer screen; should be the shield's inside diameter..")
+					@GenModel(Documentation="Diameter over the outer screen; should be the shield's inside diameter..")
+					unsettable attr Length[1] diameterOverScreen;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="True if sheath / shield is used as a neutral (i.e., bonded).")
+					@GenModel(Documentation="True if sheath / shield is used as a neutral (i.e., bonded).")
+					unsettable attr boolean[1] sheathAsNeutral;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Diameter over the outermost jacketing layer.")
+					@GenModel(Documentation="Diameter over the outermost jacketing layer.")
+					unsettable attr Length[1] diameterOverJacket;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Diameter over the core, including any semi-con screen; should be the insulating layer's inside diameter.")
+					@GenModel(Documentation="Diameter over the core, including any semi-con screen; should be the insulating layer's inside diameter.")
+					unsettable attr Length[1] diameterOverCore;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Kind of construction of this cable.")
+					@GenModel(Documentation="Kind of construction of this cable.")
+					unsettable attr CableConstructionKind[1] constructionKind;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Kind of outer jacket of this cable.")
+					@GenModel(Documentation="Kind of outer jacket of this cable.")
+					unsettable attr CableOuterJacketKind[1] outerJacketKind;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="True if wire strands are extruded in a way to fill the voids in the cable.")
+					@GenModel(Documentation="True if wire strands are extruded in a way to fill the voids in the cable.")
+					unsettable attr boolean[1] isStrandFill;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Material of the shield.")
+					@GenModel(Documentation="Material of the shield.")
+					unsettable attr CableShieldMaterialKind[1] shieldMaterial;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Diameter over the insulating layer, excluding outer screen.")
+					@GenModel(Documentation="Diameter over the insulating layer, excluding outer screen.")
+					unsettable attr Length[1] diameterOverInsulation;
+				}
+
+				enum ConductorInsulationKind {
+					crosslinkedPolyethylene = 0;
+					butyl = 1;
+					treeRetardantCrosslinkedPolyethylene = 2;
+					asbestosAndVarnishedCambric = 3;
+					highPressureFluidFilled = 4;
+					ethylenePropyleneRubber = 5;
+					ozoneResistantRubber = 6;
+					oilPaper = 7;
+					varnishedDacronGlass = 8;
+					highMolecularWeightPolyethylene = 9;
+					other = 10;
+					varnishedCambricCloth = 11;
+					treeResistantHighMolecularWeightPolyethylene = 12;
+					unbeltedPilc = 13;
+					beltedPilc = 14;
+					rubber = 15;
+					lowCapacitanceRubber = 16;
+					siliconRubber = 17;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Open-circuit test results may include no-load losses, exciting current, phase shifts, and induced voltage. For three-phase windings, the excitation can be positive sequence (the default) or zero sequence.
+For induced voltage and phase shifts, use the associated ToWindingSpec class.")
+				@GenModel(Documentation="Open-circuit test results may include no-load losses, exciting current, phase shifts, and induced voltage. For three-phase windings, the excitation can be positive sequence (the default) or zero sequence.
+For induced voltage and phase shifts, use the associated ToWindingSpec class.")
+				class OpenCircuitTest extends DistributionWindingTest {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All other windings measured during this test.")
+					@GenModel(Documentation="All other windings measured during this test.")
+					ref ToWindingSpec[*]#OpenCircuitTests MeasuredWindingSpecs;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Losses measured from a zero-sequence open-circuit (excitation) test.")
+					@GenModel(Documentation="Losses measured from a zero-sequence open-circuit (excitation) test.")
+					unsettable attr KWActivePower[1] noLoadLossZero;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Losses measured from a positive-sequence or single-phase open-circuit (excitation) test.")
+					@GenModel(Documentation="Losses measured from a positive-sequence or single-phase open-circuit (excitation) test.")
+					unsettable attr KWActivePower[1] noLoadLoss;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Exciting current measured from a positive-sequence or single-phase open-circuit (excitation) test.")
+					@GenModel(Documentation="Exciting current measured from a positive-sequence or single-phase open-circuit (excitation) test.")
+					unsettable attr PerCent[1] excitingCurrent;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Exciting current measured from a zero-sequence open-circuit (excitation) test.")
+					@GenModel(Documentation="Exciting current measured from a zero-sequence open-circuit (excitation) test.")
+					unsettable attr PerCent[1] excitingCurrentZero;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Concentric neutral cable data.")
+				@GenModel(Documentation="Concentric neutral cable data.")
+				class ConcentricNeutralCableInfo extends CableInfo {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Number of concentric neutral strands.")
+					@GenModel(Documentation="Number of concentric neutral strands.")
+					unsettable attr int[1] neutralStrandCount;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Diameter over the concentric neutral strands.")
+					@GenModel(Documentation="Diameter over the concentric neutral strands.")
+					unsettable attr Length[1] diameterOverNeutral;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Wire type used for this concentric neutral cable.")
+					@GenModel(Documentation="Wire type used for this concentric neutral cable.")
+					ref WireType[1]#ConcentricNeutralCableInfos WireType;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Conductor data.")
+				@GenModel(Documentation="Conductor data.")
+				class ConductorInfo extends IEC61970.Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Number of phases (including neutral) to be retained. Any wires beyond this number should be reduced into the earth return.")
+					@GenModel(Documentation="Number of phases (including neutral) to be retained. Any wires beyond this number should be reduced into the earth return.")
+					unsettable attr int[1] phaseCount;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="(if insulated conductor) Material used for insulation.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="(if insulated conductor) Material used for insulation.", "Profile documentation"="")
+					unsettable attr ConductorInsulationKind insulationMaterial;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="(if insulated conductor) Thickness of the insulation.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="(if insulated conductor) Thickness of the insulation.", "Profile documentation"="")
+					unsettable attr Length insulationThickness;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="True if conductor is insulated.")
+					@GenModel(Documentation="True if conductor is insulated.")
+					unsettable attr boolean[1] insulated;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Usage of this conductor.")
+					@GenModel(Documentation="Usage of this conductor.")
+					unsettable attr ConductorUsageKind[1] usage;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All wire arrangements (single wires) that make this conductor.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All wire arrangements (single wires) that make this conductor.", "Profile documentation"="")
+					ref WireArrangement[*]#ConductorInfo WireArrangements;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All conductor segments described by this conductor data.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All conductor segments described by this conductor data.", "Profile documentation"="")
+					ref WiresExt.DistributionLineSegment[*]#ConductorInfo ConductorSegments;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Test results for one or more transformer windings. These may include short-circuit or open-circuit (excitation) tests. Short-circuit test results include load losses and leakage impedances. Open-circuit test results may include no-load losses, exciting current, phase shifts, and induced voltage. For three-phase windings, the excitation can be positive sequence (the default) or zero sequence.")
+				@GenModel(Documentation="Test results for one or more transformer windings. These may include short-circuit or open-circuit (excitation) tests. Short-circuit test results include load losses and leakage impedances. Open-circuit test results may include no-load losses, exciting current, phase shifts, and induced voltage. For three-phase windings, the excitation can be positive sequence (the default) or zero sequence.")
+				abstract class DistributionWindingTest extends IEC61970.Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Tap step number for the \"from\" winding of the test pair.")
+					@GenModel(Documentation="Tap step number for the \"from\" winding of the test pair.")
+					unsettable attr int[1] fromTapStep;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Winding that voltage or current is applied to during the test.")
+					@GenModel(Documentation="Winding that voltage or current is applied to during the test.")
+					ref WindingInfo[1]#WindingTests FromWinding;
+				}
+
+				enum ConductorMaterialKind {
+					steel = 0;
+					other = 1;
+					aluminum = 2;
+					copper = 3;
+					acsr = 4;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Wire conductor (per IEEE specs). A specific type of wire or combination of wires, not insulated from each other, suitable for carrying electrical current.")
+				@GenModel(Documentation="Wire conductor (per IEEE specs). A specific type of wire or combination of wires, not insulated from each other, suitable for carrying electrical current.")
+				class WireType extends IEC61970.Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="AC resistance per unit length of the conductor at 75 degrees C.")
+					@GenModel(Documentation="AC resistance per unit length of the conductor at 75 degrees C.")
+					unsettable attr Resistance[1] rAC75;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="(if there is a different core material) Radius of the central core.")
+					@GenModel(Documentation="(if there is a different core material) Radius of the central core.")
+					unsettable attr Length[1] coreRadius;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="(if used) Number of strands in the steel core.")
+					@GenModel(Documentation="(if used) Number of strands in the steel core.")
+					unsettable attr int[1] coreStrandCount;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="AC resistance per unit length of the conductor at 25 degrees C.")
+					@GenModel(Documentation="AC resistance per unit length of the conductor at 25 degrees C.")
+					unsettable attr Resistance[1] rAC25;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Outside radius of the wire.")
+					@GenModel(Documentation="Outside radius of the wire.")
+					unsettable attr Length[1] radius;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Geometric Mean Radius. If we replace the conductor by a thin walled tube of radius GMR, then its reactance is identical to the reactance of the actual conductor.")
+					@GenModel(Documentation="Geometric Mean Radius. If we replace the conductor by a thin walled tube of radius GMR, then its reactance is identical to the reactance of the actual conductor.")
+					unsettable attr Length[1] gmr;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="DC resistance per unit length of the conductor at 20 degrees C.")
+					@GenModel(Documentation="DC resistance per unit length of the conductor at 20 degrees C.")
+					unsettable attr Resistance[1] rDC20;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="AC resistance per unit length of the conductor at 50 degrees C.")
+					@GenModel(Documentation="AC resistance per unit length of the conductor at 50 degrees C.")
+					unsettable attr Resistance[1] rAC50;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Wire material.")
+					@GenModel(Documentation="Wire material.")
+					unsettable attr ConductorMaterialKind[1] material;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All concentric neutral cables using this wire type.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All concentric neutral cables using this wire type.", "Profile documentation"="")
+					ref ConcentricNeutralCableInfo[*]#WireType ConcentricNeutralCableInfos;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All wire arrangements using this wire type.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All wire arrangements using this wire type.", "Profile documentation"="")
+					ref WireArrangement[*]#WireType WireArrangements;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Describes the wire guage or cross section (e.g., 4/0, #2, 336.5).")
+					@GenModel(Documentation="Describes the wire guage or cross section (e.g., 4/0, #2, 336.5).")
+					unsettable attr String[1] sizeDescription;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Number of strands in the wire.")
+					@GenModel(Documentation="Number of strands in the wire.")
+					unsettable attr int[1] strandCount;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Current carrying capacity of the wire under stated thermal conditions.")
+					@GenModel(Documentation="Current carrying capacity of the wire under stated thermal conditions.")
+					unsettable attr CurrentFlow[1] ratedCurrent;
+				}
+
+				enum ConductorUsageKind {
+					secondary = 0;
+					other = 1;
+					distribution = 2;
+					transmission = 3;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Winding data.")
+				@GenModel(Documentation="Winding data.")
+				class WindingInfo extends IEC61970.Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Sequence number for this winding, corresponding to the winding's order in the TransformerBank.vectorGroup attribute. Highest voltage winding should be '1'.")
+					@GenModel(Documentation="Sequence number for this winding, corresponding to the winding's order in the TransformerBank.vectorGroup attribute. Highest voltage winding should be '1'.")
+					unsettable attr int[1] sequenceNumber;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Normal apparent power rating of this winding.")
+					@GenModel(Documentation="Normal apparent power rating of this winding.")
+					unsettable attr ApparentPower[1] ratedS;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Rated voltage of this winding: phase-phase for three-phase windings, and either phase-phase or phase-neutral for single-phase windings.")
+					@GenModel(Documentation="Rated voltage of this winding: phase-phase for three-phase windings, and either phase-phase or phase-neutral for single-phase windings.")
+					unsettable attr Voltage[1] ratedU;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Kind of connection of this winding.")
+					@GenModel(Documentation="Kind of connection of this winding.")
+					unsettable attr IEC61970.Wires.WindingConnection[1] connectionKind;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Apparent power that the winding can carry under emergency conditions.")
+					@GenModel(Documentation="Apparent power that the winding can carry under emergency conditions.")
+					unsettable attr ApparentPower[1] emergencyS;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All winding tests during which voltage or current was applied to this winding.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All winding tests during which voltage or current was applied to this winding.", "Profile documentation"="")
+					ref DistributionWindingTest[*]#FromWinding WindingTests;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="DC resistance of this winding.")
+					@GenModel(Documentation="DC resistance of this winding.")
+					unsettable attr Resistance[1] r;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Tap steps and induced voltage/angle measurements for tests in which this winding was not excited.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="Tap steps and induced voltage/angle measurements for tests in which this winding was not excited.", "Profile documentation"="")
+					ref ToWindingSpec[*]#ToWinding ToWindingSpecs;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Transformer data that this winding description is part of.")
+					@GenModel(Documentation="Transformer data that this winding description is part of.")
+					ref TransformerInfo[1]#WindingInfos TransformerInfo;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Winding phase angle where 360 degrees are represented with clock hours, so the valid values are {0, ..., 11}. For example, to express winding code 'Dyn11', set attributes as follows: 'connectionKind' = Yn and 'phaseAngle' = 11.")
+					@GenModel(Documentation="Winding phase angle where 360 degrees are represented with clock hours, so the valid values are {0, ..., 11}. For example, to express winding code 'Dyn11', set attributes as follows: 'connectionKind' = Yn and 'phaseAngle' = 11.")
+					unsettable attr int[1] phaseAngle;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All windings described by this winding data.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All windings described by this winding data.", "Profile documentation"="")
+					ref WiresExt.DistributionTransformerWinding[*]#WindingInfo Windings;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Basic insulation level voltage rating.")
+					@GenModel(Documentation="Basic insulation level voltage rating.")
+					unsettable attr Voltage[1] insulationU;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Apparent power that this winding can carry for a short period of time.")
+					@GenModel(Documentation="Apparent power that this winding can carry for a short period of time.")
+					unsettable attr ApparentPower[1] shortTermS;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Overhead conductor data.")
+				@GenModel(Documentation="Overhead conductor data.")
+				class OverheadConductorInfo extends ConductorInfo {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="(if applicable) Insulation thickness of the neutral conductor.")
+					@GenModel(Documentation="(if applicable) Insulation thickness of the neutral conductor.")
+					unsettable attr Length[1] neutralInsulationThickness;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Number of conductor strands in the symmetrical bundle (1-12).")
+					@GenModel(Documentation="Number of conductor strands in the symmetrical bundle (1-12).")
+					unsettable attr int[1] phaseConductorCount;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Distance between conductor strands in a symmetrical bundle.")
+					@GenModel(Documentation="Distance between conductor strands in a symmetrical bundle.")
+					unsettable attr Length phaseConductorSpacing;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Tape shield cable data.")
+				@GenModel(Documentation="Tape shield cable data.")
+				class TapeShieldCableInfo extends CableInfo {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Thickness of the tape shield, before wrapping.")
+					@GenModel(Documentation="Thickness of the tape shield, before wrapping.")
+					unsettable attr Length[1] tapeThickness;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Percentage of the tape shield width that overlaps in each wrap, typically 10% to 25%.")
+					@GenModel(Documentation="Percentage of the tape shield width that overlaps in each wrap, typically 10% to 25%.")
+					unsettable attr PerCent[1] tapeLap;
+				}
+
+				enum CableConstructionKind {
+					solid = 0;
+					stranded = 1;
+					other = 2;
+					segmental = 3;
+					compacted = 4;
+					sector = 5;
+					compressed = 6;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Short-circuit test results include load losses and leakage impedances. For three-phase windings, the excitation can be positive sequence (the default) or zero sequence. There must be at least one short-circuited (\"to\") winding.")
+				@GenModel(Documentation="Short-circuit test results include load losses and leakage impedances. For three-phase windings, the excitation can be positive sequence (the default) or zero sequence. There must be at least one short-circuited (\"to\") winding.")
+				class ShortCircuitTest extends DistributionWindingTest {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Load losses from a zero-sequence short-circuit test.")
+					@GenModel(Documentation="Load losses from a zero-sequence short-circuit test.")
+					unsettable attr KWActivePower[1] loadLossZero;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Leakage impedance measured from a zero-sequence short-circuit test.")
+					@GenModel(Documentation="Leakage impedance measured from a zero-sequence short-circuit test.")
+					unsettable attr Impedance[1] leakageImpedanceZero;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All windings short-circuited during this test.")
+					@GenModel(Documentation="All windings short-circuited during this test.")
+					ref ToWindingSpec[+]#ShortCircuitTests ShortedWindingSpecs;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Leakage impedance measured from a positive-sequence or single-phase short-circuit test.")
+					@GenModel(Documentation="Leakage impedance measured from a positive-sequence or single-phase short-circuit test.")
+					unsettable attr Impedance[1] leakageImpedance;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Load losses from a positive-sequence or single-phase short-circuit test.")
+					@GenModel(Documentation="Load losses from a positive-sequence or single-phase short-circuit test.")
+					unsettable attr KWActivePower[1] loadLoss;
+				}
+
+			}
+
+			@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="This package contains the information classes that support distribution management in general.")
+			@GenModel(Documentation="This package contains the information classes that support distribution management in general.")
+			@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#Common", prefix="cimCommon")
+			package Common {
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Geographical location.")
+				@GenModel(Documentation="Geographical location.")
+				class GeoLocation extends Location {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="All power system resources at this geographical location.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="All power system resources at this geographical location.", "Profile documentation"="")
+					ref IEC61970.Core.PowerSystemResource[*]#GeoLocation PowerSystemResources;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The place, scene, or point of something where someone or something has been, is, and/or will be at a given moment in time. It may be:
+- Spatial location of an actual or planned structure, or a set of point-oriented structures (as a substation, structure, building, town, etc.) or diagram objects, which may be defined as a point or polygon, or,
+- Path of an underground or overhead conductor, or a linear diagram object.")
+				@GenModel(Documentation="The place, scene, or point of something where someone or something has been, is, and/or will be at a given moment in time. It may be:
+- Spatial location of an actual or planned structure, or a set of point-oriented structures (as a substation, structure, building, town, etc.) or diagram objects, which may be defined as a point or polygon, or,
+- Path of an underground or overhead conductor, or a linear diagram object.")
+				abstract class Location extends IEC61970.Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Sequence of position points describing this location.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="Sequence of position points describing this location.", "Profile documentation"="")
+					ref PositionPoint[*]#Location PositionPoints;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Set of spatial coordinates that determine a point. A sequence of PositionPoints can be used to describe:
+- physical location of non-point oriented objects like cables or lines, or
+- area of an object like a substation, a geographical zone or a diagram object.")
+				@GenModel(Documentation="Set of spatial coordinates that determine a point. A sequence of PositionPoints can be used to describe:
+- physical location of non-point oriented objects like cables or lines, or
+- area of an object like a substation, a geographical zone or a diagram object.")
+				class PositionPoint extends Element {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Zero-relative sequence number of this point within a series of points.")
+					@GenModel(Documentation="Zero-relative sequence number of this point within a series of points.")
+					unsettable attr int sequenceNumber;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="X axis position.")
+					@GenModel(Documentation="X axis position.")
+					unsettable attr String[1] xPosition;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Y axis position.")
+					@GenModel(Documentation="Y axis position.")
+					unsettable attr String[1] yPosition;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Location that this position point describes.")
+					@GenModel(Documentation="Location that this position point describes.")
+					ref Location[1]#PositionPoints Location;
+				}
+
+			}
+
+		}
+
+		@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#IEC61970", prefix="cimIEC61970")
+		package IEC61970 {
+			@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="This is the IEC 61970 CIM version number assigned to this UML model file.")
+			@GenModel(Documentation="This is the IEC 61970 CIM version number assigned to this UML model file.")
+			class IEC61970CIMVersion extends Element {
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Form is YYYY-MM-DD for example for January 5, 2009 it is 2009-01-05.")
+				@GenModel(Documentation="Form is YYYY-MM-DD for example for January 5, 2009 it is 2009-01-05.")
+				unsettable attr CIMDateTime[1] date;
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Form is IEC61970CIMXXvYY where XX is the major CIM package version and the YY is the minor version.   For ecample IEC61970CIM13v18.")
+				@GenModel(Documentation="Form is IEC61970CIMXXvYY where XX is the major CIM package version and the YY is the minor version.   For ecample IEC61970CIM13v18.")
+				unsettable attr String[1] version;
+			}
+
+			@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="An extension to the Core and Topology package that models information on the electrical characteristics of Transmission and Distribution networks. This package is used by network applications such as State Estimation, Load Flow and Optimal Power Flow.")
+			@GenModel(Documentation="An extension to the Core and Topology package that models information on the electrical characteristics of Transmission and Distribution networks. This package is used by network applications such as State Estimation, Load Flow and Optimal Power Flow.")
+			@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#Wires", prefix="cimWires")
+			package Wires {
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A conductor, or group of conductors, with negligible impedance, that serve to connect other conducting equipment within a single substation. 
+Voltage measurements are typically obtained from VoltageTransformers that are connected to busbar sections. A bus bar section may have many physical terminals but for analysis is modelled with exactly one logical terminal.")
+				@GenModel(Documentation="A conductor, or group of conductors, with negligible impedance, that serve to connect other conducting equipment within a single substation. 
+Voltage measurements are typically obtained from VoltageTransformers that are connected to busbar sections. A bus bar section may have many physical terminals but for analysis is modelled with exactly one logical terminal.")
+				class BusbarSection extends Core.ConductingEquipment {
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A mechanical switching device capable of making, carrying, and breaking currents under normal operating conditions.")
+				@GenModel(Documentation="A mechanical switching device capable of making, carrying, and breaking currents under normal operating conditions.")
+				class LoadBreakSwitch extends Switch {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Current carrying capacity of a wire or cable under stated thermal conditions.")
+					@GenModel(Documentation="Current carrying capacity of a wire or cable under stated thermal conditions.")
+					unsettable attr CurrentFlow[1] ratedCurrent;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Mechanism for changing transformer winding tap positions.")
+				@GenModel(Documentation="Mechanism for changing transformer winding tap positions.")
+				abstract class TapChanger extends Core.PowerSystemResource {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Tap step increment, in per cent of nominal voltage, per step position.  For a symmetrical PhaseTapChanger, the stepVoltageIncrement is used in the formula for calculation of the phase angle.  For a symmetrical PhaseTapChanger, the voltage magnitude does not change with tap step.")
+					@GenModel(Documentation="Tap step increment, in per cent of nominal voltage, per step position.  For a symmetrical PhaseTapChanger, the stepVoltageIncrement is used in the formula for calculation of the phase angle.  For a symmetrical PhaseTapChanger, the voltage magnitude does not change with tap step.")
+					unsettable attr PerCent[1] stepVoltageIncrement;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="For an LTC, the delay for subsequent tap changer operation (second and later step changes)")
+					@GenModel(Documentation="For an LTC, the delay for subsequent tap changer operation (second and later step changes)")
+					unsettable attr Seconds[1] subsequentDelay;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The neutral tap step position for this winding.")
+					@GenModel(Documentation="The neutral tap step position for this winding.")
+					unsettable attr int[1] neutralStep;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The tap step state associated with the tap changer.")
+					@GenModel(Documentation="The tap step state associated with the tap changer.")
+					ref StateVariables.SvTapStep[1]#TapChanger SvTapStep;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The tap step position used in \"normal\" network operation for this winding. For a \"Fixed\" tap changer indicates the current physical tap setting.")
+					@GenModel(Documentation="The tap step position used in \"normal\" network operation for this winding. For a \"Fixed\" tap changer indicates the current physical tap setting.")
+					unsettable attr int[1] normalStep;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Specifies whether or not a TapChanger has load tap changing capabilities.")
+					@GenModel(Documentation="Specifies whether or not a TapChanger has load tap changing capabilities.")
+					unsettable attr boolean[1] ltcFlag;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Voltage at which the winding operates at the neutral tap setting.")
+					@GenModel(Documentation="Voltage at which the winding operates at the neutral tap setting.")
+					unsettable attr Voltage[1] neutralU;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Lowest possible tap step position, retard from neutral")
+					@GenModel(Documentation="Lowest possible tap step position, retard from neutral")
+					unsettable attr int[1] lowStep;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="For an LTC, the delay for initial tap changer operation (first step change)")
+					@GenModel(Documentation="For an LTC, the delay for initial tap changer operation (first step change)")
+					unsettable attr Seconds[1] initialDelay;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Specifies the default regulation status of the TapChanger.  True is regulating.  False is not regulating.")
+					@GenModel(Documentation="Specifies the default regulation status of the TapChanger.  True is regulating.  False is not regulating.")
+					unsettable attr boolean[1] regulationStatus;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Highest possible tap step position, advance from neutral")
+					@GenModel(Documentation="Highest possible tap step position, advance from neutral")
+					unsettable attr int[1] highStep;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="An overcurrent protective device with a circuit opening fusible part that is heated and severed by the passage of overcurrent through it. A fuse is considered a switching device because it breaks current.")
+				@GenModel(Documentation="An overcurrent protective device with a circuit opening fusible part that is heated and severed by the passage of overcurrent through it. A fuse is considered a switching device because it breaks current.")
+				class Fuse extends Switch {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Fault interrupting current rating.")
+					@GenModel(Documentation="Fault interrupting current rating.")
+					unsettable attr CurrentFlow[1] ratingCurrent;
+				}
+
+				enum TransformerControlMode {
+					reactive = 0;
+					volt = 1;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A point where one or more conducting equipments are connected with zero resistance.")
+				@GenModel(Documentation="A point where one or more conducting equipments are connected with zero resistance.")
+				class Junction extends Core.ConductingEquipment {
+				}
+
+				enum WindingConnection {
+					I = 0;
+					Z = 1;
+					Yn = 2;
+					Y = 3;
+					A = 4;
+					D = 5;
+					Zn = 6;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A wire or combination of wires, with consistent electrical characteristics, building a single electrical system, used to carry alternating current between points in the power system.")
+				@"http://langdale.com.au/2005/UML"("Profile documentation"="If the instance is an ACLineSegment, the r, x, r0 and x0 attibutes are mandatory.  However, if the line segment is for a DistributionLineSegment, these are not mandatory.")
+				@GenModel(Documentation="A wire or combination of wires, with consistent electrical characteristics, building a single electrical system, used to carry alternating current between points in the power system.", "Profile documentation"="If the instance is an ACLineSegment, the r, x, r0 and x0 attibutes are mandatory.  However, if the line segment is for a DistributionLineSegment, these are not mandatory.")
+				class ACLineSegment extends Conductor {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Positive sequence series resistance of the entire line section.")
+					@GenModel(Documentation="Positive sequence series resistance of the entire line section.")
+					unsettable attr Resistance r;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Zero sequence series reactance of the entire line section.")
+					@GenModel(Documentation="Zero sequence series reactance of the entire line section.")
+					unsettable attr Reactance x0;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Positive sequence shunt (charging) susceptance, uniformly distributed, of the entire line section.  This value represents the full charging over the full length of the line.")
+					@GenModel(Documentation="Positive sequence shunt (charging) susceptance, uniformly distributed, of the entire line section.  This value represents the full charging over the full length of the line.")
+					unsettable attr Susceptance bch;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Positive sequence series reactance of the entire line section.")
+					@GenModel(Documentation="Positive sequence series reactance of the entire line section.")
+					unsettable attr Reactance x;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Zero sequence shunt (charging) susceptance, uniformly distributed, of the entire line section.")
+					@GenModel(Documentation="Zero sequence shunt (charging) susceptance, uniformly distributed, of the entire line section.")
+					unsettable attr Susceptance b0ch;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Zero sequence series resistance of the entire line section.")
+					@GenModel(Documentation="Zero sequence series resistance of the entire line section.")
+					unsettable attr Resistance r0;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A manually operated or motor operated mechanical switching device used for changing the connections in a circuit, or for isolating a circuit or equipment from a source of power. It is required to open or close circuits when negligible current is broken or made.")
+				@GenModel(Documentation="A manually operated or motor operated mechanical switching device used for changing the connections in a circuit, or for isolating a circuit or equipment from a source of power. It is required to open or close circuits when negligible current is broken or made.")
+				class Disconnector extends Switch {
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A generic equivalent for an energy supplier on a transmission or distribution voltage level.")
+				@GenModel(Documentation="A generic equivalent for an energy supplier on a transmission or distribution voltage level.")
+				class EnergySource extends Core.ConductingEquipment {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Positive sequence Thevenin reactance.")
+					@GenModel(Documentation="Positive sequence Thevenin reactance.")
+					unsettable attr Reactance[1] x;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Phase-to-phase open circuit voltage magnitude.")
+					@GenModel(Documentation="Phase-to-phase open circuit voltage magnitude.")
+					unsettable attr Voltage[1] voltageMagnitude;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Phase angle of a-phase open circuit.")
+					@GenModel(Documentation="Phase angle of a-phase open circuit.")
+					unsettable attr AngleRadians[1] voltageAngle;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Phase-to-phase nominal voltage.")
+					@GenModel(Documentation="Phase-to-phase nominal voltage.")
+					unsettable attr Voltage[1] nominalVoltage;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="An electromechanical device that operates synchronously with the network. It is a single machine operating either as a generator or synchronous condenser or pump.")
+				@GenModel(Documentation="An electromechanical device that operates synchronously with the network. It is a single machine operating either as a generator or synchronous condenser or pump.")
+				class SynchronousMachine extends Core.ConductingEquipment {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Default base reactive power value. This value represents the initial reactive power that can be used by any application function.")
+					@GenModel(Documentation="Default base reactive power value. This value represents the initial reactive power that can be used by any application function.")
+					unsettable attr ReactivePower[1] baseQ;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Current mode of operation.")
+					@GenModel(Documentation="Current mode of operation.")
+					unsettable attr SynchronousMachineOperatingMode[1] operatingMode;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Modes that this synchronous machine can operate in.")
+					@GenModel(Documentation="Modes that this synchronous machine can operate in.")
+					unsettable attr SynchronousMachineType[1] type;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A synchronous machine may operate as a generator and as such becomes a member of a generating unit")
+					@GenModel(Documentation="A synchronous machine may operate as a generator and as such becomes a member of a generating unit")
+					ref Generation.Production.GeneratingUnit[1]#SynchronousMachines GeneratingUnit;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Maximum reactive power limit. This is the maximum (nameplate) limit for the unit.")
+					@GenModel(Documentation="Maximum reactive power limit. This is the maximum (nameplate) limit for the unit.")
+					unsettable attr ReactivePower[1] maxQ;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Minimum reactive power limit for the unit.")
+					@GenModel(Documentation="Minimum reactive power limit for the unit.")
+					unsettable attr ReactivePower[1] minQ;
+				}
+
+				enum SynchronousMachineType {
+					condenser = 0;
+					generator_or_condenser = 1;
+					generator = 2;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A tap changer that changes the voltage ratio impacting the voltage magnitude but not direclty the phase angle across the transformer..")
+				@GenModel(Documentation="A tap changer that changes the voltage ratio impacting the voltage magnitude but not direclty the phase angle across the transformer..")
+				abstract class RatioTapChanger extends TapChanger {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Specifies the regulation control mode (voltage or reactive) of the RatioTapChanger.")
+					@GenModel(Documentation="Specifies the regulation control mode (voltage or reactive) of the RatioTapChanger.")
+					unsettable attr TransformerControlMode[1] tculControlMode;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Winding to which this ratio tap changer belongs.")
+					@GenModel(Documentation="Winding to which this ratio tap changer belongs.")
+					ref IEC61968.WiresExt.DistributionTransformerWinding[1]#RatioTapChanger Winding;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Generic user of energy - a  point of consumption on the power system model")
+				@GenModel(Documentation="Generic user of energy - a  point of consumption on the power system model")
+				class EnergyConsumer extends Core.ConductingEquipment {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Active power of the load that is a fixed quantity.")
+					@GenModel(Documentation="Active power of the load that is a fixed quantity.")
+					unsettable attr ActivePower[1] pfixed;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The load response characteristic of this load.")
+					@GenModel(Documentation="The load response characteristic of this load.")
+					ref LoadModel.LoadResponseCharacteristic[1]#EnergyConsumer LoadResponse;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Fixed active power as per cent of load group fixed active power")
+					@GenModel(Documentation="Fixed active power as per cent of load group fixed active power")
+					unsettable attr PerCent pfixedPct;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Fixed reactive power as per cent of load group fixed reactive power.")
+					@GenModel(Documentation="Fixed reactive power as per cent of load group fixed reactive power.")
+					unsettable attr PerCent qfixedPct;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Reactive power of the load that is a fixed quantity.")
+					@GenModel(Documentation="Reactive power of the load that is a fixed quantity.")
+					unsettable attr ReactivePower[1] qfixed;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Number of individual customers represented by this Demand")
+					@GenModel(Documentation="Number of individual customers represented by this Demand")
+					unsettable attr int customerCount;
+				}
+
+				enum SynchronousMachineOperatingMode {
+					condenser = 0;
+					generator = 1;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A generic device designed to close, or open, or both, one or more electric circuits.")
+				@GenModel(Documentation="A generic device designed to close, or open, or both, one or more electric circuits.")
+				abstract class Switch extends Core.ConductingEquipment {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The attribute is used in cases when no Measurement for the status value is present. If the Switch has a status measurment the Discrete.normalValue is expected to match with the Switch.normalOpen.")
+					@GenModel(Documentation="The attribute is used in cases when no Measurement for the status value is present. If the Switch has a status measurment the Discrete.normalValue is expected to match with the Switch.normalOpen.")
+					unsettable attr boolean[1] normalOpen;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A component part of a system extending between adjacent substations or from a substation to an adjacent interconnection point.")
+				@GenModel(Documentation="A component part of a system extending between adjacent substations or from a substation to an adjacent interconnection point.")
+				class Line extends Core.EquipmentContainer {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A Line can be contained by a SubGeographical Region.")
+					@GenModel(Documentation="A Line can be contained by a SubGeographical Region.")
+					ref Core.SubGeographicalRegion#Lines Region;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A shunt capacitor or reactor or switchable bank of shunt capacitors or reactors. A section of a shunt compensator is an individual capacitor or reactor.  A negative value for reactivePerSection indicates that the compensator is a reactor. ShuntCompensator is a single terminal device.  Ground is implied.")
+				@GenModel(Documentation="A shunt capacitor or reactor or switchable bank of shunt capacitors or reactors. A section of a shunt compensator is an individual capacitor or reactor.  A negative value for reactivePerSection indicates that the compensator is a reactor. ShuntCompensator is a single terminal device.  Ground is implied.")
+				class ShuntCompensator extends Core.ConductingEquipment {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Nominal reactive power output of the capacitor bank at the nominal voltage. This number should be positive.")
+					@GenModel(Documentation="Nominal reactive power output of the capacitor bank at the nominal voltage. This number should be positive.")
+					unsettable attr ReactivePower[1] nomQ;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The nominal voltage at which the nominal reactive power was measured. This should normally be within 10% of the voltage at which the capacitor is connected to the network.")
+					@GenModel(Documentation="The nominal voltage at which the nominal reactive power was measured. This should normally be within 10% of the voltage at which the capacitor is connected to the network.")
+					unsettable attr Voltage[1] nomU;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="For a capacitor bank, the normal number of sections switched in. This number should correspond to the nominal reactive power (nomQ).")
+					@GenModel(Documentation="For a capacitor bank, the normal number of sections switched in. This number should correspond to the nominal reactive power (nomQ).")
+					unsettable attr int[1] normalSections;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="For a capacitor bank, the maximum number of sections that may be switched in.")
+					@GenModel(Documentation="For a capacitor bank, the maximum number of sections that may be switched in.")
+					unsettable attr int[1] maximumSections;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="For a capacitor bank, the size in reactive power of each switchable section at the nominal voltage.")
+					@GenModel(Documentation="For a capacitor bank, the size in reactive power of each switchable section at the nominal voltage.")
+					unsettable attr ReactivePower[1] reactivePerSection;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A mechanical switching device capable of making, carrying, and breaking currents under normal circuit conditions and also making, carrying for a specified time, and breaking currents under specified abnormal circuit conditions e.g.  those of short circuit.")
+				@GenModel(Documentation="A mechanical switching device capable of making, carrying, and breaking currents under normal circuit conditions and also making, carrying for a specified time, and breaking currents under specified abnormal circuit conditions e.g.  those of short circuit.")
+				class Breaker extends Switch {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Fault interrupting current rating.")
+					@GenModel(Documentation="Fault interrupting current rating.")
+					unsettable attr CurrentFlow ratedCurrent;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Combination of conducting material with consistent electrical characteristics, building a single electrical system, used to carry current between points in the power system.")
+				@GenModel(Documentation="Combination of conducting material with consistent electrical characteristics, building a single electrical system, used to carry current between points in the power system.")
+				abstract class Conductor extends Core.ConductingEquipment {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Segment length for calculating line section capabilities")
+					@GenModel(Documentation="Segment length for calculating line section capabilities")
+					unsettable attr Length length;
+				}
+
+			}
+
+			@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Contains the core PowerSystemResource and ConductingEquipment entities shared by all applications plus common collections of those entities. Not all applications require all the Core entities.  This package does not depend on any other package except the Domain package, but most of the other packages have associations and generalizations that depend on it.")
+			@GenModel(Documentation="Contains the core PowerSystemResource and ConductingEquipment entities shared by all applications plus common collections of those entities. Not all applications require all the Core entities.  This package does not depend on any other package except the Domain package, but most of the other packages have associations and generalizations that depend on it.")
+			@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#Core", prefix="cimCore")
+			package Core {
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A base class for all objects that may contain ConnectivityNodes or TopologicalNodes.")
+				@GenModel(Documentation="A base class for all objects that may contain ConnectivityNodes or TopologicalNodes.")
+				abstract class ConnectivityNodeContainer extends PowerSystemResource {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Connectivity nodes contained by this container.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="Connectivity nodes contained by this container.", "Profile documentation"="")
+					ref Topology.ConnectivityNode[*]#ConnectivityNodeContainer ConnectivityNodes;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A collection of equipment at one common system voltage forming a switchgear. The equipment typically consist of breakers, busbars, instrumentation, control, regulation and protection devices as well as assemblies of all these.")
+				@GenModel(Documentation="A collection of equipment at one common system voltage forming a switchgear. The equipment typically consist of breakers, busbars, instrumentation, control, regulation and protection devices as well as assemblies of all these.")
+				class VoltageLevel extends EquipmentContainer {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The base voltage used for all equipment within the VoltageLevel.")
+					@GenModel(Documentation="The base voltage used for all equipment within the VoltageLevel.")
+					ref BaseVoltage[1]#VoltageLevel BaseVoltage;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The association is used in the naming hierarchy.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="The association is used in the naming hierarchy.", "Profile documentation"="")
+					ref Bay[*]#VoltageLevel Bays;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The association is used in the naming hierarchy.")
+					@GenModel(Documentation="The association is used in the naming hierarchy.")
+					ref Substation#VoltageLevels Substation;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The bus bar's low voltage limit")
+					@GenModel(Documentation="The bus bar's low voltage limit")
+					unsettable attr Voltage[1] lowVoltageLimit;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The bus bar's high voltage limit")
+					@GenModel(Documentation="The bus bar's high voltage limit")
+					unsettable attr Voltage[1] highVoltageLimit;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A collection of power system resources (within a given substation) including conducting equipment, protection relays, measurements, and telemetry.")
+				@GenModel(Documentation="A collection of power system resources (within a given substation) including conducting equipment, protection relays, measurements, and telemetry.")
+				class Bay extends EquipmentContainer {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The association is used in the naming hierarchy.")
+					@GenModel(Documentation="The association is used in the naming hierarchy.")
+					ref VoltageLevel[1]#Bays VoltageLevel;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The parts of a power system that are physical devices, electronic or mechanical")
+				@GenModel(Documentation="The parts of a power system that are physical devices, electronic or mechanical")
+				abstract class Equipment extends PowerSystemResource {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The equipment is normally in service.")
+					@GenModel(Documentation="The equipment is normally in service.")
+					unsettable attr boolean normaIlyInService;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The association is used in the naming hierarchy.")
+					@GenModel(Documentation="The association is used in the naming hierarchy.")
+					ref EquipmentContainer#Equipments EquipmentContainer;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Collection of BaseVoltages which is used to verify that the BusbarSection.BaseVoltage and other voltage attributes in the CIM are given a value existing in the collection.")
+				@GenModel(Documentation="Collection of BaseVoltages which is used to verify that the BusbarSection.BaseVoltage and other voltage attributes in the CIM are given a value existing in the collection.")
+				class BaseVoltage extends IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Use association to ConductingEquipment only when there is no VoltageLevel container used.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="Use association to ConductingEquipment only when there is no VoltageLevel container used.", "Profile documentation"="")
+					ref ConductingEquipment[*]#BaseVoltage ConductingEquipment;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The VoltageLevels having this BaseVoltage.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="The VoltageLevels having this BaseVoltage.", "Profile documentation"="")
+					ref VoltageLevel[*]#BaseVoltage VoltageLevel;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The PowerSystemResource's base voltage.")
+					@GenModel(Documentation="The PowerSystemResource's base voltage.")
+					unsettable attr Voltage[1] nominalVoltage;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Classifying instances of the same class, e.g. overhead and underground ACLineSegments. This classification mechanism is intended to provide flexibility outside the scope of this standard, i.e. provide customisation that is non standard.")
+				@GenModel(Documentation="Classifying instances of the same class, e.g. overhead and underground ACLineSegments. This classification mechanism is intended to provide flexibility outside the scope of this standard, i.e. provide customisation that is non standard.")
+				class PSRType extends IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Power system resources classified with this PSRType.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="Power system resources classified with this PSRType.", "Profile documentation"="")
+					ref PowerSystemResource[*]#PSRType PowerSystemResources;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A modeling construct to provide a root class for all Equipment classes")
+				@GenModel(Documentation="A modeling construct to provide a root class for all Equipment classes")
+				abstract class EquipmentContainer extends ConnectivityNodeContainer {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The association is used in the naming hierarchy.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="The association is used in the naming hierarchy.", "Profile documentation"="")
+					ref Equipment[*]#EquipmentContainer Equipments;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="This is a root class to provide common naming attributes for all classes needing naming attributes")
+				@GenModel(Documentation="This is a root class to provide common naming attributes for all classes needing naming attributes")
+				abstract class IdentifiedObject extends Element {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A Model Authority issues mRIDs. Given that each Model Authority has a unique id and this id is part of the mRID, then the mRID is globally unique.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="This attribute is only used when generating XSD Profiles.  For RDF Profiles, the RDF ID is used.")
+					@GenModel(Documentation="A Model Authority issues mRIDs. Given that each Model Authority has a unique id and this id is part of the mRID, then the mRID is globally unique.", "Profile documentation"="This attribute is only used when generating XSD Profiles.  For RDF Profiles, the RDF ID is used.")
+					unsettable attr String mRID;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The description is a free human readable text describing or naming the object. It may be non unique and may not correlate to a naming hierarchy.")
+					@GenModel(Documentation="The description is a free human readable text describing or naming the object. It may be non unique and may not correlate to a naming hierarchy.")
+					unsettable attr String description;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The name is a free text human readable name of the object. It may be non unique and may not correlate to a naming hierarchy.")
+					@GenModel(Documentation="The name is a free text human readable name of the object. It may be non unique and may not correlate to a naming hierarchy.")
+					unsettable attr String name;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The localName is a human readable name of the object. It is only used with objects organized in a naming hierarchy. The simplest naming hierarchy has just one parent (the root) giving a flat naming hierarchy. However, the naming hierarchy usually has several levels, e.g. Substation, VoltageLevel, Equipment etc. Children of the same parent have names that are unique among them. If the uniqueness requirement cannot be met IdentifiedObject.localName shall not be used, use IdentifiedObject.name  instead.")
+					@GenModel(Documentation="The localName is a human readable name of the object. It is only used with objects organized in a naming hierarchy. The simplest naming hierarchy has just one parent (the root) giving a flat naming hierarchy. However, the naming hierarchy usually has several levels, e.g. Substation, VoltageLevel, Equipment etc. Children of the same parent have names that are unique among them. If the uniqueness requirement cannot be met IdentifiedObject.localName shall not be used, use IdentifiedObject.name  instead.")
+					unsettable attr String localName;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The aliasName is free text human readable name of the object alternative to IdentifiedObject.name. It may be non unique and may not correlate to a naming hierarchy.")
+					@GenModel(Documentation="The aliasName is free text human readable name of the object alternative to IdentifiedObject.name. It may be non unique and may not correlate to a naming hierarchy.")
+					unsettable attr String aliasName;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A collection of equipment for purposes other than generation or utilization, through which electric energy in bulk is passed for the purposes of switching or modifying its characteristics.")
+				@GenModel(Documentation="A collection of equipment for purposes other than generation or utilization, through which electric energy in bulk is passed for the purposes of switching or modifying its characteristics.")
+				class Substation extends EquipmentContainer {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The association is used in the naming hierarchy.")
+					@GenModel(Documentation="The association is used in the naming hierarchy.")
+					ref SubGeographicalRegion#Substations Region;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The association is used in the naming hierarchy.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="The association is used in the naming hierarchy.", "Profile documentation"="")
+					ref VoltageLevel[*]#Substation VoltageLevels;
+				}
+
+				enum PhaseCode {
+					ABC = 0;
+					splitSecondary2N = 1;
+					ABN = 2;
+					CN = 3;
+					ACN = 4;
+					BC = 5;
+					AN = 6;
+					BN = 7;
+					AB = 8;
+					splitSecondary1N = 9;
+					N = 10;
+					C = 11;
+					AC = 12;
+					ABCN = 13;
+					splitSecondary12N = 14;
+					A = 15;
+					B = 16;
+					BCN = 17;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The parts of the power system that are designed to carry current or that are conductively connected therewith. ConductingEquipment is contained within an EquipmentContainer that may be a Substation, or a VoltageLevel or a Bay within a Substation.")
+				@GenModel(Documentation="The parts of the power system that are designed to carry current or that are conductively connected therewith. ConductingEquipment is contained within an EquipmentContainer that may be a Substation, or a VoltageLevel or a Bay within a Substation.")
+				abstract class ConductingEquipment extends Equipment {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Describes the phases carried by a conducting equipment.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="Describes the phases carried by a conducting equipment.", "Profile documentation"="")
+					unsettable attr PhaseCode[1] phases;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="ConductingEquipment has 1 or 2 terminals that may be connected to other ConductingEquipment terminals via ConnectivityNodes")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="ConductingEquipment has 1 or 2 terminals that may be connected to other ConductingEquipment terminals via ConnectivityNodes", "Profile documentation"="")
+					ref Terminal[+]#ConductingEquipment Terminals;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Use association to ConductingEquipment only when there is no VoltageLevel container used.")
+					@GenModel(Documentation="Use association to ConductingEquipment only when there is no VoltageLevel container used.")
+					ref BaseVoltage#ConductingEquipment BaseVoltage;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A subset of a geographical region of a power system network model.")
+				@GenModel(Documentation="A subset of a geographical region of a power system network model.")
+				class SubGeographicalRegion extends IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The association is used in the naming hierarchy.")
+					@GenModel(Documentation="The association is used in the naming hierarchy.")
+					ref GeographicalRegion[1]#Regions Region;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A Line can be contained by a SubGeographical Region.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="A Line can be contained by a SubGeographical Region.", "Profile documentation"="")
+					ref Wires.Line[*]#Region Lines;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The association is used in the naming hierarchy.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="The association is used in the naming hierarchy.", "Profile documentation"="")
+					ref Substation[*]#Region Substations;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="An electrical connection point to a piece of conducting equipment. Terminals are connected at physical connection points called \"connectivity nodes\".")
+				@GenModel(Documentation="An electrical connection point to a piece of conducting equipment. Terminals are connected at physical connection points called \"connectivity nodes\".")
+				class Terminal extends IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="ConductingEquipment has 1 or 2 terminals that may be connected to other ConductingEquipment terminals via ConnectivityNodes")
+					@GenModel(Documentation="ConductingEquipment has 1 or 2 terminals that may be connected to other ConductingEquipment terminals via ConnectivityNodes")
+					ref ConductingEquipment[1]#Terminals ConductingEquipment;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Terminals interconnect with zero impedance at a node.  Measurements on a node apply to all of its terminals.")
+					@GenModel(Documentation="Terminals interconnect with zero impedance at a node.  Measurements on a node apply to all of its terminals.")
+					ref Topology.ConnectivityNode[1]#Terminals ConnectivityNode;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The orientation of the terminal connections for a multiple terminal conducting equipment.  The sequence numbering starts with 1 and additional terminals should follow in increasing order.   The first terminal is the \"starting point\" for a two terminal branch.   In the case of class TransformerWinding only one terminal is used so its sequenceNumber must be 1.")
+					@GenModel(Documentation="The orientation of the terminal connections for a multiple terminal conducting equipment.  The sequence numbering starts with 1 and additional terminals should follow in increasing order.   The first terminal is the \"starting point\" for a two terminal branch.   In the case of class TransformerWinding only one terminal is used so its sequenceNumber must be 1.")
+					unsettable attr int[1] sequenceNumber;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The terminal connection status.   True implies the terminal is connected, and false implies the terminal is not connected. This is the result of topoplogical processing of a detailed Connectivity node and Switch model whether present in the model or not.   A terminal that is not connected cannot support a current flow.   A terminal that is connected may have flow.  In general a multi-terminal device may simultaneously have connected and disconnected terminals.  No other aspect of the algorithm")
+					@GenModel(Documentation="The terminal connection status.   True implies the terminal is connected, and false implies the terminal is not connected. This is the result of topoplogical processing of a detailed Connectivity node and Switch model whether present in the model or not.   A terminal that is not connected cannot support a current flow.   A terminal that is connected may have flow.  In general a multi-terminal device may simultaneously have connected and disconnected terminals.  No other aspect of the algorithm")
+					unsettable attr boolean connected;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A geographical region of a power system network model.")
+				@GenModel(Documentation="A geographical region of a power system network model.")
+				class GeographicalRegion extends IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The association is used in the naming hierarchy.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="The association is used in the naming hierarchy.", "Profile documentation"="")
+					ref SubGeographicalRegion[*]#Region Regions;
+				}
+
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A power system resource can be an item of equipment such as a Switch, an EquipmentContainer containing many individual items of equipment such as a 
+Substation, or an organisational entity such as Company or SubControlArea.  This provides for the nesting of collections of PowerSystemResources within other PowerSystemResources. For example, a Switch could be a member of a Substation and a Substation could be a member of a division of a Company.")
+				@GenModel(Documentation="A power system resource can be an item of equipment such as a Switch, an EquipmentContainer containing many individual items of equipment such as a 
+Substation, or an organisational entity such as Company or SubControlArea.  This provides for the nesting of collections of PowerSystemResources within other PowerSystemResources. For example, a Switch could be a member of a Substation and a Substation could be a member of a division of a Company.")
+				abstract class PowerSystemResource extends IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Geographical location of this power system resource.")
+					@GenModel(Documentation="Geographical location of this power system resource.")
+					ref IEC61968.Common.GeoLocation#PowerSystemResources GeoLocation;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="PSRType (custom classification) for this PowerSystemResource.")
+					@GenModel(Documentation="PSRType (custom classification) for this PowerSystemResource.")
+					ref PSRType#PowerSystemResources PSRType;
+				}
+
+			}
+
+			@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="This package contains packages that have information for Unit Commitment and Economic Dispatch of Hydro and Thermal Generating Units, Load Forecasting, Automatic Generation Control, and Unit Modeling for Dynamic Training Simulator.")
+			@GenModel(Documentation="This package contains packages that have information for Unit Commitment and Economic Dispatch of Hydro and Thermal Generating Units, Load Forecasting, Automatic Generation Control, and Unit Modeling for Dynamic Training Simulator.")
+			@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#Generation", prefix="cimGeneration")
+			package Generation {
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The production package is responsible for classes which describe various kinds of generators. These classes also provide production costing information which is used to economically allocate demand among committed units and calculate reserve quantities.")
+				@GenModel(Documentation="The production package is responsible for classes which describe various kinds of generators. These classes also provide production costing information which is used to economically allocate demand among committed units and calculate reserve quantities.")
+				@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#Production", prefix="cimProduction")
+				package Production {
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A single or set of synchronous machines for converting mechanical power into alternating-current power. For example, individual machines within a set may be defined for scheduling purposes while a single control signal is derived for the set. In this case there would be a GeneratingUnit for each member of the set and an additional GeneratingUnit corresponding to the set.")
+					@GenModel(Documentation="A single or set of synchronous machines for converting mechanical power into alternating-current power. For example, individual machines within a set may be defined for scheduling purposes while a single control signal is derived for the set. In this case there would be a GeneratingUnit for each member of the set and an additional GeneratingUnit corresponding to the set.")
+					class GeneratingUnit extends Core.Equipment {
+
+						@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The net rated maximum capacity determined by subtracting the auxiliary power used to operate the internal plant machinery from the rated gross maximum capacity")
+						@GenModel(Documentation="The net rated maximum capacity determined by subtracting the auxiliary power used to operate the internal plant machinery from the rated gross maximum capacity")
+						unsettable attr ActivePower[1] ratedNetMaxP;
+
+						@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The source of controls for a generating unit.")
+						@GenModel(Documentation="The source of controls for a generating unit.")
+						unsettable attr GeneratorControlSource[1] genControlSource;
+
+						@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="A synchronous machine may operate as a generator and as such becomes a member of a generating unit")
+						@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+						@GenModel(Documentation="A synchronous machine may operate as a generator and as such becomes a member of a generating unit", "Profile documentation"="")
+						ref Wires.SynchronousMachine[*]#GeneratingUnit SynchronousMachines;
+
+						@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Default Initial active power  which is used to store a powerflow result for the initial active power for this unit in this network configuration")
+						@GenModel(Documentation="Default Initial active power  which is used to store a powerflow result for the initial active power for this unit in this network configuration")
+						unsettable attr ActivePower[1] initialP;
+					}
+
+					enum GeneratorControlSource {
+						onAGC = 0;
+						unavailable = 1;
+						plantControl = 2;
+						offAGC = 3;
+					}
+
+				}
+
+			}
+
+			@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="This package is responsible for modeling the energy consumers and the system load as curves and associated curve data. Special circumstances that may affect the load, such as seasons and daytypes, are also included here.
+
+This information is used by Load Forecasting and Load Management.")
+			@GenModel(Documentation="This package is responsible for modeling the energy consumers and the system load as curves and associated curve data. Special circumstances that may affect the load, such as seasons and daytypes, are also included here.
+
+This information is used by Load Forecasting and Load Management.")
+			@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#LoadModel", prefix="cimLoadModel")
+			package LoadModel {
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Models the characteristic response of the load demand due to to changes in system conditions such as voltage and frequency. This is not related to demand response.
+
+If LoadResponseCharacteristic.exponentModel is True, the voltage exponents are specified and used as to calculate:
+
+Active power component = Pnominal * (Voltage/cim:BaseVoltage.nominalVoltage) ** cim:LoadResponseCharacteristic.pVoltageExponent
+
+Reactive power component = Qnominal * (Voltage/cim:BaseVoltage.nominalVoltage)** cim:LoadResponseCharacteristic.qVoltageExponent
+
+Where  * means \"multiply\" and ** is \"raised to power of\".")
+				@GenModel(Documentation="Models the characteristic response of the load demand due to to changes in system conditions such as voltage and frequency. This is not related to demand response.
+
+If LoadResponseCharacteristic.exponentModel is True, the voltage exponents are specified and used as to calculate:
+
+Active power component = Pnominal * (Voltage/cim:BaseVoltage.nominalVoltage) ** cim:LoadResponseCharacteristic.pVoltageExponent
+
+Reactive power component = Qnominal * (Voltage/cim:BaseVoltage.nominalVoltage)** cim:LoadResponseCharacteristic.qVoltageExponent
+
+Where  * means \"multiply\" and ** is \"raised to power of\".")
+				class LoadResponseCharacteristic extends Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Exponent of per unit voltage effecting real power.   This model used only when \"useExponentModel\" is true.")
+					@GenModel(Documentation="Exponent of per unit voltage effecting real power.   This model used only when \"useExponentModel\" is true.")
+					unsettable attr float pVoltageExponent;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Portion of reactive power load modeled as constant current. Used only if the useExponentModel is false.    This value is noralized against the sum of qZ, qI, and qP.")
+					@GenModel(Documentation="Portion of reactive power load modeled as constant current. Used only if the useExponentModel is false.    This value is noralized against the sum of qZ, qI, and qP.")
+					unsettable attr float qConstantCurrent;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Exponent of per unit frequency effecting active power")
+					@GenModel(Documentation="Exponent of per unit frequency effecting active power")
+					unsettable attr float pFrequencyExponent;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Indicates the exponential voltage dependency model (pVoltateExponent and qVoltageExponent) is to be used.   If false, the coeficient model (consisting of pConstantImpedance, pConstantCurrent, pConstantPower, qConstantImpedance, qConstantCurrent, and qConstantPower) is to be used.")
+					@GenModel(Documentation="Indicates the exponential voltage dependency model (pVoltateExponent and qVoltageExponent) is to be used.   If false, the coeficient model (consisting of pConstantImpedance, pConstantCurrent, pConstantPower, qConstantImpedance, qConstantCurrent, and qConstantPower) is to be used.")
+					unsettable attr boolean[1] exponentModel;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Portion of reactive power load modeled as constant impedance.  Used only if the useExponentModel is false.    This value is noralized against the sum of qZ, qI, and qP.")
+					@GenModel(Documentation="Portion of reactive power load modeled as constant impedance.  Used only if the useExponentModel is false.    This value is noralized against the sum of qZ, qI, and qP.")
+					unsettable attr float qConstantImpedance;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Portion of active power load modeled as constant current. Used only if the useExponentModel is false.    This value is noralized against the sum of pZ, pI, and pP.")
+					@GenModel(Documentation="Portion of active power load modeled as constant current. Used only if the useExponentModel is false.    This value is noralized against the sum of pZ, pI, and pP.")
+					unsettable attr float pConstantCurrent;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Exponent of per unit frequency effecting reactive power")
+					@GenModel(Documentation="Exponent of per unit frequency effecting reactive power")
+					unsettable attr float qFrequencyExponent;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Portion of active power load modeled as constant power. Used only if the useExponentModel is false.    This value is noralized against the sum of pZ, pI, and pP.")
+					@GenModel(Documentation="Portion of active power load modeled as constant power. Used only if the useExponentModel is false.    This value is noralized against the sum of pZ, pI, and pP.")
+					unsettable attr float pConstantPower;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Exponent of per unit voltage effecting reactive power.   This model used only when \"useExponentModel\" is true.")
+					@GenModel(Documentation="Exponent of per unit voltage effecting reactive power.   This model used only when \"useExponentModel\" is true.")
+					unsettable attr float qVoltageExponent;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Portion of reactive power load modeled as constant power. Used only if the useExponentModel is false.    This value is noralized against the sum of qZ, qI, and qP.")
+					@GenModel(Documentation="Portion of reactive power load modeled as constant power. Used only if the useExponentModel is false.    This value is noralized against the sum of qZ, qI, and qP.")
+					unsettable attr float qConstantPower;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The set of loads that have the response characteristics.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="The set of loads that have the response characteristics.", "Profile documentation"="")
+					ref Wires.EnergyConsumer[*]#LoadResponse EnergyConsumer;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Portion of active power load modeled as constant impedance.  Used only if the useExponentModel is false.    This value is noralized against the sum of pZ, pI, and pP.")
+					@GenModel(Documentation="Portion of active power load modeled as constant impedance.  Used only if the useExponentModel is false.    This value is noralized against the sum of pZ, pI, and pP.")
+					unsettable attr float pConstantImpedance;
+				}
+
+			}
+
+			@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="State variables for analysis solutions such as powerflow.")
+			@GenModel(Documentation="State variables for analysis solutions such as powerflow.")
+			@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#StateVariables", prefix="cimStateVariables")
+			package StateVariables {
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="State variable for transformer tap step.     This class is to be used for taps of LTC (load tap changing) transformers, not fixed tap transformers.  Normally a profile specifies only one of the attributes \"position\"or \"tapRatio\".")
+				@GenModel(Documentation="State variable for transformer tap step.     This class is to be used for taps of LTC (load tap changing) transformers, not fixed tap transformers.  Normally a profile specifies only one of the attributes \"position\"or \"tapRatio\".")
+				class SvTapStep extends Element {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The floating point tap position.")
+					@GenModel(Documentation="The floating point tap position.")
+					unsettable attr float[1] continuousPosition;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The integer tap position.")
+					@GenModel(Documentation="The integer tap position.")
+					unsettable attr int[1] position;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="The tap changer associated with the tap step state.")
+					@GenModel(Documentation="The tap changer associated with the tap step state.")
+					ref Wires.TapChanger[1]#SvTapStep TapChanger;
+				}
+
+			}
+
+			@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="An extension to the Core Package that in association with the Terminal class models Connectivity, that is the physical definition of how equipment is connected together. In addition it models Topology, that is the logical definition of how equipment is connected via closed switches. The Topology definition is independent of the other electrical characteristics.")
+			@GenModel(Documentation="An extension to the Core Package that in association with the Terminal class models Connectivity, that is the physical definition of how equipment is connected together. In addition it models Topology, that is the logical definition of how equipment is connected via closed switches. The Topology definition is independent of the other electrical characteristics.")
+			@namespace(uri="http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile#Topology", prefix="cimTopology")
+			package Topology {
+				@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Connectivity nodes are points where terminals of conducting equipment are connected together with zero impedance.")
+				@GenModel(Documentation="Connectivity nodes are points where terminals of conducting equipment are connected together with zero impedance.")
+				class ConnectivityNode extends Core.IdentifiedObject {
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Terminals interconnect with zero impedance at a node.  Measurements on a node apply to all of its terminals.")
+					@"http://langdale.com.au/2005/UML"("Profile documentation"="")
+					@GenModel(Documentation="Terminals interconnect with zero impedance at a node.  Measurements on a node apply to all of its terminals.", "Profile documentation"="")
+					ref Core.Terminal[*]#ConnectivityNode Terminals;
+
+					@"http://iec.ch/TC57/2009/CIM-schema-cim14?profile=http://iec.ch/TC57/2007/profile"(Documentation="Container of this connectivity node.")
+					@GenModel(Documentation="Container of this connectivity node.")
+					ref Core.ConnectivityNodeContainer#ConnectivityNodes ConnectivityNodeContainer;
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
