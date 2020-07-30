@@ -25,50 +25,49 @@ public class TransformGithubEcoreModels {
 
 		try (Stream<Path> walk = Files.walk(Paths.get("models/downloaded/"))) {
 
-			List<String> files = walk.filter(Files::isRegularFile).map(x -> x.toString()).collect(Collectors.toList());
+			List<String> files = walk.filter(Files::isRegularFile).map(x -> x.toString())
+					.filter(x -> x.endsWith("ecore")).collect(Collectors.toList());
 
 			for (String path : files) {
 
-				if (path.endsWith("ecore")) {
+				String ecoreModel = path;
 
-					String ecoreModel = path;
-
-					String flexmiModel = String.format("%s.model", path);
-					if (Files.exists(Paths.get(flexmiModel))) {
-						Files.delete(Paths.get(flexmiModel));
-					}
-
-					String flexmiFile = String.format("%s.flexmi", path);
-					if (Files.exists(Paths.get(flexmiFile))) {
-						Files.delete(Paths.get(flexmiFile));
-					}
-
-					EcorePackage.eINSTANCE.eClass();
-					FlexmiModelPackage.eINSTANCE.eClass();
-
-					Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-					Map<String, Object> m = reg.getExtensionToFactoryMap();
-					m.put("*", new XMIResourceFactoryImpl());
-
-					FlexmiModel model = Ecore2FlexmiTransformer.getPlainFlexmiModel(ecoreModel);
-					String plainFlexmi = Ecore2FlexmiTransformer.getFlexmiFile(model);
-					System.out.println(plainFlexmi);
-
-					// save flexmi model
-					ResourceSet resSet = new ResourceSetImpl();
-					Resource flexmiModelResource = resSet.createResource(URI.createURI(flexmiModel));
-					flexmiModelResource.getContents().add(model);
-					try {
-						flexmiModelResource.save(Collections.EMPTY_MAP);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
-					// save flexmi file
-					PrintWriter out = new PrintWriter(flexmiFile);
-					out.println(plainFlexmi);
-					out.close();
+				String flexmiModel = String.format("%s.model", path);
+				if (Files.exists(Paths.get(flexmiModel))) {
+					Files.delete(Paths.get(flexmiModel));
 				}
+
+				String flexmiFile = String.format("%s.flexmi", path);
+				if (Files.exists(Paths.get(flexmiFile))) {
+					Files.delete(Paths.get(flexmiFile));
+				}
+
+				EcorePackage.eINSTANCE.eClass();
+				FlexmiModelPackage.eINSTANCE.eClass();
+
+				Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+				Map<String, Object> m = reg.getExtensionToFactoryMap();
+				m.put("*", new XMIResourceFactoryImpl());
+
+				FlexmiModel model = Ecore2FlexmiTransformer.getPlainFlexmiModel(ecoreModel);
+				String plainFlexmi = Ecore2FlexmiTransformer.getFlexmiFile(model);
+				System.out.println(plainFlexmi);
+
+				// save flexmi model
+				ResourceSet resSet = new ResourceSetImpl();
+				Resource flexmiModelResource = resSet.createResource(URI.createURI(flexmiModel));
+				flexmiModelResource.getContents().add(model);
+				try {
+					flexmiModelResource.save(Collections.EMPTY_MAP);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				// save flexmi file
+				PrintWriter out = new PrintWriter(flexmiFile);
+				out.println(plainFlexmi);
+				out.close();
+
 			}
 
 		} catch (IOException e) {
