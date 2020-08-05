@@ -49,8 +49,9 @@ public class TransformGithubEcoreModels {
 				Map<String, Object> m = reg.getExtensionToFactoryMap();
 				m.put("*", new XMIResourceFactoryImpl());
 
-				FlexmiModel model = Ecore2FlexmiTransformer.getPlainFlexmiModel(ecoreModel);
-				String plainFlexmi = Ecore2FlexmiTransformer.getFlexmiFile(model);
+				PlainFlexmiTransformer plainTransformer = new PlainFlexmiTransformer();
+				FlexmiModel model = plainTransformer.getFlexmiModel(ecoreModel);
+				String plainFlexmi = plainTransformer.getFlexmiFile(model);
 				System.out.println(plainFlexmi);
 
 				// save flexmi model
