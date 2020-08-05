@@ -3,11 +3,14 @@
 	<?import [%=importedUri%]?>
 <_>
 [% }
+for (included in fmodel.includes) {%]
+	<?include [%=included%]?>
+[%
+}
 for (tag in fmodel.tags) {%]
 	[%=tag.getTagText()%]
 [% } %]
-</_>
-[%
+</_>[%
 @template
 operation Any getTagText() { %]
 	<[%=self.name%] [%=self.getAttributesText()%][%

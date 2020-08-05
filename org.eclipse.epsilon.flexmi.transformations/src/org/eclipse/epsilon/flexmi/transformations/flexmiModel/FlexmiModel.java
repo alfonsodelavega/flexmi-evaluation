@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel#getNsuri <em>Nsuri</em>}</li>
  *   <li>{@link org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel#getImports <em>Imports</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel#getIncludes <em>Includes</em>}</li>
  *   <li>{@link org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel#getTags <em>Tags</em>}</li>
  * </ul>
  *
@@ -58,6 +59,18 @@ public interface FlexmiModel extends EObject {
 	 * @generated
 	 */
 	EList<String> getImports();
+
+	/**
+	 * Returns the value of the '<em><b>Includes</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Includes</em>' attribute list.
+	 * @see org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModelPackage#getFlexmiModel_Includes()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getIncludes();
 
 	/**
 	 * Returns the value of the '<em><b>Tags</b></em>' containment reference list.

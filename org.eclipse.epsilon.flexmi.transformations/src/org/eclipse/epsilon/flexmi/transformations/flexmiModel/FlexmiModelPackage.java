@@ -85,13 +85,22 @@ public interface FlexmiModelPackage extends EPackage {
 	int FLEXMI_MODEL__IMPORTS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Includes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLEXMI_MODEL__INCLUDES = 2;
+
+	/**
 	 * The feature id for the '<em><b>Tags</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLEXMI_MODEL__TAGS = 2;
+	int FLEXMI_MODEL__TAGS = 3;
 
 	/**
 	 * The number of structural features of the '<em>Flexmi Model</em>' class.
@@ -100,7 +109,7 @@ public interface FlexmiModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLEXMI_MODEL_FEATURE_COUNT = 3;
+	int FLEXMI_MODEL_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Flexmi Model</em>' class.
@@ -246,6 +255,17 @@ public interface FlexmiModelPackage extends EPackage {
 	EAttribute getFlexmiModel_Imports();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel#getIncludes <em>Includes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Includes</em>'.
+	 * @see org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel#getIncludes()
+	 * @see #getFlexmiModel()
+	 * @generated
+	 */
+	EAttribute getFlexmiModel_Includes();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel#getTags <em>Tags</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -379,6 +399,14 @@ public interface FlexmiModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FLEXMI_MODEL__IMPORTS = eINSTANCE.getFlexmiModel_Imports();
+
+		/**
+		 * The meta object literal for the '<em><b>Includes</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FLEXMI_MODEL__INCLUDES = eINSTANCE.getFlexmiModel_Includes();
 
 		/**
 		 * The meta object literal for the '<em><b>Tags</b></em>' containment reference list feature.

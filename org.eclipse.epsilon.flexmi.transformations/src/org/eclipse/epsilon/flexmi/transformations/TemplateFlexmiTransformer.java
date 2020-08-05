@@ -2,22 +2,21 @@ package org.eclipse.epsilon.flexmi.transformations;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.epsilon.flexmi.transformations.flexmiModel.Attribute;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModelPackage;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.Tag;
@@ -38,6 +37,7 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 
 		TemplateFlexmiTransformer transformer = new TemplateFlexmiTransformer();
 		FlexmiModel model = transformer.getFlexmiModel(ecoreModel);
+		model.getIncludes().add("../templates/ecoreTemplates.flexmi");
 		String flexmiContents = transformer.getFlexmiFile(model);
 		System.out.println(flexmiContents);
 
@@ -76,10 +76,67 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 	}
 
 	protected void populateAttribute(Tag tag, EAttribute attribute) {
-		super.populateTags(tag, attribute);
+		String templateName = getAttributeTemplate(attribute);
+		if (templateName != null) {
+			tag.setName(templateName);
+		}
+		else {
+			tag.setName(getTagName(attribute));
+			addTypeTagAttribute(tag, attribute);
+		}
+		addTagAttributes(tag, attribute, Collections.emptyList());
+	}
+
+	protected String getAttributeTemplate(EAttribute attribute) {
+		switch (attribute.getEType().getName()) {
+		case "EString":
+			return "string";
+		case "EBoolean":
+			return "boolean";
+		case "EInt":
+			return "int";
+		case "EDouble":
+			return "double";
+		default:
+			return null;
+		}
 	}
 
 	protected void populateReference(Tag tag, EReference reference) {
-		super.populateTags(tag, reference);
+		// four possibilities (containment X upper)
+		// only case not managed by a template is !containment && upper == 1
+		if (reference.isContainment()) {
+			if (reference.getUpperBound() != 1) {
+				tag.setName("vals");
+				List<String> omitAttributes = new ArrayList<>(Arrays.asList("containment"));
+				// it might be a constrained multi-bounded (so the template value
+				//   must be overriden)
+				if (reference.getUpperBound() == -1) {
+					omitAttributes.add("upperBound");
+				}
+				addTagAttributes(tag, reference, omitAttributes);
+			}
+			else {
+				tag.setName("val");
+				addTagAttributes(tag, reference, Arrays.asList("containment"));
+			}
+			addTypeTagAttribute(tag, reference);
+		}
+		else {
+			if (reference.getUpperBound() != 1) {
+				tag.setName("refs");
+				List<String> omitAttributes = new ArrayList<>(1);
+				// it might be a constrained multi-bounded (so the template value
+				//   must be overriden)
+				if (reference.getUpperBound() == -1) {
+					omitAttributes.add("upperBound");
+				}
+				addTagAttributes(tag, reference, omitAttributes);
+				addTypeTagAttribute(tag, reference);
+			}
+			else {
+				super.populateTags(tag, reference);
+			}
+		}
 	}
 }

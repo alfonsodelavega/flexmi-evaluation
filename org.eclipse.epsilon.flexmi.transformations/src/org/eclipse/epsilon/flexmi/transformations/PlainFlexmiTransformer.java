@@ -3,6 +3,7 @@ package org.eclipse.epsilon.flexmi.transformations;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
@@ -61,14 +62,20 @@ public class PlainFlexmiTransformer extends Ecore2FlexmiTransformer {
 	protected void populateTags(Tag tag, EObject element) {
 
 		tag.setName(getTagName(element));
-		for (EAttribute attribute : element.eClass().getEAllAttributes()) {
-			if (!attribute.isDerived() && element.eIsSet(attribute)) {
-				Attribute auxAttr = flexmiFactory.createAttribute();
-				auxAttr.setName(attribute.getName());
-				auxAttr.setValue("" + element.eGet(attribute));
-				tag.getAttributes().add(auxAttr);
+		addTagAttributes(tag, element, Collections.emptyList());
+		addTypeTagAttribute(tag, element);
+
+		for (EObject child : element.eContents()) {
+			if (child instanceof EGenericType) {
+				continue;
 			}
+			Tag childTag = flexmiFactory.createTag();
+			tag.getTags().add(childTag);
+			populateTags(childTag, child);
 		}
+	}
+
+	protected void addTypeTagAttribute(Tag tag, EObject element) {
 		if (element instanceof ETypedElement) {
 			Attribute typeAttr = flexmiFactory.createAttribute();
 			typeAttr.setName("type");
@@ -84,14 +91,19 @@ public class PlainFlexmiTransformer extends Ecore2FlexmiTransformer {
 			}
 			tag.getAttributes().add(typeAttr);
 		}
+	}
 
-		for (EObject child : element.eContents()) {
-			if (child instanceof EGenericType) {
-				continue;
+	protected void addTagAttributes(Tag tag, EObject element,
+			List<String> omitAttributes) {
+		for (EAttribute attribute : element.eClass().getEAllAttributes()) {
+			if (!attribute.isDerived()
+					&& element.eIsSet(attribute)
+					&& !omitAttributes.contains(attribute.getName())) {
+				Attribute auxAttr = flexmiFactory.createAttribute();
+				auxAttr.setName(attribute.getName());
+				auxAttr.setValue("" + element.eGet(attribute));
+				tag.getAttributes().add(auxAttr);
 			}
-			Tag childTag = flexmiFactory.createTag();
-			tag.getTags().add(childTag);
-			populateTags(childTag, child);
 		}
 	}
 }

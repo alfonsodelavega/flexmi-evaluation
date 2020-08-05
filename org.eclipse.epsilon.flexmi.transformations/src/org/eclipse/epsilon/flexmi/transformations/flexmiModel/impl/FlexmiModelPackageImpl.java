@@ -140,8 +140,18 @@ public class FlexmiModelPackageImpl extends EPackageImpl implements FlexmiModelP
 	 * @generated
 	 */
 	@Override
+	public EAttribute getFlexmiModel_Includes() {
+		return (EAttribute)flexmiModelEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EReference getFlexmiModel_Tags() {
-		return (EReference)flexmiModelEClass.getEStructuralFeatures().get(2);
+		return (EReference)flexmiModelEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -246,6 +256,7 @@ public class FlexmiModelPackageImpl extends EPackageImpl implements FlexmiModelP
 		flexmiModelEClass = createEClass(FLEXMI_MODEL);
 		createEAttribute(flexmiModelEClass, FLEXMI_MODEL__NSURI);
 		createEAttribute(flexmiModelEClass, FLEXMI_MODEL__IMPORTS);
+		createEAttribute(flexmiModelEClass, FLEXMI_MODEL__INCLUDES);
 		createEReference(flexmiModelEClass, FLEXMI_MODEL__TAGS);
 
 		tagEClass = createEClass(TAG);
@@ -291,6 +302,7 @@ public class FlexmiModelPackageImpl extends EPackageImpl implements FlexmiModelP
 		initEClass(flexmiModelEClass, FlexmiModel.class, "FlexmiModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFlexmiModel_Nsuri(), ecorePackage.getEString(), "nsuri", null, 0, 1, FlexmiModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFlexmiModel_Imports(), ecorePackage.getEString(), "imports", null, 0, -1, FlexmiModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFlexmiModel_Includes(), ecorePackage.getEString(), "includes", null, 0, -1, FlexmiModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFlexmiModel_Tags(), this.getTag(), null, "tags", null, 0, -1, FlexmiModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(tagEClass, Tag.class, "Tag", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

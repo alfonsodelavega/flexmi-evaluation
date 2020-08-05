@@ -1,17 +1,22 @@
 <_>
+<:template name="val">
+	<content>
+		<reference containment="true"/>
+	</content>
+</:template>
+
 <:template name="vals">
 	<content>
-		<reference containment="true" upper="-1" lower="0"
-			:name="self.eType.name.ftlc() + 's'"/>
+		<reference containment="true" upper="-1"/>
 	</content>
 </:template>
 
 <:template name="refs"> 
 	<content>
-		<reference upper="-1" lower="0"
-			:name="self.eType.name.ftlc() + 's'"/>
+		<reference upper="-1"/>
 	</content>
 </:template>
+
 
 <:template name="string">
 	<content>
