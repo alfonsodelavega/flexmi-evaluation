@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -88,18 +89,20 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 	}
 
 	protected String getAttributeTemplate(EAttribute attribute) {
-		switch (attribute.getEType().getName()) {
-		case "EString":
-			return "string";
-		case "EBoolean":
-			return "boolean";
-		case "EInt":
-			return "int";
-		case "EDouble":
-			return "double";
-		default:
-			return null;
+		String type = attribute.getEType().getName();
+		if (type != null) {
+			switch (type) {
+			case "EString":
+				return "string";
+			case "EBoolean":
+				return "boolean";
+			case "EInt":
+				return "int";
+			case "EDouble":
+				return "double";
+			}
 		}
+		return null;
 	}
 
 	protected void populateReference(Tag tag, EReference reference) {

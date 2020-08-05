@@ -3,21 +3,16 @@ package org.eclipse.epsilon.flexmi.transformations;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.epsilon.flexmi.transformations.flexmiModel.Attribute;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModelPackage;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.Tag;
@@ -72,38 +67,6 @@ public class PlainFlexmiTransformer extends Ecore2FlexmiTransformer {
 			Tag childTag = flexmiFactory.createTag();
 			tag.getTags().add(childTag);
 			populateTags(childTag, child);
-		}
-	}
-
-	protected void addTypeTagAttribute(Tag tag, EObject element) {
-		if (element instanceof ETypedElement) {
-			Attribute typeAttr = flexmiFactory.createAttribute();
-			typeAttr.setName("type");
-			EClassifier type = ((ETypedElement) element).getEType();
-			// void EOperations have null type
-			if (type != null) {
-				String typeName = type.getName();
-				if (element instanceof EAttribute) {
-					// needed to find metamodel data types (e.g. EString, EInt)
-					typeName = "//" + typeName;
-				}
-				typeAttr.setValue(typeName);
-			}
-			tag.getAttributes().add(typeAttr);
-		}
-	}
-
-	protected void addTagAttributes(Tag tag, EObject element,
-			List<String> omitAttributes) {
-		for (EAttribute attribute : element.eClass().getEAllAttributes()) {
-			if (!attribute.isDerived()
-					&& element.eIsSet(attribute)
-					&& !omitAttributes.contains(attribute.getName())) {
-				Attribute auxAttr = flexmiFactory.createAttribute();
-				auxAttr.setName(attribute.getName());
-				auxAttr.setValue("" + element.eGet(attribute));
-				tag.getAttributes().add(auxAttr);
-			}
 		}
 	}
 }
