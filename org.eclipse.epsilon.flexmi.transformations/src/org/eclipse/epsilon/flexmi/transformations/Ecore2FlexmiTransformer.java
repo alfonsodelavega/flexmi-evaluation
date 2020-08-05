@@ -23,21 +23,25 @@ public abstract class Ecore2FlexmiTransformer {
 
 	protected static final String ECORE_NSURI = "http://www.eclipse.org/emf/2002/Ecore";
 
+	protected FlexmiModelFactory flexmiFactory;
+
+	public Ecore2FlexmiTransformer() {
+		flexmiFactory = FlexmiModelFactory.eINSTANCE;
+	}
+
 	public FlexmiModel getFlexmiModel(String ecoreModel) {
 
 		ResourceSet resSet = new ResourceSetImpl();
 		Resource ecoreModelResource = resSet.getResource(URI.createURI(ecoreModel), true);
 
-		FlexmiModelFactory flexmiFactory = FlexmiModelFactory.eINSTANCE;
 		FlexmiModel model = flexmiFactory.createFlexmiModel();
-
 		model.setNsuri(ECORE_NSURI);
 		model.getImports().add(ECORE_NSURI);
 
 		for (EObject root : ecoreModelResource.getContents()) {
 			Tag rootTag = flexmiFactory.createTag();
 			model.getTags().add(rootTag);
-			populateTags(flexmiFactory, rootTag, root);
+			populateTags(rootTag, root);
 		}
 
 		return model;
@@ -72,5 +76,5 @@ public abstract class Ecore2FlexmiTransformer {
 		}
 	}
 
-	protected abstract void populateTags(FlexmiModelFactory flexmiFactory, Tag tag, EObject element);
+	protected abstract void populateTags(Tag tag, EObject element);
 }

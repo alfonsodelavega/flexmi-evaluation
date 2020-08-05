@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -21,11 +22,11 @@ import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModelPackage;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.Tag;
 
-public class PlainFlexmiTransformer extends Ecore2FlexmiTransformer {
+public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 
 	public static void main(String[] args) throws Exception {
 		String ecoreModel = "models/carShop.ecore";
-		String flexmiModel = String.format("%s-plain.model", ecoreModel);
+		String flexmiModel = String.format("%s-template.model", ecoreModel);
 		String flexmiFile = String.format("%s.flexmi", flexmiModel);
 
 		EcorePackage.eINSTANCE.eClass();
@@ -35,10 +36,10 @@ public class PlainFlexmiTransformer extends Ecore2FlexmiTransformer {
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("*", new XMIResourceFactoryImpl());
 
-		PlainFlexmiTransformer transformer = new PlainFlexmiTransformer();
+		TemplateFlexmiTransformer transformer = new TemplateFlexmiTransformer();
 		FlexmiModel model = transformer.getFlexmiModel(ecoreModel);
-		String plainFlexmi = transformer.getFlexmiFile(model);
-		System.out.println(plainFlexmi);
+		String flexmiContents = transformer.getFlexmiFile(model);
+		System.out.println(flexmiContents);
 
 		// save flexmi model
 		ResourceSet resSet = new ResourceSetImpl();
@@ -53,45 +54,32 @@ public class PlainFlexmiTransformer extends Ecore2FlexmiTransformer {
 
 		// save flexmi file
 		PrintWriter out = new PrintWriter(flexmiFile);
-		out.println(plainFlexmi);
+		out.println(flexmiContents);
 		out.close();
 	}
 
 	@Override
 	protected void populateTags(Tag tag, EObject element) {
 
-		tag.setName(getTagName(element));
-		for (EAttribute attribute : element.eClass().getEAllAttributes()) {
-			if (!attribute.isDerived() && element.eIsSet(attribute)) {
-				Attribute auxAttr = flexmiFactory.createAttribute();
-				auxAttr.setName(attribute.getName());
-				auxAttr.setValue("" + element.eGet(attribute));
-				tag.getAttributes().add(auxAttr);
-			}
+		if (element instanceof EAttribute) {
+			// use the template and omit the type attribute (if it's an ecore one)
+			populateAttribute(tag, (EAttribute) element);
 		}
-		if (element instanceof ETypedElement) {
-			Attribute typeAttr = flexmiFactory.createAttribute();
-			typeAttr.setName("type");
-			EClassifier type = ((ETypedElement) element).getEType();
-			// void EOperations have null type
-			if (type != null) {
-				String typeName = type.getName();
-				if (element instanceof EAttribute) {
-					// needed to find metamodel data types (e.g. EString, EInt)
-					typeName = "//" + typeName;
-				}
-				typeAttr.setValue(typeName);
-			}
-			tag.getAttributes().add(typeAttr);
+		else if (element instanceof EReference) {
+			// if multi-bounded, use vals or refs depending on the containment
+			populateReference(tag, (EReference) element);
 		}
+		else {
+			// plain flexmi
+			super.populateTags(tag, element);
+		}
+	}
 
-		for (EObject child : element.eContents()) {
-			if (child instanceof EGenericType) {
-				continue;
-			}
-			Tag childTag = flexmiFactory.createTag();
-			tag.getTags().add(childTag);
-			populateTags(childTag, child);
-		}
+	protected void populateAttribute(Tag tag, EAttribute attribute) {
+		super.populateTags(tag, attribute);
+	}
+
+	protected void populateReference(Tag tag, EReference reference) {
+		super.populateTags(tag, reference);
 	}
 }
