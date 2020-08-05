@@ -1,0 +1,39 @@
+<_>
+<:template name="vals">
+	<content>
+		<reference containment="true" upper="-1" lower="0"
+			:name="self.eType.name.ftlc() + 's'"/>
+	</content>
+</:template>
+
+<:template name="refs"> 
+	<content>
+		<reference upper="-1" lower="0"
+			:name="self.eType.name.ftlc() + 's'"/>
+	</content>
+</:template>
+
+<:template name="string">
+	<content>
+		<attribute type="//EString"/>
+	</content>
+</:template>
+
+<:template name="boolean">
+	<content>
+		<attribute type="//EBoolean"/>
+	</content>
+</:template>
+
+<:template name="int">
+	<content>
+		<attribute type="//EInt"/>
+	</content>
+</:template>
+
+<:template name="double">
+	<content>
+		<attribute type="//EDouble"/>
+	</content>
+</:template>
+</_>

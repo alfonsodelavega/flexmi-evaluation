@@ -1,0 +1,24 @@
+<?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<?import http://www.eclipse.org/emf/2002/Ecore?>
+<?render-egx platform:/resource/org.eclipse.epsilon.examples.picto.ecore/ecore2vis/ecore.egx?>
+<_>
+<?include ecoreTemplates.flexmi?>
+<package name="statemachine" nsuri="flexmitemplates.statemachine">
+	
+	<class name="StateMachine"> 
+		<vals type="State" name="otherStateListname"/>
+		<vals type="Transition" containment="false"/>
+	</class>
+	
+	<class name="Transition">
+		<string name="name"/>
+		<ref name="from" type="State"/>
+		<ref name="to" type="State"/>
+	</class>
+	
+	<class name="State">
+		<string name="name"/>
+	</class>
+
+</package>
+</_>

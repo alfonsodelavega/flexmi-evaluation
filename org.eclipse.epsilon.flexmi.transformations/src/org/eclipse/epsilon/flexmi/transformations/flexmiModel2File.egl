@@ -1,11 +1,13 @@
 <?nsuri [%=fmodel.nsuri%]?>
 [% for (importedUri in fmodel.imports) {%]
 	<?import [%=importedUri%]?>
+<_>
 [% }
 for (tag in fmodel.tags) {%]
-	[%=tag.getTagText()%][%
-}
-
+	[%=tag.getTagText()%]
+[% } %]
+</_>
+[%
 @template
 operation Any getTagText() { %]
 	<[%=self.name%] [%=self.getAttributesText()%][%
