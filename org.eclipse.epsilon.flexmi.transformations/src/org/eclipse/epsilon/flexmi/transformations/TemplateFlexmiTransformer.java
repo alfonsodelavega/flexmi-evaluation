@@ -10,7 +10,6 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -124,6 +123,7 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 				addTagAttributes(tag, reference, Arrays.asList("containment"));
 			}
 			addTypeTagAttribute(tag, reference);
+			addChildren(tag, reference);
 		}
 		else {
 			if (reference.getUpperBound() != 1) {
@@ -136,6 +136,7 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 				}
 				addTagAttributes(tag, reference, omitAttributes);
 				addTypeTagAttribute(tag, reference);
+				addChildren(tag, reference);
 			}
 			else {
 				super.populateTags(tag, reference);

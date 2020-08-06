@@ -31,17 +31,19 @@ public class TransformGithubEcoreModels {
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("*", new XMIResourceFactoryImpl());
 
-		boolean debug = true;
+		boolean debug = false; // true -> creates intermediate flexmi models
 
 		try (Stream<Path> walk = Files.walk(Paths.get("models/downloaded/"))) {
 
 			List<String> files = walk.filter(Files::isRegularFile).map(x -> x.toString())
 					.filter(x -> x.endsWith("ecore")).collect(Collectors.toList());
 
+			// uncomment for testing on a single ecore
+			//			files = Arrays.asList("models/downloaded/Unbalanced/Unbalanced.ecore");
+
 			for (String path : files) {
 
 				String ecoreModel = path;
-				System.out.println(ecoreModel);
 
 				PlainFlexmiTransformer plainTransformer = new PlainFlexmiTransformer();
 				FlexmiModel plainModel = plainTransformer.getFlexmiModel(ecoreModel);
@@ -78,6 +80,7 @@ public class TransformGithubEcoreModels {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Flexmi generation done");
 	}
 
 	private static void saveFlexmiModel(String modelPath, FlexmiModel model) {
