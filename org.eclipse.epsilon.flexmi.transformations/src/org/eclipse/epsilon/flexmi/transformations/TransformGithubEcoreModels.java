@@ -40,10 +40,17 @@ public class TransformGithubEcoreModels {
 
 			// uncomment for testing on a single ecore
 			//			files = Arrays.asList("models/downloaded/Unbalanced/Unbalanced.ecore");
+			//			files = Arrays.asList("models/downloaded/aadl2/aadl2.ecore");
+
+			int currentFile = 1;
+			int totalFiles = files.size();
 
 			for (String path : files) {
 
 				String ecoreModel = path;
+				System.out.println(String.format("(%d/%d) %s",
+						currentFile, totalFiles, ecoreModel));
+				currentFile++;
 
 				PlainFlexmiTransformer plainTransformer = new PlainFlexmiTransformer();
 				FlexmiModel plainModel = plainTransformer.getFlexmiModel(ecoreModel);
@@ -80,7 +87,7 @@ public class TransformGithubEcoreModels {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Flexmi generation done");
+		System.out.println("Done");
 	}
 
 	private static void saveFlexmiModel(String modelPath, FlexmiModel model) {
