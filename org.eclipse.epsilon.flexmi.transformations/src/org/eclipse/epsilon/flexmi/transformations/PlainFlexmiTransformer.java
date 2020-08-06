@@ -6,14 +6,18 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -165,6 +169,40 @@ public class PlainFlexmiTransformer {
 				auxAttr.setName(attribute.getName());
 				auxAttr.setValue(StringEscapeUtils.escapeXml("" + element.eGet(attribute)));
 				tag.getAttributes().add(auxAttr);
+			}
+		}
+		if (element instanceof EClass) {
+			EClass clazz = (EClass) element;
+			if (!clazz.getESuperTypes().isEmpty()) {
+				Attribute supertypesAttr = flexmiFactory.createAttribute();
+				supertypesAttr.setName("supertypes");
+				String supertypes = clazz.getESuperTypes()
+						.stream()
+						.map(supertype -> supertype.getName())
+						.collect(Collectors.joining(","));
+				supertypesAttr.setValue(supertypes);
+				tag.getAttributes().add(supertypesAttr);
+			}
+		}
+		else if (element instanceof EReference) {
+			EReference ref = (EReference) element;
+			if (ref.getEOpposite() != null) {
+				Attribute eOppositeAttr = flexmiFactory.createAttribute();
+				eOppositeAttr.setName("eOpposite");
+				//TODO: sometimes the eclass name might not be needed
+				eOppositeAttr.setValue(String.format("//%s/%s",
+						ref.getEReferenceType().getName(),
+						ref.getEOpposite().getName()));
+				tag.getAttributes().add(eOppositeAttr);
+				if (!ref.getEKeys().isEmpty()) {
+					System.out.println(ref.getEKeys());
+				}
+			}
+		}
+		else if (element instanceof EOperation) {
+			EOperation op = (EOperation) element;
+			if (!op.getEExceptions().isEmpty()) {
+				System.out.println(op.getEExceptions());
 			}
 		}
 	}
