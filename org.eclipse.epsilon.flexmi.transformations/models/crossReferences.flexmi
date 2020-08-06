@@ -1,0 +1,19 @@
+<?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<package name="root" nsURI="crossReferences" nsPrefix="root">
+	<package name="firstSubpackage" nsPrefix="first">
+		<class name="FirstClass"/>
+		<class name="OtherClass">
+			<!-- this is the problem: a ref with the same name as the class -->
+			<ref name="FirstClass" type="FirstClass"/>
+			<!-- corrected by reference from the root -->
+			<!-- <ref name="FirstClass" type="root.firstSubpackage.FirstClass"/> -->
+		</class>
+	</package>
+	<package name="secondSubpackage" nsPrefix="second">
+		<class name="SecondClass">
+			<!-- problems are suffered elsewhere also -->
+			<ref name="first" type="FirstClass"/>
+			<!-- <ref name="first" type="root.firstSubpackage.FirstClass"/> -->
+		</class>
+	</package>
+</package>
