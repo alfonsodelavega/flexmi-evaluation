@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
@@ -147,7 +148,7 @@ public class PlainFlexmiTransformer {
 				Attribute typeAttr = flexmiFactory.createAttribute();
 				typeAttr.setName("type");
 				String typeName = type.getName();
-				if (element instanceof EAttribute
+				if (type instanceof EDataType
 						&& type.eContainer() instanceof EPackage
 						&& ((EPackage)type.eContainer()).getNsURI().contentEquals(ECORE_NSURI)) {
 					// prefix needed to find ecore data types (e.g. EString, EInt)
@@ -189,10 +190,7 @@ public class PlainFlexmiTransformer {
 			if (ref.getEOpposite() != null) {
 				Attribute eOppositeAttr = flexmiFactory.createAttribute();
 				eOppositeAttr.setName("eOpposite");
-				//TODO: sometimes the eclass name might not be needed
-				eOppositeAttr.setValue(String.format("//%s/%s",
-						ref.getEReferenceType().getName(),
-						ref.getEOpposite().getName()));
+				eOppositeAttr.setValue(ref.getEOpposite().getName());
 				tag.getAttributes().add(eOppositeAttr);
 				if (!ref.getEKeys().isEmpty()) {
 					System.out.println(ref.getEKeys());
