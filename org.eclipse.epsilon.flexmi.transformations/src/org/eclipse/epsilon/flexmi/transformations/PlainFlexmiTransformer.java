@@ -126,6 +126,10 @@ public class PlainFlexmiTransformer {
 			return "annotation";
 		case "EStringToStringMapEntry":
 			return "details";
+		case "EOperation":
+			return "op";
+		case "EParameter":
+			return "param";
 		default:
 			return obj.eClass().getName();
 		}
