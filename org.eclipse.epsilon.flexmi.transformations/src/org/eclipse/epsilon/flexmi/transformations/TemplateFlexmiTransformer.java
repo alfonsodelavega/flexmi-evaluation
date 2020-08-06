@@ -8,7 +8,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -17,11 +19,14 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.epsilon.flexmi.transformations.flexmiModel.Attribute;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModelPackage;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.Tag;
 
 public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
+
+	static final String GENMODEL_SOURCE = "http://www.eclipse.org/emf/2002/GenModel";
 
 	public static void main(String[] args) throws Exception {
 		String ecoreModel = "models/carShop.ecore";
@@ -69,9 +74,32 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 			// if multi-bounded, use vals or refs depending on the containment
 			populateReference(tag, (EReference) element);
 		}
+		else if (element instanceof EAnnotation) {
+			populateAnnotation(tag, (EAnnotation) element);
+		}
 		else {
 			// plain flexmi
 			super.populateTags(tag, element);
+		}
+	}
+
+	protected void populateAnnotation(Tag tag, EAnnotation annotation) {
+		if (annotation.getSource() != null
+				&& annotation.getSource().equals(GENMODEL_SOURCE)
+				&& annotation.getDetails().size() == 1
+				&& annotation.getDetails().get(0).getKey().equals("documentation")
+				&& annotation.getContents().isEmpty()
+				&& annotation.getReferences().isEmpty()) {
+
+			tag.setName("genmodel");
+			Attribute docAttribute = flexmiFactory.createAttribute();
+			docAttribute.setName(":doc");
+			docAttribute.setValue(StringEscapeUtils.escapeXml(
+					annotation.getDetails().get(0).getValue()));
+			tag.getAttributes().add(docAttribute);
+		}
+		else {
+			super.populateTags(tag, annotation);
 		}
 	}
 

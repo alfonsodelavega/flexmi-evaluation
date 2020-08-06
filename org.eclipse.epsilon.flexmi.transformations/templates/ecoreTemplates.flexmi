@@ -18,6 +18,16 @@
 </:template>
 
 
+<:template name="genmodel">
+	<parameter name="doc"/>
+	<content>
+		<annotation source="http://www.eclipse.org/emf/2002/GenModel">
+			<details key="documentation" value="${doc}"/>
+		</annotation>
+	</content>
+</:template>
+
+
 <:template name="string">
 	<content>
 		<attribute type="//EString"/>
