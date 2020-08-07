@@ -3,7 +3,9 @@ package org.eclipse.epsilon.flexmi.transformations;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,6 +17,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EGenericType;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -45,6 +48,22 @@ public class PlainFlexmiTransformer {
 
 	protected FlexmiModelFactory flexmiFactory;
 
+	/*
+	 * Archive elements that might cross reference other ones in case the use
+	 * of a qualified name is required (checked in a post-generation step)
+	 */
+	protected Map<String, Integer> nameCounters;
+	protected List<CrossReference> crossReferences;
+
+	public class CrossReference {
+		protected EObject referencingElement;
+		protected Tag tag;
+
+		public CrossReference(EObject referencingElement, Tag tag) {
+			this.referencingElement = referencingElement;
+			this.tag = tag;
+		}
+	};
 
 	public static void main(String[] args) throws Exception {
 		String ecoreModel = "models/carShop.ecore";
@@ -80,12 +99,14 @@ public class PlainFlexmiTransformer {
 		out.close();
 	}
 
-
 	public PlainFlexmiTransformer() {
 		flexmiFactory = FlexmiModelFactory.eINSTANCE;
 	}
 
 	public FlexmiModel getFlexmiModel(String ecoreModel) {
+
+		nameCounters = new HashMap<>();
+		crossReferences = new ArrayList<>();
 
 		ResourceSet resSet = new ResourceSetImpl();
 		Resource ecoreModelResource = resSet.getResource(URI.createURI(ecoreModel), true);
@@ -100,7 +121,50 @@ public class PlainFlexmiTransformer {
 			populateTags(rootTag, root);
 		}
 
+		applyQualifiedNames(); // needed if there are simple name collisions
+
 		return model;
+	}
+
+	protected void applyQualifiedNames() {
+		for (CrossReference crossRef : crossReferences) {
+			if (crossRef.referencingElement instanceof EClass
+					&& !((EClass) crossRef.referencingElement).getESuperTypes().isEmpty()) {
+				EClass clazz = (EClass) crossRef.referencingElement;
+				List<String> supertypeNames = new ArrayList<>();
+				for (EClass supertype : clazz.getESuperTypes()) {
+					if (nameCounters.get(supertype.getName()) > 1) {
+						supertypeNames.add(getQualifiedName(supertype));
+					}
+					else {
+						supertypeNames.add(supertype.getName());
+					}
+				}
+				for (Attribute attr : crossRef.tag.getAttributes()) {
+					if (attr.getName().equals("supertypes")) {
+						attr.setValue(String.join(",", supertypeNames));
+					}
+				}
+			}
+			else if (crossRef.referencingElement instanceof EReference) {
+				EReference ref = (EReference) crossRef.referencingElement;
+				if (nameCounters.get(ref.getEReferenceType().getName()) > 1) {
+					for (Attribute attr : crossRef.tag.getAttributes()) {
+						if (attr.getName().equals("type")) {
+							attr.setValue(getQualifiedName(ref.getEReferenceType()));
+						}
+					}
+				}
+				if (ref.getEOpposite() != null
+						&& (nameCounters.get(ref.getEOpposite().getName())) > 1) {
+					for (Attribute attr : crossRef.tag.getAttributes()) {
+						if (attr.getName().equals("eOpposite")) {
+							attr.setValue(getQualifiedName(ref.getEOpposite()));
+						}
+					}
+				}
+			}
+		}
 	}
 
 	public String getFlexmiFile(FlexmiModel model) throws EglRuntimeException {
@@ -172,8 +236,12 @@ public class PlainFlexmiTransformer {
 				tag.getAttributes().add(auxAttr);
 			}
 		}
+		if (element instanceof ENamedElement) {
+			countName(((ENamedElement) element).getName());
+		}
 		if (element instanceof EClass) {
 			EClass clazz = (EClass) element;
+			addCrossReferences(clazz, tag);
 			if (!clazz.getESuperTypes().isEmpty()) {
 				Attribute supertypesAttr = flexmiFactory.createAttribute();
 				supertypesAttr.setName("supertypes");
@@ -187,6 +255,7 @@ public class PlainFlexmiTransformer {
 		}
 		else if (element instanceof EReference) {
 			EReference ref = (EReference) element;
+			addCrossReferences(ref, tag);
 			if (ref.getEOpposite() != null) {
 				Attribute eOppositeAttr = flexmiFactory.createAttribute();
 				eOppositeAttr.setName("eOpposite");
@@ -203,6 +272,28 @@ public class PlainFlexmiTransformer {
 				System.out.println(op.getEExceptions());
 			}
 		}
+	}
+
+	protected void addCrossReferences(EObject elem, Tag tag) {
+		crossReferences.add(new CrossReference(elem, tag));
+	}
+
+	protected void countName(String name) {
+		if (nameCounters.get(name) == null) {
+			nameCounters.put(name, 0);
+		}
+		nameCounters.put(name, nameCounters.get(name) + 1);
+	}
+
+	protected String getQualifiedName(ENamedElement elem) {
+		List<String> nameSections = new ArrayList<>();
+		ENamedElement current = elem;
+		while (current != null) {
+			nameSections.add(current.getName());
+			current = (ENamedElement) current.eContainer();
+		}
+		Collections.reverse(nameSections);
+		return String.join(".", nameSections);
 	}
 
 	protected void addChildren(Tag tag, EObject element) {
