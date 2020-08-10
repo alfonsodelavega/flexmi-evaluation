@@ -13,7 +13,7 @@ for (tag in fmodel.tags) {%]
 </_>[%
 @template
 operation Any getTagText() { %]
-	<[%=self.name%] [%=self.getAttributesText()%][%
+	<[%=self.name%][%=self.getAttributes().isEmpty? "" : " "%][%=self.getAttributesText()%][%
 	if (self.tags.isEmpty()) {
 		out.print("/>");
 	} else {
