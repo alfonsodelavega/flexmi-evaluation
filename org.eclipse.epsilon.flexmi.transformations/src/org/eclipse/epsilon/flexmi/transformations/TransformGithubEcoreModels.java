@@ -40,7 +40,7 @@ public class TransformGithubEcoreModels {
 
 			// uncomment for testing on a single ecore
 			//			files = Arrays.asList("models/downloaded/Unbalanced/Unbalanced.ecore");
-			//			files = Arrays.asList("models/downloaded/aadl2/aadl2.ecore");
+			//			files = Arrays.asList("models/downloaded/diagram/diagram.ecore");
 
 			int currentFile = 1;
 			int totalFiles = files.size();

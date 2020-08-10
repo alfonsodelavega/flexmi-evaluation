@@ -8,14 +8,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
@@ -133,22 +133,22 @@ public class PlainFlexmiTransformer {
 				EClass clazz = (EClass) crossRef.referencingElement;
 				List<String> supertypeNames = new ArrayList<>();
 				for (EClass supertype : clazz.getESuperTypes()) {
-					if (nameCounters.get(supertype.getName()) > 1) {
+					if (isNameRepeated(supertype.getName())) {
 						supertypeNames.add(getQualifiedName(supertype));
 					}
 					else {
 						supertypeNames.add(supertype.getName());
 					}
 				}
-				for (Attribute attr : crossRef.tag.getAttributes()) {
-					if (attr.getName().equals("supertypes")) {
-						attr.setValue(String.join(",", supertypeNames));
-					}
-				}
+				Attribute supertypesAttr = flexmiFactory.createAttribute();
+				supertypesAttr.setName("supertypes");
+				supertypesAttr.setValue(String.join(",", supertypeNames));
+				crossRef.tag.getAttributes().add(supertypesAttr);
 			}
 			else if (crossRef.referencingElement instanceof EReference) {
 				EReference ref = (EReference) crossRef.referencingElement;
-				if (nameCounters.get(ref.getEReferenceType().getName()) > 1) {
+
+				if (isNameRepeated(ref.getEReferenceType().getName())) {
 					for (Attribute attr : crossRef.tag.getAttributes()) {
 						if (attr.getName().equals("type")) {
 							attr.setValue(getQualifiedName(ref.getEReferenceType()));
@@ -156,7 +156,7 @@ public class PlainFlexmiTransformer {
 					}
 				}
 				if (ref.getEOpposite() != null
-						&& (nameCounters.get(ref.getEOpposite().getName())) > 1) {
+						&& isNameRepeated(ref.getEOpposite().getName())) {
 					for (Attribute attr : crossRef.tag.getAttributes()) {
 						if (attr.getName().equals("eOpposite")) {
 							attr.setValue(getQualifiedName(ref.getEOpposite()));
@@ -164,7 +164,43 @@ public class PlainFlexmiTransformer {
 					}
 				}
 			}
+			else if (crossRef.referencingElement instanceof EAnnotation
+					&& !((EAnnotation) crossRef.referencingElement).getReferences().isEmpty()) {
+				EAnnotation annotation = (EAnnotation) crossRef.referencingElement;
+				List<String> annotationReferences = new ArrayList<>();
+				for (EObject element : annotation.getReferences()) {
+					if (element instanceof ENamedElement) {
+						ENamedElement namedElement = (ENamedElement) element;
+						if (isNameRepeated(namedElement.getName())) {
+							annotationReferences.add(getQualifiedName(namedElement));
+						}
+						else {
+							annotationReferences.add(namedElement.getName());
+						}
+					}
+					else {
+						System.out.println("Problem with annotation references: " + element);
+					}
+				}
+				Attribute referencesAttr = flexmiFactory.createAttribute();
+				referencesAttr.setName("references");
+				referencesAttr.setValue(String.join(",", annotationReferences));
+				crossRef.tag.getAttributes().add(referencesAttr);
+			}
 		}
+	}
+
+	protected boolean isNameRepeated(String name) {
+		/*
+		 * TODO: if the reference points to an Ecore type, then this has
+		 * not been counted (but it will be referenced properly). Determine
+		 * if this can be a problem (atm ignoring null name results)
+		 */
+		if (nameCounters.get(name) != null
+				&& nameCounters.get(name) > 1) {
+			return true;
+		}
+		return false;
 	}
 
 	public String getFlexmiFile(FlexmiModel model) throws EglRuntimeException {
@@ -212,9 +248,9 @@ public class PlainFlexmiTransformer {
 				Attribute typeAttr = flexmiFactory.createAttribute();
 				typeAttr.setName("type");
 				String typeName = type.getName();
-				if (type instanceof EDataType
+				if (type instanceof EClassifier
 						&& type.eContainer() instanceof EPackage
-						&& ((EPackage)type.eContainer()).getNsURI().contentEquals(ECORE_NSURI)) {
+						&& ((EPackage) type.eContainer()).getNsURI().equals(ECORE_NSURI)) {
 					// prefix needed to find ecore data types (e.g. EString, EInt)
 					typeName = "//" + typeName;
 				}
@@ -240,18 +276,8 @@ public class PlainFlexmiTransformer {
 			countName(((ENamedElement) element).getName());
 		}
 		if (element instanceof EClass) {
-			EClass clazz = (EClass) element;
-			addCrossReferences(clazz, tag);
-			if (!clazz.getESuperTypes().isEmpty()) {
-				Attribute supertypesAttr = flexmiFactory.createAttribute();
-				supertypesAttr.setName("supertypes");
-				String supertypes = clazz.getESuperTypes()
-						.stream()
-						.map(supertype -> supertype.getName())
-						.collect(Collectors.joining(","));
-				supertypesAttr.setValue(supertypes);
-				tag.getAttributes().add(supertypesAttr);
-			}
+			addCrossReferences(element, tag);
+			// the value of the supertypes attribute is added in the name qualification step 
 		}
 		else if (element instanceof EReference) {
 			EReference ref = (EReference) element;
@@ -308,9 +334,42 @@ public class PlainFlexmiTransformer {
 	}
 
 	protected void populateTags(Tag tag, EObject element) {
-		tag.setName(getTagName(element));
-		addTagAttributes(tag, element, Collections.emptyList());
-		addTypeTagAttribute(tag, element);
-		addChildren(tag, element);
+		if (element instanceof EAnnotation) {
+			populateAnnotation(tag, (EAnnotation) element);
+		}
+		else {
+			tag.setName(getTagName(element));
+			addTagAttributes(tag, element, Collections.emptyList());
+			addTypeTagAttribute(tag, element);
+			addChildren(tag, element);
+		}
+	}
+
+	/**
+	 * Manual annotation transformation to ensure correctness
+	 */
+	protected void populateAnnotation(Tag tag, EAnnotation annotation) {
+		tag.setName(getTagName(annotation));
+		addTagAttributes(tag, annotation, Collections.emptyList());
+		for (Entry<String, String> entry : annotation.getDetails()) {
+			Tag detailTag = flexmiFactory.createTag();
+			detailTag.setName(getTagName((EObject) entry));
+			tag.getTags().add(detailTag);
+			addTagAttributes(detailTag, (EObject) entry, Collections.emptyList());
+		}
+		if (!annotation.getReferences().isEmpty()) {
+			addCrossReferences(annotation, tag); // for later name qualification
+			// references attribute added in the qualification step
+		}
+		if (!annotation.getContents().isEmpty()) {
+			Tag contentsTag = flexmiFactory.createTag();
+			contentsTag.setName("contents");
+			tag.getTags().add(contentsTag);
+			for (EObject element : annotation.getContents()) {
+				Tag elementTag = flexmiFactory.createTag();
+				contentsTag.getTags().add(elementTag);
+				populateTags(elementTag, element);
+			}
+		}
 	}
 }

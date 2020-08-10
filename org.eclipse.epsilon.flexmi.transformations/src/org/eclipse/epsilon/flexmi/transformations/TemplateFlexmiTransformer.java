@@ -83,6 +83,7 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 		}
 	}
 
+	@Override
 	protected void populateAnnotation(Tag tag, EAnnotation annotation) {
 		if (annotation.getSource() != null
 				&& annotation.getSource().equals(GENMODEL_SOURCE)
@@ -99,7 +100,7 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 			tag.getAttributes().add(docAttribute);
 		}
 		else {
-			super.populateTags(tag, annotation);
+			super.populateAnnotation(tag, annotation);
 		}
 	}
 
