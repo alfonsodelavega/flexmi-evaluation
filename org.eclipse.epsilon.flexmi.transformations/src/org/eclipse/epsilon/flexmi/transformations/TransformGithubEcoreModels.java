@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.flexmi.transformations;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,13 +16,17 @@ import java.util.stream.Stream;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.epsilon.flexmi.FlexmiResource;
+import org.eclipse.epsilon.flexmi.FlexmiResourceFactory;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModelPackage;
 
 public class TransformGithubEcoreModels {
+
 	public static void main(String[] args) throws Exception {
 
 		EcorePackage.eINSTANCE.eClass();
@@ -40,7 +45,7 @@ public class TransformGithubEcoreModels {
 
 			// uncomment for testing on a single ecore
 			//			files = Arrays.asList("models/downloaded/Unbalanced/Unbalanced.ecore");
-			//			files = Arrays.asList("models/downloaded/diagram/diagram.ecore");
+			//			files = Arrays.asList("models/downloaded/aadl2/aadl2.ecore");
 
 			int currentFile = 1;
 			int totalFiles = files.size();
@@ -67,6 +72,16 @@ public class TransformGithubEcoreModels {
 				}
 				saveFlexmiFile(plainFlexmiFile, plainTransformer.getFlexmiFile(plainModel));
 
+				List<Diagnostic> warnings = getWarnings(plainFlexmiFile);
+				if (warnings != null && !warnings.isEmpty()) {
+					System.out.println("Warnings found in" + plainFlexmiFile);
+					for (Diagnostic warning : warnings) {
+						System.out.println(String.format("\t(line %d) %s",
+								warning.getLine(), warning.getMessage()));
+					}
+					System.out.println();
+				}
+
 
 				TemplateFlexmiTransformer templateTransformer = new TemplateFlexmiTransformer();
 				FlexmiModel templateModel = templateTransformer.getFlexmiModel(ecoreModel);
@@ -83,6 +98,15 @@ public class TransformGithubEcoreModels {
 					Files.delete(Paths.get(templateFlexmiFile));
 				}
 				saveFlexmiFile(templateFlexmiFile, templateTransformer.getFlexmiFile(templateModel));
+
+				warnings = getWarnings(templateFlexmiFile);
+				if (warnings != null && !warnings.isEmpty()) {
+					System.out.println("Warnings found in" + templateFlexmiFile);
+					for (Diagnostic warning : warnings) {
+						System.out.println(String.format("\t(line %d) %s",
+								warning.getLine(), warning.getMessage()));
+					}
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -107,5 +131,22 @@ public class TransformGithubEcoreModels {
 		PrintWriter out = new PrintWriter(filePath);
 		out.println(fileContents);
 		out.close();
+	}
+
+	private static FlexmiResource loadFlexmiResource(String filename) throws Exception {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("flexmi", new FlexmiResourceFactory());
+		resourceSet.getPackageRegistry().put(EcorePackage.eINSTANCE.getNsURI(), EcorePackage.eINSTANCE);
+		FlexmiResource resource = (FlexmiResource) resourceSet.createResource(URI.createFileURI(new File(filename).getAbsolutePath()));
+		resource.load(null);
+		return resource;
+	}
+
+	private static List<Diagnostic> getWarnings(String flexmiFile) throws Exception {
+		FlexmiResource resource = loadFlexmiResource(flexmiFile);
+		if (resource != null) {
+			return resource.getWarnings();
+		}
+		return null;
 	}
 }
