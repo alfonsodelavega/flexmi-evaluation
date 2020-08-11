@@ -1,0 +1,39 @@
+<?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<?import http://www.eclipse.org/emf/2002/Ecore?>
+<package name="root" nsURI="crossReferences" nsPrefix="root">
+	<package name="firstSubpackage" nsPrefix="first">
+		<class name="FirstClass"/>
+		<class name="OtherClass">
+			<ref name="firstClass" type="root.firstSubpackage.FirstClass">
+				<annotation source="duplicates" references="root.firstSubpackage.FirstClass">
+				<!-- contents is an EObject multiple containment reference -->
+				<contents>
+					<!-- An EReference is detected ok as a plausible contained EObject-->
+					<ref name="inMode" ordered="false" upperBound="-1" volatile="true" transient="true" derived="true" type="FirstClass">
+					</ref>
+					
+					<ref name="inMode2" ordered="false" upperBound="-1" volatile="true" transient="true" derived="true" type="FirstClass">
+						<!-- 
+							Problem: when defining elements contained in the reference
+							(e.g. annotations), Flexmi tries to identify them as EObject,
+							and fails (? an EAnnotation type extends the EObject interface
+						-->
+						<annotation source="contained one" references="root.firstSubpackage.FirstClass"/>
+					</ref>
+					
+					<!-- another example: containing an EClass is fine -->
+					<class name="NestedClass">
+						<!-- but it is not fine that the class contains an attribute -->
+						<attr name="counter" type="//EInt"/>
+					</class>
+				</contents>
+				</annotation>
+			</ref>
+		</class>
+	</package>
+	<package name="secondSubpackage" nsPrefix="second">
+		<class name="SecondClass">
+			<ref name="first" type="FirstClass"/>
+		</class>
+	</package>
+</package>

@@ -1,12 +1,25 @@
 <?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<?import http://www.eclipse.org/emf/2002/Ecore?>
 <package name="root" nsURI="crossReferences" nsPrefix="root">
 	<package name="firstSubpackage" nsPrefix="first">
 		<class name="FirstClass"/>
 		<class name="OtherClass">
 			<!-- this is the problem: a ref with the same name as the class -->
 			<ref name="FirstClass" type="FirstClass"/>
-			<!-- corrected by reference from the root -->
+			<!-- corrected by the use of a qualified name -->
 			<!-- <ref name="FirstClass" type="root.firstSubpackage.FirstClass"/> -->
+			
+			<ref name="secondClass" type="SecondClass">
+				<!--
+					PROBLEM: the references attribute does not detect the
+					existence of two possible "FirstClass" references, it
+					just picks the first one of them (the class in this case)
+					
+					No warning is shown even if the references use qualified
+					names for their types and thus all other warnings dissappear
+				-->
+				<annotation source="referencebug" references="FirstClass"/>
+			</ref>
 		</class>
 	</package>
 	<package name="secondSubpackage" nsPrefix="second">
