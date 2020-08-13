@@ -133,6 +133,21 @@ public class PlainFlexmiTransformer {
 
 	protected void applyQualifiedNames() {
 		for (CrossReference crossRef : crossReferences) {
+
+			if (crossRef.referencingElement instanceof ETypedElement) {
+				ETypedElement typedElem = (ETypedElement) crossRef.referencingElement;
+				if (typedElem.getEType() != null
+						&& typedElem.getEType().getName() != null
+						&& isNameRepeated(typedElem.getEType().getName())) {
+
+					for (Attribute attr : crossRef.tag.getAttributes()) {
+						if (attr.getName().equals("type")) {
+							setValue(attr, getQualifiedName(typedElem.getEType()));
+						}
+					}
+				}
+			}
+
 			if (crossRef.referencingElement instanceof EClass
 					&& !((EClass) crossRef.referencingElement).getESuperTypes().isEmpty()) {
 				EClass clazz = (EClass) crossRef.referencingElement;
@@ -153,13 +168,6 @@ public class PlainFlexmiTransformer {
 			else if (crossRef.referencingElement instanceof EReference) {
 				EReference ref = (EReference) crossRef.referencingElement;
 
-				if (isNameRepeated(ref.getEReferenceType().getName())) {
-					for (Attribute attr : crossRef.tag.getAttributes()) {
-						if (attr.getName().equals("type")) {
-							setValue(attr, getQualifiedName(ref.getEReferenceType()));
-						}
-					}
-				}
 				if (ref.getEOpposite() != null
 						&& isNameRepeated(ref.getEOpposite().getName())) {
 					for (Attribute attr : crossRef.tag.getAttributes()) {
@@ -294,6 +302,7 @@ public class PlainFlexmiTransformer {
 
 	protected void addTagAttributes(Tag tag, EObject element,
 			List<String> omitAttributes) {
+
 		for (EAttribute attribute : element.eClass().getEAllAttributes()) {
 			if (!attribute.isDerived()
 					&& element.eIsSet(attribute)
@@ -304,22 +313,16 @@ public class PlainFlexmiTransformer {
 				tag.getAttributes().add(auxAttr);
 			}
 		}
-		if (element instanceof ENamedElement) {
-			countName(((ENamedElement) element).getName());
-		}
-		if (element instanceof EClass) {
-			addCrossReferences(element, tag);
-			// the value of the supertypes attribute is added in the name qualification step 
-		}
-		else if (element instanceof EReference) {
+
+		if (element instanceof EReference) {
 			EReference ref = (EReference) element;
-			addCrossReferences(ref, tag);
 			if (ref.getEOpposite() != null) {
 				Attribute eOppositeAttr = flexmiFactory.createAttribute();
 				eOppositeAttr.setName("eOpposite");
 				setValue(eOppositeAttr, ref.getEOpposite().getName());
 				tag.getAttributes().add(eOppositeAttr);
 				if (!ref.getEKeys().isEmpty()) {
+					System.out.println("Some EKeys found!!");
 					System.out.println(ref.getEKeys());
 				}
 			}
@@ -330,6 +333,15 @@ public class PlainFlexmiTransformer {
 				System.out.println("Some EExceptions found!!");
 				System.out.println(op.getEExceptions());
 			}
+		}
+
+		// for reference qualifications
+		if (element instanceof ENamedElement) {
+			countName(((ENamedElement) element).getName());
+		}
+		if ((element instanceof ETypedElement)
+				|| (element instanceof EClass)) {
+			addCrossReferences(element, tag);
 		}
 	}
 
