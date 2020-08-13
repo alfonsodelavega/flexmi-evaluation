@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
@@ -95,8 +94,7 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 			tag.setName("genmodel");
 			Attribute docAttribute = flexmiFactory.createAttribute();
 			docAttribute.setName(":doc");
-			docAttribute.setValue(StringEscapeUtils.escapeXml(
-					annotation.getDetails().get(0).getValue()));
+			setValue(docAttribute, annotation.getDetails().get(0).getValue());
 			tag.getAttributes().add(docAttribute);
 		}
 		else {

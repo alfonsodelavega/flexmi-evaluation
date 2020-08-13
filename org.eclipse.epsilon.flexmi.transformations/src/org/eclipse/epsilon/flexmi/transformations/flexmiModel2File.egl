@@ -1,8 +1,9 @@
 <?nsuri [%=fmodel.nsuri%]?>
 [% for (importedUri in fmodel.imports) {%]
 	<?import [%=importedUri%]?>
+[% }%]
 <_>
-[% }
+[%
 for (included in fmodel.includes) {%]
 	<?include [%=included%]?>
 [%

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,10 @@ public class PlainFlexmiTransformer {
 	protected static final String FLEXMI_MODEL_VARIABLE = "fmodel";
 
 	protected static final String ECORE_NSURI = "http://www.eclipse.org/emf/2002/Ecore";
+
+	protected static List<String> REGISTRY_NSURIS =
+			new ArrayList<String>(Arrays.asList(
+					"http://www.eclipse.org/emf/2003/XMLType"));
 
 	protected FlexmiModelFactory flexmiFactory;
 
@@ -142,7 +147,7 @@ public class PlainFlexmiTransformer {
 				}
 				Attribute supertypesAttr = flexmiFactory.createAttribute();
 				supertypesAttr.setName("supertypes");
-				supertypesAttr.setValue(String.join(",", supertypeNames));
+				setValue(supertypesAttr, String.join(",", supertypeNames));
 				crossRef.tag.getAttributes().add(supertypesAttr);
 			}
 			else if (crossRef.referencingElement instanceof EReference) {
@@ -151,7 +156,7 @@ public class PlainFlexmiTransformer {
 				if (isNameRepeated(ref.getEReferenceType().getName())) {
 					for (Attribute attr : crossRef.tag.getAttributes()) {
 						if (attr.getName().equals("type")) {
-							attr.setValue(getQualifiedName(ref.getEReferenceType()));
+							setValue(attr, getQualifiedName(ref.getEReferenceType()));
 						}
 					}
 				}
@@ -159,7 +164,7 @@ public class PlainFlexmiTransformer {
 						&& isNameRepeated(ref.getEOpposite().getName())) {
 					for (Attribute attr : crossRef.tag.getAttributes()) {
 						if (attr.getName().equals("eOpposite")) {
-							attr.setValue(getQualifiedName(ref.getEOpposite()));
+							setValue(attr, getQualifiedName(ref.getEOpposite()));
 						}
 					}
 				}
@@ -184,10 +189,14 @@ public class PlainFlexmiTransformer {
 				}
 				Attribute referencesAttr = flexmiFactory.createAttribute();
 				referencesAttr.setName("references");
-				referencesAttr.setValue(String.join(",", annotationReferences));
+				setValue(referencesAttr, String.join(",", annotationReferences));
 				crossRef.tag.getAttributes().add(referencesAttr);
 			}
 		}
+	}
+
+	protected void setValue(Attribute attr, String value) {
+		attr.setValue(StringEscapeUtils.escapeXml(value));
 	}
 
 	protected boolean isNameRepeated(String name) {
@@ -248,16 +257,39 @@ public class PlainFlexmiTransformer {
 				Attribute typeAttr = flexmiFactory.createAttribute();
 				typeAttr.setName("type");
 				String typeName = type.getName();
-				if (type instanceof EClassifier
-						&& type.eContainer() instanceof EPackage
-						&& ((EPackage) type.eContainer()).getNsURI().equals(ECORE_NSURI)) {
-					// prefix needed to find ecore data types (e.g. EString, EInt)
-					typeName = "//" + typeName;
+
+				if (type instanceof EClassifier && type.eContainer() instanceof EPackage) {
+					String typeURI = ((EPackage) type.eContainer()).getNsURI();
+
+					boolean importURI = false;
+					if (REGISTRY_NSURIS.contains(typeURI)) {
+						importURI = true;
+						importURI(tag, typeURI);
+					}
+
+					// prefix needed to find imported data types (e.g. EString, EInt)
+					if (importURI || typeURI.equals(ECORE_NSURI)) {
+						typeName = "//" + typeName;
+					}
 				}
-				typeAttr.setValue(typeName);
+				setValue(typeAttr, typeName);
 				tag.getAttributes().add(typeAttr);
 			}
 		}
+	}
+
+	protected void importURI(Tag tag, String typeURI) {
+		FlexmiModel model = getFlexmiModel(tag);
+		if (!model.getImports().contains(typeURI)) {
+			model.getImports().add(typeURI);
+		}
+	}
+
+	protected FlexmiModel getFlexmiModel(Tag tag) {
+		if (tag.eContainer() instanceof FlexmiModel) {
+			return (FlexmiModel) tag.eContainer();
+		}
+		return getFlexmiModel((Tag) tag.eContainer());
 	}
 
 	protected void addTagAttributes(Tag tag, EObject element,
@@ -268,7 +300,7 @@ public class PlainFlexmiTransformer {
 					&& !omitAttributes.contains(attribute.getName())) {
 				Attribute auxAttr = flexmiFactory.createAttribute();
 				auxAttr.setName(attribute.getName());
-				auxAttr.setValue(StringEscapeUtils.escapeXml("" + element.eGet(attribute)));
+				setValue(auxAttr, "" + element.eGet(attribute));
 				tag.getAttributes().add(auxAttr);
 			}
 		}
@@ -285,7 +317,7 @@ public class PlainFlexmiTransformer {
 			if (ref.getEOpposite() != null) {
 				Attribute eOppositeAttr = flexmiFactory.createAttribute();
 				eOppositeAttr.setName("eOpposite");
-				eOppositeAttr.setValue(ref.getEOpposite().getName());
+				setValue(eOppositeAttr, ref.getEOpposite().getName());
 				tag.getAttributes().add(eOppositeAttr);
 				if (!ref.getEKeys().isEmpty()) {
 					System.out.println(ref.getEKeys());
@@ -295,6 +327,7 @@ public class PlainFlexmiTransformer {
 		else if (element instanceof EOperation) {
 			EOperation op = (EOperation) element;
 			if (!op.getEExceptions().isEmpty()) {
+				System.out.println("Some EExceptions found!!");
 				System.out.println(op.getEExceptions());
 			}
 		}
