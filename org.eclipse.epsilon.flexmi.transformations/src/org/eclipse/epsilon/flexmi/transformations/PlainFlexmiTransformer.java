@@ -261,7 +261,10 @@ public class PlainFlexmiTransformer {
 		if (element instanceof ETypedElement) {
 			EClassifier type = ((ETypedElement) element).getEType();
 			// void EOperations have null type (and some ecore github attributes too)
-			if (type != null) {
+			if (type != null
+					&& type.getName() != null
+					&& !type.getName().equals("")) {
+
 				Attribute typeAttr = flexmiFactory.createAttribute();
 				typeAttr.setName("type");
 				String typeName = type.getName();
