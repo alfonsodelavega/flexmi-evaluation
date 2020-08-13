@@ -27,6 +27,9 @@ import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModelPackage
 
 public class TransformGithubEcoreModels {
 
+	public static final String PLAIN_FLEXMI_PATTERN = "%s-plain.flexmi";
+	public static final String TEMPLATE_FLEXMI_PATTERN = "%s-template.flexmi";
+
 	public static void main(String[] args) throws Exception {
 
 		EcorePackage.eINSTANCE.eClass();
@@ -62,7 +65,7 @@ public class TransformGithubEcoreModels {
 					String plainFlexmiModel = String.format("%s-plain.model", path);
 					saveFlexmiModel(plainFlexmiModel, plainModel);
 				}
-				String plainFlexmiFile = String.format("%s-plain.flexmi", path);
+				String plainFlexmiFile = String.format(PLAIN_FLEXMI_PATTERN, path);
 				String plainFlexmiFileContents = plainTransformer.getFlexmiFile(plainModel);
 
 				saveFlexmiFile(plainFlexmiFile, plainFlexmiFileContents);
@@ -75,7 +78,7 @@ public class TransformGithubEcoreModels {
 					String templateFlexmiModel = String.format("%s-template.model", path);
 					saveFlexmiModel(templateFlexmiModel, templateModel);
 				}
-				String templateFlexmiFile = String.format("%s-template.flexmi", path);
+				String templateFlexmiFile = String.format(TEMPLATE_FLEXMI_PATTERN, path);
 				String templateFlexmiFileContents = templateTransformer.getFlexmiFile(templateModel);
 
 				saveFlexmiFile(templateFlexmiFile, templateFlexmiFileContents);
