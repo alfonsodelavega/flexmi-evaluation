@@ -93,7 +93,7 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 
 			tag.setName("genmodel");
 			Attribute docAttribute = flexmiFactory.createAttribute();
-			docAttribute.setName(":doc");
+			docAttribute.setName("doc");
 			setValue(docAttribute, annotation.getDetails().get(0).getValue());
 			tag.getAttributes().add(docAttribute);
 		}
