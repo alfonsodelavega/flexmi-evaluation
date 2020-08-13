@@ -140,7 +140,7 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 				List<String> omitAttributes = new ArrayList<>(Arrays.asList("containment"));
 				// it might be a constrained multi-bounded (so the template value
 				//   must be overriden)
-				if (reference.getUpperBound() == -1) {
+				if (reference.getUpperBound() < 0) {
 					omitAttributes.add("upperBound");
 				}
 				addTagAttributes(tag, reference, omitAttributes);

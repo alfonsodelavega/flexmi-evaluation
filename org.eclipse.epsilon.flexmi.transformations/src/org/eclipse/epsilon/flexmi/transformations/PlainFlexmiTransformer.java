@@ -161,7 +161,7 @@ public class PlainFlexmiTransformer {
 					}
 				}
 				Attribute supertypesAttr = flexmiFactory.createAttribute();
-				supertypesAttr.setName("supertypes");
+				setName(supertypesAttr, "supertypes");
 				setValue(supertypesAttr, String.join(",", supertypeNames));
 				crossRef.tag.getAttributes().add(supertypesAttr);
 			}
@@ -196,11 +196,19 @@ public class PlainFlexmiTransformer {
 					}
 				}
 				Attribute referencesAttr = flexmiFactory.createAttribute();
-				referencesAttr.setName("references");
+				setName(referencesAttr, "references");
 				setValue(referencesAttr, String.join(",", annotationReferences));
 				crossRef.tag.getAttributes().add(referencesAttr);
 			}
 		}
+	}
+
+	protected void setName(Tag tag, EObject element) {
+		tag.setName(getTagName(element));
+	}
+
+	protected void setName(Attribute attr, String name) {
+		attr.setName(getAttributeName(name));
 	}
 
 	protected void setValue(Attribute attr, String value) {
@@ -257,6 +265,17 @@ public class PlainFlexmiTransformer {
 		}
 	}
 
+	protected String getAttributeName(String attrName) {
+		switch (attrName) {
+		case "upperBound":
+			return "upper";
+		case "lowerBound":
+			return "lower";
+		default:
+			return attrName;
+		}
+	}
+
 	protected void addTypeTagAttribute(Tag tag, EObject element) {
 		if (element instanceof ETypedElement) {
 			EClassifier type = ((ETypedElement) element).getEType();
@@ -266,7 +285,7 @@ public class PlainFlexmiTransformer {
 					&& !type.getName().equals("")) {
 
 				Attribute typeAttr = flexmiFactory.createAttribute();
-				typeAttr.setName("type");
+				setName(typeAttr, "type");
 				String typeName = type.getName();
 
 				if (type instanceof EClassifier && type.eContainer() instanceof EPackage) {
@@ -311,7 +330,7 @@ public class PlainFlexmiTransformer {
 					&& element.eIsSet(attribute)
 					&& !omitAttributes.contains(attribute.getName())) {
 				Attribute auxAttr = flexmiFactory.createAttribute();
-				auxAttr.setName(attribute.getName());
+				setName(auxAttr, attribute.getName());
 				setValue(auxAttr, "" + element.eGet(attribute));
 				tag.getAttributes().add(auxAttr);
 			}
@@ -321,7 +340,7 @@ public class PlainFlexmiTransformer {
 			EReference ref = (EReference) element;
 			if (ref.getEOpposite() != null) {
 				Attribute eOppositeAttr = flexmiFactory.createAttribute();
-				eOppositeAttr.setName("eOpposite");
+				setName(eOppositeAttr, "eOpposite");
 				setValue(eOppositeAttr, ref.getEOpposite().getName());
 				tag.getAttributes().add(eOppositeAttr);
 				if (!ref.getEKeys().isEmpty()) {
@@ -386,7 +405,7 @@ public class PlainFlexmiTransformer {
 			populateAnnotation(tag, (EAnnotation) element);
 		}
 		else {
-			tag.setName(getTagName(element));
+			setName(tag, element);
 			addTagAttributes(tag, element, Collections.emptyList());
 			addTypeTagAttribute(tag, element);
 			addChildren(tag, element);
@@ -397,11 +416,11 @@ public class PlainFlexmiTransformer {
 	 * Manual annotation transformation to ensure correctness
 	 */
 	protected void populateAnnotation(Tag tag, EAnnotation annotation) {
-		tag.setName(getTagName(annotation));
+		setName(tag, annotation);
 		addTagAttributes(tag, annotation, Collections.emptyList());
 		for (Entry<String, String> entry : annotation.getDetails()) {
 			Tag detailTag = flexmiFactory.createTag();
-			detailTag.setName(getTagName((EObject) entry));
+			setName(detailTag, (EObject) entry);
 			tag.getTags().add(detailTag);
 			addTagAttributes(detailTag, (EObject) entry, Collections.emptyList());
 		}
