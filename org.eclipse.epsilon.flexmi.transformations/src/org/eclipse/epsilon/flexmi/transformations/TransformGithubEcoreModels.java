@@ -60,58 +60,33 @@ public class TransformGithubEcoreModels {
 				FlexmiModel plainModel = plainTransformer.getFlexmiModel(ecoreModel);
 				if (debug) {
 					String plainFlexmiModel = String.format("%s-plain.model", path);
-					if (Files.exists(Paths.get(plainFlexmiModel))) {
-						Files.delete(Paths.get(plainFlexmiModel));
-					}
 					saveFlexmiModel(plainFlexmiModel, plainModel);
 				}
 				String plainFlexmiFile = String.format("%s-plain.flexmi", path);
-				if (Files.exists(Paths.get(plainFlexmiFile))) {
-					Files.delete(Paths.get(plainFlexmiFile));
-				}
-				saveFlexmiFile(plainFlexmiFile, plainTransformer.getFlexmiFile(plainModel));
+				String plainFlexmiFileContents = plainTransformer.getFlexmiFile(plainModel);
 
-				List<Diagnostic> warnings = getWarnings(plainFlexmiFile);
-				if (warnings != null && !warnings.isEmpty()) {
-					System.out.println("Warnings found in" + plainFlexmiFile);
-					for (Diagnostic warning : warnings) {
-						System.out.println(String.format("\t(line %d) %s",
-								warning.getLine(), warning.getMessage()));
-					}
-					System.out.println();
-				}
-
+				saveFlexmiFile(plainFlexmiFile, plainFlexmiFileContents);
+				showWarnings(plainFlexmiFile);
 
 				TemplateFlexmiTransformer templateTransformer = new TemplateFlexmiTransformer();
 				FlexmiModel templateModel = templateTransformer.getFlexmiModel(ecoreModel);
 				templateModel.getIncludes().add("../../../templates/ecoreTemplates.flexmi");
 				if (debug) {
 					String templateFlexmiModel = String.format("%s-template.model", path);
-					if (Files.exists(Paths.get(templateFlexmiModel))) {
-						Files.delete(Paths.get(templateFlexmiModel));
-					}
 					saveFlexmiModel(templateFlexmiModel, templateModel);
 				}
 				String templateFlexmiFile = String.format("%s-template.flexmi", path);
-				if (Files.exists(Paths.get(templateFlexmiFile))) {
-					Files.delete(Paths.get(templateFlexmiFile));
-				}
-				saveFlexmiFile(templateFlexmiFile, templateTransformer.getFlexmiFile(templateModel));
+				String templateFlexmiFileContents = templateTransformer.getFlexmiFile(templateModel);
 
-				warnings = getWarnings(templateFlexmiFile);
-				if (warnings != null && !warnings.isEmpty()) {
-					System.out.println("Warnings found in" + templateFlexmiFile);
-					for (Diagnostic warning : warnings) {
-						System.out.println(String.format("\t(line %d) %s",
-								warning.getLine(), warning.getMessage()));
-					}
-				}
+				saveFlexmiFile(templateFlexmiFile, templateFlexmiFileContents);
+				showWarnings(templateFlexmiFile);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		System.out.println("Done");
 	}
+
 
 	private static void saveFlexmiModel(String modelPath, FlexmiModel model) {
 		// save flexmi model
@@ -139,6 +114,18 @@ public class TransformGithubEcoreModels {
 		FlexmiResource resource = (FlexmiResource) resourceSet.createResource(URI.createFileURI(new File(filename).getAbsolutePath()));
 		resource.load(null);
 		return resource;
+	}
+
+	private static void showWarnings(String flexmiFile) throws Exception {
+		List<Diagnostic> warnings = getWarnings(flexmiFile);
+		if (warnings != null && !warnings.isEmpty()) {
+			System.out.println("Warnings found in " + flexmiFile);
+			for (Diagnostic warning : warnings) {
+				System.out.println(String.format("\t(line %d) %s",
+						warning.getLine(), warning.getMessage()));
+			}
+			System.out.println();
+		}
 	}
 
 	private static List<Diagnostic> getWarnings(String flexmiFile) throws Exception {
