@@ -54,6 +54,12 @@ public class PlainFlexmiTransformer {
 	protected FlexmiModelFactory flexmiFactory;
 
 	/*
+	 * Useful for adding global variables to point to elements without name or iD
+	 */
+	protected Map<EObject, Tag> objectToTag;
+	protected int globalVariableCounter;
+
+	/*
 	 * Archive elements that might cross reference other ones in case the use
 	 * of a qualified name is required (checked in a post-generation step)
 	 */
@@ -110,6 +116,9 @@ public class PlainFlexmiTransformer {
 
 	public FlexmiModel getFlexmiModel(String ecoreModel) {
 
+		objectToTag = new HashMap<>();
+		globalVariableCounter = 0;
+
 		nameCounters = new HashMap<>();
 		crossReferences = new ArrayList<>();
 
@@ -165,6 +174,7 @@ public class PlainFlexmiTransformer {
 				setValue(supertypesAttr, String.join(",", supertypeNames));
 				crossRef.tag.getAttributes().add(supertypesAttr);
 			}
+
 			else if (crossRef.referencingElement instanceof EReference) {
 				EReference ref = (EReference) crossRef.referencingElement;
 
@@ -177,12 +187,47 @@ public class PlainFlexmiTransformer {
 					}
 				}
 			}
+
 			else if (crossRef.referencingElement instanceof EAnnotation
 					&& !((EAnnotation) crossRef.referencingElement).getReferences().isEmpty()) {
+
 				EAnnotation annotation = (EAnnotation) crossRef.referencingElement;
 				List<String> annotationReferences = new ArrayList<>();
+
+				// we need a firstLoop to see if any of the referenced element
+				//   is non-referentiable (i.e. in ecore, it has no name attribute)
+				// if that happens, we need to use global references for all
+				//   elements, as the expression used for the reference needs to
+				//   return a collection
+				boolean needsGlobalReferences = false;
 				for (EObject element : annotation.getReferences()) {
-					if (element instanceof ENamedElement) {
+					if (!(element instanceof ENamedElement)) {
+						needsGlobalReferences = true;
+						break;
+					}
+				}
+				if (needsGlobalReferences) {
+					for (EObject element : annotation.getReferences()) {
+						// use a global variable to refer to the element
+						Tag referencedTag = objectToTag.get(element);
+						Attribute refAttribute = findAttribute(referencedTag, ":global");
+						if (refAttribute == null) {
+							refAttribute = flexmiFactory.createAttribute();
+							setName(refAttribute, ":global");
+							setValue(refAttribute, "ref" + globalVariableCounter);
+							referencedTag.getAttributes().add(refAttribute);
+							globalVariableCounter++;
+						}
+						annotationReferences.add(refAttribute.getValue());
+					}
+					Attribute referencesAttr = flexmiFactory.createAttribute();
+					setName(referencesAttr, ":references");
+					setValue(referencesAttr, String.format("Sequence{%s}",
+							String.join(",", annotationReferences)));
+					crossRef.tag.getAttributes().add(referencesAttr);
+				}
+				else {
+					for (EObject element : annotation.getReferences()) {
 						ENamedElement namedElement = (ENamedElement) element;
 						if (isNameRepeated(namedElement.getName())) {
 							annotationReferences.add(getQualifiedName(namedElement));
@@ -191,14 +236,11 @@ public class PlainFlexmiTransformer {
 							annotationReferences.add(namedElement.getName());
 						}
 					}
-					else {
-						System.out.println("Problem with annotation references: " + element);
-					}
+					Attribute referencesAttr = flexmiFactory.createAttribute();
+					setName(referencesAttr, "references");
+					setValue(referencesAttr, String.join(",", annotationReferences));
+					crossRef.tag.getAttributes().add(referencesAttr);
 				}
-				Attribute referencesAttr = flexmiFactory.createAttribute();
-				setName(referencesAttr, "references");
-				setValue(referencesAttr, String.join(",", annotationReferences));
-				crossRef.tag.getAttributes().add(referencesAttr);
 			}
 		}
 	}
@@ -213,6 +255,15 @@ public class PlainFlexmiTransformer {
 
 	protected void setValue(Attribute attr, String value) {
 		attr.setValue(StringEscapeUtils.escapeXml(value));
+	}
+
+	protected Attribute findAttribute(Tag tag, String attributeName) {
+		for (Attribute attr : tag.getAttributes()) {
+			if (attr.getName().equals(attributeName)) {
+				return attr;
+			}
+		}
+		return null;
 	}
 
 	protected boolean isNameRepeated(String name) {
@@ -356,6 +407,9 @@ public class PlainFlexmiTransformer {
 				System.out.println(op.getEExceptions());
 			}
 		}
+
+		// for cross-references to no-referenceable elements
+		objectToTag.put(element, tag);
 
 		// for reference qualifications
 		if (element instanceof ENamedElement) {

@@ -13,19 +13,20 @@
 		no name or iD attribute in this wheel. Using a :var to be able to
 		reference from the car below
 		-->
-		<w :var="wheel16" diam="16" width="10"/>
+		<w :global="wheel16" diam="16" width="10"/>
 	</wheels>
 	<radios>
 		<!--
 		same as with the wheels
 		-->
 		<r :var="PioneerRadio" ID="Pioneer"/>
+		<r :var="OtherRadio" ID="Other"/>
 	</radios>
 	
 	<c
 		brand="Suzuki"
 		lights="b1,b2"
 		:wheelType="wheel16"
-		:radio="PioneerRadio">
+		:radio="Sequence{PioneerRadio,OtherRadio}">
 	</c>
 </carShop>
