@@ -9,7 +9,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedAnalysis" upperBound="-1"
         eType="#//DAnalysis"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="models" upperBound="-1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="eAnnotations" upperBound="-1"
         eType="#//description/DAnnotationEntry" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedViews" upperBound="-1"
@@ -18,7 +18,7 @@
         eType="#//DView"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureExtensions"
         upperBound="-1" eType="#//DFeatureExtension" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DFeatureExtension" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" lowerBound="1"
@@ -28,7 +28,7 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents an element that can be validated."/>
     </eAnnotations>
-    <eOperations name="validate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+    <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Validate the element. Return &lt;code>false&lt;/code> if the element is not valid."/>
       </eAnnotations>
@@ -96,7 +96,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="models" upperBound="-1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
         changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DSemanticDecorator" abstract="true">
@@ -120,7 +120,7 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Initialize the content (ViewNode, ViewNodeContainer, etc.) of the viewpoint."/>
       </eAnnotations>
-      <eParameters name="rootElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+      <eParameters name="rootElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The root EObject of the semantic model.&#xD;&#xA;The content of the viewpoint is computed from this object."/>
         </eAnnotations>
@@ -163,7 +163,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="semanticElements" upperBound="-1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The semantic elements to show that represents this view point element."/>
       </eAnnotations>
@@ -205,7 +205,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="initialized" lowerBound="1"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewpoint" lowerBound="1"
         eType="#//description/Viewpoint">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -218,7 +218,7 @@
       <details key="documentation" value="Represent a Meta Model extension.&#xD;&#xA;A meta model extension adds types, attributes and references into an existing meta model"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extensionGroup" lowerBound="1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The referenced meta model extension. It should be an instance of ExtensionGroup."/>
       </eAnnotations>
@@ -239,7 +239,7 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A link for a navigable."/>
     </eAnnotations>
-    <eOperations name="isAvailable" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+    <eOperations name="isAvailable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Return true if the navigation is available."/>
       </eAnnotations>
@@ -249,7 +249,7 @@
         <details key="documentation" value="The type of the target."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="link to...">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The label of the navigation."/>
@@ -261,7 +261,7 @@
       <details key="documentation" value="A link that references an EObject."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The referenced EObject."/>
       </eAnnotations>
@@ -272,18 +272,18 @@
       <details key="documentation" value="A link that references a Source File."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="filePath" lowerBound="1"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The path of the source file."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startPosition" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startPosition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The index of the start portion of code."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="endPosition" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="endPosition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The index of the end portion of code."/>
@@ -291,8 +291,8 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DAnalysisCustomData">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LabelStyle" eSuperTypes="#//BasicLabelStyle">
@@ -333,19 +333,19 @@
     <eLiterals name="RIGHT" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RGBValues">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="red" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="green" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="blue" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="red" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="green" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="blue" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DAnalysisSessionEObject">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="open" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="open" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="blocked" lowerBound="1"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resources" upperBound="-1"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EResource"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EResource"
         transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="controlledResources" upperBound="-1"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EResource"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EResource"
         transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="activatedViewpoints" upperBound="-1"
         eType="#//description/Viewpoint"/>
@@ -378,7 +378,7 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The style of a label."/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelSize" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="8">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The font size."/>
@@ -398,7 +398,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labelColor" eType="#//RGBValues"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed."/>
@@ -420,7 +420,7 @@
           lowerBound="1" eType="#//description/SytemColorsPalette" transient="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="userColorsPalettes" upperBound="-1"
           eType="#//description/UserColorsPalette" containment="true" eKeys="#//description/UserColorsPalette/name"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Component" abstract="true" interface="true"/>
     <eClassifiers xsi:type="ecore:EClass" name="Viewpoint" eSuperTypes="#//description/DocumentedElement #//description/Component #//description/EndUserDocumentedElement #//description/IdentifiedElement">
@@ -431,7 +431,7 @@
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Initialize the analysis."/>
         </eAnnotations>
-        <eParameters name="model" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+        <eParameters name="model" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="The root model element."/>
           </eAnnotations>
@@ -461,7 +461,7 @@
           eType="#//description/MetamodelExtensionSetting" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureExtensions"
           upperBound="-1" eType="#//description/FeatureExtensionDescription" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="image path to use as an icon for the viewpoint "/>
         </eAnnotations>
@@ -496,16 +496,16 @@
         </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EReference" name="metamodel" upperBound="-1"
-          eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage">
+          eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EPackage">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="You might use this reference to statically bind your representation with a set of Ecore packages. Keep in mind that this is not mandatory."/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="showOnStartup" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="showOnStartup" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RepresentationTemplate" abstract="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="ownedRepresentations"
           upperBound="-1" eType="#//description/RepresentationDescription" containment="true"/>
     </eClassifiers>
@@ -514,21 +514,21 @@
     <eClassifiers xsi:type="ecore:EClass" name="RepresentationExtensionDescription"
         abstract="true" interface="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewpointURI" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The logical URI of the viewpoint you want to extend, in the form of viewpoint:/pluginID/ViewpointName"/>
         </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="representationName" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The name of the Representation you are extending."/>
         </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EReference" name="metamodel" upperBound="-1"
-          eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage">
+          eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EPackage">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="You might use this reference to statically bind your representation extension with a set of Ecore packages. Keep in mind that this is not mandatory."/>
         </eAnnotations>
@@ -538,7 +538,7 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Describe the Meta Model extension to use."/>
       </eAnnotations>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="extensionGroup" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="extensionGroup" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The Meta Model extension."/>
         </eAnnotations>
@@ -571,7 +571,7 @@
       </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AbstractMappingImport" abstract="true">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hideSubMappings" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hideSubMappings" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="false">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Set to true if you don't want to inherit the sub mappings of the imported mapping."/>
@@ -599,14 +599,14 @@
     <eClassifiers xsi:type="ecore:EClass" name="DAnnotation">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="details" upperBound="-1"
-          eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EStringToStringMapEntry"
+          eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStringToStringMapEntry"
           containment="true" resolveProxies="false"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ConditionalStyleDescription" abstract="true">
-      <eOperations name="checkPredicate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
-        <eParameters name="modelElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-        <eParameters name="viewVariable" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-        <eParameters name="containerVariable" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+      <eOperations name="checkPredicate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+        <eParameters name="viewVariable" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+        <eParameters name="containerVariable" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
       </eOperations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="predicateExpression"
           lowerBound="1" eType="#//description/InterpretedExpression">
@@ -650,7 +650,7 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DecorationDescription" abstract="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The name of the decoration."/>
         </eAnnotations>
@@ -658,7 +658,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="position" lowerBound="1"
           eType="#//description/Position" defaultValueLiteral="SOUTH_WEST"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="decoratorPath" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The path of the icon of the decoration."/>
         </eAnnotations>
@@ -694,7 +694,7 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A SemanticBasedDecoration applies decoration on views that targeted an element of the given type."/>
       </eAnnotations>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainClass" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The path of the icon of the decoration."/>
         </eAnnotations>
@@ -726,16 +726,16 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="reuse" lowerBound="1"
           upperBound="-1" eType="#//description/EStructuralFeatureCustomization"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="appliedOn" lowerBound="1"
-          upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="EStructuralFeatureCustomization" abstract="true">
       <eStructuralFeatures xsi:type="ecore:EReference" name="appliedOn" upperBound="-1"
-          eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="applyOnAll" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="EAttributeCustomization" eSuperTypes="#//description/EStructuralFeatureCustomization">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="attributeName" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="#//description/InterpretedExpression">
         <eAnnotations source="http://www.eclipse.org/sirius/interpreted/expression/returnType">
           <details key="returnType" value="A java Object to affect as new value of a EAttribute, for example a java primitive."/>
@@ -748,8 +748,8 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="EReferenceCustomization" eSuperTypes="#//description/EStructuralFeatureCustomization">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="referenceName" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="SelectionDescription" abstract="true"
         interface="true">
@@ -765,9 +765,9 @@
         </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="multiple" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="tree" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Set to true if you want a tree representation of the selection candidates."/>
         </eAnnotations>
@@ -792,7 +792,7 @@
           <details key="container" value="ecore.EObject | the semantic element of the container."/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ColorDescription" abstract="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -859,21 +859,21 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A fixed color description defined by a specific RGB triplet."/>
       </eAnnotations>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="red" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="red" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
           defaultValueLiteral="125">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The red value of the RGB color."/>
         </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="green" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
           defaultValueLiteral="125">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The green value of the RGB color."/>
         </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="blue" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
           defaultValueLiteral="125">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The blue value of the RGB color."/>
@@ -934,13 +934,13 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="UserColorsPalette">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
           eType="#//description/UserColor" containment="true" eKeys="#//description/UserColor/name"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AnnotationEntry">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="data" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="data" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
           containment="true" resolveProxies="false"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="EndUserDocumentedElement" abstract="true">
@@ -1008,7 +1008,7 @@
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The style of a label."/>
         </eAnnotations>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelSize" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
             defaultValueLiteral="8">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="The font size."/>
@@ -1044,7 +1044,7 @@
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="labelColor" lowerBound="1"
             eType="#//description/ColorDescription"/>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
             defaultValueLiteral="">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed."/>
@@ -1069,10 +1069,10 @@
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The style of the border of a container label."/>
         </eAnnotations>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="cornerHeight" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="cornerWidth" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="cornerHeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="cornerWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="TooltipStyleDescription">
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="tooltipExpression"
@@ -1113,7 +1113,7 @@
             <details key="container" value="ecore.EObject | the container."/>
           </eAnnotations>
         </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="forceRefresh" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="forceRefresh" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
             defaultValueLiteral="false">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="If true then a refresh for the whole representation is executed after every execution of the tool."/>
@@ -1129,7 +1129,7 @@
         </eAnnotations>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="ToolDescription" eSuperTypes="#//description/tool/MappingBasedToolDescription">
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
             defaultValueLiteral="">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="The path of the icon to display in the palette. If unset, the icon corresponding to the semantic element associated with the mapping will be displayed."/>
@@ -1168,7 +1168,7 @@
         </eAnnotations>
         <eOperations name="getBestMapping" eType="#//diagram/description/DiagramElementMapping">
           <eParameters name="targetContainer" eType="#//DragAndDropTarget"/>
-          <eParameters name="droppedElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          <eParameters name="droppedElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
         </eOperations>
         <eOperations name="getContainers" lowerBound="1" upperBound="-1" eType="#//description/DragAndDropTargetDescription"/>
         <eStructuralFeatures xsi:type="ecore:EReference" name="mappings" upperBound="-1"
@@ -1272,16 +1272,16 @@
         <eStructuralFeatures xsi:type="ecore:EReference" name="initialOperation" lowerBound="1"
             eType="#//description/tool/InitialOperation" containment="true"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" lowerBound="1"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
             defaultValueLiteral="/org.eclipse.sirius.ui/icons/full/obj16/NodeMapping.gif"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="windowTitle" lowerBound="1"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
             defaultValueLiteral="Selection Wizard">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Title of the dialog."/>
           </eAnnotations>
         </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="windowImagePath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="windowImagePath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="PaneBasedSelectionWizardDescription"
           eSuperTypes="#//description/tool/AbstractToolDescription">
@@ -1294,19 +1294,19 @@
         <eStructuralFeatures xsi:type="ecore:EReference" name="initialOperation" lowerBound="1"
             eType="#//description/tool/InitialOperation" containment="true"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" lowerBound="1"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
             defaultValueLiteral="/org.eclipse.sirius.ui/icons/full/obj16/NodeMapping.gif"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="windowTitle" lowerBound="1"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
             defaultValueLiteral="Selection Wizard">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Title of the dialog."/>
           </eAnnotations>
         </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="windowImagePath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="windowImagePath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="choiceOfValuesMessage"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
             defaultValueLiteral="Choice of values"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="candidatesExpression"
             lowerBound="1" eType="#//description/InterpretedExpression">
@@ -1320,7 +1320,7 @@
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="tree" lowerBound="1"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Set to true if you want a tree representation of the selection candidates."/>
           </eAnnotations>
@@ -1347,7 +1347,7 @@
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="selectedValuesMessage"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
             defaultValueLiteral="Selected values"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="preSelectedCandidatesExpression"
             eType="#//description/InterpretedExpression">
@@ -1452,7 +1452,7 @@
       <eClassifiers xsi:type="ecore:EClass" name="MenuItemOrRef" abstract="true" interface="true"/>
       <eClassifiers xsi:type="ecore:EClass" name="MenuItemDescription" abstract="true"
           eSuperTypes="#//description/tool/AbstractToolDescription #//description/tool/MenuItemOrRef">
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="MenuItemDescriptionReference" eSuperTypes="#//description/tool/MenuItemOrRef">
         <eStructuralFeatures xsi:type="ecore:EReference" name="item" lowerBound="1"
@@ -1466,7 +1466,7 @@
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="ExternalJavaAction" eSuperTypes="#//description/tool/MenuItemDescription #//description/tool/ContainerModelOperation">
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Identifier for your External Java Action provided through extension points."/>
           </eAnnotations>
@@ -1491,7 +1491,7 @@
             containment="true"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="AbstractVariable" abstract="true">
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="VariableContainer" abstract="true">
         <eStructuralFeatures xsi:type="ecore:EReference" name="subVariables" upperBound="-1"
@@ -1509,7 +1509,7 @@
       <eClassifiers xsi:type="ecore:EClass" name="SubVariable" abstract="true" eSuperTypes="#//description/tool/AbstractVariable"/>
       <eClassifiers xsi:type="ecore:EClass" name="DialogVariable" abstract="true"
           eSuperTypes="#//description/tool/AbstractVariable">
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="dialogPrompt" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="dialogPrompt" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="ElementDropVariable" eSuperTypes="#//description/tool/AbstractVariable #//description/tool/VariableContainer"/>
       <eClassifiers xsi:type="ecore:EClass" name="ElementSelectVariable" eSuperTypes="#//description/tool/AbstractVariable"/>
@@ -1521,7 +1521,7 @@
       <eClassifiers xsi:type="ecore:EClass" name="ContainerViewVariable" eSuperTypes="#//description/tool/AbstractVariable #//description/tool/VariableContainer"/>
       <eClassifiers xsi:type="ecore:EClass" name="SelectModelElementVariable" eSuperTypes="#//description/tool/SubVariable #//description/SelectionDescription"/>
       <eClassifiers xsi:type="ecore:EClass" name="EditMaskVariables">
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="mask" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="mask" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Editing mask, in the form of {0} : {1} for instance."/>
           </eAnnotations>
@@ -1564,7 +1564,7 @@
             <details key="documentation" value="The name of the reference that contained the new instance."/>
           </eAnnotations>
         </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="variableName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="variableName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
             defaultValueLiteral="instance">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Once the instance is created, a new variable will be bound with the name given here and will be available to any contained operation."/>
@@ -1618,7 +1618,7 @@
             <details key="documentation" value="The name of the feature to set."/>
           </eAnnotations>
         </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="An instance to set, you might need to use &quot;load resource&quot; in the editor in order to be able to pick it."/>
           </eAnnotations>
@@ -1689,7 +1689,7 @@
           <eAnnotations source="http://www.eclipse.org/sirius/interpreted/expression/variables"/>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="iteratorName" lowerBound="1"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
             defaultValueLiteral="i">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="On every iteration, the current element will be binded with the given name."/>
@@ -1725,7 +1725,7 @@
       <eClassifiers xsi:type="ecore:EClass" name="NameVariable" eSuperTypes="#//description/tool/AbstractVariable"/>
       <eClassifiers xsi:type="ecore:EClass" name="ExternalJavaActionParameter">
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Name of the parameter"/>
           </eAnnotations>
@@ -1818,11 +1818,11 @@
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The section that displays informations about the selected element."/>
         </eAnnotations>
-        <eOperations name="getContent" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+        <eOperations name="getContent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Return the content of the section."/>
           </eAnnotations>
-          <eParameters name="eObj" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="eObj" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The selected element."/>
             </eAnnotations>
@@ -1833,7 +1833,7 @@
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="This information section is based on an Acceleo template."/>
         </eAnnotations>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="templatePath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="templatePath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="The file path of the template."/>
           </eAnnotations>
@@ -1886,8 +1886,8 @@
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Finds all view point elements that have the specified semantic element has target and that are instances of the specified type."/>
         </eAnnotations>
-        <eParameters name="semanticElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-        <eParameters name="type" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+        <eParameters name="semanticElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+        <eParameters name="type" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
       </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDiagramElements"
           upperBound="-1" eType="#//diagram/DDiagramElement" containment="true">
@@ -1981,7 +1981,7 @@
           lowerBound="1" eType="#//diagram/FilterVariableHistory" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="activatedLayers" upperBound="-1"
           eType="#//diagram/description/Layer"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="synchronized" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="synchronized" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="hiddenElements" upperBound="-1"
           eType="#//diagram/DDiagramElement" transient="true">
@@ -1989,9 +1989,9 @@
           <details key="documentation" value="List of DDiagramElement : Either the DDiagramElement is hidden or its label is hidden."/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="isInLayoutingMode" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="isInLayoutingMode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           transient="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="headerHeight" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="headerHeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
           defaultValueLiteral="1">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The number of lines to display the header labels (1 by default). This field is used only if the IDiagramDescriptionProvider.supportHeader() return true for this DDiagram."/>
@@ -2002,7 +2002,7 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A semantic viewpoint is a viewpoint that is rattached to a semantic element."/>
       </eAnnotations>
-      <eOperations name="getRootContent" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+      <eOperations name="getRootContent" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Return the EObject from where the creation of the viewpoint starts."/>
         </eAnnotations>
@@ -2014,7 +2014,7 @@
           <details key="documentation" value="Return the parent of this ViewPointElement."/>
         </eAnnotations>
       </eOperations>
-      <eOperations name="isFold" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eOperations name="isFold" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Return &lt;code>true&lt;/code> if this element is fold."/>
         </eAnnotations>
@@ -2022,19 +2022,19 @@
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Maps all elements with their isFold attribute value."/>
           </eAnnotations>
-          <eGenericType eClassifier="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EMap">
+          <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
             <eTypeArguments/>
             <eTypeArguments/>
           </eGenericType>
         </eParameters>
       </eOperations>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="true">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="True if the element is visible, false otherwise."/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="tooltipText" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="tooltipText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The text to show in the element's tooltip."/>
         </eAnnotations>
@@ -2125,8 +2125,8 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A node."/>
       </eAnnotations>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EIntegerObject"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EIntegerObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="ownedStyle" eType="#//diagram/NodeStyle"
           containment="true">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -2277,7 +2277,7 @@
           <details key="documentation" value="elements owned by this list."/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineWidth" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
           defaultValueLiteral="1">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The width of the line."/>
@@ -2317,7 +2317,7 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A view edge. It is a connection between two EdgeTarget."/>
       </eAnnotations>
-      <eOperations name="isRootFolding" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eOperations name="isRootFolding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="&lt;code>true&lt;/code> if the edge is the root of a folded branch."/>
         </eAnnotations>
@@ -2358,12 +2358,12 @@
           <details key="documentation" value="The routing style of the edge."/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="isFold" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="isFold" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="&lt;code>true&lt;/code> if the view edge is folded."/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="isMockEdge" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="isMockEdge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="&lt;code>true&lt;/code> if the edge is an edge that is displayed only to have the plus image to decollapse a branch."/>
         </eAnnotations>
@@ -2465,22 +2465,22 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The gauge section represents one gauge of a GaugeCompositeStyle."/>
       </eAnnotations>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EIntegerObject">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The min value of the gauge."/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EIntegerObject">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The max value of the gauge."/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EIntegerObject">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The current value."/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The label of the gauge."/>
         </eAnnotations>
@@ -2627,14 +2627,14 @@
         <details key="documentation" value="A custom image that is present in the user workspace."/>
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="workspacePath" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="The path of the image to use."/>
         </eAnnotations>
       </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="CustomStyle" eSuperTypes="#//diagram/NodeStyle">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="BundledImageShape">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -2815,7 +2815,7 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BorderedStyle" eSuperTypes="#//Style">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="borderSize" lowerBound="1"
-          eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EIntegerObject"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
           defaultValueLiteral="0"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="borderSizeComputationExpression"
           eType="#//description/InterpretedExpression" defaultValueLiteral="0">
@@ -2839,7 +2839,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="variableDefinition" lowerBound="1"
           eType="#//diagram/description/filter/FilterVariable"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" lowerBound="1"
-          eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="ResizeKind">
       <eLiterals name="NONE"/>
@@ -2901,18 +2901,18 @@
           eType="#//diagram/ModelElement2ViewVariable" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ModelElement2ViewVariable" instanceClassName="java.util.Map$Entry">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="value" upperBound="-1"
           eType="#//diagram/ViewVariable2ContainerVariable" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ViewVariable2ContainerVariable" instanceClassName="java.util.Map$Entry">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="value" upperBound="-1"
           eType="#//diagram/ContainerVariable2StyleDescription" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ContainerVariable2StyleDescription"
         instanceClassName="java.util.Map$Entry">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//description/style/StyleDescription"/>
     </eClassifiers>
     <eSubpackages name="description" nsURI="http://www.eclipse.org/sirius/diagram/description/1.1.0"
@@ -3066,7 +3066,7 @@
           </eAnnotations>
           <eAnnotations source="TagValues" references="#//%Tags%/@details.0"/>
         </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="enablePopupBars" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="enablePopupBars" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Boolean indicating whether or not to show dynamic popup bars with creation tools."/>
           </eAnnotations>
@@ -3100,21 +3100,21 @@
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Represent the mapping of a ViewPointElement."/>
         </eAnnotations>
-        <eOperations name="checkPrecondition" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+        <eOperations name="checkPrecondition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Check the precondition of the mapping. Return true if the condition is checked, false otherwise."/>
           </eAnnotations>
-          <eParameters name="modelElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The element to test."/>
             </eAnnotations>
           </eParameters>
-          <eParameters name="container" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="container" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The semantic element of the view container of the eventual view of the modelElement"/>
             </eAnnotations>
           </eParameters>
-          <eParameters name="containerView" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="containerView" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The view container of the eventual view of the modelElement"/>
             </eAnnotations>
@@ -3125,7 +3125,7 @@
             <details key="documentation" value="Return all sub mappings."/>
           </eAnnotations>
         </eOperations>
-        <eOperations name="isFrom" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+        <eOperations name="isFrom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Returns true if the given ViewPointElement has been produced from this Mapping or any imported mapping."/>
           </eAnnotations>
@@ -3187,7 +3187,7 @@
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="createElements" lowerBound="1"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
             defaultValueLiteral="true">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="true if the init/refresh operations should create elements for this mapping."/>
@@ -3233,7 +3233,7 @@
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Return the node that has been created by this mapping and the specified EObject as semantic element."/>
           </eAnnotations>
-          <eParameters name="eObject" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="eObject" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The semantic element."/>
             </eAnnotations>
@@ -3275,12 +3275,12 @@
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Create a node for the specified element."/>
           </eAnnotations>
-          <eParameters name="modelElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The element."/>
             </eAnnotations>
           </eParameters>
-          <eParameters name="container" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="container" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The container of the element."/>
             </eAnnotations>
@@ -3301,23 +3301,23 @@
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Retrieve the best style to use."/>
           </eAnnotations>
-          <eParameters name="modelElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The model element."/>
             </eAnnotations>
           </eParameters>
-          <eParameters name="viewVariable" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="viewVariable" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The view of the element."/>
             </eAnnotations>
           </eParameters>
-          <eParameters name="containerVariable" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          <eParameters name="containerVariable" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
         </eOperations>
         <eOperations name="createListElement" eType="#//diagram/DNodeListElement">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Create a list element. This method is equivalent of createNode but returns a ViewNodeListElement."/>
           </eAnnotations>
-          <eParameters name="modelElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The semantic model element."/>
             </eAnnotations>
@@ -3334,36 +3334,36 @@
             </eAnnotations>
           </eParameters>
         </eOperations>
-        <eOperations name="getNodesCandidates" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+        <eOperations name="getNodesCandidates" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Return all semantic elements that are candidates for the mapping."/>
           </eAnnotations>
-          <eParameters name="semanticOrigin" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="semanticOrigin" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The root element."/>
             </eAnnotations>
           </eParameters>
-          <eParameters name="container" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="container" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The container element"/>
             </eAnnotations>
           </eParameters>
         </eOperations>
-        <eOperations name="getNodesCandidates" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+        <eOperations name="getNodesCandidates" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Return all semantic elements that are candidates for the mapping."/>
           </eAnnotations>
-          <eParameters name="semanticOrigin" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="semanticOrigin" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The root element."/>
             </eAnnotations>
           </eParameters>
-          <eParameters name="container" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="container" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The container of the element."/>
             </eAnnotations>
           </eParameters>
-          <eParameters name="containerView" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+          <eParameters name="containerView" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The view of the container."/>
             </eAnnotations>
@@ -3388,26 +3388,26 @@
           <details key="documentation" value="A container mapping allows to create containers (ViewNodeContainer or ViewNodeList)."/>
         </eAnnotations>
         <eOperations name="createContainer" eType="#//diagram/DDiagramElementContainer">
-          <eParameters name="modelElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="container" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          <eParameters name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="container" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
           <eParameters name="viewPoint" eType="#//diagram/DDiagram"/>
         </eOperations>
         <eOperations name="updateContainer">
           <eParameters name="node" eType="#//diagram/DDiagramElementContainer"/>
         </eOperations>
         <eOperations name="getBestStyle" eType="#//diagram/ContainerStyle">
-          <eParameters name="modelElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="viewVariable" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="containerVariable" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          <eParameters name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="viewVariable" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="containerVariable" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
         </eOperations>
-        <eOperations name="getNodesCandidates" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
-          <eParameters name="semanticOrigin" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="container" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+        <eOperations name="getNodesCandidates" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
+          <eParameters name="semanticOrigin" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="container" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
         </eOperations>
-        <eOperations name="getNodesCandidates" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
-          <eParameters name="semanticOrigin" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="container" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="containerView" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+        <eOperations name="getNodesCandidates" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
+          <eParameters name="semanticOrigin" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="container" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="containerView" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
         </eOperations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="subNodeMappings" upperBound="-1"
             eType="#//diagram/description/NodeMapping" containment="true" eKeys="#//description/IdentifiedElement/name"/>
@@ -3465,34 +3465,34 @@
         <eOperations name="createEdge" eType="#//diagram/DEdge">
           <eParameters name="source" lowerBound="1" eType="#//diagram/EdgeTarget"/>
           <eParameters name="target" lowerBound="1" eType="#//diagram/EdgeTarget"/>
-          <eParameters name="semanticTarget" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          <eParameters name="semanticTarget" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
         </eOperations>
         <eOperations name="createEdge" eType="#//diagram/DEdge">
           <eParameters name="source" lowerBound="1" eType="#//diagram/EdgeTarget"/>
           <eParameters name="target" lowerBound="1" eType="#//diagram/EdgeTarget"/>
-          <eParameters name="container" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="semanticTarget" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          <eParameters name="container" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="semanticTarget" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
         </eOperations>
         <eOperations name="getBestStyle" eType="#//diagram/EdgeStyle">
-          <eParameters name="modelElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="viewVariable" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="containerVariable" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          <eParameters name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="viewVariable" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="containerVariable" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
         </eOperations>
         <eOperations name="updateEdge">
           <eParameters name="viewEdge" lowerBound="1" eType="#//diagram/DEdge"/>
         </eOperations>
-        <eOperations name="getEdgeTargetCandidates" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
-          <eParameters name="semanticOrigin" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+        <eOperations name="getEdgeTargetCandidates" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
+          <eParameters name="semanticOrigin" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
           <eParameters name="viewPoint" eType="#//diagram/DDiagram"/>
         </eOperations>
-        <eOperations name="getEdgeSourceCandidates" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
-          <eParameters name="semanticOrigin" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+        <eOperations name="getEdgeSourceCandidates" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
+          <eParameters name="semanticOrigin" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
           <eParameters name="viewPoint" eType="#//diagram/DDiagram"/>
         </eOperations>
-        <eOperations name="getEdgeTargetCandidates" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
-          <eParameters name="semanticOrigin" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="container" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="containerView" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+        <eOperations name="getEdgeTargetCandidates" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
+          <eParameters name="semanticOrigin" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="container" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="containerView" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
         </eOperations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="sourceMapping" lowerBound="1"
             upperBound="-1" eType="#//diagram/description/DiagramElementMapping">
@@ -3565,7 +3565,7 @@
             <details key="documentation" value="The type of the target elements that are represented by this edge. Useful only if useDomainElement is true."/>
           </eAnnotations>
         </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="useDomainElement" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="useDomainElement" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
             defaultValueLiteral="false"/>
         <eStructuralFeatures xsi:type="ecore:EReference" name="reconnections" upperBound="-1"
             eType="#//diagram/description/tool/ReconnectEdgeDescription"/>
@@ -3586,9 +3586,9 @@
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="IEdgeMapping" abstract="true" interface="true">
         <eOperations name="getBestStyle" eType="#//diagram/EdgeStyle">
-          <eParameters name="modelElement" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="viewVariable" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-          <eParameters name="containerVariable" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          <eParameters name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="viewVariable" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+          <eParameters name="containerVariable" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
         </eOperations>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="EdgeMappingImport" eSuperTypes="#//description/DocumentedElement #//diagram/description/IEdgeMapping #//description/IdentifiedElement">
@@ -3659,7 +3659,7 @@
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="CompositeLayout" eSuperTypes="#//diagram/description/Layout">
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="padding" lowerBound="1"
-            eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
             defaultValueLiteral="30"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" lowerBound="1"
             eType="#//diagram/description/LayoutDirection" defaultValueLiteral="topToBottom"/>
@@ -3730,7 +3730,7 @@
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="decorationDescriptionsSet"
             eType="#//description/DecorationDescriptionsSet" containment="true"/>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="image path to use as an icon for the layer"/>
           </eAnnotations>
@@ -3746,7 +3746,7 @@
             containment="true"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="AdditionalLayer" eSuperTypes="#//diagram/description/Layer">
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="activeByDefault" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="activeByDefault" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="optional" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
             defaultValueLiteral="true"/>
       </eClassifiers>
@@ -3802,7 +3802,7 @@
           </eStructuralFeatures>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="CustomStyleDescription" eSuperTypes="#//diagram/description/style/NodeStyleDescription">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Set here an ID to identify your custom style.  You'll then be able to provide your own figure implementation for every representation element having a style with this ID."/>
             </eAnnotations>
@@ -3991,7 +3991,7 @@
               <details key="documentation" value="The foreground color."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The label of the gauge."/>
             </eAnnotations>
@@ -4022,13 +4022,13 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="RoundedCornerStyleDescription"
             abstract="true" eSuperTypes="#//description/style/StyleDescription">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="arcWidth" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EIntegerObject"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="arcWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
               defaultValueLiteral="1">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The width of the ellipse used to draw the corners."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="arcHeight" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EIntegerObject"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="arcHeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
               defaultValueLiteral="1">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The height of the ellipse used to draw the corners."/>
@@ -4040,7 +4040,7 @@
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="The style of a container."/>
           </eAnnotations>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="roundedCorner" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="roundedCorner" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value=""/>
             </eAnnotations>
@@ -4085,7 +4085,7 @@
             <details key="documentation" value="A custom image that is present in the user workspace."/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="workspacePath" lowerBound="1"
-              eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The path of the image to use in the form of /myProjectID/path/to/image.png,  if the image is not found in the workspace it will be looked for in the plugins."/>
             </eAnnotations>
@@ -4174,7 +4174,7 @@
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="A tool section enclosed some tools."/>
           </eAnnotations>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="image path used for presenting the section with this icon in the palette"/>
             </eAnnotations>
@@ -4255,7 +4255,7 @@
               <details key="documentation" value="The first operation to execute."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
               defaultValueLiteral="">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The path of the icon to display in the palette. If unset, the icon corresponding to the semantic element associated with the mapping will be displayed."/>
@@ -4286,7 +4286,7 @@
                 <details key="documentation" value="The target view."/>
               </eAnnotations>
             </eParameters>
-            <eParameters name="createdElements" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+            <eParameters name="createdElements" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
               <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
                 <details key="documentation" value="The element that has been created by this tool."/>
               </eAnnotations>
@@ -4335,7 +4335,7 @@
               <details key="documentation" value="The first operation."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
               defaultValueLiteral="">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The path of the icon to display in the palette. If unset, the icon corresponding to the semantic element associated with the mapping will be displayed."/>
@@ -4401,7 +4401,7 @@
               <details key="documentation" value="The first operation."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
               defaultValueLiteral="">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The path of the icon to display in the palette. If unset, the icon corresponding to the semantic element associated with the mapping will be displayed."/>
@@ -4470,13 +4470,13 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="DeleteHook">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1"
-              eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
               eType="#//diagram/description/tool/DeleteHookParameter" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="DeleteHookParameter">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
-              eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Name of the parameter"/>
             </eAnnotations>
@@ -4549,7 +4549,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="RequestDescription" eSuperTypes="#//description/tool/AbstractToolDescription">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1"
-              eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="An Identifier for your request. This request will be send through GEF and any EditPolicy handling this request will then be able to perform commands."/>
             </eAnnotations>
@@ -4631,7 +4631,7 @@
             </eAnnotations>
             <eAnnotations source="http://www.eclipse.org/sirius/interpreted/expression/variables"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="variableName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="variableName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
               defaultValueLiteral="createdView">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Once the view is created, a new variable will be bound with the name given here and will be available to any contained operation."/>
@@ -4665,7 +4665,7 @@
             <details key="documentation" value="Open or create a representation for the element."/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="createIfNotExistent"
-              eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="diagramDescription"
               lowerBound="1" eType="#//diagram/description/DiagramDescription"/>
         </eClassifiers>
@@ -4686,7 +4686,7 @@
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Describe a filter. A filter allows to hide some elements."/>
           </eAnnotations>
-          <eOperations name="isVisible" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+          <eOperations name="isVisible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Return true if the specified viewpoint element is visible for this filter."/>
             </eAnnotations>
@@ -4701,7 +4701,7 @@
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="A filter."/>
           </eAnnotations>
-          <eOperations name="isVisible" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+          <eOperations name="isVisible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Return true if the specified viewpoint element is visible for this filter."/>
             </eAnnotations>
@@ -4772,7 +4772,7 @@
               <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
                 <details key="documentation" value="(name,value) couples where name is a String and value is an EObject"/>
               </eAnnotations>
-              <eGenericType eClassifier="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EMap">
+              <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
                 <eTypeArguments/>
                 <eTypeArguments/>
               </eGenericType>
@@ -4793,7 +4793,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="FilterVariable" eSuperTypes="#//description/SelectionDescription">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
-              eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Name of the variable."/>
             </eAnnotations>
@@ -4840,18 +4840,18 @@
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="A validation rule."/>
           </eAnnotations>
-          <eOperations name="checkRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+          <eOperations name="checkRule" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Check the rule for the specified element."/>
             </eAnnotations>
-            <eParameters name="eObj" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject">
+            <eParameters name="eObj" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
               <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
                 <details key="documentation" value="The object to test."/>
               </eAnnotations>
             </eParameters>
           </eOperations>
-          <eOperations name="getMessage" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
-            <eParameters name="eObj" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+          <eOperations name="getMessage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+            <eParameters name="eObj" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
           </eOperations>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="level" lowerBound="1"
               eType="#//diagram/description/validation/ERROR_LEVEL" defaultValueLiteral="INFO"/>
@@ -4926,7 +4926,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ValidationFix">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
-              eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Name of the quick fix displayed to the user."/>
             </eAnnotations>
