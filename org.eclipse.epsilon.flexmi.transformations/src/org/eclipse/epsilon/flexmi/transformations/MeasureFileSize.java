@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class FileSizeCounter {
+public class MeasureFileSize {
 
 	public static void main(String[] args) throws Exception {
 		PrintWriter locCSV = new PrintWriter("models/0-LOC.csv");
