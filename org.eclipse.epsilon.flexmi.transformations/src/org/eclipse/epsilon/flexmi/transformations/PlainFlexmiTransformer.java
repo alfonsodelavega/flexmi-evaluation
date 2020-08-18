@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
@@ -28,7 +29,10 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.epsilon.egl.EglTemplate;
 import org.eclipse.epsilon.egl.EglTemplateFactory;
 import org.eclipse.epsilon.egl.exceptions.EglRuntimeException;
@@ -38,6 +42,8 @@ import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModelFactory;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModelPackage;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.Tag;
+import org.eclipse.uml2.types.TypesPackage;
+import org.eclipse.uml2.uml.UMLPackage;
 
 public class PlainFlexmiTransformer {
 
@@ -49,7 +55,12 @@ public class PlainFlexmiTransformer {
 
 	protected static List<String> REGISTRY_NSURIS =
 			new ArrayList<String>(Arrays.asList(
-					"http://www.eclipse.org/emf/2003/XMLType"));
+					ECORE_NSURI,
+					"http://www.eclipse.org/emf/2003/XMLType",
+					"http://www.eclipse.org/uml2/5.0.0/UML",
+					"http://www.eclipse.org/uml2/5.0.0/Types",
+					"http://www.w3.org/XML/1998/namespace",
+					"http://www.eclipse.org/emf/2002/GenModel"));
 
 	protected FlexmiModelFactory flexmiFactory;
 
@@ -123,7 +134,21 @@ public class PlainFlexmiTransformer {
 		crossReferences = new ArrayList<>();
 
 		ResourceSet resSet = new ResourceSetImpl();
+		resSet.getPackageRegistry().put(ECORE_NSURI, EcorePackage.eINSTANCE);
+		resSet.getPackageRegistry().put("http://www.eclipse.org/emf/2002/GenModel", GenModelPackage.eINSTANCE);
+
+		resSet.getPackageRegistry().put("http://www.eclipse.org/emf/2003/XMLType", XMLTypePackage.eINSTANCE);
+		resSet.getPackageRegistry().put("http://www.w3.org/XML/1998/namespace", XMLNamespacePackage.eINSTANCE);
+
+		resSet.getPackageRegistry().put("http://www.eclipse.org/uml2/5.0.0/UML", UMLPackage.eINSTANCE);
+		resSet.getPackageRegistry().put("http://www.eclipse.org/uml2/4.0.0/UML", UMLPackage.eINSTANCE);
+		resSet.getPackageRegistry().put("http://www.eclipse.org/uml2/5.0.0/Types", TypesPackage.eINSTANCE);
+		resSet.getPackageRegistry().put("http://www.eclipse.org/uml2/4.0.0/Types", TypesPackage.eINSTANCE);
+
+
 		Resource ecoreModelResource = resSet.getResource(URI.createURI(ecoreModel), true);
+
+		EcoreUtil.resolveAll(resSet);
 
 		FlexmiModel model = flexmiFactory.createFlexmiModel();
 		model.setNsuri(ECORE_NSURI);
@@ -144,6 +169,16 @@ public class PlainFlexmiTransformer {
 		for (CrossReference crossRef : crossReferences) {
 
 			if (crossRef.referencingElement instanceof ETypedElement) {
+
+				if (crossRef.referencingElement instanceof EAttribute) {
+					Attribute typeAttr = findAttribute(crossRef.tag, "type");
+
+					if (typeAttr != null && typeAttr.getValue().startsWith("//")) {
+						// attribute with imported type: do not qualify
+						continue;
+					}
+				}
+
 				ETypedElement typedElem = (ETypedElement) crossRef.referencingElement;
 				if (typedElem.getEType() != null
 						&& typedElem.getEType().getName() != null
@@ -162,11 +197,17 @@ public class PlainFlexmiTransformer {
 				EClass clazz = (EClass) crossRef.referencingElement;
 				List<String> supertypeNames = new ArrayList<>();
 				for (EClass supertype : clazz.getESuperTypes()) {
+
 					if (isNameRepeated(supertype.getName())) {
 						supertypeNames.add(getQualifiedName(supertype));
 					}
 					else {
-						supertypeNames.add(supertype.getName());
+						boolean importURI = addTypePackage(crossRef.tag, supertype);
+						String supertypeName = supertype.getName();
+						if (importURI) {
+							supertypeName = "//" + supertypeName;
+						}
+						supertypeNames.add(supertypeName);
 					}
 				}
 				Attribute supertypesAttr = flexmiFactory.createAttribute();
@@ -330,6 +371,9 @@ public class PlainFlexmiTransformer {
 	protected void addTypeTagAttribute(Tag tag, EObject element) {
 		if (element instanceof ETypedElement) {
 			EClassifier type = ((ETypedElement) element).getEType();
+			if (type != null && type.eIsProxy()) {
+				System.err.println("Proxy type: " + type);
+			}
 			// void EOperations have null type (and some ecore github attributes too)
 			if (type != null
 					&& type.getName() != null
@@ -340,16 +384,10 @@ public class PlainFlexmiTransformer {
 				String typeName = type.getName();
 
 				if (type instanceof EClassifier && type.eContainer() instanceof EPackage) {
-					String typeURI = ((EPackage) type.eContainer()).getNsURI();
 
-					boolean importURI = false;
-					if (REGISTRY_NSURIS.contains(typeURI)) {
-						importURI = true;
-						importURI(tag, typeURI);
-					}
-
-					// prefix needed to find imported data types (e.g. EString, EInt)
-					if (importURI || typeURI.equals(ECORE_NSURI)) {
+					boolean importURI = addTypePackage(tag, type);
+					if (importURI) {
+						// prefix needed to find imported data types (e.g. EString, EInt)
 						typeName = "//" + typeName;
 					}
 				}
@@ -361,9 +399,26 @@ public class PlainFlexmiTransformer {
 
 	protected void importURI(Tag tag, String typeURI) {
 		FlexmiModel model = getFlexmiModel(tag);
-		if (!model.getImports().contains(typeURI)) {
-			model.getImports().add(typeURI);
+		String uri = typeURI;
+		if (uri.contains("uml2")) {
+			uri = uri.replace("4.0.0", "5.0.0");
 		}
+		if (!model.getImports().contains(uri)) {
+			model.getImports().add(uri);
+		}
+	}
+
+	protected boolean addTypePackage(Tag tag, EClassifier type) {
+		boolean importURI = false;
+		if (type.eContainer() instanceof EPackage) {
+			String typeURI = ((EPackage) type.eContainer()).getNsURI();
+
+			if (REGISTRY_NSURIS.contains(typeURI)) {
+				importURI = true;
+				importURI(tag, typeURI);
+			}
+		}
+		return importURI;
 	}
 
 	protected FlexmiModel getFlexmiModel(Tag tag) {
