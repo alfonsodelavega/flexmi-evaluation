@@ -11,6 +11,8 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -76,9 +78,36 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 		else if (element instanceof EAnnotation) {
 			populateAnnotation(tag, (EAnnotation) element);
 		}
+		else if (element instanceof EEnum) {
+			populateEnum(tag, (EEnum) element);
+		}
 		else {
 			// plain flexmi
 			super.populateTags(tag, element);
+		}
+	}
+
+	protected void populateEnum(Tag tag, EEnum eenum) {
+		tag.setName("enum");
+		
+		Attribute nameAttr = flexmiFactory.createAttribute();
+		setName(nameAttr, "name");
+		setValue(nameAttr, eenum.getName());
+		tag.getAttributes().add(nameAttr);
+		
+		Attribute literalsAttr = flexmiFactory.createAttribute();
+		setName(literalsAttr, "literals");
+		List<String> literals = new ArrayList<>();
+		for (EEnumLiteral lit : eenum.getELiterals()) {
+			literals.add(lit.getName());
+		}
+		setValue(literalsAttr, String.join(",", literals));
+		tag.getAttributes().add(literalsAttr);
+
+		for (EAnnotation childAnnotation : eenum.getEAnnotations()) {
+			Tag childAnnotationTag = flexmiFactory.createTag();
+			tag.getTags().add(childAnnotationTag);
+			populateAnnotation(childAnnotationTag, childAnnotation);
 		}
 	}
 

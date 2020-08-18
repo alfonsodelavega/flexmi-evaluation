@@ -352,6 +352,10 @@ public class PlainFlexmiTransformer {
 			return "op";
 		case "EParameter":
 			return "param";
+		case "EEnum":
+			return "enum";
+		case "EEnumLiteral":
+			return "lit";
 		default:
 			return obj.eClass().getName();
 		}
