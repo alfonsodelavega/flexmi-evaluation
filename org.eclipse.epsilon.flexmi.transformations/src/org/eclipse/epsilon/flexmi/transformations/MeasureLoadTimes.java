@@ -33,6 +33,11 @@ public class MeasureLoadTimes {
 		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		loadTimesCSV.println(header);
 
+		int warmReps = 3;
+		for (int rep = 0; rep < warmReps; rep++) {
+			measureLoadTimes(null);
+		}
+
 		int numReps = 10;
 		for (int rep = 0; rep < numReps; rep++) {
 			System.out.println("Rep " + rep);
@@ -51,7 +56,9 @@ public class MeasureLoadTimes {
 
 			for (String ecoreFile : files) {
 				String line = getLoadTimesLine(ecoreFile);
-				loadTimesCSV.println(line);
+				if (loadTimesCSV != null) {
+					loadTimesCSV.println(line);
+				}
 				System.out.println("\t" + line);
 			}
 		}
