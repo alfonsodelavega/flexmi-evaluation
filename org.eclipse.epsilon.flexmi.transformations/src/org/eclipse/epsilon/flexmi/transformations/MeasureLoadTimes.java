@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,6 +17,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
@@ -33,12 +35,12 @@ public class MeasureLoadTimes {
 		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		loadTimesCSV.println(header);
 
-		int warmReps = 3;
+		int warmReps = 0;
 		for (int rep = 0; rep < warmReps; rep++) {
 			measureLoadTimes(null);
 		}
 
-		int numReps = 10;
+		int numReps = 5;
 		for (int rep = 0; rep < numReps; rep++) {
 			System.out.println("Rep " + rep);
 			measureLoadTimes(loadTimesCSV);
@@ -53,6 +55,9 @@ public class MeasureLoadTimes {
 
 			List<String> files = walk.filter(Files::isRegularFile).map(x -> x.toString())
 					.filter(x -> x.endsWith("ecore")).collect(Collectors.toList());
+
+			// for constrained set of models
+			files = Arrays.asList("models/downloaded/noc10/noc10.ecore");
 
 			for (String ecoreFile : files) {
 				String line = getLoadTimesLine(ecoreFile);
@@ -109,7 +114,7 @@ public class MeasureLoadTimes {
 
 	private static long measureFlexmiLoad(String flexmiFile) throws IOException {
 		Stopwatch stopwatch = new Stopwatch();
-		Resource resource = createFlexmiResource(new FlexmiResourceFactory(),
+		Resource resource = createResource(new FlexmiResourceFactory(),
 				URI.createFileURI(new File(flexmiFile).getAbsolutePath()), stopwatch);
 
 		resource.load(null);
@@ -140,18 +145,7 @@ public class MeasureLoadTimes {
 
 		Resource resource = resourceSet.createResource(uri);
 
-		return resource;
-	}
-
-	private static Resource createFlexmiResource(Resource.Factory resourceFactory, URI uri, Stopwatch stopwatch) {
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getPackageRegistry().put(EcorePackage.eINSTANCE.getNsURI(), EcorePackage.eINSTANCE);
-
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", resourceFactory);
-
-		stopwatch.resume();
-
-		Resource resource = resourceSet.createResource(uri);
+		EcoreUtil.resolveAll(resource);
 
 		return resource;
 	}
