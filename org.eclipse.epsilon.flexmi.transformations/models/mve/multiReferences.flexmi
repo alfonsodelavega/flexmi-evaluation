@@ -1,0 +1,21 @@
+<?nsuri http://www.eclipse.org/emf/2002/Ecore?>
+<?import http://www.eclipse.org/emf/2002/Ecore?>
+<package name="root" nsURI="crossReferences" nsPrefix="root">
+		<class name="FirstClass"/>
+		<class name="OtherClass">
+			<!-- this causes the problem: a ref with the same name as the class -->
+			<ref name="FirstClass" type="root.FirstClass"/>
+			
+			<ref name="otherClass" type="OtherClass">
+				<!--
+					PROBLEM: the references attribute does not detect the
+					existence of two possible "FirstClass" references, it
+					just picks the first one of them (the reference in this case)
+				-->
+				<annotation source="referencebug" references="FirstClass"/>
+			</ref>
+		</class>
+		
+		<!-- Also: are duplicated names something to warn about? -->
+		<class name="FirstClass"/>
+</package>
