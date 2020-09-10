@@ -6,13 +6,13 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -30,17 +30,19 @@ import org.eclipse.uml2.uml.UMLPackage;
 public class MeasureLoadTimes {
 
 	public static void main(String[] args) throws Exception {
-		PrintWriter loadTimesCSV = new PrintWriter("models/0-loadTime.csv");
 
+		initRegistry();
+
+		PrintWriter loadTimesCSV = new PrintWriter("models/0-loadTime.csv");
 		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		loadTimesCSV.println(header);
 
-		int warmReps = 0;
+		int warmReps = 3;
 		for (int rep = 0; rep < warmReps; rep++) {
 			measureLoadTimes(null);
 		}
 
-		int numReps = 5;
+		int numReps = 8;
 		for (int rep = 0; rep < numReps; rep++) {
 			System.out.println("Rep " + rep);
 			measureLoadTimes(loadTimesCSV);
@@ -50,6 +52,21 @@ public class MeasureLoadTimes {
 		System.out.println("Done");
 	}
 
+	private static void initRegistry() {
+		EPackage.Registry globalRegistry = EPackage.Registry.INSTANCE;
+
+		globalRegistry.put(EcorePackage.eINSTANCE.getNsURI(), EcorePackage.eINSTANCE);
+		globalRegistry.put(GenModelPackage.eINSTANCE.getNsURI(), GenModelPackage.eINSTANCE);
+
+		globalRegistry.put(XMLNamespacePackage.eINSTANCE.getNsURI(), XMLNamespacePackage.eINSTANCE);
+		globalRegistry.put(XMLTypePackage.eINSTANCE.getNsURI(), XMLTypePackage.eINSTANCE);
+
+		globalRegistry.put("http://www.eclipse.org/uml2/5.0.0/UML", UMLPackage.eINSTANCE);
+		globalRegistry.put("http://www.eclipse.org/uml2/5.0.0/Types", TypesPackage.eINSTANCE);
+		globalRegistry.put("http://www.eclipse.org/uml2/4.0.0/UML", UMLPackage.eINSTANCE);
+		globalRegistry.put("http://www.eclipse.org/uml2/4.0.0/Types", TypesPackage.eINSTANCE);
+	}
+
 	private static void measureLoadTimes(PrintWriter loadTimesCSV) {
 		try (Stream<Path> walk = Files.walk(Paths.get("models/downloaded/"))) {
 
@@ -57,7 +74,7 @@ public class MeasureLoadTimes {
 					.filter(x -> x.endsWith("ecore")).collect(Collectors.toList());
 
 			// for constrained set of models
-			files = Arrays.asList("models/downloaded/noc10/noc10.ecore");
+			//			files = Arrays.asList("models/downloaded/noc10/noc10.ecore");
 
 			for (String ecoreFile : files) {
 				String line = getLoadTimesLine(ecoreFile);
@@ -101,6 +118,7 @@ public class MeasureLoadTimes {
 		Resource resource = createResource(new XMIResourceFactoryImpl(),
 				URI.createFileURI(new File(ecoreFile).getAbsolutePath()), stopwatch);
 		resource.load(null);
+		EcoreUtil.resolveAll(resource);
 		return stopwatch.getElapsed();
 	}
 
@@ -109,6 +127,7 @@ public class MeasureLoadTimes {
 		Resource resource = createResource(new EmfaticResourceFactory(),
 				URI.createFileURI(new File(emfaticFile).getAbsolutePath()), stopwatch);
 		resource.load(null);
+		EcoreUtil.resolveAll(resource);
 		return stopwatch.getElapsed();
 	}
 
@@ -118,6 +137,7 @@ public class MeasureLoadTimes {
 				URI.createFileURI(new File(flexmiFile).getAbsolutePath()), stopwatch);
 
 		resource.load(null);
+		EcoreUtil.resolveAll(resource);
 		return stopwatch.getElapsed();
 	}
 
@@ -128,25 +148,10 @@ public class MeasureLoadTimes {
 
 	private static Resource createResource(Resource.Factory resourceFactory, URI uri, Stopwatch stopwatch) {
 		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getPackageRegistry().put(EcorePackage.eINSTANCE.getNsURI(), EcorePackage.eINSTANCE);
-		resourceSet.getPackageRegistry().put(GenModelPackage.eINSTANCE.getNsURI(), GenModelPackage.eINSTANCE);
-
-		resourceSet.getPackageRegistry().put(XMLNamespacePackage.eINSTANCE.getNsURI(), XMLNamespacePackage.eINSTANCE);
-		resourceSet.getPackageRegistry().put(XMLTypePackage.eINSTANCE.getNsURI(), XMLTypePackage.eINSTANCE);
-
-		resourceSet.getPackageRegistry().put("http://www.eclipse.org/uml2/5.0.0/UML", UMLPackage.eINSTANCE);
-		resourceSet.getPackageRegistry().put("http://www.eclipse.org/uml2/4.0.0/UML", UMLPackage.eINSTANCE);
-		resourceSet.getPackageRegistry().put("http://www.eclipse.org/uml2/5.0.0/Types", TypesPackage.eINSTANCE);
-		resourceSet.getPackageRegistry().put("http://www.eclipse.org/uml2/4.0.0/Types", TypesPackage.eINSTANCE);
-
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", resourceFactory);
 
 		stopwatch.resume();
 
-		Resource resource = resourceSet.createResource(uri);
-
-		EcoreUtil.resolveAll(resource);
-
-		return resource;
+		return resourceSet.createResource(uri);
 	}
 }
