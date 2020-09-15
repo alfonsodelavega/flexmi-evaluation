@@ -20,7 +20,7 @@ df = pd.read_csv(filename)
 df.head()
 
 #%%
-df_agg = df.groupby([c_model])[measurements].agg(["mean", "sem"]).reset_index().head(100)
+df_agg = df.groupby([c_model])[measurements].agg(["mean", "std", "sem"]).reset_index().head(100)
 df_agg.head()
 
 #%%
@@ -31,5 +31,5 @@ for measurement in measurements:
 df_agg.head()
 
 #%%
-df_agg.sort_values([(c_xmi, "mean")], ascending=False, inplace=True)
-df_agg.head(50)
+df_agg.sort_values([(c_plain, "mean")], ascending=False, inplace=True)
+df_agg.to_csv("{}.processed.csv".format(filename))
