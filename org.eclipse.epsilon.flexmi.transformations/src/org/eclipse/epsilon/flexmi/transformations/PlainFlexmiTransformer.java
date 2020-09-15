@@ -54,7 +54,7 @@ public class PlainFlexmiTransformer {
 	protected static final String ECORE_NSURI = "http://www.eclipse.org/emf/2002/Ecore";
 
 	protected static List<String> REGISTRY_NSURIS =
-			new ArrayList<String>(Arrays.asList(
+			new ArrayList<>(Arrays.asList(
 					ECORE_NSURI,
 					"http://www.eclipse.org/emf/2003/XMLType",
 					"http://www.eclipse.org/uml2/5.0.0/UML",
@@ -85,7 +85,7 @@ public class PlainFlexmiTransformer {
 			this.referencingElement = referencingElement;
 			this.tag = tag;
 		}
-	};
+	}
 
 	public static void main(String[] args) throws Exception {
 		String ecoreModel = "models/carShop.ecore";
@@ -367,6 +367,8 @@ public class PlainFlexmiTransformer {
 			return "upper";
 		case "lowerBound":
 			return "lower";
+		case "defaultValueLiteral":
+			return "literal";
 		default:
 			return attrName;
 		}
