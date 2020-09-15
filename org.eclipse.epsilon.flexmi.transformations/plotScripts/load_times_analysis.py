@@ -6,7 +6,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 
-filename = "../models/0-loadTime.csv"
+filename = "ecoregithub_loadtimes.csv"
 c_model = "Model"
 c_xmi = "XMI"
 c_plain = "PlainFlexmi"

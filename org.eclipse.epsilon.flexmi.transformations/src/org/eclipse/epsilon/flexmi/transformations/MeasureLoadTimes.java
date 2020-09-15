@@ -33,16 +33,16 @@ public class MeasureLoadTimes {
 
 		initRegistry();
 
-		PrintWriter loadTimesCSV = new PrintWriter("models/0-loadTime.csv");
+		PrintWriter loadTimesCSV = new PrintWriter("plotScripts/ecoregithub_loadtimes.csv");
 		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		loadTimesCSV.println(header);
 
-		int warmReps = 3;
+		int warmReps = 5;
 		for (int rep = 0; rep < warmReps; rep++) {
 			measureLoadTimes(null);
 		}
 
-		int numReps = 8;
+		int numReps = 15;
 		for (int rep = 0; rep < numReps; rep++) {
 			System.out.println("Rep " + rep);
 			measureLoadTimes(loadTimesCSV);
@@ -74,7 +74,7 @@ public class MeasureLoadTimes {
 					.filter(x -> x.endsWith("ecore")).collect(Collectors.toList());
 
 			// for constrained set of models
-			//			files = Arrays.asList("models/downloaded/noc10/noc10.ecore");
+			//			files = Arrays.asList("models/downloaded/esb/esb.ecore");
 
 			for (String ecoreFile : files) {
 				String line = getLoadTimesLine(ecoreFile);

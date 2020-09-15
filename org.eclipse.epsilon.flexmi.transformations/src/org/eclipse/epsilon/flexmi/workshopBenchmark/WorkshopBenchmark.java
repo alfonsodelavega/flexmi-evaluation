@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.flexmi.workshopBenchmark;
 
+import java.io.PrintWriter;
 import java.util.Iterator;
 
 import org.eclipse.emf.common.util.URI;
@@ -22,22 +23,25 @@ public class WorkshopBenchmark {
 	}
 	
 	public void run() throws Exception {
-
-		System.out.println("Flexmi,XMI,ModelElements");
+		PrintWriter loadTimesCSV = new PrintWriter("plotScripts/workshop_loadtimes.csv");
+		loadTimesCSV.println("Flexmi,XMI,ModelElements");
 		int numReps = 15;
 		int warmReps = 5;
 		
 		for (int rep = 0; rep < warmReps; rep++) {
-			runRep(false);
+			System.out.println("Warm " + rep);
+			runRep(null);
 		}
 
 		for (int rep = 0; rep < numReps; rep++) {
-			runRep(true);
+			System.out.println("Rep " + rep);
+			runRep(loadTimesCSV);
 		}
-
+		loadTimesCSV.close();
+		System.out.println("done");
 	}
 
-	private void runRep(boolean outputResult) throws Exception {
+	private void runRep(PrintWriter loadTimesCSV) throws Exception {
 		String filesPath = "/home/fonso/workspaces/flexmi-models/models-and-generator/generated-";
 		String[] extensions = new String[] { "10", "100", "1000", "2000", "4000", "5000", "6000", "8000", "10000" };
 		//		String[] extensions = new String[] { "5000" };
@@ -47,23 +51,23 @@ public class WorkshopBenchmark {
 			createResource(new FlexmiResourceFactory(),
 					URI.createFileURI(filesPath + extension + ".flexmi")).load(null);
 			stopwatch.pause();
-			if (outputResult) {
-				System.out.print(stopwatch.getElapsed() + ", ");
+			if (loadTimesCSV != null) {
+				loadTimesCSV.print(stopwatch.getElapsed() + ", ");
 			}
 			stopwatch = new Stopwatch();
 			stopwatch.resume();
 			Resource resource = createResource(new XMIResourceFactoryImpl(), URI.createFileURI(filesPath + extension + ".xmi"));
 			resource.load(null);
 			stopwatch.pause();
-			if (outputResult) {
-				System.out.print(stopwatch.getElapsed() + ", ");
+			if (loadTimesCSV != null) {
+				loadTimesCSV.print(stopwatch.getElapsed() + ", ");
 				int numElements = 0;
 				Iterator<EObject> it = resource.getAllContents();
 				while (it.hasNext()) {
 					it.next();
 					numElements++;
 				}
-				System.out.println(numElements);
+				loadTimesCSV.println(numElements);
 			}
 		}
 	}

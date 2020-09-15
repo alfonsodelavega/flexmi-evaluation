@@ -6,7 +6,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 
-filename = "workshop_benchmark_x270.csv"
+filename = "workshop_loadtimes.csv"
 c_elems = "ModelElements"
 c_xmi = "XMI"
 c_flexmi = "Flexmi"
@@ -76,7 +76,7 @@ ax.set_ylabel("Loading time (ms)")
 
 
 f.tight_layout()
-f.savefig("workshop_benchmark_loadtimes.pdf", bbox_inches='tight')
+f.savefig(filename + ".pdf", bbox_inches='tight')
 
 # %%
 df_agg["ratioFlexmi-XMI"] = df_agg["{}_mean".format(c_flexmi)] / df_agg["{}_mean".format(c_xmi)]
