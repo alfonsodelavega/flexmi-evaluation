@@ -3,6 +3,9 @@ package top;
 
 @namespace(uri="http:///ru.croc.ctp.jxfw.ecore", prefix="Model.xtend")
 package Model {
+
+	datatype EZonedDateTime : java.time.ZonedDateTime;
+
 	@"http://www.croc.ru/ctp/model/enumType"(isFlags="true")
 	@"http://www.croc.ru/ctp/model/i18n"
 	enum SourceDataStateEnum {

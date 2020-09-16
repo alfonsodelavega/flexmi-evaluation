@@ -2387,12 +2387,12 @@ enum RuleActionType {
 enum RuleFragmentType {
 	PROTOCOL = 0;
 	HOST = 2;
-	PORT = -1;
+	PORT = 100;
 	PATH = 3;
 	QUERY = 4;
 	REF = 5;
 	USER = 1;
-	FULL = -2;
+	FULL = 99;
 }
 
 class URLRewriteRule extends EsbNode {
