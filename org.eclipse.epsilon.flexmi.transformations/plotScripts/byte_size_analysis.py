@@ -6,7 +6,11 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 
-filename = "../models/0-bytes.csv"
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+else:
+    filename = "ecoregithub-bytes.csv"
+
 c_model = "Model"
 c_xmi = "XMI"
 c_plain = "PlainFlexmi"
@@ -60,4 +64,4 @@ ax.set_ylabel("Relative size against Emfatic")
 
 
 f.tight_layout()
-f.savefig("bytes_boxplot.pdf", bbox_inches='tight')
+f.savefig("{}_boxplot.pdf".format(filename), bbox_inches='tight')

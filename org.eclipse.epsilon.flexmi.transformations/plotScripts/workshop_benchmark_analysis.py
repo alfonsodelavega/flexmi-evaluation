@@ -6,7 +6,11 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 
-filename = "workshop_loadtimes.csv"
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+else:
+    filename = "workshop_loadtimes.csv"
+
 c_elems = "ModelElements"
 c_xmi = "XMI"
 c_flexmi = "Flexmi"
@@ -30,6 +34,7 @@ df_agg.head()
 
 #%%
 df_agg.columns = [col[0] if col[1] == "" else "_".join(col) for col in df_agg.columns]
+df_agg.to_csv("{}_processed.csv".format(filename), index=False)
 df_agg.head()
 
 #%%
