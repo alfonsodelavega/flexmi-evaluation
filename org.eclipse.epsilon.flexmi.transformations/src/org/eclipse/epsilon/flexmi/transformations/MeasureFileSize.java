@@ -14,8 +14,8 @@ import java.util.stream.Stream;
 public class MeasureFileSize {
 
 	public static void main(String[] args) throws Exception {
-		PrintWriter locCSV = new PrintWriter("models/0-LOC.csv");
-		PrintWriter bytesCSV = new PrintWriter("models/0-bytes.csv");
+		PrintWriter locCSV = new PrintWriter("plotScripts/ecoregithub_LOC.csv");
+		PrintWriter bytesCSV = new PrintWriter("plotScripts/ecoregithub_bytes.csv");
 
 		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		locCSV.println(header);
