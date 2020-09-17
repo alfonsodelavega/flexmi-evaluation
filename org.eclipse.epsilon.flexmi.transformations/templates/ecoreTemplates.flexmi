@@ -27,27 +27,6 @@
 	</content>
 </:template>
 
-<:template name="enum">
-	<parameter name="name"/>
-	<parameter name="literals"/>
-	<content language="EGL">
-      <![CDATA[
-      <eenum name="[%=name%]">
-          <:slot/>
-          [% var i = 0;
-             for (l in literals.split(",")) {%]
-              <lit name="[%=l%]" value="[%=i%]"/>
-          [% i += 1;
-             } %]
-      </eenum>
-      ]]>
-    </content>
-	<content>
-		<eenum name="${name}">
-		</eenum>
-	</content>
-</:template>
-
 
 
 <:template name="string">
@@ -65,6 +44,12 @@
 <:template name="int">
 	<content>
 		<attribute type="//EInt"/>
+	</content>
+</:template>
+
+<:template name="long">
+	<content>
+		<attribute type="//ELong"/>
 	</content>
 </:template>
 

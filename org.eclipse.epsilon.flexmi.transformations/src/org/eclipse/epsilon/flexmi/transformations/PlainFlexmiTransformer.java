@@ -161,6 +161,15 @@ public class PlainFlexmiTransformer {
 		}
 
 		applyQualifiedNames(); // needed if there are simple name collisions
+		
+		// print out some extra data (to try find out causes of large load times)
+		//		System.out.printf("\t%s\n", this.getClass().getSimpleName());
+		//		System.out.printf("\t# Global variables: %d\n", globalVariableCounter);
+		//		System.out.printf("\t# Qualified names: %d\n\n",
+		//				nameCounters.values().stream()
+		//						.filter(i -> i > 1)
+		//						.mapToInt(Integer::intValue)
+		//						.sum());
 
 		return model;
 	}
