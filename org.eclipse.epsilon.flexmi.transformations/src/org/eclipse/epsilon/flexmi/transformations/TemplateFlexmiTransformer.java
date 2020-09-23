@@ -7,10 +7,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -76,9 +79,54 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 		else if (element instanceof EAnnotation) {
 			populateAnnotation(tag, (EAnnotation) element);
 		}
+		else if (element instanceof EEnum && canApplyEnumTemplate((EEnum) element)) {
+			populateEnum(tag, (EEnum) element);
+		}
 		else {
 			// plain flexmi
 			super.populateTags(tag, element);
+		}
+	}
+
+	protected boolean canApplyEnumTemplate(EEnum eenum) {
+		// simple enum values (i.e. from 0 to length)
+		List<Integer> values = eenum.getELiterals().stream()
+				.map(l -> l.getValue()).collect(Collectors.toList());
+		for (int v = 0; v < eenum.getELiterals().size(); v++) {
+			if (values.get(v) != v) {
+				return false;
+			}
+		}
+		// no annotations or special literal values allowed (the template cannot show them)
+		for (EEnumLiteral lit : eenum.getELiterals()) {
+			if (!lit.getEAnnotations().isEmpty() || !lit.getName().equals(lit.getLiteral())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	protected void populateEnum(Tag tag, EEnum eenum) {
+		tag.setName("enum");
+
+		Attribute nameAttr = flexmiFactory.createAttribute();
+		setName(nameAttr, "name");
+		setValue(nameAttr, eenum.getName());
+		tag.getAttributes().add(nameAttr);
+
+		Attribute literalsAttr = flexmiFactory.createAttribute();
+		setName(literalsAttr, "literals");
+		List<String> literals = new ArrayList<>();
+		for (EEnumLiteral lit : eenum.getELiterals()) {
+			literals.add(lit.getName());
+		}
+		setValue(literalsAttr, String.join(",", literals));
+		tag.getAttributes().add(literalsAttr);
+
+		for (EAnnotation childAnnotation : eenum.getEAnnotations()) {
+			Tag childAnnotationTag = flexmiFactory.createTag();
+			tag.getTags().add(childAnnotationTag);
+			populateAnnotation(childAnnotationTag, childAnnotation);
 		}
 	}
 

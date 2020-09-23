@@ -1,19 +1,19 @@
 <_>
 <:template name="val">
 	<content>
-		<reference containment="true"/>
+		<ref containment="true"><:slot/></ref>
 	</content>
 </:template>
 
 <:template name="vals">
 	<content>
-		<reference containment="true" upper="-1"/>
+		<ref containment="true" upper="-1"><:slot/></ref>
 	</content>
 </:template>
 
 <:template name="refs"> 
 	<content>
-		<reference upper="-1"/>
+		<ref upper="-1"><:slot/></ref>
 	</content>
 </:template>
 
@@ -27,35 +27,50 @@
 	</content>
 </:template>
 
-
+<:template name="enum">
+	<parameter name="name"/>
+	<parameter name="literals"/>
+	<content language="EGL">
+      <![CDATA[
+      <eenum name="[%=name%]">
+          <:slot/>
+          [% var i = 0;
+             for (l in literals.split(",")) {%]
+              <lit name="[%=l%]" value="[%=i%]"/>
+          [% i += 1;
+             } %]
+      </eenum>
+      ]]>
+    </content>
+</:template>
 
 <:template name="string">
 	<content>
-		<attribute type="//EString"/>
+		<attr type="//EString"><:slot/></attr>
 	</content>
 </:template>
 
 <:template name="boolean">
 	<content>
-		<attribute type="//EBoolean"/>
+		<attr type="//EBoolean"><:slot/></attr>
 	</content>
 </:template>
 
 <:template name="int">
 	<content>
-		<attribute type="//EInt"/>
+		<attr type="//EInt"><:slot/></attr>
 	</content>
 </:template>
 
 <:template name="long">
 	<content>
-		<attribute type="//ELong"/>
+		<attr type="//ELong"><:slot/></attr>
 	</content>
 </:template>
 
 <:template name="double">
 	<content>
-		<attribute type="//EDouble"/>
+		<attr type="//EDouble"><:slot/></attr>
 	</content>
 </:template>
 </_>
