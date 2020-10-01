@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -38,12 +39,12 @@ public class MeasureLoadTimes {
 		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		loadTimesCSV.println(header);
 
-		int warmReps = 5;
+		int warmReps = 20;
 		for (int rep = 0; rep < warmReps; rep++) {
 			measureLoadTimes(null);
 		}
 
-		int numReps = 15;
+		int numReps = 20;
 		for (int rep = 0; rep < numReps; rep++) {
 			System.out.println("Rep " + rep);
 			measureLoadTimes(loadTimesCSV);
@@ -121,7 +122,8 @@ public class MeasureLoadTimes {
 				URI.createFileURI(new File(ecoreFile).getAbsolutePath()), stopwatch);
 		resource.load(null);
 		EcoreUtil.resolveAll(resource);
-		return stopwatch.getElapsed();
+		stopwatch.pause();
+		return stopwatch.getElapsed(TimeUnit.NANOSECONDS);
 	}
 
 	private static long measureEmfaticLoad(String emfaticFile) throws IOException {
@@ -130,7 +132,8 @@ public class MeasureLoadTimes {
 				URI.createFileURI(new File(emfaticFile).getAbsolutePath()), stopwatch);
 		resource.load(null);
 		EcoreUtil.resolveAll(resource);
-		return stopwatch.getElapsed();
+		stopwatch.pause();
+		return stopwatch.getElapsed(TimeUnit.NANOSECONDS);
 	}
 
 	private static long measureFlexmiLoad(String flexmiFile) throws IOException {
@@ -140,7 +143,8 @@ public class MeasureLoadTimes {
 
 		resource.load(null);
 		EcoreUtil.resolveAll(resource);
-		return stopwatch.getElapsed();
+		stopwatch.pause();
+		return stopwatch.getElapsed(TimeUnit.NANOSECONDS);
 	}
 
 	private static String getModelName(String ecoreFile) {
