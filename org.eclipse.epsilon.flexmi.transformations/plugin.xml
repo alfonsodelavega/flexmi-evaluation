@@ -7,27 +7,11 @@
 <plugin>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated dom -->
-      <package
-            uri="flexmi"
-            class="org.eclipse.epsilon.flexmi.transformations.flexmiModel.DomPackage"
-            genModel="src/org/eclipse/epsilon/flexmi/transformations/dom/dom.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated flexmi -->
       <package
             uri="flexmi"
             class="org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModelPackage"
             genModel="src/org/eclipse/epsilon/flexmi/transformations/flexmiModel/flexmi.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated carShop -->
-      <package
-            uri="carShop"
-            class="carShop.CarShopPackage"
-            genModel="models/carShop.genmodel"/>
    </extension>
 
 </plugin>
