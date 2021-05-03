@@ -467,6 +467,7 @@ public class PlainFlexmiTransformer {
 				if (!ref.getEKeys().isEmpty()) {
 					System.out.println("Some EKeys found!!");
 					System.out.println(ref.getEKeys());
+					throw new RuntimeException("EKeys not transformed as of now");
 				}
 			}
 		}
@@ -475,6 +476,7 @@ public class PlainFlexmiTransformer {
 			if (!op.getEExceptions().isEmpty()) {
 				System.out.println("Some EExceptions found!!");
 				System.out.println(op.getEExceptions());
+				throw new RuntimeException("EExceptions not transformed as of now");
 			}
 		}
 
@@ -504,10 +506,13 @@ public class PlainFlexmiTransformer {
 
 	protected String getQualifiedName(ENamedElement elem) {
 		List<String> nameSections = new ArrayList<>();
-		ENamedElement current = elem;
+		EObject current = elem;
 		while (current != null) {
-			nameSections.add(current.getName());
-			current = (ENamedElement) current.eContainer();
+			if (!(current instanceof ENamedElement)) {
+				throw new RuntimeException("Container of an element does not have a name");
+			}
+			nameSections.add(((ENamedElement) current).getName());
+			current = current.eContainer();
 		}
 		Collections.reverse(nameSections);
 		return String.join(".", nameSections);

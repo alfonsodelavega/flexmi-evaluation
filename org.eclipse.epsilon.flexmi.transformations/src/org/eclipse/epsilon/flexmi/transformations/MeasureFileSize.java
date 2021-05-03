@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.flexmi.transformations;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -8,23 +9,34 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MeasureFileSize {
 
 	public static void main(String[] args) throws Exception {
-		PrintWriter locCSV = new PrintWriter("plotScripts/ecoregithub_LOC.csv");
-		PrintWriter bytesCSV = new PrintWriter("plotScripts/ecoregithub_bytes.csv");
+		PrintWriter locCSV = new PrintWriter("plotScripts/LOC.csv");
+		PrintWriter bytesCSV = new PrintWriter("plotScripts/bytes.csv");
 
 		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		locCSV.println(header);
 		bytesCSV.println(header);
 
-		try (Stream<Path> walk = Files.walk(Paths.get("models/downloaded/"))) {
+		ArrayList<String> excludedFiles = new ArrayList<String>();
+		Scanner s = new Scanner(new File("output/metamodelsWithErrors.txt"));
+		while (s.hasNext()) {
+			excludedFiles.add(s.next());
+		}
+		s.close();
 
-			List<String> files = walk.filter(Files::isRegularFile).map(x -> x.toString())
-					.filter(x -> x.endsWith("ecore")).collect(Collectors.toList());
+		try (Stream<Path> walk = Files.walk(Paths.get("models/ammore2020-barriga"))) {
+
+			List<String> files = walk.filter(Files::isRegularFile)
+					.map(f -> f.toString())
+					.filter(f -> f.endsWith("ecore"))
+					.filter(f -> !excludedFiles.contains(f))
+					.collect(Collectors.toList());
 
 			for (String ecoreFile : files) {
 				locCSV.println(getLOCline(ecoreFile));
@@ -71,11 +83,11 @@ public class MeasureFileSize {
 	}
 
 	private static List<String> getFiles(String ecoreFile) {
-		String emfaticFile = ecoreFile.replaceAll("ecore$", "emf");
+		String emfaticFile = String.format(TransformAmmoreModels.EMFATIC_PATTERN, ecoreFile);
 		String plainFlexmiFile =
-				String.format(TransformGithubEcoreModels.PLAIN_FLEXMI_PATTERN, ecoreFile);
+				String.format(TransformAmmoreModels.PLAIN_FLEXMI_PATTERN, ecoreFile);
 		String templateFlexmiFile =
-				String.format(TransformGithubEcoreModels.TEMPLATE_FLEXMI_PATTERN, ecoreFile);
+				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_PATTERN, ecoreFile);
 		return Arrays.asList(ecoreFile, plainFlexmiFile, templateFlexmiFile, emfaticFile);
 	}
 

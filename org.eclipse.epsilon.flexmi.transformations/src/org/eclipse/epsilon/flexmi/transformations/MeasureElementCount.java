@@ -6,11 +6,13 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -37,11 +39,18 @@ public class MeasureElementCount {
 
 		initRegistry();
 
-		PrintWriter elementCountCSV = new PrintWriter("plotScripts/ecoregithub_elementCount.csv");
+		PrintWriter elementCountCSV = new PrintWriter("plotScripts/elementCount.csv");
 		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		elementCountCSV.println(header);
 
-		measureElementCount(elementCountCSV);
+		ArrayList<String> excludedFiles = new ArrayList<String>();
+		Scanner s = new Scanner(new File("output/metamodelsWithErrors.txt"));
+		while (s.hasNext()) {
+			excludedFiles.add(s.next());
+		}
+		s.close();
+
+		measureElementCount(elementCountCSV, "models/ammore2020-barriga", excludedFiles);
 
 		elementCountCSV.close();
 		System.out.println("Done");
@@ -63,11 +72,16 @@ public class MeasureElementCount {
 		globalRegistry.put("http://www.eclipse.org/uml2/4.0.0/Types", TypesPackage.eINSTANCE);
 	}
 
-	private static void measureElementCount(PrintWriter loadTimesCSV) {
-		try (Stream<Path> walk = Files.walk(Paths.get("models/downloaded/"))) {
+	private static void measureElementCount(PrintWriter loadTimesCSV,
+			String path, List<String> excludedFiles) {
 
-			List<String> files = walk.filter(Files::isRegularFile).map(x -> x.toString())
-					.filter(x -> x.endsWith("ecore")).collect(Collectors.toList());
+		try (Stream<Path> walk = Files.walk(Paths.get(path))) {
+
+			List<String> files = walk.filter(Files::isRegularFile)
+					.map(f -> f.toString())
+					.filter(f -> f.endsWith("ecore"))
+					.filter(f -> !excludedFiles.contains(f))
+					.collect(Collectors.toList());
 
 			// for constrained set of models
 			//			files = Arrays.asList("models/downloaded/odata/odata.ecore");
@@ -95,16 +109,17 @@ public class MeasureElementCount {
 		sb.append(",");
 
 		String plainFlexmiFile =
-				String.format(TransformGithubEcoreModels.PLAIN_FLEXMI_PATTERN, ecoreFile);
+				String.format(TransformAmmoreModels.PLAIN_FLEXMI_PATTERN, ecoreFile);
 		sb.append(measureFlexmiCount(plainFlexmiFile));
 		sb.append(",");
 
 		String templateFlexmiFile =
-				String.format(TransformGithubEcoreModels.TEMPLATE_FLEXMI_PATTERN, ecoreFile);
+				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_PATTERN, ecoreFile);
 		sb.append(measureFlexmiCount(templateFlexmiFile));
 		sb.append(",");
 
-		sb.append(measureEmfaticCount(ecoreFile.replaceAll("ecore$", "emf")));
+		String emfaticFile = String.format(TransformAmmoreModels.EMFATIC_PATTERN, ecoreFile);
+		sb.append(measureEmfaticCount(emfaticFile));
 
 		return sb.toString();
 	}
