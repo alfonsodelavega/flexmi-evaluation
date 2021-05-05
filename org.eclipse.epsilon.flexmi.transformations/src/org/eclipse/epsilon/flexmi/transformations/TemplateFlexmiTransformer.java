@@ -107,7 +107,7 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 	}
 
 	protected void populateEnum(Tag tag, EEnum eenum) {
-		tag.setName("enum");
+		tag.setName("t_enum");
 
 		Attribute nameAttr = flexmiFactory.createAttribute();
 		setName(nameAttr, "name");
