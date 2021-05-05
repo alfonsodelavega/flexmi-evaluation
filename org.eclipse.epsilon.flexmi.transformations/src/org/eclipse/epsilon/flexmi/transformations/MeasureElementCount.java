@@ -44,7 +44,7 @@ public class MeasureElementCount {
 		elementCountCSV.println(header);
 
 		ArrayList<String> excludedFiles = new ArrayList<String>();
-		Scanner s = new Scanner(new File("output/metamodelsWithErrors.txt"));
+		Scanner s = new Scanner(new File(TransformAmmoreModels.EXCLUDED_METAMODELS_FILE));
 		while (s.hasNext()) {
 			excludedFiles.add(s.next());
 		}
