@@ -509,6 +509,7 @@ public class PlainFlexmiTransformer {
 		EObject current = elem;
 		while (current != null) {
 			if (!(current instanceof ENamedElement)) {
+				// happens with annotations containing elements
 				throw new RuntimeException("Container of an element does not have a name");
 			}
 			nameSections.add(((ENamedElement) current).getName());
@@ -521,12 +522,19 @@ public class PlainFlexmiTransformer {
 	protected void addChildren(Tag tag, EObject element) {
 		for (EObject child : element.eContents()) {
 			if (child instanceof EGenericType) {
+				if (hasTypeArguments((EGenericType) child)) {
+					throw new RuntimeException("Ecore generics not treated as of now");
+				}
 				continue;
 			}
 			Tag childTag = flexmiFactory.createTag();
 			tag.getTags().add(childTag);
 			populateTags(childTag, child);
 		}
+	}
+
+	protected boolean hasTypeArguments(EGenericType genericType) {
+		return !genericType.getETypeArguments().isEmpty();
 	}
 
 	protected void populateTags(Tag tag, EObject element) {
