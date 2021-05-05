@@ -9,7 +9,7 @@ import numpy as np
 if len(sys.argv) == 2:
     filename = sys.argv[1]
 else:
-    filename = "ecoregithub_loadtimes.csv"
+    filename = "loadtimes.csv"
 
 c_model = "Model"
 c_xmi = "XMI"

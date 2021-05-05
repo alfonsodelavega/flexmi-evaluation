@@ -38,7 +38,6 @@ plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
 
 
 #%%
-
 # Normalise to emfatic
 for column in [c_xmi, c_plain, c_templates]:
     df[column] = df[column] / df[c_emfatic]
@@ -65,3 +64,7 @@ ax.set_ylabel("Relative size against Emfatic")
 
 f.tight_layout()
 f.savefig("{}_boxplot.pdf".format(filename), bbox_inches='tight')
+
+#%%
+df.sort_values(by=[c_xmi], ascending=False, inplace=True)
+df.head(10)

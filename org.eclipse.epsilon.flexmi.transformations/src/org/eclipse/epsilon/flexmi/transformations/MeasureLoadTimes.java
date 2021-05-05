@@ -35,7 +35,7 @@ public class MeasureLoadTimes {
 
 		initRegistry();
 
-		PrintWriter loadTimesCSV = new PrintWriter("plotScripts/ecoregithub_loadtimes.csv");
+		PrintWriter loadTimesCSV = new PrintWriter("plotScripts/loadtimes.csv");
 		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		loadTimesCSV.println(header);
 

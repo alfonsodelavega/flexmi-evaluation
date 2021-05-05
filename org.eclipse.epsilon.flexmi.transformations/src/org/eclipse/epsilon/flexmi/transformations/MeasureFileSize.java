@@ -24,7 +24,7 @@ public class MeasureFileSize {
 		bytesCSV.println(header);
 
 		ArrayList<String> excludedFiles = new ArrayList<String>();
-		Scanner s = new Scanner(new File("output/metamodelsWithErrors.txt"));
+		Scanner s = new Scanner(new File("output/excludedMetamodels.txt"));
 		while (s.hasNext()) {
 			excludedFiles.add(s.next());
 		}
