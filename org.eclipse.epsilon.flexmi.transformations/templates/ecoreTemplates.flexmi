@@ -34,11 +34,9 @@
       <![CDATA[
       <eenum name="[%=name%]">
           <:slot/>
-          [% var i = 0;
-             for (l in literals.split(",")) {%]
-              <lit name="[%=l%]" value="[%=i%]"/>
-          [% i += 1;
-             } %]
+          [% for (l in literals.split(",")) {%]
+          <lit name="[%=l%]" value="[%=loopCount%]"/>
+          [% } %]
       </eenum>
       ]]>
     </content>
