@@ -6,8 +6,10 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -39,15 +41,22 @@ public class MeasureLoadTimes {
 		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		loadTimesCSV.println(header);
 
+		ArrayList<String> excludedFiles = new ArrayList<String>();
+		Scanner s = new Scanner(new File(TransformAmmoreModels.EXCLUDED_METAMODELS_FILE));
+		while (s.hasNext()) {
+			excludedFiles.add(s.next());
+		}
+		s.close();
+
 		int warmReps = 20;
 		for (int rep = 0; rep < warmReps; rep++) {
-			measureLoadTimes(null);
+			measureLoadTimes(null, "models/ammore2020-barriga", excludedFiles);
 		}
 
 		int numReps = 20;
 		for (int rep = 0; rep < numReps; rep++) {
 			System.out.println("Rep " + rep);
-			measureLoadTimes(loadTimesCSV);
+			measureLoadTimes(loadTimesCSV, "models/ammore2020-barriga", excludedFiles);
 		}
 
 		loadTimesCSV.close();
@@ -70,11 +79,16 @@ public class MeasureLoadTimes {
 		globalRegistry.put("http://www.eclipse.org/uml2/4.0.0/Types", TypesPackage.eINSTANCE);
 	}
 
-	private static void measureLoadTimes(PrintWriter loadTimesCSV) {
-		try (Stream<Path> walk = Files.walk(Paths.get("models/downloaded/"))) {
+	private static void measureLoadTimes(PrintWriter loadTimesCSV, String path,
+			List<String> excludedFiles) {
 
-			List<String> files = walk.filter(Files::isRegularFile).map(x -> x.toString())
-					.filter(x -> x.endsWith("ecore")).collect(Collectors.toList());
+		try (Stream<Path> walk = Files.walk(Paths.get(path))) {
+
+			List<String> files = walk.filter(Files::isRegularFile)
+					.map(f -> f.toString())
+					.filter(f -> f.endsWith("ecore"))
+					.filter(f -> !excludedFiles.contains(f))
+					.collect(Collectors.toList());
 
 			// for constrained set of models
 			//			files = Arrays.asList("models/downloaded/esb/esb.ecore");
@@ -102,16 +116,18 @@ public class MeasureLoadTimes {
 		sb.append(",");
 
 		String plainFlexmiFile =
-				String.format(TransformGithubEcoreModels.PLAIN_FLEXMI_PATTERN, ecoreFile);
+				String.format(TransformAmmoreModels.PLAIN_FLEXMI_PATTERN, ecoreFile);
 		sb.append(measureFlexmiLoad(plainFlexmiFile));
 		sb.append(",");
 
 		String templateFlexmiFile =
-				String.format(TransformGithubEcoreModels.TEMPLATE_FLEXMI_PATTERN, ecoreFile);
+				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_PATTERN, ecoreFile);
 		sb.append(measureFlexmiLoad(templateFlexmiFile));
 		sb.append(",");
 
-		sb.append(measureEmfaticLoad(ecoreFile.replaceAll("ecore$", "emf")));
+		String emfaticFile =
+				String.format(TransformAmmoreModels.EMFATIC_PATTERN, ecoreFile);
+		sb.append(measureEmfaticLoad(emfaticFile));
 
 		return sb.toString();
 	}
@@ -121,7 +137,6 @@ public class MeasureLoadTimes {
 		Resource resource = createResource(new XMIResourceFactoryImpl(),
 				URI.createFileURI(new File(ecoreFile).getAbsolutePath()), stopwatch);
 		resource.load(null);
-		EcoreUtil.resolveAll(resource);
 		stopwatch.pause();
 		return stopwatch.getElapsed(TimeUnit.NANOSECONDS);
 	}
@@ -131,7 +146,6 @@ public class MeasureLoadTimes {
 		Resource resource = createResource(new EmfaticResourceFactory(),
 				URI.createFileURI(new File(emfaticFile).getAbsolutePath()), stopwatch);
 		resource.load(null);
-		EcoreUtil.resolveAll(resource);
 		stopwatch.pause();
 		return stopwatch.getElapsed(TimeUnit.NANOSECONDS);
 	}
@@ -142,7 +156,6 @@ public class MeasureLoadTimes {
 				URI.createFileURI(new File(flexmiFile).getAbsolutePath()), stopwatch);
 
 		resource.load(null);
-		EcoreUtil.resolveAll(resource);
 		stopwatch.pause();
 		return stopwatch.getElapsed(TimeUnit.NANOSECONDS);
 	}
