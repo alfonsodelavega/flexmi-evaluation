@@ -110,7 +110,7 @@ public class TransformAmmoreModels {
 					if (emfaticResource.getContents().isEmpty()) {
 						emfaticIssues.add(ecorePath);
 					}
-					else if (emfaticResource.getParseContext().getMessageCount() > 0) {
+					else if (emfaticResource.getParseContext().hasErrors()) {
 						emfaticIssues.add(ecorePath);
 						System.out.println("Emfatic issues: " + emfaticPath);
 						// too many to show in some cases
