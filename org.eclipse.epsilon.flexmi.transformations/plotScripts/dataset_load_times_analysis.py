@@ -50,6 +50,11 @@ for m in [c_plain, c_templates, c_emfatic]:
           m,
           times(results[m, "mean"], results[c_xmi, "mean"])))
 
+print("{} takes {} times the time to finish than {}".format(
+          c_templates,
+          times(results[c_templates, "mean"], results[c_emfatic, "mean"]),
+          c_emfatic))
+
 #%%
 plt.style.use('seaborn-white')
 

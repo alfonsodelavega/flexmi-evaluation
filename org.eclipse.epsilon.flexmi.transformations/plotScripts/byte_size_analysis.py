@@ -79,3 +79,9 @@ f.savefig("{}_boxplot.pdf".format(filename), bbox_inches='tight')
 #%%
 df.sort_values(by=[c_xmi], ascending=False, inplace=True)
 df.head(10)
+
+#%%
+# quartiles
+for m in [c_xmi, c_plain, c_templates]:
+    print(df[m].describe())
+    print()
