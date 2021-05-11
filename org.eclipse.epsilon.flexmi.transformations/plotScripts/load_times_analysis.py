@@ -24,7 +24,7 @@ df = pd.read_csv(filename)
 df.head()
 
 #%%
-df = df.groupby([c_model])[measurements].agg(["mean", "std", "sem"]).reset_index().head(100)
+df = df.groupby([c_model])[measurements].agg(["mean", "std", "sem"]).reset_index()
 df.head()
 
 #%%
@@ -35,17 +35,48 @@ for measurement in measurements:
 df.head()
 
 #%%
-# remove multi-level column index and export whole dataframe
+# to milliseconds (after all columns are there to avoid carrying out errors)
+for m in measurements:
+    df[m, "mean"] = df[m, "mean"] / 10**6
+    df[m, "std"] = df[m, "std"] / 10**6
+    df[m, "sem"] = df[m, "sem"] / 10**6
+    df[m, "ci95_hi"] = df[m, "ci95_hi"] / 10**6
+    df[m, "ci95_lo"] = df[m, "ci95_lo"] / 10**6
+
+df.head()
+
+#%%
+# Use only models big enough (according to loading times)
+
+df = df[df[c_xmi, "mean"] > 1]
+df.shape
+
+#%%
+variation_cols = ["std"] # "sem" can also be used here
+
+for m in measurements:
+    for vc in variation_cols:
+        df[m, "{}_relative".format(vc)] = df[m, vc] / df[m, "mean"]
+        print(df[m, "{}_relative".format(vc)].describe())
+        print()
+
+#%%
+for m in measurements:
+    print(df[m, "mean"].describe())
+    print()
+
+#%%
+# remove multi-level column index
 df.sort_values([(c_plain, "mean")], ascending=False, inplace=True)
 df.columns = [col[0] if col[1] == "" else "_".join(col) for col in df.columns]
-df.to_csv("{}_processed.csv".format(filename), index=False)
 
+df.to_csv("{}_processed.csv".format(filename), index=False)
 
 #%%
 # Normalise to XMI
-measurements = ["{}_mean".format(col)
+means = ["{}_mean".format(col)
                 for col in [c_plain, c_templates, c_emfatic, c_xmi]]
-df_norm = df[[c_model] + measurements].copy()
+df_norm = df[[c_model] + means].copy()
 
 
 for col in [c_plain, c_templates, c_emfatic]:
@@ -85,7 +116,7 @@ df_norm.boxplot(column=[c_emfatic, c_plain, c_templates],
            showfliers=False)
 ax.plot([1]*5, linestyle="--", color="#117733")
 
-ax.set_ylim([0, 5])
+# ax.set_ylim([0, 5])
 ax.set_xlim([0, 4])
 
 ax.set_ylabel("Load times relative to XMI")
@@ -121,13 +152,13 @@ alpha = 0.15
 marker = "o"
 size = 80
 
-ax.scatter(x=[1]*len(df), y=df["{}_mean".format(c_xmi)]/10**6,
+ax.scatter(x=[1]*len(df), y=df["{}_mean".format(c_xmi)],
            marker=marker,alpha=alpha, s=size)
-ax.scatter(x=[2]*len(df), y=df["{}_mean".format(c_emfatic)]/10**6,
+ax.scatter(x=[2]*len(df), y=df["{}_mean".format(c_emfatic)],
            marker=marker,alpha=alpha, s=size)
-ax.scatter(x=[3]*len(df), y=df["{}_mean".format(c_plain)]/10**6,
+ax.scatter(x=[3]*len(df), y=df["{}_mean".format(c_plain)],
            marker=marker,alpha=alpha, s=size)
-ax.scatter(x=[4]*len(df), y=df["{}_mean".format(c_templates)]/10**6,
+ax.scatter(x=[4]*len(df), y=df["{}_mean".format(c_templates)],
            marker=marker,alpha=alpha, s=size)
 
 ax.set_xlim([0.5, 4.5])
@@ -136,7 +167,7 @@ ax.set_xticklabels(["XMI", "Emfatic", "PlainFlexmi", "TemplatesFlexmi"])
 plt.setp(ax.get_xticklabels(), rotation=30, horizontalalignment='right')
 ax.set_ylabel("Model load times (ms)")
 
-ax.set_yticks(range(0,91,15))
+# ax.set_yticks(range(0,401,50))
 
 f.tight_layout()
 f.savefig("{}_scatter.pdf".format(filename), bbox_inches='tight')

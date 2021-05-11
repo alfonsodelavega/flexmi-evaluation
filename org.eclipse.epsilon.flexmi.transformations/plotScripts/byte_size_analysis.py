@@ -24,7 +24,10 @@ df.head()
 #%%
 plt.style.use('seaborn-white')
 
-plt.rc("font", family="serif")
+plt.rcParams.update({
+    "text.usetex": True,
+    "font.family": "serif",
+    "text.latex.preamble" : r'\newcommand{\flexmi}{\textsc{Liquid}}'})
 
 SMALL_SIZE = 14
 MEDIUM_SIZE = 16
@@ -46,6 +49,12 @@ df[c_emfatic] = 1
 df.head()
 
 #%%
+labels_map = {c_xmi : "XMI",
+              c_plain : "Plain \\flexmi{}",
+              c_templates : "Templates \\flexmi{}"}
+
+labels = [labels_map[m] for m in [c_xmi, c_plain, c_templates]]
+
 f = plt.figure(figsize=(6,4))
 ax = f.subplots(nrows=1, ncols=1)
 
@@ -56,8 +65,10 @@ df.boxplot(column=[c_xmi, c_plain, c_templates],
            positions=xticks)
 ax.plot([1]*5, linestyle="--", color="#117733")
 
-ax.set_ylim(bottom=0)
+ax.set_xticklabels(labels)
+
 ax.set_xlim([0, 4])
+ax.set_ylim(bottom=0)
 
 ax.set_ylabel("Relative size against Emfatic")
 
