@@ -51,7 +51,7 @@ df.head()
 #%%
 labels_map = {c_xmi : "XMI",
               c_plain : "Plain \\flexmi{}",
-              c_templates : "Templates \\flexmi{}"}
+              c_templates : "Templated \\flexmi{}"}
 
 labels = [labels_map[m] for m in [c_xmi, c_plain, c_templates]]
 

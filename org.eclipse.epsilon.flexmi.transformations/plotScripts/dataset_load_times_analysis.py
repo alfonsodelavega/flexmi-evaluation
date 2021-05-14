@@ -81,7 +81,7 @@ error = [results[m, "ci95"] for m in measurements]
 labels_map = {c_xmi : "XMI",
               c_emfatic : "Emfatic",
               c_plain : "Plain \\flexmi{}",
-              c_templates : "Templates \\flexmi{}"}
+              c_templates : "Templated \\flexmi{}"}
 
 labels = [labels_map[m] for m in measurements]
 
@@ -124,7 +124,7 @@ ax.set_yticks(y_pos)
 # ax.invert_yaxis()  # labels read top-to-bottom
 ax.set_xlabel('Total load time (ms)')
 
-ax.set_title('Metamodels Dataset Load Times')
+ax.set_title('Ecore Models Dataset Load Times')
 
 plt.show()
 
