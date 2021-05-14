@@ -33,7 +33,7 @@ SMALL_SIZE = 14
 MEDIUM_SIZE = 16
 
 plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
-plt.rc('axes', titlesize=22)     # fontsize of the axes title
+plt.rc('axes', titlesize=20)     # fontsize of the axes title
 plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
 plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
 plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
@@ -55,7 +55,7 @@ labels_map = {c_xmi : "XMI",
 
 labels = [labels_map[m] for m in [c_xmi, c_plain, c_templates]]
 
-f = plt.figure(figsize=(6,4))
+f = plt.figure(figsize=(6,3))
 ax = f.subplots(nrows=1, ncols=1)
 
 xticks = [0.75,2,3.25]
@@ -70,10 +70,13 @@ ax.set_xticklabels(labels)
 ax.set_xlim([0, 4])
 ax.set_ylim(bottom=0)
 
-ax.set_ylabel("Relative size against Emfatic")
+ax.set_yticks([0,1,2,3,4,5,6])
+
+ax.set_ylabel("Size (times larger)")
+ax.set_title("Relative Size Against Emfatic")
 
 
-f.tight_layout()
+# f.tight_layout()
 f.savefig("{}_boxplot.pdf".format(filename), bbox_inches='tight')
 
 #%%

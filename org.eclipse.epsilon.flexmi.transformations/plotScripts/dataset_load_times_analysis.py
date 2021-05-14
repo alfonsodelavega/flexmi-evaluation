@@ -103,13 +103,20 @@ print(values)
 print(error)
 print(labels)
 
-f = plt.figure(figsize=(6,4))
+f = plt.figure(figsize=(5,2))
 ax = f.subplots(nrows=1, ncols=1)
 
-ax.barh(y_pos, values, xerr=error,
+bars = ax.barh(y_pos, values, xerr=error,
         capsize=8,
         align='center',
-        color=colors)
+        color="white",
+        edgecolor="black")
+
+# hatches = ["/", "\\", "X", "XX"]
+hatches = ["////", "///", "//", "/"]
+# hatches = ["////", "\\\\\\", "//", "/"]
+for bar, hatch in zip(bars, hatches):
+    bar.set_hatch(hatch)
 
 ax.tick_params(axis=u'both', which=u'both',length=5)
 ax.set_yticklabels(labels)
@@ -121,7 +128,7 @@ ax.set_title('Metamodels Dataset Load Times')
 
 plt.show()
 
-f.tight_layout()
+# f.tight_layout()
 f.savefig("{}_barh.pdf".format(filename), bbox_inches='tight')
 
 # %%
