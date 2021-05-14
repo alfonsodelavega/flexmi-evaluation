@@ -1,0 +1,31 @@
+@namespace(uri="psl", prefix="")
+package psl;
+
+class Project {
+  attr String name;
+  attr String description;
+  val Skill[*] skills;
+  val Person[*] people;
+  val Task[*] tasks;
+}
+
+class Task {
+  attr String title;
+  attr int start;
+  attr int duration;
+  val Effort[*] effort;
+}
+
+class Person {
+  attr String name;
+  ref Skill[*] skills;
+}
+
+class Effort {
+  ref Person person;
+  attr int percentage = 100;
+}
+
+class Skill {
+  attr String name;
+}

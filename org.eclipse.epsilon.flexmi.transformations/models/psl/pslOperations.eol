@@ -1,0 +1,9 @@
+operation Task getStartTime() {
+	var taskIndex = Task.all.indexOf(self); 
+	if (taskIndex == 0) {
+		return 1;
+	} else {
+		var previousTask = Task.all.get(taskIndex-1);
+		return previousTask.start + previousTask.duration;
+	}
+}
