@@ -30,6 +30,11 @@ import org.eclipse.epsilon.profiling.Stopwatch;
 import org.eclipse.uml2.types.TypesPackage;
 import org.eclipse.uml2.uml.UMLPackage;
 
+/**
+ * Measure load times of the whole Ecore dataset instead of individual metamodels
+ * 
+ * Useful to avoid measurement noise in very small metamodels
+ */
 public class MeasureDatasetLoadTime {
 
 	public static void main(String[] args) throws Exception {
@@ -37,6 +42,7 @@ public class MeasureDatasetLoadTime {
 		initRegistry();
 
 		PrintWriter loadTimesCSV = new PrintWriter("plotScripts/datasetloadtimes.csv");
+		//		String header = "XMI,HUTN,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		String header = "XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		loadTimesCSV.println(header);
 
@@ -63,6 +69,10 @@ public class MeasureDatasetLoadTime {
 			e.printStackTrace();
 		}
 
+		List<String> hutnFiles = ecoreFiles.stream()
+				.map(ecoreFile -> String.format(TransformAmmoreModels.HUTN_PATTERN, ecoreFile))
+				.collect(Collectors.toList());
+
 		List<String> plainFlexmiFiles = ecoreFiles.stream()
 				.map(ecoreFile -> String.format(TransformAmmoreModels.PLAIN_FLEXMI_PATTERN, ecoreFile))
 				.collect(Collectors.toList());
@@ -78,13 +88,13 @@ public class MeasureDatasetLoadTime {
 		int warmReps = 20;
 		for (int rep = 0; rep < warmReps; rep++) {
 			System.out.println("WarmRep " + rep);
-			System.out.println(getLoadTimesLine(ecoreFiles, emfaticFiles, plainFlexmiFiles, templateFlexmiFiles));
+			System.out.println(getLoadTimesLine(ecoreFiles, hutnFiles, emfaticFiles, plainFlexmiFiles, templateFlexmiFiles));
 		}
 
 		int numReps = 20;
 		for (int rep = 0; rep < numReps; rep++) {
 			System.out.println("Rep " + rep);
-			String line = getLoadTimesLine(ecoreFiles, emfaticFiles, plainFlexmiFiles, templateFlexmiFiles);
+			String line = getLoadTimesLine(ecoreFiles, hutnFiles, emfaticFiles, plainFlexmiFiles, templateFlexmiFiles);
 			loadTimesCSV.println(line);
 			System.out.println(line);
 		}
@@ -109,7 +119,7 @@ public class MeasureDatasetLoadTime {
 		globalRegistry.put("http://www.eclipse.org/uml2/4.0.0/Types", TypesPackage.eINSTANCE);
 	}
 
-	private static String getLoadTimesLine(List<String> ecoreFiles,
+	private static String getLoadTimesLine(List<String> ecoreFiles, List<String> hutnFiles,
 			List<String> emfaticFiles, List<String> plainFlexmiFiles,
 			List<String> templateFlexmiFiles) throws IOException {
 
@@ -117,6 +127,9 @@ public class MeasureDatasetLoadTime {
 
 		sb.append(measureDatasetLoad(ecoreFiles, new XMIResourceFactoryImpl()));
 		sb.append(",");
+
+		//		sb.append(measureHutnDatasetLoad(hutnFiles));
+		//		sb.append(",");
 
 		sb.append(measureDatasetLoad(plainFlexmiFiles, new FlexmiResourceFactory()));
 		sb.append(",");
@@ -128,6 +141,25 @@ public class MeasureDatasetLoadTime {
 
 		return sb.toString();
 	}
+
+	//	private static long measureHutnDatasetLoad(List<String> hutnFiles) {
+	//		// comment line 154 of HutnModule to avoid EVL validation
+	//
+	//		Stopwatch stopwatch = new Stopwatch();
+	//		stopwatch.resume();
+	//		for (String file : hutnFiles) {
+	//			HutnModule module = new HutnModule();
+	//			try {
+	//				module.parse(new File(file));
+	//			}
+	//			catch (Exception e) {
+	//				e.printStackTrace();
+	//			}
+	//		}
+	//		stopwatch.pause();
+	//
+	//		return stopwatch.getElapsed(TimeUnit.NANOSECONDS);
+	//	}
 
 	private static long measureDatasetLoad(List<String> files, Resource.Factory resourceFactory) throws IOException {
 

@@ -19,7 +19,7 @@ public class MeasureFileSize {
 		PrintWriter locCSV = new PrintWriter("plotScripts/LOC.csv");
 		PrintWriter bytesCSV = new PrintWriter("plotScripts/bytes.csv");
 
-		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
+		String header = "Model,XMI,HUTN,PlainFlexmi,TemplatesFlexmi,Emfatic";
 		locCSV.println(header);
 		bytesCSV.println(header);
 
@@ -83,12 +83,14 @@ public class MeasureFileSize {
 	}
 
 	private static List<String> getFiles(String ecoreFile) {
-		String emfaticFile = String.format(TransformAmmoreModels.EMFATIC_PATTERN, ecoreFile);
+		String hutnFile = String.format(TransformAmmoreModels.HUTN_PATTERN, ecoreFile);
 		String plainFlexmiFile =
 				String.format(TransformAmmoreModels.PLAIN_FLEXMI_PATTERN, ecoreFile);
 		String templateFlexmiFile =
 				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_PATTERN, ecoreFile);
-		return Arrays.asList(ecoreFile, plainFlexmiFile, templateFlexmiFile, emfaticFile);
+		String emfaticFile = String.format(TransformAmmoreModels.EMFATIC_PATTERN, ecoreFile);
+
+		return Arrays.asList(ecoreFile, hutnFile, plainFlexmiFile, templateFlexmiFile, emfaticFile);
 	}
 
 	private static long countLOC(String fileContents) {

@@ -32,6 +32,7 @@ import org.eclipse.epsilon.flexmi.FlexmiResource;
 import org.eclipse.epsilon.flexmi.FlexmiResourceFactory;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModel;
 import org.eclipse.epsilon.flexmi.transformations.flexmiModel.FlexmiModelPackage;
+import org.eclipse.epsilon.hutn.xmi.Xmi2Hutn;
 
 public class TransformAmmoreModels {
 
@@ -40,10 +41,12 @@ public class TransformAmmoreModels {
 	public static final String PLAIN_FLEXMI_PATTERN = "%s-plain.flexmi";
 	public static final String TEMPLATE_FLEXMI_PATTERN = "%s-template.flexmi";
 	public static final String EMFATIC_PATTERN = "%s.emf";
+	public static final String HUTN_PATTERN = "%s.hutn";
 
 	public static Set<String> flexmiIssues = new HashSet<>();
 	public static Set<String> emfaticIssues = new HashSet<>();
 	public static Set<String> ecoreIssues = new HashSet<>();
+	public static Set<String> hutnIssues = new HashSet<>();
 	public static Set<String> metamodelsWithProxies = new HashSet<>();
 
 	public static void main(String[] args) throws Exception {
@@ -63,7 +66,7 @@ public class TransformAmmoreModels {
 					.filter(x -> x.endsWith("ecore")).collect(Collectors.toList());
 
 			// uncomment for testing on a single ecore
-			// files = Arrays.asList("models/ammore2020-barriga/objectrepository.ecore");
+			//			files = Arrays.asList("models/ammore2020-barriga/BIBTEXML.ecore");
 
 			int currentFile = 1;
 			int totalFiles = files.size();
@@ -165,6 +168,20 @@ public class TransformAmmoreModels {
 					flexmiIssues.add(ecorePath);
 					continue;
 				}
+				
+				String hutnPath = String.format(HUTN_PATTERN, ecorePath);
+				PrintWriter writer = new PrintWriter(new File(hutnPath));
+				try {
+					writer.print(new Xmi2Hutn(new File(ecorePath).toURI()).getHutn());
+					writer.close();
+				}
+				catch (RuntimeException e) {
+					e.printStackTrace();
+					hutnIssues.add(ecorePath);
+					continue;
+				}
+				writer.print(new Xmi2Hutn(new File(ecorePath).toURI()).getHutn());
+				writer.close();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -173,12 +190,14 @@ public class TransformAmmoreModels {
 		writeCollection(ecoreIssues, "output/ecoreIssues.txt");
 		writeCollection(emfaticIssues, "output/emfaticIssues.txt");
 		writeCollection(flexmiIssues, "output/flexmiIssues.txt");
+		writeCollection(hutnIssues, "output/hutnIssues.txt");
 		
 		Set<String> excludedMetamodels = new HashSet<>();
 		excludedMetamodels.addAll(ecoreIssues);
 		excludedMetamodels.addAll(metamodelsWithProxies);
 		excludedMetamodels.addAll(emfaticIssues);
 		excludedMetamodels.addAll(flexmiIssues);
+		excludedMetamodels.addAll(hutnIssues);
 		writeCollection(excludedMetamodels, EXCLUDED_METAMODELS_FILE);
 
 		System.out.println("Done");
