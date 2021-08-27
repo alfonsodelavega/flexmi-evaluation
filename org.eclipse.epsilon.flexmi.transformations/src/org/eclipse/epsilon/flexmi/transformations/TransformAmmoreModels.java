@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -38,12 +39,16 @@ public class TransformAmmoreModels {
 
 	public static final String EXCLUDED_METAMODELS_FILE = "output/excludedMetamodels.txt";
 
-	public static final String PLAIN_FLEXMI_PATTERN = "%s-plain.flexmi";
-	public static final String TEMPLATE_FLEXMI_PATTERN = "%s-template.flexmi";
+	public static final String PLAIN_FLEXMI_XML_PATTERN = "%s-plainXML.flexmi";
+	public static final String TEMPLATE_FLEXMI_XML_PATTERN = "%s-templateXML.flexmi";
+	public static final String PLAIN_FLEXMI_YAML_PATTERN = "%s-plainYAML.flexmi";
+	public static final String TEMPLATE_FLEXMI_YAML_PATTERN = "%s-templateYAML.flexmi";
+
 	public static final String EMFATIC_PATTERN = "%s.emf";
 	public static final String HUTN_PATTERN = "%s.hutn";
 
 	public static Set<String> flexmiIssues = new HashSet<>();
+	public static Set<String> flexmiYAMLIssues = new HashSet<>();
 	public static Set<String> emfaticIssues = new HashSet<>();
 	public static Set<String> ecoreIssues = new HashSet<>();
 	public static Set<String> hutnIssues = new HashSet<>();
@@ -66,7 +71,7 @@ public class TransformAmmoreModels {
 					.filter(x -> x.endsWith("ecore")).collect(Collectors.toList());
 
 			// uncomment for testing on a single ecore
-			//			files = Arrays.asList("models/ammore2020-barriga/BIBTEXML.ecore");
+			//			files = Arrays.asList("models/ammore2020-barriga/mlhim2.ecore");
 
 			int currentFile = 1;
 			int totalFiles = files.size();
@@ -144,11 +149,11 @@ public class TransformAmmoreModels {
 					String plainFlexmiModel = String.format("%s-plain.model", ecorePath);
 					saveFlexmiModel(plainFlexmiModel, plainModel);
 				}
-				String plainFlexmiFile = String.format(PLAIN_FLEXMI_PATTERN, ecorePath);
-				String plainFlexmiFileContents = plainTransformer.getFlexmiFile(plainModel);
+				String plainFlexmiXMLFile = String.format(PLAIN_FLEXMI_XML_PATTERN, ecorePath);
+				String plainFlexmiXMLFileContents = plainTransformer.getFlexmiXMLFile(plainModel);
 
-				saveFlexmiFile(plainFlexmiFile, plainFlexmiFileContents);
-				if (hasIssues(plainFlexmiFile)) {
+				saveFlexmiFile(plainFlexmiXMLFile, plainFlexmiXMLFileContents);
+				if (hasIssues(plainFlexmiXMLFile)) {
 					flexmiIssues.add(ecorePath);
 					continue;
 				}
@@ -160,15 +165,15 @@ public class TransformAmmoreModels {
 					String templateFlexmiModel = String.format("%s-template.model", ecorePath);
 					saveFlexmiModel(templateFlexmiModel, templateModel);
 				}
-				String templateFlexmiFile = String.format(TEMPLATE_FLEXMI_PATTERN, ecorePath);
-				String templateFlexmiFileContents = templateTransformer.getFlexmiFile(templateModel);
+				String templateFlexmiFile = String.format(TEMPLATE_FLEXMI_XML_PATTERN, ecorePath);
+				String templateFlexmiFileContents = templateTransformer.getFlexmiXMLFile(templateModel);
 
 				saveFlexmiFile(templateFlexmiFile, templateFlexmiFileContents);
 				if (hasIssues(templateFlexmiFile)) {
 					flexmiIssues.add(ecorePath);
 					continue;
 				}
-				
+
 				String hutnPath = String.format(HUTN_PATTERN, ecorePath);
 				PrintWriter writer = new PrintWriter(new File(hutnPath));
 				try {
@@ -180,6 +185,16 @@ public class TransformAmmoreModels {
 					hutnIssues.add(ecorePath);
 					continue;
 				}
+
+				String plainFlexmiYAMLFile = String.format(PLAIN_FLEXMI_YAML_PATTERN, ecorePath);
+				String plainFlexmiYAMLFileContents = plainTransformer.getFlexmiYAMLFile(plainModel);
+
+				saveFlexmiFile(plainFlexmiYAMLFile, plainFlexmiYAMLFileContents);
+				if (hasIssues(plainFlexmiYAMLFile)) {
+					flexmiYAMLIssues.add(ecorePath);
+					continue;
+				}
+
 				writer.print(new Xmi2Hutn(new File(ecorePath).toURI()).getHutn());
 				writer.close();
 			}
@@ -190,6 +205,7 @@ public class TransformAmmoreModels {
 		writeCollection(ecoreIssues, "output/ecoreIssues.txt");
 		writeCollection(emfaticIssues, "output/emfaticIssues.txt");
 		writeCollection(flexmiIssues, "output/flexmiIssues.txt");
+		writeCollection(flexmiYAMLIssues, "output/flexmiYAMLIssues.txt");
 		writeCollection(hutnIssues, "output/hutnIssues.txt");
 		
 		Set<String> excludedMetamodels = new HashSet<>();
@@ -197,10 +213,12 @@ public class TransformAmmoreModels {
 		excludedMetamodels.addAll(metamodelsWithProxies);
 		excludedMetamodels.addAll(emfaticIssues);
 		excludedMetamodels.addAll(flexmiIssues);
+		excludedMetamodels.addAll(flexmiYAMLIssues);
 		excludedMetamodels.addAll(hutnIssues);
 		writeCollection(excludedMetamodels, EXCLUDED_METAMODELS_FILE);
 
 		System.out.println("Done");
+		Arrays.asList();
 	}
 
 
@@ -255,7 +273,7 @@ public class TransformAmmoreModels {
 		try {
 			flexmiResource = loadFlexmiResource(flexmiFile);
 		}
-		catch (RuntimeException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 			return true;
 		}

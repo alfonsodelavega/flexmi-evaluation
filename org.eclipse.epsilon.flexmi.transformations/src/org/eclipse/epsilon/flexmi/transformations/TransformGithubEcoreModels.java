@@ -66,7 +66,7 @@ public class TransformGithubEcoreModels {
 					saveFlexmiModel(plainFlexmiModel, plainModel);
 				}
 				String plainFlexmiFile = String.format(PLAIN_FLEXMI_PATTERN, path);
-				String plainFlexmiFileContents = plainTransformer.getFlexmiFile(plainModel);
+				String plainFlexmiFileContents = plainTransformer.getFlexmiXMLFile(plainModel);
 
 				saveFlexmiFile(plainFlexmiFile, plainFlexmiFileContents);
 				showWarnings(plainFlexmiFile);
@@ -79,7 +79,7 @@ public class TransformGithubEcoreModels {
 					saveFlexmiModel(templateFlexmiModel, templateModel);
 				}
 				String templateFlexmiFile = String.format(TEMPLATE_FLEXMI_PATTERN, path);
-				String templateFlexmiFileContents = templateTransformer.getFlexmiFile(templateModel);
+				String templateFlexmiFileContents = templateTransformer.getFlexmiXMLFile(templateModel);
 
 				saveFlexmiFile(templateFlexmiFile, templateFlexmiFileContents);
 				showWarnings(templateFlexmiFile);

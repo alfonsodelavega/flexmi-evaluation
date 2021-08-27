@@ -19,7 +19,7 @@ public class MeasureFileSize {
 		PrintWriter locCSV = new PrintWriter("plotScripts/LOC.csv");
 		PrintWriter bytesCSV = new PrintWriter("plotScripts/bytes.csv");
 
-		String header = "Model,XMI,HUTN,PlainFlexmi,TemplatesFlexmi,Emfatic";
+		String header = "Model,XMI,HUTN,PlainXMLFlexmi,PlainYAMLFlexmi,TemplatesFlexmi,Emfatic";
 		locCSV.println(header);
 		bytesCSV.println(header);
 
@@ -84,13 +84,15 @@ public class MeasureFileSize {
 
 	private static List<String> getFiles(String ecoreFile) {
 		String hutnFile = String.format(TransformAmmoreModels.HUTN_PATTERN, ecoreFile);
-		String plainFlexmiFile =
-				String.format(TransformAmmoreModels.PLAIN_FLEXMI_PATTERN, ecoreFile);
+		String plainXMLFlexmiFile =
+				String.format(TransformAmmoreModels.PLAIN_FLEXMI_XML_PATTERN, ecoreFile);
+		String plainYAMLFile =
+				String.format(TransformAmmoreModels.PLAIN_FLEXMI_YAML_PATTERN, ecoreFile);
 		String templateFlexmiFile =
-				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_PATTERN, ecoreFile);
+				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_XML_PATTERN, ecoreFile);
 		String emfaticFile = String.format(TransformAmmoreModels.EMFATIC_PATTERN, ecoreFile);
 
-		return Arrays.asList(ecoreFile, hutnFile, plainFlexmiFile, templateFlexmiFile, emfaticFile);
+		return Arrays.asList(ecoreFile, hutnFile, plainXMLFlexmiFile, plainYAMLFile, templateFlexmiFile, emfaticFile);
 	}
 
 	private static long countLOC(String fileContents) {

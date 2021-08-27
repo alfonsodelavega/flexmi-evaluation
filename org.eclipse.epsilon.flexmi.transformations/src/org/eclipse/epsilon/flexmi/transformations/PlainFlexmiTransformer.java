@@ -47,8 +47,10 @@ import org.eclipse.uml2.uml.UMLPackage;
 
 public class PlainFlexmiTransformer {
 
-	protected static final String FLEXMI_MODEL_TEMPLATE =
+	protected static final String FLEXMI_XML_MODEL_TEMPLATE =
 			"src/org/eclipse/epsilon/flexmi/transformations/flexmiModel2File.egl";
+	protected static final String FLEXMI_YAML_MODEL_TEMPLATE =
+			"src/org/eclipse/epsilon/flexmi/transformations/flexmiModel2YAMLFile.egl";
 	protected static final String FLEXMI_MODEL_VARIABLE = "fmodel";
 
 	protected static final String ECORE_NSURI = "http://www.eclipse.org/emf/2002/Ecore";
@@ -101,7 +103,7 @@ public class PlainFlexmiTransformer {
 
 		PlainFlexmiTransformer transformer = new PlainFlexmiTransformer();
 		FlexmiModel model = transformer.getFlexmiModel(ecoreModel);
-		String plainFlexmi = transformer.getFlexmiFile(model);
+		String plainFlexmi = transformer.getFlexmiXMLFile(model);
 		System.out.println(plainFlexmi);
 
 		// save flexmi model
@@ -329,16 +331,19 @@ public class PlainFlexmiTransformer {
 		return false;
 	}
 
-	public String getFlexmiFile(FlexmiModel model) throws EglRuntimeException {
+	public String getFlexmiXMLFile(FlexmiModel model) throws EglRuntimeException {
 		EglTemplateFactory templateFactory = new EglTemplateFactory();
-		EglTemplate template = templateFactory.load(new File(FLEXMI_MODEL_TEMPLATE));
+		EglTemplate template = templateFactory.load(new File(FLEXMI_XML_MODEL_TEMPLATE));
 		template.populate(FLEXMI_MODEL_VARIABLE, model);
 		template.setFormatter(new XmlFormatter());
 		return template.process();
 	}
 
-	public String transform(String ecoreModel) throws EglRuntimeException {
-		return getFlexmiFile(getFlexmiModel(ecoreModel));
+	public String getFlexmiYAMLFile(FlexmiModel model) throws EglRuntimeException {
+		EglTemplateFactory templateFactory = new EglTemplateFactory();
+		EglTemplate template = templateFactory.load(new File(FLEXMI_YAML_MODEL_TEMPLATE));
+		template.populate(FLEXMI_MODEL_VARIABLE, model);
+		return template.process();
 	}
 
 	protected String getTagName(EObject obj) {

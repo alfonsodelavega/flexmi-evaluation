@@ -45,7 +45,7 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 		TemplateFlexmiTransformer transformer = new TemplateFlexmiTransformer();
 		FlexmiModel model = transformer.getFlexmiModel(ecoreModel);
 		model.getIncludes().add("../templates/ecoreTemplates.flexmi");
-		String flexmiContents = transformer.getFlexmiFile(model);
+		String flexmiContents = transformer.getFlexmiXMLFile(model);
 		System.out.println(flexmiContents);
 
 		// save flexmi model

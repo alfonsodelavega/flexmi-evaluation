@@ -1,0 +1,44 @@
+?nsuri: [%=fmodel.nsuri%]
+[% for (importedUri in fmodel.imports) { %]
+?import: [%=importedUri%]
+[% }%]
+[%
+for (included in fmodel.includes) { %]
+?include: [%=included%]
+[%
+}
+for (tag in fmodel.tags) { %]
+[%=tag.getTagText()%]
+[%
+}
+
+@template
+operation Any getTagText() { %]
+[%=self.name%]: {
+[%  for (attribute in self.attributes) {  %]
+  [%=attribute.name%]: [%=attribute.value.quoteIfNeeded()%][%=hasMore or not self.tags.isEmpty()? "," else ""%]
+[%	}
+	for (tag in self.tags) {  %]
+  [%=tag.getTagText()%][%=hasMore? "," else ""%]
+[%	} %]
+}
+[%
+}
+
+
+operation String quoteIfNeeded() {
+	var text = self.replace("\\\\", "\\\\\\\\");
+	
+	// uncomment to quote all values
+	// return "\"" + text + "\"";
+	
+	var charsToQuote = Sequence {"\n", ":", "#", "[", "-", "|", "&", "*",
+			"@", "=", ",", "?", "%", "(", ")", "{", "}"};
+	for (char in text.toCharSequence()) {
+		if (charsToQuote.includes(char)) {
+			return "\"" + text + "\"";
+		}
+	}
+	return text;
+}
+%]

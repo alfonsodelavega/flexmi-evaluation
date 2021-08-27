@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
@@ -116,12 +115,12 @@ public class MeasureLoadTimes {
 		sb.append(",");
 
 		String plainFlexmiFile =
-				String.format(TransformAmmoreModels.PLAIN_FLEXMI_PATTERN, ecoreFile);
+				String.format(TransformAmmoreModels.PLAIN_FLEXMI_XML_PATTERN, ecoreFile);
 		sb.append(measureFlexmiLoad(plainFlexmiFile));
 		sb.append(",");
 
 		String templateFlexmiFile =
-				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_PATTERN, ecoreFile);
+				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_XML_PATTERN, ecoreFile);
 		sb.append(measureFlexmiLoad(templateFlexmiFile));
 		sb.append(",");
 

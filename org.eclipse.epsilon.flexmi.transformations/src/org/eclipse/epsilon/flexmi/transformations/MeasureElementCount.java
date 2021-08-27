@@ -109,12 +109,12 @@ public class MeasureElementCount {
 		sb.append(",");
 
 		String plainFlexmiFile =
-				String.format(TransformAmmoreModels.PLAIN_FLEXMI_PATTERN, ecoreFile);
+				String.format(TransformAmmoreModels.PLAIN_FLEXMI_XML_PATTERN, ecoreFile);
 		sb.append(measureFlexmiCount(plainFlexmiFile));
 		sb.append(",");
 
 		String templateFlexmiFile =
-				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_PATTERN, ecoreFile);
+				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_XML_PATTERN, ecoreFile);
 		sb.append(measureFlexmiCount(templateFlexmiFile));
 		sb.append(",");
 
