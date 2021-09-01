@@ -102,6 +102,6 @@ public class MeasureFileSize {
 	}
 
 	private static int countBytes(String fileContents) {
-		return fileContents.replaceAll("\\s+", " ").length();
+		return fileContents.replaceAll("\\s+", "").length();
 	}
 }
