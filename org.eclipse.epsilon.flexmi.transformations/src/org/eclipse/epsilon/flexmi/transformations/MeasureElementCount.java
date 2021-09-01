@@ -40,7 +40,7 @@ public class MeasureElementCount {
 		initRegistry();
 
 		PrintWriter elementCountCSV = new PrintWriter("plotScripts/elementCount.csv");
-		String header = "Model,XMI,PlainFlexmi,TemplatesFlexmi,Emfatic";
+		String header = "Model,XMI,PlainXMLFlexmi,PlainYAMLFlexmi,TemplatesXMLFlexmi,TemplatesYAMLFlexmi,Emfatic";
 		elementCountCSV.println(header);
 
 		ArrayList<String> excludedFiles = new ArrayList<String>();
@@ -108,14 +108,24 @@ public class MeasureElementCount {
 		sb.append(measureEcoreCount(ecoreFile));
 		sb.append(",");
 
-		String plainFlexmiFile =
+		String plainFlexmiXMLFile =
 				String.format(TransformAmmoreModels.PLAIN_FLEXMI_XML_PATTERN, ecoreFile);
-		sb.append(measureFlexmiCount(plainFlexmiFile));
+		sb.append(measureFlexmiCount(plainFlexmiXMLFile));
 		sb.append(",");
 
-		String templateFlexmiFile =
+		String plainFlexmiYAMLFile =
+				String.format(TransformAmmoreModels.PLAIN_FLEXMI_YAML_PATTERN, ecoreFile);
+		sb.append(measureFlexmiCount(plainFlexmiYAMLFile));
+		sb.append(",");
+
+		String templateXMLFlexmiFile =
 				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_XML_PATTERN, ecoreFile);
-		sb.append(measureFlexmiCount(templateFlexmiFile));
+		sb.append(measureFlexmiCount(templateXMLFlexmiFile));
+		sb.append(",");
+
+		String templateYAMLFlexmiFile =
+				String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_YAML_PATTERN, ecoreFile);
+		sb.append(measureFlexmiCount(templateYAMLFlexmiFile));
 		sb.append(",");
 
 		String emfaticFile = String.format(TransformAmmoreModels.EMFATIC_PATTERN, ecoreFile);

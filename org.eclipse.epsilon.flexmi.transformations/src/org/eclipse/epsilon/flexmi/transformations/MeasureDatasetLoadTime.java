@@ -43,7 +43,7 @@ public class MeasureDatasetLoadTime {
 
 		PrintWriter loadTimesCSV = new PrintWriter("plotScripts/datasetloadtimes.csv");
 		//		String header = "XMI,HUTN,PlainFlexmi,TemplatesFlexmi,Emfatic";
-		String header = "XMI,PlainXMLFlexmi,PlainYAMLFlexmi,TemplatesFlexmi,Emfatic";
+		String header = "XMI,PlainXMLFlexmi,PlainYAMLFlexmi,TemplatesXMLFlexmi,TemplatesYAMLFlexmi,Emfatic";
 		loadTimesCSV.println(header);
 
 		List<String> excludedMetamodels = new ArrayList<>();
@@ -81,8 +81,12 @@ public class MeasureDatasetLoadTime {
 				.map(ecoreFile -> String.format(TransformAmmoreModels.PLAIN_FLEXMI_YAML_PATTERN, ecoreFile))
 				.collect(Collectors.toList());
 
-		List<String> templateFlexmiFiles = ecoreFiles.stream()
+		List<String> templateXMLFlexmiFiles = ecoreFiles.stream()
 				.map(ecoreFile -> String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_XML_PATTERN, ecoreFile))
+				.collect(Collectors.toList());
+
+		List<String> templateYAMLFlexmiFiles = ecoreFiles.stream()
+				.map(ecoreFile -> String.format(TransformAmmoreModels.TEMPLATE_FLEXMI_YAML_PATTERN, ecoreFile))
 				.collect(Collectors.toList());
 
 		List<String> emfaticFiles = ecoreFiles.stream()
@@ -92,13 +96,15 @@ public class MeasureDatasetLoadTime {
 		int warmReps = 20;
 		for (int rep = 0; rep < warmReps; rep++) {
 			System.out.println("WarmRep " + rep);
-			System.out.println(getLoadTimesLine(ecoreFiles, hutnFiles, emfaticFiles, plainXMLFlexmiFiles, plainYAMLFlexmiFiles, templateFlexmiFiles));
+			System.out.println(getLoadTimesLine(ecoreFiles, hutnFiles, emfaticFiles, plainXMLFlexmiFiles, plainYAMLFlexmiFiles,
+					templateXMLFlexmiFiles, templateYAMLFlexmiFiles));
 		}
 
 		int numReps = 20;
 		for (int rep = 0; rep < numReps; rep++) {
 			System.out.println("Rep " + rep);
-			String line = getLoadTimesLine(ecoreFiles, hutnFiles, emfaticFiles, plainXMLFlexmiFiles, plainYAMLFlexmiFiles, templateFlexmiFiles);
+			String line = getLoadTimesLine(ecoreFiles, hutnFiles, emfaticFiles, plainXMLFlexmiFiles, plainYAMLFlexmiFiles, templateXMLFlexmiFiles,
+					templateYAMLFlexmiFiles);
 			loadTimesCSV.println(line);
 			System.out.println(line);
 		}
@@ -124,8 +130,9 @@ public class MeasureDatasetLoadTime {
 	}
 
 	private static String getLoadTimesLine(List<String> ecoreFiles, List<String> hutnFiles,
-			List<String> emfaticFiles, List<String> plainFlexmiXMLFiles,
-			List<String> plainFlexmiYAMLFiles, List<String> templateFlexmiFiles) throws IOException {
+			List<String> emfaticFiles,
+			List<String> plainFlexmiXMLFiles, List<String> plainFlexmiYAMLFiles,
+			List<String> templateXMLFlexmiFiles, List<String> templateYAMLFlexmiFiles) throws IOException {
 
 		StringBuilder sb = new StringBuilder();
 
@@ -138,7 +145,10 @@ public class MeasureDatasetLoadTime {
 		sb.append(measureDatasetLoad(plainFlexmiYAMLFiles, new FlexmiResourceFactory()));
 		sb.append(",");
 
-		sb.append(measureDatasetLoad(templateFlexmiFiles, new FlexmiResourceFactory()));
+		sb.append(measureDatasetLoad(templateXMLFlexmiFiles, new FlexmiResourceFactory()));
+		sb.append(",");
+
+		sb.append(measureDatasetLoad(templateYAMLFlexmiFiles, new FlexmiResourceFactory()));
 		sb.append(",");
 
 		sb.append(measureDatasetLoad(emfaticFiles, new EmfaticResourceFactory()));

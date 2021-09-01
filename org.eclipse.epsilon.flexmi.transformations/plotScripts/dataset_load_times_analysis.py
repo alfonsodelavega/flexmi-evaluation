@@ -12,11 +12,13 @@ else:
     filename = "datasetloadtimes.csv"
 
 c_xmi = "XMI"
-c_plain = "PlainFlexmi"
-c_templates = "TemplatesFlexmi"
+c_plain_xml = "PlainXMLFlexmi"
+c_plain_yaml = "PlainYAMLFlexmi"
+c_templates_xml = "TemplatesXMLFlexmi"
+c_templates_yaml = "TemplatesYAMLFlexmi"
 c_emfatic = "Emfatic"
 
-measurements = [c_xmi, c_emfatic, c_plain, c_templates]
+measurements = [c_xmi, c_emfatic, c_plain_xml, c_plain_yaml, c_templates_xml, c_templates_yaml]
 
 #%%
 df = pd.read_csv(filename)
@@ -45,15 +47,27 @@ for m in measurements:
 def times(score1, score2):
     return score1 / score2
 
-for m in [c_plain, c_templates, c_emfatic]:
+for m in [c_plain_xml, c_plain_yaml, c_templates_xml, c_templates_yaml, c_emfatic]:
     print("{} takes {} times the time to finish than XMI".format(
           m,
           times(results[m, "mean"], results[c_xmi, "mean"])))
 
+print()
+
 print("{} takes {} times the time to finish than {}".format(
-          c_templates,
-          times(results[c_templates, "mean"], results[c_emfatic, "mean"]),
-          c_emfatic))
+          c_plain_xml,
+          times(results[c_plain_xml, "mean"], results[c_plain_yaml, "mean"]),
+          c_plain_yaml))
+
+print("{} takes {} times the time to finish than {}".format(
+          c_templates_xml,
+          times(results[c_templates_xml, "mean"], results[c_templates_yaml, "mean"]),
+          c_templates_yaml))
+
+print("{} takes {} times the time to finish than {}".format(
+          c_emfatic,
+          times(results[c_emfatic, "mean"], results[c_templates_yaml, "mean"]),
+          c_templates_yaml))
 
 #%%
 plt.style.use('seaborn-white')
@@ -61,7 +75,8 @@ plt.style.use('seaborn-white')
 plt.rcParams.update({
     "text.usetex": True,
     "font.family": "serif",
-    "text.latex.preamble" : r'\newcommand{\flexmi}{\textsc{Liquid}}'})
+    "font.sans-serif": ["Libertine"],
+    "text.latex.preamble" : r"\usepackage{libertine} \newcommand{\flexmi}{\textsc{Liquid}}"})
 
 SMALL_SIZE = 14
 MEDIUM_SIZE = 16
@@ -79,9 +94,11 @@ values = [results[m, "mean"] for m in measurements]
 error = [results[m, "ci95"] for m in measurements]
 
 labels_map = {c_xmi : "XMI",
-              c_emfatic : "Emfatic",
-              c_plain : "Plain \\flexmi{}",
-              c_templates : "Templated \\flexmi{}"}
+              c_plain_xml : "Plain XML \\flexmi{}",
+              c_plain_yaml : "Plain YAML \\flexmi{}",
+              c_templates_xml : "Templated XML \\flexmi{}",
+              c_templates_yaml : "Templated YAML \\flexmi{}",
+              c_emfatic : "Emfatic"}
 
 labels = [labels_map[m] for m in measurements]
 
@@ -103,7 +120,7 @@ print(values)
 print(error)
 print(labels)
 
-f = plt.figure(figsize=(5,2))
+f = plt.figure(figsize=(4,3))
 ax = f.subplots(nrows=1, ncols=1)
 
 bars = ax.barh(y_pos, values, xerr=error,
@@ -113,7 +130,7 @@ bars = ax.barh(y_pos, values, xerr=error,
         edgecolor="black")
 
 # hatches = ["/", "\\", "X", "XX"]
-hatches = ["////", "///", "//", "/"]
+hatches = ["//////", "/////", "////", "///", "//", "/"]
 # hatches = ["////", "\\\\\\", "//", "/"]
 for bar, hatch in zip(bars, hatches):
     bar.set_hatch(hatch)
@@ -122,7 +139,9 @@ ax.tick_params(axis=u'both', which=u'both',length=5)
 ax.set_yticklabels(labels)
 ax.set_yticks(y_pos)
 # ax.invert_yaxis()  # labels read top-to-bottom
+
 ax.set_xlabel('Total load time (ms)')
+ax.set_xlim([0, 5000])
 
 ax.set_title('Ecore Models Dataset Load Times')
 

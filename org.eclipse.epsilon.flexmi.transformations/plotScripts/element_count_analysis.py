@@ -14,11 +14,14 @@ else:
 
 c_model = "Model"
 c_xmi = "XMI"
-c_plain = "PlainFlexmi"
-c_templates = "TemplatesFlexmi"
+c_plain_xml = "PlainXMLFlexmi"
+c_plain_yaml = "PlainYAMLFlexmi"
+c_templates_xml = "TemplatesXMLFlexmi"
+c_templates_yaml = "TemplatesYAMLFlexmi"
 c_emfatic = "Emfatic"
 
-cols = [c_xmi, c_plain, c_templates, c_emfatic]
+cols = [c_xmi, c_plain_xml, c_plain_yaml,
+        c_templates_xml, c_templates_yaml, c_emfatic]
 
 #%%
 df = pd.read_csv(filename)
@@ -26,7 +29,7 @@ df.head()
 
 #%%
 def equal_elements(row):
-    return row[c_xmi] == row[c_plain] == row[c_templates] == row[c_emfatic]
+    return row[c_xmi] == row[c_plain_xml] == row[c_plain_yaml] == row[c_templates_xml] == row[c_templates_yaml] == row[c_emfatic]
 
 def max_distance(row):
     max_distance = 0
