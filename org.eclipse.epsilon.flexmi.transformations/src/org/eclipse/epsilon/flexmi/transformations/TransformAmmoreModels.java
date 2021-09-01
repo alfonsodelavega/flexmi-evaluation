@@ -71,7 +71,7 @@ public class TransformAmmoreModels {
 					.filter(x -> x.endsWith("ecore")).collect(Collectors.toList());
 
 			// uncomment for testing on a single ecore
-			//			files = Arrays.asList("models/ammore2020-barriga/mlhim2.ecore");
+			//			files = Arrays.asList("models/ammore2020-barriga/BIBTEXML.ecore");
 
 			int currentFile = 1;
 			int totalFiles = files.size();
@@ -195,8 +195,17 @@ public class TransformAmmoreModels {
 					continue;
 				}
 
-				writer.print(new Xmi2Hutn(new File(ecorePath).toURI()).getHutn());
-				writer.close();
+				String templateFlexmiYAMLFile = String.format(TEMPLATE_FLEXMI_YAML_PATTERN, ecorePath);
+
+				templateModel.getIncludes().clear();
+				templateModel.getIncludes().add("../../templates/ecoreYAMLTemplates.flexmi");
+				String templateFlexmiYAMLFileContents = templateTransformer.getFlexmiYAMLFile(templateModel);
+
+				saveFlexmiFile(templateFlexmiYAMLFile, templateFlexmiYAMLFileContents);
+				if (hasIssues(templateFlexmiYAMLFile)) {
+					flexmiYAMLIssues.add(ecorePath);
+					continue;
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

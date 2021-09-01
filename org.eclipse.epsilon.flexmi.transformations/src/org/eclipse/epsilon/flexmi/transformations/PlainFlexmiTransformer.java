@@ -50,7 +50,7 @@ public class PlainFlexmiTransformer {
 	protected static final String FLEXMI_XML_MODEL_TEMPLATE =
 			"src/org/eclipse/epsilon/flexmi/transformations/flexmiModel2File.egl";
 	protected static final String FLEXMI_YAML_MODEL_TEMPLATE =
-			"src/org/eclipse/epsilon/flexmi/transformations/flexmiModel2YAMLFile.egl";
+			"src/org/eclipse/epsilon/flexmi/transformations/flexmiModel2YAMLWithDashes.egl";
 	protected static final String FLEXMI_MODEL_VARIABLE = "fmodel";
 
 	protected static final String ECORE_NSURI = "http://www.eclipse.org/emf/2002/Ecore";
