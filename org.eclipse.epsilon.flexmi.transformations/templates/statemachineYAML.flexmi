@@ -1,0 +1,31 @@
+?nsuri: "http://www.eclipse.org/emf/2002/Ecore"
+?import: "http://www.eclipse.org/emf/2002/Ecore"
+
+:template:
+  - name: val
+  - content:
+    - ref:
+      - containment: true
+      - :slot
+
+:template:
+  - name: vals
+  - content:
+    - ref:
+      - containment: true
+      - upper: "-1"
+      - :slot
+
+package: {
+    name: statemachine,
+    nsuri: flexmitemplates.statemachine.yaml,
+    nsprefix: "",
+    class: {
+        name: StateMachine,
+        vals: {name: states, type: State}
+    },
+    class: {
+        name: State,
+        attr: {name: "name", type: "//EString"}
+    }
+}

@@ -1,0 +1,31 @@
+?nsuri: "http://www.eclipse.org/emf/2002/Ecore"
+?import: "http://www.eclipse.org/emf/2002/Ecore"
+
+?include: "ecoreYAMLTemplates.flexmi"
+
+package: {
+    name: statemachine,
+    nsuri: flexmitemplates.statemachine.yaml,
+    nsprefix: "",
+    genmodel: {
+        doc: This is a package
+    },
+    class: {
+        name: StateMachine,
+        val: {name: containedState, type: State},
+        vals: {name: containedStates, type: State},
+        refs: {name: refsStates, type: State}
+    },
+    class: {
+        name: State,
+        string: {name: "name"},
+        boolean: {name: "boolattr"},
+        int: {name: "intattr"},
+        long: {name: "longattr"},
+        double: {name: "doubleattr"}
+    },
+    t_enum: {
+        name: Month,
+        literals: "Jan,Feb,Mar,Apr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic"
+    }
+}

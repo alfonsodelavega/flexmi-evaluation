@@ -1,0 +1,85 @@
+- :template:
+    - name: val
+    - content:
+        - ref:
+            - containment: true
+            - :slot
+
+- :template:
+    - name: vals
+    - content:
+        - ref:
+            - containment: true
+            - upper: "-1"
+            - :slot
+
+- :template:
+    - name: refs
+    - content:
+        - ref:
+            - upper: "-1"
+            - :slot
+
+- :template:
+    - name: genmodel
+    - parameter:
+        - name: doc
+    - content:
+        - annotation:
+            - source: "http://www.eclipse.org/emf/2002/GenModel"
+            - details:
+                - key: documentation
+                - value: "${doc}"
+
+- :template:
+    - name: t_enum
+    - parameter:
+        - name: name
+    - parameter:
+        - name: literals
+    - content:
+        - language: EGL
+        - script: |-
+            - eenum:
+                - name: [%=name%]
+                - :slot
+                [%for (l in literals.split(",")) {%]
+                - lit:
+                    - name: [%=l%]
+                    - value: "[%=loopCount%]"
+                [% } %]
+
+- :template:
+    - name: string
+    - content:
+        - attr:
+            - type: "//EString"
+            - :slot
+
+- :template:
+    - name: boolean
+    - content:
+        - attr:
+            - type: "//EBoolean"
+            - :slot
+
+- :template:
+    - name: int
+    - content:
+        - attr:
+            - type: "//EInt"
+            - :slot
+
+- :template:
+    - name: long
+    - content:
+        - attr:
+            - type: "//ELong"
+            - :slot
+
+- :template:
+    - name: double
+    - content:
+        - attr:
+            - type: "//EDouble"
+            - :slot
