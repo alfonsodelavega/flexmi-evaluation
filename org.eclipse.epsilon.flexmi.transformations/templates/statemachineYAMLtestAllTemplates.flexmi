@@ -14,10 +14,11 @@ package: {
         name: StateMachine,
         val: {name: containedState, type: State},
         vals: {name: containedStates, type: State},
-        refs: {name: refsStates, type: State}
+        refs: {name: refsStates, ":type": stateClass}
     },
     class: {
         name: State,
+        ":global": stateClass,
         string: {name: "name"},
         boolean: {name: "boolattr"},
         int: {name: "intattr"},
