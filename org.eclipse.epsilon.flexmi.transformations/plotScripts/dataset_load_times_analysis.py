@@ -76,7 +76,7 @@ plt.rcParams.update({
     "text.usetex": True,
     "font.family": "serif",
     "font.sans-serif": ["Libertine"],
-    "text.latex.preamble" : r"\usepackage{libertine} \newcommand{\flexmi}{\textsc{Liquid}}"})
+    "text.latex.preamble" : r"\usepackage{libertine} \newcommand{\flexmi}{\textsc{Flexmi}}"})
 
 SMALL_SIZE = 14
 MEDIUM_SIZE = 16
