@@ -1,0 +1,20 @@
+<?nsuri psl?>
+<_>
+    <project title="ACME">
+        <person name="Alice"/>
+        <longtask title="Implementation" years="2">
+          <effort person="Alice"/>
+        </longtask>
+    </project>
+
+    <:template name="longtask">
+        <parameter name="years"/>
+        <content language="EGL">
+        <![CDATA[
+        <task dur="[%=years.asInteger()*12%]">
+        <:slot/>
+        </task>
+        ]]>
+        </content>
+    </:template>
+</_>

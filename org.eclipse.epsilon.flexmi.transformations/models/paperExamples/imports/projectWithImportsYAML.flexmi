@@ -1,0 +1,24 @@
+?nsuri: psl
+?import: people.flexmi
+project:
+  - name: ACME
+  - desc: A bespoke ERP system
+  - task:
+    - title: Analysis
+    - start: 1
+    - dur: 3
+    - effort:
+      - person: Alice
+  - task: {
+    title: Design,
+    start: 4,
+    dur: 6,
+    effort: {person: Bob}
+  }
+  - task: {
+    title: Implementation,
+    start: 7,
+    dur: 3,
+    effort: {person: Bob, perc: 50},
+    effort: {person: Alice, perc: 50}
+  }

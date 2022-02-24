@@ -1,0 +1,23 @@
+?nsuri: psl
+?eol: pslOperations.eol
+project:
+    - title: ACME
+    - person:
+        - name: Alice
+    - simpletask:
+        - title: Analysis
+        - dur: 3
+    - simpletask:
+        - title: Design
+        - dur: 3
+    - simpletask:
+        - title: Implementation
+        - dur: 6
+
+:template:
+    - name: simpletask
+    - content:
+        - task:
+            - :start: "self.getStartTime()"
+            - effort:
+                - :person: "Person.all.first()"

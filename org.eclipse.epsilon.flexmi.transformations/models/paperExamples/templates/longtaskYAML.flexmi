@@ -1,0 +1,21 @@
+?nsuri: psl
+project:
+    - title : ACME
+    - person:
+        - name: Alice
+    - longtask:
+        - title: Implementation
+        - years: 2
+        - effort:
+            - person: Alice
+
+:template:
+    - name: longtask
+    - parameter:
+        - name: years
+    - content:
+        - language: EGL
+        - script: |-
+            - task:
+                - dur: [%=years.asInteger()*12%]
+                - :slot

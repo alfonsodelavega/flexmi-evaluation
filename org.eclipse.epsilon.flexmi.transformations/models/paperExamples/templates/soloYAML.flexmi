@@ -1,0 +1,21 @@
+?nsuri: psl
+project:
+    - title : ACME
+    - person:
+        - name: Alice
+    - solo:
+        - name: Design
+        - dur: 3
+        - person: Alice
+
+:template:
+    - name: solo
+    - parameter:
+        - name: name
+    - parameter:
+        - name: person
+    - content:
+        - task:
+            - name: ${name}
+            - effort:
+                - person: ${person}
