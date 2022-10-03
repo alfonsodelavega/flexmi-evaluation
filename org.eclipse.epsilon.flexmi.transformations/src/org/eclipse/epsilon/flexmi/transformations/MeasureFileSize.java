@@ -99,7 +99,7 @@ public class MeasureFileSize {
 
 	private static long countLOC(String fileContents) {
 		return Arrays.asList(fileContents.split("\\r?\\n")).stream()
-				.filter(line -> !line.trim().equals(""))
+				.filter(line -> !(line.trim().length() == 0))
 				.collect(Collectors.counting());
 	}
 

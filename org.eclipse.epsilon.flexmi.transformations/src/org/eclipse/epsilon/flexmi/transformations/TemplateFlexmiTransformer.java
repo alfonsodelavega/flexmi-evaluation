@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
@@ -29,6 +30,7 @@ import org.eclipse.epsilon.flexmi.transformations.flexmiModel.Tag;
 public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 
 	static final String GENMODEL_SOURCE = "http://www.eclipse.org/emf/2002/GenModel";
+	static final String EXTENDEDMETADATA_SOURCE = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 
 	public static void main(String[] args) throws Exception {
 		String ecoreModel = "models/carShop.ecore";
@@ -130,6 +132,7 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 		}
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	protected void populateAnnotation(Tag tag, EAnnotation annotation) {
 		if (annotation.getSource() != null
@@ -144,6 +147,33 @@ public class TemplateFlexmiTransformer extends PlainFlexmiTransformer {
 			docAttribute.setName("doc");
 			setValue(docAttribute, annotation.getDetails().get(0).getValue());
 			tag.getAttributes().add(docAttribute);
+		}
+		else if (annotation.getSource() != null
+				&& annotation.getSource().equals(EXTENDEDMETADATA_SOURCE)
+				&& annotation.getDetails().size() == 2
+				&& (annotation.getDetails().get(0).getKey().equals("kind") &&
+						annotation.getDetails().get(1).getKey().equals("name")
+						||
+						annotation.getDetails().get(0).getKey().equals("name") &&
+								annotation.getDetails().get(1).getKey().equals("kind"))
+				&& annotation.getContents().isEmpty()
+				&& annotation.getReferences().isEmpty()) {
+
+			tag.setName("extendedmetadata");
+
+			EMap<String, String> details = annotation.getDetails();
+			String[] keys = { "kind", "name" };
+			// fonso: for some reason contains does not work in an EMap
+			for (String key : keys) {
+				for (int detail = 0; detail < details.size(); detail++) {
+					if (details.get(detail).getKey().equals(key)) {
+						Attribute attr = flexmiFactory.createAttribute();
+						attr.setName(key);
+						setValue(attr, details.get(detail).getValue());
+						tag.getAttributes().add(attr);
+					}
+				}
+			}
 		}
 		else {
 			super.populateAnnotation(tag, annotation);

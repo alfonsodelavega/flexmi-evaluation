@@ -27,6 +27,17 @@
 	</content>
 </:template>
 
+<:template name="extendedmetadata">
+	<parameter name="name"/>
+	<parameter name="kind"/>
+	<content>
+		<annotation source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+			<details key="name" value="${name}"/>
+			<details key="kind" value="${kind}"/>
+		</annotation>
+	</content>
+</:template>
+
 <:template name="t_enum">
 	<parameter name="name"/>
 	<parameter name="literals"/>
